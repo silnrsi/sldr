@@ -1,0 +1,98 @@
+#!/usr/bin/python
+
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. Neither the name of the University nor the names of its contributors
+#    may be used to endorse or promote products derived from this software
+#    without specific prior written permission.
+# 
+# THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+
+from sldr.ldml import Ldml, flattenlocale, etwrite
+import os, sys, codecs
+from argparse import ArgumentParser
+from multiprocessing import Pool
+from xml.etree.ElementTree import ElementTree, Element, SubElement
+
+parser = ArgumentParser()
+parser.add_argument('-o','--outdir', help='Directory to store results in')
+parser.add_argument('-i','--indir',action='append', required=True, help='Input directory to search for ldml files')
+parser.add_argument('-l','--locale',action='append', help='Locale to flatten (if not specified, then all)')
+parser.add_argument('-r','--reverse',action='store_true', help='Unflatten rather than flatten')
+parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
+parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
+args = parser.parse_args()
+
+if not args.locale or not len(args.locale) :
+    alllocales = set()
+    for d in args.indir :
+        for l in os.listdir(d) :
+            if l.endswith('.xml') :
+                alllocales.add(l[:-4])
+    args.locale = list(alllocales)
+
+if args.private :
+    private = Element("private")
+else :
+    private = None
+    
+def doit(l) :
+    try :
+        curr = flattenlocale(l, args.indir, args.reverse, skipstubs = True)
+    except Exception, e :
+        print "Failed in " + l
+        raise e
+    if curr is not None :
+        curr.normalise()
+        if private is not None :
+            res = curr.remove_private()
+        outfh = codecs.open(os.path.join(args.outdir, l + '.xml'), "w", encoding="utf-8")
+        curr.serialize_xml(outfh.write)
+        outfh.close()
+        if private is not None :
+            return (l, res)
+    elif private is not None :
+        return (l, [])
+
+if not args.single :
+    pool = Pool()
+    if private is not None :
+        res = pool.map(doit, sorted(args.locale))
+    else :
+        pool.map_async(doit, sorted(args.locale))
+    pool.close()
+    pool.join()
+elif private is not None:
+    res = []
+    for l in args.locale :
+        res.append(doit(l))
+else :
+    for l in args.locale :
+        doit(l)
+
+if private is not None :
+    for r in res :
+        if len(r[1]) :
+            s = SubElement(private, "locale", id=r[0])
+            s.extend(r[1])
+    f = codecs.open(args.private, "w", encoding="utf-8")
+    etwrite(private, f.write)
+    f.close()
+
+
