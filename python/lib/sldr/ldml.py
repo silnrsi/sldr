@@ -519,9 +519,10 @@ class Ldml(ETWriter) :
             for e in self.root.findall(n) :
                 res.append(e)
                 self.root.remove(e)
+                e.parent = None
         return res
 
-def flattenlocale(lname, dirs = [], rev = False, changed = set(), autoidentity = True, skipstubs = False) :
+def flattenlocale(lname, dirs=[], rev=False, changed=set(), autoidentity=True, skipstubs=False) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.

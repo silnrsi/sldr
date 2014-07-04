@@ -36,6 +36,9 @@ PYTHONPATH=python/lib python python/scripts/cldrimport ~/mycldrsource/common cld
 PYTHONPATH=python/lib python python/scripts/ldmlflatten -i cldrdata -o flat
 ```
 
+Bear in mind that one can use `pypy` instead of `python` in the above and life will
+run faster (in exchange for more memory usage).
+
 To ensure that files that need to be deleted, are, we rebuild the sldr directory from
 scratch. Notice that git is quite happy with this.
 
