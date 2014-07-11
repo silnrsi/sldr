@@ -175,6 +175,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<measurementSystemName type="metric" draft="contributed">十進制</measurementSystemName>
 		</measurementSystemNames>
 	</localeDisplayNames>
+	<characters>
+		<ellipsis type="word-final">{0}…</ellipsis>
+		<ellipsis type="word-initial">…{0}</ellipsis>
+		<ellipsis type="word-medial">{0}…{1}</ellipsis>
+	</characters>
 	<dates>
 		<calendars>
 			<calendar type="buddhist">
@@ -424,6 +429,8 @@ For terms of use, see http://www.unicode.org/copyright.html
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="EHm">EHH:mm</dateFormatItem>
+						<dateFormatItem id="EHms">EHH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Ed" draft="contributed">d E</dateFormatItem>
 						<dateFormatItem id="GyMMMEd" draft="contributed">G y 年 M 月 d 日 (E)</dateFormatItem>
 						<dateFormatItem id="MEd" draft="contributed">E, d/M</dateFormatItem>
@@ -547,6 +554,8 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</field>
 		</fields>
 		<timeZoneNames>
+			<regionFormat type="daylight">{0}夏令时间</regionFormat>
+			<regionFormat type="standard">{0}标准时间</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity draft="contributed">阿比贊</exemplarCity>
 			</zone>
@@ -713,12 +722,28 @@ For terms of use, see http://www.unicode.org/copyright.html
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<decimalFormats numberSystem="latn">
+			<decimalFormatLength type="short">
+				<decimalFormat>
+					<pattern type="1000" count="other">0千</pattern>
+					<pattern type="10000" count="other">0万</pattern>
+					<pattern type="100000" count="other">00万</pattern>
+					<pattern type="1000000" count="other">000万</pattern>
+					<pattern type="10000000" count="other">0000万</pattern>
+					<pattern type="100000000" count="other">0亿</pattern>
+					<pattern type="1000000000000" count="other">0兆</pattern>
+					<pattern type="10000000000000" count="other">00兆</pattern>
+					<pattern type="100000000000000" count="other">000兆</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
 					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0}{1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
@@ -740,6 +765,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</currency>
 			<currency type="CAD">
 				<displayName draft="contributed">加元</displayName>
+			</currency>
+			<currency type="CNY">
+				<symbol>￥</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName draft="contributed">哥斯達黎加科郎</displayName>

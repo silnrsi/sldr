@@ -77,7 +77,7 @@ class ETWriter(object) :
         (tag, q, ns) = self._localisens(base.tag)
         localattribs = {}
         if ns and ns not in namespaces :
-            namespaces[q] = ns
+            namespaces[ns] = q
             localattribs['xmlns:'+q] = ns
         if topns :
             if base == self.root :
@@ -115,6 +115,11 @@ class ETWriter(object) :
             write('/>\n')
         for c in getattr(base, 'commentsafter', []) :
             write(u'{}<!--{}-->\n'.format(indent, c))
+
+    def add_namespace(self, q, ns) :
+        if ns in self.namespaces : return self.namespaces[ns]
+        self.namespaces[ns] = q
+        return q
 
 def etwrite(et, write, topns = True, namespaces = None) :
     if namespaces is None : namespaces = {}
