@@ -28,13 +28,15 @@ from sldr.ldml import Ldml, flattenlocale, etwrite
 import os, sys, codecs
 from argparse import ArgumentParser
 from multiprocessing import Pool
-from xml.etree.ElementTree import ElementTree, Element, SubElement
+from xml.etree.ElementTree import ElementTree, Element, SubElement, parse
 
 parser = ArgumentParser()
 parser.add_argument('-o','--outdir', help='Directory to store results in')
 parser.add_argument('-i','--indir',action='append', required=True, help='Input directory to search for ldml files')
 parser.add_argument('-l','--locale',action='append', help='Locale to flatten (if not specified, then all)')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
+parser.add_argument('--iso',help="iso639 database for fallback language naming (/usr/share/xml/iso-codes/iso_639_3.xml)")
+parser.add_argument('--debug', action='store_true')
 args = parser.parse_args()
 
 if not args.locale or not len(args.locale) :
@@ -44,6 +46,8 @@ if not args.locale or not len(args.locale) :
             if l.endswith('.xml') :
                 alllocales.add(os.path.join(d, l))
     args.locale = list(alllocales)
+    args.locale.sort()
+if args.debug : print args.locale
 
 silns = '{urn://www.sil.org/ldml/0.1}'
 
@@ -80,6 +84,23 @@ regionmap = {
     "Viet Nam" : "VN"
 }
 
+langmap = {}
+for d in args.indir :
+    p = os.path.join(d, 'en.xml')
+    if os.path.exists(p) :
+        en = Ldml(p)
+        if en is not None :
+            for i in en.root.findall('localeDisplayNames/languages/language') :
+                langmap[i.get('type')] = i.text
+
+if args.iso :
+    with open(args.iso) as f :
+        e = parse(f)
+        for i in e.findall('iso_639_3_entry') :
+            code = i.get('id')
+            if code not in langmap :
+                langmap[code] = i.get('reference_name')
+
 def add_silidentity(ldml) :
     ldml.add_namespace('sil', silns[1:-1])
     identity = ldml.root.find('identity')
@@ -95,9 +116,13 @@ def doit(l) :
     try :
         curr = Ldml(l)
     except Exception, e :
-        print "Failed in " + l
+        print "Failed in " + l.encode('utf-8')
         raise e
-    if curr is None : return
+    if curr is None : 
+        print "Reading resulted in nothing for " + l.encode('utf-8')
+        return
+    elif args.debug :
+        print "Processing " + l.encode('utf-8')
 
     # handle demoting orientation too layout/orientation
     orient = curr.root.find('orientation')
@@ -144,6 +169,11 @@ def doit(l) :
                 inode.set('type', inode.attrib.pop('code', None))
     for e in curr.root.findall('characters/exemplarCharacters') :
         e.comments = []
+    lang = curr.root.find('identity/language')
+    if lang is not None :
+        if not hasattr(lang, 'comments') or len(lang.comments) == 0 :
+            i = lang.get('type')
+            lang.comments = [u' name.en({0})="{1}" '.format(i, langmap.get(i, 'Unknown'))]
     curr.normalise()
     outfh = codecs.open(os.path.join(args.outdir, os.path.basename(l)), "w", encoding="utf-8")
     curr.serialize_xml(outfh.write)
@@ -151,7 +181,7 @@ def doit(l) :
 
 if not args.single :
     pool = Pool()
-    pool.map_async(doit, sorted(args.locale))
+    res = pool.map_async(doit, args.locale)
     pool.close()
     pool.join()
 else :
