@@ -18,24 +18,24 @@ angular.module('ldmlEdit', [
   .directive("fileread", ["DomService", function(DomService) {
     return {
         scope: {
-            fileread: "=",
+            fileread: "&",
         },
         link: function (scope, element, attributes) {
             element.bind("change", function(changeEvent) {
-                scope.$apply(function() {
-                    var afile = changeEvent.target.files[0];
-                    DomService.loadFromFile(afile, function(dat) { 
-                        var dateTree = DomService.asElementTree(DomService.getXPathFromRoot("/ldml/special").iterateNext());
-                        console.log(JSON.stringify(dateTree));
-                    });
-                    //DomService.loadFromFile(afile, function(dat) { console.log("Loaded"); });
-                });
+                var aFile = changeEvent.target.files[0];
+                scope.fileread({aFile: aFile});
             });
         }};
     }])
   .controller('MainCtrl', [ '$scope', 'DomService', function($scope, DomService) {
     $scope.onFileOpen = function(aFile) {
-        DomService.loadFromFile(afile, function(dat) { console.log(DomService.asElementTree(DomService.getXPathFromRoot("/special").iterateNext())); });
-      }
-    }])
+        // DomService.loadFromFile(aFile, function(dat) { console.log(DomService.asElementTree(DomService.getXPathFromRoot("/ldml/special").iterateNext())); });
+        DomService.loadFromFile(aFile, function(dat) {
+            console.log("broadcasting dom");
+            $scope.$broadcast('dom');
+            });
+      };
+    $scope.onFileSaveAs = function() {
+        
+    }; }])
   ;

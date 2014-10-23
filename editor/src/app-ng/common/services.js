@@ -3,7 +3,7 @@
 // Services
 angular.module('ldmlEdit.service', [ ])
   .service('DomService', [ function() {
-    var dom = null;
+    var et = null;
     var nsResolver;
 
     this.loadFromFile = function(file, cb) {
@@ -11,54 +11,41 @@ angular.module('ldmlEdit.service', [ ])
         reader.onload = function(e) {
             var dat = reader.result;
             var parser = new DOMParser();
-            dom = parser.parseFromString(dat,"text/xml");
-            nsResolver = dom.createNSResolver(dom.documentElement)
-            cb(dat);
+            var dom = parser.parseFromString(dat,"text/xml");
+            et = new ElementTree(dom);
+            cb(et);
         };
         reader.readAsBinaryString(file);
     };
-    this.getXPathFromRoot = function(path) {
-        if (!dom) return null;
-        return dom.evaluate(path, dom.documentElement, nsResolver, XPathResult.ANY_TYPE, null);
-    };
-    this.getXPath = function(path, element) {
-        if (!dom) return null;
-        return dom.evaluate(path, element, nsResolve, XPathResult.ANY_TYPE, null);
-    };
-    this.asElementTree = function(element) {
-        if (!element) return null;
-        var res = {
-            attributes: {},
-            children: [],
-            text: null };
-        var lastElement = null;
-
-        res.tag = element.tagName;
-        for (var i = element.attributes.length - 1; i >= 0; i--) {
-            var a = element.attributes.item(i);
-            res.attributes[a.name] = a.value;
+    this.findElement = function(tag, base) {
+        if (base == null)
+            base = et.root;
+        if (base == null)
+            return null;
+        for (var i = 0; i < base.children.length; i++) {
+            if (base.children[i].tag == tag)
+                return base.children[i];
         }
-
-        for (var n = element.firstChild; n; n = n.nextSibling)
+        return null;
+    }
+    this.findElements = function(base, tags) {
+        var res = base;
+        if (res == null)
         {
-            if (n.nodeType == Node.ELEMENT_NODE)
-            {
-                lastElement = this.asElementTree(n);
-                res.children.push(lastElement);
-            }
-            else if (n.nodeType == Node.TEXT_NODE)
-            {
-                if (lastElement)
-                    lastElement.tail = n.wholeText;
-                else if (!res.text)
-                    res.text = n.wholeText;
-            }
-            else if (n.nodeType == Node.COMMENT_NODE)
-            {
-                // need to do something good here.
-            }
+            if (et == null)
+                return null;
+            else
+                res = et.root;
+        }
+        for (var i = 0; i < tags.length; i++) {
+            res = this.findElement(tags[i], res);
+            if (res == null)
+                return null;
         }
         return res;
+    };
+    this.getBlob = function() {
+        return new Blob(et.asXML());
     };
     return this;
   }])
