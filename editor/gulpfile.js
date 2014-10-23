@@ -60,7 +60,7 @@ var start_server = function(options, cb) {
 };
 
 var paths = {
-  src_ng: ['src/app-ng/**/*.js', 'src/app-ng/**/*.html', 'src/assets/*'],
+  src_ng: ['src/app-ng/**/*.js', 'src/app-ng/**/*.html', 'src/assets/*', 'src/index.html'],
   src_less: ['src/app-ng/**/*.less'],
   test: ['tests/e2e/**/*.js']
 };
@@ -75,7 +75,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('do-reload', function() {
-  return gulp.src('src/index.php').pipe(livereload(server));
+  return gulp.src('src/index.html').pipe(livereload(server));
 });
 
 gulp.task('reload', function() {
@@ -98,6 +98,7 @@ gulp.task('less', function() {
   );
 });
 
+/*
 gulp.task('upload', function(cb) {
   var options = {
     dryRun: true,
@@ -111,36 +112,7 @@ gulp.task('upload', function(cb) {
     cb
   );
 });
-
-gulp.task('db-copy-1', function(cb) {
-  var options = {
-    dryRun : false,
-    silent : true,
-    dest : "root@public.languagedepot.org",
-    password : process.env.password,
-    user: process.env.USER
-  };
-  execute(
-    'ssh -C <%= dest %> mysqldump -u <%= user %> --password=<%= password %> languagedepot | mysql -u <%= user %> --password=<%= password %> -D languagedepot',
-    options,
-    cb
-  );
-});
-
-gulp.task('db-copy-2', function(cb) {
-  var options = {
-    dryRun : false,
-    silent : true,
-    dest : "root@public.languagedepot.org",
-    password : process.env.password,
-    user: process.env.USER
-  };
-  execute(
-    'ssh -C <%= dest %> mysqldump -u <%= user %> --password=<%= password %> languagedepotpvt | mysql -u <%= user %> --password=<%= password %> -D languagedepotpvt',
-    options,
-    cb
-  );
-});
+*/
 
 gulp.task('start-webdriver', function(cb) {
   var options = {
@@ -149,16 +121,6 @@ gulp.task('start-webdriver', function(cb) {
       sentinal: 'Started org.openqa.jetty.jetty.Server'
   };
   start_server(options, cb);
-});
-
-gulp.task('start-php', function(cb) {
-  var options = {
-      command: '/usr/bin/php',
-      arguments: ['-S', 'localhost:8000', '-t', 'htdocs'],
-      sentinal: 'Press Ctrl-C to quit.'
-  };
-  start_server(options, cb);
-//execute('/usr/bin/php -S localhost:8000 -t htdocs &', null, cb);
 });
 
 gulp.task('test-e2e', function(cb) {
@@ -183,12 +145,6 @@ gulp.task('test-current', function(cb) {
     null,
     cb
   );
-});
-
-gulp.task('test', function(cb) {
-  execute('/usr/bin/env php htdocs/vendor/bin/phpunit tests/*_Test.php', null, function(err) {
-    cb(null); // Swallow the error propagation so that gulp doesn't display a nodejs backtrace.
-  });
 });
 
 gulp.task('watch', function() {
