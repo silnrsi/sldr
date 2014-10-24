@@ -56,30 +56,46 @@ ElementTree.prototype.parseDom = function(dom, element) {
 ElementTree.prototype.asXML = function() {
     var res = "<?xml version='1.0' encoding='utf-8'?>\n";
     var getFrag = function(e, indent) {
-        // e.comments go here
-        res = new String(indent + "<" + e.tag);
-        for (var k in res.attributes) {
+        var res = "";
+        if (e.comments != null && e.comments.length > 0) {
+            res = res + indent + "<!-- ";
+            var prefix = "";
+            for (var i = 0; i < e.comments.length; i++) {
+                res = res + prefix + e.comments[i];
+                prefix = "\n" + indent + "     ";
+            }
+            res = res + " --!>\n";
+        }
+        var res = res + indent + "<" + e.tag;
+        for (var k in e.attributes) {
             if (e.attributes.hasOwnProperty(k)) {
                 res = res + " " + k + "='" + e.attributes[k] + "'";
             }
         }
-        if (e.text.length > 0 || e.children.length > 0)
+        if ((e.text != null && e.text.length > 0) || e.children.length > 0)
         {
             res = res + ">";
-            indent = indent + "  ";
-            if (e.text.length > 0) {
+            if (e.text != null && e.text.length > 0) {
                 res = res + e.text
             }
             if (e.children.length > 0)
             {
                 res = res + "\n";
-                for (c in e.children) {
-                    res = res + indent + getFrag(c, indent);
+                for (var i = 0; i < e.children.length; i++) {
+                    res = res + getFrag(e.children[i], indent + "  ");
                 }
                 res = res + indent;
             }
             res = res + "</" + e.tag + ">\n";
-            // commentsAfter
+            if (e.commentsAfter != null && e.commentsAfter.length > 0) {
+                res = res + indent + "<!-- ";
+                var prefix = "";
+                for (var i = 0; i < e.commentsAfter.length; i++) {
+                    res = res + prefix + e.commentsAfter[i];
+                    prefix = "\n" + indent + "     ";
+                }
+                res = res + " -->\n";
+            }
         }
         else
         {
@@ -87,7 +103,7 @@ ElementTree.prototype.asXML = function() {
         }
         return res;
     };
-    res = res + getFrag(this, '');
+    res = res + getFrag(this.root, '');
     return res;
 };
 

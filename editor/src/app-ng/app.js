@@ -4,12 +4,17 @@ angular.module('ldmlEdit', [
      'ngRoute',
      'ui.bootstrap',
      'ldmlEdit.resources',
+     'ldmlEdit.characters',
      'ldmlEdit.service'
    ])
   .config([ '$routeProvider', function($routeProvider) {
     $routeProvider.when('/resources', {
       templateUrl : 'app-ng/partials/resources.html',
       controller : 'ResourcesCtrl'
+    });
+    $routeProvider.when('/characters', {
+      templateUrl : 'app-ng/partials/characters.html',
+      controller : 'CharactersCtrl'
     });
     $routeProvider.otherwise({
       redirectTo : '/'
@@ -27,15 +32,23 @@ angular.module('ldmlEdit', [
             });
         }};
     }])
-  .controller('MainCtrl', [ '$scope', 'DomService', function($scope, DomService) {
-    $scope.onFileOpen = function(aFile) {
-        // DomService.loadFromFile(aFile, function(dat) { console.log(DomService.asElementTree(DomService.getXPathFromRoot("/ldml/special").iterateNext())); });
+  .controller('MainCtrl', [ '$scope', '$timeout', 'DomService', function($scope, $timeout, DomService) {
+    $scope.doFileOpen = function(aFile) {
+        $scope.fileName = aFile.name;
         DomService.loadFromFile(aFile, function(dat) {
-            console.log("broadcasting dom");
+            // console.log("broadcasting dom");
             $scope.$broadcast('dom');
-            });
-      };
+        });
+    };
+    $scope.onFileOpen = function (files) {
+        console.log("FileOpen");
+        //$timeout(function() {
+            angular.element(document.getElementById("FileOpen")).triggerHandler("click");
+        //}, 0);
+    };
     $scope.onFileSaveAs = function() {
-        
-    }; }])
-  ;
+        console.log("Filename: " + $scope.fileName);
+        saveAs(DomService.getBlob(), $scope.fileName);  
+    };
+    }])
+;

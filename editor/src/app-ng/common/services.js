@@ -8,6 +8,7 @@ angular.module('ldmlEdit.service', [ ])
 
     this.loadFromFile = function(file, cb) {
         var reader = new FileReader();
+        console.log("File type: " + file.type);
         reader.onload = function(e) {
             var dat = reader.result;
             var parser = new DOMParser();
@@ -15,7 +16,7 @@ angular.module('ldmlEdit.service', [ ])
             et = new ElementTree(dom);
             cb(et);
         };
-        reader.readAsBinaryString(file);
+        reader.readAsText(file);
     };
     this.findElement = function(tag, base) {
         if (base == null)
@@ -45,7 +46,7 @@ angular.module('ldmlEdit.service', [ ])
         return res;
     };
     this.getBlob = function() {
-        return new Blob(et.asXML());
+        return new Blob([et.asXML()], {type: "text/xml;charset=utf8"});
     };
     return this;
   }])
