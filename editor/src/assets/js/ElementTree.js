@@ -55,6 +55,16 @@ ElementTree.prototype.parseDom = function(dom, element) {
 
 ElementTree.prototype.asXML = function() {
     var res = "<?xml version='1.0' encoding='utf-8'?>\n";
+    var indentshift = "  ";
+    var protmap = {
+        "<" : "&lt;",
+        ">" : "&gt;",
+        "&" : "&amp;"
+    };
+    var protect = function(s) {
+        var repl = function(match) { return protmap[match] || match; }
+        return s.replace(/([<>&])/, repl);
+        };
     var getFrag = function(e, indent) {
         var res = "";
         if (e.comments != null && e.comments.length > 0) {
@@ -64,25 +74,25 @@ ElementTree.prototype.asXML = function() {
                 res = res + prefix + e.comments[i];
                 prefix = "\n" + indent + "     ";
             }
-            res = res + " --!>\n";
+            res = res + " -->\n";
         }
         var res = res + indent + "<" + e.tag;
         for (var k in e.attributes) {
             if (e.attributes.hasOwnProperty(k)) {
-                res = res + " " + k + "='" + e.attributes[k] + "'";
+                res = res + " " + k + '="' + protect(e.attributes[k]) + '"';
             }
         }
         if ((e.text != null && e.text.length > 0) || e.children.length > 0)
         {
             res = res + ">";
             if (e.text != null && e.text.length > 0) {
-                res = res + e.text
+                res = res + protect(e.text);
             }
             if (e.children.length > 0)
             {
                 res = res + "\n";
                 for (var i = 0; i < e.children.length; i++) {
-                    res = res + getFrag(e.children[i], indent + "  ");
+                    res = res + getFrag(e.children[i], indent + indentshift);
                 }
                 res = res + indent;
             }

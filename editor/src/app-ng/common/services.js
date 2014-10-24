@@ -1,8 +1,8 @@
 'use strict';
 
 // Services
-angular.module('ldmlEdit.service', [ ])
-  .service('DomService', [ function() {
+angular.module('ldmlEdit.service', [ 'ngResource' ])
+  .service('DomService', ['$resource', function($resource) {
     var et = null;
     var nsResolver;
 
@@ -17,6 +17,15 @@ angular.module('ldmlEdit.service', [ ])
             cb(et);
         };
         reader.readAsText(file);
+    };
+    this.loadFromURL = function(url, cb) {
+        $resource(url, function(result) {
+            var dat = result.data;
+            var parser = new DOMParser();
+            var dom = parser.parseFromString(dat, "text/xml");
+            et = new ElementTree(dom);
+            cb(et);
+        });
     };
     this.findElement = function(tag, base) {
         if (base == null)

@@ -17,11 +17,21 @@ angular.module('ldmlEdit.resources', [
             });
             $scope.vm.fonts = fonts; 
             // console.log(JSON.stringify($scope.vm.fonts));
-            $scope.$apply();
+            if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
+                $scope.$apply();
         }
     };
     $scope.$on('dom', init);
     init();
+
+    $scope.onFontClick = function(index) {
+        $scope.vm.currentEditor = "font";
+        $scope.vm.currentFont = angular.copy($scope.vm.fonts[index]);
+        $scope.vm.currentIndex = index;
+    };
+    $scope.editFont = function() {
+        angular.copy($scope.vm.currentFont, $scope.vm.fonts[$scope.vm.currentIndex]);
+    };
   }])
   ;
 

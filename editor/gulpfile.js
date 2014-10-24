@@ -65,6 +65,19 @@ var paths = {
   test: ['tests/e2e/**/*.js']
 };
 
+// web server
+var webserver = require('gulp-webserver');
+
+gulp.task('webserver', function() {
+  gulp.src('src')
+    .pipe(webserver({
+      livereload: false,
+      directoryListing: false,
+      open: false
+    }));
+});
+
+
 // livereload
 var livereload = require('gulp-livereload');
 var lr = require('tiny-lr');
@@ -131,9 +144,9 @@ gulp.task('test-e2e', function(cb) {
   );
 });
 
-gulp.task('test-chrome', function(cb) {
+gulp.task('test-chrome', ['webserver'], function(cb) {
   execute(
-    'protractor tests/e2e/chrome-conf.js',
+    'protractor test/e2e/chrome-conf.js',
     null,
     cb
   );

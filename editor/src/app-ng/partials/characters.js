@@ -17,7 +17,9 @@ angular.module('ldmlEdit.characters', [
             });
             $scope.vm.exemplars = exemplars; 
             // console.log(JSON.stringify($scope.vm.exemplars));
-            $scope.$apply();
+            // $scope.$apply();
+            if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
+                $scope.$apply();
         }
     };
     $scope.$on('dom', init);

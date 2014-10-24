@@ -42,9 +42,14 @@ angular.module('ldmlEdit', [
     };
     $scope.onFileOpen = function (files) {
         console.log("FileOpen");
-        //$timeout(function() {
-            angular.element(document.getElementById("FileOpen")).triggerHandler("click");
-        //}, 0);
+        $timeout(function() {
+            $("#FileOpen").trigger("click");
+        }, 0);
+    };
+    $scope.onUrlOpen = function() {
+        DomService.loadFromURL($scope.openurl, function(dat) {
+            $scope.broadcast('dom');
+        });
     };
     $scope.onFileSaveAs = function() {
         console.log("Filename: " + $scope.fileName);

@@ -2,14 +2,48 @@
     <button class="pull-right"><i class="fa fa-plus"></i></button>
     <h2>Fonts</h2>
     <table class="table">
-        <tr><th>name</th><th>types</th><th>urls</th><th>size</th><th/></tr>
-        <tr ng-repeat="font in vm.fonts">
+        <tr><th>name</th><th>types</th><th>urls</th><th>size</th><th>Del</th></tr>
+        <tr ng-click="onFontClick($index)" ng-repeat="font in vm.fonts">
             <td>{{font.attributes.name}}</td>
             <td>{{font.attributes.types}}</td>
-            <td><ul><li ng-repeat="url in font.children">{{url.text}}</li></ul></td>
+            <td><ul class="list-unstyled"><li ng-repeat="url in font.children">{{url.text}}</li></ul></td>
             <td>{{font.attributes.size}}</td>
             <td><a href="#" ng-click="deleteFont($index)"><i class="fa fa-times"/></a></td>
         </tr>
     </table>
 </div>
-
+<div>
+    <div ng-switch="vm.currentEditor">
+        <div ng-switch-when="font" class="bg-pre">
+            <form role="form" class="col-sm-8">
+                <div class="form-group">
+                    <label for="resourceFontName" class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.name" class="form-control" id="resourceFontName"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">Types:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.types" class="form-control" id="resourceFontTypes"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.size" class="form-control" id="resourceFontSize"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default" ng-click="editFont()">Edit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div ng-switch-when="kbd">
+        </div>
+        <div ng-switch-default>
+        </div>
+    </div>
+</div>
