@@ -32,9 +32,13 @@ ElementTree.prototype.parseDom = function(dom, element) {
                 comments = [];
             }
         }
-        else if (n.nodeType == Node.TEXT_NODE)
+        else if (n.nodeType == Node.TEXT_NODE || n.nodeType == Node.CDATA_SECTION_NODE)
         {
-            var text = n.wholeText.trim();
+            var text;
+            if (n.nodeType == Node.TEXT_NODE)
+                text = n.wholeText.trim();
+            else
+                text = n.nodeValue.trim();
             if (text.length > 0) {
                 if (lastElement)
                     lastElement.tail = text;
@@ -46,6 +50,8 @@ ElementTree.prototype.parseDom = function(dom, element) {
         {
             comments.push(n.textContent)
         }
+        // else
+        //    console.log("Node type: " + n.nodeType);
     }
     if (comments.length > 0 && lastElement != null) {
         lastElement.commentsAfter = comments;
@@ -63,18 +69,13 @@ ElementTree.prototype.asXML = function() {
     };
     var protect = function(s) {
         var repl = function(match) { return protmap[match] || match; }
-        return s.replace(/([<>&])/, repl);
+        return s.replace(/([<>&])/g, repl);
         };
     var getFrag = function(e, indent) {
         var res = "";
         if (e.comments != null && e.comments.length > 0) {
-            res = res + indent + "<!-- ";
-            var prefix = "";
-            for (var i = 0; i < e.comments.length; i++) {
-                res = res + prefix + e.comments[i];
-                prefix = "\n" + indent + "     ";
-            }
-            res = res + " -->\n";
+            for (var i = 0; i < e.comments.length; i++)
+                res = res + indent + "<!--" + e.comments[i] + "-->\n";
         }
         var res = res + indent + "<" + e.tag;
         for (var k in e.attributes) {
@@ -98,13 +99,8 @@ ElementTree.prototype.asXML = function() {
             }
             res = res + "</" + e.tag + ">\n";
             if (e.commentsAfter != null && e.commentsAfter.length > 0) {
-                res = res + indent + "<!-- ";
-                var prefix = "";
-                for (var i = 0; i < e.commentsAfter.length; i++) {
-                    res = res + prefix + e.commentsAfter[i];
-                    prefix = "\n" + indent + "     ";
-                }
-                res = res + " -->\n";
+                for (var i = 0; i < e.commentsAfter.length; i++)
+                    res = res + indent + "<!--" + e.commentsAfter[i] + "-->\n";
             }
         }
         else
