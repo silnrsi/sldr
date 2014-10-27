@@ -1,7 +1,7 @@
 <div>
     <button class="pull-right" ng-click="addFont()"><i class="fa fa-plus"></i></button>
     <h2>Fonts</h2>
-    <table class="table">
+    <table class="table table-bordered">
         <tr><th>name</th><th>types</th><th>urls</th><th>size</th><th>Del</th></tr>
         <tr ng-click="onFontClick($index)" ng-repeat="font in vm.fonts">
             <td>{{font.attributes.name}}</td>
@@ -29,13 +29,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
-                    <div class="col-sm-10">
-                        <input type="text" ng-model="vm.currentFont.attributes.size" class="form-control" id="resourceFontSize"
-                            tooltip="multiplier defaults to 1.0"/>
-                    </div>
-                </div>
-                <div class="form-group">
                     <div ng-repeat="url in vm.currentFont.urls">
                         <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
                         <div class="col-sm-8">
@@ -44,6 +37,53 @@
                         <a ng-click="delFontUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
                     </div>
                     <button class="col-sm-1" ng-click="addFontUrl()"><i class="fa fa-plus"/></button>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.size" class="form-control" id="resourceFontSize"
+                            tooltip-placement="right" tooltip="multiplier defaults to 1.0"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">minVersion:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.minversion" class="form-control" id="resourceFontTypes"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">Language:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.lang" class="form-control" id="resourceFontTypes"
+                            tooltip-placement="right" tooltip="Only needed if different from ldml language tag"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">OTLanguage:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.otlang" class="form-control" id="resourceFontTypes"
+                            tooltip-placement="right" tooltip="Only needed if different from Language"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">Features:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.features" class="form-control" id="resourceFontTypes"
+                            tooltip-placement="right" tooltip="key=value"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">Engine:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.engine" class="form-control" id="resourceFontTypes"
+                            tooltip-placement="right" tooltip="Default: gr ot"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="resourceFontTypes" class="col-sm-2 control-label">Subset:</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.currentFont.attributes.subset" class="form-control" id="resourceFontTypes"/>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
