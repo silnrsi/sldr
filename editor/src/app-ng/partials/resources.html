@@ -1,5 +1,5 @@
 <div>
-    <button class="pull-right"><i class="fa fa-plus"></i></button>
+    <button class="pull-right" ng-click="addFont()"><i class="fa fa-plus"></i></button>
     <h2>Fonts</h2>
     <table class="table">
         <tr><th>name</th><th>types</th><th>urls</th><th>size</th><th>Del</th></tr>
@@ -8,7 +8,7 @@
             <td>{{font.attributes.types}}</td>
             <td><ul class="list-unstyled"><li ng-repeat="url in font.children">{{url.text}}</li></ul></td>
             <td>{{font.attributes.size}}</td>
-            <td><a href="#" ng-click="deleteFont($index)"><i class="fa fa-times"/></a></td>
+            <td><a ng-click="delFont($index)" class="btn"><i class="fa fa-times"/></a></td>
         </tr>
     </table>
 </div>
@@ -31,12 +31,24 @@
                 <div class="form-group">
                     <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
                     <div class="col-sm-10">
-                        <input type="text" ng-model="vm.currentFont.attributes.size" class="form-control" id="resourceFontSize"/>
+                        <input type="text" ng-model="vm.currentFont.attributes.size" class="form-control" id="resourceFontSize"
+                            tooltip="multiplier defaults to 1.0"/>
                     </div>
+                </div>
+                <div class="form-group">
+                    <div ng-repeat="url in vm.currentFont.urls">
+                        <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}"/>
+                        </div>
+                        <a ng-click="delFontUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                    </div>
+                    <button class="col-sm-1" ng-click="addFontUrl()"><i class="fa fa-plus"/></button>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-default" ng-click="editFont()">Edit</button>
+                        <button class="btn btn-default" ng-click="cancelFont()">Cancel</button>
                     </div>
                 </div>
             </form>
