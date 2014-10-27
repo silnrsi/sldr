@@ -7,14 +7,18 @@ angular.module('ldmlEdit.resources', [
 
     $scope.vm = {};
     $scope.vm.fonts = [];
+    $scope.vm.kbds = [];
 
     var init = function(e) {
         $scope.fres = DomService.findElements(null, ["special", "sil:external-resources"]);
         if ($scope.fres) {
             var fonts = [];
+            var kbds = [];
             angular.forEach($scope.fres.children, function(f) {
                 if (f.tag == 'sil:font') {
                     fonts.push(f);
+                } else if (f.tag == 'sil:kbd') {
+                    kbds.push(f);
                 }
                 f.urls = [];
                 angular.forEach(f.children, function(u) {
@@ -23,7 +27,8 @@ angular.module('ldmlEdit.resources', [
                     }
                 });
             });
-            $scope.vm.fonts = fonts; 
+            $scope.vm.fonts = fonts;
+            $scope.vm.kbds = kbds;
             // console.log(JSON.stringify($scope.vm.fonts));
             if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
                 $scope.$apply();
@@ -32,26 +37,26 @@ angular.module('ldmlEdit.resources', [
     $scope.$on('dom', init);
     init();
 
-    $scope.onFontClick = function(index) {
-        $scope.vm.currentEditor = "font";
-        $scope.vm.currentFont = angular.copy($scope.vm.fonts[index]);
+    $scope.onEditClick = function(index, type) {
+        $scope.vm.currentEditor = type;
+        $scope.vm.currentElement = angular.copy($scope.vm[type + 's'][index]);
         $scope.vm.currentIndex = index;
     };
-    $scope.editFont = function() {
-        $scope.vm.currentFont.children = [];
-        angular.forEach($scope.vm.currentFont.urls, function (u) {
-            $scope.vm.currentFont.children.push(u);
+    $scope.editBtn = function(type) {
+        $scope.vm.currentElement.children = [];
+        angular.forEach($scope.vm.currentElement.urls, function (u) {
+            $scope.vm.currentElement.children.push(u);
         });
-        angular.copy($scope.vm.currentFont, $scope.vm.fonts[$scope.vm.currentIndex]);
+        angular.copy($scope.vm.currentElement, $scope.vm[type + 's'][$scope.vm.currentIndex]);
         $scope.vm.currentEditor = null;
     };
-    $scope.cancelFont = function() {
+    $scope.cancelBtn = function() {
         $scope.vm.currentEditor = null;
     }
-    $scope.delFont = function(index) {
+    $scope.delElement = function(index, type) {
         //var index = $scope.vm.fonts.indexOf(f);
-        var f = $scope.vm.fonts[index];
-        $scope.vm.fonts.splice(index, 1);
+        var f = $scope.vm[type + 's'][index];
+        $scope.vm[type + 's'].splice(index, 1);
         for (var i = 0; i < $scope.fres.children.length; i++) {
             if ($scope.fres.children == f) {
                 $scope.fres.children.splice(i, 1);
@@ -59,15 +64,19 @@ angular.module('ldmlEdit.resources', [
             }
         }
     };
+    $scope.addUrl = function() {
+        $scope.vm.currentElement.urls.push({'tag' : 'sil:url', 'text' : ''})
+    };
+    $scope.delUrl = function(u) {
+        var index = $scope.vm.currentElement.urls.indexOf(u);
+        $scope.vm.currentElement.urls.splice(index, 1);
+    };
+
     $scope.addFont = function() {
         $scope.vm.fonts.push({'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : []})
     };
-    $scope.addFontUrl = function() {
-        $scope.vm.currentFont.urls.push({'tag' : 'sil:url', 'text' : ''})
-    };
-    $scope.delFontUrl = function(u) {
-        var index = $scope.vm.currentFont.urls.indexOf(u);
-        $scope.vm.currentFont.urls.splice(index, 1);
+    $scope.addKbd = function() {
+        $scope.vm.kbds.push({'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : []})
     };
   }])
   ;
