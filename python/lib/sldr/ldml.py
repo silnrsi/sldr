@@ -546,6 +546,9 @@ def flattenlocale(lname, dirs=[], rev=False, changed=set(), autoidentity=True, s
             f = os.path.join(d, lname + '.xml')
             if os.path.exists(f) :
                 return Ldml(f)
+            f = os.path.join(d, lname[0].lower(), lname + '.xml')
+            if os.path.exists(f) :
+                return Ldml(f)
         return None
 
     l = getldml(lname, dirs)

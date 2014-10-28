@@ -32,6 +32,7 @@ from xml.etree.ElementTree import ElementTree, Element, SubElement
 
 parser = ArgumentParser()
 parser.add_argument('-o','--outdir', help='Directory to store results in')
+parser.add_argument('-a','--alphadir',action='store_true',help='Store in subdirs by first char')
 parser.add_argument('-i','--indir',action='append', required=True, help='Input directory to search for ldml files')
 parser.add_argument('-l','--locale',action='append', help='Locale to flatten (if not specified, then all)')
 parser.add_argument('-r','--reverse',action='store_true', help='Unflatten rather than flatten')
@@ -62,7 +63,11 @@ def doit(l) :
         curr.normalise()
         if private is not None :
             res = curr.remove_private()
-        outfh = codecs.open(os.path.join(args.outdir, l + '.xml'), "w", encoding="utf-8")
+        if args.alphadir :
+            outf = os.path.join(args.outdir, l[0].lower, l + '.xml')
+        else :
+            outf = os.path.join(args.outdir, l + '.xml')
+        outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write)
         outfh.close()
         if private is not None :
