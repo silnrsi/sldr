@@ -4,6 +4,7 @@ angular.module('ldmlEdit', [
      'ngRoute',
      'ui.bootstrap',
      'ldmlEdit.resources',
+     'ldmlEdit.identity',
      'ldmlEdit.characters',
      'ldmlEdit.service'
    ])
@@ -11,6 +12,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/resources', {
       templateUrl : 'app-ng/partials/resources.html',
       controller : 'ResourcesCtrl'
+    });
+    $routeProvider.when('/identity', {
+      templateUrl : 'app-ng/partials/identity.html',
+      controller : 'IdentityCtrl'
     });
     $routeProvider.when('/characters', {
       templateUrl : 'app-ng/partials/characters.html',

@@ -27,10 +27,14 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
             cb(et);
         });
     };
-    this.findElement = function(tag, base) {
-        if (base == null)
-            base = et.root;
-        if (base == null)
+    this.findElement = function(base, tag) {
+        if (base == null) {
+            if (et == null)
+                return null;
+            else
+                base = et.root;
+        }
+        if (base == null || base.children == null)
             return null;
         for (var i = 0; i < base.children.length; i++) {
             if (base.children[i].tag == tag)
@@ -48,7 +52,7 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
                 res = et.root;
         }
         for (var i = 0; i < tags.length; i++) {
-            res = this.findElement(tags[i], res);
+            res = this.findElement(res, tags[i]);
             if (res == null)
                 return null;
         }

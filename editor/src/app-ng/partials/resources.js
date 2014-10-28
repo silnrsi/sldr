@@ -14,21 +14,25 @@ angular.module('ldmlEdit.resources', [
         if ($scope.fres) {
             var fonts = [];
             var kbds = [];
+            var spells = [];
             angular.forEach($scope.fres.children, function(f) {
                 if (f.tag == 'sil:font') {
                     fonts.push(f);
                 } else if (f.tag == 'sil:kbd') {
                     kbds.push(f);
+                } else if (f.tag == 'sil:spell-checking') {
+                    spells.push(f);
                 }
                 f.urls = [];
                 angular.forEach(f.children, function(u) {
                     if (u.tag == 'sil:url') {
-                        f.urls.push(u)
+                        f.urls.push(u);
                     }
                 });
             });
             $scope.vm.fonts = fonts;
             $scope.vm.kbds = kbds;
+            $scope.vm.spells = spells;
             // console.log(JSON.stringify($scope.vm.fonts));
             if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
                 $scope.$apply();
@@ -45,7 +49,9 @@ angular.module('ldmlEdit.resources', [
     $scope.editBtn = function(type) {
         $scope.vm.currentElement.children = [];
         angular.forEach($scope.vm.currentElement.urls, function (u) {
-            $scope.vm.currentElement.children.push(u);
+            if (u.text) {
+                $scope.vm.currentElement.children.push(u);
+            }
         });
         angular.copy($scope.vm.currentElement, $scope.vm[type + 's'][$scope.vm.currentIndex]);
         $scope.vm.currentEditor = null;
@@ -73,10 +79,16 @@ angular.module('ldmlEdit.resources', [
     };
 
     $scope.addFont = function() {
-        $scope.vm.fonts.push({'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : []})
+        var url = {'tag' : 'sil:url', 'text' : ''};
+        $scope.vm.fonts.push({'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : [url], 'urls' : [url]});
     };
     $scope.addKbd = function() {
-        $scope.vm.kbds.push({'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : []})
+        var url = {'tag' : 'sil:url', 'text' : ''};
+        $scope.vm.kbds.push({'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : [url], 'urls' : [url]});
+    };
+    $scope.addSpell = function() {
+        var url = {'tag' : 'sil:url', 'text' : ''};
+        $scope.vm.spells.push({'tag' : 'spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]});
     };
   }])
   ;
