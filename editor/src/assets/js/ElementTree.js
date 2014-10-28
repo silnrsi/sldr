@@ -69,8 +69,11 @@ ElementTree.prototype.asXML = function() {
     };
     var protect = function(s) {
         var repl = function(match) { return protmap[match] || match; }
-        return s.replace(/([<>&])/g, repl);
-        };
+        if (s == null)
+            return "";
+        else
+            return s.replace(/([<>&])/g, repl);
+    };
     var getFrag = function(e, indent) {
         var res = "";
         if (e.comments != null && e.comments.length > 0) {

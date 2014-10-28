@@ -1,6 +1,21 @@
 <div>
+    <button class="pull-right" ng-click="addBtn()"><i class="fa fa-plus"></i></button>
     <h2>Characters</h2>
-    <table class="table">
-        <tr ng-repeat="e in vm.exemplars"><td>{{e.attributes.type}}</td><td>{{e.text}}</td></tr>
-    </table>
+    <form>
+        <div class="form-group">
+            <table class="table">
+                <tr ng-repeat="e in vm.exemplars">
+                    <td><input type="text" ng-model="e.type" class="form.control"/></td>
+                    <td><input type="text" ng-model="e.text" class="form.control"/></td>
+                    <td><a ng-click="delbtn($index)" class="btn"><i class="fa fa-times"/></a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="form-group" ng-show="vm.exemplars.length">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-click="editBtn()">Edit</button>
+                <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+            </div>
+        </div>
+    </form>
 </div>
