@@ -197,6 +197,7 @@ class _minhash(object) :
 
 class Ldml(ETWriter) :
     takesCData = set(('cr',))
+    silns = "urn://www.sil.org/ldml/0.1"
 
     @classmethod
     def ReadMetadata(cls, fname = None) :
@@ -527,7 +528,20 @@ class Ldml(ETWriter) :
                 e.parent = None
         return res
 
-def flattenlocale(lname, dirs=[], rev=False, changed=set(), autoidentity=True, skipstubs=False) :
+    def add_revid(self, revid) :
+        """Inserts identity/special/sil:identity/@revid"""
+        i = self.root.find('identity')
+        if i is not None :
+            s = i.find('special/{'+self.silns+'}identity')
+            if s is None :
+                se = et.SubElement(i, 'special')
+                if 'sil' not in self.namespaces :
+                    self.namespaces[self.silns] = 'sil'
+                s = et.SubElement(se, '{'+self.silns+'}identity')
+            s.set('revid', revid)
+        
+
+def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.
@@ -554,39 +568,40 @@ def flattenlocale(lname, dirs=[], rev=False, changed=set(), autoidentity=True, s
     l = getldml(lname, dirs)
     if l is None : return l
     if skipstubs and len(l.root) == 1 and l.root[0].tag == 'identity' : return None
-    fallbacks = l.get_parent_locales(lname)
-    if not len(fallbacks) :
-        fallbacks = [trimtag(lname)]
-    if 'root' not in fallbacks and lname != 'root' :
-        fallbacks += ['root']
-    if len(changed) :       # check against changed
-        dome = False
-        for f in fallbacks :
-            if f in changed :
-                dome = True
-                break
-        if not dome : return None
-    dome = True
-    for f in fallbacks :    # apply each fallback
-        while len(f) :
-            o = getldml(f, dirs)
-            if o is not None :
-                if rev :
-                    l.difference(o)
-                    dome = False
-                    break   # only need one for unflatten
-                else :
-                    l.overlay(o)
-            f = trimtag(f)
-        if not dome : break
+    if rev != 'c' :
+        fallbacks = l.get_parent_locales(lname)
+        if not len(fallbacks) :
+            fallbacks = [trimtag(lname)]
+        if 'root' not in fallbacks and lname != 'root' :
+            fallbacks += ['root']
+        if len(changed) :       # check against changed
+            dome = False
+            for f in fallbacks :
+                if f in changed :
+                    dome = True
+                    break
+            if not dome : return None
+        dome = True
+        for f in fallbacks :    # apply each fallback
+            while len(f) :
+                o = getldml(f, dirs)
+                if o is not None :
+                    if rev == 'r' :
+                        l.difference(o)
+                        dome = False
+                        break   # only need one for unflatten
+                    else :
+                        l.overlay(o)
+                f = trimtag(f)
+            if not dome : break
     if skipstubs and len(l.root) == 1 and l.root[0].tag == 'identity' : return None
     if autoidentity :
         i = l.root.find('identity')
         if i is not None :
             s = l.get_script(lname)
-            if s and not rev and i.find('script') is None :
+            if s and rev != 'r' and i.find('script') is None :
                 se = et.SubElement(i, "script", type=s)
-            elif s and rev :
+            elif s and rev == 'r' :
                 se = i.find('script')
                 if se.get('type') == s :
                     i.remove(se)

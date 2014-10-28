@@ -36,8 +36,10 @@ parser.add_argument('-a','--alphadir',action='store_true',help='Store in subdirs
 parser.add_argument('-i','--indir',action='append', required=True, help='Input directory to search for ldml files')
 parser.add_argument('-l','--locale',action='append', help='Locale to flatten (if not specified, then all)')
 parser.add_argument('-r','--reverse',action='store_true', help='Unflatten rather than flatten')
+parser.add_argument('-c','--copy',action='store_true', help='Unflatten rather than flatten')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
 parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
+parser.add_argument('--revid',help='Insert revid into identity of each output file')
 args = parser.parse_args()
 
 if not args.locale or not len(args.locale) :
@@ -46,16 +48,26 @@ if not args.locale or not len(args.locale) :
         for l in os.listdir(d) :
             if l.endswith('.xml') :
                 alllocales.add(l[:-4])
+            elif os.path.isdir(os.path.join(d, l)) :
+                for t in os.listdir(os.path.join(d, l)) :
+                    if t.endswith('.xml') :
+                        alllocales.add(t[:-4])
     args.locale = list(alllocales)
 
 if args.private :
     private = Element("private")
 else :
     private = None
+
+action = 'f'
+if args.reverse :
+    action = 'r'
+elif args.copy :
+    action = 'c'
     
 def doit(l) :
     try :
-        curr = flattenlocale(l, args.indir, args.reverse, skipstubs = True)
+        curr = flattenlocale(l, args.indir, action, skipstubs = True)
     except Exception, e :
         print "Failed in " + l
         raise e
@@ -63,10 +75,14 @@ def doit(l) :
         curr.normalise()
         if private is not None :
             res = curr.remove_private()
+        if args.revid :
+            curr.add_revid(args.revid)
         if args.alphadir :
-            outf = os.path.join(args.outdir, l[0].lower, l + '.xml')
+            outf = os.path.join(args.outdir, l[0].lower(), l + '.xml')
         else :
             outf = os.path.join(args.outdir, l + '.xml')
+        if not os.path.exists(os.path.dirname(outf)) :
+            os.makedirs(os.path.dirname(outf))
         outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write)
         outfh.close()
