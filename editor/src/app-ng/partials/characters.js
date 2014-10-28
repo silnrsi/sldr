@@ -60,7 +60,7 @@ angular.module('ldmlEdit.characters', [
         $scope.vm.exemplars.push({'type' : '', 'text' : ''});
     };
     $scope.delBtn = function(index) {
-        $scope.vm.exemplars.remove(index);
+        $scope.vm.exemplars.splice(index, 1);
     };
   }])
   ;
