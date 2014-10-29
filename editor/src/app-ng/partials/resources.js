@@ -9,6 +9,20 @@ angular.module('ldmlEdit.resources', [
     $scope.vm.fonts = [];
     $scope.vm.kbds = [];
     $scope.base = null;
+    var restypes = {
+        'sil:font' : 'fonts',
+        'sil:kbd' : 'kbds',
+        'sil:spell-checking' : 'spells',
+        'sil:transform' : 'transforms'
+    };
+
+    var update_model = function() {
+        $scope.fres.children = [];
+        angular.forEach(restypes, function(v) {
+            for (var i = 0; i < $scope.vm[v].length; i++)
+                $scope.fres.children.push($scope.vm[v][i]);
+        });
+    };
 
     var init = function(e) {
         $scope.fres = DomService.findElements(null, ["special", "sil:external-resources"]);
@@ -16,17 +30,10 @@ angular.module('ldmlEdit.resources', [
             $scope.fres = {'tag' : 'sil:external-resources', 'attributes' : {}, 'children' : []}
             $scope.base = {'tag' : 'special', 'attributes' : {}, 'children' : [ $scope.fres ]};
         }
-        var fonts = [];
-        var kbds = [];
-        var spells = [];
+        var temp = { fonts : [], kbds : [], spells : [], transforms : [] };
         angular.forEach($scope.fres.children, function(f) {
-            if (f.tag == 'sil:font') {
-                fonts.push(f);
-            } else if (f.tag == 'sil:kbd') {
-                kbds.push(f);
-            } else if (f.tag == 'sil:spell-checking') {
-                spells.push(f);
-            }
+            if (f.tag in restypes)
+                temp[restypes[f.tag]].push(f);
             f.urls = [];
             angular.forEach(f.children, function(u) {
                 if (u.tag == 'sil:url') {
@@ -34,9 +41,9 @@ angular.module('ldmlEdit.resources', [
                 }
             });
         });
-        $scope.vm.fonts = fonts;
-        $scope.vm.kbds = kbds;
-        $scope.vm.spells = spells;
+        angular.forEach(restypes, function(v) {
+            $scope.vm[v] = temp[v];
+        });
         // console.log(JSON.stringify($scope.vm.fonts));
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
@@ -58,6 +65,7 @@ angular.module('ldmlEdit.resources', [
         });
         angular.copy($scope.vm.currentElement, $scope.vm[type + 's'][$scope.vm.currentIndex]);
         $scope.vm.currentEditor = null;
+        update_model();
         if ($scope.base != null) {
             DomService.updateTopLevel($scope.base);
             $scope.base = null;
@@ -76,6 +84,7 @@ angular.module('ldmlEdit.resources', [
                 break;
             }
         }
+        update_model();
     };
     $scope.addUrl = function() {
         $scope.vm.currentElement.urls.push({'tag' : 'sil:url', 'text' : ''})
@@ -89,19 +98,19 @@ angular.module('ldmlEdit.resources', [
         var url = {'tag' : 'sil:url', 'text' : ''};
         var res = {'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : [url], 'urls' : [url]};
         $scope.vm.fonts.push(res);
-        $scope.fres.children.push(res);
+        update_model();
     };
     $scope.addKbd = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
         var res = {'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : [url], 'urls' : [url]};
         $scope.vm.kbds.push(res);
-        $scope.fres.children.push(res);
+        update_model();
     };
     $scope.addSpell = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
-        var res = {'tag' : 'spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]};
+        var res = {'tag' : 'sil:spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]};
         $scope.vm.spells.push(res);
-        $scope.fres.children.push(res);
+        update_model();
     };
   }])
   ;

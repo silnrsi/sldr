@@ -89,7 +89,7 @@ ElementTree.prototype.asXML = function() {
                 res = res + " " + k + '="' + protect(e.attributes[k]) + '"';
             }
         }
-        if ((e.text != null && e.text.length > 0) || e.children.length > 0)
+        if ((e.text != null && e.text.length > 0) || (e.children != null && e.children.length > 0))
         {
             res = res + ">";
             if (e.text != null && e.text.length > 0) {
