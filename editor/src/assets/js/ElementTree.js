@@ -1,6 +1,9 @@
 
 function ElementTree(dom) {
-    this.root = this.parseDom(dom, null);
+    if (dom == null) 
+        this.root = {'tag' : 'ldml', 'attributes' : {}, 'children' : []};
+    else
+        this.root = this.parseDom(dom, null);
 }
 
 ElementTree.prototype.parseDom = function(dom, element) {
@@ -92,7 +95,7 @@ ElementTree.prototype.asXML = function() {
             if (e.text != null && e.text.length > 0) {
                 res = res + protect(e.text);
             }
-            if (e.children.length > 0)
+            if (e.children != null && e.children.length > 0)
             {
                 res = res + "\n";
                 for (var i = 0; i < e.children.length; i++) {

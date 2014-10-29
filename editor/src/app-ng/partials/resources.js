@@ -8,35 +8,38 @@ angular.module('ldmlEdit.resources', [
     $scope.vm = {};
     $scope.vm.fonts = [];
     $scope.vm.kbds = [];
+    $scope.base = null;
 
     var init = function(e) {
         $scope.fres = DomService.findElements(null, ["special", "sil:external-resources"]);
-        if ($scope.fres) {
-            var fonts = [];
-            var kbds = [];
-            var spells = [];
-            angular.forEach($scope.fres.children, function(f) {
-                if (f.tag == 'sil:font') {
-                    fonts.push(f);
-                } else if (f.tag == 'sil:kbd') {
-                    kbds.push(f);
-                } else if (f.tag == 'sil:spell-checking') {
-                    spells.push(f);
-                }
-                f.urls = [];
-                angular.forEach(f.children, function(u) {
-                    if (u.tag == 'sil:url') {
-                        f.urls.push(u);
-                    }
-                });
-            });
-            $scope.vm.fonts = fonts;
-            $scope.vm.kbds = kbds;
-            $scope.vm.spells = spells;
-            // console.log(JSON.stringify($scope.vm.fonts));
-            if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-                $scope.$apply();
+        if ($scope.fres == null) {
+            $scope.fres = {'tag' : 'sil:external-resources', 'attributes' : {}, 'children' : []}
+            $scope.base = {'tag' : 'special', 'attributes' : {}, 'children' : [ $scope.fres ]};
         }
+        var fonts = [];
+        var kbds = [];
+        var spells = [];
+        angular.forEach($scope.fres.children, function(f) {
+            if (f.tag == 'sil:font') {
+                fonts.push(f);
+            } else if (f.tag == 'sil:kbd') {
+                kbds.push(f);
+            } else if (f.tag == 'sil:spell-checking') {
+                spells.push(f);
+            }
+            f.urls = [];
+            angular.forEach(f.children, function(u) {
+                if (u.tag == 'sil:url') {
+                    f.urls.push(u);
+                }
+            });
+        });
+        $scope.vm.fonts = fonts;
+        $scope.vm.kbds = kbds;
+        $scope.vm.spells = spells;
+        // console.log(JSON.stringify($scope.vm.fonts));
+        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
+            $scope.$apply();
     };
     $scope.$on('dom', init);
     init();
@@ -55,6 +58,10 @@ angular.module('ldmlEdit.resources', [
         });
         angular.copy($scope.vm.currentElement, $scope.vm[type + 's'][$scope.vm.currentIndex]);
         $scope.vm.currentEditor = null;
+        if ($scope.base != null) {
+            DomService.updateTopLevel($scope.base);
+            $scope.base = null;
+        }
     };
     $scope.cancelBtn = function() {
         $scope.vm.currentEditor = null;
@@ -80,15 +87,21 @@ angular.module('ldmlEdit.resources', [
 
     $scope.addFont = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
-        $scope.vm.fonts.push({'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : [url], 'urls' : [url]});
+        var res = {'tag' : 'sil:font', 'attributes' : { 'name' : '' }, 'children' : [url], 'urls' : [url]};
+        $scope.vm.fonts.push(res);
+        $scope.fres.children.push(res);
     };
     $scope.addKbd = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
-        $scope.vm.kbds.push({'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : [url], 'urls' : [url]});
+        var res = {'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : [url], 'urls' : [url]};
+        $scope.vm.kbds.push(res);
+        $scope.fres.children.push(res);
     };
     $scope.addSpell = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
-        $scope.vm.spells.push({'tag' : 'spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]});
+        var res = {'tag' : 'spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]};
+        $scope.vm.spells.push(res);
+        $scope.fres.children.push(res);
     };
   }])
   ;

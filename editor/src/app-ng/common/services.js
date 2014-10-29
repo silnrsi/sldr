@@ -6,9 +6,12 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     var et = null;
     var nsResolver;
 
+    var newET = function() {
+        et = new ElementTree(null);
+        et.root.attributes['xmlns:sil'] = 'urn://www.sil.org/ldml/0.1';
+    };
     this.loadFromFile = function(file, cb) {
         var reader = new FileReader();
-        console.log("File type: " + file.type);
         reader.onload = function(e) {
             var dat = reader.result;
             var parser = new DOMParser();
@@ -27,14 +30,19 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
             cb(et);
         });
     };
+    this.updateTopLevel = function(el) {
+        for (var i = 0; i < et.root.children.length; i++)
+            if (et.root.children[i].tag == el.tag)
+                return;
+        et.root.children.push(el);
+    };
     this.findElement = function(base, tag) {
         if (base == null) {
             if (et == null)
-                return null;
-            else
-                base = et.root;
+                newET();
+            base = et.root;
         }
-        if (base == null || base.children == null)
+        if (base.children == null)
             return null;
         for (var i = 0; i < base.children.length; i++) {
             if (base.children[i].tag == tag)
@@ -44,12 +52,10 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     }
     this.findElements = function(base, tags) {
         var res = base;
-        if (res == null)
-        {
+        if (base == null) {
             if (et == null)
-                return null;
-            else
-                res = et.root;
+                newET();
+            base = et.root;
         }
         for (var i = 0; i < tags.length; i++) {
             res = this.findElement(res, tags[i]);

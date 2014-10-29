@@ -19,7 +19,7 @@ angular.module('ldmlEdit.identity', [
     var init = function(e) {
         $scope.fres = DomService.findElement(null, "identity");
         if ($scope.fres == null)
-            return;
+            $scope.fres = {'tag' : 'identity', 'attributes' : {}, 'children' : []};
         var model = {};
         for (var key in localmap) {
             var e = DomService.findElement($scope.fres, key);
@@ -62,6 +62,7 @@ angular.module('ldmlEdit.identity', [
             idchildren.push({'tag' : 'special', 'attributes' : {}, 'children' : [
                 {'tag' : 'sil:identity', 'attributes' : specattribs, 'children' : []} ]});
         $scope.fres.children = idchildren;
+        DomService.updateTopLevel($scope.fres);
     };
     $scope.cancelBtn = function() {
         init();

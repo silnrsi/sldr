@@ -111,21 +111,19 @@ gulp.task('less', function() {
   );
 });
 
-/*
 gulp.task('upload', function(cb) {
   var options = {
     dryRun: true,
     silent : false,
     src : "src",
-    dest : "root@public.languagedepot.org:/var/www/virtual/languagedepot.org_stats/htdocs/"
+    dest : "martinhosken@scripts.sil.org:/Volumes/Data/Web/NRSI/scripts.sil.org/cms/pub/ldmledit/"
   };
   execute(
-    'rsync -rzlt --chmod=Dug=rwx,Fug=rw,o-rwx --delete --exclude-from="upload-exclude.txt" --stats --rsync-path="sudo -u www-data rsync" --rsh="ssh" <%= src %>/ <%= dest %>',
+    'rsync -rzlt --chmod=775 --delete --rsh="ssh" --stats <%= src %>/ <%= dest %>',
     options,
     cb
   );
 });
-*/
 
 gulp.task('start-webdriver', function(cb) {
   var options = {

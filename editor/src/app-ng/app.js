@@ -3,16 +3,13 @@
 angular.module('ldmlEdit', [
      'ngRoute',
      'ui.bootstrap',
-     'ldmlEdit.resources',
      'ldmlEdit.identity',
      'ldmlEdit.characters',
+     'ldmlEdit.delimiters',
+     'ldmlEdit.resources',
      'ldmlEdit.service'
    ])
   .config([ '$routeProvider', function($routeProvider) {
-    $routeProvider.when('/resources', {
-      templateUrl : 'app-ng/partials/resources.html',
-      controller : 'ResourcesCtrl'
-    });
     $routeProvider.when('/identity', {
       templateUrl : 'app-ng/partials/identity.html',
       controller : 'IdentityCtrl'
@@ -20,6 +17,14 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/characters', {
       templateUrl : 'app-ng/partials/characters.html',
       controller : 'CharactersCtrl'
+    });
+    $routeProvider.when('/delimiters', {
+      templateUrl : 'app-ng/partials/delimiters.html',
+      controller : 'DelimitersCtrl'
+    });
+    $routeProvider.when('/resources', {
+      templateUrl : 'app-ng/partials/resources.html',
+      controller : 'ResourcesCtrl'
     });
     $routeProvider.otherwise({
       redirectTo : '/'
@@ -57,6 +62,25 @@ angular.module('ldmlEdit', [
         });
     };
     $scope.onFileSaveAs = function() {
+        var complist = ['script', 'territory', 'variant'];
+        if ($scope.fileName == null) {
+            var ident = DomService.findElement(null, "identity");
+            if (ident == null)
+                $scope.fileName = 'NoName.xml';
+            else {
+                var l = DomService.findElement(ident, 'language');
+                if (l != null)
+                    $scope.fileName = l.attributes['type'];
+                angular.forEach(complist, function (c) {
+                    var l = DomService.findElement(ident, c);
+                    if (l != null)
+                        $scope.fileName = $scope.fileName + "_" + l.attributes['type'];
+                });
+                if ($scope.fileName == null)
+                    $scope.fileName = 'NoName';
+                $scope.fileName = $scope.fileName + ".xml";
+            }
+        }
         console.log("Filename: " + $scope.fileName);
         saveAs(DomService.getBlob(), $scope.fileName);  
     };

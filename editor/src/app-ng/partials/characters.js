@@ -11,7 +11,8 @@ angular.module('ldmlEdit.characters', [
 
     var init = function(e) {
         $scope.fres = DomService.findElements(null, ["characters"]);
-        if ($scope.fres == null) return;
+        if ($scope.fres == null) 
+            $scope.fres = {'tag' : 'characters', 'attributes' : {}, 'children' : []};
 
         var exemplars = [];
         angular.forEach($scope.fres.children, function(f) {
@@ -52,6 +53,7 @@ angular.module('ldmlEdit.characters', [
         if (extras.length > 0)
             children.push({'tag' : 'special', 'attributes' : {}, 'children' : extras});
         $scope.fres.children = children;
+        DomService.updateTopLevel($scope.fres);
     };
     $scope.cancelBtn = function() {
         init();
