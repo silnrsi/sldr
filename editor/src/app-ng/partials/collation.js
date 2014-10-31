@@ -37,7 +37,7 @@ angular.module('ldmlEdit.collations', [
             $scope.fres.children.push({tag: 'defaultCollation', attributes : {}, text : $scope.vm.def});
         DomService.updateTopLevel($scope.fres);
     };
-    $scope.editBtn = function() {
+    $scope.saveBtn = function() {
         angular.forEach($scope.vm.currentCollation.children, function (c) {
             if (c.tag == 'cr') 
                 c.text = $scope.vm.currentText.replace(/\n(?!$)/g, "\n\t\t\t\t");
@@ -45,6 +45,14 @@ angular.module('ldmlEdit.collations', [
         if ($scope.vm.currentCollation.format == 'Simple') {
             var r = {tag : 'sil:simple', attributes : {}};
             r.text = $scope.vm.currentSubText.replace(/\n(?!$)/g, "\n\t\t\t\t");
+            $scope.vm.currentCollation.children.push({tag : 'special', attributes : {}, children : [r]});
+        }
+        else if ($scope.vm.currentCollation.format == 'PreProcessed') {
+            var r = {tag : 'sil:reordered', attributes : {}, children : []};
+            angular.forEach($scope.vm.currentCollation.rules, function (rule) {
+                r.children.push(rule);
+            });
+            r.children.push({tag : 'cr', attributes : {}, text : $scope.vm.currentProcText.replace(/\n(?!$)/g, "\n\t\t\t\t") });
             $scope.vm.currentCollation.children.push({tag : 'special', attributes : {}, children : [r]});
         }
         if ($scope.vm.currentCollation.dirty)
@@ -75,6 +83,16 @@ angular.module('ldmlEdit.collations', [
                         $scope.vm.currentCollection.format = 'Simple';
                         removeme = ind;
                     }
+                    else if (s.tag == 'sil:reordered') {
+                        $scope.vm.currentCollation.format = 'PreProcessed';
+                        removeme = ind;
+                        angular.forEach(s.children, function (r) {
+                            if (r.tag == 'sil:reorder')
+                                $scope.vm.currentCollation.rules.push(r);
+                            else if (r.tag == 'cr')
+                                $scope.vm.currentProcText = r.text.replace(/^\t+/mg, "");
+                        });
+                    }
                 });
             }
         });
@@ -88,12 +106,25 @@ angular.module('ldmlEdit.collations', [
     $scope.addCollation = function() {
         $scope.vm.collations.push({tag : 'collation', attributes : {type : ''}, children : [
             {tag : 'cr', attributes : {}, text : ''}]});
-        update_model;
+        update_model();
     };
     $scope.formatChange = function() {
         if ($scope.vm.currentCollation.format == 'Simple') {
             $scope.vm.currentCollation.dirty = 1;
         }
+        else if ($scope.vm.currentCollation.format == 'PreProcessed') {
+            $scope.vm.currentCollation.dirty = 1;
+            $scope.vm.currentCollation.rules = [];
+            $scope.vm.currentProcText = '';
+        }
+    };
+    $scope.delRule = function(i) {
+        $scope.vm.currentCollation.rules.splice(ind, 1);
+        update_model();
+    };
+    $scope.addRule = function() {
+        $scope.vm.currentCollation.rules.push({tag : 'sil:reorder', attributes : { match : '', reorder : '' }});
+        update_model();
     };
  
   }])
