@@ -7,6 +7,8 @@ angular.module('ldmlEdit.delimiters', [
 
     $scope.vm = {};
     $scope.vm.quotes = [ {}, {} ];
+    $scope.vm.puncs = [];
+    $scope.vm.pairs = [];
     $scope.vm.paraContType = null;
     $scope.vm.paraContMark = null;
     var quotemap = {
@@ -48,6 +50,26 @@ angular.module('ldmlEdit.delimiters', [
                     $scope.vm.quotes.push(angular.copy(spec.children[i].attributes));
             }
         }
+        spec = DomService.findElements($scope.fres, ["special", "sil:punctuation-patterns"]);
+        if (spec != null)
+        {
+            var puncs = [];
+            angular.forEach(spec.children, function (p) {
+                if (p.tag == 'sil:punctuation-pattern')
+                    puncs.push(p);
+            });
+            $scope.vm.puncs = puncs;
+        }
+        spec = DomService.findElements($scope.fres, ["special", "sil:matched-pairs"]);
+        if (spec != null)
+        {
+            var pairs = [];
+            angular.forEach(spec.children, function (m) {
+                if (m.tag == 'sil:matched-pair')
+                    pairs.push(m);
+            });
+            $scope.vm.pairs = pairs;
+        }
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
     };
@@ -55,6 +77,7 @@ angular.module('ldmlEdit.delimiters', [
     init();
 
     var update_model = function() {
+        var special = {tag : 'special', attributes : {}, children : []};
         $scope.fres.children = [];
         for (var k in quotemap)
             $scope.fres.children.push({tag : k, attributes : {}, text : $scope.vm.quotes[quotemap[k][0]][quotemap[k][1]] });
@@ -68,8 +91,24 @@ angular.module('ldmlEdit.delimiters', [
                 var s = $scope.vm.quotes[i];
                 spec.children.push({tag : 'sil:quotation', attributes : { open : s.start, close : s.end, 'continue' : s['continue'] } });
             }
-            $scope.fres.children.push({tag : 'special', attributes : {}, children : [ spec ]});
+            special.children.push(spec);
         }
+        if ($scope.vm.pairs.length > 0) {
+            var spec = {tag : 'sil:matched-pairs', attributes : {}, children : []};
+            angular.forEach($scope.vm.pairs, function(p) {
+                spec.children.push(p);
+            });
+            special.children.push(spec);
+        }
+        if ($scope.vm.puncs.length > 0) {
+            var spec = {tag : 'sil:punctuation-patterns', attributes : {}, children : []};
+            angular.forEach($scope.vm.puncs, function(p) {
+                spec.children.push(p);
+            });
+            special.children.push(spec);
+        }
+        if (special.children.length > 0)
+            $scope.fres.children.push(special);
         DomService.updateTopLevel($scope.fres);
     };
             
@@ -84,6 +123,18 @@ angular.module('ldmlEdit.delimiters', [
     };
     $scope.cancelBtn = function() {
         init();
+    };
+    $scope.addPunc = function() {
+        $scope.vm.puncs.push({tag : 'sil:punctuation-pattern', attributes : { string : '' }});
+    };
+    $scope.delPunc = function(i) {
+        $scope.vm.puncs.splice(i, 1);
+    };
+    $scope.addPair = function() {
+        $scope.vm.pairs.push({tag : 'sil:matched-pair', attributes : { open : '', close : '' }});
+    };
+    $scope.delPair = function(i) {
+        $scope.vm.pairs.splice(i, 1);
     };
 
 }]);

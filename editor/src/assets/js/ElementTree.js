@@ -90,7 +90,7 @@ ElementTree.prototype.asXML = function() {
         if (s == null)
             return "";
         else
-            return s.replace(/([<>&])/g, repl);
+            return s.toString().replace(/([<>&])/g, repl);
     };
     var getFrag = function(e, indent) {
         var res = "";
