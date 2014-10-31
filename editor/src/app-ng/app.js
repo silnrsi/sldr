@@ -5,6 +5,7 @@ angular.module('ldmlEdit', [
      'ui.bootstrap',
      'ldmlEdit.identity',
      'ldmlEdit.characters',
+     'ldmlEdit.collations',
      'ldmlEdit.delimiters',
      'ldmlEdit.resources',
      'ldmlEdit.service'
@@ -17,6 +18,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/characters', {
       templateUrl : 'app-ng/partials/characters.html',
       controller : 'CharactersCtrl'
+    });
+    $routeProvider.when('/collation', {
+      templateUrl : 'app-ng/partials/collation.html',
+      controller : 'CollationsCtrl'
     });
     $routeProvider.when('/delimiters', {
       templateUrl : 'app-ng/partials/delimiters.html',

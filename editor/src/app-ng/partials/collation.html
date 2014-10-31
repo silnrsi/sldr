@@ -1,0 +1,67 @@
+<div>
+ <tabset>
+  <tab heading="Data">
+   <div>
+    <button class="pull-right" ng-click="addCollation()"><i class="fa fa-plus"></i></button>
+    <h2>Collations</h2>
+    <table class="table table-bordered">
+        <tr><th>Type</th><th>Default</th><th>Del</th></tr>
+        <tr ng-repeat="c in vm.collations" ng-click="onEditClick($index)" ng-show="!c.disabled">
+            <td>{{c.attributes.type}}</td>
+            <td><input type="radio" ng-model="vm.def" value="{{c.attributes.type}}"/></td>
+            <td> <a ng-click="delCollation($index)" class="btn col-sm-1"><i class="fa fa-times"/></a></td>
+        </tr>
+    </table>
+   </div>
+   <div ng-show="vm.mode">
+    <tabset>
+        <tab heading="ICU">
+            <form role="form">
+                <div class='form-group'>
+                    <textarea ng-model="vm.currentText" class="col-sm-12" rows="10"/>
+                </div>
+            </form>
+        </tab>
+        <tab heading="Simple" ng-show="vm.currentCollation.format=='Simple'">
+            <form role="form">
+                <div class='form-group'>
+                    <textarea ng-model="vm.currentSubText" class="col-sm-12" rows="10" ng-change="vm.currentCollation.dirty=1"/>
+                </div>
+            </form>
+        </tab>
+    </tabset>
+    <form role="form">
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" ng-click="editBtn('kbd')">Save</button>
+            <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+        </div>
+        <div class="form-group">
+            <label for="collType">Type:</label>
+            <input type="text" ng-model="vm.currentCollation.attributes.type" id="collType"/>
+        </div>
+        <div class="form-group">
+            <label for="collFormat">Format:</label>
+            <select ng-model="vm.currentCollation.format" ng-change="formatChange()">
+                <option>ICU</option>
+                <option>Simple</option>
+                <option>PreProcessed</option>
+            </select>
+        </div>
+        <div class="form-group" ng-show="vm.currentCollation.format!='ICU'">
+            <label for="collDirty">Recompile ICU:</label>
+            <input type="checkbox" ng-model="vm.currentCollation.dirty" ng-true-value="1" ng-false-value="null"/>
+        </div>
+    </form>
+   </div>
+  </tab>
+  <tab heading="Help">
+   <div>
+    <p> Sorry, you are on your own at the moment. Hopefully one day this will give you some help</p>
+
+    <p>Warning. The eor and search collation types come from the root of LDML.
+        You should not edit them and so they are not shown.
+    </p>
+   </div>
+  </tab>
+ </tabset>
+</div>
