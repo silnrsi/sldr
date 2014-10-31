@@ -32,10 +32,15 @@
         <tab heading="PreProcessing" ng-show="vm.currentCollation.format=='PreProcessed'">
             <form role="form">
                 <button class="pull-right" ng-click="addRule()"><i class="fa fa-plus"></i></button>
-                <div class='form-group' ng-repeat="r in vm.currentCollation.rules">
-                    <input type='text' ng-model='r.attributes.match' class='col-sm-5'/>
-                    <input type='text' ng-model='r.attributes.reorder' class='col-sm-5'/>
-                    <a ng-click="delRule($index)" class="bt col-sm-offset-1 col-sm-1"><i class="fa fa-times"/></a>
+                <div class='form-group'>
+                    <table class="col-sm-12">
+                        <tr><th>Match</th><th>Reorder</th><th>Del</th></tr>
+                        <tr ng-repeat="r in vm.currentCollation.rules">
+                            <td><input type='text' ng-model='r.attributes.match' class="form.control col-sm-12"/></td>
+                            <td><input type='text' ng-model='r.attributes.reorder' class="form.control col-sm-12"/></td>
+                            <td><a ng-click="delRule($index)" class="btn"><i class="fa fa-times"/></a></td>
+                        </tr>
+                    </table>
                 </div>
             </form>
         </tab>
