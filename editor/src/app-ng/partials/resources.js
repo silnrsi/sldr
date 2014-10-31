@@ -9,6 +9,7 @@ angular.module('ldmlEdit.resources', [
     $scope.vm.fonts = [];
     $scope.vm.kbds = [];
     $scope.base = null;
+    $scope.kbdtypes = ['kmn', 'kmx', 'ldml', 'msklc'];
     var restypes = {
         'sil:font' : 'fonts',
         'sil:kbd' : 'kbds',
@@ -105,6 +106,9 @@ angular.module('ldmlEdit.resources', [
         var res = {'tag' : 'sil:kbd', 'attributes' : { 'id' : '' }, 'children' : [url], 'urls' : [url]};
         $scope.vm.kbds.push(res);
         update_model();
+    };
+    $scope.changeKbdType = function(ktype) {
+        $scope.vm.currentElement.attributes.type = ktype;
     };
     $scope.addSpell = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};

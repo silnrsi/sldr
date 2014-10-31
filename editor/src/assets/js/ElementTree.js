@@ -7,16 +7,30 @@ function ElementTree(dom) {
 }
 
 ElementTree.prototype.parseDom = function(dom, element) {
+    var comments = [];
     if (element == null) {
-        element = dom.documentElement;
+        for (var n = dom.firstChild; n; n = n.nextSibling)
+        {
+            if (n.nodeType == Node.ELEMENT_NODE) {
+                element = n;
+                break;
+            }
+            else if (n.nodeType == Node.COMMENT_NODE) {
+                comments.push(n.textContent);
+            }
+        }
     }
 
     var res = {
         attributes: {},
         children: [],
         text: null };
+    if (comments.length > 0)
+    {
+        res['comments'] = comments;
+        comments = [];
+    }
     var lastElement = null;
-    var comments = [];
 
     res.tag = element.tagName;
     for (var i = element.attributes.length - 1; i >= 0; i--) {
@@ -64,6 +78,7 @@ ElementTree.prototype.parseDom = function(dom, element) {
 
 ElementTree.prototype.asXML = function() {
     var res = "<?xml version='1.0' encoding='utf-8'?>\n";
+    console.log(this.root.comments);
     var indentshift = "  ";
     var protmap = {
         "<" : "&lt;",
