@@ -16,12 +16,35 @@ angular.module('ldmlEdit.resources', [
         'sil:spell-checking' : 'spells',
         'sil:transform' : 'transforms'
     };
+    var capkeyattributes = {'opengroup' : 1, 'closegroup' : 2};
 
     var update_model = function() {
         $scope.fres.children = [];
         angular.forEach(restypes, function(v) {
             for (var i = 0; i < $scope.vm[v].length; i++)
                 $scope.fres.children.push($scope.vm[v][i]);
+        });
+        angular.forEach($scope.vm.transforms, function (t) {
+            var tc = angular.copy(t.children);
+            t.children = [];
+            angular.forEach(tc, function (c) {
+                if (c.tag == 'sil:url')
+                    t.children.push(c);
+                else if (c.tag == 'sil:transform-dict' && t.dict.urls[0].text != '')
+                    t.children.push(c);
+                else if (c.tag == 'sil:transform-capitals') {
+                    for (a in capkeyattributes) {
+                        if (a in t.caps.attributes && t.caps.attributes[a] != '') {
+                            t.children.push(c);
+                            break;
+                        }
+                    }
+                }
+            });
+            if (!hasdict && t.dict.urls[0].text != '')
+                t.children.push(t.dict);
+            if (!hascaps && ('opengroup' in t.caps.attributes || 'closegroup' in t.caps.attributes))
+                t.children.push(t.caps);
         });
         $scope.vm.changed = false;
     };
@@ -46,6 +69,21 @@ angular.module('ldmlEdit.resources', [
         angular.forEach(restypes, function(v) {
             $scope.vm[v] = temp[v];
         });
+        angular.forEach($scope.vm.transforms, function (t) {
+            angular.forEach(t.children, function (c) {
+                if (c.tag == 'sil:transform-capitals')
+                    t.caps = c;
+                else if (c.tag == 'sil:transform-dict') {
+                    t.dict = c;
+                    c.urls = [];
+                    angular.forEach(c.children, function (u) {
+                        if (u.tag == 'sil:url')
+                            c.urls.push(u);
+                    });
+                }
+            });
+        });
+
         $scope.vm.changed = false;
         // console.log(JSON.stringify($scope.vm.fonts));
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
@@ -94,12 +132,19 @@ angular.module('ldmlEdit.resources', [
         update_model();
     };
     $scope.addUrl = function() {
-        $scope.vm.currentElement.urls.push({'tag' : 'sil:url', 'text' : ''})
+        $scope.vm.currentElement.urls.push({'tag' : 'sil:url', 'text' : ''});
         $scope.vm.changed = true;
     };
-    $scope.delUrl = function(u) {
-        var index = $scope.vm.currentElement.urls.indexOf(u);
+    $scope.delUrl = function(index) {
         $scope.vm.currentElement.urls.splice(index, 1);
+        $scope.vm.changed = true;
+    };
+    $scope.addSubUrl = function(sub) {
+        $scope.vm.currentElement[sub].urls.push({'tag' : 'sil:url', 'text' : ''});
+        $scope.vm.changed = true;
+    };
+    $scope.delSubUrl = function(sub, index) {
+        $scope.vm.currentElement[sub].urls.splice(index, 1);
         $scope.vm.changed = true;
     };
 
@@ -121,8 +166,17 @@ angular.module('ldmlEdit.resources', [
     };
     $scope.addSpell = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
-        var res = {'tag' : 'sil:spell-checking', 'attribute' : {'type' : ''}, 'children' : [url], 'urls' : [url]};
+        var res = {'tag' : 'sil:spell-checking', 'attributes' : {'type' : ''}, 'children' : [url], 'urls' : [url]};
         $scope.vm.spells.push(res);
+        update_model();
+    };
+    $scope.addTransform = function() {
+        var url = {tag : 'sil:url', text : ''};
+        var dicturl = {tag : 'sil:url', text : ''};
+        var res = {tag : 'sil:transform', attributes : {from : '', to : '', type : '', direction : 'forward'}, children : [url], urls : [url],
+                    dict : {tag : 'sil:transform-dict', attributes : {incol : '0', outcol : '1', nf : 'nfc'}, children : [dicturl], urls : [dicturl] },
+                    caps : {tag : 'sil:transform-capitals', attributes : { } }};
+        $scope.vm.transforms.push(res);
         update_model();
     };
   }])
