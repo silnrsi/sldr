@@ -54,15 +54,22 @@ angular.module('ldmlEdit.characters', [
             children.push({'tag' : 'special', 'attributes' : {}, 'children' : extras});
         $scope.fres.children = children;
         DomService.updateTopLevel($scope.fres);
+        $scope.vm.changed = false;
     };
     $scope.cancelBtn = function() {
         init();
+        $scope.vm.changed = false;
+    };
+    $scope.editChange = function() {
+        $scope.vm.changed = true;
     };
     $scope.addBtn = function() {
         $scope.vm.exemplars.push({'type' : '', 'text' : ''});
+        $scope.vm.changed = true;
     };
     $scope.delBtn = function(index) {
         $scope.vm.exemplars.splice(index, 1);
+        $scope.vm.changed = true;
     };
   }])
   ;

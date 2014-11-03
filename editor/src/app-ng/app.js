@@ -8,6 +8,7 @@ angular.module('ldmlEdit', [
      'ldmlEdit.collations',
      'ldmlEdit.delimiters',
      'ldmlEdit.resources',
+     'ldmlEdit.segmentations',
      'ldmlEdit.service'
    ])
   .config([ '$routeProvider', function($routeProvider) {
@@ -30,6 +31,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/resources', {
       templateUrl : 'app-ng/partials/resources.html',
       controller : 'ResourcesCtrl'
+    });
+    $routeProvider.when('/segmentations', {
+      templateUrl : 'app-ng/partials/segmentations.html',
+      controller : 'SegmentationsCtrl'
     });
     $routeProvider.otherwise({
       redirectTo : '/'
