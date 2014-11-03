@@ -37,7 +37,7 @@ angular.module('ldmlEdit.identity', [
                     model[s] = spec.attributes[s];
             });
         }
-
+        $scope.vm.model.changed = false;
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
     };
@@ -63,9 +63,14 @@ angular.module('ldmlEdit.identity', [
                 {'tag' : 'sil:identity', 'attributes' : specattribs, 'children' : []} ]});
         $scope.fres.children = idchildren;
         DomService.updateTopLevel($scope.fres);
+        $scope.vm.model.changed = false;
     };
     $scope.cancelBtn = function() {
+        $scope.vm.model.changed = false;
         init();
     };
+    $scope.editChange = function() {
+        $scope.vm.model.changed = true;
+    }
 }]);
 

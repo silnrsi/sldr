@@ -24,6 +24,7 @@ angular.module('ldmlEdit.collations', [
                 $scope.vm.def = c.text;
         });
         $scope.vm.collations = colls;
+        $scope.vm.changed = false;
 
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
@@ -36,6 +37,7 @@ angular.module('ldmlEdit.collations', [
         if ($scope.vm.def != null)
             $scope.fres.children.push({tag: 'defaultCollation', attributes : {}, text : $scope.vm.def});
         DomService.updateTopLevel($scope.fres);
+        $scope.vm.changed = false;
     };
     $scope.saveBtn = function() {
         angular.forEach($scope.vm.currentCollation.children, function (c) {
@@ -65,6 +67,9 @@ angular.module('ldmlEdit.collations', [
     $scope.cancelBtn = function() {
         init();
         $scope.vm.mode = null;
+    };
+    $scope.editChange = function() {
+        $scope.vm.changed = true;
     };
     $scope.onEditClick = function (i) {
         $scope.vm.currentCollation = $scope.vm.collations[i];
@@ -117,6 +122,7 @@ angular.module('ldmlEdit.collations', [
             $scope.vm.currentCollation.rules = [];
             $scope.vm.currentProcText = '';
         }
+        $scope.vm.changed = true;
     };
     $scope.delRule = function(i) {
         $scope.vm.currentCollation.rules.splice(ind, 1);
@@ -125,6 +131,10 @@ angular.module('ldmlEdit.collations', [
     $scope.addRule = function() {
         $scope.vm.currentCollation.rules.push({tag : 'sil:reorder', attributes : { match : '', reorder : '' }});
         update_model();
+    };
+    $scope.simpleChange = function() {
+        $scope.vm.currentCollation.dirty = 1;
+        $scope.vm.changed = true;
     };
  
   }])

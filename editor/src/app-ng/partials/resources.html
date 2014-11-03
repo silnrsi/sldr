@@ -20,14 +20,14 @@
         <div class="form-group">
             <label for="resourceFontName" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.name" class="form-control" id="resourceFontName"/>
+                <input type="text" ng-model="vm.currentElement.attributes.name" class="form-control" id="resourceFontName" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Types:</label>
             <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.types" class="form-control" id="resourceFontTypes"/>
+                <input type="text" ng-model="vm.currentElement.attributes.types" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -35,7 +35,7 @@
             <div ng-repeat="url in vm.currentElement.urls">
                 <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
                 <div class="col-sm-5">
-                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}"/>
+                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
                 <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
             </div>
@@ -46,14 +46,14 @@
             <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
             <div class="col-sm-7">
                 <input type="text" ng-model="vm.currentElement.attributes.size" class="form-control" id="resourceFontSize"
-                    tooltip-placement="right" tooltip="multiplier defaults to 1.0"/>
+                    tooltip-placement="right" tooltip="multiplier defaults to 1.0" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">minVersion:</label>
             <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.minversion" class="form-control" id="resourceFontTypes"/>
+                <input type="text" ng-model="vm.currentElement.attributes.minversion" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -61,7 +61,7 @@
             <label for="resourceFontTypes" class="col-sm-2 control-label">Language:</label>
             <div class="col-sm-7">
                 <input type="text" ng-model="vm.currentElement.attributes.lang" class="form-control" id="resourceFontTypes"
-                    tooltip-placement="right" tooltip="Only needed if different from ldml language tag"/>
+                    tooltip-placement="right" tooltip="Only needed if different from ldml language tag" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -69,7 +69,7 @@
             <label for="resourceFontTypes" class="col-sm-2 control-label">OTLanguage:</label>
             <div class="col-sm-7">
                 <input type="text" ng-model="vm.currentElement.attributes.otlang" class="form-control" id="resourceFontTypes"
-                    tooltip-placement="right" tooltip="Only needed if different from Language"/>
+                    tooltip-placement="right" tooltip="Only needed if different from Language" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -77,7 +77,7 @@
             <label for="resourceFontTypes" class="col-sm-2 control-label">Features:</label>
             <div class="col-sm-7">
                 <input type="text" ng-model="vm.currentElement.attributes.features" class="form-control" id="resourceFontTypes"
-                    tooltip-placement="right" tooltip="key=value"/>
+                    tooltip-placement="right" tooltip="key=value" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -85,20 +85,20 @@
             <label for="resourceFontTypes" class="col-sm-2 control-label">Engine:</label>
             <div class="col-sm-7">
                 <input type="text" ng-model="vm.currentElement.attributes.engine" class="form-control" id="resourceFontTypes"
-                    tooltip-placement="right" tooltip="Default: gr ot"/>
+                    tooltip-placement="right" tooltip="Default: gr ot" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Subset:</label>
             <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.subset" class="form-control" id="resourceFontTypes"/>
+                <input type="text" ng-model="vm.currentElement.attributes.subset" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" class="btn btn-default" ng-click="editBtn('font')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('font')">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
@@ -123,14 +123,14 @@
         <div class="form-group">
             <label for="resourceKbdName" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-10">
-                <input type="text" ng-model="vm.currentElement.attributes.id" class="form-control" id="resourceKbdName"/>
+                <input type="text" ng-model="vm.currentElement.attributes.id" class="form-control" id="resourceKbdName" ng-change="editChange()"/>
             </div>
         </div>
         <div class="form-group">
             <label for="resourceKbdType" class="col-sm-2 control-label">Type:</label>
             <div class="col-sm-6">
                 <div class="input-group">
-                    <input type="text" class="form-control" ng-model="vm.currentElement.attributes.type" id="resourceKbdType">
+                    <input type="text" class="form-control" ng-model="vm.currentElement.attributes.type" id="resourceKbdType" ng-change="editChange()">
                     <div class="input-group-btn" dropdown="1">
                         <button type="button" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -152,7 +152,7 @@
             <div ng-repeat="url in vm.currentElement.urls">
                 <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
                 <div class="col-sm-8">
-                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}"/>
+                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
                 <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
             </div>
@@ -160,7 +160,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" ng-click="editBtn('kbd')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('kbd')">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
@@ -184,14 +184,14 @@
         <div class="form-group">
             <label for="resourceSpellType" class="col-sm-2 control-label">Type:</label>
             <div class="col-sm-10">
-                <input type="text" ng-model="vm.currentElement.attributes.type" class="form-control" id="resourceSpellType"/>
+                <input type="text" ng-model="vm.currentElement.attributes.type" class="form-control" id="resourceSpellType" ng-change="editChange()"/>
             </div>
         </div>
         <div class="form-group">
             <div ng-repeat="url in vm.currentElement.urls">
                 <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
                 <div class="col-sm-8">
-                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}"/>
+                    <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
                 <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
             </div>
@@ -199,7 +199,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" ng-click="editBtn('spell')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('spell')">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>

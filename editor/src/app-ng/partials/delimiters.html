@@ -7,7 +7,7 @@
     <form role="form">
         <div class="form-group">
             <label for="delimType">Paragraph Continuation Type:</label>
-            <select id="delimType" ng-model="vm.paraContType">
+            <select id="delimType" ng-model="vm.paraContType" ng-change="editChange()">
                 <option>None</option>
                 <option>all</option>
                 <option>inner</option>
@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             <label for="delimMark">Paragraph Continuation Mark:</label>
-            <select id="delimMark" ng-model="vm.paraContMark">
+            <select id="delimMark" ng-model="vm.paraContMark" ng-change="editChange()">
                 <option>special</option>
                 <option>close</option>
                 <option>open</option>
@@ -27,16 +27,16 @@
                 <tr><th>Level</th><th>Start</th><th>End</th><th>Continue</th><th>Del</th></tr>
                 <tr ng-repeat="q in vm.quotes">
                     <td>{{$index}}</td>
-                    <td><input type="text" ng-model="q.start" class="form.control col-sm-12"/></td>
-                    <td><input type="text" ng-model="q.end" class="form.control col-sm-12"/></td>
-                    <td><input type="text" ng-model="q.continue" class="form.control col-sm-12"/></td>
+                    <td><input type="text" ng-model="q.start" class="form.control col-sm-12" ng-change="editChange()"/></td>
+                    <td><input type="text" ng-model="q.end" class="form.control col-sm-12" ng-change="editChange()"/></td>
+                    <td><input type="text" ng-model="q.continue" class="form.control col-sm-12" ng-change="editChange()"/></td>
                     <td><a ng-click="delQuote($index)" class="btn" ng-show="$index > 1"><i class="fa fa-times"/></a></td>
                 </tr>
             </table>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" class="btn btn-default" ng-click="saveBtn()">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
             <div class="clearfix"/>
@@ -51,22 +51,22 @@
             <table class="col-sm-12">
                 <tr><th>String</th><th>context</th><th>Valid</th><th>Del</th></tr>
                 <tr ng-repeat="q in vm.puncs">
-                    <td><input type="text" ng-model="q.attributes.string" class="form.control col-sm-12"/></td>
-                    <td><select ng-model="q.attributes.context" class="form.control col-sm-12">
+                    <td><input type="text" ng-model="q.attributes.string" class="form.control col-sm-12" ng-change="editChange()"/></td>
+                    <td><select ng-model="q.attributes.context" class="form.control col-sm-12" ng-change="editChange()">
                         <option>init</option>
                         <option>medial</option>
                         <option>final</option>
                         <option>break</option>
                         <option>isolate</option>
                     </select></td>
-                    <td><input type="checkbox" ng-model="q.attributes.valid" class="form.control" ng-true-value="true" ng-false-value="false"/></td>
+                    <td><input type="checkbox" ng-model="q.attributes.valid" class="form.control" ng-true-value="true" ng-false-value="false" ng-change="editChange()"/></td>
                     <td><a ng-click="delPunc($index)" class="btn"><i class="fa fa-times"/></a></td>
                 </tr>
             </table>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" class="btn btn-default" ng-click="saveBtn()">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
             <div class="clearfix"/>
@@ -81,16 +81,16 @@
             <table class="col-sm-12">
                 <tr><th>open</th><th>close</th><th>Paragraph Close</th><th>Del</th></tr>
                 <tr ng-repeat="q in vm.pairs">
-                    <td><input type="text" ng-model="q.attributes.open" class="form.control col-sm-12"/></td>
-                    <td><input type="text" ng-model="q.attributes.close" class="form.control col-sm-12"/></td>
-                    <td><input type="checkbox" ng-model="q.attributes.paraClose" class="form.control" ng-true-value="true" ng-false-value="false"/></td>
+                    <td><input type="text" ng-model="q.attributes.open" class="form.control col-sm-12" ng-change="editChange()"/></td>
+                    <td><input type="text" ng-model="q.attributes.close" class="form.control col-sm-12" ng-change="editChange()"/></td>
+                    <td><input type="checkbox" ng-model="q.attributes.paraClose" class="form.control" ng-true-value="true" ng-false-value="false" ng-change="editChange()"/></td>
                     <td><a ng-click="delPair($index)" class="btn"><i class="fa fa-times"/></a></td>
                 </tr>
             </table>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" class="btn btn-default" ng-click="saveBtn()">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
             <div class="clearfix"/>

@@ -31,6 +31,8 @@ angular.module('ldmlEdit.delimiters', [
             curr = DomService.findElement($scope.fres, k);
             if (curr != null)
                 $scope.vm.quotes[quotemap[k][0]][quotemap[k][1]] = curr.text;
+            else
+                $scope.vm.quotes[quotemap[k][0]][quotemap[k][1]] = "";
         }
         var spec = DomService.findElements($scope.fres, ["special", "sil:quotation-marks"]);
         if (spec != null) {
@@ -43,6 +45,8 @@ angular.module('ldmlEdit.delimiters', [
                 curr = DomService.findElement(spec, k);
                 if (curr != null)
                     $scope.vm.quotes[silquotemap[k][0]][silquotemap[k][1]] = curr.text;
+                else
+                    $scope.vm.quotes[quotemap[k][0]][quotemap[k][1]] = "";
             }
             for (var i = 0; i < spec.children; i++)
             {
@@ -70,6 +74,7 @@ angular.module('ldmlEdit.delimiters', [
             });
             $scope.vm.pairs = pairs;
         }
+        $scope.vm.changed = false;
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
     };
@@ -114,27 +119,38 @@ angular.module('ldmlEdit.delimiters', [
             
     $scope.addQuote = function() {
         $scope.vm.quotes.push({start : '', end : '', 'continue' : ''});
+        $scope.vm.changed = true;
     };
     $scope.delQuote = function(ind) {
         $scope.vm.quotes.splice(ind, 1);
+        $scope.vm.changed = true;
     };
     $scope.saveBtn = function() {
         update_model();
+        $scope.vm.changed = false;
     };
     $scope.cancelBtn = function() {
         init();
+        $scope.vm.changed = false;
+    };
+    $scope.editChange = function() {
+        $scope.vm.changed = true;
     };
     $scope.addPunc = function() {
         $scope.vm.puncs.push({tag : 'sil:punctuation-pattern', attributes : { string : '' }});
+        $scope.vm.changed = true;
     };
     $scope.delPunc = function(i) {
         $scope.vm.puncs.splice(i, 1);
+        $scope.vm.changed = true;
     };
     $scope.addPair = function() {
         $scope.vm.pairs.push({tag : 'sil:matched-pair', attributes : { open : '', close : '' }});
+        $scope.vm.changed = true;
     };
     $scope.delPair = function(i) {
         $scope.vm.pairs.splice(i, 1);
+        $scope.vm.changed = true;
     };
 
 }]);

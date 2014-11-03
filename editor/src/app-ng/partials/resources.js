@@ -23,6 +23,7 @@ angular.module('ldmlEdit.resources', [
             for (var i = 0; i < $scope.vm[v].length; i++)
                 $scope.fres.children.push($scope.vm[v][i]);
         });
+        $scope.vm.changed = false;
     };
 
     var init = function(e) {
@@ -45,6 +46,7 @@ angular.module('ldmlEdit.resources', [
         angular.forEach(restypes, function(v) {
             $scope.vm[v] = temp[v];
         });
+        $scope.vm.changed = false;
         // console.log(JSON.stringify($scope.vm.fonts));
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
@@ -56,6 +58,7 @@ angular.module('ldmlEdit.resources', [
         $scope.vm.currentEditor = type;
         $scope.vm.currentElement = angular.copy($scope.vm[type + 's'][index]);
         $scope.vm.currentIndex = index;
+        $scope.vm.changed = false;
     };
     $scope.editBtn = function(type) {
         $scope.vm.currentElement.children = [];
@@ -75,6 +78,9 @@ angular.module('ldmlEdit.resources', [
     $scope.cancelBtn = function() {
         $scope.vm.currentEditor = null;
     }
+    $scope.editChange = function() {
+        $scope.vm.changed = true;
+    };
     $scope.delElement = function(index, type) {
         //var index = $scope.vm.fonts.indexOf(f);
         var f = $scope.vm[type + 's'][index];
@@ -89,10 +95,12 @@ angular.module('ldmlEdit.resources', [
     };
     $scope.addUrl = function() {
         $scope.vm.currentElement.urls.push({'tag' : 'sil:url', 'text' : ''})
+        $scope.vm.changed = true;
     };
     $scope.delUrl = function(u) {
         var index = $scope.vm.currentElement.urls.indexOf(u);
         $scope.vm.currentElement.urls.splice(index, 1);
+        $scope.vm.changed = true;
     };
 
     $scope.addFont = function() {
@@ -109,6 +117,7 @@ angular.module('ldmlEdit.resources', [
     };
     $scope.changeKbdType = function(ktype) {
         $scope.vm.currentElement.attributes.type = ktype;
+        $scope.vm.changed = true;
     };
     $scope.addSpell = function() {
         var url = {'tag' : 'sil:url', 'text' : ''};
