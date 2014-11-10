@@ -603,7 +603,7 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
                 se = et.SubElement(i, "script", type=s)
             elif s and rev == 'r' :
                 se = i.find('script')
-                if se.get('type') == s :
+                if se is not None and se.get('type') == s :
                     i.remove(se)
     return l
 
