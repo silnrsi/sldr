@@ -24,8 +24,13 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from sldr.ldml import Ldml
 import os, sys, codecs
+try :
+    from sldr.ldml import Ldml
+except ImportError :
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    from sldr.ldml import Ldml
+
 from multiprocessing import Pool
 
 if len(sys.argv) < 3 :
