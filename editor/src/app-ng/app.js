@@ -12,6 +12,10 @@ angular.module('ldmlEdit', [
      'ldmlEdit.service'
    ])
   .config([ '$routeProvider', function($routeProvider) {
+    $routeProvider.when('/loadnsave', {
+      templateUrl : 'app-ng/partials/loadnsave.html',
+      controller : 'MainCtrl'
+    });
     $routeProvider.when('/identity', {
       templateUrl : 'app-ng/partials/identity.html',
       controller : 'IdentityCtrl'
@@ -37,7 +41,7 @@ angular.module('ldmlEdit', [
       controller : 'SegmentationsCtrl'
     });
     $routeProvider.otherwise({
-      redirectTo : '/'
+      redirectTo : '/loadnsave'
     });
   }])
   .directive("fileread", ["DomService", function(DomService) {

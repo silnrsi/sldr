@@ -113,7 +113,7 @@ gulp.task('less', function() {
 
 gulp.task('upload', function(cb) {
   var options = {
-    dryRun: true,
+    dryRun: false,
     silent : false,
     src : "src",
     dest : "martinhosken@scripts.sil.org:/Volumes/Data/Web/NRSI/scripts.sil.org/cms/pub/ldmledit/"

@@ -105,7 +105,7 @@ angular.module('ldmlEdit.collations', [
             $scope.vm.currentCollation.children.splice(removeme, 1);
     };
     $scope.delCollation = function(i) {
-        $scope.vm.collations.splice(index, 1);
+        $scope.vm.collations.splice(i, 1);
         udpate_model();
     };
     $scope.addCollation = function() {

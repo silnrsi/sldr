@@ -9,8 +9,21 @@
                     <li><strong><div class="col-sm-3">Type</div><div class="col-sm-8">Character Set</div></strong></li>
                     <div class="clearfix"></div>
                     <li ng-repeat="e in vm.exemplars">
-                        <input type="text" ng-model="e.type" class="form.control col-sm-3" placeholder="Default" ng-change="editChange()"/>
-                        <input type="text" ng-model="e.text" class="form.control col-sm-8" ng-change="editChange()"/>
+                        <div class="col-sm-3">
+                            <!-- combobox -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="e.type" id="characterType" ng-change="editChange()"/>
+                                <div class="input-group-btn" dropdown="1">
+                                    <button type="button" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li ng-repeat="k in charactertypes" class="input-lg"><a ng-click="e.type = k">{{charactertypes[k]}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="e.text" class="form-control col-sm-8" ng-change="editChange()"/>
+                        </div>
                         <div class="col-sm-1">
                             <a ng-click="delBtn($index)" class="btn"><i class="fa fa-times"/></a>
                         </div>
@@ -30,5 +43,4 @@
         <h3>Help</h3>
         <p>Nothing to read here yet</p>
     </div>
-   </div>
 </div>
