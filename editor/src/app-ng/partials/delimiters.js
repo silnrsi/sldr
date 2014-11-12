@@ -27,6 +27,7 @@ angular.module('ldmlEdit.delimiters', [
         $scope.fres = DomService.findElement(null, "delimiters");
         if ($scope.fres == null)
             $scope.fres = {tag : 'delimiters', attributes : {}, children : []};
+        $scope.vm.quotes = [ {}, {} ];
         for (var k in quotemap) {
             curr = DomService.findElement($scope.fres, k);
             if (curr != null)
@@ -55,6 +56,7 @@ angular.module('ldmlEdit.delimiters', [
             }
         }
         spec = DomService.findElements($scope.fres, ["special", "sil:punctuation-patterns"]);
+        $scope.vm.puncs = [];
         if (spec != null)
         {
             var puncs = [];
@@ -65,6 +67,7 @@ angular.module('ldmlEdit.delimiters', [
             $scope.vm.puncs = puncs;
         }
         spec = DomService.findElements($scope.fres, ["special", "sil:matched-pairs"]);
+        $scope.vm.pairs = [];
         if (spec != null)
         {
             var pairs = [];

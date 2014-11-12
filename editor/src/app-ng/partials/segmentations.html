@@ -1,6 +1,5 @@
 <div>
- <tabset>
-  <tab heading="Data">
+  <div class="col-sm-7">
    <div>
     <button class="pull-right" ng-click="addSegment()"><i class="fa fa-plus"></i></button>
     <h2>Segmentations</h2>
@@ -13,7 +12,7 @@
                 <button class="pull-right" ng-click="addElement(type, seg)"><i class="fa fa-plus"></i></button>
                 <h3>{{sublists[type].title}}</h3>
                 <ul class="list-unstyled">
-                    <li><strong><div class="col-sm-2">ID</div><div class="col-sm-8">value</div><div class="col-sm-2">Buttons</div></strong></li>
+                    <li><strong><div class="col-sm-2">ID</div><div class="col-sm-8">value</div><div class="col-sm-2"></div></strong></li>
                     <li ng-repeat="v in seg[type] | orderBy:'sortkey'">
                         <input type="text" ng-model="v.attributes.id" class="form.control col-sm-2" ng-change="editChange()"/>
                         <input type="text" ng-model="v.text" class="form.control col-sm-8" ng-change="editChange()"/>
@@ -27,19 +26,19 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
                     <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
                 </div>
             </div>
         </accordion-group>
     </accordion> 
    </div>
-  </tab>
-  <tab heading="Help">
+  </div>
+  <div class="col-sm-5">
    <div>
+    <h3>Help</h3>
     Sorry, you are on your own at the moment. Hopefully one day this will give you some help
    </div>
-  </tab>
- </tabset>
+  </div>
 </div>
             

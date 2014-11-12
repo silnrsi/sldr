@@ -1,33 +1,34 @@
 <div>
- <tabset>
-  <tab heading="Data">
-   <div>
-    <button class="pull-right" ng-click="addBtn()"><i class="fa fa-plus"></i></button>
-    <h2>Characters</h2>
-    <form>
-        <div class="form-group">
-            <table class="table col-sm-12">
-                <tr><th>Type</th><th>Character Set</th><th>Del</th></tr>
-                <tr ng-repeat="e in vm.exemplars">
-                    <td><input type="text" ng-model="e.type" class="form.control col-sm-12" placeholder="Default" ng-change="editChange()"/></td>
-                    <td><input type="text" ng-model="e.text" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><a ng-click="delBtn($index)" class="btn"><i class="fa fa-times"/></a></td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group" ng-show="vm.exemplars.length">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn()">Save</button>
-                <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+    <div class="col-sm-7">
+      <div>
+          <button class="pull-right" ng-click="addBtn()"><i class="fa fa-plus"></i></button>
+          <h2>Character Sets</h2>
+          <form>
+            <div class="form-group">
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-8">Character Set</div></strong></li>
+                    <div class="clearfix"></div>
+                    <li ng-repeat="e in vm.exemplars">
+                        <input type="text" ng-model="e.type" class="form.control col-sm-3" placeholder="Default" ng-change="editChange()"/>
+                        <input type="text" ng-model="e.text" class="form.control col-sm-8" ng-change="editChange()"/>
+                        <div class="col-sm-1">
+                            <a ng-click="delBtn($index)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </form>
+            <div class="form-group" ng-show="vm.exemplars.length">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn()">Apply</button>
+                    <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                </div>
+            </div>
+          </form>
+      </div>
+    </div>
+    <div class="col-sm-5">
+        <h3>Help</h3>
+        <p>Nothing to read here yet</p>
+    </div>
    </div>
-  </tab>
-  <tab heading="Help">
-   <div>
-    Sorry, you are on your own at the moment. Hopefully one day this will give you some help
-   </div>
-  </tab>
- </tabset>
 </div>

@@ -1,125 +1,123 @@
 <div>
- <tabset>
-  <tab heading="Data">
+  <div class="col-sm-7">
    <div>
     <button class="pull-right" ng-click="addFont()"><i class="fa fa-plus"></i></button>
     <h2>Fonts</h2>
-    <table class="table table-bordered">
-        <tr><th>name</th><th>types</th><th>urls</th><th>size</th><th>Del</th></tr>
-        <tr ng-click="onEditClick($index, 'font')" ng-repeat="font in vm.fonts">
-            <td>{{font.attributes.name}}</td>
-            <td>{{font.attributes.types}}</td>
-            <td><ul class="list-unstyled"><li ng-repeat="url in font.children">{{url.text}}</li></ul></td>
-            <td>{{font.attributes.size}}</td>
-            <td><a ng-click="delElement($index, 'font')" class="btn"><i class="fa fa-times"/></a></td>
-        </tr>
-    </table>
+    <ul class="list-unstyled">
+        <li><strong><div class="col-sm-2">name</div><div class="col-sm-2">types</div><div class="col-sm-5">urls</div><div class="col-sm-1">size</div></strong></li>
+        <div class="clearfix"/>
+        <li ng-repeat="font in vm.fonts">
+            <div class="col-sm-2">{{font.attributes.name}}</div>
+            <div class="col-sm-2">{{font.attributes.types}}</div>
+            <div class="col-sm-5"><ul class="list-unstyled"><li ng-repeat="url in font.children">{{url.text}}</li></ul></div>
+            <div class="col-sm-1">{{font.attributes.size}}</div>
+            <div class="col-sm-2">
+                <a ng-click="delElement($index, 'font')" class="btn"><i class="fa fa-times"/></a>
+                <a ng-click="onEditClick($index, 'font')" class="btn"><i class="fa fa-edit"/></a>
+            </div>
+        </li>
+    </ul>
    </div>
    <div ng-show="vm.currentEditor=='font'" class="bg-pre">
     <form role="form">
         <div class="form-group">
             <label for="resourceFontName" class="col-sm-2 control-label">Name:</label>
-            <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.name" class="form-control" id="resourceFontName" ng-change="editChange()"/>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="vm.currentElement.attributes.name" id="resourceFontName" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Types:</label>
-            <div class="col-sm-7">
-                <input type="text" ng-model="vm.currentElement.attributes.types" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="vm.currentElement.attributes.types" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <div ng-repeat="url in vm.currentElement.urls">
                 <label class="col-sm-2 control-label"><div ng-show="$first">Urls:</div></label>
-                <div class="col-sm-5">
+                <div class="col-sm-8">
                     <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
-                <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                <div class="col-sm-2">
+                    <a ng-click="delUrl(url)" class="btn"><i class="fa fa-times"/></a>
+                    <a ng-click="addUrl()" class="btn" ng-show="$first"><i class="fa fa-plus"/></a>
+                </div>
             </div>
-            <button class="col-sm-1" ng-click="addUrl()"><i class="fa fa-plus"/></button>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontSize" class="col-sm-2 control-label">Size:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.size" class="form-control" id="resourceFontSize"
                     tooltip-placement="right" tooltip="multiplier defaults to 1.0" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">minVersion:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.minversion" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Language:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.lang" class="form-control" id="resourceFontTypes"
                     tooltip-placement="right" tooltip="Only needed if different from ldml language tag" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">OTLanguage:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.otlang" class="form-control" id="resourceFontTypes"
                     tooltip-placement="right" tooltip="Only needed if different from Language" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Features:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.features" class="form-control" id="resourceFontTypes"
                     tooltip-placement="right" tooltip="key=value" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Engine:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.engine" class="form-control" id="resourceFontTypes"
                     tooltip-placement="right" tooltip="Default: gr ot" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceFontTypes" class="col-sm-2 control-label">Subset:</label>
-            <div class="col-sm-7">
+            <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.subset" class="form-control" id="resourceFontTypes" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('font')">Save</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('font')">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
     </form>
-    <div class="clearfix"></div>
    </div>
    <div>
     <button class="pull-right" ng-click="addKbd()"><i class="fa fa-plus"></i></button>
     <h2>Keyboards</h2>
-    <table class="table table-bordered">
-        <tr><th>name</th><th>type</th><th>urls</th><th>Del</th></tr>
-        <tr ng-click="onEditClick($index, 'kbd')" ng-repeat="kbd in vm.kbds">
-            <td>{{kbd.attributes.id}}</td>
-            <td>{{kbd.attributes.type}}</td>
-            <td><ul class="list-unstyled"><li ng-repeat="url in kbd.children">{{url.text}}</li></ul></td>
-            <td><a ng-click="delElement($index, 'kbd')" class="btn"><i class="fa fa-times"/></a></td>
-        </tr>
-    </table>
+    <ul class="list-unstyled">
+        <li><strong><div class="col-sm-2">name</div><div class="col-sm-2">type</div><div class="col-sm-6">urls</div></strong></li>
+        <div class="clearfix"/>
+        <li ng-repeat="kbd in vm.kbds">
+            <div class="col-sm-2">{{kbd.attributes.id}}</div>
+            <div class="col-sm-2">{{kbd.attributes.type}}</div>
+            <div class="col-sm-6"><ul class="list-unstyled"><li ng-repeat="url in kbd.children">{{url.text}}</li></ul></div>
+            <div class="col-sm-2">
+                <a ng-click="delElement($index, 'kbd')" class="btn"><i class="fa fa-times"/></a>
+                <a ng-click="onEditClick($index, 'kbd')" class="btn"><i class="fa fa-edit"/></a>
+            </div>
+        </li>
+    </ul>
    </div>
    <div ng-show="vm.currentEditor=='kbd'" class="bg-pre">
-    <form role="form" class="col-sm-8">
+    <form role="form">
         <div class="form-group">
             <label for="resourceKbdName" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-10">
@@ -138,13 +136,6 @@
                         </ul>
                     </div>
                 </div>
-                <!-- <select ng-model="vm.currentElement.attributes.type" id='resourceKbdType'>
-                    <option>kmn</option>
-                    <option>kmx</option>
-                    <option>msklc</option>
-                    <option>ldml</option>
-                </select> -->
-                <!-- <input type="text" ng-model="vm.currentElement.attributes.type" class="form-control" id="resourceKbdType"/> -->
             </div>
             <div class="clearfix"/>
         </div>
@@ -154,13 +145,15 @@
                 <div class="col-sm-8">
                     <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
-                <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                <div class="col-sm-2">
+                    <a ng-click="delUrl(url)" class="btn"><i class="fa fa-times"/></a>
+                    <a ng-click="addUrl()" class="btn" ng-show="$first"><i class="fa fa-plus"/></a>
+                </div>
             </div>
-            <button class="col-sm-1" ng-click="addUrl()"><i class="fa fa-plus"/></button>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('kbd')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('kbd')">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
@@ -170,76 +163,81 @@
    <div>
     <button class="pull-right" ng-click="addSpell()"><i class="fa fa-plus"></i></button>
     <h2>Spell Checkers</h2>
-    <table class="table table-bordered">
-        <tr><th>type</th><th>urls</th><th>Del</th></tr>
-        <tr ng-click="onEditClick($index, 'spell')" ng-repeat="spell in vm.spells">
-            <td>{{spell.attributes.type}}</td>
-            <td><ul class="list-unstyled"><li ng-repeat="url in spell.children">{{url.text}}</li></ul></td>
-            <td><a ng-click="delElement($index, 'spell')" class="btn"><i class="fa fa-times"/></a></td>
-        </tr>
-    </table>
+    <ul class="list-unstyled">
+        <li><strong><div class="col-sm-2">type</div><div class="col-sm-8">urls</div></strong></li>
+        <div class="clearfix"/>
+        <li ng-repeat="spell in vm.spells">
+            <div class="col-sm-2">{{spell.attributes.type}}</div>
+            <div class="col-sm-8"><ul class="list-unstyled"><li ng-repeat="url in spell.children">{{url.text}}</li></ul></DIV>
+            <div class="col-sm-2">
+                <a ng-click="delElement($index, 'spell')" class="btn"><i class="fa fa-times"/></a>
+                <a ng-click="onEditClick($index, 'spell')" class="btn"><i class="fa fa-edit"/></a>
+            </div>
+        </li>
+    </ul>
    </div>
    <div ng-show="vm.currentEditor=='spell'" class="bg-pre">
-    <form role="form" class="col-sm-8">
+    <form role="form">
         <div class="form-group">
             <label for="resourceSpellType" class="col-sm-2 control-label">Type:</label>
             <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.type" class="form-control" id="resourceSpellType" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <div ng-repeat="url in vm.currentElement.urls">
                 <label class="col-sm-2 control-label"><div ng-show="$first">Type:</div></label>
                 <div class="col-sm-8">
                     <input type="text" ng-model="url.text" class="form-control" id="resourceFontUrl{{$index}}" ng-change="editChange()"/>
                 </div>
-                <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                <div class="col-sm-2">
+                    <a ng-click="delUrl(url)" class="btn"><i class="fa fa-times"/></a>
+                    <a class="btn" ng-click="addUrl()" ng-show="$first"><i class="fa fa-plus"/></a>
+                </div>
             </div>
-            <button class="col-sm-1" ng-click="addUrl()"><i class="fa fa-plus"/></button>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('spell')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('spell')">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
     </form>
-    <div class="clearfix"></div>
    </div>
    <div>
     <button class="pull-right" ng-click="addTransform()"><i class="fa fa-plus"></i></button>
     <h2>Transforms</h2>
-    <table class="table table-bordered">
-        <tr><th>from</th><th>to</th><th>type</th><th>Del</th></tr>
-        <tr ng-click="onEditClick($index, 'transform')" ng-repeat="t in vm.transforms">
-            <td>{{t.attributes.from}}</td>
-            <td>{{t.attributes.to}}</td>
-            <td>{{t.attributes.type}}</td>
-            <td><a ng-click="delElement($index, 'transform')" class="btn"><i class="fa fa-times"/></a></td>
+    <ul class="list-unstyled">
+        <li><strong><div class="col-sm-4">from</div><div class="col-sm-4">to</div><div class="col-sm-2">type</div></strong></li>
+        <div class="clearfix"/>
+        <li ng-repeat="t in vm.transforms">
+            <div class="col-sm-4">{{t.attributes.from}}</div>
+            <div class="col-sm-4">{{t.attributes.to}}</div>
+            <div class="col-sm-2">{{t.attributes.type}}</div>
+            <div class="col-sm-2">
+                <a ng-click="delElement($index, 'transform')" class="btn"><i class="fa fa-times"/></a>
+                <a ng-click="onEditClick($index, 'transform')" class="btn" ng-show="$first"><i class="fa fa-edit"/></a>
+            </div>
         </tr>
     </table>
    </div>
    <div ng-show="vm.currentEditor=='transform'" class="bg-pre">
-    <form role="form" class="col-sm-8">
+    <form role="form">
         <div class="form-group">
             <label for="resourceTransformFrom" class="col-sm-2 control-label">From:</label>
             <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.from" class="form-control" id="resourceTransformFrom" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformTo" class="col-sm-2 control-label">To:</label>
             <div class="col-sm-10">
                 <input type="text" ng-model="vm.currentElement.attributes.to" class="form-control" id="resourceTransformTo" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="resourceTransformType">Type:</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <select ng-model="vm.currentElement.attributes.type" ng-change="editChange()" id="resouceTransformType">
                     <option>cct</option>
                     <option>perl</option>
@@ -248,10 +246,9 @@
                 </select>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="resourceTransformDirection">Direction:</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
                 <select ng-model="vm.currentElement.attributes.direction" ng-change="editChange()" id="resouceTransformDirection">
                     <option>both</option>
                     <option>forward</option>
@@ -259,7 +256,6 @@
                 </select>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformFunction" class="col-sm-2 control-label">Function:</label>
             <div class="col-sm-10">
@@ -272,93 +268,88 @@
                 <div class="col-sm-8">
                     <input type="text" ng-model="url.text" class="form-control" ng-change="editChange()"/>
                 </div>
-                <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                <div class="col-sm-2">
+                    <a ng-click="delUrl(url)" class="btn"><i class="fa fa-times"/></a>
+                    <a class="btn" ng-click="addUrl()" ng-show="$first"><i class="fa fa-plus"/></a>
+                </div>
             </div>
-            <button class="col-sm-1" ng-click="addUrl()"><i class="fa fa-plus"/></button>
         </div>
-        <div class="clearfix"></div>
+        <div class="clearfix"/>
 
         <!-- Capitals -->
         <div class="form-group">
             <label for="resourceTransformCapOpenGroup" class="col-sm-4 control-label">Open Capitals Group:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.caps.attributes.opengroup" class="form-control" id="resourceTransformCapOpenGroup" ng-change="editChange()" placeholder='&quot;"\u{2018}\u{201C}\[{(&lt;\u00AB'/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformCapCloseGroup" class="col-sm-4 control-label">Close Capitals Group:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.caps.attributes.closegroup" class="form-control" id="resourceTransformCapCloseGroup" ng-change="editChange()" placeholder='&quot;"\u{2019}\u{201D}]})&gt;\u00BB'/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformCapFinals" class="col-sm-4 control-label">Capitals Sentence Finals:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.caps.attributes.sentencefinal" class="form-control" id="resourceTransformCapFinals" ng-change="editChange()" placeholder='.!?'/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformCapStarts" class="col-sm-4 control-label">Start Capitals:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.caps.attributes.startcaps" class="form-control" id="resourceTransformCapStarts" ng-change="editChange()" tooltip="Defaults to value of Open Capitals Group" tooltip-placement="right"/>
             </div>
         </div>
-        <div class="clearfix"></div>
 
         <!-- Dictionary -->
         <div class="form-group">
             <label for="resourceTransformDictInCol" class="col-sm-4 control-label">Dictionary Input Column:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.dict.attributes.incol" class="form-control" id="resourceTransformDictInCol" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label for="resourceTransformDictOutCol" class="col-sm-4 control-label">Dictionary Output Column:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.currentElement.dict.attributes.outcol" class="form-control" id="resourceTransformDictOutCol" ng-change="editChange()"/>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <label class="col-sm-4 control-label" for="resourceDictNF">Dictionary Normal Form:</label>
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <select ng-model="vm.currentElement.attributes.direction" ng-change="editChange()" id="resouceDictNF">
                     <option>NFC</option>
                     <option>NFD</option>
                 </select>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="form-group">
             <div ng-repeat="url in vm.currentElement.dict.urls">
                 <label class="col-sm-4 control-label"><div ng-show="$first">Dictionary Urls:</div></label>
                 <div class="col-sm-6">
                     <input type="text" ng-model="url.text" class="form-control" ng-change="editChange()"/>
                 </div>
-                <a ng-click="delUrl(url)" class="btn col-sm-1"><i class="fa fa-times"/></a>
+                <div class="col-sm-2">
+                    <a ng-click="delUrl(url)" class="btn"><i class="fa fa-times"/></a>
+                    <a class="btn" ng-click="addUrl()" ng-show="$first"><i class="fa fa-plus"/></a>
+                </div>
             </div>
-            <button class="col-sm-1" ng-click="addUrl()"><i class="fa fa-plus"/></button>
         </div>
-        <div class="clearfix"></div>
 
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('spell')">Save</button>
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn('spell')">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
         </div>
     </form>
-    <div class="clearfix"></div>
    </div>
-  </tab>
-  <tab heading="Help">
+  </div>
+  <div class="col-sm-5">
    <div>
+    <h3>Help</h3>
     Sorry, you are on your own at the moment. Hopefully one day this will give you some help
    </div>
-  </tab>
- </tabset>
+  </div>
 </div>

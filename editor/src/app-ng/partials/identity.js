@@ -6,6 +6,7 @@ angular.module('ldmlEdit.identity', [
   .controller('IdentityCtrl', [ '$scope', 'DomService', function($scope, DomService) {
 
     $scope.vm = {};
+    $scope.help = '';
     var localmap = {
         'language' : 'type',
         'script' : 'type',
@@ -68,9 +69,11 @@ angular.module('ldmlEdit.identity', [
     $scope.cancelBtn = function() {
         $scope.vm.model.changed = false;
         init();
+        $scope.help = '';
     };
     $scope.editChange = function() {
         $scope.vm.model.changed = true;
+        $scope.help = '';
     }
 }]);
 

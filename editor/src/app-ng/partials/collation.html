@@ -1,17 +1,20 @@
 <div>
- <tabset>
-  <tab heading="Data">
+  <div class="col-sm-7">
    <div>
     <button class="pull-right" ng-click="addCollation()"><i class="fa fa-plus"></i></button>
     <h2>Collations</h2>
-    <table class="table table-bordered">
-        <tr><th>Type</th><th>Default</th><th>Del</th></tr>
-        <tr ng-repeat="c in vm.collations" ng-click="onEditClick($index)" ng-show="!c.disabled">
-            <td>{{c.attributes.type}}</td>
-            <td><input type="radio" ng-model="vm.def" value="{{c.attributes.type}}" ng-change="editChange()"/></td>
-            <td> <a ng-click="delCollation($index)" class="btn col-sm-1"><i class="fa fa-times"/></a></td>
-        </tr>
-    </table>
+    <ul class="list-unstyled">
+        <li><strong><div class="col-sm-3">Type</div><div class="col-sm-1">Default</div></strong></li>
+        <li ng-repeat="c in vm.collations" ng-show="!c.disabled">
+            <div class="col-sm-3">{{c.attributes.type}}</div>
+            <div class="col-sm-1"><input type="radio" ng-model="vm.def" value="{{c.attributes.type}}" ng-change="editChange()"/></div>
+            <div class="col-sm-2">
+                <a ng-click="delCollation($index)" class="btn"><i class="fa fa-times"/></a>
+                <a ng-click="onEditClick($index)" class="btn"><i class="fa fa-edit"/></a>
+            </div>
+        </li>
+        <div class="clearfix"/>
+    </ul>
    </div>
    <div ng-show="vm.mode">
     <tabset>
@@ -31,16 +34,19 @@
         </tab>
         <tab heading="PreProcessing" ng-show="vm.currentCollation.format=='PreProcessed'">
             <form role="form">
-                <button class="pull-right" ng-click="addRule()"><i class="fa fa-plus"></i></button>
                 <div class='form-group'>
-                    <table class="col-sm-12">
-                        <tr><th>Match</th><th>Reorder</th><th>Del</th></tr>
-                        <tr ng-repeat="r in vm.currentCollation.rules">
-                            <td><input type='text' ng-model='r.attributes.match' class="form.control col-sm-12" ng-change="editChange()"/></td>
-                            <td><input type='text' ng-model='r.attributes.reorder' class="form.control col-sm-12" ng-change="editChange()"/></td>
-                            <td><a ng-click="delRule($index)" class="btn"><i class="fa fa-times"/></a></td>
-                        </tr>
-                    </table>
+                    <ul class="list-unstyled">
+                        <li><strong><div class="col-sm-5">Match</div><div class="col-sm-5">Reorder</div></strong>
+                        <div class="col-sm-2"><button ng-click="addRule()"><i class="fa fa-plus"></i></button></div>
+                        </li>
+                        <li ng-repeat="r in vm.currentCollation.rules">
+                            <div class="col-sm-5"><input type='text' ng-model='r.attributes.match' class="form.control col-sm-12" ng-change="editChange()"/></div>
+                            <div class="col-sm-5"><input type='text' ng-model='r.attributes.reorder' class="form.control col-sm-12" ng-change="editChange()"/></div>
+                            <div class="col-sm-2">
+                                <a ng-click="delRule($index)" class="btn"><i class="fa fa-times"/></a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </form>
         </tab>
@@ -54,7 +60,7 @@
     </tabset>
     <form role="form">
         <div class="form-group">
-            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
             <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
         </div>
         <div class="form-group">
@@ -75,15 +81,15 @@
         </div>
     </form>
    </div>
-  </tab>
-  <tab heading="Help">
+  </div>
+  <div class="col-sm-5">
    <div>
+    <h3>Help</h3>
     <p> Sorry, you are on your own at the moment. Hopefully one day this will give you some help</p>
 
     <p>Warning. The eor and search collation types come from the root of LDML.
         You should not edit them and so they are not shown.
     </p>
    </div>
-  </tab>
- </tabset>
+  </div>
 </div>
