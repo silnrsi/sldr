@@ -7,6 +7,7 @@ angular.module('ldmlEdit', [
      'ldmlEdit.characters',
      'ldmlEdit.collations',
      'ldmlEdit.delimiters',
+     'ldmlEdit.displays',
      'ldmlEdit.resources',
      'ldmlEdit.segmentations',
      'ldmlEdit.service'
@@ -39,6 +40,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/segmentations', {
       templateUrl : 'app-ng/partials/segmentations.html',
       controller : 'SegmentationsCtrl'
+    });
+    $routeProvider.when('/displays', {
+      templateUrl : 'app-ng/partials/displays.html',
+      controller : 'DisplaysCtrl'
     });
     $routeProvider.otherwise({
       redirectTo : '/loadnsave'
