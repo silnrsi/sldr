@@ -22,7 +22,7 @@ angular.module('ldmlEdit.misc', [
                 if (c.tag == 'orientation')
                     $scope.layout = c.attributes;
             });
-        $scope.fposix = DomService.findElements(null, "posix");
+        $scope.fposix = DomService.findElement(null, "posix");
         if ($scope.fposix != null)
             angular.forEach($scope.fposix.children, function (m) {
                 if (m.tag == 'messages')
@@ -30,8 +30,13 @@ angular.module('ldmlEdit.misc', [
                         $scope.posix[c.tag] = c.text;
                     });
             });
+        $scope.flists = DomService.findElement(null, "listPattern");
+        if ($scope.flists != null)
+            angular.forEach($scope.flists.children, function (p) {
+                if (p.tag == 'listPattern')
+                    $scope.lists.push({type : p.attributes.type, value : p.text});
+            });
     };
-    $scope.$on('dom', init);
     init();
 
     var update_model = function() {
@@ -59,6 +64,7 @@ angular.module('ldmlEdit.misc', [
                     orientation.attributes[k] = orientationmap[v];
             });
         }
+
         var have_posix = false;
         angular.forEach($scope.posix, function(p) {
             if (p.text != '')
@@ -84,5 +90,36 @@ angular.module('ldmlEdit.misc', [
                     messages.children.push({tag : k, attributes : {}, text : v});
             });
         }
+
+        var have_lists = false;
+        angular.forEach($scope.lists, function(p) {
+            if (p.text != '')
+                have_lists = true;
+        });
+        if (have_lists) {
+            var lists = null;
+            if ($scope.flists == null) {
+                $scope.flists = {tag : 'listPatterns', attributes : {}, children : []};
+                DomService.updateTopLevel($scope.flists);
+            }
+            angular.forEach($scope.flists.children, function (m) {
+                if (m.tag == 'listPattern')
+                    lists = m;
+            });
+            if (lists == null) {
+                lists = {tag : 'listPattern', attributes : {}};
+                $scope.flists.children.push(lists);
+            }
+            lists.children = [];
+            angular.forEach($scope.lists, function(p) {
+                lists.children.push({tag : 'listPatternPart', attributes : {type : p.type}, text : p.value});
+            });
+        }
+    };
+    $scope.delPattern = function(ind) {
+        $scope.lists.splice(ind, 1);
+    };
+    $scope.addPattern = function() {
+        $scope.lists.push({type: '', value: ''});
     };
 }]);

@@ -1,0 +1,166 @@
+<div>
+    <div class="col-sm-7">
+        <h2>Numbers</h2>
+        <accordion>
+            <accordion-group>
+                <accordion-heading>Numbering Systems</accordion-heading>
+                <form>
+                    <div class="form-group">
+                        <div class="col-sm-3">Numbering System:</div>
+                        <div class="col-sm-3">Default</div>
+                        <div class="col-sm-5"><input type="text" ng-model="vm.defaultNumberingSystem.text" class="form-control" ng-change="editChange()"/></div>
+                        <div class="col-sm-1"><a class="btn" ng-click="addNumSystem()"><i class="fa fa-plus"/></a></div>
+                    </div>
+                    <div class="form-group" ng-repeat="s in vm.otherNumberingSystems">
+                        <div class="col-sm-offset-3 col-sm-3">
+                            <select class="form-control" ng-model="s.tag" ng-change="editChange()">
+                                <option>native</option>
+                                <option>traditional</option>
+                                <option>finance</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-5"><input type="text" ng-model="s.text" class="form-control" ng-change="editChange()"/></div>
+                        <div class="col-sm-1"><a class="btn" ng-click="delNumSystem($index)"><i class="fa fa-times"/></a></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="applyBtn()">Apply</button>
+                            <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>Symbols</accordion-heading>
+                <form>
+                    <div class="form-group">
+                        <div class="col-sm-4">System:</div>
+                        <div class="col-sm-8"><input type="text" class='form-control' ng-model="vm.symbolSystem"  ng-change="editChange()" placeholder="Latn"/></div>
+                    </div>
+                    <div class="form-group" ng-repeat="t in symbolTypes">
+                        <div class="col-sm-4">{{t.label}}:</div>
+                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="vm.symbols[t.tag].text" ng-change="editChange()"/></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="applyBtn()">Apply</button>
+                            <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>Miscellaneous</accordion-heading>
+                <form>
+                    <div class="form-group">
+                        <div class="col-sm-3">atLeast:</div>
+                        <div class="col-sm-9"><input type="text" class="form-control" ng-model="vm.misc.atLeast" ng-change="editChange()"/></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">range:</div>
+                        <div class="col-sm-9"><input type="text" class="form-control" ng-model="vm.misc.range" ng-change="editChange()"/></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3">Min Grouping Digits:</div>
+                        <div class="col-sm-9"><input type="text" class="form-control" ng-model="vm.minimumGroupingDigits.text" ng-change="editChange()"/></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="applyBtn()">Apply</button>
+                            <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+            <accordion-group ng-repeat="f in formatTypes">
+                <accordion-heading>{{f.title}}</accordion-heading>
+                <ul class="list-unstyled" ng-show="f.hasContexts">
+                    <li><strong><div class="col-sm-offset-2 col-sm-3">Match</div><div class="col-sm-3">Surrounding</div><div class="col-sm-3">Insert Between</div></strong></li>
+                    <li ng-repeat="t in ['before', 'after']">
+                        <div class="col-sm-2">{{t}}</div>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm[f.id][t].match" ng-change="editChange()"/></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm[f.id][t].surrounding" ng-change="editChange()"/></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm[f.id][t].insert" ng-change="editChange()"/></div>
+                    </li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-1">Type</div><div class="col-sm-8">Pattern</div><div class="col-sm-1">Default</div></strong><div class="col-sm-1"><button ng-click="addFormat(f)"><i class="fa fa-plus"/></button></div></li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="l in vm[f.id]">
+                        <div class="col-sm-1"><select class="form-control" ng-model="l.type" ng-options="lengthTypes" ng-change="editChange()"/></div>
+                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="l.pattern" ng-change="editChange()"/></div>
+                        <div class="col-sm-1"><input type="radio" ng-model="vm.defaults[f.id]" ng-value="l.type" ng-change="editChange()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="delFormat(f, $index)" class="btn"><i class="fa fa-times"/></a>
+                            <a ng-click="openCompact(l, 'pattern')" class="btn"><i class="fa fa-caret-right"/></a>
+                        </div>
+                        <ul ng-show="l.subOpen == 'pattern'">
+                            <li><strong><div class="col-sm-2">Type</div><div class="col-sm-2">Count</div><div class="col-sm-6">Pattern</div></strong></li>
+                            <div class="clearfix"/>
+                            <li ng-repeat="s in l.subpatterns">
+                                <div class="col-sm-2"><input type="text" ng-model="s.attributes.type" ng-change="editChange()"/></div>
+                                <div class="col-sm-2"><select ng-model="s.attributes.count" ng-options="countTypes" ng-change="editChange()"/></div>
+                                <div class="col-sm-6"><input type="text" ng-model="s.text" ng-change="editChange()"/></div>
+                                <div class="col-sm-2">
+                                    <a class="btn" ng-click="delSub(l, $index, 'pattern')"><i class="fa f-times"/></a>
+                                    <a class="btn" ng-click="addSub(l, 'pattern')" ng-show="$first"><i class="fa f-plus"/></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="applyBtn()">Apply</button>
+                        <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                    </div>
+                </div>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>Currencies</accordion-heading>
+                <ul class="list-unstyled">
+                    <li><strong>
+                        <div class="col-sm-2">Code</div>
+                        <div class="col-sm-2">Symbol</div>
+                        <div class="col-sm-4">Display</div>
+                        <div class="col-sm-3">Pattern</div></strong>
+                        <div class="col-sm-1"><button ng-click="addCurrency()"><i class="fa fa-plus"/></button></div>
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="c in vm.currencies">
+                        <div class="col-sm-2"><input type="text" class="form-control" ng-model="c.type" ng-change="editChange()"/></div>
+                        <div class="col-sm-2"><input type="text" class="form-control" ng-model="c.symbol" ng-change="editChange()"/></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="c.name"/></div>
+                        <div class="col-sm-1"><a class="btn" ng-click="openCompact(c, 'display')"><i class="fa fa-caret-right"/></a></div>
+                        <div class="col-sm-2"><input type="text" class="form-control" ng-model="c.pattern"/></div>
+                        <div class="col-sm-1"><a class="btn" ng-click="openCompact(c, 'pattern')"><i class="fa fa-caret-right"/></a></div>
+                        <div class="col-sm-1"><a class="btn" ng-click="delElement(vm.currencies, $index)"><i class="fa fa-times"/></a></div>
+                        <ul ng-show="c.subOpen">
+                            <li><strong><div class="col-sm-2">Type</div><div class="col-sm-2">Count</div><div class="col-sm-6">Value</div></strong></li>
+                            <div class="clearfix"/>
+                            <li ng-repeat="s in l.subs">
+                                <div class="col-sm-2"><input type="text" ng-model="s.type" ng-change="editChange()"/></div>
+                                <div class="col-sm-2"><select ng-model="s.count" ng-options="countTypes" ng-change="editChange()"/></div>
+                                <div class="col-sm-6"><input type="text" ng-model="s.pattern" ng-change="editChange()"/></div>
+                                <div class="col-sm-2">
+                                    <a class="btn" ng-click="delSub(c, $index, c.subOpen)"><i class="fa f-times"/></a>
+                                    <a class="btn" ng-click="addSub(c, c.subOpen)" ng-show="$first"><i class="fa f-plus"/></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="applyBtn()">Apply</button>
+                        <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="col-sm-5" style="height:100vh; overflow:auto;">
+        <h3>Help</h3>
+        We are way beyond that here!
+    </div>
+</div>

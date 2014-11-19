@@ -9,6 +9,7 @@ angular.module('ldmlEdit', [
      'ldmlEdit.delimiters',
      'ldmlEdit.displays',
      'ldmlEdit.misc',
+     'ldmlEdit.numbers',
      'ldmlEdit.resources',
      'ldmlEdit.segmentations',
      'ldmlEdit.service'
@@ -41,6 +42,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/misc', {
       templateUrl : 'app-ng/partials/misc.html',
       controller : 'MiscCtrl'
+    });
+    $routeProvider.when('/numbers', {
+      templateUrl : 'app-ng/partials/numbers.html',
+      controller : 'NumbersCtrl'
     });
     $routeProvider.when('/resources', {
       templateUrl : 'app-ng/partials/resources.html',

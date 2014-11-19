@@ -81,7 +81,6 @@ angular.module('ldmlEdit.delimiters', [
         if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
             $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     var update_model = function() {

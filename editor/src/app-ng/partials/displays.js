@@ -78,6 +78,10 @@ angular.module('ldmlEdit.displays', [
     $scope.cancelBtn = function() {
         init();
     };
+    $scope.addDisplay = function() {
+        $scope.vm.model.push({ type : '', data : [], count : 0, currentPage : 1, itemsperpage : 10 });
+        sub.changed = true;
+    };
 }]);
 
 

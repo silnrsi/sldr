@@ -99,9 +99,11 @@ ElementTree.prototype.asXML = function() {
                 res = res + indent + "<!--" + e.comments[i] + "-->\n";
         }
         var res = res + indent + "<" + e.tag;
-        for (var k in e.attributes) {
-            if (e.attributes.hasOwnProperty(k)) {
-                res = res + " " + k + '="' + protect(e.attributes[k]) + '"';
+        if (e.attributes) {
+            for (var k in e.attributes) {
+                if (e.attributes.hasOwnProperty(k)) {
+                    res = res + " " + k + '="' + protect(e.attributes[k]) + '"';
+                }
             }
         }
         if ((e.text != null && e.text.length > 0) || (e.children != null && e.children.length > 0))
