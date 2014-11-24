@@ -24,17 +24,39 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from sldr.ldml import Ldml, flattenlocale
 import os, sys, codecs
+from argparse import ArgumentParser
 
-if len(sys.argv) < 4 :
-    print """ldmlmerge this other base"""
-    sys.exit(1)
+try :
+    from sldr.ldml import Ldml, flattenlocale
+except ImportError :
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    from sldr.ldml import Ldml, flattenlocale, etwrite
 
-this = Ldml(sys.argv[1])
-other = Ldml(sys.argv[2])
-base = Ldml(sys.argv[3])
+parser = ArgumentParser()
+parser.add_argument('this',help='File of interest')
+parser.add_argument('other',help='Another file of interest')
+parser.add_argument('base',help="Common ancestor")
+parser.add_argument('-o','--output',help="Output file")
+parser.add_argument('-d','--dirs',action='append',help='Directory to search for ldml files, repeatable')
+args = parser.parse_args()
+
+this = Ldml(args.this)
+other = Ldml(args.other)
+base = Ldml(args.base)
 this.merge(other, base)
 sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
 this.normalise()
-this.serialize_xml(sys.stdout.write)
+if args.dirs :
+    this = flattenlocale(this, dirs=args.dirs, rev='r')
+
+if not args.output :
+    outfh = sys.stdout
+else :
+    outfh = codecs.open(outf, "w", encoding="utf-8")
+
+this.serialize_xml(outfh.write)
+
+if args.output :
+    outfh.close()
+
