@@ -44,6 +44,7 @@ parser.add_argument('-l','--locale',action='append', help='Locale to flatten (if
 parser.add_argument('-r','--reverse',action='store_true', help='Unflatten rather than flatten')
 parser.add_argument('-c','--copy',action='store_true', help='Unflatten rather than flatten')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
+parser.add_argument('-A','--antialias',action='store_true', help='Remove aliases')
 parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
 args = parser.parse_args()
@@ -72,17 +73,22 @@ elif args.copy :
     action = 'c'
     
 def doit(l) :
-    try :
+    if args.single :
         curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs = True)
-    except Exception, e :
-        print "Failed in " + l
-        raise e
+    else :
+        try :
+            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs = True)
+        except Exception, e :
+            print "Failed in " + l
+            raise e
     if curr is not None :
         curr.normalise()
         if private is not None :
             res = curr.remove_private()
         if args.revid :
-            curr.add_revid(args.revid)
+            curr.add_id(revid = args.revid)
+        if args.antialias :
+            curr.resolve_aliases()
         if args.alphadir :
             outf = os.path.join(args.outdir, l[0].lower(), l + '.xml')
         else :
