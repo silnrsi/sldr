@@ -153,6 +153,7 @@ class _arrayDict(dict) :
 class _minhash(object) :
     _maxbits = 56
     _bits = 4
+    _mask = 0xFFFFFFFFFFFFFFFF
 
     def __init__(self, hasher = hash, nominhash = True) :
         self.minhash = None if nominhash else (1 << self._maxbits) - 1
@@ -171,11 +172,11 @@ class _minhash(object) :
     def update(self, *vec) :
         h = map(self.hasher, vec)
         if self.minhash is not None : map(self._minhashupdate, h)
-        self.hashed = reduce(lambda x,y:x * 1000003 + y, h, self.hashed)
+        self.hashed = reduce(lambda x,y:x * 1000003 + y, h, self.hashed) & self._mask
 
     def merge(self, aminh) :
         if self.minhash is not None and aminh.minhash is not None : self._minhashupdate(aminh.minhash)
-        self.hashed = self.hashed * 1000003 + aminh.hashed
+        self.hashed = (self.hashed * 1000003 + aminh.hashed) & self._mask
 
     def _minhashupdate(self, ahash) :
         x = (1 << self._bits) - 1
@@ -277,12 +278,15 @@ class Ldml(ETWriter) :
     def __init__(self, fname, usedrafts=True) :
         if not hasattr(self, 'elementOrder') :
             self.__class__.ReadMetadata()
-        self.fname = fname
         self.namespaces = {}
         self.useDrafts = usedrafts
-        fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
         curr = None
         comments = []
+        if isinstance(fname, basestring) :
+            self.fname = fname
+            fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
+        else :
+            fh = fname
         parser = et.XMLParser(target=et.TreeBuilder(), encoding="UTF-8")
         def doComment(data) :
             # resubmit as new start tag=! and sort out in main loop
@@ -325,6 +329,25 @@ class Ldml(ETWriter) :
         if parent is not None :
             res.parent = parent
         return res
+
+    def addnode(self, parent, tag, **attribs) :
+        e = et.SubElement(parent, tag, **attribs)
+        e.parent = parent
+        if self.useDrafts :
+            self._calc_hashes(e, self.useDrafts)
+        return e
+
+    def find(self, path, elem=None) :
+        def nstons(m) :
+            for (k, v) in self.namespaces.items() :
+                if m.group(1) == v :
+                    return "{"+k+"}"
+            return ""
+
+        if elem is None :
+            elem = self.root
+        path = re.sub(ur"([a-z0-9]+):", nstons, path)
+        return elem.find(path)
 
     def get_parent_locales(self, name) :
         if not hasattr(self, 'parentLocales') :
@@ -514,7 +537,7 @@ class Ldml(ETWriter) :
     def _align(self, this, other, base) :
         """Internal method to merge() that aligns elements in base and other to this and
            records the results in this. O(7N)"""
-        olist = dict(map(lambda x: (x.contentHash, x), other))
+        olist = dict(map(lambda x: (x.contentHash, x), other)) if other is not None else {}
         blist = dict(map(lambda x: (x.contentHash, x), base)) if base is not None else {}
         for t in list(this) :
             t.mergeOther = olist.get(t.contentHash, None)
@@ -535,13 +558,13 @@ class Ldml(ETWriter) :
             t.mergeOther = odict.pop(t.attrHash)
             if t.mergeOther is not None :
                 del olist[t.mergeOther.contentHash]
-                if t.mergeBase is None and base is not None :
-                    if t.mergeOther.contentHash in blist :
-                        t.mergeBase = blist.pop(t.mergeOther.contentHash)
-                        bdict.remove(t.mergeBase.attrHash, t.mergeBase)
-                    else :
-                        t.mergeBase = bdict.pop(t.attrHash)
-                        if t.mergeBase is not None : del blist[t.mergeBase.contentHash]
+            if t.mergeBase is None and base is not None :
+                if t.mergeOther is not None and t.mergeOther.contentHash in blist :
+                    t.mergeBase = blist.pop(t.mergeOther.contentHash)
+                    if t.mergeBase is not None : bdict.remove(t.mergeBase.attrHash, t.mergeBase)
+                if t.mergeBase is None :
+                    t.mergeBase = bdict.pop(t.attrHash)
+                    if t.mergeBase is not None : del blist[t.mergeBase.contentHash]
         for e in olist.values() :       # pick up stuff in other but not in this
             newe = self.copynode(e, this.parent)
             if base is not None and e.contentHash in blist :
@@ -787,7 +810,7 @@ def _prepare_parent(next, token) :
 ep.ops['..'] = _prepare_parent
 
 
-def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False) :
+def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False, fname=None) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.
@@ -811,10 +834,14 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
                 return Ldml(f)
         return None
 
-    if not isinstance(lname, Ldml) :
-        l = getldml(lname, dirs)
-    else :
+    if isinstance(lname, Ldml) :
         l = lname
+        lname = fname
+    elif not isinstance(lname, basestring) :
+        l = Ldml(lname)
+        lname = fname
+    else :
+        l = getldml(lname, dirs)
     if l is None : return l
     if skipstubs and len(l.root) == 1 and l.root[0].tag == 'identity' : return None
     if rev != 'c' :
@@ -849,7 +876,7 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
         if i is not None :
             s = l.get_script(lname)
             if s and rev != 'r' and i.find('script') is None :
-                se = et.SubElement(i, "script", type=s)
+                se = l.addnode(i, "script", type=s)
             elif s and rev == 'r' :
                 se = i.find('script')
                 if se is not None and se.get('type') == s :

@@ -26,6 +26,8 @@
 
 import os, sys, codecs
 from argparse import ArgumentParser
+from subprocess import check_output
+from StringIO import StringIO
 
 try :
     from sldr.ldml import Ldml, flattenlocale
@@ -33,24 +35,61 @@ except ImportError :
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
     from sldr.ldml import Ldml, flattenlocale, etwrite
 
+def find_ldml(fname, dirs) :
+    for d in dirs :
+        f = os.path.join(d, fname)
+        if os.path.exists(f) : return f
+        f = os.path.join(d, fname[0].lower(), fname)
+        if os.path.exists(f) : return f
+    return None
+
 parser = ArgumentParser()
 parser.add_argument('this',help='File of interest')
-parser.add_argument('other',help='Another file of interest')
-parser.add_argument('base',help="Common ancestor")
+parser.add_argument('base',help="Common ancestor, or file to use in git")
+parser.add_argument('other',nargs='?',help='Another file of interest')
 parser.add_argument('-o','--output',help="Output file")
 parser.add_argument('-d','--dirs',action='append',help='Directory to search for ldml files, repeatable')
+parser.add_argument('-g','--git',action='store_true',help='Automatically work out what to do inside a git repo using sil:identity/@revid')
 parser.add_argument('-c','--default',default='proposed',help="Default Change draft level")
 parser.add_argument('-C','--copycomments',help="Assumes this file has comments stripped rather than deleted, and uses either 'base' or 'other' as source of comments")
 args = parser.parse_args()
 
 this = Ldml(args.this)
-other = Ldml(args.other)
-base = Ldml(args.base)
+if args.dirs :
+    this = flattenlocale(this, dirs=args.dirs, rev='f', fname=args.this)
+
+other = None
+if args.git :
+    idnode = this.find("./identity/special/sil:identity")
+    revid = None
+    if idnode is not None :
+        revid = idnode.get('revid', None)
+    if revid is not None :
+        fpath = find_ldml(args.base, args.dirs)
+        if fpath is None : raise SyntaxError("Bad base value: " + args.base + ", or search dirs: " + args.dirs)
+        base_str = check_output(["git", "show", revid+":"+fpath])
+        basefh = StringIO(base_str)
+        base = flattenlocale(basefh, dirs=args.dirs, rev='f', fname=args.base)
+        latestid = check_output(["git", "log", "-n", "1", '--pretty=format:%H', revid+"..", fpath])
+        if latestid :
+            other_str = check_output(["git", "show", latestid+":"+fpath])
+            otherfh = StringIO(other_str)
+            other = flattenlocale(otherfh, dirs=args.dirs, rev='f', fname=args.base)
+else :
+    base = Ldml(args.base)
+    if args.other :
+        other = Ldml(args.other)
+
 this.merge(other, base, default=args.default, copycomments=args.copycomments)
 sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
 this.normalise()
-if args.dirs :
-    this = flattenlocale(this, dirs=args.dirs, rev='r')
+
+if args.git :
+    idnode = this.find("./identity/special/sil:identity")
+    if idnode is not None :
+        for k in ('uid', 'revid') :
+            if k in idnode.attrib : del idnode.attrib[k]
+    this = flattenlocale(this, rev='r', dirs=args.dirs, fname=args.this)
 
 if not args.output :
     outfh = sys.stdout
