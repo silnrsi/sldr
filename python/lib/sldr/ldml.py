@@ -414,8 +414,6 @@ class Ldml(ETWriter) :
         base.contentHash.merge(base.attrHash)               #   and keying hash
 
     def serialize_xml(self, write, base = None, indent = '', topns = True, namespaces = {}) :
-#        if base is None and self.useDrafts :
-#            self.namespaces[self.silns] = 'sil'
         if self.useDrafts :
             n = base if base is not None else self.root
             offset = 0
@@ -434,8 +432,8 @@ class Ldml(ETWriter) :
                 if hasattr(c, 'tempnode') and c.tempnode :
                     n.remove(c)
 
-    def get_modified_draft(self, e, default=None) :
-        ldraft = e.get('draft', None)
+    def get_draft(self, e, default=None) :
+        ldraft = e.get('draft', None) if e is not None else None
         if ldraft is not None : return _draftratings.get(ldraft, 5)
         return _draftratings.get(default, e.document.default_draft)
 
@@ -517,10 +515,10 @@ class Ldml(ETWriter) :
         """Internal method to merge() that aligns elements in base and other to this and
            records the results in this. O(7N)"""
         olist = dict(map(lambda x: (x.contentHash, x), other))
-        if base is not None : blist = dict(map(lambda x: (x.contentHash, x), base))
+        blist = dict(map(lambda x: (x.contentHash, x), base)) if base is not None else {}
         for t in list(this) :
             t.mergeOther = olist.get(t.contentHash, None)
-            t.mergeBase = blist.get(t.contentHash, None) if base is not None else None
+            t.mergeBase = blist.get(t.contentHash, None)
             if t.mergeOther is not None :
                 del olist[t.contentHash]
                 if t.mergeBase is not None :
@@ -544,30 +542,58 @@ class Ldml(ETWriter) :
                     else :
                         t.mergeBase = bdict.pop(t.attrHash)
                         if t.mergeBase is not None : del blist[t.mergeBase.contentHash]
-            elif t.mergeBase is not None :
-                this.remove(t)
         for e in olist.values() :       # pick up stuff in other but not in this
-            if base is None or e.contentHash in blist :
-                this.append(e)
-                e.mergeOther = None     # don't do anything with this in merge()
+            newe = self.copynode(e, this.parent)
+            if base is not None and e.contentHash in blist :
+                newe.mergeBase = blist.pop(e.contentHash)
+            elif base is not None :
+                newe.mergeBase = bdict.pop(e.attrHash)
+                while newe.mergeBase is not None and newe.mergeBase.contentHash not in blist :
+                    newe.mergeBase = bdict.pop(e.attrHash)
+                if newe.mergeBase is not None :
+                    del blist[newe.mergeBase.contentHash]
+            else :
+                newe.mergeBase = None
+            newe.mergeOther = None     # don't do anything with this in merge()
+            this.append(newe)
 
     def _merge_with_alts(self, base, other, target, default='proposed', copycomments=None) :
         """3-way merge the alternates putting the results in target. Assumes target content is the required ending content"""
-        if base.contentHash != target.contentHash and (base.text or base.tag in self.blocks) and self.get_draft(base) < self.get_draft(target, default) :
+        if base is not None and base.contentHash != target.contentHash and (base.text or base.tag in self.blocks) and self.get_draft(base) < self.get_draft(target, default) :
             self._add_alt(target, target, default=default)
             target[:] = base
             for a in ('text', 'contentHash', 'comments', 'commentsafter') :
-                setattr(target, a, getattr(base, a, None))
+                if hasattr(base, a) :
+                    setattr(target, a, getattr(base, a, None))
+                elif hasattr(target, a) :
+                    delattr(target, a)
             if 'alt' in target.attrib :
                 del target.attrib['alt']
             if self.get_draft(base) != target.document.default_draft :
                 target.set('draft', _alldrafts[self.get_draft(base)])
+        elif base is None and other is not None and other.contentHash != target.contentHash and (target.text or target.tag in self.blocks) :
+            if self.get_draft(target, default) < self.get_draft(other, default) :
+                self._add_alt(target, origin, default=default)
+            else :
+                self._add_alt(target, target, default=default)
+                target[:] = other
+                for a in ('text', 'contentHash', 'comments', 'commentsafter') :
+                    if hasattr(other, a) :
+                        setattr(target, a, getattr(other, a, None))
+                    elif hasattr(target, a) :
+                        delattr(target, a)
+                if 'alt' in target.attrib :
+                    del target.attrib['alt']
+                if self.get_draft(other) != target.document.default_draft :
+                    target.set('draft', _alldrafts[self.get_draft(other)])
         elif copycomments is not None :
-            for a in ('comments', 'commentsafter') :
-                setattr(target, a, getattr((base if copycomments =='base' else other), a))
-        temp = base.get('{'+self.silns+'}alias', '')
-        if temp :
-            target.set('{'+self.silns+'}alias', '1')
+            commentsource = base if copycomments == 'base' else other
+            if comentsource is not None :
+                for a in ('comments', 'commentsafter') :
+                    if hasattr(commentsource, a) :
+                        setattr(target, a, getattr(commentsource, a))
+                    elif hasattr(target, a) :
+                        delattr(target, a)
         self._merge_alts(base, other, target, default)
 
     def _merge_alts(self, base, other, target, default='propose') :
@@ -575,9 +601,8 @@ class Ldml(ETWriter) :
         if not hasattr(target, 'alternates') :
             target.alternates = dict(other.alternates)
             return
-        if base is None : return
-        balt = getattr(base, 'alternates', {})
-        allkeys = set(balt.keys() + target.alternates + other.alternates)
+        balt = getattr(base, 'alternates', {}) if base is not None else {}
+        allkeys = set(balt.keys() + target.alternates.keys() + other.alternates.keys())
         for k in allkeys :
             if k not in balt :
                 if k not in other.alternates : continue
@@ -620,23 +645,32 @@ class Ldml(ETWriter) :
             target.alternates[alt].set('alt', alt)
 
     def merge(self, other, base, this=None, default=None, copycomments=None) :
-        """Does 3 way merging of self/this and other against a common base. O(N)"""
+        """Does 3 way merging of self/this and other against a common base. O(N), base or other can be None"""
         if this == None : this = self.root
-        if hasattr(other, 'root') : other = other.root
-        if hasattr(base, 'root') : base = base.root
+        if other is not None and hasattr(other, 'root') : other = other.root
+        if base is not None and hasattr(base, 'root') : base = base.root
         self._align(this, other, base)
-        for t in list(this) :                                   # go through our children merging them
+        # other and base can be None
+        for t in list(this) :       # go through children merging them
+            if t.mergeBase is None :
+                if self.useDrafts and t.mergeOther is not None and t.mergeOther.contentHash != t.contentHash :
+                    self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                continue
             if t.mergeOther is not None and t.mergeOther.contentHash != t.contentHash :     # other differs
-                if t.mergeBase is not None and t.mergeBase.contentHash == t.contentHash :   # base doesn't
+                if t.mergeBase.contentHash == t.contentHash :   # base doesn't
                     if self.useDrafts :
                         self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
                     else :
                         this.remove(t)                                  # swap us out
                         this.append(t.mergeOther)
-                elif t.mergeBase is not None and t.mergeBase.contentHash != t.mergeOther.contentHash :
+                elif t.mergeBase.contentHash != t.mergeOther.contentHash :
                     self.merge(t.mergeOther, t.mergeBase, t)        # could be a clash so recurse
-            elif self.useDrafts and t.mergeBase is not None :
-                self._merge_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                elif self.useDrafts :       # base == other
+                    self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+            elif t.mergeOther is None and t.mergeBase.contentHash == t.contentHash :
+                this.remove(t)
+            elif self.useDrafts :
+                self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
         if base is not None and this.text == base.text :
             if other is not None:
                 this.text = other.text
@@ -645,21 +679,23 @@ class Ldml(ETWriter) :
                 this.text = None
                 this.contentHash = None
             if self.useDrafts : self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
-        elif other is not None and other.text != base.text :
+        elif base is not None and other is not None and other.text != base.text :
             self.clash_text(this.text, other.text, (base.text if base is not None else None),
                                         this, other, base, usedrafts=self.useDrafts)
             if self.useDrafts :
-                self._merge_with_alts(base, other, this)
+                self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
                 return
-        oattrs = set(other.keys())
+        elif self.useDrafts :
+            self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+        oattrs = set(other.keys() if other is not None else [])
         for k in this.keys() :                                  # go through our attributes
             if k in oattrs :
-                if base is not None and k in base.attrib and base.get(k) == this.get(k) and this.get(k) != other.get(k) :
+                if k in base.attrib and base.get(k) == this.get(k) and this.get(k) != other.get(k) :
                     this.set(k, other.get(k))                       # t == b && t != o
                 elif this.get(k) != other.get(k) :
                     self.clash_attrib(k, this.get(k), other.get(k), base.get(k), this, other, base, usedrafts=self.useDrafts)    # t != o
                 oattrs.remove(k)
-            elif base and k in base.attrib :                        # o deleted it
+            elif base is not None and k in base.attrib :                        # o deleted it
                 this.attrib.pop(k)
         for k in oattrs :                                       # attributes in o not in t
             if base is None or k not in base.attrib or base.get(k) != other.get(k) :
