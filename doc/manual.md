@@ -16,58 +16,25 @@ inserted into all the generated files.
 ## Manually Accepting a Contribution
 
 A user has edited an LDML file and sent it to you. The file is a flattened file. What do you do now?
+ldmlmerge does most of the work for you. The following example command shows what is typically done:
 
-The first step is to unflatten the file against the revision that the file originated from.
-The file has an `ldml/identity/revid` element whose value is the SHA of the revision that the
-file originated from (or perhaps a later version, but it's OK to go back to here). You don't
-need to use the whole SHA value, but cut and paste is easy enough.
+    pythons/scripts/ldmlmerge -g -C base -d sldr -o cont_Latn.xml temp/cont_Latn.xml cont_Latn.xml
 
-    git checkout -b wip 0123456789abcdefdeadbeeffeedcafe
+This command does a number of things:
 
-If you really want to be cute and not have to deal in sha values at all you can do
-(and you have xmlstarlet installed):
+*   Reads the input file `temp/cont_Latn.xml` and extracts the `sil:identity/@revid`
+*   Extracts that version of cont_Latn.xml (the final parameter) having looked for it in the sldr source directory,
+    as specified by the -d option
+*   Finds the latest version of cont_Latn.xml and extracts that if it is newer than the one specified by @revid.
+*   Flattens all the files internally
+*   Does a 2 or 3 way merge incorporating @draft, @alt, sil:identity/@uid, etc.
+*   Replaces the comments from the base file, assuming the sender has stripped them. If you trust that the
+    sender has done the right thing with comments, then omit the -C option.
+*   Strips out @uid and @revid from sil:identity and unflattens the result
+*   Saves the output to cont_Latn.xml as specified by the -o option
 
-    git checkout -b wip `xmlstarlet sel -N sil='urn://www.sil.org/ldml/0.1' -t -v "/ldml/identity/special/sil:identity/@revid" temp/cont_Latn.xml`
-
-Now we have to unflatten the contributed file to get it back to something that can be put into the
-sldr directory, without a `identity/revid` or `identity/script`.
-
-    python python/scripts/ldmlflatten -i temp -r -o sldr -l cont_Latn -s
-
-Then we need to commit the change
-
-    git commit -a -m "Update cont_Latn from my friend"
-    git rebase master
-    git checkout master
-    git merge wip
-
-This takes some explaining. We draw some diagrams. Initially we have this state:
-
-    C---D---E---F master
-
-And let D have the SHA in the file. After `git checkout -b wip 0123456` we have
-
-        wip
-    C---D---E---F master
-
-Then we commit our change:
-
-          G wip
-         /
-    C---D---E---F master
-
-After the rebase we get:
-
-                  G wip
-                 /
-    C---D---E---F master
-
-Finally we have to move master to the end of the chain. We do this by checking out master
-and then merging in wip, which fast forwards master to wip:
-
-    C---D---E---F---G master
-
-At this point we do not care what wip is pointing at. It will get moved by a later checkout.
+Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
+in sldr and commit your change.
 
 
 ## Importing CLDR Data

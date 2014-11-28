@@ -34,8 +34,10 @@ angular.module('ldmlEdit.numbers', [
     angular.forEach($scope.formatTypes, function (f) {
         $scope.vm[f.id] = [];
     });
+    var currencyMap = {currencyMatch : 'match', surroundingMatch : 'surrounding', insertBetween : 'insert'};
 
     var init = function() {
+        $scope.vm.newlang = '';
         $scope.fres = DomService.findElement(null, "numbers");
         if ($scope.fres == null)
             $scope.fres = {tag : 'numbers', attributes : {}, children : []};
@@ -82,10 +84,13 @@ angular.module('ldmlEdit.numbers', [
             } else if (aNumber.tag in $scope.formatTypes) {
                 var formats = [];
                 var aType = $scope.formatTypes[aNumber.tag];
-                $scope.vm[aType.id] = formats;
+                var sys = aNumber.attributes.numberSystem
+                if ($scope.vm[aType.id] == null)
+                    $scope.vm[aType.id] = {};
+                $scope.vm[aType.id][sys] = { formats : formats, id : sys };
                 angular.forEach(aNumber.children, function (l) {
                     if (l.tag == 'default')
-                        $scope.vm.defaults[aType.id] = l.attributes.type;
+                        $scope.vm.defaults[aType.id][sys] = l.attributes.type;
                     else if (l.tag == aType.id + "Length") {
                         var curr = {type : l.attributes.type, subpatterns : []};
                         formats.push(curr);
@@ -100,6 +105,16 @@ angular.module('ldmlEdit.numbers', [
                                     }
                                 });
                             }
+                        });
+                    }
+                    else if (l.tag == 'currencySpacing') {
+                        angular.forEach(l.children, function(s) {
+                            var type = s.tag.slice(0, -8);
+                            var curr = {};
+                            $scope.vm[aType.id][sys][type] = curr;
+                            angular.forEach(s.children, function(c) {
+                                curr[currencyMap[c.tag]] = c.text;
+                            });
                         });
                     }
                 });
@@ -183,14 +198,14 @@ angular.module('ldmlEdit.numbers', [
                 $scope.fres.children.push(other);
         }
         angular.forEach($scope.formatTypes, function (t, k) {
-            if ($scope.vm[t.id]) {
-                var other = {tag : k, children : []};
+            angular.forEach($scope.vm[t.id], function (a, n) {
+                var other = {tag : k, children : [], attributes : { numberSystem : n}};
                 var addme = false;
-                if ($scope.vm.defaults[t.id]) {
+                if ($scope.vm.defaults[t.id][n]) {
                     other.children.push({tag : 'default', attributes : {type : $scope.vm.defaults[t.id]}});
                     addme = true;
                 }
-                angular.forEach($scope.vm[t.id], function(f) {
+                angular.forEach(a.formats, function(f) {
                     var format = {tag : t.id + "Length", attributes : {type : f.type}, children : []};
                     var formatc = {tag : t.id, children : []};
                     format.children.push(formatc);
@@ -203,11 +218,31 @@ angular.module('ldmlEdit.numbers', [
                     other.children.push(format);
                     addme = true;
                 });
+                if (t.id == 'currency') {
+                    var temp = {tag : 'currencySpacing', children : []};
+                    angular.forEach(['before', 'after'], function(f) {
+                        var res = {tag : f + 'Currency', children : []}
+                        if (f in a) {
+                            angular.forEach(currencyMap, function (v, k) {
+                                res.children.push({tag : k, text : a[f][v]});
+                            });
+                        }
+                        if (res.children.length)
+                            temp.children.push(res);
+                    });
+                    if (temp.children.length)
+                        other.children.push(temp);
                 if (addme);
                     $scope.fres.children.push(other);
-            }
+                }
+            });
         });
         DomService.updateTopLevel($scope.fres);
+    };
+    $scope.addlang = function(id) {
+        if ($scope.vm.newlang) {
+            $scope.vm[id][$scope.vm.newlang] = {formats : [], id : $scope.vm.newlang};
+        }
     };
     $scope.addNumSystem = function() {
         if ($scope.vm.otherNumberingSystems == null)
@@ -225,13 +260,14 @@ angular.module('ldmlEdit.numbers', [
     $scope.cancelBtn = function() {
         init();
         $scope.vm.changed = false;
+        $scope.subOpen = '';
     };
     $scope.addCurrency = function() {
         $scope.vm.currencies.push({type : '', name : '', pattern : '', symbol : '', subnames : [], subpatterns : []});
         $scope.vm.changed = true;
     };
-    $scope.addFormat = function(f) {
-        $scope.vm[f.id].push({type : '', pattern : '', subpatterns : []});
+    $scope.addFormat = function(f, id) {
+        $scope.vm[f.id][id].formats.push({type : '', pattern : '', subpatterns : []});
         $scope.vm.changed = true;
     };
     $scope.delElement = function (e, ind) {
@@ -243,10 +279,14 @@ angular.module('ldmlEdit.numbers', [
         $scope.vm.changed = true;
     };
     $scope.openCompact = function(l, t) {
-        $scope.subOpen = t;
-        l.subs = l['sub' + t + 's'];
-        if (!len(l['sub' + t + 's'])) 
-            $scope.addSub(l, t);
+        if (l.subOpen != t) {
+            l.subOpen = t;
+            l.subs = l['sub' + t + 's'];
+            if (!l.subs.length) 
+                $scope.addSub(l, t);
+        } else {
+            l.subOpen = '';
+        }
     };
     $scope.delSub = function(l, ind, t) {
         l['sub' + t + 's'].splice(ind, 1);

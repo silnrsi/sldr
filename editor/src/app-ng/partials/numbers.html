@@ -74,39 +74,49 @@
             </accordion-group>
             <accordion-group ng-repeat="f in formatTypes">
                 <accordion-heading>{{f.title}}</accordion-heading>
-                <ul class="list-unstyled" ng-show="f.hasContexts">
+                <div>
+                    <select ng-model="vm.curr[f.id]" ng-options="k for (k, v) in vm[f.id]" class="col-sm-2"/>
+                    <div class="col-sm-offset-2 col-sm-2"><input type="text" class="form-control" ng-model="vm.newlang"/></div>
+                    <div class="col-sm-1"><button ng-click="addlang(f.id)"><i class="fa fa-plus"/></button></div>
+                </div>
+                <div class="clearfix"/>
+                <ul class="list-unstyled" ng-show="f.hasContext">
                     <li><strong><div class="col-sm-offset-2 col-sm-3">Match</div><div class="col-sm-3">Surrounding</div><div class="col-sm-3">Insert Between</div></strong></li>
                     <li ng-repeat="t in ['before', 'after']">
                         <div class="col-sm-2">{{t}}</div>
-                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm[f.id][t].match" ng-change="editChange()"/></div>
-                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm[f.id][t].surrounding" ng-change="editChange()"/></div>
-                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm[f.id][t].insert" ng-change="editChange()"/></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.curr[f.id][t].match" ng-change="editChange()"/></div>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.curr[f.id][t].surrounding" ng-change="editChange()"/></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="vm.curr[f.id][t].insert" ng-change="editChange()"/></div>
                     </li>
                 </ul>
                 <ul class="list-unstyled">
-                    <li><strong><div class="col-sm-1">Type</div><div class="col-sm-8">Pattern</div><div class="col-sm-1">Default</div></strong><div class="col-sm-1"><button ng-click="addFormat(f)"><i class="fa fa-plus"/></button></div></li>
+                    <li><strong><div class="col-sm-2">Type</div><div class="col-sm-7">Pattern</div><div class="col-sm-1">Default</div></strong><div class="col-sm-1"><button ng-click="addFormat(f, vm.curr[f.id].id)"><i class="fa fa-plus"/></button></div></li>
                     <div class="clearfix"/>
-                    <li ng-repeat="l in vm[f.id]">
-                        <div class="col-sm-1"><select class="form-control" ng-model="l.type" ng-options="lengthTypes" ng-change="editChange()"/></div>
-                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="l.pattern" ng-change="editChange()"/></div>
-                        <div class="col-sm-1"><input type="radio" ng-model="vm.defaults[f.id]" ng-value="l.type" ng-change="editChange()"/></div>
-                        <div class="col-sm-2">
-                            <a ng-click="delFormat(f, $index)" class="btn"><i class="fa fa-times"/></a>
-                            <a ng-click="openCompact(l, 'pattern')" class="btn"><i class="fa fa-caret-right"/></a>
+                    <li ng-repeat="l in vm.curr[f.id].formats">
+                        <div>
+                            <div class="col-sm-2"><select class="form-control" ng-model="l.type" ng-options="v for v in lengthTypes" ng-change="editChange()"/></div>
+                            <div class="col-sm-7"><input type="text" class="form-control" ng-model="l.pattern" ng-change="editChange()"/></div>
+                            <div class="col-sm-1"><input type="radio" ng-model="vm.defaults[f.id][vm.curr[f.id].id]" ng-value="l.type" ng-change="editChange()"/></div>
+                            <div class="col-sm-2">
+                                <a ng-click="delFormat(f, $index)" class="btn"><i class="fa fa-times"/></a>
+                                <a ng-click="openCompact(l, 'pattern')" class="btn"><i ng-if="l.subOpen != 'pattern'" class="fa fa-caret-right"/><i ng-if="l.subOpen == 'pattern'" class="fa fa-caret-down"/></a>
+                            </div>
                         </div>
-                        <ul ng-show="l.subOpen == 'pattern'">
-                            <li><strong><div class="col-sm-2">Type</div><div class="col-sm-2">Count</div><div class="col-sm-6">Pattern</div></strong></li>
-                            <div class="clearfix"/>
-                            <li ng-repeat="s in l.subpatterns">
-                                <div class="col-sm-2"><input type="text" ng-model="s.attributes.type" ng-change="editChange()"/></div>
-                                <div class="col-sm-2"><select ng-model="s.attributes.count" ng-options="countTypes" ng-change="editChange()"/></div>
-                                <div class="col-sm-6"><input type="text" ng-model="s.text" ng-change="editChange()"/></div>
-                                <div class="col-sm-2">
-                                    <a class="btn" ng-click="delSub(l, $index, 'pattern')"><i class="fa f-times"/></a>
-                                    <a class="btn" ng-click="addSub(l, 'pattern')" ng-show="$first"><i class="fa f-plus"/></a>
-                                </div>
-                            </li>
-                        </ul>
+                        <div ng-show="l.subOpen == 'pattern'" class="col-sm-offset-1 col-sm-11"> 
+                            <ul class="list-unstyled">
+                                <li><strong><div class="col-sm-3">Type</div><div class="col-sm-3">Count</div><div class="col-sm-4">Pattern</div></strong></li>
+                                <div class="clearfix"/>
+                                <li ng-repeat="s in l.subs">
+                                    <div class="col-sm-3"><input type="text" ng-model="s.attributes.type" ng-change="editChange()"/></div>
+                                    <select ng-model="s.attributes.count" ng-options="c for c in countTypes" ng-change="editChange()" class="col-sm-3"/>
+                                    <div class="col-sm-4"><input type="text" ng-model="s.text" ng-change="editChange()"/></div>
+                                    <div class="col-sm-2">
+                                        <a class="btn" ng-click="delSub(l, $index, 'pattern')"><i class="fa fa-times"/></a>
+                                        <a class="btn" ng-click="addSub(l, 'pattern')" ng-show="$first"><i class="fa fa-plus"/></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
                 <div class="form-group">
