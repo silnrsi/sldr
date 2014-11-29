@@ -38,33 +38,33 @@ angular.module('ldmlEdit.numbers', [
 
     var init = function() {
         $scope.vm.newlang = '';
-        $scope.fres = DomService.findElement(null, "numbers");
+        $scope.fres = DomService.findLdmlElement(null, "numbers");
         if ($scope.fres == null)
             $scope.fres = {tag : 'numbers', attributes : {}, children : []};
         $scope.vm = {currencies : [], symbols : {}};
-        angular.forEach($scope.fres.children, function (aNumber) {
+        DomService.forEach($scope.fres.children, function (aNumber) {
             if (aNumber.tag == 'defaultNumberingSystem' || aNumber.tag == 'minimumGroupingDigits') {
                 $scope.vm[aNumber.tag] = aNumber;
             } else if (aNumber.tag == 'otherNumberingSystems') {
                 $scope.vm.otherNumberingSystems = [];
-                angular.forEach(aNumber.children, function (c) {
+                DomService.forEach(aNumber.children, function (c) {
                     if (c.tag == 'native' || c.tag == 'traditional' || c.tag == 'finance')
                         $scope.vm.otherNumberingSystems.push(c);
                 });
             } else if (aNumber.tag == 'symbols') {
                 $scope.vm.symbolSystem = aNumber.attributes.numberSystem;
-                angular.forEach(aNumber.children, function (c) {
+                DomService.forEach(aNumber.children, function (c) {
                     if (c != 'special')
                         $scope.vm.symbols[c.tag] = c;
                 });
             } else if (aNumber.tag == 'currencies') {
-                angular.forEach(aNumber.children, function (curr) {
+                DomService.forEach(aNumber.children, function (curr) {
                     if (curr.tag == 'default')
                         $scope.vm.defaultCurrency = curr.text;
                     else if (curr.tag == 'currency') {
                         var thisCurr = { type : curr.attributes.type, symbol : '', name : '', subpatterns : [], subnames : [] };
                         $scope.vm.currencies.push(thisCurr);
-                        angular.forEach(curr.children, function(c) {
+                        DomService.forEach(curr.children, function(c) {
                             if (c.tag == 'displayName') {
                                 if ('count' in c.attributes)
                                     thisCurr.subnames.push(c);
@@ -88,15 +88,15 @@ angular.module('ldmlEdit.numbers', [
                 if ($scope.vm[aType.id] == null)
                     $scope.vm[aType.id] = {};
                 $scope.vm[aType.id][sys] = { formats : formats, id : sys };
-                angular.forEach(aNumber.children, function (l) {
+                DomService.forEach(aNumber.children, function (l) {
                     if (l.tag == 'default')
                         $scope.vm.defaults[aType.id][sys] = l.attributes.type;
                     else if (l.tag == aType.id + "Length") {
                         var curr = {type : l.attributes.type, subpatterns : []};
                         formats.push(curr);
-                        angular.forEach(l.children, function (f) {
+                        DomService.forEach(l.children, function (f) {
                             if (f.tag == aType.id) {
-                                angular.forEach(f.children, function (c) {
+                                DomService.forEach(f.children, function (c) {
                                     if (c.tag == 'pattern') {
                                         if ('count' in c.attributes)
                                             curr.subpatterns.push(c);
@@ -108,11 +108,11 @@ angular.module('ldmlEdit.numbers', [
                         });
                     }
                     else if (l.tag == 'currencySpacing') {
-                        angular.forEach(l.children, function(s) {
+                        DomService.forEach(l.children, function(s) {
                             var type = s.tag.slice(0, -8);
                             var curr = {};
                             $scope.vm[aType.id][sys][type] = curr;
-                            angular.forEach(s.children, function(c) {
+                            DomService.forEach(s.children, function(c) {
                                 curr[currencyMap[c.tag]] = c.text;
                             });
                         });
@@ -120,7 +120,7 @@ angular.module('ldmlEdit.numbers', [
                 });
             } else if (aNumber.tag == 'miscPatterns') {
                 $scope.vm.misc = {}
-                angular.forEach(aNumber.children, function (c) {
+                DomService.forEach(aNumber.children, function (c) {
                     if (c.tag == 'pattern')
                         $scope.vm.misc[c.attributes.type] = c.text;
                 });

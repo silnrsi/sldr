@@ -50,17 +50,17 @@ angular.module('ldmlEdit.resources', [
     };
 
     var init = function(e) {
-        $scope.fres = DomService.findElements(null, ["special", "sil:external-resources"]);
+        $scope.fres = DomService.findLdmlElements(null, ["special", "sil:external-resources"]);
         if ($scope.fres == null) {
             $scope.fres = {'tag' : 'sil:external-resources', 'attributes' : {}, 'children' : []}
             $scope.base = {'tag' : 'special', 'attributes' : {}, 'children' : [ $scope.fres ]};
         }
         var temp = { fonts : [], kbds : [], spells : [], transforms : [] };
-        angular.forEach($scope.fres.children, function(f) {
+        DomService.forEach($scope.fres.children, function(f) {
             if (f.tag in restypes)
                 temp[restypes[f.tag]].push(f);
             f.urls = [];
-            angular.forEach(f.children, function(u) {
+            DomService.forEach(f.children, function(u) {
                 if (u.tag == 'sil:url') {
                     f.urls.push(u);
                 }
@@ -70,26 +70,21 @@ angular.module('ldmlEdit.resources', [
             $scope.vm[v] = temp[v];
         });
         angular.forEach($scope.vm.transforms, function (t) {
-            angular.forEach(t.children, function (c) {
+            DomService.forEach(t.children, function (c) {
                 if (c.tag == 'sil:transform-capitals')
                     t.caps = c;
                 else if (c.tag == 'sil:transform-dict') {
                     t.dict = c;
                     c.urls = [];
-                    angular.forEach(c.children, function (u) {
+                    DomService.forEach(c.children, function (u) {
                         if (u.tag == 'sil:url')
                             c.urls.push(u);
                     });
                 }
             });
         });
-
         $scope.vm.changed = false;
-        // console.log(JSON.stringify($scope.vm.fonts));
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.onEditClick = function(index, type) {

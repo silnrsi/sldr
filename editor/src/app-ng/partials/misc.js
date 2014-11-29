@@ -15,24 +15,24 @@ angular.module('ldmlEdit.misc', [
     };
 
     var init = function(e) {
-        $scope.flayout = DomService.findElement(null, "layout");
+        $scope.flayout = DomService.findLdmlElement(null, "layout");
         $scope.layout = {};
         if ($scope.flayout != null)
-            angular.forEach($scope.flayout.children, function (c) {
+            DomService.forEach($scope.flayout.children, function (c) {
                 if (c.tag == 'orientation')
                     $scope.layout = c.attributes;
             });
         $scope.fposix = DomService.findElement(null, "posix");
         if ($scope.fposix != null)
-            angular.forEach($scope.fposix.children, function (m) {
+            DomService.forEach($scope.fposix.children, function (m) {
                 if (m.tag == 'messages')
-                    angular.forEach(m.children, function(c) {
+                    DomService.forEach(m.children, function(c) {
                         $scope.posix[c.tag] = c.text;
                     });
             });
         $scope.flists = DomService.findElement(null, "listPattern");
         if ($scope.flists != null)
-            angular.forEach($scope.flists.children, function (p) {
+            DomService.forEach($scope.flists.children, function (p) {
                 if (p.tag == 'listPattern')
                     $scope.lists.push({type : p.attributes.type, value : p.text});
             });

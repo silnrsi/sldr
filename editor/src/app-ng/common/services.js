@@ -67,6 +67,26 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     this.getBlob = function() {
         return new Blob([et.asXML()], {type: "text/xml;charset=utf8"});
     };
+    this.forEach = function(obj, iterator, context) {
+        angular.forEach(obj, function(v, k, o) {
+            if (!v.attributes.alt)
+                iterator.call(context, v, k, o);
+        });
+    };
+    this.findLdmlElement = function(base, tag) {
+        if (base == null) {
+            if (et == null)
+                newET();
+            base = et.root;
+        }
+        if (base.children == null)
+            return null;
+        for (var i = 0; i < base.children.length; i++) {
+            if (base.children[i].tag == tag && !base.children[i].attributes.alt)
+                return base.children[i];
+        }
+        return null;
+    }
     return this;
   }])
   ;

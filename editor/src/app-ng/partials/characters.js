@@ -10,28 +10,23 @@ angular.module('ldmlEdit.characters', [
     $scope.charactertypes = { 'Default' : 'Default', 'auxiliary' : 'auxiliary', 'punctuation' : 'punctuation', 'index' : 'index' };
 
     var init = function(e) {
-        $scope.fres = DomService.findElements(null, ["characters"]);
+        $scope.fres = DomService.findLdmlElement(null, "characters");
         if ($scope.fres == null) 
             $scope.fres = {'tag' : 'characters', 'attributes' : {}, 'children' : []};
 
         var exemplars = [];
-        angular.forEach($scope.fres.children, function(f) {
+        DomService.forEach($scope.fres.children, function(f) {
             if (f.tag == 'exemplarCharacters') 
                 exemplars.push({'type' : f.attributes['type'], 'text' : f.text});
             else if (f.tag == 'special') {
-                angular.forEach(f.children, function (e) {
+                DomService.forEach(f.children, function (e) {
                     if (e.tag == 'sil:exemplarCharacters')
                         exemplars.push({'type' : e.attributes['type'], 'text' : e.text});
                 });
             }
         });
         $scope.vm.exemplars = exemplars; 
-        // console.log(JSON.stringify($scope.vm.exemplars));
-        // $scope.$apply();
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.editBtn = function() {

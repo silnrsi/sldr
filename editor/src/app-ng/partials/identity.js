@@ -18,7 +18,7 @@ angular.module('ldmlEdit.identity', [
     var specials = [ 'revid', 'windowsLCID', 'defaultRegion', 'variantName', 'usage' ];
 
     var init = function(e) {
-        $scope.fres = DomService.findElement(null, "identity");
+        $scope.fres = DomService.findLdmlElement(null, "identity");
         if ($scope.fres == null)
             $scope.fres = {'tag' : 'identity', 'attributes' : {}, 'children' : []};
         var model = {};
@@ -33,16 +33,13 @@ angular.module('ldmlEdit.identity', [
         $scope.vm.model = model;
         var spec = DomService.findElements($scope.fres, ["special", "sil:identity"]);
         if (spec != null) {
-            angular.forEach(specials, function (s) {
+            DomService.forEach(specials, function (s) {
                 if (spec.attributes[s] != null)
                     model[s] = spec.attributes[s];
             });
         }
         $scope.vm.model.changed = false;
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.editBtn = function () {

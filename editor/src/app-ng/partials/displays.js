@@ -12,15 +12,15 @@ angular.module('ldmlEdit.displays', [
                         'codePatterns' : "Code Patterns"}
 
     var init = function(e) {
-        $scope.fres = DomService.findElements(null, ["localeDisplayNames"]);
+        $scope.fres = DomService.findLdmlElement(null, "localeDisplayNames");
         if ($scope.fres == null) 
             $scope.fres = {'tag' : 'segmentations', 'attributes' : {}, 'children' : []};
         $scope.vm = { model : {}, specials : []};
-        angular.forEach($scope.fres.children, function(disp) {
+        DomService.forEach($scope.fres.children, function(disp) {
             if (disp.tag in $scope.keytypes) {
                 $scope.vm.model[disp.tag] = { type : disp.tag, data : [], count : 0, currentPage : 1, itemsperpage : 10 };
                 var curr = $scope.vm.model[disp.tag];
-                angular.forEach(disp.children, function(c) {
+                DomService.forEach(disp.children, function(c) {
                     if (c.tag != 'special') {
                         curr.data.push(c);
                         curr.count++;
@@ -30,7 +30,7 @@ angular.module('ldmlEdit.displays', [
                 // console.log($scope.vm.model[disp.tag].type + " - " + $scope.vm.model[disp.tag].count);
             } else if (disp.tag == 'localeDisplayPattern') {
                 $scope.vm.localeDisplayPattern = {};
-                angular.forEach(disp.children, function(c) {
+                DomService.forEach(disp.children, function(c) {
                     $scope.vm.localeDisplayPattern[c.tag] = c.text;
                 });
             } else if (disp.tag == 'special') {
@@ -51,7 +51,6 @@ angular.module('ldmlEdit.displays', [
             $scope.fres.children.push(v);
         });
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.paginate = function(submodel) {

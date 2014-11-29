@@ -7,7 +7,7 @@ This manual provides details on various scenarios.
 Having cloned the SLDR github repository, how do we get hold of the flattened and unflattened files
 for distributing to applications and users?
 
-    python/scripts/ldmlflatten -o flat -i sldr -a --revid=`git rev-parse HEAD`
+    python/scripts/ldmlflatten -o flat -i sldr -a -A --revid=`git rev-parse HEAD`
     python/scripts/ldmlflatten -o unflat -i sldr -a -c --revid=`git rev-parse HEAD`
 
 The `git rev-parse HEAD` returns a string which is the SHA identifier for this revision. This is then
