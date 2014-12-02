@@ -1,0 +1,50 @@
+<div>
+    <div class="col-sm-7">
+        <h2>Calendars</h2>
+        <div>
+            <select ng-model="vm.temp.currcal" ng-options="k for (k, v) in vm.calendars" class="col-sm-3"/>
+            <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newcal" class="form-control"/></div>
+            <div class="col-sm-1"><button ng-click="addCalendar()"><i class="fa fa-plus"/></button></div>
+        </div>
+        <div class="clearfix"/>
+        <accordion>
+            <accordion-group ng-repeat="(id, v) in contextuals">
+                <accordion-heading>{{id}}</accordion-heading>
+                <div>
+                    <div class="col-sm-2">Context:</div>
+                    <select ng-model="vm.temp.currcontext" ng-options="k for (k, v) in vm.temp.currcal[id]" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newcontext" class="form-control"/></div>
+                    <div class="col-sm-1"><button ng-click="addContext(vm.temp.currcal, id)"><i class="fa fa-plus"/></button></div>
+                </div>
+                <div class="clearfix"/>
+                <div>
+                    <div class="col-sm-2">Width:</div>
+                    <select ng-model="vm.temp.currwidth" ng-options="k for (k, v) in vm.temp.currcontext" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newwidth" class="form-control"/></div>
+                    <div class="col-sm-1"><button ng-click="addWidth(vm.temp.currcal, id, vm.temp.currcontext)"><i class="fa fa-plus"/></button></div>
+                </div>
+                <div class="clearfix"/>
+                <ul class="list-unstyled">
+                    <li><strong>
+                        <div class="col-sm-3">Type</div>
+                        <div class="col-sm-6">{{id.slice(0, -1)}}</div>
+                    </strong></li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="c in vm.temp.currwidth.elements">
+                        <div class="col-sm-3"><input type="text" ng-model="c.attributes.type" class="form-control"/></div>
+                        <div class="col-sm-6"><input type="text" ng-model="c.text" class="form-control"/></div>
+                        <div class="col-sm-3">
+                            <a ng-click="delContWidthEl($index, vm.temp.currwidth)" class="btn"><i class="fa fa-times"/></a>
+                            <a ng-click="addContWidthEl($index, vm.temp.currwidth)" class="btn" ng-show="$first"><i class="fa fa-plus"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="col-sm-5" style="height:100vh; overflow:auto;">
+        <h3>Help</h3>
+        We are way beyond that here!
+    </div>
+</div>
+

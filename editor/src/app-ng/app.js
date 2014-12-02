@@ -6,6 +6,7 @@ angular.module('ldmlEdit', [
      'ldmlEdit.identity',
      'ldmlEdit.characters',
      'ldmlEdit.collations',
+     'ldmlEdit.dates', 
      'ldmlEdit.delimiters',
      'ldmlEdit.displays',
      'ldmlEdit.misc',
@@ -30,6 +31,10 @@ angular.module('ldmlEdit', [
     $routeProvider.when('/collation', {
       templateUrl : 'app-ng/partials/collation.html',
       controller : 'CollationsCtrl'
+    });
+    $routeProvider.when('/dates', {
+      templateUrl : 'app-ng/partials/dates.html',
+      controller : 'DatesCtrl'
     });
     $routeProvider.when('/delimiters', {
       templateUrl : 'app-ng/partials/delimiters.html',
