@@ -10,7 +10,7 @@ angular.module('ldmlEdit.segmentations', [
     $scope.types = ['variables', 'segmentRules'];
 
     var init = function(e) {
-        $scope.fres = DomService.findLdmlElements(null, ["segmentations"]);
+        $scope.fres = DomService.findLdmlElement(null, "segmentations");
         if ($scope.fres == null) 
             $scope.fres = {'tag' : 'segmentations', 'attributes' : {}, 'children' : []};
         $scope.vm.model = [];

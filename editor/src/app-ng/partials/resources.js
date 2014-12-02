@@ -50,7 +50,7 @@ angular.module('ldmlEdit.resources', [
     };
 
     var init = function(e) {
-        $scope.fres = DomService.findLdmlElements(null, ["special", "sil:external-resources"]);
+        $scope.fres = DomService.findElements(null, ["special", "sil:external-resources"]);
         if ($scope.fres == null) {
             $scope.fres = {'tag' : 'sil:external-resources', 'attributes' : {}, 'children' : []}
             $scope.base = {'tag' : 'special', 'attributes' : {}, 'children' : [ $scope.fres ]};

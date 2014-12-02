@@ -69,7 +69,7 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     };
     this.forEach = function(obj, iterator, context) {
         angular.forEach(obj, function(v, k, o) {
-            if (!v.attributes.alt)
+            if (!v.attributes || !v.attributes.alt)
                 iterator.call(context, v, k, o);
         });
     };
