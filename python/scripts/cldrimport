@@ -24,8 +24,13 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from sldr.ldml import Ldml
 import os, sys, codecs
+try :
+    from sldr.ldml import Ldml
+except ImportError :
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    from sldr.ldml import Ldml
+
 from multiprocessing import Pool
 
 if len(sys.argv) < 3 :
@@ -54,6 +59,7 @@ def doit(a) :
                 curr = l
     if curr is not None :
         curr.normalise()
+        curr.add_id(draft = 'approved')
         outfh = codecs.open(os.path.join(outdir, a + '.xml'), "w", encoding="utf-8")
         curr.serialize_xml(outfh.write)
         outfh.close()

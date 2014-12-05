@@ -1,0 +1,68 @@
+<div>
+    <div class="col-sm-7">
+        <h2>Miscellaneous</h2>
+        <form>
+            <div class="form-group">
+                <label for="displayLocalePattern" class="col-sm-4">Locale Pattern:</label>
+                <div class="col-sm-8">
+                    <input id="displayLocalePattern" ng-model="vm.localeDisplayPattern.localePattern" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="displayLocaleSeparator" class="col-sm-4">Locale Separator Pattern:</label>
+                <div class="col-sm-8">
+                    <input id="displayLocaleSeparator" ng-model="vm.localeDisplayPattern.localeSeparator" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="displayLocaleKeyTypePattern" class="col-sm-4">Locale Key-Type Pattern:</label>
+                <div class="col-sm-8">
+                    <input id="displayLocaleKeyTypePattern" ng-model="vm.localeDisplayPattern.localeKeyTypePattern" class="form-control"/>
+                </div>
+            </div>
+        </form>
+        <button class="pull-right" ng-click="addDisplay()"><i class="fa fa-plus"></i></button>
+        <h2>Display Strings</h2>
+        <accordion>
+            <accordion-group ng-repeat="disp in vm.model">
+                <accordion-heading>LocaleDisplay: {{disp.type}}</accordion-heading>
+                <div>
+                    <label for="displayName{{$index}}" class="col-sm-2">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="disp.type" id="displayName{{$index}}" ng-change="editChange()"/>
+                    </div>
+                </div>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-2">Key</div><div class="col-sm-8">Value</div><div class="col-sm-2"></div></strong></li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="v in paginate(disp)">
+                        <div class="col-sm-2">
+                            <input type="text" ng-model="v.attributes.type" class="form-control" ng-change="editChange()"/>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="v.text" class="form-control" ng-change="editChange()"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <a ng-click="delElement($index, disp)" class="btn"><i class="fa fa-times"/></a>
+                            <a ng-click="addElement(disp)" class="btn" ng-show="$first"><i class="fa fa-plus"/></a>
+                        </div>
+                    </li>
+                </ul>
+                <pagination boundary-links="true" total-items="disp.count" ng-model="disp.currentPage" class="pagination-sm"
+                            items-per-page="disp.itemsperpage"
+                            previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"/>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" ng-class="{btn:1, 'btn-primary':disp.changed, 'btn-default':!disp.changed}" ng-click="editBtn(disp)">Apply</button>
+                    <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                </div>
+                    
+            </accordion-group>
+        </accordion>
+    </div>
+    <div class="col-sm-5" style="height:100vh; overflow:auto;">
+        <h3>Help</h3>
+        Not yet
+    </div>
+</div>
+
+
