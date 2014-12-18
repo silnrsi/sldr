@@ -16,12 +16,15 @@ angular.module('ldmlEdit.characters', [
 
         var exemplars = [];
         DomService.forEach($scope.fres.children, function(f) {
-            if (f.tag == 'exemplarCharacters') 
-                exemplars.push({'type' : f.attributes['type'], 'text' : f.text});
+            if (f.tag == 'exemplarCharacters') {
+                var t = f.attributes.type;
+                if (!t) t = 'Default';
+                exemplars.push({'type' : t, 'text' : f.text});
+            }
             else if (f.tag == 'special') {
                 DomService.forEach(f.children, function (e) {
                     if (e.tag == 'sil:exemplarCharacters')
-                        exemplars.push({'type' : e.attributes['type'], 'text' : e.text});
+                        exemplars.push({'type' : e.attributes.type, 'text' : e.text});
                 });
             }
         });

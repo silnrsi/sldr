@@ -489,9 +489,11 @@ class Ldml(ETWriter) :
         else :
             b.alternates = o.alternates
             
-    def resolve_aliases(self, this=None) :
+    def resolve_aliases(self, this=None, _cache=None) :
         if this is None : this = self.root
         hasalias = False
+        if _cache is None :
+            _cache = set()
         for (i, c) in enumerate(list(this)) :
             if c.tag == 'alias' :
                 v = c.get('path', None)
@@ -500,12 +502,17 @@ class Ldml(ETWriter) :
                 count = 1
                 for res in this.findall(v + "/*") :
                     res = self.copynode(res, parent=this)
-                    self.resolve_aliases(res)
                     # res.set('{'+self.silns+'}alias', "1")
                     # self.namespaces[self.silns] = 'sil'
                     this.insert(i+count, res)
                     count += 1
                 hasalias = True
+                if v in _cache :
+                    print "Alias loop discovered: %s" % v
+                    return True
+                _cache.add(v)
+                self.resolve_aliases(this, _cache)
+                _cache.remove(v)
             else :
                 hasalias |= self.resolve_aliases(c)
         if hasalias and self.useDrafts :

@@ -5,7 +5,7 @@ angular.module('ldmlEdit.dates', [
   ])
   .controller('DatesCtrl', [ '$scope', 'DomService', function($scope, DomService) {
 
-    $scope.vm = { calendars : {} };
+    $scope.vm = { calendars : {}, changed : false };
     $scope.contextuals = { days : 1, months : 2, quarters : 3, monthPatterns : 4, dayPeriods : 5 };
     $scope.formats = { dateFormats : 1, timeFormats : 2 };
 
@@ -26,7 +26,7 @@ angular.module('ldmlEdit.dates', [
                     context[aWidth.attributes.type] = width;
                     DomService.forEach(aWidth.children, function(it) {
                         if (it.tag == eltag)
-                            width.elements.push(it);
+                            width.elements.push(angular.copy(it));
                     });
                 }
             });
@@ -42,7 +42,7 @@ angular.module('ldmlEdit.dates', [
             var aCon = {tag : basetag + 'Context', children : [], attributes : {type : conk}};
             res.children.push(aCon);
             angular.forEach(con, function(width, widthk) {
-                var aWidth = {tag : basetag + 'Width', children : width.elements, atttributes : {type : widthk}};
+                var aWidth = {tag : basetag + 'Width', children : width.elements, attributes : {type : widthk}};
                 aCon.children.push(aWidth);
                 if (width.dflt)
                     aCon.children.splice(0, 0, {tag : 'default', text : widthk});
@@ -60,7 +60,7 @@ angular.module('ldmlEdit.dates', [
                 var temp = {}
                 DomService.forEach(f.children, function(c) {
                     if (c.tag == 'pattern' || c.tag == 'displayName')
-                        temp[c.tag] = c.text;
+                        temp[c.tag] = angular.copy(c);
                 });
                 res[f.attributes.type] = temp;
             }
@@ -72,20 +72,20 @@ angular.module('ldmlEdit.dates', [
         var res = {tag : eltag = 's', children : []};
         angular.forEach(el, function (f, fk) {
             if (fk == 'dflt') {
-                res.children.push({tag : 'default', text : f});
+                res.children.push({tag : 'default', text : fk});
                 return;
             }
             var aFormat = {tag : eltag + 'Length', children : [], attributes : {type : fk}};
             res.children.push(aFormat);
-            angular.forEach(f, function(c, ck) {
-                aFormat.children.push({tag : ck, text : c});
+            angular.forEach(f, function(v) {
+                aFormat.children.push(angular.copy(v));
             });
         });
         return res;
     };
         
     var init = function() {
-        $scope.vm = { calendars : {}, fields : {}, timeZones : { regions : {}, zone : {}, metazone : {}, temp : {}} };
+        $scope.vm = { calendars : {}, fields : {}, timeZones : { regions : [], zone : {}, metazone : {}, temp : {}} };
         $scope.fres = DomService.findLdmlElement(null, "dates");
         if ($scope.fres == null)
             $scope.fres = {tag : 'dates', attributes : {}, children : []};
@@ -99,6 +99,20 @@ angular.module('ldmlEdit.dates', [
                     DomService.forEach(cal.children, function(el) {
                         if (el.tag in $scope.contextuals) {
                             aCal[el.tag] = readContextual(el, el.tag.slice(0, -1));
+                        }
+                        else if (el.tag == 'eras') {
+                            var eras = {};
+                            aCal.eras = eras;
+                            DomService.forEach(el.children, function(er) {
+                                if (er.tag.slice(0, 3) == 'era') {
+                                    var anEra = [];
+                                    eras[er.tag] = anEra;
+                                    DomService.forEach(er.children, function (e) {
+                                        if (e.tag == 'era')
+                                            anEra.push(angular.copy(e));
+                                    });
+                                }
+                            });
                         }
                         else if (el.tag == 'cyclicNameSets') {
                             aCal.cyclics = {};
@@ -125,38 +139,38 @@ angular.module('ldmlEdit.dates', [
                             aCal.dateTimeFormat = res;
                             DomService.forEach(el.children, function (dt) {
                                 if (dt.tag == 'dateTimeFormatLength')
-                                    res[dt.attributes.type] = readFormatLength(dt);
+                                    res.lengths[dt.attributes.type] = readFormatLength(dt);
                                 else if (dt.tag == 'availableFormats') {
-                                    var avs = {};
+                                    var avs = [];
                                     DomService.forEach(dt.children, function(c) {
-                                        if (dt.tag == 'dateTimeFormatItem')
-                                            avs[dt.attributes.id] = dt.text;
+                                        if (c.tag == 'dateFormatItem')
+                                            avs.push(angular.copy(c));
                                     });
                                     res.availableitems = avs;
                                 }
                                 else if (dt.tag == 'appendItems') {
-                                    var ais = {};
+                                    var ais = [];
                                     DomService.forEach(dt.children, function(c) {
-                                        if (dt.tag == 'appendItem')
-                                            ais[dt.attributes.request] = dt.text;
+                                        if (c.tag == 'appendItem')
+                                            ais.push(angular.copy(c));
                                     });
                                     res.appenditems = ais;
                                 }
                                 else if (dt.tag == 'intervalFormats') {
                                     var is = { items : {}};
                                     DomService.forEach(dt.children, function(c) {
-                                        if (dt.tag == 'intervalFormatFallback')
-                                            is.fallback = dt.text;
-                                        else if (dt.tag != 'intervalFormatItem')
+                                        if (c.tag == 'intervalFormatFallback')
+                                            is.fallback = c.text;
+                                        if (c.tag != 'intervalFormatItem')
                                             return
-                                        var fitem = {};
-                                        is.items[dt.attributes.id] = fitem;
-                                        DomService.forEach(dt.children, function(d) {
-                                            if (dt.tag == 'greatestDifference')
-                                                fitem[dt.attributes.id] = dt.text;
+                                        var fitem = [];
+                                        is.items[c.attributes.id] = fitem;
+                                        DomService.forEach(c.children, function(d) {
+                                            if (d.tag == 'greatestDifference')
+                                                fitem.push(angular.copy(d));
                                         });
-                                    res.intervals = is;
                                     });
+                                    res.intervals = is;
                                 }
                             });
                         }
@@ -168,19 +182,19 @@ angular.module('ldmlEdit.dates', [
                 DomService.forEach(aDate.children, function (f) {
                     if (f.tag != 'field')
                         return;
-                    var aField = { relatives : {}, times : {}};
+                    var aField = { relatives : [], times : []};
                     $scope.vm.fields[f.attributes.type] = aField;
                     DomService.forEach(f.children, function (el) {
                         if (el.tag == 'displayName')
                             aField.name = el.text;
                         else if (el.tag == 'relative')
-                            aField.relatives[el.attributes.type] = el.text;
+                            aField.relatives.push(angular.copy(el));
                         else if (el.tag == 'relativeTime') {
-                            var aTime = {};
-                            aField.times[el.attributes.type] = aTime;
+                            var aTime = {type: el.attributes.type, patterns : []};
+                            aField.times.push(aTime);
                             DomService.forEach(el.children, function(t) {
                                 if (t.tag == 'relativeTimePattern')
-                                    aTime[t.attributes.type] = t.text;
+                                    aTime.patterns.push(angular.copy(t));
                             });
                         }
                     });
@@ -190,9 +204,15 @@ angular.module('ldmlEdit.dates', [
             {
                 DomService.forEach(aDate.children, function(t) {
                     if (t.tag == 'hourFormat' || t.tag == 'gmtFormat' || t.tag == 'gmtZeroFormat' || t.tag == 'fallbackFormat')
-                        $scope.vm.timeZones[t.tag] = t.text;
-                    else if (t.tag == 'regionFormat')
-                        $scope.vm.timeZones.regions[t.attributes && t.attributes.type ? t.attributes.type : 'generic'] = t.text;
+                        $scope.vm.timeZones[t.tag] = t;
+                    else if (t.tag == 'regionFormat') {
+                        var temp = angular.copy(t);
+                        $scope.vm.timeZones.regions.push(temp);
+                        if (!temp.attributes)
+                            temp.attributes = {};
+                        if (!temp.attributes.type)
+                            temp.attributes.type = 'generic';
+                    }
                     else if (t.tag == 'zone' || t.tag == 'metazone') {
                         var aZone = {};
                         $scope.vm.timeZones[t.tag][t.attributes.type] = aZone;
@@ -202,31 +222,53 @@ angular.module('ldmlEdit.dates', [
                                 aZone[z.tag] = info;
                                 DomService.forEach(z.children, function(i) {
                                     if (i.tag == 'generic' || i.tag == 'standard' || i.tag == 'daylight')
-                                        info[i.tag] = i.text;
+                                        info[i.tag] = angular.copy(i);
                                 });
                             }
                             else if (z.tag == 'exemplarCity')
-                                aZone[z.tag] = z.text;
+                                aZone[z.tag] = angular.copy(z);
                         });
                     }
                 });
             }
         });
-        $scope.vm = $scope.vm;
     };
 
     var update_model = function() {
-        var res = {tag : 'dates', children : []};
-        if (Object.keys($scope.vm.calenders).length()) {
-            var aCals = {tag : 'calendars', children : []};
-            res.children.push(aCals);
+        if (!$scope.fres)
+            $scope.fres = {tag : 'dates', children : []}
+        if (Object.keys($scope.vm.calendars).length) {
+            var aCals = null;
+            angular.forEach($scope.fres.children, function(c) {
+                if (c.tag == 'calendars')
+                    aCals = c;
+            });
+            if (!aCals) {
+                aCals = {tag : 'calendars', children : []};
+                $scope.fres.children.push(aCals);
+            }
             angular.forEach($scope.vm.calendars, function(cal, calname) {
-                var aCal = {tag : 'calendar', children : [], attributes : {type : calname}};
-                aCals.children.push(aCal);
-                angular.forEach($scope.contextuals, function(cont) {
+                var aCal = null;
+                angular.forEach(aCals.children, function(c) {
+                    if (c.tag == 'calendar' && c.attributes.type == calname)
+                        aCal = c;
+                });
+                if (!aCal) {
+                    aCal = {tag : 'calendar', children : [], attributes : {type : calname}};
+                    aCals.children.push(aCal);
+                }
+                aCal.children = [];
+                angular.forEach($scope.contextuals, function(v, cont) {
                     if (cal[cont])
                         aCal.children.push(writeContextual(cal[cont], cont, cont.slice(0, -1)));
                 });
+                if (cal.eras) {
+                    var anEras = {tag : 'eras', children : []};
+                    angular.forEach(cal.eras, function (era, erak) {
+                        var anEra = {tag : erak, children : era };
+                        anEras.children.push(anEra);
+                    });
+                }
                 if (cal.cyclics) {
                     var aCycleSet = {tag : 'cyclicNameSets', children : []};
                     aCal.children.push(aCycleSet);
@@ -236,10 +278,10 @@ angular.module('ldmlEdit.dates', [
                         aCycleSet.children.push(aCycle);
                     });
                 }
-                angular.forEach($scope.formats, function(f) {
+                angular.forEach($scope.formats, function(v, f) {
                     var tag = f.slice(0, -1);
                     if (cal[tag])
-                        aCal.children.push(writeFormat(cal[tag], tag));
+                        aCal.children.push(writeFormatLength(cal[tag], tag));
                 });
                 if (cal.dateTimeFormat) {
                     var aDate = {tag : 'dateTimeFormats', children : []};
@@ -247,17 +289,8 @@ angular.module('ldmlEdit.dates', [
                     angular.forEach(cal.dateTimeFormat, function (dt, dtk) {
                         if (dtk == 'availableitems' || dtk == 'appenditems') {
                             var tag = dtk == 'availableitems' ? 'availableFormat' : 'appendItem';
-                            var anAvail = {tag : tag + 's', children : []};
+                            var anAvail = {tag : tag + 's', children : dt};
                             aDate.children.push(anAvail);
-                            angular.forEach(dt, function(dti, dtik) {
-                                var temp = {tag : (dtk == 'availableitems' ? 'dateFormatItem' : tag),
-                                            text : dti, attributes : {}};
-                                anAvail.children.push(temp);
-                                if (dtk == 'availableitems')
-                                    temp.attributes.id = dtik;
-                                else
-                                    temp.attributes.request = dtik;
-                            });
                         }
                         if (dtk == 'intervals') {
                             var aIF = {tag : 'intervalFormats', children : []};
@@ -265,24 +298,20 @@ angular.module('ldmlEdit.dates', [
                             if (dt.fallback)
                                 aIF.children.push({tag : 'intervalFormatFallback', text : dt.fallback});
                             angular.forEach(dt.items, function(item, itemk) {
-                                var anItem = {tag : 'intervalFormatItem', children : [], attributes : {id : itemk}};
+                                var anItem = {tag : 'intervalFormatItem', children : item, attributes : {id : itemk}};
                                 aIF.children.push(anItem);
-                                angular.forEach(item, function(gdiff, gdiffk) {
-                                    anItem.children.push({tag : 'greatestDifference', text : gdiff, attributes : {id : diffk}});
-                                });
                             });
                         }
                         else if (dtk == 'dflt') {
                             aDate.children.push({tag : 'default', text : dt});
                         }
-                        else {      // dateTimeFormatLength
-                            var aLength = {tag : 'dateTimeFormatLength', children : [], attributes : {type : dtk}};
-                            aDate.children.push(aLength);
-                            angular.forEach(dt, function(c, ck) {
-                                var temp = {tag : 'dateTimeFormat', children : [], attributes : {type : ck}};
-                                aLength.children.push(temp);
-                                angular.forEach(c, function(el, elk) {
-                                    temp.children.push({tag : elk, text : el});
+                        else if (dtk == 'lengths') {      // dateTimeFormatLength
+                            angular.forEach(dt, function (len, lenk) {
+                                var aLength = {tag : 'dateTimeFormatLength', children : [], attributes : {type : lenk}};
+                                aDate.children.push(aLength);
+                                angular.forEach(len, function(c, ck) {
+                                    var temp = {tag : 'dateTimeFormat', children : c, attributes : {type : ck}};
+                                    aLength.children.push(temp);
                                 });
                             });
                         }
@@ -291,37 +320,52 @@ angular.module('ldmlEdit.dates', [
             });
         }
         if (Object.keys($scope.vm.fields).length) {
-            var aFields = {tag : 'fields', children : []};
-            res.children.push(aFields);
+            var aFields = null;
+            angular.forEach($scope.fres.children, function(c) {
+                if (c.tag == 'fields')
+                    aFields = c;
+            });
+            if (!aFields) {
+                aFields = {tag : 'fields', children : []};
+                $scope.fres.children.push(aFields);
+            }
+            aFields.children = [];
             angular.forEach($scope.vm.fields, function (field, fieldk) {
                 var aField = {tag : 'field', children : [], attributes : {type : fieldk}};
                 aFields.children.push(aField);
                 if (field.name)
-                    aField.children.push({tag : 'displayName', text : field.name});
-                angular.forEach(field.relatives, function (rel, relk) {
-                    aField.children.push({tag : 'relative', text : rel, attributes : { type : relk}});
+                    aField.children.push({tag : 'displayName', children : field.relatives, text : field.name});
+                angular.forEach(field.relatives, function(el) {
+                    aField.children.push(el);
                 });
-                angular.forEach(field.times, function (rel, relk) {
-                    var aTime = {tag : 'relativeTime', children : [], attributes : { type : relk}};
-                    aField.chilren.push(aTime);
-                    angular.forEach(rel, function(pat, patk) {
-                        aTime.children.push({tag : 'relativeTimePattern', text : pat, attributes : {type : patk}});
-                    });
+                angular.forEach(field.times, function (rel) {
+                    var aTime = {tag : 'relativeTime', children : rel.patterns, attributes : { type : rel.type}};
+                    aField.children.push(aTime);
                 });
             });
         }
         if (Object.keys($scope.vm.timeZones).length) {
-            var aTZ = {tag : 'timeZoneNames', children : [] };
-            res.children.push(aTZ);
+            var aTZ = null;
+            angular.forEach($scope.fres.children, function(c) {
+                if (c.tag == 'timeZoneNames')
+                    aTZ = c;
+            });
+            if (!aTZ) {
+                aTZ = {tag : 'timeZoneNames', children : [] };
+                $scope.fres.children.push(aTZ);
+            }
+            aTZ.children = [];
             angular.forEach($scope.vm.timeZones, function (el, elk) {
                 if (elk == 'hourFormat' || elk == 'gmtFormat' || elk == 'gmtZeroFormat' || elk == 'fallbackFormat')
                     aTZ.children.push({tag : elk, text : el});
                 else if (elk == 'regions') {
                     angular.forEach(el, function(reg, regk) {
-                        var aReg = {tag : 'regionFormat', text : reg, attributes : {}};
-                        aTZ.children.push(aReg);
-                        if (regk != 'generic')
-                            aReg.attributes.type = regk;
+                        if (reg.text) {
+                            var temp = angular.copy(reg);
+                            aTZ.children.push(temp);
+                            if (temp.attributes.type == 'generic')
+                                delete temp.attributes.type;
+                        }
                     });
                 }
                 else if (elk == 'zone' || elk == 'metazone') {
@@ -329,32 +373,53 @@ angular.module('ldmlEdit.dates', [
                         var aZone = {tag : elk, attributes : {type : zk}, children : []};
                         aTZ.children.push(aZone);
                         angular.forEach(z, function (c, ck) {
-                            aChild = {tag : ck, children : []};
+                            var aChild = {tag : ck, children : c};
                             aZone.children.push(aChild);
-                            if (ck == 'exemplarCity') {
-                                aChild.text = c;
-                                return;
-                            }
-                            angular.forEach(c, function (t, tk) {
-                                aChild.children.push({tag : tk, text : t});
-                            });
                         });
                     });
                 }
             });
         }
+        DomService.updateTopLevel($scope.fres);
     };
 
     init();
 
-    $scope.addCalendar = function() {
-        if ($scope.newcal && !$scope.vm.calendars[$scope.newcal]) {
-            $scope.vm.calendars[$scope.newcal] = {};
-            vm.temp.currcals = $scope.newcal;
+    $scope.addValue = function(newkey, base, existing, init) {
+        if (newkey && !base[newkey]) {
+            $scope.vm.changed = true;
+            base[newkey] = init;
+            return base[newkey];
         }
+        else
+            return existing;
     };
-    $scope.addContext = function(currcal, id) {
+    $scope.delValue = function(id, base) {
+        for (var key in base) {
+            if (base[key] === id) {
+                $scope.vm.changed = true;
+                delete base[key];
+            }
+        }
+        return null;
     };
-    $scope.addWidth = function(currcal, id, currcontext) {
+    $scope.appendValue = function(list, value) {
+        $scope.vm.changed = true;
+        list.splice(list.length, 0, value);
+    };
+    $scope.removeValue = function(index, list) {
+        $scope.vm.changed = true;
+        list.splice(index, 1);
+    };
+    $scope.changed = function() {
+        $scope.vm.changed = true;
+    };
+    $scope.cancelBtn = function() {
+        init();
+        $scope.vm.changed = false;
+    };
+    $scope.saveBtn = function() {
+        update_model();
+        $scope.vm.changed = false;
     };
 }]);

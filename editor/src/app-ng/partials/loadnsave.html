@@ -2,6 +2,10 @@
     <div class="col-sm-7">
         <h2>Load</h2>
         <p>Load from a <input type="file" fileread="doFileOpen(aFile)" style="display:none" id="FileOpen"/><a ng-click="onFileOpen()">local file</a></p>
+        <p>Load from the SIL LDML Server <input type="text" ng-model="openurl"/>
+            <button ng-click="onUrlOpen('https://ldml.api.sil.org/')"
+                    ng-class="{'btn-default' : downmode==0, 'btn-primary' : downmode==1, 'btn-succes' : downmode==2, 'btn-danger' : downmode==3}">Fetch</button><span ng-show="downmode==3">Failed</span>
+        </p>
 
         <h2>Save</h2>
         <p>Download to a <a ng-click="onFileSaveAs()">local file</a></p>

@@ -3,8 +3,15 @@
         <h2>Calendars</h2>
         <div>
             <select ng-model="vm.temp.currcal" ng-options="k for (k, v) in vm.calendars" class="col-sm-3"/>
-            <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newcal" class="form-control"/></div>
-            <div class="col-sm-1"><button ng-click="addCalendar()"><i class="fa fa-plus"/></button></div>
+            <div class="col-sm-3"><input type="text" ng-model="vm.temp.newcal" class="form-control"/></div>
+            <div class="col-sm-2">
+                <button ng-click="vm.temp.currcal=addValue(vm.temp.newcal, vm.calendars, vm.temp.currcal, {})"><i class="fa fa-plus"/></button>
+                <button ng-click="vm.temp.currcal=delValue(vm.temp.currcal, vm.calendars)"><i class="fa fa-minus"/></button>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
+                <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+            </div>
         </div>
         <div class="clearfix"/>
         <accordion>
@@ -13,38 +20,309 @@
                 <div>
                     <div class="col-sm-2">Context:</div>
                     <select ng-model="vm.temp.currcontext" ng-options="k for (k, v) in vm.temp.currcal[id]" class="col-sm-3"/>
-                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newcontext" class="form-control"/></div>
-                    <div class="col-sm-1"><button ng-click="addContext(vm.temp.currcal, id)"><i class="fa fa-plus"/></button></div>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newcontext" class="form-control" ng-change="changed()"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currcontext=addValue(vm.temp.newcontext, vm.temp.currcal[id], vm.temp.currcontext, {})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currcontext=delValue(vm.temp.currcontext, vm.temp.currcal[id])"><i class="fa fa-minus"/></button>
+                    </div>
                 </div>
                 <div class="clearfix"/>
                 <div>
                     <div class="col-sm-2">Width:</div>
                     <select ng-model="vm.temp.currwidth" ng-options="k for (k, v) in vm.temp.currcontext" class="col-sm-3"/>
-                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.newwidth" class="form-control"/></div>
-                    <div class="col-sm-1"><button ng-click="addWidth(vm.temp.currcal, id, vm.temp.currcontext)"><i class="fa fa-plus"/></button></div>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newwidth" class="form-control" ng-change="changed()"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currwidth=addValue(vm.temp.newwidth, vm.temp.currcontext, vm.temp.currwidth, {elements:[], dflt:false})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currwidth=delValue(vm.temp.currwidth, vm.temp.currcontext)"><i class="fa fa-minus"/></button>
+                    </div>
                 </div>
                 <div class="clearfix"/>
                 <ul class="list-unstyled">
                     <li><strong>
                         <div class="col-sm-3">Type</div>
-                        <div class="col-sm-6">{{id.slice(0, -1)}}</div>
-                    </strong></li>
+                        <div class="col-sm-7">{{id.slice(0, -1)}}</div></strong>
+                        <div class="col-sm-2"><a ng-click="appendValue(vm.temp.currwidth.elements, {tag:id.slice(0, -1), attributes:{type:''}, text:''})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
                     <div class="clearfix"/>
                     <li ng-repeat="c in vm.temp.currwidth.elements">
-                        <div class="col-sm-3"><input type="text" ng-model="c.attributes.type" class="form-control"/></div>
-                        <div class="col-sm-6"><input type="text" ng-model="c.text" class="form-control"/></div>
-                        <div class="col-sm-3">
-                            <a ng-click="delContWidthEl($index, vm.temp.currwidth)" class="btn"><i class="fa fa-times"/></a>
-                            <a ng-click="addContWidthEl($index, vm.temp.currwidth)" class="btn" ng-show="$first"><i class="fa fa-plus"/></a>
+                        <div class="col-sm-3"><input type="text" ng-model="c.attributes.type" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-7"><input type="text" ng-model="c.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-1">
+                            <a ng-click="removeValue($index, vm.temp.currwidth.elements)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>eras</accordion-heading>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-2">Type</div><div class="col-sm-4">Era 0</div><div class="col-sm-2">Era 1</div></strong>
+                        <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.temp.newera" ng-change="changed()"/></div>
+                        <div class="col-sm-1"><a ng-click="addValue(vm.temp.newera, vm.temp.currcal.eras, null, {})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="(k, e) in vm.temp.currcal.eras">
+                        <div class="col-sm-2">{{k.slice(3)}}:</div>
+                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="e[0].text" ng-change="changed()"/></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="e[1].text" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="delValue(e, vm.temp.currcal.eras)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>cyclic name Sets</accordion-heading>
+                <div>
+                    <div class="col-sm-2">Set:</div>
+                    <select ng-model="vm.temp.currset" ng-options="k for (k, v) in vm.temp.currcal.cyclics" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newset" class="form-control"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currset=addValue(vm.temp.newset, vm.temp.currcal.cyclics, vm.temp.currset, {})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currset=delValue(vm.temp.currset, vm.temp.currcal.cyclics)"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <div>
+                    <div class="col-sm-2">Context:</div>
+                    <select ng-model="vm.temp.currcontext" ng-options="k for (k, v) in vm.temp.currset" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newcontext" class="form-control" ng-change="changed()"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currcontext=addValue(vm.temp.newcontext, vm.temp.currset, vm.temp.currcontext, {})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currcontext=delValue(vm.temp.currcontext, vm.temp.currset)"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <div>
+                    <div class="col-sm-2">Width:</div>
+                    <select ng-model="vm.temp.currwidth" ng-options="k for (k, v) in vm.temp.currcontext" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newwidth" class="form-control" ng-change="changed()"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currwidth=addValue(vm.temp.newwdith, vm.temp.currcontext, vm.temp.currwidth, {elements:[], dflt:false})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currwidth=delValue(vm.temp.currwidth, vm.temp.currcontext)"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <ul class="list-unstyled">
+                    <li><strong>
+                        <div class="col-sm-3">Type</div>
+                        <div class="col-sm-7">Cyclic Name</div></strong>
+                        <div class="col-sm-2"><a ng-click="appendValue(vm.temp.currwidth, {tag:'cyclicName', attributes:{type:''}, text:''})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="c in vm.temp.currwidth.elements">
+                        <div class="col-sm-3"><input type="text" ng-model="c.attributes.type" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-7"><input type="text" ng-model="c.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currwidth)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group ng-repeat="(id, v) in formats">
+                <accordion-heading>{{id}}</accordion-heading>
+                <div>
+                    <div class="col-sm-2">Type:</div>
+                    <select ng-model="vm.temp.currformat" ng-options="k for (k, v) in vm.temp.currcal[id.slice(0, -1)]" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newformat" class="form-control" ng-change="changed()"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currformat=addValue(vm.temp.newformat, vm.temp.currcal[id.slice(0, -1)], vm.temp.currformat, {dflt:false})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currformat=delValue(vm.temp.currformat, vm.temp.currcal[id.slice(0, -1)])"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-8">Value</div></strong></li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="k in ['displayName', 'pattern']">
+                        <div class="col-sm-3">{{k}}</div>
+                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="vm.temp.currformat[undefined][k].text" ng-change="changed()"/></div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>date time format lengths</accordion-heading>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-3">Name</div><div class="col-sm-2">Pattern</div></strong>
+                    <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.temp.newlength" ng-change="changed()"/></div>
+                    <div class="col-sm-1"><a ng-click="addValue(vm.temp.newlength, vm.temp.currcal.dateTimeFormat.lengths, null, {dflt:false, undefined:{}})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="(k, v) in vm.temp.currcal.dateTimeFormat.lengths">
+                        <div class="col-sm-3"><input type="text" ng-model="k" class="form-control" ng-change="changed"/></div>
+                        <div class="col-sm-3"><input type="text" ng-model="v[undefined].displayName.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-3"><input type="text" ng-model="v[undefined].pattern.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="delValue(v, vm.temp.currcal.dateTimeFormat.lengths)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>available date time formats</accordion-heading>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-5">Value</div></strong>
+                    <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.temp.newavail"/></div>
+                    <div class="col-sm-1"><a ng-click="addValue(vm.temp.newavail, vm.temp.currcal.dateTimeFormat.avilableitems, null, {})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <li ng-repeat="v in vm.temp.currcal.dateTimeFormat.availableitems">
+                        <div class="col-sm-3"><input type="text" ng-model="v.attributes.id" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-7"><input type="text" ng-model="v.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currcal.dateTimeFormat.avilableitems)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>appendable date time formats</accordion-heading>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-4">Value</div></strong>
+                    <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.temp.newappend"/></div>
+                    <div class="col-sm-2"><a ng-click="addValue(vm.temp.newappend, vm.temp.currcal.dateTimeFormat.appenditems, {})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <li ng-repeat="v in vm.temp.currcal.dateTimeFormat.appenditems">
+                        <div class="col-sm-3"><input type="text" ng-model="v.attributes.request" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-7"><input type="text" ng-model="v.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currcal.dateTimeFormat.appenditems)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>date time interval formats</accordion-heading>
+                <div>
+                    <div class="col-sm-2">Type:</div>
+                    <select ng-model="vm.temp.currinterval" ng-options="k for (k, v) in vm.temp.currcal.dateTimeFormat.intervals.items" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newinterval" class="form-control"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currinterval=addValue(v.temp.newinterval, vm.temp.currcal.dateTimeFormat.intervals.items, vm.temp.currinterval, {})"><i class="fa fa-plus"/></button>
+                        <button ng-click="vm.temp.currinterval=delValue(vm.temp.currinterval, vm.temp.currcal.dateTimeFormat.intervals.items)"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Changed</div><div class="col-sm-5">Pattern</div></strong>
+                    <div class="col-sm-3"><input type="text" class="form-control" ng-model="vm.temp.newinterval"/></div>
+                    <div class="col-sm-1"><a ng-click="addValue(vm.temp.newinterval, vm.temp.currinterval, null, {})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <li ng-repeat="v in vm.temp.currinterval">
+                        <div class="col-sm-3"><input type="text" ng-model="v.attributes.id" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-7"><input type="text" ng-model="v.text" class="form-control" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currinterval)" class="btn"><i class="fa fa-times"/></a>
                         </div>
                     </li>
                 </ul>
             </accordion-group>
         </accordion>
+        <h2>Miscellaneous</h2>
+        <accordion>
+            <accordion-group>
+                <accordion-heading>fields</accordion-heading>
+                <div>
+                    <div class="col-sm-2">Type:</div>
+                    <select ng-model="vm.temp.currfield" ng-options="k for (k, v) in vm.fields" class="col-sm-3"/>
+                    <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp.newfield" class="form-control"/></div>
+                    <div class="col-sm-3">
+                        <button ng-click="vm.temp.currfield=addValue(v.temp.newfield, vm.fields, vm.temp.currfield, {relatives : [], times : []})"><i class="fa fa-plus"/></button>
+                        <button ng-click="removeValue($index, vm.fields)"><i class="fa fa-minus"/></button>
+                    </div>
+                </div>
+                <div class="clearfix"/>
+                <h3>Relatives</h3>
+                <ul class='list-unstyled'>
+                    <li><strong><div class="col-sm-2">Type</div><div class="col-sm-8">Value</div></strong>
+                        <div class="col-sm-2"><a ng-click="appendValue(vm.temp.currfield.relatives, {tag:'relative', attributes:{type:''}, text:''})" class="btn"><i class="fa fa-plus"/></a></div>
+                        
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="e in vm.temp.currfield.relatives">
+                        <div class="col-sm-2"><input type="text" class="form-control" ng-model="e.attributes.type" ng-change="changed()"/></div>
+                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="e.text" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currfield.relatives)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+                <h3>Relative Time Patterns</h3>
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-2">Type</div><div class="col-sm-8">Pattern</div></strong>
+                        <div class="col-sm-2"><a ng-click="appendValue(vm.temp.currfield.times, {type:'', patterns:[{tag:'relativeTimePattern', text:''}]})" class="btn"><i class="fa fa-plus"/></a></div>
+                    </li>
+                    <div class="clearfix"/>
+                    <li ng-repeat="e in vm.temp.currfield.times">
+                        <div class="col-sm-2"><input type="text" class="form-control" ng-model="e.type" ng-change="changed()"/></div>
+                        <div class="col-sm-8"><input type="text" class="form-control" ng-model="e.patterns[0].text" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.temp.currfield.times)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+            </accordion-group>
+            <accordion-group>
+                <accordion-heading>time zones</accordion-heading>
+                <h3>Formats</h3>
+                <ul class='list-unstyled'>
+                    <li ng-repeat="e in ['hourFormat', 'gmtFormat', 'gmtZeroFormat', 'fallbackFormat']">
+                        <div class="col-sm-3">{{e}}:</div>
+                        <div class="col-sm-7"><input type="text" class="form-control" ng-model="vm.timeZones[e].text" ng-change="changed()"/></div>
+                        <div class="clearfix"/>
+                    </li>
+                    <li><div class="col-sm-3">regionFormat:</div>
+                        <strong><div class="col-sm-3">type</div>
+                            <div class="col-sm-4">format</div></strong>
+                        <div class="col-sm-2">
+                            <a ng-click="appendValue(vm.timeZones.regions, {tag:'regionFormat',attributes:{type:''},text:''});" class="btn"><i class="fa fa-plus"/></a>
+                        </div>
+                    </li>
+                    <li ng-repeat="t in vm.timeZones.regions">
+                        <div class="col-sm-offset-3 col-sm-3"><input type="text" class="form-control" ng-model="t.attributes.type" ng-change="changed()"/></div>
+                        <div class="col-sm-4"><input type="text" class="form-control" ng-model="t.text" ng-change="changed()"/></div>
+                        <div class="col-sm-2">
+                            <a ng-click="removeValue($index, vm.timeZones.regions)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="clearfix"/>
+                <div ng-repeat="z in ['zone', 'metazone']">
+                    <h3>{{z}}s</h3>
+                    <div>
+                        <div class="col-sm-2">Type:</div>
+                        <select ng-model="vm.temp['curr'+z]" ng-options="k for (k, v) in vm.timeZones[z]" class="col-sm-3"/>
+                        <div class="col-sm-offset-1 col-sm-3"><input type="text" ng-model="vm.temp['new'+z]" class="form-control"/></div>
+                        <div class="col-sm-3">
+                            <button ng-click="vm.temp.currfield=addValue(v.temp['new'+z], vm.timeZones[z], vm.temp['curr'+z], {})"><i class="fa fa-plus"/></button>
+                            <button ng-click="removeValue($index, vm.timeZones[z])"><i class="fa fa-minus"/></button>
+                        </div>
+                    </div>
+                    <div class="clearfix"/>
+                    <ul class='list-unstyled'>
+                        <li><div class="col-sm-4">Exemplar City:</div>
+                            <div class="col-sm-8"><input type="text" ng-model="vm.temp['curr'+z].exemplarCity.text" class="form-control" ng-change="changed()"/></div>
+                        </li>
+                        <div ng-repeat="l in ['long', 'short']">
+                            <li ng-repeat="t in ['generic', 'standard', 'daylight']">
+                                <div class="col-sm-2">{{l}}</div>
+                                <div class="col-sm-2">{{t}}:</div>
+                                <div class="col-sm-8"><input type="text" ng-model="vm.temp['curr'+z][l][t]" class="form-control" ng-change="changed()"/></div>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </accordion-group>
+        </accordion>
+        <div class="col-sm-4">
+            <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
+            <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+        </div>
     </div>
     <div class="col-sm-5" style="height:100vh; overflow:auto;">
         <h3>Help</h3>
         We are way beyond that here!
+
+        <p>When entering a new era type in eras, it must start with era as in 'eraFred', even though only 'Fred' will turn up in the list of types.</p>
     </div>
 </div>
 

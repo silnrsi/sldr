@@ -2,7 +2,7 @@
 
 // Services
 angular.module('ldmlEdit.service', [ 'ngResource' ])
-  .service('DomService', ['$resource', function($resource) {
+  .service('DomService', ['$http', function($http) {
     var et = null;
     var nsResolver;
 
@@ -22,13 +22,13 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
         reader.readAsText(file);
     };
     this.loadFromURL = function(url, cb) {
-        $resource(url, function(result) {
+        var ldml = $http.get(url).success(function(result) {
             var dat = result.data;
             var parser = new DOMParser();
             var dom = parser.parseFromString(dat, "text/xml");
             et = new ElementTree(dom);
             cb(et);
-        });
+        }).error(function(result) { cb(null); });
     };
     this.updateTopLevel = function(el) {
         for (var i = 0; i < et.root.children.length; i++)
