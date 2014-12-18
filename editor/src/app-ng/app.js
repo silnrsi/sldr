@@ -77,6 +77,7 @@ angular.module('ldmlEdit', [
         }};
     }])
   .controller('MainCtrl', [ '$scope', '$timeout', 'DomService', function($scope, $timeout, DomService) {
+    $scope.downmode = 0;
     $scope.doFileOpen = function(aFile) {
         $scope.fileName = aFile.name;
         DomService.loadFromFile(aFile, function(dat) {
@@ -90,9 +91,14 @@ angular.module('ldmlEdit', [
             $("#FileOpen").trigger("click");
         }, 0);
     };
-    $scope.onUrlOpen = function() {
-        DomService.loadFromURL($scope.openurl, function(dat) {
-            $scope.broadcast('dom');
+    $scope.onUrlOpen = function(base) {
+        $scope.downmode = 1;
+        DomService.loadFromURL(base + $scope.openurl, function(dat) {
+            $scope.$broadcast('dom');
+            if (!dat)
+                $scope.downmode = 3;
+            else
+                $scope.downmode = 2;
         });
     };
     $scope.onFileSaveAs = function() {
