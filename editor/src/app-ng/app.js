@@ -96,7 +96,7 @@ angular.module('ldmlEdit', [
     };
     $scope.onUrlOpen = function(base) {
         $scope.downmode = 1;
-        DomService.loadFromURL(base + $scope.openurl, function(dat) {
+        DomService.loadFromURL(base + this.openurl, function(dat) {
             $scope.$broadcast('dom');
             if (!dat)
                 $scope.downmode = 3;
