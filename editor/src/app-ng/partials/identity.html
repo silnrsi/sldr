@@ -4,21 +4,35 @@
     <form role="form">
         <div class="form-group">
             <label for="identityLang" class="col-sm-3 control-label">Language:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.model.language" class="form-control" ng-change="editChange()" id="identityLang"/>
             </div>
+            <a class="btn col-sm-1" ng-click="help=(help=='lang' ? '' : 'lang')"><i class="fa fa-info"/></a>
+        </div>
+        <div ng-show="help=='lang'" class='col-sm-offset-3'>
+            The language component of a language tag is either the iso639-2 or iso639-3 language code (depending on which is shorter).
+            It is entered as a lower case string.
         </div>
         <div class="form-group">
             <label for="identityScript" class="col-sm-3 control-label">Script:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.model.script" class="form-control" ng-change="editChange()" id="identityScript"/>
             </div>
+            <a class="btn col-sm-1" ng-click="help=(help=='script' ? '' : 'script')"><i class="fa fa-info"/></a>
+        </div>
+        <div ng-show="help=='script'" class='col-sm-offset-3'>
+            The script component of a language tag is a 4 letter code with the first letter capitalised and the rest lower case.
+            The value is taken from iso15924
         </div>
         <div class="form-group">
             <label for="identityRegion" class="col-sm-3 control-label">Region:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <input type="text" ng-model="vm.model.territory" class="form-control" ng-change="editChange()" id="identityRegion"/>
             </div>
+            <a class="btn col-sm-1" ng-click="help=(help=='region' ? '' : 'region')"><i class="fa fa-info"/></a>
+        </div>
+        <div ng-show="help=='region'" class='col-sm-offset-3'>
+            The territory component of a language tag is either a 2 letter all caps code from ISO3166 or a 3 digit region code.
         </div>
         <div class="form-group">
             <label for="identityVariant" class="col-sm-3 control-label">Variant:</label>
