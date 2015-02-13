@@ -24,7 +24,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import os, sys, codecs
+import os, sys, codecs, subprocess
+from argparse import ArgumentParser
 try :
     from sldr.ldml import Ldml
 except ImportError :
@@ -33,25 +34,30 @@ except ImportError :
 
 from multiprocessing import Pool
 
-if len(sys.argv) < 3 :
-    print """cldrimport cldr_common_dir outdir"""
-    sys.exit(1)
+parser = ArgumentParser()
+parser.add_argument('indir', help='cldr common directory (path/cldr/common, or path/cldr/seed)')
+parser.add_argument('outdir', help='Directory to store results in')
+parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
+parser.add_argument('--seed',action='store_true',help='Pulling from CLDR seed')
+parser.add_argument('--hg',action='store_true',help='Get revision and date information from hg repo indir/../.hg')
+args = parser.parse_args()
 
-indir = sys.argv[1]
-outdir = sys.argv[2]
 subdirs = ('main', 'collation', 'casing', 'segments')
 
 alllocales = set()
 for s in subdirs :
-    for l in os.listdir(os.path.join(indir, s)) :
+    for l in os.listdir(os.path.join(args.indir, s)) :
         if l[-4:].lower() == '.xml' :
             alllocales.add(l[:-4])
 
+# define this function after declaring args so we can access args within it
 def doit(a) :
     curr = None
+    allfiles = []
     for s in subdirs :
-        f = os.path.join(indir, s, a + '.xml')
+        f = os.path.join(args.indir, s, a + '.xml')
         if os.path.exists(f) :
+            allfiles.append(f)
             l = Ldml(f)
             if curr is not None :
                 curr.overlay(l)
@@ -59,11 +65,36 @@ def doit(a) :
                 curr = l
     if curr is not None :
         curr.normalise()
-        outfh = codecs.open(os.path.join(outdir, a + '.xml'), "w", encoding="utf-8")
+        if args.seed :
+            curr.add_silidentity(draft = 'unconfirmed', source = 'cldrseed')
+        else :
+            curr.add_silidentity(draft = 'approved', source = 'cldr')
+        if args.hg :
+            dohg(curr, allfiles)
+        outfh = codecs.open(os.path.join(args.outdir, a + '.xml'), "w", encoding="utf-8")
         curr.serialize_xml(outfh.write)
         outfh.close()
 
-pool = Pool()
-pool.map_async(doit, alllocales)
-pool.close()
-pool.join()
+def dohg(l, files) :
+    cmd = ["hg", "log", "-R", os.path.join(args.indir, '..'), "-l", "1", "--template", "{svnrev}\n{isodate(date)}"]
+    cmd.extend(files)
+    clog = subprocess.check_output(cmd)
+    (rev, date) = clog.split("\n")
+    i = l.root.find("identity")
+    r = i.find("version")
+    if r is None :
+        r = et.SubElement(i, "version")
+    r.set('number', "$Revision: {} $".format(rev))
+    d = i.find("generation")
+    if d is None :
+        d = et.SubElement(i, "generation")
+    d.set("date", "$Date: {} $".format(date))
+
+if not args.single :
+    pool = Pool()
+    pool.map_async(doit, alllocales)
+    pool.close()
+    pool.join()
+else :
+    for l in alllocales :
+        doit(l)

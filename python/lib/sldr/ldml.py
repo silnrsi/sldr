@@ -528,8 +528,8 @@ class Ldml(ETWriter) :
                 e.parent = None
         return res
 
-    def add_revid(self, revid) :
-        """Inserts identity/special/sil:identity/@revid"""
+    def add_silidentity(self, **kws) :
+        """Inserts attributes in identity/special/sil:identity"""
         i = self.root.find('identity')
         if i is not None :
             s = i.find('special/{'+self.silns+'}identity')
@@ -538,7 +538,8 @@ class Ldml(ETWriter) :
                 if 'sil' not in self.namespaces :
                     self.namespaces[self.silns] = 'sil'
                 s = et.SubElement(se, '{'+self.silns+'}identity')
-            s.set('revid', revid)
+            for k, v in kws.items() :
+                s.set(k, v)
         
 
 def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False) :
