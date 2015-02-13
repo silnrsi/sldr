@@ -795,8 +795,8 @@ class Ldml(ETWriter) :
                 e.parent = None
         return res
 
-    def add_id(self, **attrs) :
-        """Inserts identity/special/sil:identity/@revid"""
+    def add_silidentity(self, **kws) :
+        """Inserts attributes in identity/special/sil:identity"""
         i = self.root.find('identity')
         if i is not None :
             s = i.find('special/{'+self.silns+'}identity')
@@ -805,7 +805,7 @@ class Ldml(ETWriter) :
                 if 'sil' not in self.namespaces :
                     self.namespaces[self.silns] = 'sil'
                 s = et.SubElement(se, '{'+self.silns+'}identity')
-            for (k, v) in attrs.items() :
+            for k, v in kws.items() :
                 s.set(k, v)
 
 def _prepare_parent(next, token) :
@@ -815,7 +815,6 @@ def _prepare_parent(next, token) :
                 yield elem.parent
     return select
 ep.ops['..'] = _prepare_parent
-
 
 def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False, fname=None) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.

@@ -69,17 +69,14 @@ would be removed by stub removal, do not remain and get propagated forward
 Then we import the data:
 
     python python/scripts/cldrimport ~/mycldrsource/common cldrdata
-    python python/scripts/ldmlflatten -i cldrdata -o flat
+    python python/scripts/ldmlflatten -i cldrdata -o flat -a
 
 Bear in mind that one can use `pypy` instead of `python` in the above and life will
 run faster (in exchange for more memory usage).
 
-To ensure that files that need to be deleted, are, we rebuild the sldr directory from
-scratch. Notice that git is quite happy with this.
+Now we unflatten the files to their sldr form and merge them into the sldr
 
-    rm -fr sldr
-    mkdir sldr
-    python python/scripts/ldmlflatten -i flat -o sldr -r
+    python python/scripts/ldmlflatten -i flat -o sldr -r -a
 
 Now we are ready to commit our changes. First we stage all the additions, changes and removals
 and then we commit and merge into master

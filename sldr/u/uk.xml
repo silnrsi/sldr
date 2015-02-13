@@ -3,12 +3,14 @@
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 For terms of use, see http://www.unicode.org/copyright.html
 -->
-<ldml>
+<ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
-		<version number="$Revision$"/>
-		<generation date="$Date$"/>
-		<!-- name.en(uk)="Ukrainian" -->
+		<version number="$Revision: 11113 $"/>
+		<generation date="$Date: 2015-01-16 22:12 +0000 $"/>
 		<language type="uk"/>
+		<special>
+			<sil:identity source="cldr" draft="approved"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -2719,9 +2721,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</field>
 		</fields>
 		<timeZoneNames>
-			<regionFormat type="daylight">Час: {0}, літній</regionFormat>
-			<regionFormat type="standard">Час: {0}, стандартний</regionFormat>
-			<regionFormat>Час: {0}</regionFormat>
+			<regionFormat type="daylight">час: {0}, літній</regionFormat>
+			<regionFormat type="standard">час: {0}, стандартний</regionFormat>
+			<regionFormat>час: {0}</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Абіджан</exemplarCity>
 			</zone>
@@ -3981,9 +3983,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</zone>
 			<metazone type="Acre">
 				<long>
-					<generic draft="contributed">Час: Акрі</generic>
-					<standard draft="contributed">Час: Акрі, стандартний</standard>
-					<daylight draft="contributed">Час: Акрі, літній</daylight>
+					<generic draft="contributed">час: Акрі</generic>
+					<standard draft="contributed">час: Акрі, стандартний</standard>
+					<daylight draft="contributed">час: Акрі, літній</daylight>
 				</long>
 			</metazone>
 			<metazone type="Afghanistan">
@@ -4057,9 +4059,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</metazone>
 			<metazone type="Anadyr">
 				<long>
-					<generic draft="contributed">Час: Анадир</generic>
-					<standard draft="contributed">Час: Анадир, стандартний</standard>
-					<daylight draft="contributed">Час: Анадир, літній</daylight>
+					<generic draft="contributed">час: Анадир</generic>
+					<standard draft="contributed">час: Анадир, стандартний</standard>
+					<daylight draft="contributed">час: Анадир, літній</daylight>
 				</long>
 			</metazone>
 			<metazone type="Apia">
@@ -4501,7 +4503,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</metazone>
 			<metazone type="Lanka">
 				<long>
-					<standard draft="contributed">Час: Ланка</standard>
+					<standard draft="contributed">час: Ланка</standard>
 				</long>
 			</metazone>
 			<metazone type="Line_Islands">
@@ -4717,9 +4719,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</metazone>
 			<metazone type="Qyzylorda">
 				<long>
-					<generic draft="contributed">Час: Кизилорда</generic>
-					<standard draft="contributed">Час: Кизилорда, стандартний</standard>
-					<daylight draft="contributed">Час: Кизилорда, літній</daylight>
+					<generic draft="contributed">час: Кизилорда</generic>
+					<standard draft="contributed">час: Кизилорда, стандартний</standard>
+					<daylight draft="contributed">час: Кизилорда, літній</daylight>
 				</long>
 			</metazone>
 			<metazone type="Reunion">
@@ -5572,11 +5574,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 				<displayName>французький франк</displayName>
 			</currency>
 			<currency type="GBP">
-				<displayName count="few">англійські фунти стерлінгів</displayName>
-				<displayName count="many">англійських фунтів стерлінгів</displayName>
-				<displayName count="one">англійський фунт стерлінгів</displayName>
-				<displayName count="other">англійського фунта стерлінгів</displayName>
-				<displayName>англійський фунт стерлінгів</displayName>
+				<displayName count="few">англійські фунти</displayName>
+				<displayName count="many">англійських фунтів</displayName>
+				<displayName count="one">англійський фунт</displayName>
+				<displayName count="other">англійського фунта</displayName>
+				<displayName>англійський фунт</displayName>
 				<symbol alt="narrow" draft="contributed">£</symbol>
 				<symbol>GBP</symbol>
 			</currency>
@@ -8762,16 +8764,10 @@ For terms of use, see http://www.unicode.org/copyright.html
 	<collations>
 		<collation type="standard">
 			<settings reorder="Cyrl"/>
-			<suppress_contractions>[АаӘәГгЕеЖжЗзОоӨөКкУуЧчЫыЭэѴѵ]</suppress_contractions>
-			<!-- List of UCA contractions remaining after suppression:
-
-			Ї 0406 0308 CYRILLIC CAPITAL LETTER YI
-			ї 0456 0308 CYRILLIC SMALL LETTER YI
-			Й 0418 0306 CYRILLIC CAPITAL LETTER SHORT I
-			й 0438 0306 CYRILLIC SMALL LETTER SHORT I
-			-->
+			<!-- The root collation already sorts й/Й as a base letter. -->
 			<cr><![CDATA[
 				&Г<ґ<<<Ґ
+				&ꙇ<ї<<<\uA676<<<Ї  # U+A676=COMBINING CYRILLIC LETTER YI
 			]]></cr>
 		</collation>
 	</collations>
