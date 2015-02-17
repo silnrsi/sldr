@@ -13,6 +13,8 @@ angular.module('ldmlEdit.misc', [
         'Top to Bottom' : 'top-to-bottom',
         'Bottom to Top' : 'bottom-to-top'
     };
+    $scope.vm = {model : {changed : false}};
+    $scope.lists = [];
 
     var init = function(e) {
         $scope.flayout = DomService.findLdmlElement(null, "layout");
@@ -30,11 +32,14 @@ angular.module('ldmlEdit.misc', [
                         $scope.posix[c.tag] = c.text;
                     });
             });
-        $scope.flists = DomService.findElement(null, "listPattern");
+        $scope.flists = DomService.findElement(null, "listPatterns");
         if ($scope.flists != null)
             DomService.forEach($scope.flists.children, function (p) {
                 if (p.tag == 'listPattern')
-                    $scope.lists.push({type : p.attributes.type, value : p.text});
+                    angular.forEach(p.children, function (c) {
+                        if (c.tag == 'listPatternPart')
+                            $scope.lists.push({type : c.attributes.type, value : c.text});
+                    });
             });
     };
     init();
@@ -122,4 +127,15 @@ angular.module('ldmlEdit.misc', [
     $scope.addPattern = function() {
         $scope.lists.push({type: '', value: ''});
     };
+    $scope.editBtn = function () {
+        update_model();
+        $scope.vm.model.changed = false;
+    }
+    $scope.cancelBtn = function() {
+        $scope.vm.model.changed = false;
+        init();
+    };
+    $scope.editChange = function() {
+        $scope.vm.model.changed = true;
+    }
 }]);

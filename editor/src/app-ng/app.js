@@ -17,8 +17,8 @@ angular.module('ldmlEdit', [
    ])
   .config([ '$routeProvider', function($routeProvider) {
     $routeProvider.when('/loadnsave', {
-      templateUrl : 'app-ng/partials/loadnsave.html',
-      controller : 'MainCtrl'
+      templateUrl : 'app-ng/partials/loadnsave.html'
+      //controller : 'MainCtrl'
     });
     $routeProvider.when('/identity', {
       templateUrl : 'app-ng/partials/identity.html',
@@ -76,13 +76,16 @@ angular.module('ldmlEdit', [
             });
         }};
     }])
-  .controller('MainCtrl', [ '$scope', '$timeout', 'DomService', function($scope, $timeout, DomService) {
+  .controller('MainCtrl', [ '$scope', '$rootScope', '$timeout', 'DomService', function($scope, $rootScope, $timeout, DomService) {
     $scope.downmode = 0;
+    $scope.vm = {fileName : ""};
     $scope.doFileOpen = function(aFile) {
-        $scope.fileName = aFile.name;
+        //$scope.fileName = aFile.name;
         DomService.loadFromFile(aFile, function(dat) {
             // console.log("broadcasting dom");
             $scope.$broadcast('dom');
+            $scope.setFileName();
+            $scope.$apply();
         });
     };
     $scope.onFileOpen = function (files) {
@@ -93,7 +96,7 @@ angular.module('ldmlEdit', [
     };
     $scope.onUrlOpen = function(base) {
         $scope.downmode = 1;
-        DomService.loadFromURL(base + $scope.openurl, function(dat) {
+        DomService.loadFromURL(base + this.openurl, function(dat) {
             $scope.$broadcast('dom');
             if (!dat)
                 $scope.downmode = 3;
@@ -101,28 +104,30 @@ angular.module('ldmlEdit', [
                 $scope.downmode = 2;
         });
     };
-    $scope.onFileSaveAs = function() {
+    $scope.setFileName = function() {
         var complist = ['script', 'territory', 'variant'];
-        if ($scope.fileName == null) {
-            var ident = DomService.findElement(null, "identity");
-            if (ident == null)
-                $scope.fileName = 'NoName.xml';
-            else {
-                var l = DomService.findElement(ident, 'language');
+        var ident = DomService.findElement(null, "identity");
+        if (ident == null)
+            $scope.vm.fileName = 'NoName.xml';
+        else {
+            var l = DomService.findElement(ident, 'language');
+            if (l != null)
+                $scope.vm.fileName = l.attributes['type'];
+            angular.forEach(complist, function (c) {
+                var l = DomService.findElement(ident, c);
                 if (l != null)
-                    $scope.fileName = l.attributes['type'];
-                angular.forEach(complist, function (c) {
-                    var l = DomService.findElement(ident, c);
-                    if (l != null)
-                        $scope.fileName = $scope.fileName + "_" + l.attributes['type'];
-                });
-                if ($scope.fileName == null)
-                    $scope.fileName = 'NoName';
-                $scope.fileName = $scope.fileName + ".xml";
-            }
+                    $scope.vm.fileName = $scope.vm.fileName + "_" + l.attributes['type'];
+            });
+            if ($scope.vm.fileName == null)
+                $scope.vm.fileName = 'NoName';
+            $scope.vm.fileName = $scope.vm.fileName + ".xml";
         }
-        console.log("Filename: " + $scope.fileName);
-        saveAs(DomService.getBlob(), $scope.fileName);  
+    };
+    $scope.onFileSaveAs = function() {
+        if (!$scope.vm.fileName)
+            $scope.setFileName();
+        console.log("Filename: " + $scope.vm.fileName);
+        saveAs(DomService.getBlob(), $scope.vm.fileName);  
     };
     }])
 ;

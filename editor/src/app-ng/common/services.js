@@ -23,9 +23,8 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     };
     this.loadFromURL = function(url, cb) {
         var ldml = $http.get(url).success(function(result) {
-            var dat = result.data;
             var parser = new DOMParser();
-            var dom = parser.parseFromString(dat, "text/xml");
+            var dom = parser.parseFromString(result, "text/xml");
             et = new ElementTree(dom);
             cb(et);
         }).error(function(result) { cb(null); });
