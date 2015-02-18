@@ -40,6 +40,7 @@ parser.add_argument('outdir', help='Directory to store results in')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
 parser.add_argument('--seed',action='store_true',help='Pulling from CLDR seed')
 parser.add_argument('--hg',action='store_true',help='Get revision and date information from hg repo indir/../.hg')
+parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace declarations at top of file instead of as low as possible')
 args = parser.parse_args()
 
 subdirs = ('main', 'collation', 'casing', 'segments')
@@ -72,7 +73,7 @@ def doit(a) :
         if args.hg :
             dohg(curr, allfiles)
         outfh = codecs.open(os.path.join(args.outdir, a + '.xml'), "w", encoding="utf-8")
-        curr.serialize_xml(outfh.write)
+        curr.serialize_xml(outfh.write, topns=args.topns)
         outfh.close()
 
 def dohg(l, files) :
