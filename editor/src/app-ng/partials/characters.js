@@ -7,39 +7,40 @@ angular.module('ldmlEdit.characters', [
 
     $scope.vm = {};
     $scope.vm.exemplars = [];
-    var knowntypes = { 'main' : 0, 'auxiliary' : 1, 'punctuation' : 2, 'index' : 3 };
+    $scope.charactertypes = { 'Default' : 'Default', 'auxiliary' : 'auxiliary', 'punctuation' : 'punctuation', 'index' : 'index' };
 
     var init = function(e) {
-        $scope.fres = DomService.findElements(null, ["characters"]);
+        $scope.fres = DomService.findLdmlElement(null, "characters");
         if ($scope.fres == null) 
             $scope.fres = {'tag' : 'characters', 'attributes' : {}, 'children' : []};
 
         var exemplars = [];
-        angular.forEach($scope.fres.children, function(f) {
-            if (f.tag == 'exemplarCharacters') 
-                exemplars.push({'type' : f.attributes['type'], 'text' : f.text});
+        DomService.forEach($scope.fres.children, function(f) {
+            if (f.tag == 'exemplarCharacters') {
+                var t = f.attributes.type;
+                if (!t) t = 'Default';
+                exemplars.push({'type' : t, 'text' : f.text});
+            }
             else if (f.tag == 'special') {
-                angular.forEach(f.children, function (e) {
+                DomService.forEach(f.children, function (e) {
                     if (e.tag == 'sil:exemplarCharacters')
-                        exemplars.push({'type' : e.attributes['type'], 'text' : e.text});
+                        exemplars.push({'type' : e.attributes.type, 'text' : e.text});
                 });
             }
         });
         $scope.vm.exemplars = exemplars; 
-        // console.log(JSON.stringify($scope.vm.exemplars));
-        // $scope.$apply();
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.editBtn = function() {
         var children = [];
         var extras = [];
         angular.forEach($scope.vm.exemplars, function (s) {
-            var res = {'tag' : 'exemplarCharacters', 'attributes' : {'type' : s.type}, 'text' : s.text, 'children' : []};
-            if (s.type in knowntypes || s.type == null || s.type == '')
+            var tname = s.type
+            if (s.type == 'Default')
+                tname = '';
+            var res = {'tag' : 'exemplarCharacters', 'attributes' : {'type' : tname}, 'text' : s.text, 'children' : []};
+            if (s.type in $scope.charactertypes || s.type == null || s.type == '')
                 children.push(res);
             else {
                 res['tag'] = 'sil:exemplarCharacters';

@@ -6,6 +6,7 @@ angular.module('ldmlEdit.identity', [
   .controller('IdentityCtrl', [ '$scope', 'DomService', function($scope, DomService) {
 
     $scope.vm = {};
+    $scope.help = '';
     var localmap = {
         'language' : 'type',
         'script' : 'type',
@@ -17,7 +18,7 @@ angular.module('ldmlEdit.identity', [
     var specials = [ 'revid', 'windowsLCID', 'defaultRegion', 'variantName', 'usage' ];
 
     var init = function(e) {
-        $scope.fres = DomService.findElement(null, "identity");
+        $scope.fres = DomService.findLdmlElement(null, "identity");
         if ($scope.fres == null)
             $scope.fres = {'tag' : 'identity', 'attributes' : {}, 'children' : []};
         var model = {};
@@ -32,16 +33,13 @@ angular.module('ldmlEdit.identity', [
         $scope.vm.model = model;
         var spec = DomService.findElements($scope.fres, ["special", "sil:identity"]);
         if (spec != null) {
-            angular.forEach(specials, function (s) {
+            DomService.forEach(specials, function (s) {
                 if (spec.attributes[s] != null)
                     model[s] = spec.attributes[s];
             });
         }
         $scope.vm.model.changed = false;
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     $scope.editBtn = function () {
@@ -68,9 +66,11 @@ angular.module('ldmlEdit.identity', [
     $scope.cancelBtn = function() {
         $scope.vm.model.changed = false;
         init();
+        $scope.help = '';
     };
     $scope.editChange = function() {
         $scope.vm.model.changed = true;
+        $scope.help = '';
     }
 }]);
 

@@ -1,6 +1,5 @@
 <div>
- <tabset>
-  <tab heading="Data">
+  <div class="col-sm-7">
    <div>
     <button class="pull-right" ng-click="addSegment()"><i class="fa fa-plus"></i></button>
     <h2>Segmentations</h2>
@@ -8,15 +7,20 @@
         <accordion-group ng-repeat="seg in vm.model">
             <accordion-heading>Segmentation: {{seg.type}}</accordion-heading>
             <label for="segmentName{{$index}}">Name:</label>
-            <input type="text" ng-model="seg.type" id="segmentName{{$index}}" ng-change="editChange()"/>
+            <input type="text" ng-model="seg.type" class="form-control" id="segmentName{{$index}}" ng-change="editChange()"/>
             <div ng-repeat="type in types">
                 <button class="pull-right" ng-click="addElement(type, seg)"><i class="fa fa-plus"></i></button>
                 <h3>{{sublists[type].title}}</h3>
                 <ul class="list-unstyled">
-                    <li><strong><div class="col-sm-2">ID</div><div class="col-sm-8">value</div><div class="col-sm-2">Buttons</div></strong></li>
+                    <li><strong><div class="col-sm-3">ID</div><div class="col-sm-7">value</div><div class="col-sm-2"></div></strong></li>
+                    <div class="clearfix"/>
                     <li ng-repeat="v in seg[type] | orderBy:'sortkey'">
-                        <input type="text" ng-model="v.attributes.id" class="form.control col-sm-2" ng-change="editChange()"/>
-                        <input type="text" ng-model="v.text" class="form.control col-sm-8" ng-change="editChange()"/>
+                        <div class="col-sm-3">
+                            <input type="text" ng-model="v.attributes.id" class="form-control col-sm-2" ng-change="editChange()"/>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" ng-model="v.text" class="form-control col-sm-8" ng-change="editChange()"/>
+                        </div>
                         <div class="col-sm-2">
                             <!--<a ng-click="upBtn($index, seg[type])" class="btn" ng-show="$index > 0"><i class="fa fa-caret-up"/></a>
                             <a ng-click="downBtn($index, seg[type])" class="btn" ng-show="$index < seg[type].length - 1"><i class="fa fa-caret-down"/></a> -->
@@ -27,19 +31,19 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
                     <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
                 </div>
             </div>
         </accordion-group>
     </accordion> 
    </div>
-  </tab>
-  <tab heading="Help">
+  </div>
+  <div class="col-sm-5" style="height:100vh; overflow:auto;">
    <div>
+    <h3>Help</h3>
     Sorry, you are on your own at the moment. Hopefully one day this will give you some help
    </div>
-  </tab>
- </tabset>
+  </div>
 </div>
             

@@ -1,6 +1,5 @@
 <div>
- <tabset>
-  <tab heading="Data">
+  <div class="col-sm-7">
    <div>
     <button class="pull-right" ng-click="addQuote()"><i class="fa fa-plus"></i></button>
     <h2>Quotations</h2>
@@ -23,53 +22,54 @@
             </select>
         </div>
         <div class="form-group">
-            <table class="col-sm-12">
-                <tr><th>Level</th><th>Start</th><th>End</th><th>Continue</th><th>Del</th></tr>
-                <tr ng-repeat="q in vm.quotes">
-                    <td>{{$index}}</td>
-                    <td><input type="text" ng-model="q.start" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><input type="text" ng-model="q.end" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><input type="text" ng-model="q.continue" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><a ng-click="delQuote($index)" class="btn" ng-show="$index > 1"><i class="fa fa-times"/></a></td>
-                </tr>
-            </table>
+            <ul class="list-unstyled">
+                <li><strong><div class="col-sm-1">Level</div><div class="col-sm-3">Start</div><div class="col-sm-3">End</div>
+                            <div class="col-sm-3">Continue</div></strong></li>
+                <div class="clearfix"/>
+                <li ng-repeat="q in vm.quotes">
+                    <div class="col-sm-1">{{$index}}</div>
+                    <div class="col-sm-3"><input type="text" ng-model="q.start" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-3"><input type="text" ng-model="q.end" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-3"><input type="text" ng-model="q.continue" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-2"><a ng-click="delQuote($index)" class="btn" ng-show="$index > 1"><i class="fa fa-times"/></a></div>
+                    <div class="clearfix"/>
+                </li>
+            </ul>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
-            <div class="clearfix"/>
         </div>
     </form>
    </div>
    <div>
     <button class="pull-right" ng-click="addPunc()"><i class="fa fa-plus"></i></button>
-    <h2>Punctuation Patterns</h2>
+    <h2>Word Forming Patterns</h2>
     <form role="form">
         <div class="form-group">
-            <table class="col-sm-12">
-                <tr><th>String</th><th>context</th><th>Valid</th><th>Del</th></tr>
-                <tr ng-repeat="q in vm.puncs">
-                    <td><input type="text" ng-model="q.attributes.string" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><select ng-model="q.attributes.context" class="form.control col-sm-12" ng-change="editChange()">
+            <ul class="list-unstyled">
+                <li><strong><div class="col-sm-6">String</div><div class="col-sm-4">Context</div></strong></li>
+                <div class="clearfix"/>
+                <li ng-repeat="q in vm.puncs">
+                    <div class="col-sm-6"><input type="text" ng-model="q.attributes.pattern" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-4"><select ng-model="q.attributes.context" ng-change="editChange()">
                         <option>init</option>
                         <option>medial</option>
                         <option>final</option>
                         <option>break</option>
                         <option>isolate</option>
-                    </select></td>
-                    <td><input type="checkbox" ng-model="q.attributes.valid" class="form.control" ng-true-value="true" ng-false-value="false" ng-change="editChange()"/></td>
-                    <td><a ng-click="delPunc($index)" class="btn"><i class="fa fa-times"/></a></td>
-                </tr>
-            </table>
+                    </select></div>
+                    <div class="col-sm-2"><a ng-click="delPunc($index)" class="btn"><i class="fa fa-times"/></a></div>
+                </li>
+            </ul>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
-            <div class="clearfix"/>
         </div>
     </form>
    </div>
@@ -78,30 +78,59 @@
     <h2>Matched Pairs</h2>
     <form role="form">
         <div class="form-group">
-            <table class="col-sm-12">
-                <tr><th>open</th><th>close</th><th>Paragraph Close</th><th>Del</th></tr>
-                <tr ng-repeat="q in vm.pairs">
-                    <td><input type="text" ng-model="q.attributes.open" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><input type="text" ng-model="q.attributes.close" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><input type="checkbox" ng-model="q.attributes.paraClose" class="form.control" ng-true-value="true" ng-false-value="false" ng-change="editChange()"/></td>
-                    <td><a ng-click="delPair($index)" class="btn"><i class="fa fa-times"/></a></td>
-                </tr>
-            </table>
+            <ul class="list-unstyled">
+                <li><strong><div class="col-sm-4">Open</div><div class="col-sm-4">Close</div>
+                            <div class="col-sm-2">Paragraph Close</div></strong></li>
+                <div class="clearfix"/>
+                <li ng-repeat="q in vm.pairs">
+                    <div class="col-sm-4"><input type="text" ng-model="q.attributes.open" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-4"><input type="text" ng-model="q.attributes.close" class="form-control" ng-change="editChange()"/></div>
+                    <div class="col-sm-2"><input type="checkbox" ng-model="q.attributes.paraClose" class="form-control" ng-true-value="true" ng-false-value="false" ng-change="editChange()"/></div>
+                    <div class="col-sm-2"><a ng-click="delPair($index)" class="btn"><i class="fa fa-times"/></a></div>
+                </li>
+            </ul>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-7">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Save</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="saveBtn()">Apply</button>
                 <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
             </div>
             <div class="clearfix"/>
         </div>
     </form>
    </div>
-  </tab>
-  <tab heading="Help">
+  </div>
+  <div class="col-sm-5" style="height:100vh; overflow:auto;">
    <div>
-    Sorry, you are on your own at the moment. Hopefully one day this will give you some help
+    <h3>Help</h3>
+    <p>Delimiters consist of various subcategories</p>
+
+    <h4>Quotations</h4>
+    <p>This section describes the various levels of quotations within quotations and how they are
+        represented in text. LDML by default includes information on 2 levels of quotations, but more
+        can be added. The start string is the opening quotes, the end string is the closing quotes.
+        When quoted text continues over a paragraph break, the continuation mark is used at the start
+        of the new paragraph.</p>
+    <p>Paragraph continuation type specifies how many of the levels of quotations should be output at
+        the start of a quotation continuing paragraph. The paragraph continuation mark specifies which
+        mark is to be used when a level is output at the start of a quotation continuing paragraph. If
+        the value 'special' is used, then the continuation value for a level is used.
+    </p>
+    <p>All the content of this section ends up in the &lt;delimiters&gt; top level element in the LDML.
+        Additional levels are stored in an SIL special within the delimiters.
+    </p>
+
+    <h4>Word Forming Patterns</h4>
+    <p>This section describes SIL specific information on punctuation sequences that should be considered
+        word forming. The string is the punctuation sequence. The context specifies where in a character
+        sequence, the punctuation sequence is considered word forming.</p>
+    <p>This content ends up in &lt;delimiters/special/sil:punctuation-patterns&gt;</p>
+
+    <h4>Matched Pairs</h4>
+    <p>This section lists matched pair characters that should be matched in normal text. By default all
+        locales are assumed to have the following matched pairs: [ ], ( ), { }</p>
+    <p>This information ends up in &lt;delimiters/special/sil:matched-pairs&gt;</p>
+    <p>See <a href="http://www.unicode.org/reports/tr35/tr35-general.html#Delimiter_Elements">here</a> for the LDML specification on this topic</p>
    </div>
-  </tab>
- </tabset>
+  </div>
 </div>

@@ -23,6 +23,7 @@
 # SUCH DAMAGE.
 
 from xml.etree import ElementTree as et
+from xml.etree import ElementPath as ep
 import re, os, codecs
 
 _elementprotect = {
@@ -35,6 +36,8 @@ _attribprotect['"'] = '&quot;'
 class ETWriter(object) :
     """ General purpose ElementTree pretty printer complete with options for attribute order
         beyond simple sorting, and which elements should use cdata """
+
+    nscount = 0
 
     def __init__(self, et, namespaces = None, attributeOrder = {}, takesCData = set()) :
         self.root = et
@@ -126,13 +129,8 @@ def etwrite(et, write, topns = True, namespaces = None) :
     base = ETWriter(et, namespaces)
     base.serialize_xml(write, topns = topns)
     
-_draftratings = {
-    '' : 0,
-    'approved' : 1,
-    'contributed' : 2,
-    'provisional' : 3,
-    'unconfirmed' : 4
-}
+_alldrafts = ('approved', 'contributed', 'provisional', 'unconfirmed', 'proposed', 'tentative')
+_draftratings = dict(map(lambda x: (x[1], x[0]), enumerate(_alldrafts)))
 
 class _arrayDict(dict) :
     def set(self, k, v) :
@@ -155,6 +153,7 @@ class _arrayDict(dict) :
 class _minhash(object) :
     _maxbits = 56
     _bits = 4
+    _mask = 0xFFFFFFFFFFFFFFFF
 
     def __init__(self, hasher = hash, nominhash = True) :
         self.minhash = None if nominhash else (1 << self._maxbits) - 1
@@ -173,11 +172,11 @@ class _minhash(object) :
     def update(self, *vec) :
         h = map(self.hasher, vec)
         if self.minhash is not None : map(self._minhashupdate, h)
-        self.hashed = reduce(lambda x,y:x * 1000003 + y, h, self.hashed)
+        self.hashed = reduce(lambda x,y:x * 1000003 + y, h, self.hashed) & self._mask
 
     def merge(self, aminh) :
         if self.minhash is not None and aminh.minhash is not None : self._minhashupdate(aminh.minhash)
-        self.hashed = self.hashed * 1000003 + aminh.hashed
+        self.hashed = (self.hashed * 1000003 + aminh.hashed) & self._mask
 
     def _minhashupdate(self, ahash) :
         x = (1 << self._bits) - 1
@@ -276,14 +275,18 @@ class Ldml(ETWriter) :
         for p in ps.findall('likelySubtag') :
             cls.likelySubtags[p.get('from')] = p.get('to')
 
-    def __init__(self, fname) :
+    def __init__(self, fname, usedrafts=True) :
         if not hasattr(self, 'elementOrder') :
             self.__class__.ReadMetadata()
-        self.fname = fname
         self.namespaces = {}
-        fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
+        self.useDrafts = usedrafts
         curr = None
         comments = []
+        if isinstance(fname, basestring) :
+            self.fname = fname
+            fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
+        else :
+            fh = fname
         parser = et.XMLParser(target=et.TreeBuilder(), encoding="UTF-8")
         def doComment(data) :
             # resubmit as new start tag=! and sort out in main loop
@@ -294,6 +297,7 @@ class Ldml(ETWriter) :
             if event == 'start-ns' :
                 self.namespaces[elem[1]] = elem[0]
             elif event == 'start' :
+                elem.document = self
                 if elem.tag == '!--' :
                     comments.append(elem.get('text'))
                 else :
@@ -314,7 +318,36 @@ class Ldml(ETWriter) :
                     comments = []
                 curr = getattr(elem, 'parent', None)
         fh.close()
-        self.normalise(self.root)
+        self.analyse()
+        self.normalise(self.root, usedrafts=usedrafts)
+
+    def copynode(self, n, parent=None) :
+        res = n.copy()
+        for a in ('contentHash', 'attrHash', 'comments', 'commentsafter', 'parent', 'document') :
+            if hasattr(n, a) :
+                setattr(res, a, getattr(n, a, None))
+        if parent is not None :
+            res.parent = parent
+        return res
+
+    def addnode(self, parent, tag, **attribs) :
+        e = et.SubElement(parent, tag, **attribs)
+        e.parent = parent
+        if self.useDrafts :
+            self._calc_hashes(e, self.useDrafts)
+        return e
+
+    def find(self, path, elem=None) :
+        def nstons(m) :
+            for (k, v) in self.namespaces.items() :
+                if m.group(1) == v :
+                    return "{"+k+"}"
+            return ""
+
+        if elem is None :
+            elem = self.root
+        path = re.sub(ur"([a-z0-9]+):", nstons, path)
+        return elem.find(path)
 
     def get_parent_locales(self, name) :
         if not hasattr(self, 'parentLocales') :
@@ -333,7 +366,7 @@ class Ldml(ETWriter) :
             base = self.root
         if len(base) :
             for b in base :
-                self.normalise(b, addguids)
+                self.normalise(b, addguids=addguids, usedrafts=usedrafts)
             def cmpat(x, y) :
                 return cmp(self.attributeOrder.get(x, self.maxAts), self.attributeOrder.get(y, self.maxAts)) or cmp(x, y)
             def cmpel(x, y) :   # order by elementOrder and within that attributes in attributeOrder
@@ -353,8 +386,33 @@ class Ldml(ETWriter) :
             t = base.text.strip()
             base.text = re.sub(ur'\s*\n\s*', '\n', t)           # content hash has text in lines
         base.tail = None
-        if addguids :
+        if usedrafts or addguids :
             self._calc_hashes(base, usedrafts=usedrafts)
+        if usedrafts :                                          # pack up all alternates
+            temp = {}
+            for c in base :
+                a = c.get('alt', None)
+                if a is None or a.find("proposed") == -1 :
+                    temp[c.attrHash] = c
+            tbase = list(base)
+            for c in tbase :
+                a = c.get('alt', '')
+                if a.find("proposed") != -1 and c.attrHash in temp :
+                    a = re.sub(ur"proposed.*$", "", a)
+                    t = temp[c.attrHash]
+                    if not hasattr(t, 'alternates') :
+                        t.alternates = {}
+                    t.alternates[a] = c
+                    base.remove(c)
+
+    def analyse(self, usedrafts=False) :
+        identity = self.root.find('./identity/special/{' + self.silns + '}identity')
+        if identity is not None:
+            self.default_draft = _draftratings.get(identity.get('draft', 'proposed'))
+            self.uid = identity.get('uid', None)
+        else :
+            self.default_draft = _draftratings['proposed']
+            self.uid = None
 
     def _calc_hashes(self, base, usedrafts=False) :
         base.contentHash = _minhash(nominhash = True)
@@ -364,14 +422,43 @@ class Ldml(ETWriter) :
         distkeys = set(self.keys)
         if base.tag in self.nonkeyContexts :
             distkeys -= self.nonkeyContexts[base.tag]
+        if usedrafts :
+            distkeys.discard('draft')
         base.attrHash = _minhash(nominhash = True)
         base.attrHash.update(base.tag)                      # keying hash has tag
         for k in sorted(base.keys()) :                      # any consistent order is fine
-            if k in distkeys :
+            if usedrafts and k == 'alt' and base.get(k).find("proposed") == -1 :
+                val = re.sub(ur"proposed.*$", "", base.get(k))
+                base.attrHash.update(k, val)
+            elif k in distkeys :
                 base.attrHash.update(k, base.get(k))        # keying hash has key attributes
-            elif not usedrafts or k != 'draft' :
+            elif not usedrafts or (k != 'draft' and k != 'alt' and k != '{'+self.silns+'}alias') :
                 base.contentHash.update(k, base.get(k))     # content hash has non key attributes
         base.contentHash.merge(base.attrHash)               #   and keying hash
+
+    def serialize_xml(self, write, base = None, indent = '', topns = True, namespaces = {}) :
+        if self.useDrafts :
+            n = base if base is not None else self.root
+            offset = 0
+            alt = n.get('alt', '')
+            for (i, c) in enumerate(list(n)) :
+                if not hasattr(c, 'alternates') : continue
+                for a in sorted(c.alternates.keys()) :
+                    c.alternates[a].set('alt', alt+a)
+                    offset += 1
+                    n.insert(i + offset, c.alternates[a])
+                    c.alternates[a].tempnode = True
+        super(Ldml, self).serialize_xml(write, base, indent, topns, namespaces)
+        if self.useDrafts :
+            n = base if base is not None else self.root
+            for c in list(n) :
+                if hasattr(c, 'tempnode') and c.tempnode :
+                    n.remove(c)
+
+    def get_draft(self, e, default=None) :
+        ldraft = e.get('draft', None) if e is not None else None
+        if ldraft is not None : return _draftratings.get(ldraft, 5)
+        return _draftratings.get(default, e.document.default_draft)
 
     def overlay(self, other, usedrafts=False, this=None, odraft='', tdraft='') :
         """Add missing information in self from other. Honours @draft attributes"""
@@ -383,16 +470,55 @@ class Ldml(ETWriter) :
         for o in other :
             addme = True
             for t in filter(lambda x: x.attrHash == o.attrHash, this) :
+                addme = False
                 if o.contentHash != t.contentHash :
                     if o.tag not in self.blocks :
                         self.overlay(o, usedrafts=usedrafts, this=t, odraft=odraft, tdraft=tdraft)
-                    #elif not usedrafts or _draftratings.get(tdraft, 0) > _draftratings.get(odraft, 0) :
-                    #    this.remove(t)
-                    #    break   # quit early to add o as replacement
-                addme = False
-                break
+                    elif usedrafts :
+                        self._merge_leaf(other, t, o)
+                break  # only do one alignment
             if addme and (o.tag != "alias" or not len(this)) :  # alias in effect turns it into blocking
                 this.append(o)
+
+    def _merge_leaf(self, other, b, o) :
+        """Handle @draft and @alt"""
+        if not hasattr(o, 'alternates') : return
+        if hasattr(b, 'alternates') :
+            for (k, v) in o.items() :
+                if k not in b.alternates : b.alternates[k] = v
+        else :
+            b.alternates = o.alternates
+            
+    def resolve_aliases(self, this=None, _cache=None) :
+        if this is None : this = self.root
+        hasalias = False
+        if _cache is None :
+            _cache = set()
+        for (i, c) in enumerate(list(this)) :
+            if c.tag == 'alias' :
+                v = c.get('path', None)
+                if v is None : continue
+                this.remove(c)
+                count = 1
+                for res in this.findall(v + "/*") :
+                    res = self.copynode(res, parent=this)
+                    # res.set('{'+self.silns+'}alias', "1")
+                    # self.namespaces[self.silns] = 'sil'
+                    this.insert(i+count, res)
+                    count += 1
+                hasalias = True
+                if v in _cache :
+                    print "Alias loop discovered: %s" % v
+                    return True
+                _cache.add(v)
+                self.resolve_aliases(this, _cache)
+                _cache.remove(v)
+            else :
+                hasalias |= self.resolve_aliases(c)
+        if hasalias and self.useDrafts :
+            self._calc_hashes(this)
+            return True
+        return False
 
     def difference(self, other, this=None) :
         """Strip out everything that is in other, from self, so long as the values are the same."""
@@ -404,18 +530,25 @@ class Ldml(ETWriter) :
         for o in other :
             for t in filter(lambda x: x.attrHash == o.attrHash, this) :
                 if o.contentHash == t.contentHash or (o.tag not in self.blocks and self.difference(o, this=t)) :
-                    this.remove(t)
+                    if hasattr(t, 'alternates') and hasattr(o, 'alternates') :
+                        for (k, v) in o.alternates :
+                            if k in t.alternates and v.contentHash == t.alternates[k].contentHash :
+                                del t.alternates[k]
+                        if len(t.alternates) == 0 :
+                            this.remove(t)
+                    else :
+                        this.remove(t)
                 break
         return not len(this) and (not this.text or this.text == other.text)
 
     def _align(self, this, other, base) :
         """Internal method to merge() that aligns elements in base and other to this and
            records the results in this. O(7N)"""
-        olist = dict(map(lambda x: (x.contentHash, x), other))
-        if base is not None : blist = dict(map(lambda x: (x.contentHash, x), base))
+        olist = dict(map(lambda x: (x.contentHash, x), other)) if other is not None else {}
+        blist = dict(map(lambda x: (x.contentHash, x), base)) if base is not None else {}
         for t in list(this) :
             t.mergeOther = olist.get(t.contentHash, None)
-            t.mergeBase = blist.get(t.contentHash, None) if base is not None else None
+            t.mergeBase = blist.get(t.contentHash, None)
             if t.mergeOther is not None :
                 del olist[t.contentHash]
                 if t.mergeBase is not None :
@@ -432,61 +565,195 @@ class Ldml(ETWriter) :
             t.mergeOther = odict.pop(t.attrHash)
             if t.mergeOther is not None :
                 del olist[t.mergeOther.contentHash]
-                if t.mergeBase is None and base is not None :
-                    if t.mergeOther.contentHash in blist :
-                        t.mergeBase = blist.pop(t.mergeOther.contentHash)
-                        bdict.remove(t.mergeBase.attrHash, t.mergeBase)
-                    else :
-                        t.mergeBase = bdict.pop(t.attrHash)
-                        if t.mergeBase is not None : del blist[t.mergeBase.contentHash]
-            elif t.mergeBase is not None :
-                this.remove(t)
+            if t.mergeBase is None and base is not None :
+                if t.mergeOther is not None and t.mergeOther.contentHash in blist :
+                    t.mergeBase = blist.pop(t.mergeOther.contentHash)
+                    if t.mergeBase is not None : bdict.remove(t.mergeBase.attrHash, t.mergeBase)
+                if t.mergeBase is None :
+                    t.mergeBase = bdict.pop(t.attrHash)
+                    if t.mergeBase is not None : del blist[t.mergeBase.contentHash]
         for e in olist.values() :       # pick up stuff in other but not in this
-            if base is None or e.contentHash in blist :
-                this.append(e)
-                e.mergeOther = None     # don't do anything with this in merge()
+            newe = self.copynode(e, this.parent)
+            if base is not None and e.contentHash in blist :
+                newe.mergeBase = blist.pop(e.contentHash)
+            elif base is not None :
+                newe.mergeBase = bdict.pop(e.attrHash)
+                while newe.mergeBase is not None and newe.mergeBase.contentHash not in blist :
+                    newe.mergeBase = bdict.pop(e.attrHash)
+                if newe.mergeBase is not None :
+                    del blist[newe.mergeBase.contentHash]
+            else :
+                newe.mergeBase = None
+            newe.mergeOther = None     # don't do anything with this in merge()
+            this.append(newe)
 
-    def merge(self, other, base, this=None, usedrafts=False, odraft='', tdraft='', bdraft='') :
-        """Does 3 way merging of self/this and other against a common base. O(N)"""
+    def _merge_with_alts(self, base, other, target, default='proposed', copycomments=None) :
+        """3-way merge the alternates putting the results in target. Assumes target content is the required ending content"""
+        if base is not None and base.contentHash != target.contentHash and (base.text or base.tag in self.blocks) and self.get_draft(base) < self.get_draft(target, default) :
+            self._add_alt(target, target, default=default)
+            target[:] = base
+            for a in ('text', 'contentHash', 'comments', 'commentsafter') :
+                if hasattr(base, a) :
+                    setattr(target, a, getattr(base, a, None))
+                elif hasattr(target, a) :
+                    delattr(target, a)
+            if 'alt' in target.attrib :
+                del target.attrib['alt']
+            if self.get_draft(base) != target.document.default_draft :
+                target.set('draft', _alldrafts[self.get_draft(base)])
+        elif base is None and other is not None and other.contentHash != target.contentHash and (target.text or target.tag in self.blocks) :
+            if self.get_draft(target, default) < self.get_draft(other, default) :
+                self._add_alt(target, origin, default=default)
+            else :
+                self._add_alt(target, target, default=default)
+                target[:] = other
+                for a in ('text', 'contentHash', 'comments', 'commentsafter') :
+                    if hasattr(other, a) :
+                        setattr(target, a, getattr(other, a, None))
+                    elif hasattr(target, a) :
+                        delattr(target, a)
+                if 'alt' in target.attrib :
+                    del target.attrib['alt']
+                if self.get_draft(other) != target.document.default_draft :
+                    target.set('draft', _alldrafts[self.get_draft(other)])
+        elif copycomments is not None :
+            commentsource = base if copycomments == 'base' else other
+            if comentsource is not None :
+                for a in ('comments', 'commentsafter') :
+                    if hasattr(commentsource, a) :
+                        setattr(target, a, getattr(commentsource, a))
+                    elif hasattr(target, a) :
+                        delattr(target, a)
+        self._merge_alts(base, other, target, default)
+
+    def _merge_alts(self, base, other, target, default='propose') :
+        if other is None or not hasattr(other, 'alternates') : return
+        if not hasattr(target, 'alternates') :
+            target.alternates = dict(other.alternates)
+            return
+        balt = getattr(base, 'alternates', {}) if base is not None else {}
+        allkeys = set(balt.keys() + target.alternates.keys() + other.alternates.keys())
+        for k in allkeys :
+            if k not in balt :
+                if k not in other.alternates : continue
+                if k not in target.alternates or self.get_draft(target.alternates[k], default) > self.get_draft(other.alternates, default) :
+                    target.alternates[k] = other.alternates[k]
+            elif k not in other.alternates :
+                if k not in target.alternates or self.get_draft(target.alternates[k], default) > self.get_draft(balt[k]) :
+                    target.alternates[k] = balt[k]
+            elif k not in target.alternates :
+                if k not in other.alternates or self.get_draft(other.alternates[k], default) > self.get_draft(balt[k]) :
+                    target.alternates[k] = balt[k]
+                else :
+                    target.alternates[k] = other.alternates[k]
+            elif self.get_draft(target.alternates[k], default) > self.get_draft(other.alternates[k], default) :
+                target.alternates[k] = other.alternates[k]
+            elif self.get_draft(target.alternates[k], default) > self.get_draft(balt[k]) :
+                target.alternates[k] = balt[k]
+            elif other.alternates[k].contentHash != balt[k].contentHash :
+                target.alternates[k] = other.alternates[k]
+        return
+
+    def _add_alt(self, target, origin, default='proposed') :
+        odraft = self.get_draft(origin, default)
+        if hasattr(origin.document, 'uid') and origin.document.uid is not None :
+            alt = 'proposed-' + origin.document.uid
+        else :
+            alt = 'proposed'
+        if hasattr(target, 'alternates') and alt in target.alternates :
+            v = target.alternates[alt]
+            if self.get_draft(v, default) >= odraft :
+                if origin.contentHash is None :
+                    del target.alternates[alt]
+                else :
+                    target.alternates[alt] = origin.copy()
+                    origin.set('alt', alt)
+        elif origin.contentHash is not None :
+            if not hasattr(target, 'alternates') :
+                target.alternates = {}
+            target.alternates[alt] = origin.copy()
+            target.alternates[alt].set('alt', alt)
+
+    def merge(self, other, base, this=None, default=None, copycomments=None) :
+        """Does 3 way merging of self/this and other against a common base. O(N), base or other can be None"""
         if this == None : this = self.root
-        if hasattr(other, 'root') : other = other.root
-        if hasattr(base, 'root') : base = base.root
+        if other is not None and hasattr(other, 'root') : other = other.root
+        if base is not None and hasattr(base, 'root') : base = base.root
         self._align(this, other, base)
-        if usedrafts :
-            tdraft = this.get('draft', tdraft)
-            odraft = other.get('draft', odraft)
-            bdraft = base.get('draft', bdraft)
-        for t in list(this) :                                   # go through our children merging them
-            if t.mergeOther is not None and not t.mergeOther.contentHash == t.contentHash : # other differs
-                if t.mergeBase is not None and t.mergeBase.contentHash == t.contentHash :   # base doesn't
-                    this.remove(t)                                  # swap us out
-                    this.append(t.mergeOther)
-                elif not t.mergeBase.contentHash == t.mergeOther.contentHash :
+        # other and base can be None
+        for t in list(this) :       # go through children merging them
+            if t.mergeBase is None :
+                if self.useDrafts and t.mergeOther is not None and t.mergeOther.contentHash != t.contentHash :
+                    self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                continue
+            if t.mergeOther is not None and t.mergeOther.contentHash != t.contentHash :     # other differs
+                if t.mergeBase.contentHash == t.contentHash :   # base doesn't
+                    if self.useDrafts :
+                        self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                    else :
+                        this.remove(t)                                  # swap us out
+                        this.append(t.mergeOther)
+                elif t.mergeBase.contentHash != t.mergeOther.contentHash :
                     self.merge(t.mergeOther, t.mergeBase, t)        # could be a clash so recurse
+                elif self.useDrafts :       # base == other
+                    self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+            elif t.mergeOther is None and t.mergeBase.contentHash == t.contentHash :
+                this.remove(t)
+            elif self.useDrafts :
+                self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
         if base is not None and this.text == base.text :
-            this.text = other.text if other is not None else None
-        elif other is not None and other.text != base.text :
-            this.text = self.clash_text(this.text, other.text, (base.text if base is not None else None), this, other, base)
-        oattrs = set(other.keys())
+            if other is not None:
+                this.text = other.text
+                this.contentHash = other.contentHash
+            else :
+                this.text = None
+                this.contentHash = None
+            if self.useDrafts : self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+        elif base is not None and other is not None and other.text != base.text :
+            self.clash_text(this.text, other.text, (base.text if base is not None else None),
+                                        this, other, base, usedrafts=self.useDrafts)
+            if self.useDrafts :
+                self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+                return
+        elif self.useDrafts :
+            self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+        oattrs = set(other.keys() if other is not None else [])
         for k in this.keys() :                                  # go through our attributes
             if k in oattrs :
-                if base and k in base.attrib and base.get(k) == this.get(k) and this.get(k) != other.get(k) :
+                if k in base.attrib and base.get(k) == this.get(k) and this.get(k) != other.get(k) :
                     this.set(k, other.get(k))                       # t == b && t != o
                 elif this.get(k) != other.get(k) :
-                    self.clash_attrib(k, this.get(k), other.get(k), base.get(k), this, other, base)    # t != o
+                    self.clash_attrib(k, this.get(k), other.get(k), base.get(k), this, other, base, usedrafts=self.useDrafts)    # t != o
                 oattrs.remove(k)
-            elif base and k in base.attrib :                        # o deleted it
+            elif base is not None and k in base.attrib :                        # o deleted it
                 this.attrib.pop(k)
         for k in oattrs :                                       # attributes in o not in t
-            if not base or k not in base.attrib or base.get(k) != other.get(k) :
+            if base is None or k not in base.attrib or base.get(k) != other.get(k) :
                 this.set(k, other.get(k))                           # if new in o or o changed it and we deleted it
 
-    def clash_text(self, ttext, otext, btext, this, other, base) :
+    def clash_text(self, ttext, otext, btext, this, other, base, usedrafts = False, default=None) :
+        if usedrafts :
+            bdraft = self.get_draft(base)
+            tdraft = self.get_draft(this)
+            odraft = self.get_draft(other)
+            if tdraft < odraft :
+                self._add_alt(this, other, default=default)
+                return
+            elif odraft < tdraft :
+                self._add_alt(this, this, default=default)
+                this.text = otext
+                this.contentHash = other.contentHash
+                return
+            elif tdraft >= bdraft :
+                self._add_alt(this, this, default=default)
+                self._add_alt(this, other, default=default)
+                this.text = btext
+                this.contentHash = base.contentHash
+                return
         if not hasattr(this, 'comments') : this.comments = []
         this.comments.append('Clash: "{}" or "{}" from "{}"'.format(ttext, otext, btext))
-        return ttext       # not sure what to do here. 'We' win!
 
-    def clash_test(self, key, tval, oval, bval, this, other, base) :
+    def clash_attrib(self, key, tval, oval, bval, this, other, base, usedrafts = False) :
         if not hasattr(this, 'comments') : this.comments = []
         this.comments.append('Attribute ({}) clash: "{}" or "{}" from "{}"'.format(key, tval, oval, bval))
         return tval        # not sure what to do here. 'We' win!
@@ -540,9 +807,16 @@ class Ldml(ETWriter) :
                 s = et.SubElement(se, '{'+self.silns+'}identity')
             for k, v in kws.items() :
                 s.set(k, v)
-        
 
-def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False) :
+def _prepare_parent(next, token) :
+    def select(context, result) :
+        for elem in result :
+            if hasattr(elem, 'parent') :
+                yield elem.parent
+    return select
+ep.ops['..'] = _prepare_parent
+
+def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False, fname=None) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.
@@ -566,7 +840,14 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
                 return Ldml(f)
         return None
 
-    l = getldml(lname, dirs)
+    if isinstance(lname, Ldml) :
+        l = lname
+        lname = fname
+    elif not isinstance(lname, basestring) :
+        l = Ldml(lname)
+        lname = fname
+    else :
+        l = getldml(lname, dirs)
     if l is None : return l
     if skipstubs and len(l.root) == 1 and l.root[0].tag == 'identity' : return None
     if rev != 'c' :
@@ -601,7 +882,7 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
         if i is not None :
             s = l.get_script(lname)
             if s and rev != 'r' and i.find('script') is None :
-                se = et.SubElement(i, "script", type=s)
+                se = l.addnode(i, "script", type=s)
             elif s and rev == 'r' :
                 se = i.find('script')
                 if se is not None and se.get('type') == s :

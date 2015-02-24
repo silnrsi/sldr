@@ -1,0 +1,78 @@
+<div>
+    <div class="col-sm-7">
+        <h2>Layout</h2>
+        <form>
+            <div class="form-group">
+                <label class="col-sm-3">Line Direction:</label>
+                <div class="col-sm-9">
+                    <select ng-model="layout.characters" ng-change="editChange()">
+                        <option>Left to Right</option>
+                        <option>Right to Left</option>
+                        <option>Top to Bottom</option>
+                        <option>Bottom to Top</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3">Paragraph Order:</label>
+                <div class="col-sm-9">
+                    <select ng-model="layout.lines" ng-change="editChange()">
+                        <option>Top to Bottom</option>
+                        <option>Bottom to Top</option>
+                        <option>Right to Left</option>
+                        <option>Left to Right</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="clearfix"/>
+        <h2>Yes &amp; No</h2>
+        <form>
+            <div class="form-group">
+                <label class="col-sm-2">Yes string:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="posix.yesstr" ng-change="editChange()"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2">No string:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="posix.nostr" ng-change="editChange()"/>
+                </div>
+            </div>
+        </form>
+        <div class="clearfix"/>
+        <button class="pull-right" ng-click="addPattern()"><i class="fa fa-plus"></i></button>
+        <h2>List Patterns</h2>
+        <ul class="list-unstyled">
+            <li><strong><div class="col-sm-2">Type</div><div class="col-sm-8">Value</div></strong></li>
+            <div class="clearfix"/>
+            <li ng-repeat="p in lists">
+                <div class="col-sm-2"><input text="text" class="form-control" ng-model="p.type" ng-change="editChange()"/></div>
+                <div class="col-sm-8"><input text="text" class="form-control" ng-model="p.value" ng-change="editChange()"/></div>
+                <div class="col-sm-2">
+                    <a ng-click="delPattern($index)" class="btn"><i class="fa fa-times"/></a>
+                    <!-- <a ng-click="addPattern()" class="btn" ng-show="$first"><i class="fa fa-plus"/></a> -->
+                </div>
+            </li>
+        </ul>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.model.changed, 'btn-default':!vm.model.changed}" ng-click="editBtn()">Save</button>
+                <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-5" style="height:100vh; overflow:auto;">
+        <h3>Help</h3>
+        <p>The miscellaneous page contains a few useful bits of information.</p>
+        <p>The line direction is normally left to right, or right to left (although the very few languages whose lines go up or down are catered for). Similarly the paragraph order is mostly top to bottom (for both LTR and RTL scripts), but other orders may be entered.</p>
+        <p>For Yes and No, enter the full and abbreviated forms, separated by a colon.  In German, for instance, you would enter ja:j. If your language does not use abbreviated forms of the words for yes and no then please enter the word twice (eg ja:ja).</p>
+        <p>We won't worry about list patterns for now.</p>
+        <p>If you have entered/updated any information then be sure to click on the 'Save' button before leaving the page.</p>
+        <p>See <a href="http://www.unicode.org/reports/tr35/tr35-general.html#Layout_Elements">Layouts</a> for the LDML specification on this topic</p>
+        <p>See <a href="http://www.unicode.org/reports/tr35/tr35-general.html#ListPatterns" target="_blank">List Patterns</a> for the LDML specification on this topic</p>
+    </div>
+</div>
+
+    

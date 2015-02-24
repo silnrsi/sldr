@@ -10,17 +10,17 @@ angular.module('ldmlEdit.segmentations', [
     $scope.types = ['variables', 'segmentRules'];
 
     var init = function(e) {
-        $scope.fres = DomService.findElements(null, ["segmentations"]);
+        $scope.fres = DomService.findLdmlElement(null, "segmentations");
         if ($scope.fres == null) 
             $scope.fres = {'tag' : 'segmentations', 'attributes' : {}, 'children' : []};
         $scope.vm.model = [];
-        angular.forEach($scope.fres.children, function(seg) {
+        DomService.forEach($scope.fres.children, function(seg) {
             if (seg.tag == "segmentation") {
                 var m = {variables : [], rules : [], type : seg.attributes['type']};
-                angular.forEach(seg.children, function(e) {
+                DomService.forEach(seg.children, function(e) {
                     if (e.tag in $scope.sublists) {
                         m[e.tag] = angular.copy(e.children);
-                        angular.forEach(m[e.tag], function (v) {
+                        DomService.forEach(m[e.tag], function (v) {
                             if (e.tag == 'segmentRules')
                                 v.sortkey = parseFloat(v.attributes.id);
                             else
@@ -32,11 +32,7 @@ angular.module('ldmlEdit.segmentations', [
                 $scope.vm.model.push(m);
             }
         });
-                        
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     var update_model = function() {

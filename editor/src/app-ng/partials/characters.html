@@ -1,33 +1,51 @@
-<div>
- <tabset>
-  <tab heading="Data">
-   <div>
-    <button class="pull-right" ng-click="addBtn()"><i class="fa fa-plus"></i></button>
-    <h2>Characters</h2>
-    <form>
-        <div class="form-group">
-            <table class="table col-sm-12">
-                <tr><th>Type</th><th>Character Set</th><th>Del</th></tr>
-                <tr ng-repeat="e in vm.exemplars">
-                    <td><input type="text" ng-model="e.type" class="form.control col-sm-12" placeholder="Default" ng-change="editChange()"/></td>
-                    <td><input type="text" ng-model="e.text" class="form.control col-sm-12" ng-change="editChange()"/></td>
-                    <td><a ng-click="delBtn($index)" class="btn"><i class="fa fa-times"/></a></td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-group" ng-show="vm.exemplars.length">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn()">Save</button>
-                <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+﻿<div>
+    <div class="col-sm-7">
+      <div>
+          <button class="pull-right" ng-click="addBtn()"><i class="fa fa-plus"></i></button>
+          <h2>Character Sets</h2>
+          <form>
+            <div class="form-group">
+                <ul class="list-unstyled">
+                    <li><strong><div class="col-sm-3">Type</div><div class="col-sm-8">Character Set</div></strong></li>
+                    <div class="clearfix"></div>
+                    <li ng-repeat="e in vm.exemplars">
+                        <div class="col-sm-3">
+                            <!-- combobox -->
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="e.type" id="characterType" ng-change="editChange()"/>
+                                <div class="input-group-btn" dropdown="1">
+                                    <button type="button" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <li ng-repeat="k in charactertypes" class="input-lg"><a ng-click="e.type = k">{{charactertypes[k]}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="e.text" class="form-control col-sm-8" ng-change="editChange()"/>
+                        </div>
+                        <div class="col-sm-1">
+                            <a ng-click="delBtn($index)" class="btn"><i class="fa fa-times"/></a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </form>
-   </div>
-  </tab>
-  <tab heading="Help">
-   <div>
-    Sorry, you are on your own at the moment. Hopefully one day this will give you some help
-   </div>
-  </tab>
- </tabset>
+            <div class="form-group" ng-show="vm.exemplars.length">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" ng-class="{btn:1, 'btn-primary':vm.changed, 'btn-default':!vm.changed}" ng-click="editBtn()">Apply</button>
+                    <button class="btn btn-default" ng-click="cancelBtn()">Cancel</button>
+                </div>
+            </div>
+          </form>
+      </div>
+    </div>
+    <div class="col-sm-5" style="height:100vh; overflow:auto;">
+        <h3>Help</h3>
+            <p>There are two separate lists of exemplar characters, both formatted in the same way. The main character list is the minimum set of alphabetic characters required to write this language with this script. The auxiliary character list, as the name implies, contains characters which are only used for writing loan words, such as foreign or technical words. No characters in the main list should be included in the auxiliary list. Where a writing system employs both upper and lower case characters, only the lower case characters should be included in these two character lists.</p>
+            <p>If combining marks are applied to a large number of base characters (as in Indic scripts), include each combining mark as a separate character. Where a combining mark is only used with relatively few base characters (for example tone marks, which are only applied to vowels), each combination should be listed as a separate character. Wherever a given combination is not a precomposed character within Unicode (i.e. it does not have a single codepoint), it should be included within braces. To illustrate, é does not require braces, but ɛ́ does: if in doubt, it doesn't harm to enclose the character in braces.</p>
+            <p>The index character list contains the 'shortcut' letters for jumping to sections of a sorted, indexed list (such as a telephone directory), and is formatted in the same way as the other lists. Where a writing system employs both upper and lower case characters, generally the upper case characters are used for the index character list.</p>
+            <p>The list of punctuation characters is the least important; if entered it should include characters used for all forms of punctuation, including denotation of questions and quotations.</p>
+            <p>See <a href="http://scriptsource.org/cms/scripts/page.php?item_id=entry_detail&uid=jz72u9pea6" target="_blank">this ScriptSource entry</a> for more information on how to enter character lists</p>
+            <p>See <a href="http://www.unicode.org/reports/tr35/tr35-general.html#Character_Elements" target="_blank">here</a> for the LDML specification on this topic</p>
+    </div>
 </div>

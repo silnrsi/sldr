@@ -2,7 +2,7 @@
 
 // Services
 angular.module('ldmlEdit.service', [ 'ngResource' ])
-  .service('DomService', ['$resource', function($resource) {
+  .service('DomService', ['$http', function($http) {
     var et = null;
     var nsResolver;
 
@@ -22,13 +22,12 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
         reader.readAsText(file);
     };
     this.loadFromURL = function(url, cb) {
-        $resource(url, function(result) {
-            var dat = result.data;
+        var ldml = $http.get(url).success(function(result) {
             var parser = new DOMParser();
-            var dom = parser.parseFromString(dat, "text/xml");
+            var dom = parser.parseFromString(result, "text/xml");
             et = new ElementTree(dom);
             cb(et);
-        });
+        }).error(function(result) { cb(null); });
     };
     this.updateTopLevel = function(el) {
         for (var i = 0; i < et.root.children.length; i++)
@@ -67,6 +66,26 @@ angular.module('ldmlEdit.service', [ 'ngResource' ])
     this.getBlob = function() {
         return new Blob([et.asXML()], {type: "text/xml;charset=utf8"});
     };
+    this.forEach = function(obj, iterator, context) {
+        angular.forEach(obj, function(v, k, o) {
+            if (!v.attributes || !v.attributes.alt)
+                iterator.call(context, v, k, o);
+        });
+    };
+    this.findLdmlElement = function(base, tag) {
+        if (base == null) {
+            if (et == null)
+                newET();
+            base = et.root;
+        }
+        if (base.children == null)
+            return null;
+        for (var i = 0; i < base.children.length; i++) {
+            if (base.children[i].tag == tag && !base.children[i].attributes.alt)
+                return base.children[i];
+        }
+        return null;
+    }
     return this;
   }])
   ;

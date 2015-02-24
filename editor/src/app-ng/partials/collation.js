@@ -9,12 +9,12 @@ angular.module('ldmlEdit.collations', [
     $scope.vm.def = null;
 
     var init = function(e) {
-        $scope.fres = DomService.findElement(null, "collations");
+        $scope.fres = DomService.findLdmlElement(null, "collations");
         if ($scope.fres == null)
             $scope.fres = {tag : 'collations', attributes : {}, children : []};
         var colls = [];
         var def = null;
-        angular.forEach($scope.fres.children, function (c) {
+        DomService.forEach($scope.fres.children, function (c) {
             if (c.tag == 'collation') {
                 colls.push(c);
                 if (c.attributes.type == 'eor' || c.attributes.type == 'search')
@@ -25,11 +25,7 @@ angular.module('ldmlEdit.collations', [
         });
         $scope.vm.collations = colls;
         $scope.vm.changed = false;
-
-        if ($scope.$$phase != "$apply" && $scope.$$phase != "$digest")
-            $scope.$apply();
     };
-    $scope.$on('dom', init);
     init();
 
     var update_model = function() {
@@ -40,7 +36,7 @@ angular.module('ldmlEdit.collations', [
         $scope.vm.changed = false;
     };
     $scope.saveBtn = function() {
-        angular.forEach($scope.vm.currentCollation.children, function (c) {
+        DomService.forEach($scope.vm.currentCollation.children, function (c) {
             if (c.tag == 'cr') 
                 c.text = $scope.vm.currentText.replace(/\n(?!$)/g, "\n\t\t\t\t");
         });
@@ -51,7 +47,7 @@ angular.module('ldmlEdit.collations', [
         }
         else if ($scope.vm.currentCollation.format == 'PreProcessed') {
             var r = {tag : 'sil:reordered', attributes : {}, children : []};
-            angular.forEach($scope.vm.currentCollation.rules, function (rule) {
+            DomService.forEach($scope.vm.currentCollation.rules, function (rule) {
                 r.children.push(rule);
             });
             r.children.push({tag : 'cr', attributes : {}, text : $scope.vm.currentProcText.replace(/\n(?!$)/g, "\n\t\t\t\t") });
@@ -78,11 +74,11 @@ angular.module('ldmlEdit.collations', [
         $scope.vm.mode = 'edit';
         $scope.vm.currentCollation.format = 'ICU';
         var removeme = null;
-        angular.forEach($scope.vm.currentCollation.children, function (c, ind) {
+        DomService.forEach($scope.vm.currentCollation.children, function (c, ind) {
             if (c.tag == 'cr')
                 $scope.vm.currentText = c.text.replace(/^\t+/mg, "");
             else if (c.tag == 'special') {
-                angular.forEach(c.children, function (s) {
+                DomService.forEach(c.children, function (s) {
                     if (s.tag == 'sil:simple') {
                         $scope.vm.currentSubText = s.text.replace(/^\t+/mg, "");
                         $scope.vm.currentCollection.format = 'Simple';
@@ -91,7 +87,7 @@ angular.module('ldmlEdit.collations', [
                     else if (s.tag == 'sil:reordered') {
                         $scope.vm.currentCollation.format = 'PreProcessed';
                         removeme = ind;
-                        angular.forEach(s.children, function (r) {
+                        DomService.forEach(s.children, function (r) {
                             if (r.tag == 'sil:reorder')
                                 $scope.vm.currentCollation.rules.push(r);
                             else if (r.tag == 'cr')
@@ -105,7 +101,7 @@ angular.module('ldmlEdit.collations', [
             $scope.vm.currentCollation.children.splice(removeme, 1);
     };
     $scope.delCollation = function(i) {
-        $scope.vm.collations.splice(index, 1);
+        $scope.vm.collations.splice(i, 1);
         udpate_model();
     };
     $scope.addCollation = function() {
