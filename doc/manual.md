@@ -69,7 +69,7 @@ merge back from master for things like tools.
 
 Then we import the data:
 
-    python python/scripts/cldrimport ~/mycldrsource/common cldrdata
+    python python/scripts/cldrimport --hg ~/mycldrsource/common cldrdata
     python python/scripts/ldmlflatten -i cldrdata -o flat -a
 
 Bear in mind that one can use `pypy` instead of `python` in the above and life will
