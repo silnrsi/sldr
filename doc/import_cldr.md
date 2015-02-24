@@ -94,7 +94,8 @@ therefore, it is necessary that the cldr files are held in the same form.
 
 To do this, we use two temporary directories that are not committed. If they already exist, they
 should be removed and rebuilt so that any files that have been removed from the CLDR or that
-would be removed by stub removal, do not remain and get propagated forward
+would be removed by stub removal, do not remain and get propagated forward. It also allows us to
+merge back from master for things like tools.
 
     mkdir cldrdata
     mkdir flat

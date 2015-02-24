@@ -46,6 +46,7 @@ parser.add_argument('-c','--copy',action='store_true', help='Unflatten rather th
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
 parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
+parser.add_argument('--skipstubs',action='store_true',help="Don't store files with only an identity block")
 args = parser.parse_args()
 
 if not args.locale or not len(args.locale) :
@@ -72,11 +73,14 @@ elif args.copy :
     action = 'c'
     
 def doit(l) :
-    try :
-        curr = flattenlocale(l, args.indir, action, skipstubs = True)
-    except Exception, e :
-        print "Failed in " + l
-        raise e
+    if args.single :
+        curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
+    else :
+        try :
+            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
+        except Exception, e :
+            print "Failed in " + l
+            raise e
     if curr is not None :
         curr.normalise()
         if private is not None :
