@@ -48,6 +48,7 @@ parser.add_argument('-A','--antialias',action='store_true', help='Remove aliases
 parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
 parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace declarations at top of file instead of as low as possible')
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
+parser.add_argument('--skipstubs',action='store_true',help="Don't store files with only an identity block")
 args = parser.parse_args()
 
 if not args.locale or not len(args.locale) :
@@ -75,10 +76,10 @@ elif args.copy :
     
 def doit(l) :
     if args.single :
-        curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs = True)
+        curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
     else :
         try :
-            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs = True)
+            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
         except Exception, e :
             print "Failed in " + l
             raise e

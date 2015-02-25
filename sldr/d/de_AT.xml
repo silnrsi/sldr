@@ -3,13 +3,13 @@
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 For terms of use, see http://www.unicode.org/copyright.html
 -->
-<ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
+<ldml>
 	<identity>
-		<version number="$Revision: 11170 $"/>
-		<generation date="$Date: 2015-02-10 05:12 +0000 $"/>
+		<version number="$Revision: 11250 $"/>
+		<generation date="$Date: 2015-02-18 23:24 +0000 $"/>
 		<language type="de"/>
 		<territory type="AT"/>
-		<special>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
@@ -20,6 +20,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<measurementSystemName type="metric" draft="contributed">Internationales Maßsystem (SI)</measurementSystemName>
 		</measurementSystemNames>
 	</localeDisplayNames>
+	<characters>
+		<exemplarCharacters type="index">[A Ä B C D E F G H I J K L M N O Ö P Q R S T U Ü V W X Y Z]</exemplarCharacters>
+	</characters>
 	<dates>
 		<calendars>
 			<calendar type="gregorian">
@@ -53,4 +56,15 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</currencyFormatLength>
 		</currencyFormats>
 	</numbers>
+	<collations>
+		<!-- Primary differences for äöüß, see CLDR ticket #8016 -->
+		<collation type="phonebook">
+			<cr><![CDATA[
+				&a<ä<<<Ä
+				&o<ö<<<Ö
+				&u<ü<<<Ü
+				&ss<ß<<<ẞ
+			]]></cr>
+		</collation>
+	</collations>
 </ldml>

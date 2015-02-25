@@ -3,12 +3,12 @@
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 For terms of use, see http://www.unicode.org/copyright.html
 -->
-<ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
+<ldml>
 	<identity>
-		<version number="$Revision: 11093 $"/>
-		<generation date="$Date: 2015-01-03 03:36 +0000 $"/>
+		<version number="$Revision: 11294 $"/>
+		<generation date="$Date: 2015-02-23 22:50 +0000 $"/>
 		<language type="th"/>
-		<special>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
@@ -1363,6 +1363,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="Ed">E d</dateFormatItem>
 						<dateFormatItem id="Gy">G y</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM G y</dateFormatItem>
+						<dateFormatItem id="GyMMMEEEEd">EEEEที่ d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM G y</dateFormatItem>
 						<dateFormatItem id="H">HH</dateFormatItem>
@@ -1371,7 +1372,9 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="MEd">E d/M</dateFormatItem>
 						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMEEEEd">EEEEที่ d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMEEEEd">EEEEที่ d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
@@ -1380,13 +1383,13 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="h" draft="contributed">h a</dateFormatItem>
 						<dateFormatItem id="hm">h:mm a</dateFormatItem>
 						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
-						<dateFormatItem id="mmss">mm:ss</dateFormatItem>
 						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">G y</dateFormatItem>
 						<dateFormatItem id="yyyy">G y</dateFormatItem>
 						<dateFormatItem id="yyyyM">M/y</dateFormatItem>
 						<dateFormatItem id="yyyyMEd">E d/M/y</dateFormatItem>
 						<dateFormatItem id="yyyyMMM">MMM y</dateFormatItem>
+						<dateFormatItem id="yyyyMMMEEEEd">EEEEที่ d MMM y</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E d MMM y</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">MMMM y</dateFormatItem>
 						<dateFormatItem id="yyyyMMMd">d MMM y</dateFormatItem>
@@ -1419,6 +1422,10 @@ For terms of use, see http://www.unicode.org/copyright.html
 						</intervalFormatItem>
 						<intervalFormatItem id="MMM">
 							<greatestDifference id="M">LLL–LLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM</greatestDifference>
@@ -1468,6 +1475,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<intervalFormatItem id="yMMM">
 							<greatestDifference id="M">MMM–MMM y</greatestDifference>
 							<greatestDifference id="y">MMM y – MMM y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM y</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM y</greatestDifference>
+							<greatestDifference id="y">EEEEที่ d MMM y – EEEEที่ d MMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM y</greatestDifference>
@@ -1539,20 +1551,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
-						</monthWidth>
-						<monthWidth type="narrow">
 							<month type="1" draft="contributed">1</month>
 							<month type="10" draft="contributed">10</month>
 							<month type="11" draft="contributed">11</month>
@@ -1780,21 +1778,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<month type="7" draft="contributed">บารัมฮัท</month>
 							<month type="8" draft="contributed">บาราเมาดา</month>
 							<month type="9" draft="contributed">บาชันส์</month>
-						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="13" draft="contributed">13</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">เทาท์</month>
@@ -2097,21 +2080,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<month type="8" draft="contributed">เมียเซีย</month>
 							<month type="9" draft="contributed">เจนบอต</month>
 						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="13" draft="contributed">13</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
-						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">เมสเคอเรม</month>
 							<month type="10" draft="contributed">เซเน</month>
@@ -2157,15 +2125,18 @@ For terms of use, see http://www.unicode.org/copyright.html
 					<availableFormats>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM G y</dateFormatItem>
+						<dateFormatItem id="GyMMMEEEEd">EEEEที่ d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM G y</dateFormatItem>
 						<dateFormatItem id="MEd">E d/M</dateFormatItem>
+						<dateFormatItem id="MMMEEEEd">EEEEที่ d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="yyyyM">M/y G</dateFormatItem>
 						<dateFormatItem id="yyyyMEd">E d/M/y GGGGG</dateFormatItem>
 						<dateFormatItem id="yyyyMMM">MMM G y</dateFormatItem>
+						<dateFormatItem id="yyyyMMMEEEEd">EEEEที่ d MMM G y</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E d MMM G y</dateFormatItem>
 						<dateFormatItem id="yyyyMMMd">d MMM G y</dateFormatItem>
 						<dateFormatItem id="yyyyMd">d/M/y GGGGG</dateFormatItem>
@@ -2191,9 +2162,13 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<greatestDifference id="M">E d/M – E d/M</greatestDifference>
 							<greatestDifference id="d">E d – E d/M</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="MMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM</greatestDifference>
-							<greatestDifference id="d">E d MMM – E d MMM</greatestDifference>
+							<greatestDifference id="d">E d – E d MMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMd">
 							<greatestDifference id="M">d MMM – d MMM</greatestDifference>
@@ -2214,21 +2189,26 @@ For terms of use, see http://www.unicode.org/copyright.html
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMM">
 							<greatestDifference id="M">MMM–MMM G y</greatestDifference>
-							<greatestDifference id="y">MMM y – MMM G y</greatestDifference>
+							<greatestDifference id="y">MMM G y – MMM y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM G y</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM G y</greatestDifference>
+							<greatestDifference id="y">EEEEที่ d MMM G y – EEEEที่ d MMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM G y</greatestDifference>
 							<greatestDifference id="d">E d – E d MMM G y</greatestDifference>
-							<greatestDifference id="y">E d MMM y – E d MMM G y</greatestDifference>
+							<greatestDifference id="y">E d MMM G y – E d MMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMM">
 							<greatestDifference id="M">MMMM – MMMM G y</greatestDifference>
-							<greatestDifference id="y">MMMM y – MMMM G y</greatestDifference>
+							<greatestDifference id="y">MMMM G y – MMMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMd">
 							<greatestDifference id="M">d MMM – d MMM G y</greatestDifference>
 							<greatestDifference id="d">d–d MMM G y</greatestDifference>
-							<greatestDifference id="y">d MMM y – d MMM G y</greatestDifference>
+							<greatestDifference id="y">d MMM G y – d MMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMd">
 							<greatestDifference id="M">d/M/y – d/M/y G</greatestDifference>
@@ -2510,10 +2490,13 @@ For terms of use, see http://www.unicode.org/copyright.html
 					<availableFormats>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM G y</dateFormatItem>
+						<dateFormatItem id="GyMMMEEEEd">EEEEที่ d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E d MMM G y</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM G y</dateFormatItem>
 						<dateFormatItem id="MEd">E d/M</dateFormatItem>
+						<dateFormatItem id="MMMEEEEd">EEEEที่ d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMEEEEd">EEEEที่ d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
@@ -2522,12 +2505,16 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E d/M/y</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
+						<dateFormatItem id="yMMMEEEEd">EEEEที่ d MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">E d MMM y</dateFormatItem>
-						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM G y</dateFormatItem>
+						<dateFormatItem id="yMMMMEEEEd">EEEEที่ d MMMM G y</dateFormatItem>
+						<dateFormatItem id="yMMMMEd">E d MMMM G y</dateFormatItem>
+						<dateFormatItem id="yMMMMd">d MMMM G y</dateFormatItem>
 						<dateFormatItem id="yMMMd">d MMM y</dateFormatItem>
 						<dateFormatItem id="yMd">d/M/y</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
-						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
+						<dateFormatItem id="yQQQQ">QQQQ G y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatItem id="Hmv">
@@ -2540,6 +2527,10 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<intervalFormatItem id="MEd">
 							<greatestDifference id="M">E d/M – E d/M</greatestDifference>
 							<greatestDifference id="d">E d – E d/M</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM</greatestDifference>
@@ -2566,14 +2557,34 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<greatestDifference id="M">MMM–MMM y</greatestDifference>
 							<greatestDifference id="y">MMM y – MMM y</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMM – EEEEที่ d MMM y</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMM y</greatestDifference>
+							<greatestDifference id="y">EEEEที่ d MMM y – EEEEที่ d MMM y</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="yMMMEd">
 							<greatestDifference id="M">E d MMM – E d MMM y</greatestDifference>
 							<greatestDifference id="d">E d – E d MMM y</greatestDifference>
 							<greatestDifference id="y">E d MMM y – E d MMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMM">
-							<greatestDifference id="M">MMMM–MMMM y</greatestDifference>
-							<greatestDifference id="y">MMMM y – MMMM y</greatestDifference>
+							<greatestDifference id="M">MMMM–MMMM G y</greatestDifference>
+							<greatestDifference id="y">MMMM G y – MMMM y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMMEEEEd">
+							<greatestDifference id="M">EEEEที่ d MMMM – EEEEที่ d MMMM G y</greatestDifference>
+							<greatestDifference id="d">EEEEที่ d – EEEEที่ d MMMM G y</greatestDifference>
+							<greatestDifference id="y">EEEEที่ d MMMM G y – EEEEที่ d MMMM y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMMEd">
+							<greatestDifference id="M">E d MMMM – E d MMMM G y</greatestDifference>
+							<greatestDifference id="d">E d – E d MMMM G y</greatestDifference>
+							<greatestDifference id="y">E d MMMM G y – E d MMMM y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMMd">
+							<greatestDifference id="M">d MMMM – d MMMM G y</greatestDifference>
+							<greatestDifference id="d">d–d MMMM G y</greatestDifference>
+							<greatestDifference id="y">d MMMM G y – d MMMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMd">
 							<greatestDifference id="M">d MMM – d MMM y</greatestDifference>
@@ -2764,20 +2775,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<month type="8" draft="contributed">การติกา</month>
 							<month type="9" draft="contributed">มฤคศิรา</month>
 						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
-						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">จิตรา</month>
 							<month type="10" draft="contributed">ปุษยา</month>
@@ -2861,25 +2858,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<month type="8" draft="contributed">ชะอ์.</month>
 							<month type="9" draft="contributed">เราะมะ.</month>
 						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
-						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">มุฮะร์รอม</month>
 							<month type="10">เชาวัล</month>
-							<month type="11">ดฮุอัลกิดะห์</month>
-							<month type="12">ดฮุอัลฮิจจะห์</month>
+							<month type="11">ซุลกิอฺดะฮฺ</month>
+							<month type="12">ซุลหิจญะฮฺ</month>
 							<month type="2">ซอฟาร์</month>
 							<month type="3">รอบี I</month>
 							<month type="4">รอบี II</month>
@@ -3325,20 +3308,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 							<month type="7" draft="contributed">เมฮร์</month>
 							<month type="8" draft="contributed">อะบาน</month>
 							<month type="9" draft="contributed">อะซาร์</month>
-						</monthWidth>
-						<monthWidth type="narrow">
-							<month type="1" draft="contributed">1</month>
-							<month type="10" draft="contributed">10</month>
-							<month type="11" draft="contributed">11</month>
-							<month type="12" draft="contributed">12</month>
-							<month type="2" draft="contributed">2</month>
-							<month type="3" draft="contributed">3</month>
-							<month type="4" draft="contributed">4</month>
-							<month type="5" draft="contributed">5</month>
-							<month type="6" draft="contributed">6</month>
-							<month type="7" draft="contributed">7</month>
-							<month type="8" draft="contributed">8</month>
-							<month type="9" draft="contributed">9</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">ฟาร์วาร์ดิน</month>
@@ -4457,9 +4426,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<zone type="Asia/Choibalsan">
 				<exemplarCity>ชอยบาลซาน</exemplarCity>
 			</zone>
-			<zone type="Asia/Chongqing">
-				<exemplarCity>ฉงชิ่ง</exemplarCity>
-			</zone>
 			<zone type="Asia/Colombo">
 				<exemplarCity>โคลัมโบ</exemplarCity>
 			</zone>
@@ -4480,9 +4446,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</zone>
 			<zone type="Asia/Gaza">
 				<exemplarCity>กาซา</exemplarCity>
-			</zone>
-			<zone type="Asia/Harbin">
-				<exemplarCity>ฮาร์บิน</exemplarCity>
 			</zone>
 			<zone type="Asia/Hebron">
 				<exemplarCity>เฮบรอน</exemplarCity>
@@ -4513,9 +4476,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</zone>
 			<zone type="Asia/Karachi">
 				<exemplarCity>การาจี</exemplarCity>
-			</zone>
-			<zone type="Asia/Kashgar">
-				<exemplarCity>กัชการ์</exemplarCity>
 			</zone>
 			<zone type="Asia/Katmandu">
 				<exemplarCity>กาตมันดุ</exemplarCity>
@@ -5999,9 +5959,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 		<otherNumberingSystems>
 			<native>thai</native>
 		</otherNumberingSystems>
-		<symbols numberSystem="latn">
-			<timeSeparator draft="contributed">:</timeSeparator>
-		</symbols>
 		<decimalFormats numberSystem="latn">
 			<decimalFormatLength type="long">
 				<decimalFormat>
@@ -6116,7 +6073,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="ARS">
 				<displayName count="other">เปโซอาร์เจนตินา</displayName>
 				<displayName>เปโซอาร์เจนตินา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>ARS</symbol>
 			</currency>
 			<currency type="ATS">
@@ -6126,7 +6082,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="AUD">
 				<displayName count="other">ดอลลาร์ออสเตรเลีย</displayName>
 				<displayName>ดอลลาร์ออสเตรเลีย</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>AU$</symbol>
 			</currency>
 			<currency type="AWG">
@@ -6159,13 +6114,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="BBD">
 				<displayName count="other">ดอลลาร์บาร์เบโดส</displayName>
 				<displayName>ดอลลาร์บาร์เบโดส</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>BBD</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName count="other">ตากาบังกลาเทศ</displayName>
 				<displayName>ตากาบังกลาเทศ</displayName>
-				<symbol alt="narrow" draft="contributed">৳</symbol>
 				<symbol>BDT</symbol>
 			</currency>
 			<currency type="BEC">
@@ -6210,13 +6163,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="BMD">
 				<displayName count="other">ดอลลาร์เบอร์มิวดา</displayName>
 				<displayName>ดอลลาร์เบอร์มิวดา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>BMD</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName count="other">ดอลลาร์บรูไน</displayName>
 				<displayName>ดอลลาร์บรูไน</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>BND</symbol>
 			</currency>
 			<currency type="BOB">
@@ -6251,7 +6202,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="BRL">
 				<displayName count="other">เรียลบราซิล</displayName>
 				<displayName>เรียลบราซิล</displayName>
-				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="BRN">
 				<displayName>ครูซาโดโนโวบราซิล</displayName>
@@ -6268,7 +6218,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="BSD">
 				<displayName count="other">ดอลลาร์บาฮามาส</displayName>
 				<displayName>ดอลลาร์บาฮามาส</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>BSD</symbol>
 			</currency>
 			<currency type="BTN">
@@ -6292,19 +6241,16 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="BYR">
 				<displayName count="other">รูเบิลเบลารุส</displayName>
 				<displayName>รูเบิลเบลารุส</displayName>
-				<symbol alt="narrow" draft="contributed">р.</symbol>
 				<symbol>BYR</symbol>
 			</currency>
 			<currency type="BZD">
 				<displayName count="other">ดอลลาร์เบลีซ</displayName>
 				<displayName>ดอลลาร์เบลีซ</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>BZD</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName count="other">ดอลลาร์แคนาดา</displayName>
 				<displayName>ดอลลาร์แคนาดา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName count="other">ฟรังก์คองโก</displayName>
@@ -6335,18 +6281,15 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="CLP">
 				<displayName count="other">เปโซชิลี</displayName>
 				<displayName>เปโซชิลี</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>CLP</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName count="other">หยวนจีน</displayName>
 				<displayName>หยวนจีน</displayName>
-				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName count="other">เปโซโคลอมเบีย</displayName>
 				<displayName>เปโซโคลอมเบีย</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>COP</symbol>
 			</currency>
 			<currency type="COU">
@@ -6356,7 +6299,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="CRC">
 				<displayName count="other">โกลองคอสตาริกา</displayName>
 				<displayName>โกลองคอสตาริกา</displayName>
-				<symbol alt="narrow" draft="contributed">₡</symbol>
 				<symbol>CRC</symbol>
 			</currency>
 			<currency type="CSD">
@@ -6375,7 +6317,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="CUP">
 				<displayName count="other">เปโซคิวบา</displayName>
 				<displayName>เปโซคิวบา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>CUP</symbol>
 			</currency>
 			<currency type="CVE">
@@ -6413,7 +6354,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="DOP">
 				<displayName count="other">เปโซโดมินิกัน</displayName>
 				<displayName>เปโซโดมินิกัน</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>DOP</symbol>
 			</currency>
 			<currency type="DZD">
@@ -6463,7 +6403,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="EUR">
 				<displayName count="other">ยูโร</displayName>
 				<displayName>ยูโร</displayName>
-				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="FIM">
 				<displayName>มาร์กกาฟินแลนด์</displayName>
@@ -6472,7 +6411,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="FJD">
 				<displayName count="other">ดอลลาร์ฟิจิ</displayName>
 				<displayName>ดอลลาร์ฟิจิ</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>FJD</symbol>
 			</currency>
 			<currency type="FKP">
@@ -6487,7 +6425,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="GBP">
 				<displayName count="other">ปอนด์สเตอร์ลิง (สหราชอาณาจักร)</displayName>
 				<displayName>ปอนด์สเตอร์ลิง (สหราชอาณาจักร)</displayName>
-				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GEK">
 				<displayName>คูปอนลาริตจอร์เจีย</displayName>
@@ -6510,7 +6447,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="GIP">
 				<displayName count="other">ปอนด์ยิบรอลตาร์</displayName>
 				<displayName>ปอนด์ยิบรอลตาร์</displayName>
-				<symbol alt="narrow" draft="contributed">£</symbol>
 				<symbol>GIP</symbol>
 			</currency>
 			<currency type="GMD">
@@ -6551,13 +6487,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="GYD">
 				<displayName count="other">ดอลลาร์กายอานา</displayName>
 				<displayName>ดอลลาร์กายอานา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>GYD</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName count="other">ดอลลาร์ฮ่องกง</displayName>
 				<displayName>ดอลลาร์ฮ่องกง</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName count="other">เลมปิราฮอนดูรัส</displayName>
@@ -6599,12 +6533,10 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="ILS">
 				<displayName count="other">นิวเชเกลอิสราเอล</displayName>
 				<displayName>นิวเชเกลอิสราเอล</displayName>
-				<symbol alt="narrow" draft="contributed">₪</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName count="other">รูปีอินเดีย</displayName>
 				<displayName>รูปีอินเดีย</displayName>
-				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName count="other">ดีนาร์อิรัก</displayName>
@@ -6628,7 +6560,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="JMD">
 				<displayName count="other">ดอลลาร์จาเมกา</displayName>
 				<displayName>ดอลลาร์จาเมกา</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>JMD</symbol>
 			</currency>
 			<currency type="JOD">
@@ -6639,7 +6570,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="JPY">
 				<displayName count="other">เยนญี่ปุ่น</displayName>
 				<displayName>เยนญี่ปุ่น</displayName>
-				<symbol alt="narrow" draft="contributed">¥</symbol>
 				<symbol>¥</symbol>
 			</currency>
 			<currency type="KES">
@@ -6655,7 +6585,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="KHR">
 				<displayName count="other">เรียลกัมพูชา</displayName>
 				<displayName>เรียลกัมพูชา</displayName>
-				<symbol alt="narrow" draft="contributed">៛</symbol>
 				<symbol>KHR</symbol>
 			</currency>
 			<currency type="KMF">
@@ -6679,7 +6608,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="KRW">
 				<displayName count="other">วอนเกาหลีใต้</displayName>
 				<displayName>วอนเกาหลีใต้</displayName>
-				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName count="other">ดีนาร์คูเวต</displayName>
@@ -6689,19 +6617,16 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="KYD">
 				<displayName count="other">ดอลลาร์หมู่เกาะเคย์แมน</displayName>
 				<displayName>ดอลลาร์หมู่เกาะเคย์แมน</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>KYD</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName count="other">เทงเจคาซัคสถาน</displayName>
 				<displayName>เทงเจคาซัคสถาน</displayName>
-				<symbol alt="narrow" draft="contributed">₸</symbol>
 				<symbol>KZT</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName count="other">กีบลาว</displayName>
 				<displayName>กีบลาว</displayName>
-				<symbol alt="narrow" draft="contributed">₭</symbol>
 				<symbol>LAK</symbol>
 			</currency>
 			<currency type="LBP">
@@ -6717,7 +6642,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="LRD">
 				<displayName count="other">ดอลลาร์ไลบีเรีย</displayName>
 				<displayName>ดอลลาร์ไลบีเรีย</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>LRD</symbol>
 			</currency>
 			<currency type="LSL">
@@ -6811,7 +6735,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="MNT">
 				<displayName count="other">ทูกริกมองโกเลีย</displayName>
 				<displayName>ทูกริกมองโกเลีย</displayName>
-				<symbol alt="narrow" draft="contributed">₮</symbol>
 				<symbol>MNT</symbol>
 			</currency>
 			<currency type="MOP">
@@ -6850,7 +6773,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="MXN">
 				<displayName count="other">เปโซเม็กซิโก</displayName>
 				<displayName>เปโซเม็กซิโก</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="MXP">
 				<displayName>เงินเปโซเม็กซิโก (1861–1992)</displayName>
@@ -6881,13 +6803,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="NAD">
 				<displayName count="other">ดอลลาร์นามิเบีย</displayName>
 				<displayName>ดอลลาร์นามิเบีย</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>NAD</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName count="other">ไนราไนจีเรีย</displayName>
 				<displayName>ไนราไนจีเรีย</displayName>
-				<symbol alt="narrow" draft="contributed">₦</symbol>
 				<symbol>NGN</symbol>
 			</currency>
 			<currency type="NIC">
@@ -6916,7 +6836,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="NZD">
 				<displayName count="other">ดอลลาร์นิวซีแลนด์</displayName>
 				<displayName>ดอลลาร์นิวซีแลนด์</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName count="other">เรียลโอมาน</displayName>
@@ -6949,7 +6868,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="PHP">
 				<displayName count="other">เปโซฟิลิปปินส์</displayName>
 				<displayName>เปโซฟิลิปปินส์</displayName>
-				<symbol alt="narrow" draft="contributed">₱</symbol>
 				<symbol>PHP</symbol>
 			</currency>
 			<currency type="PKR">
@@ -6973,7 +6891,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="PYG">
 				<displayName count="other">กวารานีปารากวัย</displayName>
 				<displayName>กวารานีปารากวัย</displayName>
-				<symbol alt="narrow" draft="contributed">₲</symbol>
 				<symbol>PYG</symbol>
 			</currency>
 			<currency type="QAR">
@@ -7021,7 +6938,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="SBD">
 				<displayName count="other">ดอลลาร์หมู่เกาะโซโลมอน</displayName>
 				<displayName>ดอลลาร์หมู่เกาะโซโลมอน</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>SBD</symbol>
 			</currency>
 			<currency type="SCR">
@@ -7050,7 +6966,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="SGD">
 				<displayName count="other">ดอลลาร์สิงคโปร์</displayName>
 				<displayName>ดอลลาร์สิงคโปร์</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>SGD</symbol>
 			</currency>
 			<currency type="SHP">
@@ -7079,7 +6994,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="SRD">
 				<displayName count="other">ดอลลาร์ซูรินาเม</displayName>
 				<displayName>ดอลลาร์ซูรินาเม</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>SRD</symbol>
 			</currency>
 			<currency type="SRG">
@@ -7089,7 +7003,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="SSP">
 				<displayName count="other">ปอนด์ซูดานใต้</displayName>
 				<displayName>ปอนด์ซูดานใต้</displayName>
-				<symbol alt="narrow" draft="contributed">£</symbol>
 				<symbol>SSP</symbol>
 			</currency>
 			<currency type="STD">
@@ -7164,13 +7077,11 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="TTD">
 				<displayName count="other">ดอลลาร์ตรินิแดดและโตเบโก</displayName>
 				<displayName>ดอลลาร์ตรินิแดดและโตเบโก</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>TTD</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName count="other">ดอลลาร์ไต้หวันใหม่</displayName>
 				<displayName>ดอลลาร์ไต้หวันใหม่</displayName>
-				<symbol alt="narrow" draft="contributed">NT$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName count="other">ชิลลิงแทนซาเนีย</displayName>
@@ -7180,7 +7091,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="UAH">
 				<displayName count="other">ฮรีฟเนียยูเครน</displayName>
 				<displayName>ฮรีฟเนียยูเครน</displayName>
-				<symbol alt="narrow" draft="contributed">₴</symbol>
 				<symbol>UAH</symbol>
 			</currency>
 			<currency type="UAK">
@@ -7199,7 +7109,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="USD">
 				<displayName count="other">ดอลลาร์สหรัฐ</displayName>
 				<displayName>ดอลลาร์สหรัฐ</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="USN">
 				<displayName count="other">ดอลลาร์สหรัฐ (วันถัดไป)</displayName>
@@ -7222,7 +7131,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="UYU">
 				<displayName count="other">เปโซอุรุกวัย</displayName>
 				<displayName>เปโซอุรุกวัย</displayName>
-				<symbol alt="narrow" draft="contributed">$</symbol>
 				<symbol>UYU</symbol>
 			</currency>
 			<currency type="UZS">
@@ -7242,7 +7150,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<currency type="VND">
 				<displayName count="other">ดองเวียดนาม</displayName>
 				<displayName>ดองเวียดนาม</displayName>
-				<symbol alt="narrow" draft="contributed">₫</symbol>
 			</currency>
 			<currency type="VNN">
 				<displayName draft="contributed">ดองเวียดนาม (1978–1985)</displayName>
@@ -7411,7 +7318,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<pattern type="atLeast">{0}+</pattern>
 			<pattern type="range">{0}-{1}</pattern>
 		</miscPatterns>
-		<minimumGroupingDigits draft="contributed">1</minimumGroupingDigits>
 	</numbers>
 	<units>
 		<unitLength type="long">

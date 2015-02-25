@@ -3,12 +3,12 @@
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 For terms of use, see http://www.unicode.org/copyright.html
 -->
-<ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
+<ldml>
 	<identity>
-		<version number="$Revision: 11161 $"/>
-		<generation date="$Date: 2015-01-30 22:33 +0000 $"/>
+		<version number="$Revision: 11290 $"/>
+		<generation date="$Date: 2015-02-22 10:15 +0000 $"/>
 		<language type="en"/>
-		<special>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
@@ -601,6 +601,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<language type="wal">Wolaytta</language>
 			<language type="war">Waray</language>
 			<language type="was">Washo</language>
+			<language type="wbp">Warlpiri</language>
 			<language type="wo">Wolof</language>
 			<language type="wuu">Wu Chinese</language>
 			<language type="xal">Kalmyk</language>
@@ -1399,22 +1400,22 @@ For terms of use, see http://www.unicode.org/copyright.html
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
-							<pattern>EEEE, MMMM d, U</pattern>
+							<pattern>EEEE, MMMM d, r(U)</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
-							<pattern>MMMM d, U</pattern>
+							<pattern>MMMM d, r(U)</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
-							<pattern>MMM d, U</pattern>
+							<pattern>MMM d, r</pattern>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<pattern>M/d/yy</pattern>
+							<pattern>M/d/r</pattern>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -1445,21 +1446,26 @@ For terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="Ed">d E</dateFormatItem>
 						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
 						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
-						<dateFormatItem id="GyMMM">MMM U</dateFormatItem>
-						<dateFormatItem id="GyMMMEd">E, MMM d, U</dateFormatItem>
-						<dateFormatItem id="GyMMMd">MMM d, U</dateFormatItem>
+						<dateFormatItem id="Gy">r(U)</dateFormatItem>
+						<dateFormatItem id="GyMMM">MMM r(U)</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">E, MMM d, r(U)</dateFormatItem>
+						<dateFormatItem id="GyMMMd">MMM d, r</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
-						<dateFormatItem id="yMd">M/d/y</dateFormatItem>
-						<dateFormatItem id="yyyyM">M/y</dateFormatItem>
-						<dateFormatItem id="yyyyMEd">E, M/d/y</dateFormatItem>
-						<dateFormatItem id="yyyyMMM">MMM U</dateFormatItem>
-						<dateFormatItem id="yyyyMMMEd">E, MMM d, U</dateFormatItem>
-						<dateFormatItem id="yyyyMMMd">MMM d, U</dateFormatItem>
-						<dateFormatItem id="yyyyMd">M/d/y</dateFormatItem>
-						<dateFormatItem id="yyyyQQQ">QQQ U</dateFormatItem>
-						<dateFormatItem id="yyyyQQQQ">QQQQ U</dateFormatItem>
+						<dateFormatItem id="UM">M/U</dateFormatItem>
+						<dateFormatItem id="UMMM">MMM U</dateFormatItem>
+						<dateFormatItem id="UMMMd">MMM d, U</dateFormatItem>
+						<dateFormatItem id="UMd">M/d/U</dateFormatItem>
+						<dateFormatItem id="yMd">M/d/r</dateFormatItem>
+						<dateFormatItem id="yyyyM">M/r</dateFormatItem>
+						<dateFormatItem id="yyyyMEd">E, M/d/r</dateFormatItem>
+						<dateFormatItem id="yyyyMMM">MMM r(U)</dateFormatItem>
+						<dateFormatItem id="yyyyMMMEd">E, MMM d, r(U)</dateFormatItem>
+						<dateFormatItem id="yyyyMMMd">MMM d, r</dateFormatItem>
+						<dateFormatItem id="yyyyMd">M/d/r</dateFormatItem>
+						<dateFormatItem id="yyyyQQQ">QQQ r(U)</dateFormatItem>
+						<dateFormatItem id="yyyyQQQQ">QQQQ r(U)</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatItem id="H">
@@ -6329,7 +6335,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<unit type="duration-hour">
 				<displayName>hours</displayName>
 				<unitPattern count="one">{0} hr</unitPattern>
-				<unitPattern count="other">{0} hrs</unitPattern>
+				<unitPattern count="other">{0} hr</unitPattern>
 				<perUnitPattern>{0}ph</perUnitPattern>
 			</unit>
 			<unit type="duration-microsecond">
@@ -6343,7 +6349,6 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<unit type="duration-minute">
 				<displayName>mins</displayName>
 				<unitPattern count="one">{0} min</unitPattern>
-				<unitPattern count="other">{0} mins</unitPattern>
 			</unit>
 			<unit type="duration-month">
 				<displayName>months</displayName>
@@ -6357,7 +6362,7 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<unit type="duration-second">
 				<displayName>secs</displayName>
 				<unitPattern count="one">{0} sec</unitPattern>
-				<unitPattern count="other">{0} secs</unitPattern>
+				<unitPattern count="other">{0} sec</unitPattern>
 				<perUnitPattern>{0}ps</perUnitPattern>
 			</unit>
 			<unit type="duration-week">
