@@ -28,6 +28,8 @@ import os, sys, codecs
 from argparse import ArgumentParser
 from subprocess import check_output
 from StringIO import StringIO
+from xml.etree import ElementTree as et
+from datetime import datetime
 
 try :
     from sldr.ldml import Ldml, flattenlocale
@@ -80,7 +82,15 @@ else :
     if args.other :
         other = Ldml(args.other)
 
-this.merge(other, base, default=args.default, copycomments=args.copycomments)
+if this.merge(other, base, default=args.default, copycomments=args.copycomments) :
+    # update the date
+    idnode = this.find("./identity/generation")
+    if idnode is None :
+        i = this.find("./identity")
+        idnode = et.SubElement("generation", i)
+    currdate = datetime.now()
+    currdate.microsecond = 0
+    idnode.set("date","$Date: " + currdate.isoformat() + " $")
 sys.stdout = codecs.getwriter("UTF-8")(sys.stdout)
 this.normalise()
 

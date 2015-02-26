@@ -259,7 +259,10 @@ class Ldml(ETWriter) :
             if p.get('type') in cls.languageInfo :
                 ss, ts = cls.languageInfo[p.get('type')]
             if p.get('scripts') :
-                ss += p.get('scripts').split(' ')
+                if p.get('alt') == 'secondary' :
+                    ss += p.get('scripts').split(' ')
+                else :
+                    ss = p.get('scripts').split(' ') + ss
             if p.get('territories') :
                 ts += p.get('territories').split(' ')
             cls.languageInfo[p.get('type')] = [ss, ts]
@@ -362,6 +365,7 @@ class Ldml(ETWriter) :
 
     def normalise(self, base=None, addguids=True, usedrafts=False) :
         """Normalise according to LDML rules"""
+        _digits = set('0123456789.')
         if base is None :
             base = self.root
         if len(base) :
@@ -376,11 +380,18 @@ class Ldml(ETWriter) :
                 yl = sorted(y.keys(), cmp=cmpat)
                 for i in range(len(xl)) :
                     if i >= len(yl) : return -1
-                    res = cmp(x.get(xl[i]), y.get(yl[i]))
+                    res = cmp(xl[i], yl[i])
+                    if res != 0 : return res
+                    a = x.get(xl[i])
+                    b = y.get(yl[i])
+                    if xl[i] == 'id' and all(q in _digits for q in a) and all(q in _digits for q in b) :
+                        res = cmp(float(a), float(b))
+                    else :
+                        res = cmp(a, b)
                     if res != 0 : return res
                 if len(yl) > len(xl) : return 1
                 return 0
-            children = sorted(base, cmp=cmpel) if base.tag not in self.blocks else list(base)
+            children = sorted(base, cmp=cmpel) # if base.tag not in self.blocks else list(base)
             base[:] = children
         if base.text :
             t = base.text.strip()
@@ -504,15 +515,15 @@ class Ldml(ETWriter) :
                     res = self.copynode(res, parent=this)
                     # res.set('{'+self.silns+'}alias', "1")
                     # self.namespaces[self.silns] = 'sil'
+                    if v in _cache :
+                        print "Alias loop discovered: %s in %s" % (v, self.fname)
+                        return True
+                    _cache.add(v)
+                    self.resolve_aliases(res, _cache)
+                    _cache.remove(v)
                     this.insert(i+count, res)
                     count += 1
                 hasalias = True
-                if v in _cache :
-                    print "Alias loop discovered: %s" % v
-                    return True
-                _cache.add(v)
-                self.resolve_aliases(this, _cache)
-                _cache.remove(v)
             else :
                 hasalias |= self.resolve_aliases(c)
         if hasalias and self.useDrafts :
@@ -589,7 +600,9 @@ class Ldml(ETWriter) :
 
     def _merge_with_alts(self, base, other, target, default='proposed', copycomments=None) :
         """3-way merge the alternates putting the results in target. Assumes target content is the required ending content"""
+        res = False
         if base is not None and base.contentHash != target.contentHash and (base.text or base.tag in self.blocks) and self.get_draft(base) < self.get_draft(target, default) :
+            res = True
             self._add_alt(target, target, default=default)
             target[:] = base
             for a in ('text', 'contentHash', 'comments', 'commentsafter') :
@@ -599,9 +612,12 @@ class Ldml(ETWriter) :
                     delattr(target, a)
             if 'alt' in target.attrib :
                 del target.attrib['alt']
+                res = True
             if self.get_draft(base) != target.document.default_draft :
                 target.set('draft', _alldrafts[self.get_draft(base)])
+                res = True
         elif base is None and other is not None and other.contentHash != target.contentHash and (target.text or target.tag in self.blocks) :
+            res = True
             if self.get_draft(target, default) < self.get_draft(other, default) :
                 self._add_alt(target, origin, default=default)
             else :
@@ -624,13 +640,15 @@ class Ldml(ETWriter) :
                         setattr(target, a, getattr(commentsource, a))
                     elif hasattr(target, a) :
                         delattr(target, a)
-        self._merge_alts(base, other, target, default)
+        res |= self._merge_alts(base, other, target, default)
+        return res
 
     def _merge_alts(self, base, other, target, default='propose') :
-        if other is None or not hasattr(other, 'alternates') : return
+        if other is None or not hasattr(other, 'alternates') : return False
+        res = False
         if not hasattr(target, 'alternates') :
             target.alternates = dict(other.alternates)
-            return
+            return (len(target.alternates) != 0)
         balt = getattr(base, 'alternates', {}) if base is not None else {}
         allkeys = set(balt.keys() + target.alternates.keys() + other.alternates.keys())
         for k in allkeys :
@@ -638,21 +656,27 @@ class Ldml(ETWriter) :
                 if k not in other.alternates : continue
                 if k not in target.alternates or self.get_draft(target.alternates[k], default) > self.get_draft(other.alternates, default) :
                     target.alternates[k] = other.alternates[k]
+                    res = True
             elif k not in other.alternates :
                 if k not in target.alternates or self.get_draft(target.alternates[k], default) > self.get_draft(balt[k]) :
                     target.alternates[k] = balt[k]
+                    res = True
             elif k not in target.alternates :
                 if k not in other.alternates or self.get_draft(other.alternates[k], default) > self.get_draft(balt[k]) :
                     target.alternates[k] = balt[k]
                 else :
                     target.alternates[k] = other.alternates[k]
+                res = True
             elif self.get_draft(target.alternates[k], default) > self.get_draft(other.alternates[k], default) :
                 target.alternates[k] = other.alternates[k]
+                res = True
             elif self.get_draft(target.alternates[k], default) > self.get_draft(balt[k]) :
                 target.alternates[k] = balt[k]
+                res = True
             elif other.alternates[k].contentHash != balt[k].contentHash :
                 target.alternates[k] = other.alternates[k]
-        return
+                res = True
+        return res
 
     def _add_alt(self, target, origin, default='proposed') :
         odraft = self.get_draft(origin, default)
@@ -675,7 +699,9 @@ class Ldml(ETWriter) :
             target.alternates[alt].set('alt', alt)
 
     def merge(self, other, base, this=None, default=None, copycomments=None) :
-        """Does 3 way merging of self/this and other against a common base. O(N), base or other can be None"""
+        """ Does 3 way merging of self/this and other against a common base. O(N), base or other can be None.
+            Returns True if any changes were made."""
+        res = False
         if this == None : this = self.root
         if other is not None and hasattr(other, 'root') : other = other.root
         if base is not None and hasattr(base, 'root') : base = base.root
@@ -689,47 +715,56 @@ class Ldml(ETWriter) :
             if t.mergeOther is not None and t.mergeOther.contentHash != t.contentHash :     # other differs
                 if t.mergeBase.contentHash == t.contentHash :   # base doesn't
                     if self.useDrafts :
-                        self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                        res |= self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
                     else :
                         this.remove(t)                                  # swap us out
                         this.append(t.mergeOther)
+                        res = True
                 elif t.mergeBase.contentHash != t.mergeOther.contentHash :
-                    self.merge(t.mergeOther, t.mergeBase, t)        # could be a clash so recurse
+                    res |= self.merge(t.mergeOther, t.mergeBase, t)        # could be a clash so recurse
                 elif self.useDrafts :       # base == other
-                    self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                    res |= self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
             elif t.mergeOther is None and t.mergeBase.contentHash == t.contentHash :
                 this.remove(t)
+                res = True
             elif self.useDrafts :
-                self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
+                res |= self._merge_with_alts(t.mergeBase, t.mergeOther, t, default=default, copycomments=copycomments)
         if base is not None and this.text == base.text :
             if other is not None:
+                res = res or (this.text != other.text)
                 this.text = other.text
                 this.contentHash = other.contentHash
-            else :
+            elif this.text is not None :
+                res = True
                 this.text = None
                 this.contentHash = None
-            if self.useDrafts : self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+            if self.useDrafts : res |= self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
         elif base is not None and other is not None and other.text != base.text :
             self.clash_text(this.text, other.text, (base.text if base is not None else None),
                                         this, other, base, usedrafts=self.useDrafts)
             if self.useDrafts :
-                self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
-                return
+                res |= self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+                return res
         elif self.useDrafts :
-            self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
+            res |= self._merge_with_alts(base, other, this, default=default, copycomments=copycomments)
         oattrs = set(other.keys() if other is not None else [])
         for k in this.keys() :                                  # go through our attributes
             if k in oattrs :
                 if k in base.attrib and base.get(k) == this.get(k) and this.get(k) != other.get(k) :
+                    res = True
                     this.set(k, other.get(k))                       # t == b && t != o
                 elif this.get(k) != other.get(k) :
                     self.clash_attrib(k, this.get(k), other.get(k), base.get(k), this, other, base, usedrafts=self.useDrafts)    # t != o
+                    res = True
                 oattrs.remove(k)
             elif base is not None and k in base.attrib :                        # o deleted it
                 this.attrib.pop(k)
+                res = True
         for k in oattrs :                                       # attributes in o not in t
             if base is None or k not in base.attrib or base.get(k) != other.get(k) :
                 this.set(k, other.get(k))                           # if new in o or o changed it and we deleted it
+                res = True
+        return res
 
     def clash_text(self, ttext, otext, btext, this, other, base, usedrafts = False, default=None) :
         if usedrafts :
@@ -782,8 +817,25 @@ class Ldml(ETWriter) :
         if not hasattr(self, 'likelySubtags') : self.__class__.ReadLikelySubtags()
         if lang in self.likelySubtags :
             return self.likelySubtags[lang].split('_')[1]
+        if len(scripts) : return scripts[0]
         return None
 
+    def get_default_territory(self, name) :
+        start = name.find('_')
+        if start > 0 : lang = name[0:start]
+        elif len(name) : lang = name
+        else :
+            l = self.root.find('identity/language')
+            if l is not None :
+                lang = l.get('type')
+            else : return None
+        if not hasattr(self, 'likelySubtags') : self.__class__.ReadLikelySubtags()
+        if lang in self.likelySubtags :
+            subtags = self.likelySubtags[lang].split('_')
+            if len(subtags) > 2 :
+                return subtags[2]
+        return None
+        
     def remove_private(self) :
         """ Remove private elements and return them as a list of elements """
         res = []
@@ -880,13 +932,16 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, ski
     if autoidentity :
         i = l.root.find('identity')
         if i is not None :
-            s = l.get_script(lname)
-            if s and rev != 'r' and i.find('script') is None :
-                se = l.addnode(i, "script", type=s)
-            elif s and rev == 'r' :
-                se = i.find('script')
-                if se is not None and se.get('type') == s :
-                    i.remove(se)
+            jobs = (('script', l.get_script(lname)),
+                    ('territory', l.get_default_territory(lname)))
+            for (n, j) in jobs :
+                if j is None : continue
+                curr = i.find(n)
+                if rev == 'r' :
+                    if curr is not None and curr.get('type') == j :
+                        i.remove(curr)
+                elif curr is None :
+                    l.addnode(i, n, type=j)
     return l
 
 if __name__ == '__main__' :

@@ -32,6 +32,7 @@ This command does a number of things:
     sender has done the right thing with comments, then omit the -C option.
 *   Strips out @uid and @revid from sil:identity and unflattens the result
 *   Saves the output to cont_Latn.xml as specified by the -o option
+*   Updates the date in the identity block if there has been any changes.
 
 Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
 in sldr and commit your change.
