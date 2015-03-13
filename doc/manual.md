@@ -43,7 +43,7 @@ for distributing to applications and users?
     python/scripts/ldmlflatten -o flat -i sldr -a -A -g
     python/scripts/ldmlflatten -o unflat -i sldr -a -c -g
 
-An alternative to using `-g` is to use ``--revid=`git rev-parse HEAD```.
+An alternative to using `-g` is to use ``--revid=`git rev-parse HEAD` ``.
 The `git rev-parse HEAD` returns a string which is the SHA identifier for this revision.
 This is then inserted into all the generated files. `-g` does a better job by finding the last revision in which
 each particular file was last changed. This reduces the churn on applications querying whether a file has changed.
