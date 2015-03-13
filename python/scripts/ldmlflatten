@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import os, sys, codecs
+import os, sys, codecs, subprocess
 
 try :
     from sldr.ldml import Ldml, flattenlocale, etwrite
@@ -48,6 +48,7 @@ parser.add_argument('-A','--antialias',action='store_true', help='Remove aliases
 parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
 parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace declarations at top of file instead of as low as possible')
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
+parser.add_argument('-g','--git',action='store_true',help='get revid from last change to file')
 parser.add_argument('--skipstubs',action='store_true',help="Don't store files with only an identity block")
 args = parser.parse_args()
 
@@ -89,6 +90,8 @@ def doit(l) :
             res = curr.remove_private()
         if args.revid :
             curr.add_silidentity(revid = args.revid)
+        elif args.git :
+            curr.add_silidentity(revid = dogit(curr))
         if args.antialias :
             curr.resolve_aliases()
         if args.alphadir :
@@ -105,6 +108,15 @@ def doit(l) :
             return (l, res)
     elif private is not None :
         return (l, [])
+
+def dogit(l) :
+    #b = os.path.commonprefix(os.path.abspath(ldml.file), os.path.abspaht(basedir)
+    #r = os.path.relpath(os.path.abspath(ldml.file), start = b)
+    #p = os.path.join(os.path.abspath(basedir), r)
+    cmd = ['git', 'log', '-n', '1', '--pretty=format:%H%n%ci', l.fname]
+    clog = subprocess.check_output(cmd)
+    (rev, date) = clog.split("\n")
+    return rev
 
 if not args.single :
     pool = Pool()
