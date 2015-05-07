@@ -2,16 +2,51 @@
 
 This manual provides details on various scenarios.
 
+## Language Tags
+
+Language tags are deceptively simple ideas. In this discussion of how language tags are used in the SLDR,
+we consider three alternatives for a given tag:
+
+* *Shortest tag* is the shortest form of a tag that will refer to the same file as the
+  original tag
+* *Longest tag* is the longest form of a tag that will refer to the same file as the original tag.
+* *Canonical tag* is a tag that is conformant to the canonical form as specified using the IANA registry.
+  In particular, canonical tags have any suppressed scripts removed.
+
+The CLDR, and therefore the SLDR, holds files according to their longest and shortest canonical tags. Thus
+there are files `en.xml` and `en_US.xml` because Latn is a suppressed script for `en`. But there is only
+`bng_Latn.xml` due to the lack of any script supression for `bng`. Examining `en_US.xml` in the CLDR will
+result in a file with no content beyond an identity block. This is because `en.xml` is actually the US
+locale. This relationship can be identified from the supplemental data file `likelyTags.xml` which lists
+the full expansion of `en` as `en-Latn-US`.
+
+When a query comes in for `en`, therefore, the ldml server expands this to its longest corresponding tag
+using `likelyTags.xml`. It then uses any combination of lang, script, region and variant to search for a
+corresponding file in the SLDR. If it finds one, it takes the longest filename and uses that as the
+required tag. If this tag is not the same as the tag submitted, the server returns a redirect.
+
+For example, on requesting `en`, this is expanded to `en-Latn-US`. The longest filename found is `en_US.xml`.
+And since `en_US` is not `en` (even though `en.xml` exists) the server returns a redirect to `en_US`.
+This may seem counter intuitive at first, but it is actually the required behaviour (if somewhat
+convoluted) in that the user wants the request tag to correspond to the information inside the identity
+block. `en.xml`, in the SLDR when prepared for use by the server has a `script="Latn"` and `territory="US"`
+since that is what the data reflects.
+
+The effect of all this is that the SLDR holds files for the shortest and longest canonical forms of a given tag.
+Notice that `en_GB` is its own shortest form since `en` corresponds to `en_US`.
+
 ## Preparing to Serve
 
 Having cloned the SLDR github repository, how do we get hold of the flattened and unflattened files
 for distributing to applications and users?
 
-    python/scripts/ldmlflatten -o flat -i sldr -a -A --revid=`git rev-parse HEAD`
-    python/scripts/ldmlflatten -o unflat -i sldr -a -c --revid=`git rev-parse HEAD`
+    python/scripts/ldmlflatten -o flat -i sldr -a -A -g
+    python/scripts/ldmlflatten -o unflat -i sldr -a -c -g
 
-The `git rev-parse HEAD` returns a string which is the SHA identifier for this revision. This is then
-inserted into all the generated files.
+An alternative to using `-g` is to use ``--revid=`git rev-parse HEAD` ``.
+The `git rev-parse HEAD` returns a string which is the SHA identifier for this revision.
+This is then inserted into all the generated files. `-g` does a better job by finding the last revision in which
+each particular file was last changed. This reduces the churn on applications querying whether a file has changed.
 
 ## Manually Accepting a Contribution
 
