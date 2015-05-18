@@ -43,10 +43,11 @@ parser.add_argument('--hg',action='store_true',help='Get revision and date infor
 parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace declarations at top of file instead of as low as possible')
 args = parser.parse_args()
 
-subdirs = ('main', 'collation', 'casing')
+subdirs = ('main', 'collation', 'casing', 'segments')
 
 alllocales = set()
 for s in subdirs :
+    if not os.path.exists(os.path.join(args.indir, s)) : continue
     for l in os.listdir(os.path.join(args.indir, s)) :
         if l[-4:].lower() == '.xml' :
             alllocales.add(l[:-4])
@@ -99,3 +100,4 @@ if not args.single :
 else :
     for l in alllocales :
         doit(l)
+

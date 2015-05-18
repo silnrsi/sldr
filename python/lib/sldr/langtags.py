@@ -26,10 +26,68 @@
 from xml.etree import ElementTree as et
 from xml.etree import ElementPath as ep
 import os, re
+from ldml import Ldml
+
+class LangTag(str) :
+
+    _hasFile = False
+    _parent = None
+    _isParent = False
+    _fname = None
+
+    @property
+    def hasFile(self) :
+        return self._hasFile
+
+    @hasFile.setter
+    def hasFile(self, val) :
+        self._hasFile = val
+
+    @property
+    def parent(self) :
+        return self._parent
+
+    @parent.setter
+    def parent(self, val) :
+        self._parent = val
+
+    @property
+    def isParent(self) :
+        return self._isParent
+
+    @isParent.setter
+    def isParent(self, val) :
+        self._isParent = val
+
+    def test_hasFile(self, dirs) :
+        lname = self.replace('-', '_')
+        for d in dirs :
+            f = os.path.join(d, lname + '.xml')
+            if os.path.exists(f) :
+                self._hasFile = True
+                self._fname = f
+                return
+            f = os.path.join(d, lname[0].lower(), lname + '.xml')
+            if os.path.exists(f) :
+                self._hasFile = True
+                self._fname = f
+                return
+        self._hasFile = False
+
+    def test_isParent(self) :
+        if not self._hasFile :
+            self._isParent = 2      # equivalent
+            return
+        l = Ldml(self._fname)
+        if len(l.root) > 1 :
+            self._isParent = 0      # inherit
+        else :
+            self._isParent = 1      # identical inherit
+        
 
 class LangTags(object) :
 
-    def __init__(self) :
+    def __init__(self, paths = None) :
         """ Everything is keyed by language """
         self.likelySubtags = {}
         self.suppress = {}
@@ -37,8 +95,10 @@ class LangTags(object) :
         self.territories = {}
         # keyed by langtag
         self.regions = {}
+        self.tags = {}
         # keyed by region
         self.tinfo = {}
+        self.paths = paths
 
         self.readLikelySubtags()
         self.readIana()
@@ -106,7 +166,7 @@ class LangTags(object) :
         s = ''
         r = ''
         v = []
-        # no extlang support yet
+        # no extlang support
         l = res[0].lower()
         if len(res) > 1 and len(res[1]) == 4 :
             s = res[1].title()
@@ -133,9 +193,20 @@ class LangTags(object) :
                 r = r1
         return [l, s, r] + v
 
+    def addTag(self, tag) :
+        if tag in self.tags :
+            return self.tags[tag]
+        else :
+            lt = LangTag(tag)
+            self.tags[tag] = lt
+            if self.paths is not None :
+                lt.test_hasFile(self.paths)
+            return lt
+
     def _join(self, elements) :
         res = "-".join([e for e in elements if e is not None])
-        return re.sub(r'-(?=-|$)', '', res)
+        res = re.sub(r'-(?=-|$)', '', res)
+        return self.addTag(res)
 
     def get_lang(self, tag) :
         return self._get_components(tag)[0]
@@ -174,27 +245,121 @@ class LangTags(object) :
         cs = self._get_components(tag)
         l = cs[0]
         res = []
-        if l in self.likelySubtags :
-            o = self.likelySubtags[l].split('_')
-            if o == cs :
-                res.append(l)
-                res.append(self._join(cs[0:2]))
-                res.append(self._join(cs))
-                res.append(self._join([cs[0], cs[2]]))
-                return res
-        res.append(self._join(cs))
-        if l in self.territories and len(self.territories[l]) == 1 and self.territories[l][0] == cs[2] :
-            res.append(self._join(cs[0:2] + (cs[3:] if len(cs) > 3 else [])))
-        if l in self.suppress and self.suppress[l] == cs[1] :
-            res.append(self._join([l, cs[2]] + (cs[3:] if len(cs) > 3 else [])))
+        b = self.addTag(l)
+        if l in self.likelySubtags and cs == self.likelySubtags[l].split('_') :
+            n = self._join(cs[0:2])
+            if b.hasFile :
+                n.parent = b
+            elif n.hasFile :
+                b.parent = n
+            elif l in self.suppress and self.suppress[l] == cs[1] :
+                n.parent = b
+            else :
+                b.parent = n
+            n.test_isParent()
+            b.test_isParent()
+
+            r = self._join([cs[0], cs[2]])
+            f = self._join(cs)
+            if r.hasFile :
+                f.parent = r
+                r.parent = n if n.hasFile else b
+            elif f.hasFile :
+                r.parent = f
+                f.parent = n if n.hasFile else b
+            elif l in self.suppress and self.suppress[l] == cs[1] :
+                f.parent = r
+            else :
+                r.parent = f
+            r.test_isParent()
+            f.test_isParent()
+            res.extend([b, n, r, f])
+            return res
+        f = self._join(cs)
+        res.append(f)
+        if cs[1] and cs[2] :
+            n = self._join(cs[0:2]).replace('-', '_')
+            curr = f
+            if n not in self.regions or cs[2] not in self.regions[n] :
+                s = self._join([l, cs[2]] + (cs[3:] if len(cs) > 3 else []))
+                if s.hasFile :
+                    f.parent = s
+                    curr = s
+                elif f.hasFile :
+                    s.parent = f
+                elif l in self.suppress and self.suppress[l] == cs[1] :
+                    f.parent = s
+                    curr = s
+                else :
+                    s.parent = f
+                s.test_isParent()
+                res.append(s)
+            if not curr.hasFile and curr.parent is None :
+                r = self._join(cs[0:2] + (cs[3:] if len(cs) > 3 else []))
+                if r.hasFile :
+                    curr.parent = r
+                    res.append(r)
+                elif b.hasFile :
+                    curr.parent = b
+                    res.append(b)
+                curr.test_isParent()
+        f.test_isParent()
         return res
 
+    def get_all_equivalences(self, tag, history) :
+        def addstar(x) :
+            return "*"+x if x.hasFile else x
+        def findequivs(n, a, level = 2) :
+            return filter(lambda x: x.isParent == level and x.parent is n, a)
+        def outchildren(n, a) :
+            res = addstar(n) 
+            for s in findequivs(n, a) :
+                res += " = " 
+                a.remove(s)
+                res += outchildren(s, a)
+            for s in findequivs(n, a, level = 1) :
+                res += " | " 
+                a.remove(s)
+                res += outchildren(s, a)
+            return res # if ' ' in res or res[0] == '*' else ""
+        ress = []
+        a = set(t.get_all_forms(tag))
+        if any([r not in history for r in a]) :
+            top = set(filter(lambda x : x.parent is None, a))
+            r = a - top
+            for n in top :
+                temp = r
+                res = outchildren(n, temp)
+                if res : ress.append(res)
+                for s in findequivs(n, temp, level = 0) :
+                    res = outchildren(s, temp)
+                    res += " > " + addstar(n)
+                    if res : ress.append(res)
+        history.update(a)
+        return ress
+    
+
 if __name__ == '__main__' :
-    t = LangTags()
+    import sys
+    indir = ['sldr']
+    t = LangTags(paths=indir)
     alltags = set()
-    for l in sorted(t.regions.keys()) :
+    allres = []
+    for l in sorted([sys.argv[1]] if len(sys.argv) > 1 else t.regions.keys()) :
         for s in t.regions[l] :
-            r = t.get_all_forms(l+"-"+s)
-            if not any([a in alltags for a in r]) :
-                print " = ".join(t.get_all_forms(l+"-"+s))
-            alltags.update(a)
+            allres.extend(t.get_all_equivalences(l+"-"+s, alltags))
+    alllocales = set()
+    if len(sys.argv) < 2 :
+        for d in indir :
+            for l in os.listdir(d) :
+                if l.endswith('.xml') :
+                    alllocales.add(l[:-4])
+                elif os.path.isdir(os.path.join(d, l)) :
+                    for s in os.listdir(os.path.join(d, l)) :
+                        if s.endswith('.xml') :
+                            alllocales.add(s[:-4])
+        for l in alllocales - alltags :
+            allres.extend(t.get_all_equivalences(l, alltags))
+        print "\n".join(sorted(allres, key=lambda x : x.replace('*','')))
+    else :
+        print "\n".join(allres)

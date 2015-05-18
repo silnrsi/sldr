@@ -868,7 +868,7 @@ def _prepare_parent(next, token) :
     return select
 ep.ops['..'] = _prepare_parent
 
-def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=True, skipstubs=False, fname=None) :
+def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, skipstubs=False, fname=None) :
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.
