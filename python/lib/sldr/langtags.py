@@ -78,7 +78,11 @@ class LangTag(str) :
         if not self._hasFile :
             self._isParent = 2      # equivalent
             return
-        l = Ldml(self._fname)
+        try :
+            l = Ldml(self._fname)
+        except Exception as e :
+            print "Exception in file: " + self._fname
+            raise(e)
         if len(l.root) > 1 :
             self._isParent = 0      # inherit
         else :
@@ -185,6 +189,8 @@ class LangTags(object) :
         if r == '' and l in self.regions and len(self.regions[l]) == 1 : r = self.regions[l][0]
         if s == '' and l in self.suppress : s = self.suppress[l]
         if s == '' and l in self.scripts and len(self.scripts[l]) == 1 : s = self.scripts[l][0]
+        if l in self.scripts and len(self.scripts[l]) == 1 and self.scripts[l] == s :
+            s = "!" + s
         if r == '' and s and l+"-"+s in self.regions and len(self.regions[l+"-"+s]) == 1 : r = self.regions[l+"-"+s][0]
         if l in self.likelySubtags :
             (l1, s1, r1) = self.likelySubtags[l].split('_')
@@ -204,6 +210,8 @@ class LangTags(object) :
             return lt
 
     def _join(self, elements) :
+        if len(elements) > 1 and elements[1] is not None and elements[1].startswith("!") :
+            elements[1] = elements[1][1:]
         res = "-".join([e for e in elements if e is not None])
         res = re.sub(r'-(?=-|$)', '', res)
         return self.addTag(res)
@@ -212,7 +220,9 @@ class LangTags(object) :
         return self._get_components(tag)[0]
 
     def get_script(self, tag) :
-        return self._get_components(tag)[1]
+        res = self._get_components(tag)[1]
+        if res.startswith("!") : return res[1:]
+        return res
 
     def get_region(self, tag) :
         return self._get_components(tag)[2]
@@ -228,7 +238,7 @@ class LangTags(object) :
         if l in self.likelySubtags :
             o = self.likelySubtags[l].split('_')
             if o == cs : return l
-        if l in self.suppress and self.suppress[l] == cs[1] : cs[1] = ''
+        if l in self.suppress and self.suppress[l] == cs[1] or cs[1].startswith("!") : cs[1] = ''
         if l in self.territories and len(self.territories[l]) == 1 and self.territories[l][0] == cs[2] : cs[2] = ''
         return self._join(cs)
 
@@ -346,8 +356,11 @@ if __name__ == '__main__' :
     alltags = set()
     allres = []
     for l in sorted([sys.argv[1]] if len(sys.argv) > 1 else t.regions.keys()) :
-        for s in t.regions[l] :
-            allres.extend(t.get_all_equivalences(l+"-"+s, alltags))
+        if l in t.regions :
+            for s in t.regions[l] :
+                allres.extend(t.get_all_equivalences(l+"-"+s, alltags))
+        else :
+            allres.extend(t.get_all_equivalences(l, alltags))
     alllocales = set()
     if len(sys.argv) < 2 :
         for d in indir :
