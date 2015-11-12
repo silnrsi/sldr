@@ -290,7 +290,9 @@ class LangTags(object) :
         if cs[1] and cs[2] :
             n = self._join(cs[0:2]).replace('-', '_')
             curr = f
-            if n not in self.regions or cs[2] not in self.regions[n] :
+            temp = self._join([cs[0], cs[2]]).replace('-', '_')
+            if n not in self.regions or cs[2] not in self.regions[n] \
+                    or (temp in self.likelySubtags and self.likelySubtags[temp] == n + "_" + cs[2]) :
                 s = self._join([l, cs[2]] + (cs[3:] if len(cs) > 3 else []))
                 if s.hasFile :
                     f.parent = s
