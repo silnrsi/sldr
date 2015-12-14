@@ -279,6 +279,7 @@ class Ldml(ETWriter) :
             cls.likelySubtags[p.get('from')] = p.get('to')
 
     def __init__(self, fname, usedrafts=True) :
+        print fname
         if not hasattr(self, 'elementOrder') :
             self.__class__.ReadMetadata()
         self.namespaces = {}
