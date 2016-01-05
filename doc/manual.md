@@ -123,3 +123,24 @@ and then we commit and merge into master
     git checkout master
     git merge cldr
     git push
+
+
+## Editing LDML Files
+
+There are various ways of editing an LDML file.
+
+### Text editor
+
+One approach is to use a text editor of your choice. But once the editing is complete,
+before a file can be committed, it should be normalised. The following command will
+normalise a file:
+
+    python python/scripts/ldmlflatten -c -i *srcdir* -o *outputdir* -l *locale*
+
+for example:
+
+    python python/scripts/ldmlflatten -c -i sldr -o sldr -l en_US
+
+Yes you can use the same input and output directories. Although the source file will be
+overwritten in that case. Caveat emptor.
+
