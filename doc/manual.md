@@ -144,3 +144,8 @@ for example:
 Yes you can use the same input and output directories. Although the source file will be
 overwritten in that case. Caveat emptor.
 
+If ldmlflatten fails, it can be helpful to run it single process which will give
+more helpful? error messages:
+
+    python python/scripts/ldmlflatten -s -c -i sldr -o sldr -l en_US
+
