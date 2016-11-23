@@ -28,85 +28,199 @@ from xml.etree import ElementPath as ep
 import os, re
 from ldml import Ldml
 
-class LangTag(str) :
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
-    _hasFile = False
-    _parent = None
-    _isParent = False
-    _fname = None
+class LangTag(object) :
 
-    @property
-    def hasFile(self) :
-        return self._hasFile
+    lang = None
+    script = None
+    region = None
+    variants = None
+    extensions = None
+    hidescript = False
+    hideregion = False
 
-    @hasFile.setter
-    def hasFile(self, val) :
-        self._hasFile = val
+    def __init__(self, tag=None, lang=None, script=None, region=None, variants=None, extensions=None) :
+        self.lang = lang
+        self.script = script
+        self.region = region
+        self.variants = variants
+        self.extensions = extensions
+        if tag is not None : self.parse(tag)
 
-    @property
-    def parent(self) :
-        return self._parent
+    def __str__(self) :
+        subtags = [self.lang]
+        if not self.hidescript : subtags.append(self.script)
+        if not self.hideregion : subtags.append(self.region)
+        if self.variants is not None : subtags.extend(self.variants)
+        if self.extensions is not None :
+            for ns in sorted(self.extensions.keys()) :
+                subtags.append(ns)
+                subtags.extend(sorted(self.extensions[ns]))
+        return "-".join([x for x in subtags if x is not None])
 
-    @parent.setter
-    def parent(self, val) :
-        self._parent = val
+    def __hash__(self) :
+        return hash(str(self))
 
-    @property
-    def isParent(self) :
-        return self._isParent
+    def parse(self, x) :
+        ''' cheap and nasty langtag parser '''
+        params = {}
+        bits = x.replace('_', '-').split('-')
+        curr = 0
+        if 1 < len(bits[curr]) < 4 :
+            self.lang = bits[curr].lower()
+            curr += 1
+        if curr >= len(bits) : return
+        if len(bits[curr]) == 4 :
+            self.script = bits[curr].title()
+            curr += 1
+        if curr >= len(bits) : return
+        if 1 < len(bits[curr]) < 4 :
+            self.region = bits[curr].upper()
+            curr += 1
+        ns = ''
+        extensions = {}
+        variants = []
+        while curr < len(bits) :
+            if len(bits[curr]) == 1 :
+                ns = bits[curr].lower()
+                extensions[ns] = []
+            elif ns == '' :
+                variants.append(bits[curr].lower())
+            else :
+                extensions[ns].append(bits[curr].lower())
+            curr += 1
+        if len(variants) : self.variants = variants
+        if len(extensions) : self.extensions = extensions
 
-    @isParent.setter
-    def isParent(self, val) :
-        self._isParent = val
+    def allforms(self) :
+        ss = [self.script]
+        if self.hidescript :
+            ss.append(None)
+        rs = [self.region]
+        if self.hideregion :
+            rs.append(None)
+        extras = []
+        if self.variants is not None : extras.extend(self.variants)
+        if self.extensions is not None :
+            for ns in sorted(self.extensions.keys()) :
+                extras.append(ns)
+                extras.extend(sorted(self.extensions[ns]))
+        res = ["-".join([x for x in [self.lang] + [s] + [r] + extras if x is not None]) for s in ss for r in rs]
+        return res
 
-    def test_hasFile(self, dirs) :
-        lname = self.replace('-', '_')
-        for d in dirs :
-            f = os.path.join(d, lname + '.xml')
-            if os.path.exists(f) :
-                self._hasFile = True
-                self._fname = f
-                return
-            f = os.path.join(d, lname[0].lower(), lname + '.xml')
-            if os.path.exists(f) :
-                self._hasFile = True
-                self._fname = f
-                return
-        self._hasFile = False
+    def matches(self, other) :
+        if self.lang != other.lang : return False
+        if self.script != other.script and not (self.hidescript and other.script is None) : return False
+        if self.region != other.region and not (self.hideregion and other.region is None) : return False
+        if self.variants != other.variants : return False
+        if self.extensions != other.extensions : return False
+        return True
 
-    def test_isParent(self) :
-        if not self._hasFile :
-            self._isParent = 2      # equivalent
-            return
-        try :
-            l = Ldml(self._fname)
-        except Exception as e :
-            print "Exception in file: " + self._fname
-            raise(e)
-        if len(l.root) > 1 :
-            self._isParent = 0      # inherit
-        else :
-            self._isParent = 1      # identical inherit
-        
+    def analyse(self, alltags = None) :
+        if alltags is None :
+            lts = LangTags()
+            alltags = lts.tags
+        if self.region is not None :
+            self.hideregion = True
+            if str(self) in alltags :
+                other = alltags[str(self)]
+                if self.script is None :
+                    self.script = other.script
+                if self.script == other.script :
+                    self.hidescript = other.hidescript
+                    if not other.hideregion or other.region != self.region  :
+                        self.hideregion = False
+                else :
+                    self.hideregion = False
+            elif self.variants is not None or self.extensions is not None :
+                test = self.__class__(lang = self.lang, region = self.region)
+                test.analyse(alltags)
+                if test.script is not None :
+                    if self.script is None :
+                        self.script = test.script
+                    if self.script == test.script :
+                        self.hidescript = test.hidescript
+                    else :
+                        self.hideregion = False
+                if not test.hideregion or test.region != self.region :
+                    self.hideregion = False
+            elif self.script is not None :
+                test = self.__class__(lang = self.lang)
+                test.analyse(alltags)
+                if test.script is not None and self.script == test.script :
+                    self.hidescript = test.hidescript
+                    if not test.hideregion or test.region != self.region :
+                        self.hideregion = False
+                else :
+                    self.hideregion = False
+            else :
+                self.hideregion = False
+        elif self.script is not None :
+            self.hidescript = True
+            if str(self) in alltags :
+                other = alltags[str(self)]
+                self.region = other.region
+                self.hideregion = other.hideregion  # true if other.region set
+                if not other.hidescript or other.script != self.script :
+                    self.hidescript = False
+            elif self.variants is not None or self.extensions is not None :
+                test = self.__class__(lang = self.lang, script = self.script)
+                test.analyse(alltags)
+                self.region = test.region
+                self.hideregion = test.hideregion
+                if test.script == self.script :
+                    self.hidescript = test.hidescript
+        # now the oddeties
+        if self.variants is not None :
+            if not self.hidescript and self.script == 'Latn' : 
+                for v in ('fonipa', 'fonapa', 'fonupa') :
+                    if v in self.variants :
+                        self.hidescript = True
+                        break
+
 
 class LangTags(object) :
 
+    __metaclass__ = Singleton
+
     def __init__(self, paths = None) :
         """ Everything is keyed by language """
-        self.likelySubtags = {}
-        self.suppress = {}
-        self.scripts = {}
-        self.territories = {}
-        # keyed by langtag
-        self.regions = {}
         self.tags = {}
-        # keyed by region
-        self.tinfo = {}
-        self.paths = paths
 
-        self.readLikelySubtags()
         self.readIana()
+        self.readLikelySubtags()
         self.readSupplementalData()
+
+    def __contains__(self, x) :
+        comps = self.parse(x)
+        lt = LangTag(*comps)
+        for l in self.langs.get(comps[0], []) :
+            if l.matches(comps) :
+                return True
+        return False
+
+    def __getitem__(self, x) :
+        comps = self.parse(x)
+        lt = LangTag(*comps)
+        for l in self.langs.get(comps[0], []) :
+            if l.matches(comps) :
+                return l
+        raise IndexError()
+
+    def add(self, x) :
+        comps = self.parse(x)
+        if comps[0] not in self.langs :
+            self.langs[comps[0]] = []
+        l = LangTag(*comps)
+        self.langs[comps[0]].append(l)
+        return l
+
 
     def readLikelySubtags(self, fname = None) :
         """Reads the likely subtag mappings"""
@@ -115,7 +229,13 @@ class LangTags(object) :
         doc = et.parse(fname)
         ps = doc.getroot().find('likelySubtags')
         for p in ps.findall('likelySubtag') :
-            self.likelySubtags[p.get('from')] = p.get('to')
+            to = LangTag(p.get('to'))
+            base = LangTag(p.get('from'))
+            to.analyse(self.tags)
+            if base.script is None : to.hidescript = True
+            if base.region is None : to.hideregion = True
+            for t in to.allforms() :
+                self.tags[t] = to
 
     def readIana(self, fname = None) :
         """Reads the iana registry, particularly ths suppress script info"""
@@ -132,249 +252,94 @@ class LangTags(object) :
                     if mode == "language" :
                         currlang = l[8:]
                 elif l.startswith("Suppress-Script: ") and currlang is not None :
-                    self.suppress[currlang] = l[17:]
+                    tag = LangTag(lang=currlang, script=l[17:])
+                    tag.hidescript = True
+                    for t in tag.allforms() :
+                        if str(t) not in self.tags : self.tags[str(t)] = tag
 
     def readSupplementalData(self, fname = None) :
         """Reads supplementalData.xml from CLDR to get useful structural information on LDML"""
+        scripts = {}
+        territories = {}
+        regions = {}
         if fname is None :
             fname = os.path.join(os.path.dirname(__file__), 'supplementalData.xml')
         doc = et.parse(fname)
         ps = doc.getroot().find('languageData')
         for p in ps.findall('language') :
             lang = p.get('type')
-            ss = self.scripts.get(lang, [])
-            ts = self.territories.get(lang, [])
+            ss = scripts.get(lang, [])
+            ts = territories.get(lang, [])
             if p.get('scripts') :
                 ss += p.get('scripts').split(' ')
-                self.scripts[lang] = ss
+                scripts[lang] = ss
             if p.get('territories') :
                 ts += p.get('territories').split(' ')
-                self.territories[lang] = ts
+                territories[lang] = ts
         ps = doc.getroot().find('territoryInfo')
         for p in ps.findall('territory') :
             r = p.get('type')
-            self.tinfo[r] = []
-            self.tinfo[p.get('type')] = [l.get('type') for l in p.findall('languagePopulation')]
             for l in p.findall('languagePopulation') :
                 lt = l.get('type')
-                self.tinfo[r].append(lt)
-                if lt not in self.regions : self.regions[lt] = []
-                self.regions[lt].append(r)
+                if lt not in regions : regions[lt] = []
+                regions[lt].append(r)
+        for l, r in regions.items() :
+            if len(r) > 1 : continue
+            r = r[0]
+            t = LangTag(l)      # could include script
+            if str(t) in self.tags :
+                t = self.tags[str(t)]
+            if t.region is None :
+                t.region = r
+                t.hideregion = True
+            elif t.region != r :
+                t = LangTag(l, region=r)
+            if t.script is None and l in scripts and len(scripts[l]) == 1 :
+                t.script = scripts[l][0]
+                t.hidescript = True
+            t.analyse(self.tags)
+            for a in t.allforms() :
+                if a not in self.tags : self.tags[a] = t
 
-    def _isregion(self, tag) :
-        return (len(tag) == 2 and tag.isalpha()) or (len(tag) == 3 and tag.isdigit())
-
-    def _get_components(self, tag) :
-        temp = tag.replace("_", "-")
-        res = temp.split("-")
-        s = ''
-        r = ''
-        v = []
-        # no extlang support
-        l = res[0].lower()
-        if len(res) > 1 and len(res[1]) == 4 :
-            s = res[1].title()
-            if len(res) > 2 and self._isregion(res[2]) :
-                r = res[2].upper()
-                if len(res) > 3 :
-                    v = res[3:]
-            elif len(res) > 2 :
-                v = res[2:]
-        elif len(res) > 1 and self._isregion(res[1]) :
-            r = res[1].upper()
-            if len(res) > 2 :
-                v = res[2:]
-        elif len(res) > 1 :
-            v = res[1:]
-        if r == '' and l in self.regions and len(self.regions[l]) == 1 : r = self.regions[l][0]
-        if s == '' and l in self.suppress : s = self.suppress[l]
-        if s == '' and l in self.scripts and len(self.scripts[l]) == 1 : s = self.scripts[l][0]
-        if l in self.scripts and len(self.scripts[l]) == 1 and self.scripts[l] == s :
-            s = "!" + s
-        if r == '' and s and l+"-"+s in self.regions and len(self.regions[l+"-"+s]) == 1 : r = self.regions[l+"-"+s][0]
-        if l in self.likelySubtags :
-            (l1, s1, r1) = self.likelySubtags[l].split('_')
-            if len(v) == 0 and (s == '' or s == s1) and (r == '' or r == r1) :
-                s = s1
-                r = r1
-        return [l, s, r] + v
-
-    def addTag(self, tag) :
-        if tag in self.tags :
-            return self.tags[tag]
-        else :
-            lt = LangTag(tag)
-            self.tags[tag] = lt
-            if self.paths is not None :
-                lt.test_hasFile(self.paths)
-            return lt
-
-    def _join(self, elements) :
-        if len(elements) > 1 and elements[1] is not None and elements[1].startswith("!") :
-            elements[1] = elements[1][1:]
-        res = "-".join([e for e in elements if e is not None])
-        res = re.sub(r'-(?=-|$)', '', res)
-        return self.addTag(res)
-
-    def get_lang(self, tag) :
-        return self._get_components(tag)[0]
-
-    def get_script(self, tag) :
-        res = self._get_components(tag)[1]
-        if res.startswith("!") : return res[1:]
-        return res
-
-    def get_region(self, tag) :
-        return self._get_components(tag)[2]
-
-    def get_variants(self, tag) :
-        cs = self._get_components(tag)
-        if len(cs) > 3 : return cs[3:]
-        else : return []
- 
-    def get_shortest(self, tag) :
-        cs = self._get_components(tag)
-        l = cs[0]
-        if l in self.likelySubtags :
-            o = self.likelySubtags[l].split('_')
-            if o == cs : return l
-        if l in self.suppress and self.suppress[l] == cs[1] or cs[1].startswith("!") : cs[1] = ''
-        if l in self.territories and len(self.territories[l]) == 1 and self.territories[l][0] == cs[2] : cs[2] = ''
-        return self._join(cs)
-
-    def get_longest(self, tag) :
-        return self._join(self._get_components(tag))
-        
-    def get_canonical(self, tag) :
-        cs = self._get_components(tag)
-        l = cs[0]
-        if l in self.suppress and self.suppress[l] == cs[1] : cs[1] = ''
-        return self._join(cs)
-
-    def get_all_forms(self, tag) :
-        cs = self._get_components(tag)
-        l = cs[0]
-        res = []
-        b = self.addTag(l)
-        if l in self.likelySubtags and cs == self.likelySubtags[l].split('_') :
-            n = self._join(cs[0:2])
-            if b.hasFile :
-                n.parent = b
-            elif n.hasFile :
-                b.parent = n
-            elif l in self.suppress and self.suppress[l] == cs[1] :
-                n.parent = b
-            else :
-                b.parent = n
-            n.test_isParent()
-            b.test_isParent()
-
-            r = self._join([cs[0], cs[2]])
-            f = self._join(cs)
-            if r.hasFile :
-                f.parent = r
-                r.parent = n if n.hasFile else b
-            elif f.hasFile :
-                r.parent = f
-                f.parent = n if n.hasFile else b
-            elif l in self.suppress and self.suppress[l] == cs[1] :
-                f.parent = r
-            else :
-                r.parent = f
-            r.test_isParent()
-            f.test_isParent()
-            res.extend([b, n, r, f])
-            return res
-        f = self._join(cs)
-        res.append(f)
-        if cs[1] and cs[2] :
-            n = self._join(cs[0:2]).replace('-', '_')
-            curr = f
-            temp = self._join([cs[0], cs[2]]).replace('-', '_')
-            if n not in self.regions or cs[2] not in self.regions[n] \
-                    or (temp in self.likelySubtags and self.likelySubtags[temp] == n + "_" + cs[2]) :
-                s = self._join([l, cs[2]] + (cs[3:] if len(cs) > 3 else []))
-                if s.hasFile :
-                    f.parent = s
-                    curr = s
-                elif f.hasFile :
-                    s.parent = f
-                elif l in self.suppress and self.suppress[l] == cs[1] :
-                    f.parent = s
-                    curr = s
-                else :
-                    s.parent = f
-                s.test_isParent()
-                res.append(s)
-            if not curr.hasFile and curr.parent is None :
-                r = self._join(cs[0:2] + (cs[3:] if len(cs) > 3 else []))
-                if r.hasFile :
-                    curr.parent = r
-                    res.append(r)
-                elif b.hasFile :
-                    curr.parent = b
-                    res.append(b)
-                curr.test_isParent()
-        f.test_isParent()
-        return res
-
-    def get_all_equivalences(self, tag, history) :
-        def addstar(x) :
-            return "*"+x if x.hasFile else x
-        def findequivs(n, a, level = 2) :
-            return filter(lambda x: x.isParent == level and x.parent is n, a)
-        def outchildren(n, a) :
-            res = addstar(n) 
-            for s in findequivs(n, a) :
-                res += " = " 
-                a.remove(s)
-                res += outchildren(s, a)
-            for s in findequivs(n, a, level = 1) :
-                res += " | " 
-                a.remove(s)
-                res += outchildren(s, a)
-            return res # if ' ' in res or res[0] == '*' else ""
-        ress = []
-        a = set(t.get_all_forms(tag))
-        if any([r not in history for r in a]) :
-            top = set(filter(lambda x : x.parent is None, a))
-            r = a - top
-            for n in top :
-                temp = r
-                res = outchildren(n, temp)
-                if res : ress.append(res)
-                for s in findequivs(n, temp, level = 0) :
-                    res = outchildren(s, temp)
-                    res += " > " + addstar(n)
-                    if res : ress.append(res)
-        history.update(a)
-        return ress
-    
+def find_file(tagstr, root='.') :
+    fname = tagstr.replace('-', '_') + '.xml'
+    testf = os.path.join(root, fname)
+    if os.path.exists(testf) : return testf
+    testf = os.path.join(root, fname[0], fname)
+    if os.path.exists(testf) : return testf
+    return None
 
 if __name__ == '__main__' :
     import sys
+    res = []
     indir = ['sldr']
-    t = LangTags(paths=indir)
-    alltags = set()
-    allres = []
-    for l in sorted([sys.argv[1]] if len(sys.argv) > 1 else t.regions.keys()) :
-        if l in t.regions :
-            for s in t.regions[l] :
-                allres.extend(t.get_all_equivalences(l+"-"+s, alltags))
-        else :
-            allres.extend(t.get_all_equivalences(l, alltags))
+    lts = LangTags(paths=indir)
+    for k in sorted(lts.tags.keys()) :
+        t = lts.tags[k]
+        if str(t) == k :
+            outs = sorted(t.allforms(), key = len)
+            res.append(outs)
     alllocales = set()
     if len(sys.argv) < 2 :
         for d in indir :
             for l in os.listdir(d) :
                 if l.endswith('.xml') :
-                    alllocales.add(l[:-4])
+                    if 1 < len(l.split('_', 1)[0]) < 4 :
+                        alllocales.add(l[:-4])
                 elif os.path.isdir(os.path.join(d, l)) :
                     for s in os.listdir(os.path.join(d, l)) :
                         if s.endswith('.xml') :
-                            alllocales.add(s[:-4])
-        for l in alllocales - alltags :
-            allres.extend(t.get_all_equivalences(l, alltags))
-        print "\n".join(sorted(allres, key=lambda x : x.replace('*','')))
-    else :
-        print "\n".join(allres)
+                            if 1 < len(s.split('_', 1)[0]) < 4 :
+                                alllocales.add(s[:-4])
+    for l in alllocales :
+        t = LangTag(l)
+        if str(t) not in lts.tags :
+            t.analyse(lts.tags)
+            lts.tags[str(t)] = t
+            outs = sorted(t.allforms(), key = len)
+            res.append(outs)
+    outstrings = []
+    for o in res :
+        outstrings.append(" = ".join(["*" + x if find_file(x, indir[0]) else x for x in o]))
+    print "\n".join(sorted(outstrings, key=lambda x:x.replace('*', '')))
+
