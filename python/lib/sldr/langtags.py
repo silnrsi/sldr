@@ -53,15 +53,28 @@ class LangTag(object) :
         self.extensions = extensions
         if tag is not None : self.parse(tag)
 
+    def _extensions(self) :
+        if self.extensions is None : return []
+        res = []
+        for ns in sorted(self.extensions.keys()) :
+            res.append(ns)
+            res.extend(sorted(self.extensions[ns]))
+        return res
+
     def __str__(self) :
+        """ Output the canonical tag with things hidden """
         subtags = [self.lang]
         if not self.hidescript : subtags.append(self.script)
         if not self.hideregion : subtags.append(self.region)
         if self.variants is not None : subtags.extend(self.variants)
-        if self.extensions is not None :
-            for ns in sorted(self.extensions.keys()) :
-                subtags.append(ns)
-                subtags.extend(sorted(self.extensions[ns]))
+        subtags.extend(self._extensions())
+        return "-".join([x for x in subtags if x is not None])
+
+    def __repr__(self) :
+        """ Output the full tag with nothing hidden """
+        subtags = [self.lang, self.script, self.region]
+        if self.variants is not None : subtags.extend(self.variants)
+        subtags.extend(self._extensions())
         return "-".join([x for x in subtags if x is not None])
 
     def __hash__(self) :
@@ -98,6 +111,16 @@ class LangTag(object) :
         if len(variants) : self.variants = variants
         if len(extensions) : self.extensions = extensions
 
+    def merge_equivalent(self, tag) :
+        if self.script is None and self.script != tag.script :
+            self.script = tag.script
+        if self.script == tag.script and not self.hidescript :
+            self.hidescript = tag.hidescript
+        if self.region is None and self.region != tag.region :
+            self.region = tag.region
+        if self.region == tag.region and not self.hideregion :
+            self.hideregion = tag.hideregion
+
     def allforms(self) :
         ss = [self.script]
         if self.hidescript :
@@ -126,56 +149,27 @@ class LangTag(object) :
         if alltags is None :
             lts = LangTags()
             alltags = lts.tags
+        if str(self) in alltags :
+            return alltags[str(self)]
         if self.region is not None :
-            self.hideregion = True
-            if str(self) in alltags :
-                other = alltags[str(self)]
-                if self.script is None :
-                    self.script = other.script
-                if self.script == other.script :
-                    self.hidescript = other.hidescript
-                    if not other.hideregion or other.region != self.region  :
-                        self.hideregion = False
-                else :
-                    self.hideregion = False
+            test = self.__class__(lang = self.lang, script = self.script, variants = self.variants, extensions = self.extensions)
+            test = test.analyse(alltags)
+            if str(test) in alltags :
+                self.merge_equivalent(test)
             elif self.variants is not None or self.extensions is not None :
                 test = self.__class__(lang = self.lang, region = self.region)
-                test.analyse(alltags)
-                if test.script is not None :
-                    if self.script is None :
-                        self.script = test.script
-                    if self.script == test.script :
-                        self.hidescript = test.hidescript
-                    else :
-                        self.hideregion = False
-                if not test.hideregion or test.region != self.region :
-                    self.hideregion = False
-            elif self.script is not None :
-                test = self.__class__(lang = self.lang)
-                test.analyse(alltags)
-                if test.script is not None and self.script == test.script :
-                    self.hidescript = test.hidescript
-                    if not test.hideregion or test.region != self.region :
-                        self.hideregion = False
-                else :
-                    self.hideregion = False
-            else :
-                self.hideregion = False
+                test = test.analyse(alltags)
+                self.merge_equivalent(test)
         elif self.script is not None :
-            self.hidescript = True
-            if str(self) in alltags :
-                other = alltags[str(self)]
-                self.region = other.region
-                self.hideregion = other.hideregion  # true if other.region set
-                if not other.hidescript or other.script != self.script :
-                    self.hidescript = False
+            test = self.__class__(lang = self.lang, variants = self.variants, extensions = self.extensions)
+            test = test.analyse(alltags)
+            if str(test) in alltags :
+                self.merge_equivalent(test)
             elif self.variants is not None or self.extensions is not None :
                 test = self.__class__(lang = self.lang, script = self.script)
-                test.analyse(alltags)
-                self.region = test.region
-                self.hideregion = test.hideregion
-                if test.script == self.script :
-                    self.hidescript = test.hidescript
+                test = test.analyse(alltags)
+                self.merge_equivalent(test)
+
         # now the oddeties
         if self.variants is not None :
             if not self.hidescript and self.script == 'Latn' : 
@@ -183,6 +177,7 @@ class LangTag(object) :
                     if v in self.variants :
                         self.hidescript = True
                         break
+        return self
 
 
 class LangTags(object) :
@@ -197,31 +192,6 @@ class LangTags(object) :
         self.readLikelySubtags()
         self.readSupplementalData()
 
-    def __contains__(self, x) :
-        comps = self.parse(x)
-        lt = LangTag(*comps)
-        for l in self.langs.get(comps[0], []) :
-            if l.matches(comps) :
-                return True
-        return False
-
-    def __getitem__(self, x) :
-        comps = self.parse(x)
-        lt = LangTag(*comps)
-        for l in self.langs.get(comps[0], []) :
-            if l.matches(comps) :
-                return l
-        raise IndexError()
-
-    def add(self, x) :
-        comps = self.parse(x)
-        if comps[0] not in self.langs :
-            self.langs[comps[0]] = []
-        l = LangTag(*comps)
-        self.langs[comps[0]].append(l)
-        return l
-
-
     def readLikelySubtags(self, fname = None) :
         """Reads the likely subtag mappings"""
         if fname is None :
@@ -231,7 +201,7 @@ class LangTags(object) :
         for p in ps.findall('likelySubtag') :
             to = LangTag(p.get('to'))
             base = LangTag(p.get('from'))
-            to.analyse(self.tags)
+            to = to.analyse(self.tags)
             if base.script is None : to.hidescript = True
             if base.region is None : to.hideregion = True
             for t in to.allforms() :
@@ -283,6 +253,7 @@ class LangTags(object) :
                 lt = l.get('type')
                 if lt not in regions : regions[lt] = []
                 regions[lt].append(r)
+        # set default scripts and regions based on there being only one for a language
         for l, r in regions.items() :
             if len(r) > 1 : continue
             r = r[0]
@@ -297,20 +268,21 @@ class LangTags(object) :
             if t.script is None and l in scripts and len(scripts[l]) == 1 :
                 t.script = scripts[l][0]
                 t.hidescript = True
-            t.analyse(self.tags)
+            t = t.analyse(self.tags)
             for a in t.allforms() :
                 if a not in self.tags : self.tags[a] = t
 
-def find_file(tagstr, root='.') :
-    fname = tagstr.replace('-', '_') + '.xml'
-    testf = os.path.join(root, fname)
-    if os.path.exists(testf) : return testf
-    testf = os.path.join(root, fname[0], fname)
-    if os.path.exists(testf) : return testf
-    return None
-
 if __name__ == '__main__' :
     import sys
+
+    def find_file(tagstr, root='.') :
+        fname = tagstr.replace('-', '_') + '.xml'
+        testf = os.path.join(root, fname)
+        if os.path.exists(testf) : return testf
+        testf = os.path.join(root, fname[0], fname)
+        if os.path.exists(testf) : return testf
+        return None
+
     res = []
     indir = ['sldr']
     lts = LangTags(paths=indir)
@@ -334,7 +306,7 @@ if __name__ == '__main__' :
     for l in alllocales :
         t = LangTag(l)
         if str(t) not in lts.tags :
-            t.analyse(lts.tags)
+            t = t.analyse(lts.tags)
             lts.tags[str(t)] = t
             outs = sorted(t.allforms(), key = len)
             res.append(outs)
