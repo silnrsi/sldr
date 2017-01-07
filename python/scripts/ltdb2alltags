@@ -1,0 +1,52 @@
+#!/usr/bin/python
+
+import os, sys, csv
+from argparse import ArgumentParser
+
+try :
+    import sldr.langtags as lt
+except ImportError :
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    import sldr.langtags as lt
+
+parser = ArgumentParser()
+parser.add_argument('infile', help='Input CSV file from Google drive')
+parser.add_argument('outfile', help='alltags.txt output file')
+parser.add_argument('-i','--indir', default='.', help='Directory containing sldr tree')
+args = parser.parse_args()
+
+lts = lt.LangTags()
+with open(args.infile) as csvfile :
+    reader = csv.DictReader(csvfile)
+    for row in reader :
+        if 'CLDR' in row['confirmed'] : continue
+        id = row['Lang_Id']
+        ls = row['likely_subtag']
+        t = lt.LangTag(ls)
+        if t.script == 'Zyyy' or t.script == 'Qaax' : continue
+        b = lt.LangTag(id)
+        if b.script is None :
+            t.hidescript = True
+        if b.region is None :
+            t.hideregion = True
+        lts.add(t)
+
+def find_file(tagstr, root='.') :
+    fname = tagstr.replace('-', '_') + '.xml'
+    testf = os.path.join(root, fname)
+    if os.path.exists(testf) : return testf
+    testf = os.path.join(root, fname[0], fname)
+    if os.path.exists(testf) : return testf
+    return None
+
+with open(args.outfile, "w") as alltags :
+    res = lts.generate_alltags()
+    
+    outstrings = []
+    for o in res :
+        outstrings.append(" = ".join(["*" + x if find_file(x, args.indir) else x for x in o]))
+    alltags.write("\n".join(sorted(outstrings, key=lambda x:x.replace('*', ''))) + "\n")
+
+
+
+

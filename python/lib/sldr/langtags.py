@@ -25,7 +25,7 @@
 
 from xml.etree import ElementTree as et
 from xml.etree import ElementPath as ep
-import os, re
+import os, re, csv
 from ldml import Ldml
 
 class Singleton(type):
@@ -184,12 +184,14 @@ class LangTags(object) :
 
     __metaclass__ = Singleton
 
-    def __init__(self, paths = None) :
+    def __init__(self, extrasfile=None) :
         """ Everything is keyed by language """
         self.tags = {}
 
         self.readIana()
         self.readLikelySubtags()
+        if extrasfile is not None :
+            self.readExtras(extrasfile)
         self.readSupplementalData()
 
     def readLikelySubtags(self, fname = None) :
@@ -204,9 +206,19 @@ class LangTags(object) :
             to = to.analyse(self.tags)
             if base.script is None : to.hidescript = True
             if base.region is None : to.hideregion = True
-            for t in to.allforms() :
-                self.tags[t] = to
+            self.add(to)
 
+    def readExtras(self, ef) :
+        with open(ef) as csvfile :
+            reader = csv.DictReader(csvfile, delimiter="\t")
+            for row in reader :
+                if row['confirmed'] == 'CLDR' : continue
+                base = LangTag(row['langtag'])
+                to = LangTag(row['likely_subtag']).analyse(self.tags)
+                if base.script is None : to.hidescript = True
+                if base.region is None : to.hideregion = True
+                self.add(to)
+        
     def readIana(self, fname = None) :
         """Reads the iana registry, particularly ths suppress script info"""
         if fname is None :
@@ -224,8 +236,7 @@ class LangTags(object) :
                 elif l.startswith("Suppress-Script: ") and currlang is not None :
                     tag = LangTag(lang=currlang, script=l[17:])
                     tag.hidescript = True
-                    for t in tag.allforms() :
-                        if str(t) not in self.tags : self.tags[str(t)] = tag
+                    self.add(tag)
 
     def readSupplementalData(self, fname = None) :
         """Reads supplementalData.xml from CLDR to get useful structural information on LDML"""
@@ -265,12 +276,23 @@ class LangTags(object) :
                 t.hideregion = True
             elif t.region != r :
                 t = LangTag(l, region=r)
-            if t.script is None and l in scripts and len(scripts[l]) == 1 :
-                t.script = scripts[l][0]
+            if l in scripts and len(scripts[l]) == 1 :
+                if t.script is None  : t.script = scripts[l][0]
                 t.hidescript = True
             t = t.analyse(self.tags)
-            for a in t.allforms() :
-                if a not in self.tags : self.tags[a] = t
+            self.add(t)
+
+    def add(self, tag) :
+        for a in tag.allforms() :
+            if a not in self.tags : self.tags[a] = tag
+
+    def generate_alltags(self) :
+        res = []
+        alltags = set(self.tags.values())
+        for t in sorted(alltags) :
+            outs = sorted(t.allforms(), key = len)
+            res.append(outs)
+        return res
 
 if __name__ == '__main__' :
     import sys
@@ -283,31 +305,29 @@ if __name__ == '__main__' :
         if os.path.exists(testf) : return testf
         return None
 
-    res = []
     indir = ['sldr']
-    lts = LangTags(paths=indir)
-    for k in sorted(lts.tags.keys()) :
-        t = lts.tags[k]
-        if str(t) == k :
-            outs = sorted(t.allforms(), key = len)
-            res.append(outs)
+    if len(sys.argv) > 1 :
+        lts = LangTags(extrasfile=sys.argv[1])
+    else :
+        lts = LangTags()
+    res = lts.generate_alltags()
+
     alllocales = set()
-    if len(sys.argv) < 2 :
-        for d in indir :
-            for l in os.listdir(d) :
-                if l.endswith('.xml') :
-                    if 1 < len(l.split('_', 1)[0]) < 4 :
-                        alllocales.add(l[:-4])
-                elif os.path.isdir(os.path.join(d, l)) :
-                    for s in os.listdir(os.path.join(d, l)) :
-                        if s.endswith('.xml') :
-                            if 1 < len(s.split('_', 1)[0]) < 4 :
-                                alllocales.add(s[:-4])
+    for d in indir :
+        for l in os.listdir(d) :
+            if l.endswith('.xml') :
+                if 1 < len(l.split('_', 1)[0]) < 4 :
+                    alllocales.add(l[:-4])
+            elif os.path.isdir(os.path.join(d, l)) :
+                for s in os.listdir(os.path.join(d, l)) :
+                    if s.endswith('.xml') :
+                        if 1 < len(s.split('_', 1)[0]) < 4 :
+                            alllocales.add(s[:-4])
     for l in alllocales :
         t = LangTag(l)
         if str(t) not in lts.tags :
             t = t.analyse(lts.tags)
-            lts.tags[str(t)] = t
+            lts.add(t)
             outs = sorted(t.allforms(), key = len)
             res.append(outs)
     outstrings = []
