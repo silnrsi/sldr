@@ -5,7 +5,6 @@ SIL has created its own repository of selected locale data. It serves two purpos
 
 SIL International receives the data from users of the ScriptSource website and from other linguistic contacts.  We are particularly interested in submissions of Character List data, which enables ScriptSource to cross-reference writing systems with the characters they use.  For people who wish to add a language to the CLDR, we can store the CLDR minimal data set for that language in our repository.  This consists of the following fields:
 
-list:
 Language Name
 
 Script Name
@@ -29,9 +28,8 @@ Default Region - the primary country where the language is spoken
 Other Countries where spoken - other countries where the language is spoken
 
 
-#:end of list
 
 If the minimal data set is received for a language then it will be submitted as a "seed locale" to the CLDR. It is then possible for this "seed locale" to be developed into a full locale containing a broader set of data, at which point it will be published in the next release of the CLDR. In the case that only a subset of the minimal data listed above is received, it will be published on ScriptSource, but will not be submitted to the CLDR until their minimal requirements have been met.
 
-If you are knowledgeable about a particular writing system and would like to submit information about it, we would welcome your submissions. Please take a look at Contributing to ScriptSource and the CLDR (page.php?item_id=entry_detail&uid=lr63742duf) for more details.
+If you are knowledgeable about a particular writing system and would like to submit information about it, we would welcome your submissions. Please take a look at Contributing to ScriptSource and the CLDR (http://scriptsource.org/entry/lr63742duf) for more details.
 
