@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2014 Unicode, Inc.
-CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
+<!-- Copyright © 1991-2016 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
+Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<version number="$Revision: 11159 $"/>
-		<generation date="$Date: 2015-01-30 19:45 +0000 $"/>
+		<version number="$Revision: 12924 $"/>
 		<language type="en"/>
 		<territory type="GB"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
-	<localeDisplayNames>
-		<keys>
-			<key type="colNormalization">Normalised Sorting</key>
-		</keys>
-		<types>
-			<type type="no" key="colNormalization">Sort Without Normalisation</type>
-			<type type="yes" key="colNormalization">Sort Unicode Normalised</type>
-		</types>
-	</localeDisplayNames>
 	<dates>
 		<calendars>
 			<calendar type="gregorian">
 				<dayPeriods>
 					<dayPeriodContext type="format">
+						<dayPeriodWidth type="abbreviated">
+							<dayPeriod type="am">am</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
+						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="am">a.m.</dayPeriod>
-							<dayPeriod type="pm">p.m.</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
+						</dayPeriodWidth>
+					</dayPeriodContext>
+					<dayPeriodContext type="stand-alone">
+						<dayPeriodWidth type="abbreviated">
+							<dayPeriod type="am">am</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
+						</dayPeriodWidth>
+						<dayPeriodWidth type="wide">
+							<dayPeriod type="am">am</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 				</dayPeriods>
@@ -55,13 +60,22 @@ For terms of use, see http://www.unicode.org/copyright.html
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
+				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="MEd">E dd/MM</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
+			</calendar>
+			<calendar type="islamic">
+				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="MEd">E dd/MM</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
 			</calendar>
 		</calendars>
-		<fields>
-			<field type="dayperiod">
-				<displayName>a.m./p.m.</displayName>
-			</field>
-		</fields>
 		<timeZoneNames>
 			<zone type="Europe/London">
 				<short>
@@ -91,26 +105,12 @@ For terms of use, see http://www.unicode.org/copyright.html
 			</metazone>
 		</timeZoneNames>
 	</dates>
-	<numbers>
-		<currencies>
-			<currency type="ILR">
-				<displayName count="one">Israeli shekel (1980–1985)</displayName>
-				<displayName count="other">Israeli shekels (1980–1985)</displayName>
-				<displayName>Israeli Shekel (1980–1985)</displayName>
-			</currency>
-			<currency type="ILS">
-				<displayName count="one">Israeli new shekel</displayName>
-				<displayName count="other">Israeli new shekels</displayName>
-				<displayName>Israeli New Shekel</displayName>
-			</currency>
-		</currencies>
-	</numbers>
-	<units>
-		<unitLength type="short">
-			<unit type="volume-liter">
-				<unitPattern count="one">{0} l</unitPattern>
-				<unitPattern count="other">{0} l</unitPattern>
-			</unit>
-		</unitLength>
-	</units>
+	<listPatterns>
+		<listPattern type="standard-short">
+			<listPatternPart type="end">{0} and {1}</listPatternPart>
+		</listPattern>
+		<listPattern>
+			<listPatternPart type="end">{0} and {1}</listPatternPart>
+		</listPattern>
+	</listPatterns>
 </ldml>
