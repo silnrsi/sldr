@@ -122,7 +122,7 @@ and then we commit and merge into master
     git commit -m "CLDR import from svn revision xxxxx"
     git checkout master
     git merge cldr
-    git push
+    git push --all
 
 
 ## Editing LDML Files
