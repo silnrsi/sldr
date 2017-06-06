@@ -1,35 +1,26 @@
-About the SIL Locale Data repository
-------------------------------------
+About the SIL LDML Editor
+-------------------------
 
-SIL has created its own repository of selected locale data. It serves two purposes; to gather information for publication on ScriptSource, and to gather information for submission to the Common Locale Data Repository (http://cldr.unicode.org/), a project to provide locale data for use in multilingual computer applications. The CLDR website is hosted by the Unicode Consortium. 
+The [LDML Editor](http://scripts.sil.org/pub/ldmledit/#/loadnsave) is a small web application that allows a user to generate an LDML file without knowing the details of the syntax or the need to type a lot of XML.
 
-SIL International receives the data from users of the ScriptSource website and from other linguistic contacts.  We are particularly interested in submissions of Character List data, which enables ScriptSource to cross-reference writing systems with the characters they use.  For people who wish to add a language to the CLDR, we can store the CLDR minimal data set for that language in our repository.  This consists of the following fields:
+# Background
 
-Language Name
+LDML stands for Locale Data Markup Language. It is an XML format that is used specifically by the Common Language Data Repository (CLDR) to provide language documentation for the purposes of software localization. The main syntax is [defined by the Unicode Consortium](http://unicode.org/reports/tr35/). The syntax has been extended with an [SIL namespace](https://docs.google.com/document/d/1H20pFQQsuAoyM0UAygiL_tUL3KuapoMoBbTXRtaT924/edit) to handle details specifically of interest for SIL software. It is mainly these extensions that need to be handled by the LDML Editor, although the app handles some standard parts of the syntax as well.
 
-Script Name
+The editor allows the user to either load and edit an existing LDML or to create a new one. The application currently provides functionality to save the file to the user’s computer; the user is then responsible for submitting it to the appropriate repository. Each LDML file is named and identified by a ISO 639 code (a two-letter [639-1](http://www.loc.gov/standards/iso639-2/php/code_list.php) code if it exists, otherwise a three-letter [639-3](http://www-01.sil.org/iso639-3/codes.asp) code) and possibly a four-letter [ISO 15924](http://unicode.org/iso15924/) script code. It is the responsibility of the user to name their LDML file appropriately.
 
-Main Exemplar - the minimum set of alphabetic characters required for this writing system
+Each page of the application contains controls for editing various LDML fields. There is some help text on each page, but it is not complete.
 
-Auxiliary Exemplar - characters which are used in this writing system for writing loan words only
+# Source Code
 
-Index Exemplar - the 'shortcut' letters for jumping to sections of a sorted, indexed list (such as a telephone directory)
+The app is written in Angular, Javascript, and Bootstrap. The source code is located here: [https://github.com/silnrsi/sldr/tree/master/editor](https://github.com/silnrsi/sldr/tree/master/editor). Most of the relevant code is located in editor/src/app-ng.
 
-Punctuation Exemplar - punctuation symbols required by the writing system
+# Status of the application
 
-Orientation - direction of writing
+The app is more or less complete as far as basic functionality. That is, it imports and exports the bits of LDML syntax that we are most interested in.
 
-Plural Rules - the number of plural forms which are needed to write any given noun
+The main problem is that the UI is clunky and awkward and unattractive. There are also certainly bugs that need to be fixed. It would be good, although not necessary, to have help text on each page
 
-Default Script - the primary script used for writing the language (may be different from the Script Name field)
+# Bugs
 
-Default Region - the primary country where the language is spoken
-
-Other Countries where spoken - other countries where the language is spoken
-
-
-
-If the minimal data set is received for a language then it will be submitted as a "seed locale" to the CLDR. It is then possible for this "seed locale" to be developed into a full locale containing a broader set of data, at which point it will be published in the next release of the CLDR. In the case that only a subset of the minimal data listed above is received, it will be published on ScriptSource, but will not be submitted to the CLDR until their minimal requirements have been met.
-
-If you are knowledgeable about a particular writing system and would like to submit information about it, we would welcome your submissions. Please take a look at Contributing to ScriptSource and the CLDR (http://scriptsource.org/entry/lr63742duf) for more details.
-
+Collation sequences are not stored in the correct format.
