@@ -1,0 +1,119 @@
+#!/usr/bin/python
+
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. Neither the name of the University nor the names of its contributors
+#    may be used to endorse or promote products derived from this software
+#    without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+
+import os, sys, codecs
+from argparse import ArgumentParser
+# from subprocess import check_output
+# from StringIO import StringIO
+# from xml.etree import ElementTree as et
+# from datetime import datetime
+import unicodedata
+
+try :
+    from sldr.ldml import Ldml, flattenlocale
+except ImportError :
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    from sldr.ldml import Ldml, flattenlocale, etwrite
+
+def main() :
+    parser = ArgumentParser()
+    # parser.add_argument('this',help='File of interest')
+    parser.add_argument('corpus',help='Corpus to read')
+    # parser.add_argument('-o','--output',help="Output file")
+    args = parser.parse_args()
+
+    exemplars = Exemplars()
+    corpus = codecs.open(args.corpus, 'r', encoding='utf-8')
+    for line in corpus :
+        exemplars.process(line)
+    print exemplars.get_main()
+    print exemplars.get_auxiliary()
+    print exemplars.get_punctuation()
+
+class Exemplars(object) :
+
+    def __init__(self) :
+        self.main = dict()
+        self.auxiliary = dict()
+        self.punctuation = dict()
+
+    def set_main(self, ldml_exemplars) :
+        """Set LDML exemplars data for the main set."""
+        self.main = self.ldml2list(self.main)
+
+    def set_auxiliary(self, ldml_exemplars) :
+        """Set LDML exemplars data for the auxiliary set."""
+        self.auxiliary = self.ldml2list(self.auxiliary)
+
+    def set_punctuation(self, ldml_exemplars) :
+        """Set LDML exemplars data for the punctuation set."""
+        self.punctuation = self.ldml2list(self.punctuation)
+
+    def get_main(self) :
+        """Return LDML exemplars data for the main set."""
+        return self.list2ldml(self.main)
+
+    def get_auxiliary(self) :
+        """Return LDML exemplars data for the auxiliary set."""
+        return self.list2ldml(self.auxiliary)
+
+    def get_punctuation(self) :
+        """Return LDML exemplars data for the punctuation set."""
+        return self.list2ldml(self.punctuation)
+
+    def ldml2list(self, exemplars) :
+        """Convert LDML exemplars data to a list."""
+        return dict()
+
+    def list2ldml(self, exemplar_set) :
+        """Convert a list to LDML exemplars data."""
+        exemplars = exemplar_set.keys()
+        exemplars.sort()
+        return u'{}{}{}'.format(u'[', ' '.join(exemplars), u']')
+
+    def process(self, text) :
+        """Count characters in the text."""
+        for i in range(len(text)) :
+            cc = text[i]
+            if unicodedata.category(cc).startswith('P') :
+                self.punctuation[cc] = True
+            else :
+                self.main[cc] = True
+
+# this = Exemplars(args.this)
+#
+#  if not args.output :
+#     outfh = sys.stdout
+# else :
+#     outfh = codecs.open(outf, "w", encoding="utf-8")
+#
+# this.serialize_xml(outfh.write)
+#
+# if args.output :
+#     outfh.close()
+
+if __name__ == '__main__' :
+    main()
