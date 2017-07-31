@@ -37,29 +37,29 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_simple_main(self) :
         self.exemplars.process(u'cab.')
-        self.assertEqual(self.exemplars.get_main(), u'[a b c]')
+        self.assertEqual(u'[a b c]', self.exemplars.get_main())
 
     def test_simple_punctuation(self) :
         self.exemplars.process(u'cab.')
-        self.assertEqual(self.exemplars.get_punctuation(), u'[.]')
+        self.assertEqual(u'[.]', self.exemplars.get_punctuation())
 
     def test_english_main(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(self.exemplars.get_main(), u'[e m r s u]')
+        self.assertEqual(u'[e m r s u]', self.exemplars.get_main())
 
     def test_english_auxiliary(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(self.exemplars.get_auxiliary(), u'[\u00e9]')
+        self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
 
     def test_french_main(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(self.exemplars.get_main(), u'[m r s u \u00e9]')
+        self.assertEqual(u'[m r s u \u00e9]', self.exemplars.get_main())
 
     def test_french_auxiliary(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(self.exemplars.get_auxiliary(), u'[]')
+        self.assertEqual(u'[]', self.exemplars.get_auxiliary())
 
 if __name__ == '__main__' :
     unittest.main()
