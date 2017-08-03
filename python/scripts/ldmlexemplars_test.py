@@ -36,17 +36,21 @@ class ExemplarsTests(unittest.TestCase):
         pass
 
     def test_simple_main(self) :
-        self.exemplars.process(u'cab.')
+        self.exemplars.process(u'cab.1')
         self.assertEqual(u'[a b c]', self.exemplars.get_main())
 
     def test_simple_punctuation(self) :
-        self.exemplars.process(u'cab.')
+        self.exemplars.process(u'cab.1')
         self.assertEqual(u'[.]', self.exemplars.get_punctuation())
+
+    def test_not_included(self):
+        self.exemplars.process(u'\u034f\u00ad\u06dd')
+        self.assertEqual(u'[]', self.exemplars.get_main())
 
     def test_english_main(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(u'[e m r s u]', self.exemplars.get_main())
+        self.assertEqual(u'[m r s u]', self.exemplars.get_main())
 
     def test_english_auxiliary(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')

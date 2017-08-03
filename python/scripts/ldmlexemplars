@@ -30,7 +30,8 @@ from argparse import ArgumentParser
 # from StringIO import StringIO
 # from xml.etree import ElementTree as et
 # from datetime import datetime
-import unicodedata
+import re
+from ucdXML import ucdXML
 
 try :
     from sldr.ldml import Ldml, flattenlocale
@@ -56,52 +57,76 @@ def main() :
 class Exemplars(object) :
 
     def __init__(self) :
-        self.main = dict()
-        self.auxiliary = dict()
-        self.punctuation = dict()
+        self.ucd = ucdXML('ucd.nounihan.grouped.xml', re.compile(r'.'))
+        self.main = set()
+        self.auxiliary = set()
+        self.punctuation = set()
 
     def set_main(self, ldml_exemplars) :
         """Set LDML exemplars data for the main set."""
-        self.main = self.ldml2list(self.main)
+        self.main = self.ldml_read(ldml_exemplars)
 
     def set_auxiliary(self, ldml_exemplars) :
         """Set LDML exemplars data for the auxiliary set."""
-        self.auxiliary = self.ldml2list(self.auxiliary)
+        self.auxiliary = self.ldml_read(ldml_exemplars)
 
     def set_punctuation(self, ldml_exemplars) :
         """Set LDML exemplars data for the punctuation set."""
-        self.punctuation = self.ldml2list(self.punctuation)
+        self.punctuation = self.ldml_read(ldml_exemplars)
 
     def get_main(self) :
         """Return LDML exemplars data for the main set."""
-        return self.list2ldml(self.main)
+        return self.ldml_write(self.main)
 
     def get_auxiliary(self) :
         """Return LDML exemplars data for the auxiliary set."""
-        return self.list2ldml(self.auxiliary)
+        return self.ldml_write(self.auxiliary)
 
     def get_punctuation(self) :
         """Return LDML exemplars data for the punctuation set."""
-        return self.list2ldml(self.punctuation)
+        return self.ldml_write(self.punctuation)
 
-    def ldml2list(self, exemplars) :
-        """Convert LDML exemplars data to a list."""
-        return dict()
+    def ldml_read(self, ldml_exemplars) :
+        """Read exemplars from a string from a LDML formatted file."""
+        list_exemplars = ldml_exemplars.strip('[]').split()
+        exemplars = set()
+        for exemplar in list_exemplars :
+            exemplars.add(exemplar)
+        return exemplars
 
-    def list2ldml(self, exemplar_set) :
-        """Convert a list to LDML exemplars data."""
-        exemplars = exemplar_set.keys()
-        exemplars.sort()
-        return u'{}{}{}'.format(u'[', ' '.join(exemplars), u']')
+    def ldml_write(self, exemplars) :
+        """Write exemplars to a string that can be written to a LDML formatted file."""
+        list_exemplars = list()
+        for exemplar in exemplars :
+            list_exemplars.append(exemplar)
+        list_exemplars.sort()
+        return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
 
     def process(self, text) :
-        """Count characters in the text."""
+        """Analyze a string."""
         for i in range(len(text)) :
-            cc = text[i]
-            if unicodedata.category(cc).startswith('P') :
-                self.punctuation[cc] = True
-            else :
-                self.main[cc] = True
+            self.process_character(text[i])
+
+    def has_prop(self, prop, char):
+        """Determine if a character has a specific property."""
+        if self.ucd.getprop(prop, char, 'N') == 'N' :
+            return False
+        return True
+
+    def process_character(self, char):
+        """Classify a character."""
+        if self.ucd.category(char).startswith('P') :
+            self.punctuation.add(char)
+            return
+
+        if char in self.auxiliary :
+            return
+
+        if not self.has_prop('Alpha', char) :
+            return
+
+        self.main.add(char)
+
 
 # this = Exemplars(args.this)
 #
