@@ -61,6 +61,7 @@ class Exemplars(object) :
         self.main = set()
         self.auxiliary = set()
         self.punctuation = set()
+        self.max_multigraph_length = 1
 
     def set_main(self, ldml_exemplars) :
         """Set LDML exemplars data for the main set."""
@@ -86,11 +87,19 @@ class Exemplars(object) :
         """Return LDML exemplars data for the punctuation set."""
         return self.ldml_write(self.punctuation)
 
+    def remove_bookends(self, start, end, text) :
+        """Remove specified bookends if they exist."""
+        if text.startswith(start) and text.endswith(end):
+            return text[1:-1]
+        return text
+
     def ldml_read(self, ldml_exemplars) :
         """Read exemplars from a string from a LDML formatted file."""
-        list_exemplars = ldml_exemplars.strip('[]').split()
+        list_exemplars = self.remove_bookends('[', ']', ldml_exemplars).split()
         exemplars = set()
         for exemplar in list_exemplars :
+            exemplar = self.remove_bookends('{', '}', exemplar)
+            self.max_multigraph_length = max(self.max_multigraph_length, len(exemplar))
             exemplars.add(exemplar)
         return exemplars
 
@@ -98,34 +107,62 @@ class Exemplars(object) :
         """Write exemplars to a string that can be written to a LDML formatted file."""
         list_exemplars = list()
         for exemplar in exemplars :
+            if len(exemplar) > 1 :
+                exemplar = u'{' + exemplar + u'}'
             list_exemplars.append(exemplar)
         list_exemplars.sort()
         return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
 
-    def process(self, text) :
-        """Analyze a string."""
-        for i in range(len(text)) :
-            self.process_character(text[i])
-
-    def has_prop(self, prop, char):
-        """Determine if a character has a specific property."""
-        if self.ucd.getprop(prop, char, 'N') == 'N' :
-            return False
+    def has_prop(self, prop, chars):
+        """Determine if all the characters in a string have a specific property."""
+        for char in chars :
+            if self.ucd.getprop(prop, char, 'N') == 'N' :
+                return False
         return True
 
-    def process_character(self, char):
-        """Classify a character."""
-        if self.ucd.category(char).startswith('P') :
-            self.punctuation.add(char)
-            return
+    def process(self, text) :
+        """Analyze a string."""
+        i = 0
+        multigraph_length = 0
+        while i < len(text) :
+            # Look for sequences of multiple characters.
+            # Longest possible matches are looked at first.
+            for multigraph_length in range(self.max_multigraph_length, 0, -1) :
+                chars = text[i:i + multigraph_length]
 
-        if char in self.auxiliary :
-            return
+                if chars in self.main :
+                    i += multigraph_length
+                    break
 
-        if not self.has_prop('Alpha', char) :
-            return
+                if chars in self.auxiliary :
+                    i += multigraph_length
+                    break
 
-        self.main.add(char)
+                if chars in self.punctuation :
+                    i += multigraph_length
+                    break
+
+            # No multigraphs were found at this position,
+            # so continue processing a single character
+            # if we have not gone beyond the end of the text.
+            if not i < len(text) :
+                break
+
+            char = text[i]
+
+            # Test for punctuation.
+            if self.ucd.category(char).startswith('P') :
+                self.punctuation.add(char)
+                i += 1
+                continue
+
+            # Exemplars must have Alphabetic property.
+            if not self.has_prop('Alpha', char) :
+                i += 1
+                continue
+
+            self.main.add(char)
+            i += 1
 
 
 # this = Exemplars(args.this)

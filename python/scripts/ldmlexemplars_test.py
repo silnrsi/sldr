@@ -35,13 +35,19 @@ class ExemplarsTests(unittest.TestCase):
     def tearDown(self) :
         pass
 
+    def test_prop_true(self) :
+        self.assertTrue(self.exemplars.has_prop('Alpha', u'cab'))
+
+    def test_prop_false(self) :
+        self.assertFalse(self.exemplars.has_prop('Alpha', u'cab.1'))
+
     def test_simple_main(self) :
-        self.exemplars.process(u'cab.1')
+        self.exemplars.process(u'[{cab.1}]')
         self.assertEqual(u'[a b c]', self.exemplars.get_main())
 
     def test_simple_punctuation(self) :
-        self.exemplars.process(u'cab.1')
-        self.assertEqual(u'[.]', self.exemplars.get_punctuation())
+        self.exemplars.process(u'[{cab.1}]')
+        self.assertEqual(u'[. [ ] { }]', self.exemplars.get_punctuation())
 
     def test_not_included(self):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
@@ -64,6 +70,12 @@ class ExemplarsTests(unittest.TestCase):
     def test_french_auxiliary(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[]', self.exemplars.get_auxiliary())
+
+    def test_swahili(self):
+        self.exemplars.set_main(u'[{ng} {ng\ua78c}]')
+        self.exemplars.process(u'ran rang rang\ua78c')
+        self.assertEqual(u'[a n r {ng} {ng\ua78c}]', self.exemplars.get_main())
+
 
 if __name__ == '__main__' :
     unittest.main()
