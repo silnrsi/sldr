@@ -24,8 +24,23 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+import re
 import unittest
 import ldmlexemplars
+
+class UCDTests(unittest.TestCase):
+
+    def setUp(self) :
+        self.ucd = ldmlexemplars.UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
+
+    def tearDown(self) :
+        pass
+
+    def test_prop_true(self) :
+        self.assertTrue(self.ucd.has_prop('Alpha', u'cab'))
+
+    def test_prop_false(self) :
+        self.assertFalse(self.ucd.has_prop('Alpha', u'cab.1'))
 
 class ExemplarsTests(unittest.TestCase):
 
@@ -34,12 +49,6 @@ class ExemplarsTests(unittest.TestCase):
 
     def tearDown(self) :
         pass
-
-    def test_prop_true(self) :
-        self.assertTrue(self.exemplars.has_prop('Alpha', u'cab'))
-
-    def test_prop_false(self) :
-        self.assertFalse(self.exemplars.has_prop('Alpha', u'cab.1'))
 
     def test_simple_main(self) :
         self.exemplars.process(u'[{cab.1}]')
@@ -58,13 +67,22 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[m r s u]', self.exemplars.get_main())
 
-    def test_english_auxiliary(self) :
+    def test_english_auxiliary_nfc(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
 
-    def test_french_main(self):
+    def test_english_auxiliary_nfd(self) :
+        self.exemplars.set_auxiliary(u'[{e\u0301}]')
+        self.exemplars.process(u're\u0301sume\u0301')
+        self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
+
+    def test_french_main_nfc(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
+        self.assertEqual(u'[m r s u \u00e9]', self.exemplars.get_main())
+
+    def test_french_main_nfd(self):
+        self.exemplars.process(u're\u0301sume\u0301')
         self.assertEqual(u'[m r s u \u00e9]', self.exemplars.get_main())
 
     def test_french_auxiliary(self):

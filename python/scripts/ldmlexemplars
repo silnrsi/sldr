@@ -32,6 +32,8 @@ from argparse import ArgumentParser
 # from datetime import datetime
 import re
 from ucdXML import ucdXML
+import unicodedata
+from palaso.teckit import engine
 
 try :
     from sldr.ldml import Ldml, flattenlocale
@@ -54,10 +56,28 @@ def main() :
     print exemplars.get_auxiliary()
     print exemplars.get_punctuation()
 
+class UCD(ucdXML) :
+
+    def normalize(self, form, unistr) :
+        """Return the normal form form for the Unicode string unistr.
+
+        Valid values for form are 'NFC', 'NFKC', 'NFD', and 'NFKD'.
+        """
+
+        return unicodedata.normalize(form, unistr)
+
+    def has_prop(self, prop, chars):
+        """Determine if all the characters in a string have a specific property."""
+        for char in chars :
+            if self.getprop(prop, char, 'N') == 'N' :
+                return False
+        return True
+
+
 class Exemplars(object) :
 
     def __init__(self) :
-        self.ucd = ucdXML('ucd.nounihan.grouped.xml', re.compile(r'.'))
+        self.ucd = UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
         self.main = set()
         self.auxiliary = set()
         self.punctuation = set()
@@ -95,6 +115,7 @@ class Exemplars(object) :
 
     def ldml_read(self, ldml_exemplars) :
         """Read exemplars from a string from a LDML formatted file."""
+        ldml_exemplars = self.ucd.normalize('NFC', ldml_exemplars)
         list_exemplars = self.remove_bookends('[', ']', ldml_exemplars).split()
         exemplars = set()
         for exemplar in list_exemplars :
@@ -113,17 +134,11 @@ class Exemplars(object) :
         list_exemplars.sort()
         return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
 
-    def has_prop(self, prop, chars):
-        """Determine if all the characters in a string have a specific property."""
-        for char in chars :
-            if self.ucd.getprop(prop, char, 'N') == 'N' :
-                return False
-        return True
-
     def process(self, text) :
         """Analyze a string."""
         i = 0
         multigraph_length = 0
+        text = self.ucd.normalize('NFC', text)
         while i < len(text) :
             # Look for sequences of multiple characters.
             # Longest possible matches are looked at first.
@@ -157,7 +172,7 @@ class Exemplars(object) :
                 continue
 
             # Exemplars must have Alphabetic property.
-            if not self.has_prop('Alpha', char) :
+            if not self.ucd.has_prop('Alpha', char) :
                 i += 1
                 continue
 
