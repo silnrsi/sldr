@@ -42,6 +42,23 @@ class UCDTests(unittest.TestCase):
     def test_prop_false(self) :
         self.assertFalse(self.ucd.has_prop('Alpha', u'cab.1'))
 
+    def test_nfc(self) :
+        text = u'e\u0301'
+        self.assertEqual(u'\u00e9', self.ucd.normalize('NFC', text))
+
+    def test_nfd(self):
+        text = u'\u00e9'
+        self.assertEqual(u'e\u0301', self.ucd.normalize('NFD', text))
+
+    def test_nfc_new(self) :
+        text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
+        self.assertEqual(u'\u00E0\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFC', text))
+
+    def test_nfd_new(self):
+        text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
+        self.assertEqual(u'\u0061\u0300\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFD', text))
+
+
 class ExemplarsTests(unittest.TestCase):
 
     def setUp(self) :
