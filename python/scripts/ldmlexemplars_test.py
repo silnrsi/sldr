@@ -62,6 +62,10 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
         self.assertEqual(u'[]', self.exemplars.get_main())
 
+    def test_lithuanian(self) :
+        self.exemplars.process(u'\u00e1\u0328 i\u0307\u0301')
+        self.assertEqual(u'[{i\u0307\u0301} {\u0105\u0301}]', self.exemplars.get_main())
+
     def test_english_main(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
@@ -78,12 +82,14 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
 
     def test_french_main_nfc(self):
-        self.exemplars.process(u'r\u00e9sum\u00e9')
-        self.assertEqual(u'[m r s u \u00e9]', self.exemplars.get_main())
+        self.exemplars.many_bases = 4
+        self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
+        self.assertEqual(u'[a e i m o r s u \u00e9 \u0302]', self.exemplars.get_main())
 
     def test_french_main_nfd(self):
-        self.exemplars.process(u're\u0301sume\u0301')
-        self.assertEqual(u'[m r s u \u00e9]', self.exemplars.get_main())
+        self.exemplars.many_bases = 4
+        self.exemplars.process(u're\u0301sume\u0301 a\u0302 e\u0302 i\u0302 o\u0302 u\u0302')
+        self.assertEqual(u'[a e i m o r s u \u00e9 \u0302]', self.exemplars.get_main())
 
     def test_french_auxiliary(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
@@ -94,6 +100,13 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'ran rang rang\ua78c')
         self.assertEqual(u'[a n r {ng} {ng\ua78c}]', self.exemplars.get_main())
 
+    def test_devanagari_generatively(self):
+        self.exemplars.process(u'\u0958 \u0959 \u095A \u095B \u095C \u095D \u095E \u095F')
+        self.assertEqual(u'[\u0915 \u0916 \u0917 \u091C \u0921 \u0922 \u092B \u092F \u093C]', self.exemplars.get_main())
+
+    def test_devanagari_few(self):
+        self.exemplars.process(u'\u0958 \u0959 \u095A')
+        self.assertEqual(u'[{\u0915\u093C} {\u0916\u093C} {\u0917\u093C}]', self.exemplars.get_main())
 
 if __name__ == '__main__' :
     unittest.main()
