@@ -55,6 +55,7 @@ def main() :
         exemplars.process(line)
     print exemplars.get_main()
     print exemplars.get_auxiliary()
+    print exemplars.get_index()
     print exemplars.get_punctuation()
 
 class UCD(ucdXML) :
@@ -86,6 +87,7 @@ class Exemplars(object) :
         # User data that should be accessed through methods.
         self.main = set()
         self.auxiliary = set()
+        self.index = set()
         self.punctuation = set()
 
         # Internal parameters.
@@ -103,39 +105,25 @@ class Exemplars(object) :
         """Set LDML exemplars data for the auxiliary set."""
         self.auxiliary = self.ldml_read(ldml_exemplars)
 
+    def set_index(self, ldml_exemplars) :
+        """Set LDML exemplars data for the index set."""
+        self.index = self.ldml_read(ldml_exemplars)
+
     def set_punctuation(self, ldml_exemplars) :
         """Set LDML exemplars data for the punctuation set."""
         self.punctuation = self.ldml_read(ldml_exemplars)
 
     def get_main(self) :
         """Return LDML exemplars data for the main set."""
-        for exemplar in self.clusters :
-
-            # Split apart the exemplar into a base and marks.
-            # The sequence marks maybe empty.
-            base = exemplar[0]
-            marks = exemplar[1:]
-
-            if len(marks) == 0 :
-                self.main.add(exemplar)
-
-            for mark in marks :
-                if mark in self.bases_for_marks :
-                    s = self.bases_for_marks[mark]
-
-                    # If a mark has more than many_bases...
-                    if len(s) > self.many_bases :
-                        # then add the base and mark separately.
-                        self.main.add(base)
-                        self.main.add(mark)
-                    else :
-                        # otherwise add the combined exemplar.
-                        self.main.add(exemplar)
-
+        self.analyze()
         return self.ldml_write(self.main)
 
     def get_auxiliary(self) :
         """Return LDML exemplars data for the auxiliary set."""
+        return self.ldml_write(self.auxiliary)
+
+    def get_index(self) :
+        """Return LDML exemplars data for the index set."""
         return self.ldml_write(self.auxiliary)
 
     def get_punctuation(self) :
@@ -170,6 +158,31 @@ class Exemplars(object) :
         list_exemplars.sort()
         return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
 
+    def analyze(self) :
+        """Analyze the found exemplars and classify them."""
+        for exemplar in self.clusters :
+
+            # Split apart the exemplar into a base and marks.
+            # The sequence of marks maybe empty.
+            base = exemplar[0]
+            marks = exemplar[1:]
+
+            if len(marks) == 0 :
+                self.main.add(exemplar)
+
+            for mark in marks :
+                if mark in self.bases_for_marks :
+                    s = self.bases_for_marks[mark]
+
+                    # If a mark has more than many_bases ...
+                    if len(s) > self.many_bases :
+                        # then add the base and mark separately.
+                        self.main.add(base)
+                        self.main.add(mark)
+                    else :
+                        # otherwise add the combined exemplar.
+                        self.main.add(exemplar)
+
     def process(self, text) :
         """Analyze a string."""
         i = 0
@@ -188,6 +201,10 @@ class Exemplars(object) :
                     break
 
                 if chars in self.auxiliary :
+                    i += multigraph_length
+                    break
+
+                if chars in self.index :
                     i += multigraph_length
                     break
 

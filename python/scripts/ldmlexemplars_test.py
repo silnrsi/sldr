@@ -79,9 +79,13 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
         self.assertEqual(u'[]', self.exemplars.get_main())
 
-    def test_lithuanian(self) :
+    def test_lithuanian_main(self) :
         self.exemplars.process(u'\u00e1\u0328 i\u0307\u0301')
         self.assertEqual(u'[{i\u0307\u0301} {\u0105\u0301}]', self.exemplars.get_main())
+
+    def test_lithuanian_index(self) :
+        self.exemplars.process(u'a \u0105 b c A \u0104 B C Z')
+        self.assertEqual(u'[A \u0104 B C]', self.exemplars.get_index())
 
     def test_english_main(self) :
         self.exemplars.set_auxiliary(u'[\u00e9]')
@@ -124,6 +128,10 @@ class ExemplarsTests(unittest.TestCase):
     def test_devanagari_few(self):
         self.exemplars.process(u'\u0958 \u0959 \u095A')
         self.assertEqual(u'[{\u0915\u093C} {\u0916\u093C} {\u0917\u093C}]', self.exemplars.get_main())
+
+    def test_devanagari_index(self) :
+        self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 \u0915\u093e \u0916\u093f')
+        self.assertEqual(u'[\u0905 \u0906 \u0915 \u0916]', self.exemplars.get_main())
 
 if __name__ == '__main__' :
     unittest.main()
