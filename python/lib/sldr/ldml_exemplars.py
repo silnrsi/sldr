@@ -24,33 +24,21 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import codecs
-from argparse import ArgumentParser
 import re
-from collections import Counter
+# from collections import Counter
 from ucdXML import ucdXML
 import unicodedata
 # from palaso.teckit import engine
 
-def main() :
-    parser = ArgumentParser()
-    # parser.add_argument('this',help='File of interest')
-    parser.add_argument('corpus',help='Corpus to read')
-    # parser.add_argument('-o','--output',help="Output file")
-    args = parser.parse_args()
 
-    exemplars = Exemplars()
-    corpus = codecs.open(args.corpus, 'r', encoding='utf-8')
-    for line in corpus :
-        exemplars.process(line)
-    print exemplars.get_main()
-    print exemplars.get_auxiliary()
-    print exemplars.get_index()
-    print exemplars.get_punctuation()
+def main():
+    pass
 
-class UCD(ucdXML) :
 
-    def normalize(self, form, unistr) :
+class UCD(ucdXML):
+
+    @staticmethod
+    def normalize(form, unistr):
         """Return the normal form form for the Unicode string unistr.
 
         Valid values for form are 'NFC', 'NFKC', 'NFD', and 'NFKD'.
@@ -60,15 +48,15 @@ class UCD(ucdXML) :
 
     def has_prop(self, prop, chars):
         """Determine if all the characters in a string have a specific property."""
-        for char in chars :
-            if self.getprop(prop, char, 'N') == 'N' :
+        for char in chars:
+            if self.getprop(prop, char, 'N') == 'N':
                 return False
         return True
 
 
-class Exemplars(object) :
+class Exemplars(object):
 
-    def __init__(self) :
+    def __init__(self):
         self.ucd = UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
 
         # User settable configuration.
@@ -87,131 +75,131 @@ class Exemplars(object) :
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
 
-    def set_main(self, ldml_exemplars) :
+    def set_main(self, ldml_exemplars):
         """Set LDML exemplars data for the main set."""
         self.main = self.ldml_read(ldml_exemplars)
 
-    def set_auxiliary(self, ldml_exemplars) :
+    def set_auxiliary(self, ldml_exemplars):
         """Set LDML exemplars data for the auxiliary set."""
         self.auxiliary = self.ldml_read(ldml_exemplars)
 
-    def set_index(self, ldml_exemplars) :
+    def set_index(self, ldml_exemplars):
         """Set LDML exemplars data for the index set."""
         self.index = self.ldml_read(ldml_exemplars)
 
-    def set_punctuation(self, ldml_exemplars) :
+    def set_punctuation(self, ldml_exemplars):
         """Set LDML exemplars data for the punctuation set."""
         self.punctuation = self.ldml_read(ldml_exemplars)
 
-    def get_main(self) :
+    def get_main(self):
         """Return LDML exemplars data for the main set."""
         self.analyze()
         return self.ldml_write(self.main)
 
-    def get_auxiliary(self) :
+    def get_auxiliary(self):
         """Return LDML exemplars data for the auxiliary set."""
         return self.ldml_write(self.auxiliary)
 
-    def get_index(self) :
+    def get_index(self):
         """Return LDML exemplars data for the index set."""
         return self.ldml_write(self.auxiliary)
 
-    def get_punctuation(self) :
+    def get_punctuation(self):
         """Return LDML exemplars data for the punctuation set."""
         return self.ldml_write(self.punctuation)
 
-    def remove_bookends(self, start, end, text) :
+    @staticmethod
+    def remove_bookends(start, end, text):
         """Remove specified bookends if they exist."""
         if text.startswith(start) and text.endswith(end):
             return text[1:-1]
         return text
 
-    def ldml_read(self, ldml_exemplars) :
+    def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
         ldml_exemplars = self.ucd.normalize('NFD', ldml_exemplars)
         list_exemplars = self.remove_bookends('[', ']', ldml_exemplars).split()
         exemplars = set()
-        for exemplar in list_exemplars :
+        for exemplar in list_exemplars:
             exemplar = self.remove_bookends('{', '}', exemplar)
             self.max_multigraph_length = max(self.max_multigraph_length, len(exemplar))
             exemplars.add(exemplar)
         return exemplars
 
-    def ldml_write(self, exemplars) :
+    def ldml_write(self, exemplars):
         """Write exemplars to a string that can be written to a LDML formatted file."""
         list_exemplars = list()
-        for exemplar in exemplars :
+        for exemplar in exemplars:
             exemplar = self.ucd.normalize('NFC', exemplar)
-            if len(exemplar) > 1 :
+            if len(exemplar) > 1:
                 exemplar = u'{' + exemplar + u'}'
             list_exemplars.append(exemplar)
         list_exemplars.sort()
         return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
 
-    def analyze(self) :
+    def analyze(self):
         """Analyze the found exemplars and classify them."""
-        for exemplar in self.clusters :
+        for exemplar in self.clusters:
 
             # Split apart the exemplar into a base and marks.
             # The sequence of marks maybe empty.
             base = exemplar[0]
             marks = exemplar[1:]
 
-            if len(marks) == 0 :
+            if len(marks) == 0:
                 self.main.add(exemplar)
 
-            for mark in marks :
-                if mark in self.bases_for_marks :
+            for mark in marks:
+                if mark in self.bases_for_marks:
                     s = self.bases_for_marks[mark]
 
                     # If a mark has more than many_bases ...
-                    if len(s) > self.many_bases :
+                    if len(s) > self.many_bases:
                         # then add the base and mark separately.
                         self.main.add(base)
                         self.main.add(mark)
-                    else :
+                    else:
                         # otherwise add the combined exemplar.
                         self.main.add(exemplar)
 
-    def process(self, text) :
+    def process(self, text):
         """Analyze a string."""
         i = 0
-        multigraph_length = 0
         text = self.ucd.normalize('NFD', text)
-        while i < len(text) :
+        while i < len(text):
 
             # Look for multigraphs (from length of max_multigraph_length down to 1) character(s)
             # of multigraphs already specified in a LDML file.
             # Longest possible matches are looked at first.
-            for multigraph_length in range(self.max_multigraph_length, 0, -1) :
+            for multigraph_length in range(self.max_multigraph_length, 0, -1):
                 chars = text[i:i + multigraph_length]
 
-                if chars in self.main :
+                if chars in self.main:
                     i += multigraph_length
                     break
 
-                if chars in self.auxiliary :
+                if chars in self.auxiliary:
                     i += multigraph_length
                     break
 
-                if chars in self.index :
+                if chars in self.index:
                     i += multigraph_length
                     break
 
-                if chars in self.punctuation :
+                if chars in self.punctuation:
                     i += multigraph_length
                     break
 
             # No multigraphs were found at this position,
             # so continue processing a single character
             # if we have not gone beyond the end of the text.
-            if not i < len(text) :
+            if not i < len(text):
                 break
 
             char = text[i]
 
             # Test for punctuation.
-            if self.ucd.category(char).startswith('P') :
+            if self.ucd.category(char).startswith('P'):
                 self.punctuation.add(char)
                 i += 1
                 continue
@@ -219,7 +207,7 @@ class Exemplars(object) :
             # Find grapheme clusters.
 
             # First find a base character.
-            if not self.ucd.has_prop('Alpha', char) :
+            if not self.ucd.has_prop('Alpha', char):
                 i += 1
                 continue
             # self.bases[char] += 1
@@ -229,17 +217,17 @@ class Exemplars(object) :
 
             # Then find the end of the cluster
             # (which may consist of only a base character).
-            length  = 1
-            while i + length < len(text) :
+            length = 1
+            while i + length < len(text):
                 mark = text[i + length]
-                if self.ucd.category(mark).startswith('M') :
+                if self.ucd.category(mark).startswith('M'):
                     # A Mark was found, so the cluster continues.
 
                     # Count how many different bases this mark occurs on.
-                    if mark in self.bases_for_marks :
+                    if mark in self.bases_for_marks:
                         s = self.bases_for_marks[mark]
                         s.add(base)
-                    else :
+                    else:
                         s = set()
                         s.add(base)
                         self.bases_for_marks[mark] = s
@@ -247,7 +235,7 @@ class Exemplars(object) :
 
                     length += 1
                     continue
-                else :
+                else:
                     # No more marks, so the end of the cluster has been reached.
                     break
 
@@ -258,17 +246,5 @@ class Exemplars(object) :
             i += length
 
 
-# this = Exemplars(args.this)
-#
-#  if not args.output :
-#     outfh = sys.stdout
-# else :
-#     outfh = codecs.open(outf, "w", encoding="utf-8")
-#
-# this.serialize_xml(outfh.write)
-#
-# if args.output :
-#     outfh.close()
-
-if __name__ == '__main__' :
+if __name__ == '__main__':
     main()

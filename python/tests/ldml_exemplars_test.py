@@ -28,21 +28,22 @@ import re
 import unittest
 import ldml_exemplars
 
+
 class UCDTests(unittest.TestCase):
 
-    def setUp(self) :
+    def setUp(self):
         self.ucd = ldml_exemplars.UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
 
-    def tearDown(self) :
+    def tearDown(self):
         pass
 
-    def test_prop_true(self) :
+    def test_prop_true(self):
         self.assertTrue(self.ucd.has_prop('Alpha', u'cab'))
 
-    def test_prop_false(self) :
+    def test_prop_false(self):
         self.assertFalse(self.ucd.has_prop('Alpha', u'cab.1'))
 
-    def test_nfc(self) :
+    def test_nfc(self):
         text = u'e\u0301'
         self.assertEqual(u'\u00e9', self.ucd.normalize('NFC', text))
 
@@ -50,7 +51,7 @@ class UCDTests(unittest.TestCase):
         text = u'\u00e9'
         self.assertEqual(u'e\u0301', self.ucd.normalize('NFD', text))
 
-    def test_nfc_new(self) :
+    def test_nfc_new(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u00E0\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFC', text))
 
@@ -61,17 +62,17 @@ class UCDTests(unittest.TestCase):
 
 class ExemplarsTests(unittest.TestCase):
 
-    def setUp(self) :
+    def setUp(self):
         self.exemplars = ldml_exemplars.Exemplars()
 
-    def tearDown(self) :
+    def tearDown(self):
         pass
 
-    def test_simple_main(self) :
+    def test_simple_main(self):
         self.exemplars.process(u'[{cab.1}]')
         self.assertEqual(u'[a b c]', self.exemplars.get_main())
 
-    def test_simple_punctuation(self) :
+    def test_simple_punctuation(self):
         self.exemplars.process(u'[{cab.1}]')
         self.assertEqual(u'[. [ ] { }]', self.exemplars.get_punctuation())
 
@@ -79,25 +80,25 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
         self.assertEqual(u'[]', self.exemplars.get_main())
 
-    def test_lithuanian_main(self) :
+    def test_lithuanian_main(self):
         self.exemplars.process(u'\u00e1\u0328 i\u0307\u0301')
         self.assertEqual(u'[{i\u0307\u0301} {\u0105\u0301}]', self.exemplars.get_main())
 
-    def test_lithuanian_index(self) :
+    def test_lithuanian_index(self):
         self.exemplars.process(u'a \u0105 b c A \u0104 B C Z')
         self.assertEqual(u'[A \u0104 B C]', self.exemplars.get_index())
 
-    def test_english_main(self) :
+    def test_english_main(self):
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[m r s u]', self.exemplars.get_main())
 
-    def test_english_auxiliary_nfc(self) :
+    def test_english_auxiliary_nfc(self):
         self.exemplars.set_auxiliary(u'[\u00e9]')
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
 
-    def test_english_auxiliary_nfd(self) :
+    def test_english_auxiliary_nfd(self):
         self.exemplars.set_auxiliary(u'[{e\u0301}]')
         self.exemplars.process(u're\u0301sume\u0301')
         self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
@@ -123,15 +124,18 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_devanagari_generatively(self):
         self.exemplars.process(u'\u0958 \u0959 \u095A \u095B \u095C \u095D \u095E \u095F')
-        self.assertEqual(u'[\u0915 \u0916 \u0917 \u091C \u0921 \u0922 \u092B \u092F \u093C]', self.exemplars.get_main())
+        self.assertEqual(u'[\u0915 \u0916 \u0917 \u091C \u0921 \u0922 \u092B \u092F \u093C]',
+                         self.exemplars.get_main())
 
     def test_devanagari_few(self):
         self.exemplars.process(u'\u0958 \u0959 \u095A')
-        self.assertEqual(u'[{\u0915\u093C} {\u0916\u093C} {\u0917\u093C}]', self.exemplars.get_main())
+        self.assertEqual(u'[{\u0915\u093C} {\u0916\u093C} {\u0917\u093C}]',
+                         self.exemplars.get_main())
 
-    def test_devanagari_index(self) :
+    def test_devanagari_index(self):
         self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 \u0915\u093e \u0916\u093f')
         self.assertEqual(u'[\u0905 \u0906 \u0915 \u0916]', self.exemplars.get_main())
 
-if __name__ == '__main__' :
+
+if __name__ == '__main__':
     unittest.main()
