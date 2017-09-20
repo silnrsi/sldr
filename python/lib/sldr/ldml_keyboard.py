@@ -163,7 +163,8 @@ class Keyboard(object):
         curr.reset_output(ruleset)
         while start < len(instr):
             r = trans.match(instr[start:])
-            if r[0] is None or getattr(r[0], 'order', 0) == 0 or hasattr(r[0], 'prebase'):
+            if r[0] is None or not hasattr(r[0], 'secondary') or getattr(r[0], 'order', 0) == 0 \
+                    or hasattr(r[0], 'prebase'):
                 break
             start += r[1]   # can't be 0 else would have break
         if start > startrun:
@@ -179,15 +180,15 @@ class Keyboard(object):
             order = 0
             if r[0] is not None:
                 if hasattr(r[0], 'secondary') and start > 0:
-                    order = orders[start - startrun - 1]
+                    order = orders[start - startrun - 1]                # inherit primary order
                     secondary = int(getattr(r[0], 'secondary', '0'))
                 else:
                     order = getattr(r[0], 'order', 0)
-            if (order != 0 and not hasattr(r[0], 'prebase')) \
+            if ((order != 0 or secondary != 0) and not hasattr(r[0], 'prebase')) \
                     or (hasattr(r[0], 'prebase') and start > startrun and orders[start - startrun - 1] == 0):
                 isinit = False
             length = r[1] or 1  # if 0 advance by 1 anyway
-            if not isinit and (order == 0 or hasattr(r[0], 'prebase')):
+            if not isinit and ((order == 0 and secondary == 0) or hasattr(r[0], 'prebase')):
                 curr.results(ruleset, start - startrun,
                         self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
                 startrun = start
