@@ -30,6 +30,7 @@ from argparse import ArgumentParser
 # from StringIO import StringIO
 # from xml.etree import ElementTree as et
 # from datetime import datetime
+import ldml_exemplars
 
 try :
     from sldr.ldml import Ldml, flattenlocale
@@ -44,7 +45,7 @@ def main() :
     # parser.add_argument('-o','--output',help="Output file")
     args = parser.parse_args()
 
-    exemplars = Exemplars()
+    exemplars = ldml_exemplars.Exemplars()
     corpus = codecs.open(args.corpus, 'r', encoding='utf-8')
     for line in corpus :
         exemplars.process(line)

@@ -24,23 +24,13 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import os, sys, codecs
+import codecs
 from argparse import ArgumentParser
-# from subprocess import check_output
-# from StringIO import StringIO
-# from xml.etree import ElementTree as et
-# from datetime import datetime
 import re
 from collections import Counter
 from ucdXML import ucdXML
 import unicodedata
 # from palaso.teckit import engine
-
-try :
-    from sldr.ldml import Ldml, flattenlocale
-except ImportError :
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
-    from sldr.ldml import Ldml, flattenlocale, etwrite
 
 def main() :
     parser = ArgumentParser()

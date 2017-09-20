@@ -26,12 +26,12 @@
 
 import re
 import unittest
-import ldmlexemplars
+import ldml_exemplars
 
 class UCDTests(unittest.TestCase):
 
     def setUp(self) :
-        self.ucd = ldmlexemplars.UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
+        self.ucd = ldml_exemplars.UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
 
     def tearDown(self) :
         pass
@@ -62,7 +62,7 @@ class UCDTests(unittest.TestCase):
 class ExemplarsTests(unittest.TestCase):
 
     def setUp(self) :
-        self.exemplars = ldmlexemplars.Exemplars()
+        self.exemplars = ldml_exemplars.Exemplars()
 
     def tearDown(self) :
         pass
