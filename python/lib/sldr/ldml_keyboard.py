@@ -92,7 +92,7 @@ class Keyboard(object):
                 yield sorted(resn + c)
 
     def map_key(self, k, mods):
-        modstr = "".join(sorted(mods))
+        modstr = " ".join(sorted(mods))
         try:
             res = self.keyboards[self.modifiers[modstr]][k]
         except KeyError:
@@ -234,7 +234,7 @@ class Rules(object):
             if hasattr(curr, 'isrule'):
                 last = curr
                 lastind = ind
-        if partial:
+        if partial and len(curr):
             return (None, ind - start)
         else:
             return (last, lastind - start)
@@ -307,7 +307,7 @@ class Context(object):
         return self.slotnames[name]
 
     def len(self, name='simple'):
-        return len(self.outputs[self.slotnames[name]-1]) # - self.offsets[self.slotnames[name]]
+        return len(self.outputs[self.slotnames[name]-1])
 
     def input(self, name='simple'):
         return self.outputs[self.slotnames[name]-1]
