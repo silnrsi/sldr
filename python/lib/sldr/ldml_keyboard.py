@@ -119,8 +119,8 @@ class Keyboard(object):
     def diff(self, context, curr):
         return curr.outputs[-1]
 
-    def sort(self, txt, orders):
-        return u"".join(txt[y] for y in sorted(range(len(txt)), key=lambda x:(int(orders[x]), x)))
+    def sort(self, txt, orders, secondarys):
+        return u"".join(txt[y] for y in sorted(range(len(txt)), key=lambda x:(orders[x], secondarys[x], x)))
 
     def _process_simple(self, curr, ruleset='simple', handleSettings=True):
         if ruleset not in self.transforms:
@@ -171,32 +171,38 @@ class Keyboard(object):
 
         startrun = start
         orders = [0] * (len(instr) - startrun)
+        secondarys = orders[:]
         isinit = True
         while start < curr.len(ruleset):
             r = trans.match(instr[start:])
-            if r[0] is None:
-                order = 0
-            elif getattr(r[0], 'inherit', '') == 'backward' and start > 0:
-                order = orders[start - startrun - 1]
-            else:
-                order = getattr(r[0], 'order', 0)
+            secondary = 0
+            order = 0
+            if r[0] is not None:
+                if hasattr(r[0], 'secondary') and start > 0:
+                    order = orders[start - startrun - 1]
+                    secondary = int(getattr(r[0], 'secondary', '0'))
+                else:
+                    order = getattr(r[0], 'order', 0)
             if (order != 0 and not hasattr(r[0], 'prebase')) \
                     or (hasattr(r[0], 'prebase') and start > startrun and orders[start - startrun - 1] == 0):
                 isinit = False
             length = r[1] or 1  # if 0 advance by 1 anyway
             if not isinit and (order == 0 or hasattr(r[0], 'prebase')):
-                curr.results(ruleset, start - startrun, self.sort(instr[startrun:start], orders[:start-startrun]))
+                curr.results(ruleset, start - startrun,
+                        self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
                 startrun = start
                 orders = [0] * (len(instr) - startrun)
+                secondarys = orders[:]
                 isinit = True
             orders[start-startrun:start-startrun+length] = [order] * length
+            secondarys[start-startrun:start-startrun+length] = [secondary] * length
             start += length
         if start > startrun:
             if isinit and orders[start-1-startrun] > 0:
                 outtext = u"\u25CC"
             else:
                 outtext = ""
-            outtext += u"".join(self.sort(instr[startrun:start], orders[:start-startrun]))
+            outtext += u"".join(self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
             curr.outputs[curr.index(ruleset)] += outtext
 
 
