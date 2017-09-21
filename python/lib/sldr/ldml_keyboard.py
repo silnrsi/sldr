@@ -57,7 +57,7 @@ class Keyboard(object):
                     maps[m.get('iso')] = m.get('to')
             elif c.tag == 'transforms':
                 if c.get('type') not in self.transforms:
-                    rules = Rules()
+                    rules = Rules(c.get('type'))
                     self.transforms[c.get('type')] = rules
                 rules = self.transforms[c.get('type')]
                 for m in c:
@@ -108,16 +108,27 @@ class Keyboard(object):
             curr = Context(chars)
         else:
             curr = self.history[-1].clone(chars)
+        
+        if k == 'BKSP':
+            # normally we would simply undo, but test the backspace transforms
+            if not self._process_backspace(curr, 'backspace'):
+                return self.error(curr)
+        else:
+            if not self._process_simple(curr):
+                return self.error(curr)
+            self._process_reorder(curr)
+            if not self._process_simple(curr, 'final', handleSettings=False):
+                return self.error(curr)
         self.history.append(curr)
-        self._process_simple(curr)
-        self._process_reorder(curr)
-        self._process_simple(curr, 'final', handleSettings=False)
-        res = self.diff(self.context, curr)
-        self.context = curr
-        return res
+        return curr
 
-    def diff(self, context, curr):
-        return curr.outputs[-1]
+    def error(self, curr):
+        if not len(self.history):
+            res = Context()
+        else:
+            res = self.history[-1].clone()
+        res.error = 1
+        return res
 
     def sort(self, txt, orders, secondarys):
         return u"".join(txt[y] for y in sorted(range(len(txt)), key=lambda x:(orders[x], secondarys[x], x)))
@@ -142,13 +153,15 @@ class Keyboard(object):
         while start < len(instr):
             r = trans.match(instr[start:], partial=partial, fail=fail)
             if r[0] is not None:
-                curr.results(ruleset, r[1], getattr(r[0], 'to', instr[start:start+r[1]]))
+                if getattr(r[0], 'error', 0): return False
+                curr.results(ruleset, r[1], getattr(r[0], 'to', ""))
                 start += r[1]
             elif r[1] == 0 and not fallback:     # abject failure
                 curr.results(ruleset, 1, instr[start:start+1])
                 start += 1
             else:               # partial match waiting for more input
                 break
+        return True
 
     def _process_reorder(self, curr, ruleset='reorder'):
         if ruleset not in self.transforms:
@@ -205,15 +218,36 @@ class Keyboard(object):
                 outtext = ""
             outtext += u"".join(self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
             curr.outputs[curr.index(ruleset)] += outtext
+        return True
 
+    def _process_backspace(self, curr, ruleset='backspace'):
+        if ruleset not in self.transforms:
+            self.chomp(curr)
+        trans = self.transforms[ruleset]
+        instr = curr.outputs[-1][::-1]
+        r = trans.match(instr)
+        if r[0] is not None:
+            if getattr(r[0], 'error', 0): return False
+            instr[:r[1]] = getattr(r[0], 'to', "")
+        else:
+            instr = instr[1:]
+        curr.outputs[-1] = instr[::-1]
+        return True
 
+        
 class Rules(object):
-    def __init__(self):
+    def __init__(self, ruletype):
+        self.type = ruletype
         self.rules = {}
+        self.reverse = ruletype == 'backspace'
 
     def append(self, transform):
         f = struni(transform.get('from'))
-        for k in self._flatten(f):
+        if self.reverse:
+            chars = [c[::-1] for c in self._flatten(f)]
+        else:
+            chars = self._flatten(f)
+        for k in chars:
             # big ol' slow trie is fine for a few short strings
             curr = self.rules
             for l in k:
@@ -294,14 +328,15 @@ class Context(object):
         'reorder' : 2,
         'final' : 3
     }
-    def __init__(self, chars):
+    def __init__(self, chars=""):
         self.stables = [""] * len(self.slotnames)
         self.outputs = [""] * len(self.slotnames)
         self.stables[0] = chars
         self.outputs[0] = chars
         self.offsets = [0] * len(self.slotnames)
+        self.error = 0
 
-    def clone(self, chars):
+    def clone(self, chars=""):
         res = Context("")
         res.stables = self.stables[:]
         res.outputs = self.outputs[:]
@@ -309,6 +344,11 @@ class Context(object):
         res.stables[0] += chars
         res.outputs[0] += chars
         return res
+
+    def __str__(self):
+        if self.error:
+            return "*"+self.outputs[-1]+"*"
+        return self.outputs[-1]
 
     def index(self, name='base'):
         return self.slotnames[name]
@@ -353,7 +393,7 @@ def main():
     with open(args.testfile) as inf:
         for l in inf.readlines():
             res = list(kbd.process_string(l))
-            outfile.write(", ".join(res) + "\n")
+            outfile.write(u", ".join(map(unicode, res)) + u"\n")
     outfile.close()
 
 if __name__ == '__main__':
