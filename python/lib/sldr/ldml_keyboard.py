@@ -24,10 +24,14 @@
 # SUCH DAMAGE.
 
 from xml.etree import ElementTree as et
-import itertools, re, os
+import itertools, re, os, sys
 
-def struni(s):
-    return re.sub(ur'\\u\{([0-9a-fA-F]+)\}', lambda m:unichr(int(m.group(1), 16)), unicode(s))
+try:
+    from . import UnicodeSets
+except ValueError:
+    if __name__ == '__main__':
+        sys.path.insert(0, os.path.dirname(__file__))
+        import UnicodeSets
 
 
 class Keyboard(object):
@@ -42,6 +46,7 @@ class Keyboard(object):
         self.parse(path)
 
     def parse(self, fname):
+        '''Read and parse an LDML keyboard layout file'''
         doc = et.parse(fname)
         for c in doc.getroot():
             if c.tag == 'keyMap':
@@ -69,6 +74,8 @@ class Keyboard(object):
                 self.parse(newfname)
 
     def process_string(self, txt):
+        '''Process a sequence of keystrokes expressed textually into a list
+            of contexts giving the output after each keystroke'''
         self.initstring()
         keys = re.findall(ur'\[\s*(.*?)\s*\]', txt)
         res = []
@@ -78,6 +85,7 @@ class Keyboard(object):
             yield self.process(words[-1], modifiers)
 
     def parse_modifiers(self, modifiers):
+        '''Flatten a modifier list into a list of possible modifiers'''
         resn = []
         reso = []
         for m in modifiers.lower().split():
@@ -91,38 +99,33 @@ class Keyboard(object):
             for c in itertools.combinations(reso, i):
                 yield sorted(resn + c)
 
-    def map_key(self, k, mods):
-        modstr = " ".join(sorted(mods))
-        try:
-            res = self.keyboards[self.modifiers[modstr]][k]
-        except KeyError:
-            return ""
-        return struni(res)
-
     def initstring(self):
+        '''Prepare to start processing a sequence of keystrokes'''
         self.history = []
 
     def process(self, k, mods):
+        '''Process and record the results of a single keystroke given previous history'''
         chars = self.map_key(k, mods)
         if not len(self.history):
-            curr = Context(chars)
+            ctxt = Context(chars)
         else:
-            curr = self.history[-1].clone(chars)
+            ctxt = self.history[-1].clone(chars)
         
         if k == 'BKSP':
             # normally we would simply undo, but test the backspace transforms
-            if not self._process_backspace(curr, 'backspace'):
-                return self.error(curr)
+            if not self._process_backspace(ctxt, 'backspace'):
+                return self.error(ctxt)
         else:
-            if not self._process_simple(curr):
-                return self.error(curr)
-            self._process_reorder(curr)
-            if not self._process_simple(curr, 'final', handleSettings=False):
-                return self.error(curr)
-        self.history.append(curr)
-        return curr
+            if not self._process_simple(ctxt):
+                return self.error()
+            self._process_reorder(ctxt)
+            if not self._process_simple(ctxt, 'final', handleSettings=False):
+                return self.error()
+        self.history.append(ctxt)
+        return ctxt
 
-    def error(self, curr):
+    def error(self):
+        '''Set error state'''
         if not len(self.history):
             res = Context()
         else:
@@ -130,13 +133,24 @@ class Keyboard(object):
         res.error = 1
         return res
 
-    def sort(self, txt, orders, secondarys):
-        return u"".join(txt[y] for y in sorted(range(len(txt)), key=lambda x:(orders[x], secondarys[x], x)))
+    def map_key(self, k, mods):
+        '''Apply the appropriate keyMap to a keystroke to get some chars'''
+        modstr = " ".join(sorted(mods))
+        try:
+            res = self.keyboards[self.modifiers[modstr]][k]
+        except KeyError:
+            return ""
+        return UnicodeSets.struni(res)
 
-    def _process_simple(self, curr, ruleset='simple', handleSettings=True):
+    def _process_empty(self, context, ruleset):
+        '''Copy layer input to output'''
+        output = context.input(ruleset)[context.offset(ruleset):]
+        context.results(ruleset, len(output), output)
+
+    def _process_simple(self, context, ruleset='simple', handleSettings=True):
+        '''Handle a simple replacement transforms type'''
         if ruleset not in self.transforms:
-            output = curr.input(ruleset)[curr.offset(ruleset):]
-            curr.results(ruleset, len(output), output)
+            self._process_empty(context, ruleset)
             return
         trans = self.transforms[ruleset]
         if handleSettings:
@@ -147,114 +161,151 @@ class Keyboard(object):
             partial = False
             fail = False
             fallback = False
-        curr.reset_output(ruleset)
-        start = curr.offset(ruleset)
-        instr = curr.input(ruleset)
-        while start < len(instr):
-            r = trans.match(instr[start:], partial=partial, fail=fail)
+
+        context.reset_output(ruleset)
+        curr = context.offset(ruleset)
+        instr = context.input(ruleset)
+        while curr < len(instr):
+            r = trans.match(instr[curr:], partial=partial, fail=fail)
             if r[0] is not None:
                 if getattr(r[0], 'error', 0): return False
-                curr.results(ruleset, r[1], getattr(r[0], 'to', ""))
-                start += r[1]
+                context.results(ruleset, r[1], getattr(r[0], 'to', ""))
+                curr += r[1]
             elif r[1] == 0 and not fallback:     # abject failure
-                curr.results(ruleset, 1, instr[start:start+1])
-                start += 1
+                context.results(ruleset, 1, instr[curr:curr+1])
+                curr += 1
             else:               # partial match waiting for more input
                 break
         return True
 
-    def _process_reorder(self, curr, ruleset='reorder'):
+    def _sort(self, begin, end, chars, primary, secondary):
+        s = chars[begin:end]
+        p = primary[:end-begin]
+        sc = secondary[:end-begin]
+        # if there is no base, insert one
+        if 0 not in p:
+            s += u"\u25CC"
+            p += [0]
+            sc += [0]
+        # sort key is (primary, secondary, string index)
+        return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:(p[x], sc[x], x)))
+
+    def _process_reorder(self, context, ruleset='reorder'):
+        '''Handle the reorder transforms'''
         if ruleset not in self.transforms:
-            output = curr.input(ruleset)[curr.offset(ruleset):]
-            curr.results(ruleset, len(output), output)
+            self._process_empty(context, ruleset)
             return
         trans = self.transforms[ruleset]
-        instr = curr.input(ruleset)
-        # scan for start of sortable run, should be quick
-        startrun = curr.offset(ruleset)
-        start = startrun
-        curr.reset_output(ruleset)
-        while start < len(instr):
-            r = trans.match(instr[start:])
-            if r[0] is None or not hasattr(r[0], 'secondary') or getattr(r[0], 'order', 0) == 0 \
-                    or hasattr(r[0], 'prebase'):
-                break
-            start += r[1]   # can't be 0 else would have break
-        if start > startrun:
-            curr.results(ruleset, start - startrun, instr[startrun:start])
+        instr = context.input(ruleset)
 
-        startrun = start
+        # scan for start of sortable run. Normally empty
+        startrun = context.offset(ruleset)
+        curr = startrun
+        context.reset_output(ruleset)
+        while curr < len(instr):
+            r = trans.match(instr[curr:])
+            if r[0] is None or not hasattr(r[0], 'secondary') \
+                    or getattr(r[0], 'order', 0) == 0 or hasattr(r[0], 'prebase'):
+                break
+            curr += r[1]   # can't be 0 else would have break
+        if curr > startrun:    # just copy the odd characters across
+            context.results(ruleset, curr - startrun, instr[startrun:curr])
+
+        startrun = curr
         orders = [0] * (len(instr) - startrun)
         secondarys = orders[:]
-        isinit = True
-        while start < curr.len(ruleset):
-            r = trans.match(instr[start:])
+        isinit = True   # inside the start of a run (.{prebase}* .{order==0 && secondary==0})
+        while curr < context.len(ruleset):
+            r = trans.match(instr[curr:])
             secondary = 0
             order = 0
+            # calculate sort keys
             if r[0] is not None:
-                if hasattr(r[0], 'secondary') and start > 0:
-                    order = orders[start - startrun - 1]                # inherit primary order
+                if hasattr(r[0], 'secondary') and curr > 0:
+                    order = orders[curr - startrun - 1]     # inherit primary order
                     secondary = int(getattr(r[0], 'secondary', '0'))
                 else:
                     order = getattr(r[0], 'order', 0)
             if ((order != 0 or secondary != 0) and not hasattr(r[0], 'prebase')) \
-                    or (hasattr(r[0], 'prebase') and start > startrun and orders[start - startrun - 1] == 0):
+                    or (hasattr(r[0], 'prebase') and curr > startrun \
+                        and orders[curr - startrun - 1] == 0):
                 isinit = False
             length = r[1] or 1  # if 0 advance by 1 anyway
+            # identify a run boundary
             if not isinit and ((order == 0 and secondary == 0) or hasattr(r[0], 'prebase')):
-                curr.results(ruleset, start - startrun,
-                        self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
-                startrun = start
+                # output sorted run and reset for new run
+                context.results(ruleset, curr - startrun,
+                                self._sort(startrun, curr, instr, orders, secondarys))
+                startrun = curr
                 orders = [0] * (len(instr) - startrun)
                 secondarys = orders[:]
                 isinit = True
-            orders[start-startrun:start-startrun+length] = [order] * length
-            secondarys[start-startrun:start-startrun+length] = [secondary] * length
-            start += length
-        if start > startrun:
-            if isinit and orders[start-1-startrun] > 0:
-                outtext = u"\u25CC"
-            else:
-                outtext = ""
-            outtext += u"".join(self.sort(instr[startrun:start], orders[:start-startrun], secondarys[:start-startrun]))
-            curr.outputs[curr.index(ruleset)] += outtext
+            orders[curr-startrun:curr-startrun+length] = [order] * length
+            secondarys[curr-startrun:curr-startrun+length] = [secondary] * length
+            curr += length
+        if curr > startrun:
+            # output but don't store any residue. Reprocess it next time.
+            context.outputs[context.index(ruleset)] \
+                    += self._sort(startrun, curr, instr, orders, secondarys)
         return True
 
-    def _process_backspace(self, curr, ruleset='backspace'):
+    def _process_backspace(self, context, ruleset='backspace'):
+        '''Handle the backspace transforms in response to bksp key'''
         if ruleset not in self.transforms:
-            self.chomp(curr)
+            self.chomp(context)
         trans = self.transforms[ruleset]
-        instr = curr.outputs[-1][::-1]
+        # reverse the string
+        instr = context.outputs[-1][::-1]
+        # find and process one rule
         r = trans.match(instr)
         if r[0] is not None:
             if getattr(r[0], 'error', 0): return False
             instr[:r[1]] = getattr(r[0], 'to', "")
-        else:
+        else:       # no rule, so just remove a single character
             instr = instr[1:]
-        curr.outputs[-1] = instr[::-1]
+        # and reverse back again
+        context.outputs[-1] = instr[::-1]
         return True
 
         
 class Rules(object):
+    '''Corresponds to a transforms element in an LDML file'''
     def __init__(self, ruletype):
         self.type = ruletype
-        self.rules = {}
-        self.reverse = ruletype == 'backspace'
+        self.rules = Rule()
+        self.reverse = ruletype == 'backspace'      # work backwards
 
     def append(self, transform):
-        f = struni(transform.get('from'))
+        '''Insert or merge a rule into this set of rules'''
+        f = transform.get('from')
         if self.reverse:
-            chars = [c[::-1] for c in self._flatten(f)]
+            chars = UnicodeSets.parse(f)[::-1]
         else:
-            chars = self._flatten(f)
-        for k in chars:
-            # big ol' slow trie is fine for a few short strings
-            curr = self.rules
-            for l in k:
-                if l not in curr:
-                    curr[l] = Rule()
-                curr = curr[l]
-            curr.merge(transform.attrib)
+            chars = UnicodeSets.parse(f)
+        jobs = set([self.rules])
+        for i, k in enumerate(chars):
+            isFinal = i + 1 == len(chars)
+            newjobs = set()
+            # inefficient trie is fine
+            for j in jobs:
+                j.fail = False
+                for l in k:
+                    if l not in j:
+                        j[l] = Rule()
+                    if not k.negative:
+                        if isFinal:
+                            j[l].merge(transform.attrib)
+                        newjobs.add(j[l])
+                if k.negative:
+                    for d in j.keys():
+                        if d not in k:
+                            newjobs.add(j[d])
+                    if j.default is None:
+                        j.default = Rule()
+                    if isFinal:
+                        j.default.merge(transform.attrib)
+                    newjobs.add(j.default)
+            jobs = newjobs
 
     def match(self, s, ind=0, partial=False, fail=False):
         '''Finds the merged rule for the given passed in string.
@@ -269,10 +320,13 @@ class Rules(object):
             lastind = start + 1
         while ind < len(s):
             if s[ind] not in curr:
-                return (last, lastind - start)
+                if curr.default:
+                    curr = curr.default
+                else:
+                    return (last, lastind - start)
             curr = curr[s[ind]]
             ind += 1
-            if hasattr(curr, 'isrule'):
+            if curr.rule:
                 last = curr
                 lastind = ind
         if partial and len(curr):
@@ -280,47 +334,31 @@ class Rules(object):
         else:
             return (last, lastind - start)
         
-    def _flatten(self, s):
-        vals = []
-        lens = []
-        while len(s):
-            if s[0] == '[':
-                e = s.index(']')
-                l = re.sub(ur'(.)-(.)', lambda m: u"".join(map(unichr, range(ord(m.group(1)), ord(m.group(2))))), s[1:e])
-                vals.append(l)
-                s = s[e+1:]
-                lens.append(len(l))
-            else:
-                vals.append(s[0])
-                s = s[1:]
-                lens.append(1)
-        indices = [0] * len(lens)
-        yield u"".join(vals[i][x] for i, x in enumerate(indices))
-        while True:
-            for i in range(len(lens)):
-                if indices[i] == lens[i] - 1:
-                    indices[i] = 0
-                else:
-                    indices[i] += 1
-                    break
-            else:       # no break encountered so back to all 0s
-                return
-            yield u"".join(vals[i][x] for i, x in enumerate(indices))
 
 class Rule(dict):
-    '''A trie element that might do something'''
+    '''A trie element that might do something. Corresponds to a
+        flattened transform in LDML'''
+
+    def __init__(self):
+        self.rule = False
+        self.default = None
+
+    def __hash__(self):
+        return hash(id(self))
 
     def merge(self, e):
         for k, v in e.items():
             if k == 'from': continue
             setattr(self, k, v)
         if 'to' in e:
-            self.to = struni(e['to'])
-        self.isrule = True
+            self.to = UnicodeSets.struni(e['to'])
         if 'order' in e:
             self.order = int(e['order'])
+        self.rule = True
+
 
 class Context(object):
+    '''Holds the processed state of each layer after a keystroke'''
 
     slotnames = {
         'base' : 0,
@@ -329,14 +367,16 @@ class Context(object):
         'final' : 3
     }
     def __init__(self, chars=""):
-        self.stables = [""] * len(self.slotnames)
-        self.outputs = [""] * len(self.slotnames)
-        self.stables[0] = chars
-        self.outputs[0] = chars
-        self.offsets = [0] * len(self.slotnames)
-        self.error = 0
+        self.stables = [""] * len(self.slotnames)   # stuff we don't need to reprocess
+        self.outputs = [""] * len(self.slotnames)   # stuff to pass to next layer
+        self.stables[0] = chars                     # basic input is always stable
+        self.outputs[0] = chars                     # and copy it to its output
+        self.offsets = [0] * len(self.slotnames)    # pointer into last layer output
+                                                    # corresponding to end of stables
+        self.error = 0                              # are we in an error state?
 
     def clone(self, chars=""):
+        '''Copy a context and add some more input to the result'''
         res = Context("")
         res.stables = self.stables[:]
         res.outputs = self.outputs[:]
@@ -347,36 +387,46 @@ class Context(object):
 
     def __str__(self):
         if self.error:
-            return "*"+self.outputs[-1]+"*"
+            return "*"+self.outputs[-1]+"*"         # how we show an error state
         return self.outputs[-1]
 
     def index(self, name='base'):
         return self.slotnames[name]
 
     def len(self, name='simple'):
+        '''Return length of input to this layer'''
         return len(self.outputs[self.slotnames[name]-1])
 
     def input(self, name='simple'):
+        '''Return full input string to this layer'''
         return self.outputs[self.slotnames[name]-1]
 
     def offset(self, name='simple'):
+        '''Returns the offset into input string that isn't in stables'''
         return self.offsets[self.slotnames[name]]
 
     def reset_output(self, name):
+        '''Prepare output based on stables ready for more output to be added'''
         ind = self.index(name)
         self.outputs[ind] = self.stables[ind]
 
     def results(self, name, length, res):
+        '''Remove from input, in effect, and put result into stables'''
         ind = self.index(name)
         leftlen = len(self.outputs[ind-1]) - self.offsets[ind] - length
         prevleft = len(self.outputs[ind-2]) - self.offsets[ind-1] if ind > 1 else 0
         self.outputs[ind] += res
+        # only add to stables if everything to be consumed is already in the stables
+        # of the previous layer. Otherwise, our results can only be temporary.
         if leftlen > prevleft:
             self.stables[ind] += res
             self.offsets[ind] += length
 
 
 def main():
+    '''Process a testfile of key sequences, one sequence per line,
+        to give test results: comma separated for each keystroke,
+        one sequence per line'''
     import argparse, codecs, sys
 
     parser = argparse.ArgumentParser()
