@@ -55,7 +55,18 @@ def loadssf(ldml, ssfFilename):
         if event == 'start' :
             if e.tag in ssfLangData :
                 ssfLangData[e.tag] = e.text
-    addSsfData(ldml, ssfLangData)
+
+    if ssfLangData['DefaultFont'] or ssfLangData['DefaultFontSize'] :
+        _addSsfDataFont(ldml, ssfLangData['DefaultFont'], ssfLangData['DefaultFontSize'])
+    if ssfLangData['Pairs'] :
+        _addSsfDataPairs(ldml, ssfLangData['Pairs'])
+    if ssfLangData['Quotes'] :
+        _addSsfDataQuotes(ldml, ssfLangData['Quotes'])
+    if ssfLangData['InnerQuotes'] :
+        _addSsfDataInnerQuotes(ldml, ssfLangData['InnerQuotes'])
+    if ssfLangData['InnerInnerQuotes'] :
+        _addSsfDataInnerInnerQuotes(ldml, ssfLangData['InnerInnerQuotes'])
+
 
 def loadlds(ldml, ldsFilename, ducetDict):
     if isinstance(ldsFilename, basestring):
@@ -64,87 +75,17 @@ def loadlds(ldml, ldsFilename, ducetDict):
         ldsFile = ldsFilename
     ldsConfig = RawConfigParser()
     ldsConfig.read(ldsFilename)     # let exception rise up
-    addLdsData(ldml, ldsConfig, ducetDict)
+    sortSpecString = calcSortLdsData(ldml, ldsConfig, ducetDict)
 
+    if not len(sortSpecString):
+        return
 
-def run() :
+    collationElem = ldml.ensure_path('collations/collation[@type="standard"]')[0]
+    if not collationElem.find('cr'):
+        crElem = etree.SubElement(collationElem, 'cr')
+        crElem.text = sortSpecString
+        # CDATA handling done by ldml object, we hope
 
-    #
-    # PLEASE use argparse
-    #
-
-    mainPath = "C:/WS_Tech/SSF2LDML/"
-    inputPath = mainPath + "testdata/"
-
-    #testLangs = [('aau','Latn'), ('aca','Latn')]
-    testLangs = [('zzz', 'Latn')]
-    
-    ldml.test_import()
-
-    import sys
-    if sys.maxunicode == 0x10FFFF:
-        print 'Python built with UCS4 (wide unicode) support'
-    else:
-        print 'Python built with UCS2 (narrow unicode) support'
-
-    ducetDict = ducet.readDucet()
-
-    ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
-    if os.path.exists(ldmlFilename):
-        ldml = Ldml(ldmlFilename, ducetDict)
-    else:
-        ldml = Ldml(None, ducetDict)
-
-    for (langCode, scriptCode) in testLangs:
-        ssfFilename = inputPath + langCode + '/' + langCode + ".ssf"
-        ldsFilename = inputPath + langCode + '/' + langCode + ".lds"
-        if os.path.isfile(ssfFilename):
-            loadssf(ldml, ssfFilename)
-            if os.path.isfile(ldsFilename):
-                loadlds(ldml, ldsFilename)
-            ldmlFile = open(ldmlOutputFilename, 'rb')
-            ldml.serialize_xml(ldmlFile.write)
-        else :
-            print "missing SSF file: " + ssfFilename
-
-    print ""  
-    print "Done"
-
-# end of run
-
-
-def createMinimalLdml(ldmlFilename, langCode, scriptCode) :
-    fileContents = \
-        "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +\
-        "<!-- Please enter language data in the fields below.  All data should be entered in English -->\n" +\
-        "<ldml xmlns:sil=\"urn://www.sil.org/ldml/0.1\">\n" +\
-        "  <identity>\n" +\
-        "    <language type=\"" + langCode + "\"/>\n" +\
-        "    <script type=\"" + scriptCode + "\"/>\n" +\
-        "  </identity>\n" +\
-        "</ldml>\n"
-
-#        "    <special>\n" +\
-#        "      <sil:identity defaultRegion=\"??\"/>\n" +\
-#        "    </special>\n" +\
-
-    ldmlFile = open(ldmlFilename, "w")
-    ldmlFile.write(fileContents)
-    ldmlFile.close()
-    
-    
-def addSsfData(ldml, ssfData) :
-    if ssfData['DefaultFont'] or ssfData['DefaultFontSize'] :
-        _addSsfDataFont(ldml, ssfData['DefaultFont'], ssfData['DefaultFontSize'])
-    if ssfData['Pairs'] :
-        _addSsfDataPairs(ldml, ssfData['Pairs'])
-    if ssfData['Quotes'] :
-        _addSsfDataQuotes(ldml, ssfData['Quotes'])
-    if ssfData['InnerQuotes'] :
-        _addSsfDataInnerQuotes(ldml, ssfData['InnerQuotes'])
-    if ssfData['InnerInnerQuotes'] :
-        _addSsfDataInnerInnerQuotes(ldml, ssfData['InnerInnerQuotes'])
-        
 
 def _addSsfDataFont(ldml, defaultFontValue, defaultSizeValue) :
     # DefaultFont, DefaultFontSize ->
@@ -228,8 +169,7 @@ def _valueNotNo(value) :
     return True
 
 
-def addLdsData(ldml, ldsConfig, ducetDict) :
-    
+def calcSortLdsData(ldml, ldsConfig, ducetDict) :
     valueList = []
 
     # Read sorted characters lists from .lds file.
@@ -256,7 +196,7 @@ def addLdsData(ldml, ldsConfig, ducetDict) :
             uValue = value.decode('utf-8')
             spaceItems = uValue.split(' ')
 
-            if len(spaceItems) == 2 and _caseEquivalent(spaceItems[0], spaceItems[1]) :
+            if len(spaceItems) == 2 and spaceItems[0].lower() == spaceItems[1].lower():
                 # Kludge: deal with a limitation of Paratext. Since these items are case equivalent, the user probably
                 # intended x/X rather than x X and was not permitted by Paratext.
                 value = value.replace(' ', '/')
@@ -311,8 +251,8 @@ def addLdsData(ldml, ldsConfig, ducetDict) :
                 for item in sortLine :
                     if item == "&" :
                         sortSpecString += item
-                    elif isinstance(item, str) and (item[0:1]) == "&" :
-                        sortSpecString += item + " "
+                    elif isinstance(item, str) and (item[0]) == "&" :
+                        sortSpecString += item[0] + _unicodeEntity(item[1:]) + " "
                     elif item == "<" :
                         sortSpecString += "  < "
                     elif item == "<<" or item == "<<<" or item == "=" :
@@ -323,12 +263,8 @@ def addLdsData(ldml, ldsConfig, ducetDict) :
         else : sortSpecString = ""
     else :
         sortSpecString = None
-    
-    collationElem = ldml.ensure_path('collations/collation[@type="standard"]')[0]
-    if not collationElem.find('cr'):
-        crElem = etree.SubElement(collationElem, 'cr')
-        crElem.text = sortSpecString
-        # CDATA handling done by ldml object, we hope
+
+    return sortSpecString
 
 
 def _minimizeSortSpec(sortSpec, ducetDict) :
@@ -456,12 +392,13 @@ def _howFarOff(sortSpec, uChar, iline, dir, ducetDict) :
 
 def _compareToken(token):
     if token == "<": return 1
-    if token == "<<": return 2
-    if token == "<<<": return 3
-    if token == "=": return 0
+    elif token == "<<": return 2
+    elif token == "<<<": return 3
+    elif token == "=": return 0
     return -1  # not a token
 
 def _charToInt(charsStr) :
+    # There's a codec that will do this
     result = []
     i = 0
     while i < len(charsStr):
@@ -506,7 +443,7 @@ def _intToUnichr(item) :
         return unichr(item)
 
     result = []
-    for i in range(0, len(item)) :
+    for i in range(len(item)) :
         x = item[i]
         if item[i] == ord('\\') and item[i+1] == ord('u') :
             sval = "".join(item[i+2,i+6])
@@ -529,199 +466,45 @@ def _debugStr(item) :
     return repr(result)
 
 
-def writeLdmlFile_NEW(ldmlTree, ldmlFilename):
-    etwr = ETWriter(ldmlTree, silns)
-    ldmlOut = Ldml(etwr)
-    ldmlOut.normalise()
-    ldmlFile = open(ldmlFilename, "wb")
-    ldmlOut.serialize_xml(ldmlFile.write)
-    ldmlFile.close()
-
-
-def writeLdmlFile(ldmlTree, ldmlFilename):
-    #####ldmlTree.write(ldmlOutputFilename, encoding="utf-8", xml_declaration=True)
-
-    # A simple write() call does not format the new data nicely. Hence the following:
-    addTreeWrapping(ldmlTree.getroot())
-
-    outputFile = open(ldmlFilename, "wb")
-    sio = StringIO()
-    sio.write('<?xml version="1.0" encoding="utf-8"?>\n')
-    ldmlTree.write(sio, encoding="utf-8")
-
-    # Annoyingly, the comment right at the beginning of the file needs a newline after.
-    fContents = sio.getvalue().replace('><ldml', '>\n<ldml')
-
-    fContents = fContents.replace(' />', '/>')
-
-    outputFile.write(fContents)
-    sio.close()
-    outputFile.close()
-
-
-# end of writeLdmlFile
-
-
-# Make the newly added nodes wrap nicely.
-def addTreeWrapping(treeRoot, depth=0, indent=2):
-    subElemList = treeRoot.findall('*')
-    n = len(subElemList)
-    if n:
-        treeRoot.text = "\n" + (' ' * (depth + indent))
-        for i in range(n):
-            addTreeWrapping(subElemList[i], depth + indent, indent)
-            subElemList[i].tail = "\n" + (' ' * (depth + indent if i < n - 1 else depth))
-
-
-def _silnsPrfx():
-    silnsPrefix = '{' + silns['sil'] + '}'  # for adding elements using this namespace
-    return silnsPrefix
-
-
-###############################################
-
-
-# CURRENTLY NOT USED
-def _caseEquivalent(item1, item2):
-    if item1.lower() == item2 :
-        return True
-    elif item2.lower() == item1 :
-        return True
-
-    return False
-
-
-# CURRENTLY NOT USED
-def _differByDiacs(item1, item2):
-    item1 = unichr(ord(item1))
-    item2 = unichr(ord(item2))
-
-    decomp1 = _unichrDecomposition(item1)
-    decomp2 = _unichrDecomposition(item2)
-
-    # TODO: improve this logic
-    if decomp1[0] == decomp2[0] :  # same base
-        return True
-
-    return False
-
-
-# CURRENTLY NOT USED
-def _unichrDecomposition(item):
-    decomp = unicodedata.decomposition(item)  # produces a string like "0061 0301".
-
-    if decomp == '':
-        result = [item]  # no decomposition
-    else:
-        charDigitList = decomp.split(' ')
-        result = []
-        for charDigit in charDigitList :
-            if charDigit != '' :
-                result.append(unichr(int(charDigit, 16)))
-
-    # print item,result
-    return result
-
-
-def _minimizeSortSpecOBSOLETE(sortSpec, ducetDict) :
-
-    needLines = {}
-    for iline in range(0, len(sortSpec)) :
-        thisLine = sortSpec[iline]
-        needThisLine = False
-        prevItems = None
-        # Try to find something in this line that doesn't fit the DUCET; if so, we definitely need this line.
-        for iitem in range(0,len(thisLine)) :
-            cExpected = _compareToken(thisLine[iitem])
-            if cExpected >= 0 :
-                cVal = ducet.ducetCompare(ducetDict, unichr(thisLine[iitem-1]), unichr(thisLine[iitem+1]))
-                if cVal != cExpected :
-                    needThisLine = True
-                    break # out of loop over items
-        # end of for ittem
-        needLines[iline] = needThisLine
-    # end of for iline
-
-    # Now try to find lines that aren't needed with respect to each other.
-    actions = {}
-    for iline in range(0, len(sortSpec)) :
-        thisLine = sortSpec[iline]
-        if iline > 0 :
-            prevLine = sortSpec[iline-1]
-            thisChar = thisLine[1]
-            #prevCharFirst = prevLine[1]
-            prevChar = prevLine[-1]
-            cVal = ducet.ducetCompare(ducetDict, unichr(prevChar), unichr(thisChar)) # end of prev line, start of this
-            if cVal == "unknown" :
-                actionPrev = "merge"
-            elif cVal > 0 :
-                # fits DUCET order
-                if needLines[iline-1] :  # something non-std in the previous line
-                    actionPrev = "merge"
-                else :
-                    actionPrev = "toss"  # all standard
-            else :
-                actionPrev = "merge" # something non-std between prev line and this
-        else :
-            actionPrev = "toss"
-
-        if iline < len(sortSpec)-1 :
-            nextLine = sortSpec[iline+1]
-            #thisCharFirst = thisLine[1]
-            thisChar = thisLine[-1]
-            nextChar = nextLine[1]
-            cVal = ducet.ducetCompare(ducetDict, unichr(thisChar), unichr(nextChar))
-            if cVal == "unknown" :
-                actionNext = "merge"
-            elif cVal > 0 :
-                # fits DUCET order
-                if needLines[iline+1] :  # something non-std in the next line
-                    actionNext = "merge"
-                else :
-                    actionNext = "toss"  # all standard
-            else :
-                actionNext = "merge" # something non-std between this line and next
-        else :
-            actionNext = "toss"
-
-        if needLines[iline] :
-            if actionPrev == "merge" and actionNext == "merge" :
-                action = "mergeBoth"
-            elif actionPrev == "merge" :
-                action = "mergePrev"
-            elif actionNext == "merge" :
-                action = "mergeNext"
-            else :
-                action = "newline"
-        else :
-            if actionPrev == "merge" and actionNext == "merge" :
-                action = "mergeBoth"
-            elif actionPrev == "merge" :
-                action = "mergePrevFirst"
-            elif actionNext == "merge" :
-                action = "mergeNextLast"
-            else :
-                action = "toss"
-
-        actions[iline] = action
-
-    # end of for iline...
-
-    minSpec = []
-    for iline in range(0, len(sortSpec)) :
-        if actions[iline] != "toss" :
-            ss = sortSpec[iline]
-            if actions[iline] == "mergePrev" or actions[iline] == "mergePrevFirst" :
-                ss[0] = "<"
-            minSpec.append(ss)
-
-    return minSpec
-
-# end of _minimizeSortSpec
-
-
-
 # Top level
+def _run() :
+    mainPath = "C:/WS_Tech/SSF2LDML/"
+    inputPath = mainPath + "testdata/"
+
+    #testLangs = [('aau','Latn'), ('aca','Latn')]
+    testLangs = [('zzz', 'Latn')]
+    
+    ldml.test_import()
+
+    import sys
+    if sys.maxunicode == 0x10FFFF:
+        print 'Python built with UCS4 (wide unicode) support'
+    else:
+        print 'Python built with UCS2 (narrow unicode) support'
+
+    ducetDict = ducet.readDucet()
+
+    ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
+    if os.path.exists(ldmlFilename):
+        ldml = Ldml(ldmlFilename, ducetDict)
+    else:
+        ldml = Ldml(None, ducetDict)
+
+    for (langCode, scriptCode) in testLangs:
+        ssfFilename = inputPath + langCode + '/' + langCode + ".ssf"
+        ldsFilename = inputPath + langCode + '/' + langCode + ".lds"
+        if os.path.isfile(ssfFilename):
+            loadssf(ldml, ssfFilename)
+            if os.path.isfile(ldsFilename):
+                loadlds(ldml, ldsFilename)
+            ldmlFile = open(ldmlOutputFilename, 'rb')
+            ldml.serialize_xml(ldmlFile.write)
+        else :
+            print "missing SSF file: " + ssfFilename
+
+    print ""  
+    print "Done"
+
 
 if __name__ == '__main__':
     import argparse
@@ -732,7 +515,7 @@ if __name__ == '__main__':
     parser.add_argument('-o','--outfile',help='Output LDML file')
     args = parser.parse_args()
     if not args.ssf:
-        run()
+        _run()
 
     if args.ldml:
         ldml = Ldml(args.ldml)
