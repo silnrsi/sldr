@@ -37,7 +37,7 @@ simpleescs = {
     'n' : u"\u0010",
     '\\' : u"\u005C"
 }
-simpleescsre = re.compile(ur"\\([avtfrn])")
+simpleescsre = re.compile(ur"\\(.)")
 
 def escapechar(s):
     return u"\\"+ s if s in '[]{}\\&-|^$:' else s
@@ -72,12 +72,15 @@ def flatten(s):
         yield u"".join(vals[i][x] for i, x in enumerate(indices))
 
 def struni(s):
-    return hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
+    s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
+    s = simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s)
+    return s
 
 def parse(s):
     '''Returns a sequence of UnicodeSet'''
     # convert escapes
-    s = struni(s)
+    s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
+    # don't flatten \\ escapes here since we need to differentiate with action chars {}[]
     s = hexgre.sub(lambda m:"{"+u"".join(escapechar(unichr(int(x, 16))) for x in m.group(1).split())+"}", s)
     s = s.replace(' ', '')
     res = []
@@ -168,7 +171,7 @@ def parseitem(s, ind, lastitem, end):
         e = s.index('}', ind+1)
         while e > 0 and s[e-1] == '\\':
             e = s.index('}', e+1)
-        res.add(simpleescsre.sub(lambda m:simpleescs[m.group(1)], s[ind+1:e]))
+        res.add(simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s))
         ind = e + 1
     elif s[ind] == '\\':
         x = s[ind+1]
