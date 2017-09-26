@@ -135,6 +135,68 @@ class ETWriter(object):
         self.namespaces[ns] = q
         return q
 
+    def unify_path(self, path, base=None):
+        '''Path contains a list of tags or (tag, attrs) to search in succession'''
+        if base is None:
+            base = self.root
+        newcurr = [base]
+        for p in path:
+            curr = newcurr
+            newcurr = []
+            if isinstance(p, tuple):
+                tag, attrs = p
+            else:
+                tag, attrs = (p, None)
+            for job in curr:
+                for c in job:
+                    if c.tag != tag:
+                        continue
+                    if attrs:
+                        for k, v in attrs.items():
+                            if k not in c.attrs:
+                                break
+                            if v is not None and c.get(k) != v:
+                                break
+                        else:
+                            newcurr.append(c)
+                    else:
+                        newcurr.append(c)
+            if not len(newcurr):
+                job = curr[0]
+                if attrs:
+                    se = et.SubElement(job, tag, attrib=attrs)
+                else:
+                    se = et.SubElement(job, tag)
+                # job.append(se)
+                newcurr.append(se)
+        return newcurr
+
+    def ensure_path(self, path, base=None):
+        if path.startswith("/"):
+            raise SyntaxError
+        steps = []
+        for s in path.split("/"):
+            parts = re.split(ur"\[(.*?)\]", s)
+            tag = parts.pop(0)
+            nsi = tag.find(":")
+            if nsi > 0:
+                ns = tag[:nsi]
+                for k, v in self.namespaces.items():
+                    if ns == v:
+                        tag = "{" + k + "}" + tag[nsi+1:]
+                        break
+            if not len(parts):
+                steps.append(tag)
+                continue
+            attrs = {}
+            for p in parts:
+                if not len(p): continue
+                (k, v) = p.replace(' ','').split("=")
+                if k.startswith("@") and v[0] in '"\'':
+                    attrs[k[1:]] = v[1:-1]
+            steps.append((tag, attrs))
+        return self.unify_path(steps, base)
+
 def etwrite(et, write, topns = True, namespaces = None):
     if namespaces is None: namespaces = {}
     base = ETWriter(et, namespaces)
@@ -321,10 +383,15 @@ class Ldml(ETWriter):
         if not hasattr(self, 'elementOrder'):
             self.__class__.ReadMetadata()
         self.namespaces = {}
+        self.namespaces['sil'] = self.silns
         self.useDrafts = usedrafts
         curr = None
         comments = []
-        if isinstance(fname, basestring):
+
+        if fname is None:
+            self.root = et.Element('ldml')
+            return
+        elif isinstance(fname, basestring):
             self.fname = fname
             fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
         else:

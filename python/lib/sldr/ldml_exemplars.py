@@ -129,13 +129,13 @@ class Exemplars(object):
     def ldml_write(self, exemplars):
         """Write exemplars to a string that can be written to a LDML formatted file."""
         list_exemplars = list()
-        for exemplar in exemplars:
+        # sort first so {} don't group together
+        for exemplar in sorted(exemplars):
             exemplar = self.ucd.normalize('NFC', exemplar)
             if len(exemplar) > 1:
                 exemplar = u'{' + exemplar + u'}'
             list_exemplars.append(exemplar)
-        list_exemplars.sort()
-        return u'{}{}{}'.format(u'[', ' '.join(list_exemplars), u']')
+        return u'[{}]'.format(' '.join(list_exemplars))
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""

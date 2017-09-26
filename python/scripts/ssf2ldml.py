@@ -1,6 +1,6 @@
+#!/usr/bin/python
+
 # Read a Paratext .ssf file, convert the relevant data to LDML, and insert into an LDML file.
-
-
 import sys
 import collections
 import codecs
@@ -12,26 +12,66 @@ from ConfigParser import RawConfigParser
 
 supplementalPath = "/../lib/sldr/"
 
-t = os.path.dirname(__file__) + supplementalPath
-t = os.path.abspath(t)
-
 try:
-    import ldml
+    from ldml import Ldml
 except ImportError:
     sys.path.append(os.path.abspath(os.path.dirname(__file__) + supplementalPath))
-    import ldml
+    from ldml import Ldml
     
 import ducet
 
 ##import xml.etree.cElementTree as etree
 # lxml preserves comments, also handles namespaces better:
-from lxml import etree
+from xml.etree import ElementTree as etree
 from cStringIO import StringIO
 
 silns = {'sil' : "urn://www.sil.org/ldml/0.1" }
 
 
+def loadssf(ldml, ssfFilename):
+    if isinstance(ssfFilename, basestring):
+        ssfFile = open(ssfFilename, 'rb')
+    else:
+        ssfFile = ssfFilename
+
+    ssfLangData = {  # initializing everything to None simplies the processing
+        'DefaultFont': None,
+        'DefaultFontSize': None,
+        'ValidCharacters': None,
+        'Pairs': None,
+        'Quotes': None,
+        'InnerQuotes': None,
+        'InnerInnerQuotes': None,
+        'ContinueQuotes': None,
+        'ContinueInnerQuotes': None,
+        'Continuer': None,
+        'InnerContinuer': None,
+        'InnerInnerContinuer': None,
+        'VerboseQuotes': None,
+        'ValidPunctuation': None}
+    
+    for (event, e) in etree.iterparse(ssfFile, events=('start', 'end')) :
+        ##print event + ": " + e.tag
+        if event == 'start' :
+            if e.tag in ssfLangData :
+                ssfLangData[e.tag] = e.text
+    addSsfData(ldml, ssfLangData)
+
+def loadlds(ldml, ldsFilename, ducetDict):
+    if isinstance(ldsFilename, basestring):
+        ldsFile = open(ldsFilename, 'r')
+    else:
+        ldsFile = ldsFilename
+    ldsConfig = RawConfigParser()
+    ldsConfig.read(ldsFilename)     # let exception rise up
+    addLdsData(ldml, ldsConfig, ducetDict)
+
+
 def run() :
+
+    #
+    # PLEASE use argparse
+    #
 
     mainPath = "C:/WS_Tech/SSF2LDML/"
     inputPath = mainPath + "testdata/"
@@ -47,76 +87,26 @@ def run() :
     else:
         print 'Python built with UCS2 (narrow unicode) support'
 
-    print os.path.dirname(__file__)
-    t = os.path.dirname(__file__) + supplementalPath
-    os.path.abspath(os.path.dirname(__file__) + supplementalPath)
-    ducetDict = ducet.readDucet("")
+    ducetDict = ducet.readDucet()
 
-    #t  = ducet.ducetCompare(ducetDict, u'\u00e1', 'A')
-    #t = ducet.ducetCompare(ducetDict, u'\u2461', u'\U0001D7F8')
+    ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
+    if os.path.exists(ldmlFilename):
+        ldml = Ldml(ldmlFilename, ducetDict)
+    else:
+        ldml = Ldml(None, ducetDict)
 
     for (langCode, scriptCode) in testLangs:
         ssfFilename = inputPath + langCode + '/' + langCode + ".ssf"
         ldsFilename = inputPath + langCode + '/' + langCode + ".lds"
         if os.path.isfile(ssfFilename):
-            ssfFile = file(ssfFilename)
-
+            loadssf(ldml, ssfFilename)
             if os.path.isfile(ldsFilename):
-                ldsFile = file(ldsFilename)
-                ldsConfig = RawConfigParser()
-                try:
-                    ldsConfig.read(ldsFilename)
-                except:
-                    print "Could not parse .lds file: ", ldsFilename
-            else:
-                print "Missing .lds file: " + ldsFilename
-
-            ssfLangData = {  # initializing everything to None simplies the processing
-                'DefaultFont': None,
-                'DefaultFontSize': None,
-                'ValidCharacters': None,
-                'Pairs': None,
-                'Quotes': None,
-                'InnerQuotes': None,
-                'InnerInnerQuotes': None,
-                'ContinueQuotes': None,
-                'ContinueInnerQuotes': None,
-                'Continuer': None,
-                'InnerContinuer': None,
-                'InnerInnerContinuer': None,
-                'VerboseQuotes': None,
-                'ValidPunctuation': None}
-            
-            for (event, e) in etree.iterparse(ssfFile, events=('start', 'end')) :
-                ##print event + ": " + e.tag
-                if event == 'start' :
-                    if e.tag in ssfLangData :
-                        ssfLangData[e.tag] = e.text
-            # end of for loop
-
-            ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
-            ldmlOutputFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + "_out.xml"
-            if not os.path.isfile(ldmlFilename) :
-                # Output a minimal LDML file
-                ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + "_min.xml"
-                createMinimalLdml(ldmlFilename, langCode, scriptCode)
-
-            ldmlFile = file(ldmlFilename)
-            ldmlTree = etree.parse(ldmlFilename)
-            #ldmlObj = ldml.LdmlObject(ldmlFilename)
-
-            addSsfData(ldmlTree, ssfLangData)
-
-            addLdsData(ldmlTree, ldsConfig, ducetDict)
-
-            writeLdmlFile(ldmlTree, ldmlOutputFilename)
-            #writeLdmlFile(ldmlObj)
-
+                loadlds(ldml, ldsFilename)
+            ldmlFile = open(ldmlOutputFilename, 'rb')
+            ldml.serialize_xml(ldmlFile.write)
         else :
             print "missing SSF file: " + ssfFilename
 
-    # end of for (langCode, scriptCode)
-                
     print ""  
     print "Done"
 
@@ -142,52 +132,25 @@ def createMinimalLdml(ldmlFilename, langCode, scriptCode) :
     ldmlFile.write(fileContents)
     ldmlFile.close()
     
-# end of createMinimalLdml
-
     
-def addSsfData(ldmlTree, ssfData) :
-    
-    ldmlRoot = ldmlTree.getroot()
-    
+def addSsfData(ldml, ssfData) :
     if ssfData['DefaultFont'] or ssfData['DefaultFontSize'] :
-        _addSsfDataFont(ldmlRoot, ssfData['DefaultFont'], ssfData['DefaultFontSize'])
-        
+        _addSsfDataFont(ldml, ssfData['DefaultFont'], ssfData['DefaultFontSize'])
     if ssfData['Pairs'] :
-        _addSsfDataPairs(ldmlRoot, ssfData['Pairs'])
-        
+        _addSsfDataPairs(ldml, ssfData['Pairs'])
     if ssfData['Quotes'] :
-        _addSsfDataQuotes(ldmlRoot, ssfData['Quotes'])
+        _addSsfDataQuotes(ldml, ssfData['Quotes'])
     if ssfData['InnerQuotes'] :
-        _addSsfDataInnerQuotes(ldmlRoot, ssfData['InnerQuotes'])
+        _addSsfDataInnerQuotes(ldml, ssfData['InnerQuotes'])
     if ssfData['InnerInnerQuotes'] :
-        _addSsfDataInnerInnerQuotes(ldmlRoot, ssfData['InnerInnerQuotes'])
+        _addSsfDataInnerInnerQuotes(ldml, ssfData['InnerInnerQuotes'])
         
-#    if ssfData['ContinueQuotes'] or ssfData['ContinueInnerQuotes'] :
-#        _addSsfDataContinueQuotes(ldmlRoot, ssfData['ContinueQuotes'], ssfData['ContinueInnerQuotes'])
 
-# end of addSsfData
-
-
-def _addSsfDataFont(ldmlRoot, defaultFontValue, defaultSizeValue) :
-    
+def _addSsfDataFont(ldml, defaultFontValue, defaultSizeValue) :
     # DefaultFont, DefaultFontSize ->
     # special/sil:external-resources/sil:fontrole[@types="default"]/sil:font[@name, @size]
-    
-    silnsPrfx = _silnsPrfx()
-    
-    specialElem = ldmlRoot.find('special')
-    if specialElem is None :
-        specialElem = etree.SubElement(ldmlRoot, 'special')
-    silExtResElem = specialElem.find('sil:external-resources', silns)
-    if silExtResElem is None :
-        silExtResElem = etree.SubElement(specialElem, silnsPrfx + 'external-resources')
-        
-    fontRoleElem = silExtResElem.find('sil:fontrole', silns)
-    if fontRoleElem is None or fontRoleElem.get('types') != "default" :
-        fontRoleElem = etree.SubElement(silExtResElem, silnsPrfx + 'fontrole')
-    fontRoleElem.set('types', 'default')
-    
-    fontElem = fontRoleElem.find('sil:font', silns)
+    # this isn't quite right since it should handle an existing sil:fontrole[@types="default heading"]
+    fontElem = ldml.ensure_path('special/sil:external-resources/sil:fontrole[@types="default"]/sil:font')[0]
     if fontElem is None:
         fontElem = etree.SubElement(fontRoleElem, silnsPrfx + 'font')
     if defaultFontValue :
@@ -195,32 +158,13 @@ def _addSsfDataFont(ldmlRoot, defaultFontValue, defaultSizeValue) :
     if defaultSizeValue :
         fontElem.set('size', defaultSizeValue)
 
-# end of _addSsfDataFont
 
-
-def _addSsfDataPairs(ldmlRoot, pairsValue) :
-    
-    silnsPrfx = _silnsPrfx()
-    
+def _addSsfDataPairs(ldml, pairsValue) :
     # Pairs ->
     # delimiters/special/sil:matched-pairs/sil:matched-pair/@open, @close
-        
-    delimElem = ldmlRoot.find('delimiters')
-    if delimElem is None :
-        delimElem = etree.SubElement(ldmlRoot, 'delimiters')
-    specialElem = delimElem.find('special')
-    if specialElem is None:
-        specialElem = etree.SubElement(delimElem, 'special')
-    matchedElem = specialElem.find('sil:matched-pairs', silns)
-    if matchedElem is None :
-        print "new matchedElem"
-        matchedElem = etree.SubElement(specialElem, silnsPrfx + 'matched-pairs')
-    
-    # Get a list of existing pairs
-    existingPairs = matchedElem.findall('sil:matched-pair', silns)
-    
-    pairList = pairsValue.split(' ')
-    for pair in pairList :
+    existingPairs = ldml.ensure_path('delimiters/special/sil:matched-parise/sil:matched-pair')
+    matchedElem = existingPairs[0].parent
+    for pair in pairsValue.split(' '):
         (openVal, closeVal) = pair.split('/')
         openVal = openVal.strip()
         closeVal = closeVal.strip()
@@ -228,131 +172,51 @@ def _addSsfDataPairs(ldmlRoot, pairsValue) :
             matchElem = etree.SubElement(matchedElem, silnsPrfx + 'matched-pair')
             matchElem.set('open', openVal)
             matchElem.set('close', closeVal)
-        # else it's already there
-    
-#end of _addSsfDataPairs
-
 
 def _findPair(pairElements, openValue, closeValue) :
     for elem in pairElements :
         if elem.get('open') == openValue and elem.get('close') == closeValue :
             return True
     return False
+
     
-    
-def _addSsfDataQuotes(ldmlRoot, quotesValue) :
-       
+def _addSsfDataQuotes(ldml, quotesValue) :
     # Quotes ->
     # delimiters/quotationStart, delimiters/quotationEnd
-        
-    delimElem = ldmlRoot.find('delimiters')
-    if delimElem is None :
-        delimElem = etree.SubElement(ldmlRoot, 'delimiters')
-    qStartElem = delimElem.find('quotationStart')
-    if qStartElem is None:
-        qStartElem = etree.SubElement(delimElem, 'quotationStart')
-    qEndElem = delimElem.find('quotationEnd')
-    if qEndElem is None:
-        qEndElem = etree.SubElement(delimElem, 'quotationEnd')
-    
+    qStartElem = ldml.ensure_path('delimiters/quotationStart')[0]
+    qEndElem = ldml.ensure_path('delimiters/quotationEnd')[0]
     (qStart, qEnd) = quotesValue.split(' ')
     qStartElem.text = qStart
     qEndElem.text = qEnd
 
-#end of _addSsfDataQuotes
 
-
-def _addSsfDataInnerQuotes(ldmlRoot, quotesValue) :
-       
+def _addSsfDataInnerQuotes(ldml, quotesValue) :
     # InnerQuotes ->
     # delimiters/alternateQuotationStart, delimiters/alternateQuotationEnd
-        
-    delimElem = ldmlRoot.find('delimiters')
-    if delimElem is None :
-        delimElem = etree.SubElement(ldmlRoot, 'delimiters')
-    qStartElem = delimElem.find('alternateQuotationStart')
-    if qStartElem is None:
-        qStartElem = etree.SubElement(delimElem, 'alternateQuotationStart')
-    qEndElem = delimElem.find('alternateQuotationEnd')
-    if qEndElem is None:
-        qEndElem = etree.SubElement(delimElem, 'alternateQuotationEnd')
-    
+    qStartElem = ldml.ensure_path('delimiters/alternateQuotationStart')[0]
+    qEndElem = ldml.ensure_path('delimiters/alternateQuotationEnd')[0]
     (qStart, qEnd) = quotesValue.split(' ')
     qStartElem.text = qStart
     qEndElem.text = qEnd
 
 #end of _addSsfDataInnerQuotes
 
-def _addSsfDataInnerInnerQuotes(ldmlRoot, quotesValue) :
-       
-    silnsPrfx = _silnsPrfx()
-    
+def _addSsfDataInnerInnerQuotes(ldml, quotesValue) :
     # InnerInnerQuotes ->
     # delimiters/special/sil:quotation-marks[@level="3"]/@open, @close
-        
-    delimElem = ldmlRoot.find('delimiters')
-    if delimElem is None :
-        delimElem = etree.SubElement(ldmlRoot, 'delimiters')
-    specialElem = delimElem.find('special')
-    if specialElem is None :
-        specialElem = etree.SubElement(delimElem, 'special')    
-    qMarksElem = specialElem.find('sil:quotation-marks', silns)
-    if qMarksElem is None :
-        qMarksElem = etree.SubElement(specialElem, silnsPrfx + 'quotation-marks')
-        
-    existingQuotes = specialElem.findall('sil:quotation', silns)
-    
-    qMark3Elem = _findQuotes(existingQuotes, "3")
-    if qMark3Elem is None :
-        qMark3Elem = etree.SubElement(qMarksElem, silnsPrfx + 'quotation')
-        qMark3Elem.set('level', "3")
-            
+    qMark3Elem = ldml.ensure_path('delimiters/special/sil:quotation-marks[@level="3"]')[0]
     (qStart, qEnd) = quotesValue.split(' ')
     qMark3Elem.set('open', qStart)
     qMark3Elem.set('close', qEnd)
 
-#end of _addSsfDataInnerInnerQuotes
 
-
-def _addSsfDataContinueQuotes(ldmlRoot, contValue, contInnerValue) :
-       
-    silnsPrfx = _silnsPrfx()
-    
+def _addSsfDataContinueQuotes(ldml, contValue, contInnerValue) :
     # ContinueQuotes ->
     # delimiters/special/sil:quotation-marks[@paraContinueType]/@open, @close
-        
-    delimElem = ldmlRoot.find('delimiters')
-    if delimElem is None :
-        delimElem = etree.SubElement(ldmlRoot, 'delimiters')
-    specialElem = delimElem.find('special')
-    if specialElem is None :
-        specialElem = etree.SubElement(delimElem, 'special')
-        
-    existingQuotes = specialElem.findall('sil:quotation-marks', silns)
-    
-    if _valueNotNo(contValue) :
-        quoteAtLevelElem = _findQuotes(existingQuotes, "1")
-        if quoteAtLevelElem is None :
-            quoteAtLevelElem = etree.SubElement(specialElem, silnsPrfx + 'quotation-marks')
-        quoteAtLevelElem.set('level', "1")
-        quoteAtLevelElem.set('paraContinueType', contValue)
-            
-    if _valueNotNo(contInnerValue) :
-        quoteAtLevelElem = _findQuotes(existingQuotes, "2")
-        if quoteAtLevelElem is None :
-            quoteAtLevelElem = etree.SubElement(specialElem, silnsPrfx + 'quotation-marks')
-        quoteAtLevelElem.set('level', "2")
-        quoteAtLevelElem.set('paraContinueType', contInnerValue)
-
-#end of _addSsfDataInnerInnerQuotes
-
-
-def _findQuotes(quoteElements, level) :
-    for elem in quoteElements :
-        if elem.get('level') == level :
-            return elem
-    return None
-
+    if _valueNotNo(contValue):
+        ldml.ensure_path('delimiters/special/sil:quotation-marks[@level="1"][@paraContinueType="{}"]'.format(contValue))
+    if _valueNotNo(contInnerValue):
+        ldml.ensure_path('delimiters/special/sil:quotation-marks[@level="2"][@paraContinueType="{}"]'.format(contInnerValue))
 
 def _valueNotNo(value) :
     if value is None :
@@ -364,7 +228,7 @@ def _valueNotNo(value) :
     return True
 
 
-def addLdsData(ldmlTree, ldsConfig, ducetDict) :
+def addLdsData(ldml, ldsConfig, ducetDict) :
     
     valueList = []
 
@@ -412,19 +276,16 @@ def addLdsData(ldmlTree, ldsConfig, ducetDict) :
                     if ducet.ducetCompare(ducetDict, c1, c2) == 3 : # case equivalent with x <<< X
                         # Assume a typo where they left out the slash.
                         slashItems = [c1, c2]
-                # end of if
 
-                for i in range(0, len(slashItems)) : slashItems[i] = _charToInt(slashItems[i])
+                #for i in range(len(slashItems)) : slashItems[i] = _charToInt(slashItems[i])
+                slashItems = [_charToInt(x) for x in slashItems]
                 #if prevSlashItems is not None and differByDiacs(prevSlashItems[0], slashItems[0]) :
                 slashSep = "<<"
 
                 if len(slashItems) == 2 :  ### and _caseEquivalent(slashItems[0], slashItems[1]) :
                     # upper/lower
                     # TODO: remove this branch
-                    sortSpecItems.append(spaceSep)
-                    sortSpecItems.append(slashItems[0])
-                    sortSpecItems.append("<<<")
-                    sortSpecItems.append(slashItems[1])
+                    sortSpecItems.extend((spaceSep, slashItems[0], "<<<", slashItems[1]))
                 else :
                     sortSpecItems.append(spaceSep)
                     #sortResult += spaceSep
@@ -463,67 +324,35 @@ def addLdsData(ldmlTree, ldsConfig, ducetDict) :
     else :
         sortSpecString = None
     
-    ldmlRoot = ldmlTree.getroot()
-    collationsElem = ldmlRoot.find('collations')
-    if collationsElem is None :
-        collationsElem = etree.SubElement(ldmlRoot, 'collations')
-    collationElem = collationsElem.find('collation')
-    if collationElem is not None :
-        anyElem = collationElem.findall('*')
-    else :
-        anyElem = []
-    if collationElem is None or len(anyElem) == 0 :
-        if sortSpecString is not None :
-            if collationElem is None :
-                collationElem = etree.SubElement(collationsElem, 'collation')
-            collationElem.set('type', 'standard')
-            crElem = etree.SubElement(collationElem, 'cr')
-            crElem.text = etree.CDATA(sortSpecString)
-            ###crElem.text = '<!--[CDATA[' + sortResult + ']]-->'
-        # else nothing to do and nothing to fix
-    else :
-        # We have one already, ignore the .lds file data.
-        # But make sure it is using CDATA; it probably needs it.
-        crElem = collationElem.find('cr')
-        if crElem is not None :
-            crElem.text = etree.CDATA(crElem.text)
-        specialElem = collationElem.find('special')
-        if specialElem is not None :
-            etree.dump(specialElem)
-            simpleElem = specialElem.find('simple', silns)
-            if simpleElem is not None :
-                etree.dump(simpleElem)
-                print "fix CDATA"
-                simpleElem.text = etree.CDATA(simpleElem.text)
-
-# end of addLdsData
+    collationElem = ldml.ensure_path('collations/collation[@type="standard"]')[0]
+    if not collationElem.find('cr'):
+        crElem = etree.SubElement(collationElem, 'cr')
+        crElem.text = sortSpecString
+        # CDATA handling done by ldml object, we hope
 
 
 def _minimizeSortSpec(sortSpec, ducetDict) :
-
     # First, look at each line individually and see which have information we need to retain.
     # Note that we don't try to minimize the lines themselves, just the set of lines.
     needLines = {}
-    for iline in range(0, len(sortSpec)) :
+    for iline in range(len(sortSpec)) :
         thisLine = sortSpec[iline]
         needThisLine = False
         prevItems = None
         # Try to find something in this line that doesn't fit the DUCET; if so, we definitely need this line.
-        for iitem in range(0,len(thisLine)) :
+        for iitem in range(len(thisLine)) :
             cExpected = _compareToken(thisLine[iitem])
             if cExpected >= 0 :
                 cVal = ducet.ducetCompare(ducetDict, _intToUnichr(thisLine[iitem-1]), _intToUnichr(thisLine[iitem+1]))
                 if cVal != cExpected :
                     needThisLine = True
                     break # out of loop over items
-        # end of for items
         needLines[iline] = needThisLine
-    # end of for lines
 
     ampIline = 0
     ampItem = (sortSpec[0])[1]  # most recent item before an &
 
-    for iline in range(0, len(sortSpec)-1) :
+    for iline in range(len(sortSpec)-1) :
         thisLine = sortSpec[iline]
         nextLine = sortSpec[iline+1]
         debugThis = _debugStr(thisLine[1])
@@ -597,35 +426,25 @@ def _minimizeSortSpec(sortSpec, ducetDict) :
                     nextNextLine[0] = "<"
                     needLines[iline+2] = True
 
-        # end of if...else
-
         # Remember the current last &.
         fogLine = sortSpec[ilineFirstOfGroup]
         if fogLine[0] == "&" :
             ampIline = ilineFirstOfGroup
             ampItem = fogLine[1]
 
-    #  end of for lines
-
     # Retain only the lines we need.
     minSpec = []
-    for iline in range(0, len(sortSpec)) :
+    for iline in range(len(sortSpec)) :
         if needLines[iline] :
-            ss = sortSpec[iline]
-            minSpec.append(ss)
+            minSpec.append(sortSpec[iline])
 
     return minSpec
 
-# end of _minimizeSortSpec
-
-
 def _howFarOff(sortSpec, uChar, iline, dir, ducetDict) :
     if dir == 1 :
-        lim = len(sortSpec)
-        rng = range(iline + 1, lim)
+        rng = range(iline + 1, len(sortSpec))
     else :
-        lim = 0
-        rng = range( iline - 1, -1, -1)
+        rng = range(iline - 1, -1, -1)
 
     for iline2 in rng :
         if (sortSpec[iline2])[0] == "&" :
@@ -635,14 +454,12 @@ def _howFarOff(sortSpec, uChar, iline, dir, ducetDict) :
 
     return iline2 - iline
 
-
 def _compareToken(token):
     if token == "<": return 1
     if token == "<<": return 2
     if token == "<<<": return 3
     if token == "=": return 0
     return -1  # not a token
-
 
 def _charToInt(charsStr) :
     result = []
@@ -668,8 +485,10 @@ def _unicodeEntity(ordValue) :
 
     result = ""
     for x in ordValue :
+        # what about \, &, < and other escaped chars (e.g. < 33)
         if (x) < 128 :
             result += chr(x)
+        # and \U support?
         else :
             uitem = unichr(x)
             hexStr = hex(ord(uitem))
@@ -705,15 +524,9 @@ def _intToUnichr(item) :
 def _debugStr(item) :
     if isinstance(item, int) :
         item = [item]
-    result = ""
-    for x in item :
-        if x < 256 :
-            result += chr(x)
-        else :
-            result += "\u" + hex(x)
-    result += " ="
-    for x in item : result += " " + hex(x)
-    return result
+    result = "".join(map(unichr, item))
+    result += " =" + " ".join(map(hex, item))
+    return repr(result)
 
 
 def writeLdmlFile_NEW(ldmlTree, ldmlFilename):
@@ -910,4 +723,30 @@ def _minimizeSortSpecOBSOLETE(sortSpec, ducetDict) :
 
 # Top level
 
-run()
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-l','--ldml',help='input LDML base file')
+    parser.add_argument('-s','--ssf',help='input SSF file')
+    parser.add_argument('-d','--lds',help='input lds file')
+    parser.add_argument('-o','--outfile',help='Output LDML file')
+    args = parser.parse_args()
+    if not args.ssf:
+        run()
+
+    if args.ldml:
+        ldml = Ldml(args.ldml)
+    else:
+        ldml = Ldml(None)
+    if args.ssf:
+        loadssf(ldml, args.ssf)
+    if args.lds:
+        import ducet
+        ducetDict = ducet.readDucet()
+        loadlds(ldml, args.lds, ducetDict)
+    if args.outfile:
+        outf = open(args.outfile, 'rb')
+    else:
+        outf = sys.stdout
+    ldml.serialize_xml(outf.write)
+
