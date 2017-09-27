@@ -83,13 +83,12 @@ def _generateSortKey(rawSortKey, separate=False) :
             k = ki[level]
             if k != 0 :
                 leveledResult[level].append(ki[level])
-        leveledResult[level].append(0)
 
     if separate:
         return leveledResult
     else:
         # Flatten out the list.
-        return leveledResult[0] + leveledResult[1] + leveledResult[2]
+        return leveledResult[0] + [0] + leveledResult[1] + [0] + leveledResult[2] + [0]
 
 
 ### [.1C47.0020.0002][.0000.0026.0002][.0000.0024.0002]

@@ -2,6 +2,7 @@
 
 import re, copy
 from math import log10
+from difflib import SequenceMatcher
 
 def escape(s):
     res = ""
@@ -24,19 +25,32 @@ def unescape(s):
     s = re.sub(ur'\\(.)', ur'\1', s)
     return s
 
-def ducetSortKey(d, k):
+def ducetSortKey(d, k, extra=None):
     res = [[], [], []]
     i = len(k)
     while i > 0:
         try:
-            b = d[k[:i]]
+            if extra and k[:i] in extra:
+                key = extra[k[:i]].key
+            else:
+                b = d[k[:i]]
+                key = ducet._generateSortKey(b, separate=True)
         except KeyError:
             i -= 1
             continue
-        key = ducet._generateSortKey(b, separate=True)
-        res = [key[i] + res[i] for i in range(3)]
+        res = [res[j] + key[j] for j in range(3)]
         k = k[i:]
         i = len(k)
+    return res
+
+def filtersame(dat, level):
+    res = []
+    acc = (0,)
+    level -= 1
+    for d in dat:
+        if d[1][level] != acc:
+            acc = d[1][level]
+            res.append(d)
     return res
 
 class Collation(dict):
@@ -78,27 +92,19 @@ class Collation(dict):
             lastk = k
         return res[1:] if len(res) else ""
 
-    def minimise(self):
+    def minimise(self, alphabet):
         self._setSortKeys()
-        deleteme = set()
-        for k, v in sorted(self.items(), key=lambda x:x[1].key):
-            currlevel = min(4, v.level)
-            b = v.base
-            while b in self and (b not in deleteme or b not in self.ducet):
-                currlevel = min(currlevel, self[b].level)
-                b = self[b].base
-            if b not in self.ducet:
-                continue
-            bsort = ducetSortKey(self.ducet, b)
-            ksort = ducetSortKey(self.ducet, k)
-            for i in range(currlevel):
-                diff = cmp(bsort[i], ksort[i])
-                if diff != 0 :
-                    break
-            if diff < 0:
-                deleteme.add(k)
-        for k in deleteme:
-            del self[k]
+        base = sorted([(x, self.ducet[x]) for x in alphabet if x in self.ducet], key=lambda x: x[1])
+        this = sorted(zip(alphabet, [ducetSortKey(self.ducet, x, extra=self) for x in alphabet]), key=lambda x: x[1])
+        basep = filtersame(base, 1)
+        thisp = filtersame(this, 1)
+        s = SequenceMatcher(a=zip(*basep)[0], b=zip(*thisp)[0])
+        for g in s.get_opcodes():
+            if g[0] == 'insert': continue
+            for i in range(g[3], g[4]):
+                if thisp[i][0] in self:
+                    del self[thisp[i][0]]
+        # TODO 2ndary and 3rdary levels (repeat for each group)
             
 
 class CollElement(object):
@@ -128,5 +134,7 @@ if __name__ == '__main__':
     coll = Collation(ducetDict)
     if len(sys.argv) > 1:
         coll.parse(sys.argv[1])
-        coll.minimise()
+        alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split()
+        alphabet += coll.keys()
+        coll.minimise(alphabet)
         print coll.asICU()
