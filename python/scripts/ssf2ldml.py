@@ -90,10 +90,8 @@ def loadlds(ldml, ldsFilename, ducetDict):
 def _addSsfDataFont(ldml, defaultFontValue, defaultSizeValue) :
     # DefaultFont, DefaultFontSize ->
     # special/sil:external-resources/sil:fontrole[@types="default"]/sil:font[@name, @size]
-    # this isn't quite right since it should handle an existing sil:fontrole[@types="default heading"]
+    # TODO: this isn't quite right since it should handle an existing sil:fontrole[@types="default heading"]
     fontElem = ldml.ensure_path('special/sil:external-resources/sil:fontrole[@types="default"]/sil:font')[0]
-    if fontElem is None:
-        fontElem = etree.SubElement(fontRoleElem, silnsPrfx + 'font')
     if defaultFontValue :
         fontElem.set('name', defaultFontValue)
     if defaultSizeValue :
@@ -103,14 +101,14 @@ def _addSsfDataFont(ldml, defaultFontValue, defaultSizeValue) :
 def _addSsfDataPairs(ldml, pairsValue) :
     # Pairs ->
     # delimiters/special/sil:matched-pairs/sil:matched-pair/@open, @close
-    existingPairs = ldml.ensure_path('delimiters/special/sil:matched-parise/sil:matched-pair')
+    existingPairs = ldml.ensure_path('delimiters/special/sil:matched-pairs/sil:matched-pair')
     matchedElem = existingPairs[0].parent
     for pair in pairsValue.split(' '):
         (openVal, closeVal) = pair.split('/')
         openVal = openVal.strip()
         closeVal = closeVal.strip()
         if not _findPair(existingPairs, openVal, closeVal) :
-            matchElem = etree.SubElement(matchedElem, silnsPrfx + 'matched-pair')
+            matchElem = etree.SubElement(matchedElem, '{' + silns['sil'] + '}' + 'matched-pair')
             matchElem.set('open', openVal)
             matchElem.set('close', closeVal)
 
@@ -474,7 +472,7 @@ def _run() :
     #testLangs = [('aau','Latn'), ('aca','Latn')]
     testLangs = [('zzz', 'Latn')]
     
-    ldml.test_import()
+    #ldml.test_import()
 
     import sys
     if sys.maxunicode == 0x10FFFF:
@@ -484,13 +482,13 @@ def _run() :
 
     ducetDict = ducet.readDucet()
 
-    ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
-    if os.path.exists(ldmlFilename):
-        ldml = Ldml(ldmlFilename, ducetDict)
-    else:
-        ldml = Ldml(None, ducetDict)
-
     for (langCode, scriptCode) in testLangs:
+        ldmlFilename = inputPath + langCode + '/' + langCode + "_" + scriptCode + ".xml"
+        if os.path.exists(ldmlFilename):
+            ldml = Ldml(ldmlFilename, ducetDict)
+        else:
+            ldml = Ldml(None, ducetDict)
+
         ssfFilename = inputPath + langCode + '/' + langCode + ".ssf"
         ldsFilename = inputPath + langCode + '/' + langCode + ".lds"
         if os.path.isfile(ssfFilename):
