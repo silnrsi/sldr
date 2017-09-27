@@ -24,28 +24,28 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-# import os
-# import sys
+import os
+import sys
 import codecs
 from argparse import ArgumentParser
-# from subprocess import check_output
-# from StringIO import StringIO
-# from xml.etree import ElementTree as et
-# from datetime import datetime
+from subprocess import check_output
+from StringIO import StringIO
+from xml.etree import ElementTree as et
+from datetime import datetime
 import ldml_exemplars
 
-# try:
-#     from sldr.ldml import Ldml, flattenlocale
-# except ImportError:
-#     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
-#     from sldr.ldml import Ldml, flattenlocale, etwrite
+try:
+    from sldr.ldml import Ldml, flattenlocale
+except ImportError:
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
+    from sldr.ldml import Ldml, flattenlocale, etwrite
 
 
 def main():
     parser = ArgumentParser()
-    # parser.add_argument('this', help='File of interest')
+    parser.add_argument('this', help='File of interest')
     parser.add_argument('corpus', help='Corpus to read')
-    # parser.add_argument('-o','--output', help="Output file")
+    parser.add_argument('-o','--output', help="Output file")
     args = parser.parse_args()
 
     exemplars = ldml_exemplars.Exemplars()
@@ -57,17 +57,17 @@ def main():
     print exemplars.get_index()
     print exemplars.get_punctuation()
 
-# this = Exemplars(args.this)
-#
-#  if not args.output :
-#     outfh = sys.stdout
-# else :
-#     outfh = codecs.open(outf, "w", encoding="utf-8")
-#
-# this.serialize_xml(outfh.write)
-#
-# if args.output :
-#     outfh.close()
+    this = Ldml(args.this)
+
+    if not args.output :
+        outfh = sys.stdout
+    else :
+        outfh = codecs.open(outf, "w", encoding="utf-8")
+
+    this.serialize_xml(outfh.write)
+
+    if args.output :
+        outfh.close()
 
 
 if __name__ == '__main__':
