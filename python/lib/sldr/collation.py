@@ -3,6 +3,8 @@
 import re, copy
 from math import log10
 from difflib import SequenceMatcher
+import ducet
+
 
 def escape(s):
     res = ""
@@ -72,7 +74,14 @@ class Collation(dict):
                 base = key
 
     def _setSortKeys(self):
-        inc = 1. / pow(10, int(log10(len(self)))+1)
+        #t1 = len(self)
+        #t2 = log10(t1)
+        #t3 = int(t2)
+        #t4 = t3 = 1
+        #t5 = pow(t4)
+        #t6 = 1. / t5
+        if len(self) > 0 :
+            inc = 1. / pow(10, int(log10(len(self)))+1)
         for v in self.values():
             v.sortkey(self, self.ducet, inc)
 

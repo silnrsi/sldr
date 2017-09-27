@@ -8,6 +8,22 @@ import copy
 import os
 import unicodedata
 
+# For calling DBLAuthV1 class:
+# The requests module may need to be installed separately; it does not appear to be part of the standard Python.
+import requests
+from datetime import datetime
+from wsgiref.handlers import format_date_time
+from time import mktime
+
+# The authorization key is stored in a different file:
+try:
+    import dblauthkey
+except ImportError:
+    sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+    import dblauthkey
+
+import json
+
 from ConfigParser import RawConfigParser
 
 supplementalPath = "/../lib/sldr/"
@@ -26,6 +42,118 @@ from xml.etree import ElementTree as etree
 from cStringIO import StringIO
 
 silns = {'sil' : "urn://www.sil.org/ldml/0.1" }
+
+
+class DBLAuthV1(requests.auth.AuthBase):
+    authorization_header = 'X-DBL-Authorization'
+
+    def __init__(self, api_token, private_key):
+        super(DBLAuthV1, self).__init__()
+        self.api_token = api_token.lower()
+        self.private_key = private_key.lower()
+
+    def __call__(self, r):
+        r.headers[self.authorization_header] = self.make_authorization_header(r)
+        return r
+
+    def make_authorization_header(self, request):
+        import hmac
+        import hashlib
+
+        mac = hmac.new(self.api_token, None, hashlib.sha1)
+        mac.update(self.signing_string_from_request(request))
+        mac.update(self.private_key.lower())
+        return 'version=v1,token=%s,signature=%s' % (self.api_token, mac.hexdigest().lower())
+
+    def signing_string_from_request(self, request):
+        dbl_header_prefix = 'x-dbl-'
+        signing_headers = ['content-type', 'date']
+
+        method = request.method
+        # use request uri, but not any of the arguments.
+        path = request.path_url.split('?')[0]
+        collected_headers = {}
+
+        for key, value in request.headers.iteritems():
+            if key == self.authorization_header:
+                continue
+            k = key.lower()
+            if k in signing_headers or k.startswith(dbl_header_prefix):
+                collected_headers[k] = value.strip()
+
+        # these keys get empty strings if they don't exist
+        if 'content-type' not in collected_headers:
+            collected_headers['content-type'] = ''
+        if 'date' not in collected_headers:
+            collected_headers['date'] = ''
+
+        sorted_header_keys = sorted(collected_headers.keys())
+
+        buf = "%s %s\n" % (method, path)
+        for key in sorted_header_keys:
+            val = collected_headers[key]
+            if key.startswith(dbl_header_prefix):
+                buf += "%s:%s\n" % (key, val)
+            else:
+                buf += "%s\n" % val
+        return buf
+
+# end of class DBLAuthV1
+
+
+class DBLReader(object):
+
+    def __init__(self):
+        (key1, key2) = dblauthkey.authkey()
+        self.auth = DBLAuthV1(key1, key2)
+
+    def testAccess(self):
+        response = requests.get('https://thedigitalbiblelibrary.org', auth=self.auth,
+                                headers={'Date': format_date_time(mktime(datetime.now().timetuple())),
+                                         'Content-Type': 'application/json'})
+        return response.status_code
+
+    def getLicenses(self):
+        response = requests.get('https://thedigitalbiblelibrary.org/api/licenses', auth=self.auth,
+                                headers={'Date': format_date_time(mktime(datetime.now().timetuple())),
+                                         'Content-Type': 'application/json'})
+        if response.status_code == 200:
+            licensesJson = response.content
+            result = json.loads(licensesJson)
+        return response.status_code
+
+    def getEntries(self):
+        response = requests.get('https://thedigitalbiblelibrary.org/api/publishable_entries_list', auth=self.auth,
+                                headers={'Date': format_date_time(mktime(datetime.now().timetuple())),
+                                         'Content-Type': 'application/json'})
+        if response.status_code == 200:
+            entriesJson = response.content
+            result = json.loads(entriesJson)
+            return result
+        else:
+            entriesJson = ""
+            result = {}
+            return response.status_code
+
+
+    def getOneEntry(self, entryId):
+        # 8 = Creative Commons
+        # 126 = WBT Non-Commercial Digital Text Distribution Agreement with YouVersion
+        response = requests.get('https://thedigitalbiblelibrary.org/api/entries/' + entryId + "/revision/latest/license/8",
+                                auth=self.auth,
+                                headers={'Date': format_date_time(mktime(datetime.now().timetuple())),
+                                         'Content-Type': 'application/json'})
+        if response.status_code == 200:
+            entryJson = response.content
+            result = json.loads(entryJson)
+            return result
+        else:
+            entryJson = ""
+            result = {}
+            return response.status_code
+
+
+#end of class DBLReader
 
 
 def loadssf(ldml, ssfFilename):
@@ -467,6 +595,29 @@ def _run() :
     mainPath = "C:/WS_Tech/SSF2LDML/"
     inputPath = mainPath + "testdata/"
 
+    #(key1, key2) = dblauthkey.authkey()
+    #tauth = DBLAuthV1(key1, key2)
+    #response = requests.get('https://thedigitalbiblelibrary.org/api/publishable_entries_list', auth=tauth,
+    #                        headers={'Date': format_date_time(mktime(datetime.now().timetuple())),
+    #                                 'Content-Type': 'application/json'})
+
+    dblreader = DBLReader()
+    code = dblreader.testAccess()
+    t = dblreader.getLicenses()
+    if code != 200:
+        print "ERROR in accessing DBL; HTTP response code = ",code
+    entriesDict = dblreader.getEntries()
+    if isinstance(entriesDict, int):
+        print "ERROR in obtaining DBL entries; HTTP response code = ",code
+    else:
+        entriesCnt = entriesDict['count']
+        entriesList = entriesDict['list']
+        for entry in entriesList:
+            entryId = entry['id']
+            entryLangCode = entry['language_code']
+            entryInfo = dblreader.getOneEntry(entryId)
+
+
     #testLangs = [('aau','Latn'), ('aca','Latn')]
     testLangs = [('zzz', 'Latn')]
     
@@ -502,13 +653,14 @@ def _run() :
     print "Done"
 
 
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-l','--ldml',help='input LDML base file')
     parser.add_argument('-s','--ssf',help='input SSF file')
-    parser.add_argument('-d','--lds',help='input lds file')
-    parser.add_argument('-o','--outfile',help='Output LDML file')
+    parser.add_argument('-d','--lds',help='input LDS file')
+    parser.add_argument('-o','--outfile',help='output LDML file')
     args = parser.parse_args()
     if not args.ssf:
         _run()

@@ -1,5 +1,6 @@
 ﻿import os, re
 
+
 # Read the DUCET file and return a corresponding data structure.
 def readDucet(path="") :
 
