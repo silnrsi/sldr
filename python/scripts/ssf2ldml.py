@@ -101,16 +101,14 @@ def _addSsfDataFont(ldml, defaultFontValue, defaultSizeValue) :
 def _addSsfDataPairs(ldml, pairsValue) :
     # Pairs ->
     # delimiters/special/sil:matched-pairs/sil:matched-pair/@open, @close
-    existingPairs = ldml.ensure_path('delimiters/special/sil:matched-pairs/sil:matched-pair')
-    matchedElem = existingPairs[0].parent
+    matchedElem = ldml.ensure_path('delimiters/special/sil:matched-pairs')[0]
     for pair in pairsValue.split(' '):
         (openVal, closeVal) = pair.split('/')
         openVal = openVal.strip()
         closeVal = closeVal.strip()
-        if not _findPair(existingPairs, openVal, closeVal) :
-            matchElem = etree.SubElement(matchedElem, '{' + silns['sil'] + '}' + 'matched-pair')
-            matchElem.set('open', openVal)
-            matchElem.set('close', closeVal)
+        if not _findPair(matchedElem, openVal, closeVal) :
+            matchElem = ldml.subelement(matchedElem, 'sil:matched-pair',
+                                        attrib={'open': openVal, 'close': closeVal})
 
 def _findPair(pairElements, openValue, closeValue) :
     for elem in pairElements :

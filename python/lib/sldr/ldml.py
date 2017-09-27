@@ -178,13 +178,7 @@ class ETWriter(object):
         for s in path.split("/"):
             parts = re.split(ur"\[(.*?)\]", s)
             tag = parts.pop(0)
-            nsi = tag.find(":")
-            if nsi > 0:
-                ns = tag[:nsi]
-                for k, v in self.namespaces.items():
-                    if ns == v:
-                        tag = "{" + k + "}" + tag[nsi+1:]
-                        break
+            tag = self._reverselocalns(tag)
             if not len(parts):
                 steps.append(tag)
                 continue
@@ -196,6 +190,23 @@ class ETWriter(object):
                     attrs[k[1:]] = v[1:-1]
             steps.append((tag, attrs))
         return self.unify_path(steps, base)
+
+    def _reverselocalns(self, tag):
+        '''Convert ns:tag -> {fullns}tag'''
+        nsi = tag.find(":")
+        if nsi > 0:
+            ns = tag[:nsi]
+            for k, v in self.namespaces.items():
+                if ns == v:
+                    tag = "{" + k + "}" + tag[nsi+1:]
+                    break
+        return tag
+
+    def subelement(self, parent, tag, **k):
+        '''Create a new SubElement and do localns replacement as in ns:tag -> {fullns}tag'''
+        tag = self._reverselocalns(tag)
+        return et.SubElement(parent, tag, **k)
+
 
 def etwrite(et, write, topns = True, namespaces = None):
     if namespaces is None: namespaces = {}
@@ -383,7 +394,7 @@ class Ldml(ETWriter):
         if not hasattr(self, 'elementOrder'):
             self.__class__.ReadMetadata()
         self.namespaces = {}
-        self.namespaces['sil'] = self.silns
+        self.namespaces[self.silns] = 'sil'
         self.useDrafts = usedrafts
         curr = None
         comments = []

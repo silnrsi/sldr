@@ -15,19 +15,20 @@ def readDucet(path="") :
     result = {}
     
     for contentLine in content :
-        m = re.search(ur'^([0-9A-F]{4})\s*;\s*', contentLine)
-        if m is None:
+        parts = contentLine.split(';')
+        if len(parts) != 2:
             continue
-        vals = re.findall(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', contentLine[m.end():])
-        result[m.group(1)] = tuple(tuple(int(v[i], 16) for i in range(3)) for v in vals)
+        key = u"".join(unichr(int(x, 16)) for x in re.findall(ur'([0-9A-F]{4})', parts[0]))
+        vals = re.findall(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', parts[1])
+        result[key] = tuple(tuple(int(v[i], 16) for i in range(3)) for v in vals)
 
     return result
 
 
 def ducetCompare(ducetDict, str1, str2) :
     try:
-        sortKey1 = _generateSortKey(ducetDict[_ducetKey(str1)])
-        sortKey2 = _generateSortKey(ducetDict[_ducetKey(str2)])
+        sortKey1 = _generateSortKey(ducetDict[str1])
+        sortKey2 = _generateSortKey(ducetDict[str2])
     except KeyError:
         return "unknown"
 
@@ -75,7 +76,7 @@ def _ducetKey(str1) :
     return " ".join(res).upper()
 
 
-def _generateSortKey(rawSortKey) :
+def _generateSortKey(rawSortKey, separate=False) :
     leveledResult = [[], [], []]
     for level in range(3) :
         for ki in rawSortKey:
@@ -84,8 +85,11 @@ def _generateSortKey(rawSortKey) :
                 leveledResult[level].append(ki[level])
         leveledResult[level].append(0)
 
-    # Flatten out the list.
-    return leveledResult[0] + leveledResult[1] + leveledResult[2]
+    if separate:
+        return leveledResult
+    else:
+        # Flatten out the list.
+        return leveledResult[0] + leveledResult[1] + leveledResult[2]
 
 
 ### [.1C47.0020.0002][.0000.0026.0002][.0000.0024.0002]
