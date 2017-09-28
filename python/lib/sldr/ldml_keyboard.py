@@ -178,17 +178,15 @@ class Keyboard(object):
                 break
         return True
 
-    def _sort(self, begin, end, chars, primary, secondary):
+    def _sort(self, begin, end, chars, keys):
         s = chars[begin:end]
-        p = primary[:end-begin]
-        sc = secondary[:end-begin]
+        k = keys[:end-begin]
         # if there is no base, insert one
-        if 0 not in p:
+        if (0, 0) not in [(x[0], x[2]) for x in k]:
             s += u"\u25CC"
-            p += [0]
-            sc += [0]
+            k += [0, 0, 0]  # push this to the front
         # sort key is (primary, secondary, string index)
-        return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:(p[x], sc[x], x)))
+        return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:k[x]))
 
     def _process_reorder(self, context, ruleset='reorder'):
         '''Handle the reorder transforms'''
@@ -212,41 +210,42 @@ class Keyboard(object):
             context.results(ruleset, curr - startrun, instr[startrun:curr])
 
         startrun = curr
-        orders = [0] * (len(instr) - startrun)
-        secondarys = orders[:]
+        keys = [0] * (len(instr) - startrun)
         isinit = True   # inside the start of a run (.{prebase}* .{order==0 && secondary==0})
+        currprimary = 0
+        currbaseindex = curr
         while curr < context.len(ruleset):
             r = trans.match(instr[curr:])
-            secondary = 0
-            order = 0
             # calculate sort keys
             if r[0] is not None:
                 if hasattr(r[0], 'secondary') and curr > 0:
-                    order = orders[curr - startrun - 1]     # inherit primary order
-                    secondary = int(getattr(r[0], 'secondary', '0'))
+                    key = (currprimary, currbaseindex, int(getattr(r[0], 'secondary', '0')))
                 else:
-                    order = getattr(r[0], 'order', 0)
-            if ((order != 0 or secondary != 0) and not hasattr(r[0], 'prebase')) \
+                    key = (getattr(r[0], 'order', 0), curr, 0)
+                    if getattr(r[0], 'isbase', 0):
+                        currprimary = key[0]
+                        currbaseindex = curr
+            # We have got past the prefix and base of a run
+            # Any prefix char after this creates a new run
+            if ((key[0] != 0 or key[2] != 0) and not hasattr(r[0], 'prebase')) \
                     or (hasattr(r[0], 'prebase') and curr > startrun \
-                        and orders[curr - startrun - 1] == 0):
+                        and keys[curr-startrun-1][0] == 0 and keys[curr-startrun-1][2]==0):
                 isinit = False
             length = r[1] or 1  # if 0 advance by 1 anyway
             # identify a run boundary
-            if not isinit and ((order == 0 and secondary == 0) or hasattr(r[0], 'prebase')):
+            if not isinit and ((key[1] == 0 and key[2] == 0) or hasattr(r[0], 'prebase')):
                 # output sorted run and reset for new run
                 context.results(ruleset, curr - startrun,
-                                self._sort(startrun, curr, instr, orders, secondarys))
+                                self._sort(startrun, curr, instr, keys))
                 startrun = curr
-                orders = [0] * (len(instr) - startrun)
-                secondarys = orders[:]
+                keys = [0] * (len(instr) - startrun)
                 isinit = True
-            orders[curr-startrun:curr-startrun+length] = [order] * length
-            secondarys[curr-startrun:curr-startrun+length] = [secondary] * length
+            keys[curr-startrun:curr-startrun+length] = [key] * length
             curr += length
         if curr > startrun:
             # output but don't store any residue. Reprocess it next time.
             context.outputs[context.index(ruleset)] \
-                    += self._sort(startrun, curr, instr, orders, secondarys)
+                    += self._sort(startrun, curr, instr, keys)
         return True
 
     def _process_backspace(self, context, ruleset='backspace'):
