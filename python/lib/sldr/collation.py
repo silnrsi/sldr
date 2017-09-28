@@ -2,11 +2,13 @@
 
 import re, copy
 from math import log10
+from itertools import groupby
 from difflib import SequenceMatcher
 import ducet
 
 
 def escape(s):
+    '''Turn normal Unicode into escaped tailoring syntax'''
     res = ""
     escs = ['\\&[]/<']
     for k in s:
@@ -23,11 +25,14 @@ def escape(s):
     return res
 
 def unescape(s):
+    '''Parse tailoring escaped characters into normal Unicode'''
     s = re.sub(ur'(?:\\U([0-9A-F]{8})|\\u([0-9A-F]{4}))', lambda m:unichr(int(m.group(m.lastindex), 16)), s, re.I)
     s = re.sub(ur'\\(.)', ur'\1', s)
     return s
 
 def ducetSortKey(d, k, extra=None):
+    '''Turn a sequence of sort keys for the given string into a single
+        sort key.'''
     res = [[], [], []]
     i = len(k)
     while i > 0:
@@ -46,6 +51,9 @@ def ducetSortKey(d, k, extra=None):
     return res
 
 def filtersame(dat, level):
+    '''A kind of groupby, return first of every sequence with the sortkey
+        up to the given level'''
+    # anyopne want to refactor this to use groupby()?
     res = []
     acc = (0,)
     level -= 1
@@ -54,6 +62,17 @@ def filtersame(dat, level):
             acc = d[1][level]
             res.append(d)
     return res
+
+def makegroupdict(dat, keyfunc):
+    '''Create a dictionary for each sublist of dat keyed by first
+        in sublist. Used to collect subgroups with the same primary
+        key keyed by the first in the sublist.'''
+    res = {}
+    for k, t in groupby(dat, keyfunc):
+        d = list(t)
+        res[d[0][0]] = d
+    return res
+
 
 class Collation(dict):
 
@@ -74,16 +93,11 @@ class Collation(dict):
                 base = key
 
     def _setSortKeys(self):
-        #t1 = len(self)
-        #t2 = log10(t1)
-        #t3 = int(t2)
-        #t4 = t3 = 1
-        #t5 = pow(t4)
-        #t6 = 1. / t5
+        '''Calculates tailored sort keys for everything in this collation'''
         if len(self) > 0 :
             inc = 1. / pow(10, int(log10(len(self)))+1)
-        for v in self.values():
-            v.sortkey(self, self.ducet, inc)
+            for v in self.values():
+                v.sortkey(self, self.ducet, inc)
 
     def asICU(self):
         """Returns ICU tailoring syntax of this Collation"""
@@ -101,20 +115,41 @@ class Collation(dict):
             lastk = k
         return res[1:] if len(res) else ""
 
-    def minimise(self, alphabet):
-        self._setSortKeys()
-        base = sorted([(x, self.ducet[x]) for x in alphabet if x in self.ducet], key=lambda x: x[1])
-        this = sorted(zip(alphabet, [ducetSortKey(self.ducet, x, extra=self) for x in alphabet]), key=lambda x: x[1])
-        basep = filtersame(base, 1)
-        thisp = filtersame(this, 1)
-        s = SequenceMatcher(a=zip(*basep)[0], b=zip(*thisp)[0])
+    def _stripoverlaps(self, a, b):
+        '''Given two sorted lists of (k, sortkey(k)) delete from this
+            collation any k that is not inserted into the first list.
+            I.e. only keep things inserted into the ducet sequence'''
+        s = SequenceMatcher(a=a, b=b)
         for g in s.get_opcodes():
             if g[0] == 'insert': continue
             for i in range(g[3], g[4]):
-                if thisp[i][0] in self:
-                    del self[thisp[i][0]]
-        # TODO 2ndary and 3rdary levels (repeat for each group)
-            
+                if b[i] in self:
+                    del self[b[i]]
+
+    def minimise(self, alphabet):
+        '''Minimise a sort tailoring such that the minimised tailoring
+            functions the same as the unminimised tailoring for the
+            strings in alphabet (e.g. main+aux exemplars)'''
+        self._setSortKeys()
+        # create (k, sortkey(k)) for the alphabet from the ducet and from the tailored
+        base = sorted([(x, ducetSortKey(self.ducet, x)) for x in alphabet if x in self.ducet], key=lambda x: x[1])
+        this = sorted([(x, ducetSortKey(self.ducet, x, extra=self)) for x in alphabet], key=lambda x: x[1])
+        # strip down to only primary orders
+        basep = filtersame(base, 1)
+        thisp = filtersame(this, 1)
+        # Remove any non-inserted elements
+        self._stripoverlaps(zip(*basep)[0], zip(*thisp)[0])
+
+        # dict[primary] = list of (k, sortkey(k)) with same primary as primary
+        bases = makegroupdict(base, lambda x:x[1][0])
+        thiss = makegroupdict(this, lambda x:x[1][0])
+        for k, v in thiss.items():
+            # no subsorting then ignore, if primary is tailored then all subsorts are tailored too
+            if len(v) == 1 or k in self:
+                continue
+            # remove any non-inserted subsorts in the subsequences
+            self._stripoverlaps(zip(*bases[k])[0][1:], zip(*v)[0][1:])
+
 
 class CollElement(object):
 
