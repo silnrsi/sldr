@@ -222,7 +222,7 @@ class Keyboard(object):
                     key = (currprimary, currbaseindex, int(getattr(r[0], 'secondary', '0')))
                 else:
                     key = (getattr(r[0], 'order', 0), curr, 0)
-                    if getattr(r[0], 'isbase', 0):
+                    if getattr(r[0], 'takesmarks', 0):
                         currprimary = key[0]
                         currbaseindex = curr
             # We have got past the prefix and base of a run
