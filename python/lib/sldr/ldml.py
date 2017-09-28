@@ -153,7 +153,7 @@ class ETWriter(object):
                         continue
                     if attrs:
                         for k, v in attrs.items():
-                            if k not in c.attrs:
+                            if k not in c.attrib:
                                 break
                             if v is not None and c.get(k) != v:
                                 break
