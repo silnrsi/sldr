@@ -17,9 +17,9 @@ def escape(s):
         if 32 < i < 127:
             res += k
         elif i > 0xFFFF:
-            res += u'\\U' + ("00000000" + (hex(i)[2:]))[:-8]
+            res += u'\\U' + ("00000000" + (hex(i)[2:]))[-8:]
         else:
-            res += u'\\' + ("0000" + (hex(i)[2:]))[:-4]
+            res += u'\\u' + ("0000" + (hex(i)[2:]))[-4:]
     return res
 
 def unescape(s):
@@ -117,7 +117,16 @@ class Collation(dict):
                 else:
                     l = bits[i].count('<')
                 key = unescape(bits[i+1])
+                exp = key.find("/")
+                expstr = ""
+                if exp > 0:
+                    expstr = key[exp+1:].strip()
+                    key = key[:exp].strip()
+                else:
+                    exp = None
                 self[key] = CollElement(base, l)
+                if expstr:
+                    self[key].exp = expstr
                 base = key
 
     def _setSortKeys(self):
@@ -140,6 +149,8 @@ class Collation(dict):
             else:
                 res += " " + ("<<<"[:v.level]) + " "
             res += escape(k)
+            if v.exp:
+                res += "/" + v.exp
             lastk = k
         return res[1:] if len(res) else ""
 
@@ -147,12 +158,14 @@ class Collation(dict):
         '''Given two sorted lists of (k, sortkey(k)) delete from this
             collation any k that is not inserted into the first list.
             I.e. only keep things inserted into the ducet sequence'''
-        s = SequenceMatcher(a=a, b=b)
+        s = SequenceMatcher(a=a[0], b=b[0])
         for g in s.get_opcodes():
             if g[0] == 'insert' or g[0] == 'replace': continue
             for i in range(g[3], g[4]):
-                if b[i] in self:
-                    del self[b[i]]
+                # delete if we have the element 
+                #   and the primary sortkey lengths are different
+                if b[0][i] in self and len(a[1][g[1]+i-g[3]][0]) == len(b[1][i][0]):
+                    del self[b[0][i]]
 
     def minimise(self, alphabet):
         '''Minimise a sort tailoring such that the minimised tailoring
@@ -166,7 +179,7 @@ class Collation(dict):
         basep = filtersame(base, 1)
         thisp = filtersame(this, 1)
         # Remove any non-inserted elements
-        self._stripoverlaps(zip(*basep)[0], zip(*thisp)[0])
+        self._stripoverlaps(zip(*basep), zip(*thisp))
 
         # dict[primary] = list of (k, sortkey(k)) with same primary as primary
         bases = makegroupdict(base, lambda x:x[1][0])
@@ -176,7 +189,7 @@ class Collation(dict):
             if len(v) == 1 or k in self:
                 continue
             # remove any non-inserted subsorts in the subsequences
-            self._stripoverlaps(zip(*bases[k])[0][1:], zip(*v)[0][1:])
+            self._stripoverlaps(zip(*bases[k][1:]), zip(*v[1:]))
 
 
 class CollElement(object):
@@ -184,18 +197,30 @@ class CollElement(object):
     def __init__(self, base, level):
         self.base = base
         self.level = level
+        self.exp = ""
 
     def __repr__(self):
-        return ">>>>"[:self.level] + self.base
+        res = u">>>>"[:self.level] + self.base
+        if self.exp:
+            return repr(res + u"/" + self.exp)
+        else:
+            return repr(res)
 
     def sortkey(self, collations, ducetDict, inc):
         if hasattr(self, 'key'):
             return self.key
+        self.key = ducetSortKey(ducetDict, self.base)   # stop lookup loops
         if self.base in collations:
             basekey = copy.deepcopy(collations[self.base].sortkey(collations, ducetDict, inc))
         else:
-            basekey = copy.deepcopy(ducetSortKey(ducetDict, self.base))
+            basekey = copy.deepcopy(self.key)
         basekey[self.level-1][0] += inc
+        if self.exp:
+            if self.exp in collations:
+                expkey = collations[self.exp].sortkey(collations, ducetDict, inc)
+            else:
+                expkey = ducetSortKey(ducetDict, self.exp)
+            basekey = [basekey[i] + expkey[i] for i in range(3)]
         self.key = basekey
         return basekey
 
