@@ -1,11 +1,9 @@
 #!/usr/bin/python
 
-import re, copy
+import re, copy, os
 from math import log10
 from itertools import groupby
 from difflib import SequenceMatcher
-import ducet
-
 
 def escape(s):
     '''Turn normal Unicode into escaped tailoring syntax'''
@@ -40,12 +38,11 @@ def ducetSortKey(d, k, extra=None):
             if extra and k[:i] in extra:
                 key = extra[k[:i]].key
             else:
-                b = d[k[:i]]
-                key = ducet._generateSortKey(b, separate=True)
+                key = zip(*d[k[:i]])
         except KeyError:
             i -= 1
             continue
-        res = [res[j] + key[j] for j in range(3)]
+        res = [res[j] + list(key[j]) for j in range(3)]
         k = k[i:]
         i = len(k)
     return res
@@ -73,10 +70,41 @@ def makegroupdict(dat, keyfunc):
         res[d[0][0]] = d
     return res
 
+__moduleDucet__ = None  # cache the default ducet
+def readDucet(path="") :
+    if not path:
+        global __moduleDucet__
+        if __moduleDucet__ is not None:
+            return __moduleDucet__
+        ducetpath = os.path.join(os.path.abspath(os.path.dirname(__file__)), "allkeys.txt")
+    else:
+        ducetpath = path
+
+    result = {}
+    keyre = re.compile(ur'([0-9A-F]{4})', re.I)
+    valre = re.compile(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
+
+    try :
+        with open(ducetpath, 'r') as f :
+            for contentLine in f.readlines():
+                parts = contentLine.split(';')
+                if len(parts) != 2:
+                    continue
+                key = u"".join(unichr(int(x, 16)) for x in keyre.findall(parts[0]))
+                vals = valre.findall(parts[1])
+                result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
+    except :
+        print "ERROR: unable to read DUCET data in allkeys.txt"
+        return {}
+    if not path:
+        __moduleDucet__ = result
+    return result
 
 class Collation(dict):
 
-    def __init__(self, ducetDict):
+    def __init__(self, ducetDict=None):
+        if ducetDict is None:
+            ducetDict = readDucet()
         self.ducet = ducetDict
 
     def parse(self, string):
@@ -121,7 +149,7 @@ class Collation(dict):
             I.e. only keep things inserted into the ducet sequence'''
         s = SequenceMatcher(a=a, b=b)
         for g in s.get_opcodes():
-            if g[0] == 'insert': continue
+            if g[0] == 'insert' or g[0] == 'replace': continue
             for i in range(g[3], g[4]):
                 if b[i] in self:
                     del self[b[i]]
@@ -173,9 +201,7 @@ class CollElement(object):
 
 if __name__ == '__main__':
     import sys
-    import ducet
-    ducetDict = ducet.readDucet()
-    coll = Collation(ducetDict)
+    coll = Collation()
     if len(sys.argv) > 1:
         coll.parse(sys.argv[1])
         alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split()

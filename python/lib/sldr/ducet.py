@@ -14,14 +14,16 @@ def readDucet(path="") :
         return {}
 
     result = {}
+    keyre = re.compile(ur'([0-9A-F]{4})', re.I)
+    valre = re.compile(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
     
     for contentLine in content :
         parts = contentLine.split(';')
         if len(parts) != 2:
             continue
-        key = u"".join(unichr(int(x, 16)) for x in re.findall(ur'([0-9A-F]{4})', parts[0]))
-        vals = re.findall(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', parts[1])
-        result[key] = tuple(tuple(int(v[i], 16) for i in range(3)) for v in vals)
+        key = u"".join(unichr(int(x, 16)) for x in keyre.findall(parts[0]))
+        vals = valre.findall(parts[1])
+        result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
 
     return result
 
@@ -78,18 +80,11 @@ def _ducetKey(str1) :
 
 
 def _generateSortKey(rawSortKey, separate=False) :
-    leveledResult = [[], [], []]
-    for level in range(3) :
-        for ki in rawSortKey:
-            k = ki[level]
-            if k != 0 :
-                leveledResult[level].append(ki[level])
-
+    leveledResult = zip(*rawSortKey)
     if separate:
         return leveledResult
     else:
-        # Flatten out the list.
-        return leveledResult[0] + [0] + leveledResult[1] + [0] + leveledResult[2] + [0]
+        return [x + [0] for x in leveledResult]
 
 
 ### [.1C47.0020.0002][.0000.0026.0002][.0000.0024.0002]
@@ -98,6 +93,7 @@ def _generateSortKey(rawSortKey, separate=False) :
 #    while str.endswith(" ") : str = str[:-1]
 #    while str.startswith(" ") : str = str[1]
             
+# leveledResult = [[ki[level] for ki in rawSortKey] for level in range(3)]
   
 # end of readDucet
 
