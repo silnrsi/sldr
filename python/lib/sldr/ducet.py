@@ -84,7 +84,7 @@ def _generateSortKey(rawSortKey, separate=False) :
     if separate:
         return leveledResult
     else:
-        return [x + [0] for x in leveledResult]
+        return [x + (0,) for x in leveledResult]
 
 
 ### [.1C47.0020.0002][.0000.0026.0002][.0000.0024.0002]
