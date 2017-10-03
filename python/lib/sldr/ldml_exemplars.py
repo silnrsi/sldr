@@ -24,40 +24,64 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import re
-# from collections import Counter
-from ucdXML import ucdXML
-import unicodedata
-# from palaso.teckit import engine
+from icu import Char, UCharCategory, UProperty, Normalizer2, UNormalizationMode2
 
 
 def main():
     pass
 
 
-class UCD(ucdXML):
+class UCD(object):
 
-    @staticmethod
-    def normalize(form, unistr):
+    def __init__(self):
+        # Maybe in new versions of PyICU the following
+        # (now commented out) shorthand function is defined.
+        # self.normalizer_nfc = Normalizer2.getNFCInstance()
+
+        # Since it is not, use the non-shorthand function with the needed parameters
+        self.normalizer_nfc = Normalizer2.getInstance(None, 'nfc', UNormalizationMode2.COMPOSE)
+        self.normalizer_nfd = Normalizer2.getInstance(None, 'nfc', UNormalizationMode2.DECOMPOSE)
+        self.normalizer_nfkc = Normalizer2.getInstance(None, 'nfkc', UNormalizationMode2.COMPOSE)
+        self.normalizer_nfkd = Normalizer2.getInstance(None, 'nfkc', UNormalizationMode2.DECOMPOSE)
+
+    def normalize(self, form, unistr):
         """Return the normal form form for the Unicode string unistr.
 
         Valid values for form are 'NFC', 'NFKC', 'NFD', and 'NFKD'.
         """
 
-        return unicodedata.normalize(form, unistr)
+        if form == 'NFC':
+            return self.normalizer_nfc.normalize(unistr)
+        elif form == 'NFD':
+            return self.normalizer_nfd.normalize(unistr)
+        elif form == 'NFKC':
+            return self.normalizer_nfkc.normalize(unistr)
+        elif form == 'NFKD':
+            return self.normalizer_nfkd.normalize(unistr)
 
     def has_prop(self, prop, chars):
         """Determine if all the characters in a string have a specific property."""
         for char in chars:
-            if self.getprop(prop, char, 'N') == 'N':
+            if not Char.hasBinaryProperty(char, prop):
                 return False
         return True
+
+    @staticmethod
+    def ismark(char):
+        """True if the character is a mark (general category M)."""
+
+        numeric_char_type = Char.charType(char)
+        if (numeric_char_type == UCharCategory.NON_SPACING_MARK or
+            numeric_char_type == UCharCategory.COMBINING_SPACING_MARK or
+            numeric_char_type == UCharCategory.ENCLOSING_MARK):
+            return True
+        return False
 
 
 class Exemplars(object):
 
     def __init__(self):
-        self.ucd = UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
+        self.ucd = UCD()
 
         # User settable configuration.
         self.many_bases = 5
@@ -199,7 +223,7 @@ class Exemplars(object):
             char = text[i]
 
             # Test for punctuation.
-            if self.ucd.category(char).startswith('P'):
+            if Char.ispunct(char):
                 self.punctuation.add(char)
                 i += 1
                 continue
@@ -207,7 +231,7 @@ class Exemplars(object):
             # Find grapheme clusters.
 
             # First find a base character.
-            if not self.ucd.has_prop('Alpha', char):
+            if not Char.isUAlphabetic(char):
                 i += 1
                 continue
             # self.bases[char] += 1
@@ -220,7 +244,7 @@ class Exemplars(object):
             length = 1
             while i + length < len(text):
                 mark = text[i + length]
-                if self.ucd.category(mark).startswith('M'):
+                if self.ucd.ismark(mark):
                     # A Mark was found, so the cluster continues.
 
                     # Count how many different bases this mark occurs on.

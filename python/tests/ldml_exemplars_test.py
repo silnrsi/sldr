@@ -25,9 +25,9 @@
 # SUCH DAMAGE.
 
 import os
-import re
 import sys
 import unittest
+from icu import UProperty
 
 try:
     from sldr.ldml_exemplars import UCD, Exemplars
@@ -39,16 +39,16 @@ except ImportError:
 class UCDTests(unittest.TestCase):
 
     def setUp(self):
-        self.ucd = UCD('ucd.nounihan.grouped.xml', re.compile(r'.'))
+        self.ucd = UCD()
 
     def tearDown(self):
         pass
 
     def test_prop_true(self):
-        self.assertTrue(self.ucd.has_prop('Alpha', u'cab'))
+        self.assertTrue(self.ucd.has_prop(UProperty.ALPHABETIC, u'cab'))
 
     def test_prop_false(self):
-        self.assertFalse(self.ucd.has_prop('Alpha', u'cab.1'))
+        self.assertFalse(self.ucd.has_prop(UProperty.ALPHABETIC, u'cab.1'))
 
     def test_nfc(self):
         text = u'e\u0301'
@@ -58,11 +58,11 @@ class UCDTests(unittest.TestCase):
         text = u'\u00e9'
         self.assertEqual(u'e\u0301', self.ucd.normalize('NFD', text))
 
-    def test_nfc_new(self):
+    def test_nfc_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u00E0\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFC', text))
 
-    def test_nfd_new(self):
+    def test_nfd_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u0061\u0300\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFD', text))
 
