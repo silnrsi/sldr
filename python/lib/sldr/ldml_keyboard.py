@@ -140,7 +140,7 @@ class Keyboard(object):
             res = self.keyboards[self.modifiers[modstr]][k]
         except KeyError:
             return ""
-        return UnicodeSets.struni(res)
+        return UnicodeSets.struni(res, [])
 
     def _process_empty(self, context, ruleset):
         '''Copy layer input to output'''
@@ -202,7 +202,7 @@ class Keyboard(object):
         context.reset_output(ruleset)
         while curr < len(instr):
             r = trans.match(instr[curr:])
-            if r[0] is None or not hasattr(r[0], 'secondary') \
+            if r[0] is None or not hasattr(r[0], 'tertiary') \
                     or getattr(r[0], 'order', 0) == 0 or hasattr(r[0], 'prebase'):
                 break
             curr += r[1]   # can't be 0 else would have break
@@ -218,13 +218,16 @@ class Keyboard(object):
             r = trans.match(instr[curr:])
             # calculate sort keys
             if r[0] is not None:
-                if hasattr(r[0], 'secondary') and curr > 0:
-                    key = (currprimary, currbaseindex, int(getattr(r[0], 'secondary', '0')))
+                if hasattr(r[0], 'tertiary') and curr > 0:
+                    key = (currprimary, currbaseindex, int(getattr(r[0], 'tertiary', '0')))
                 else:
                     key = (getattr(r[0], 'order', 0), curr, 0)
-                    if getattr(r[0], 'takesmarks', 0):
+                    if getattr(r[0], 'tertiary_base', 0):
                         currprimary = key[0]
                         currbaseindex = curr
+            else:
+                currbaseindex = curr
+                key = (0, currbaseindex, 0)
             # We have got past the prefix and base of a run
             # Any prefix char after this creates a new run
             if ((key[0] != 0 or key[2] != 0) and not hasattr(r[0], 'prebase')) \
@@ -278,32 +281,31 @@ class Rules(object):
         '''Insert or merge a rule into this set of rules'''
         f = transform.get('from')
         if self.reverse:
-            chars = UnicodeSets.parse(f)[::-1]
+            chars = UnicodeSets.parse(f).reverse()
         else:
             chars = UnicodeSets.parse(f)
-        jobs = set([self.rules])
+        jobs = set([(self.rules, "")])
         for i, k in enumerate(chars):
             isFinal = i + 1 == len(chars)
             newjobs = set()
             # inefficient trie is fine
-            for j in jobs:
+            for j, string in jobs:
                 j.fail = False
                 for l in k:
                     if l not in j:
                         j[l] = Rule()
                     if not k.negative:
-                        if isFinal:
-                            j[l].merge(transform.attrib)
-                        newjobs.add(j[l])
+                        newjobs.add((j[l], string+l))
                 if k.negative:
                     for d in j.keys():
                         if d not in k:
-                            newjobs.add(j[d])
+                            newjobs.add((j[d], string+d))
                     if j.default is None:
                         j.default = Rule()
-                    if isFinal:
-                        j.default.merge(transform.attrib)
-                    newjobs.add(j.default)
+                    newjobs.add((j.default, string+" "))
+                if isFinal:
+                    for j, string in newjobs:
+                        j.merge(transform.attrib, [string[x:y] for x,y in chars.groups])
             jobs = newjobs
 
     def match(self, s, ind=0, partial=False, fail=False):
@@ -345,12 +347,12 @@ class Rule(dict):
     def __hash__(self):
         return hash(id(self))
 
-    def merge(self, e):
+    def merge(self, e, groups):
         for k, v in e.items():
             if k == 'from': continue
             setattr(self, k, v)
         if 'to' in e:
-            self.to = UnicodeSets.struni(e['to'])
+            self.to = UnicodeSets.struni(e['to'], groups)
         if 'order' in e:
             self.order = int(e['order'])
         self.rule = True

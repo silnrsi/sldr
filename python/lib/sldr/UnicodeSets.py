@@ -26,7 +26,7 @@
 import re
 
 hexescre = re.compile(ur"(?:\\(?:ux)\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})|\\x([0-9a-fA-F]{2}))")
-hexgre = re.compile(ur"\\u\{([0-9a-fA-F ]+)\}")
+hexgre = re.compile(ur"\\u\{([0-9a-fA-F]+)\}")
 simpleescs = {
     'a' : u"\u0007",
     'b' : u"\u0008",
@@ -38,15 +38,31 @@ simpleescs = {
     '\\' : u"\u005C"
 }
 simpleescsre = re.compile(ur"\\(.)")
+groupsre = re.compile(ur"\\([0-9]+)")
 
 def escapechar(s):
     return u"\\"+ s if s in '[]{}\\&-|^$:' else s
+
+class UnicodeSetSequence(list):
+
+    def __init__(self, *p, **kw):
+        super(list, self).__init__(*p, **kw)
+        self.groups = []
+
+    def reverse(self):
+        new = UnicodeSetSequence(self)
+        l = len(self)
+        new.groups = [(l-x[0], l-x[1]) for x in self.groups]
+        return new
+
 
 class UnicodeSet(set):
     '''A UnicodeSet is a simple set of characters also a negative attribute'''
     def __init__(self):
         self.negative = False
         self.isclass = False
+        self.startgroup = False
+        self.endgroup = False
 
     def negate(self, state):
         self.negative = state
@@ -55,8 +71,16 @@ class UnicodeSet(set):
         self.isclass = state
 
 
+def _expand(p, vals, ind, indval):
+    if vals[i][x].startswith("\\"):
+        g = p.group(int(vals[i][x][1]))
+        return "".join(_expand(p, vals, i, indices[i]) for i in range(g[0], g[1]))
+    else:
+        return vals[i][x]
+
 def flatten(s):
-    vals = map(sorted, parse(s))
+    p = parse(s)
+    vals = map(sorted, p)
     lens = map(len, vals)
     num = len(vals)
     indices = [0] * num
@@ -69,11 +93,13 @@ def flatten(s):
                 break
         else:
             return
-        yield u"".join(vals[i][x] for i, x in enumerate(indices))
+        res = []
+        yield u"".join(_expand(p, vals, i, x) for i, x in enumerate(indices))
 
-def struni(s):
+def struni(s, groups):
     s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
     s = simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s)
+    s = groupsre.sub(lambda m:groups[int(m.group(1)) - 1], s)
     return s
 
 def parse(s):
@@ -83,13 +109,19 @@ def parse(s):
     # don't flatten \\ escapes here since we need to differentiate with action chars {}[]
     s = hexgre.sub(lambda m:"{"+u"".join(escapechar(unichr(int(x, 16))) for x in m.group(1).split())+"}", s)
     s = s.replace(' ', '')
-    res = []
+    res = UnicodeSetSequence()
     i = 0
+    currgroup = -1
     while i < len(s):
         (i, item, nextitem) = parseitem(s, i, None, len(s))
         # a sequence can't have binary operators in it
         if nextitem:
-            res.append(nextitem)
+            if nextitem.startgroup:
+                currgroup = len(res)
+            elif nextitem.endgroup:
+                res.groups.append((currgroup, len(res)))
+            if len(nextitem):
+                res.append(nextitem)
     return res
 
 def parseitem(s, ind, lastitem, end):
@@ -175,8 +207,18 @@ def parseitem(s, ind, lastitem, end):
         ind = e + 1
     elif s[ind] == '\\':
         x = s[ind+1]
-        res.add(simpleescs.get(x, x))
+        try:
+            y = int(x)
+            res.add(u"\\"+x)
+        except:
+            res.add(simpleescs.get(x, x))
         ind += 2
+    elif s[ind] == '(':
+        res.startgroup = True
+        ind += 1
+    elif s[ind] == ')':
+        res.endgroup = True
+        ind += 1
     else:
         res.add(s[ind])
         ind += 1
