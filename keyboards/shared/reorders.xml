@@ -40,8 +40,8 @@
         <transform from="[\u1038\u1087-\u108D\u108F\u109A-\u109C\uAA7B-\uAA7D]" order="130"/>
         <transform from="[\uA9E6\uAA70]" order="140"/>
 
-        <!-- Khmer based on USE and Didi. Differences of opinion abound -->
-        <transform from="[\u1780-\u17B3\u17DB\u17E0-\u17E9]" order="0"/>
+        <!-- Khmer Unicode spec based with extras from Didi -->
+        <transform from="[\u1780-\u17B3\u17D2\u17DB\u17E0-\u17E9]" order="0"/>
         <transform from="[\u200C\u200D][\u17C9\u17CA]" tertiary="5"/>
         <transfrom from="[\u17C9\u17CA]" tertiary="5"/>
         <transform from="\u17CC" order="5"/>
@@ -60,10 +60,9 @@
         <transform from="\u0930\u094D\uFDD0" order="-1"/>       <!-- magic mark repha, remove in final -->
         <transform from="[\u0904-\u0939\u093D\u0958-\u0961\u0964-\u097F\u0950\u0953\u0954]" order="0"/>
         <transform from="\u093C" tertiary="3"/>
-        <transform from="\u094D[\u0915-0939]" order="10" tertiary_base="1"/>
+        <transform from="\u094D[\u200C\u200D\u0915-0939]" order="10" tertiary_base="1"/>
         <transform from="\u094D[\u200C\u200D][\u0915-0939]" order="10" tertiary_base="1"/>
         <transform from="\u094D" order="10" tertiary_base="1"/>
-        <transform from="\u094D[\u200C\u200D]" order="10" tertiary_base="1"/>
         <transform from="\u094E" order="60"/>
         <transform from="[\u093A\u0945-\u0948\u0955]" order="70"/>
         <transform from="[\u0941-\u0944\u0952\u0962\u0963]" order="80"/>
@@ -77,21 +76,10 @@
         <transform from="\u103A\u1037" to="\u1037\u103A"/>
         <transform from="\u0930\u094D\uFDD0" to="\u0930\u094D"/>    <!-- strip repha marker. Usually in keyboard -->
         <transform from="\u103A\u1037\u1037" error="1"/>
-        <!-- how many of these do we need that are not identified by font rendering? -->
-        <!-- this would be much simpler as from="[\u102D-\u1030\u1032-\u1037\u1039-\u103E]\1" -->
         <transform from="[\u102D\u102E\u1033-\u1035\u1071-\u1074\u1085\u109D\uA9E5][\u102D\u102E\u1033-\u1035\u1071-\u1074\u1085\u109D\uA9E5]" error="1"/>
         <transform from="[\u102F\u1030\u1048\u1059][\u102F\u1030\u1048\u1059]" error="1"/>
         <transform from="\u1031\u1031\u1031" error="1"/>
         <transform from="([\u1032\u1036\u1037\u1039-\u103E])\1" error="1"/>
-        <transform from="\u1032\u1032" error="1"/>
-        <transform from="\u1036\u1036" error="1"/>
-        <transform from="\u1037\u1037" error="1"/>
-        <transform from="\u1039\u1039" error="1"/>
-        <transform from="\u103A\u103A" error="1"/>
-        <transform from="\u103B\u103B" error="1"/>
-        <transform from="\u103C\u103C" error="1"/>
-        <transform from="\u103D\u103D" error="1"/>
-        <transform from="\u103E\u103E" error="1"/>
 
         <!-- Lots of cleaning up for Khmer -->
         <transform from="\u17C1\u17B6" to="\u17C4"/>
@@ -105,12 +93,20 @@
         <transform from="(\u1798\u17D2[\u179F\u17A0\u17A2][\u17B7-\u17BA])\u17BB" to="\1\u17CA"/>
         <transform from="(\u1798\u17D2[\u179F\u17A0\u17A2])\u17BB(\u17B6\u17C6)" to="\1\u17CA\2"/>
         <transform from="(\u1798\u17D2[\u179F\u17A0\u17A2])\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17CA\2"/>
-        <transform from="(\u179F\u17D2[\u1784\u1789\u1793\u1794\u1798-\u179C\u17A2])\u17BB" to="\1\u17CA"/>
-        <transform from="([\u179C\u17A3]\u17D2\u17A0)\u17BB" to="\1\u17CA"/>
-        <transform from="(\u17A2\u17D2[\u1784\u179C])\u17BB" to="\1\u17CA"/>
-        <transform from="(\u179B\u17D2[\u1784\u1794\u1798\u1799\u179C])\u17BB" to="\1\u17C9"/>
-        <transform from="(\u1798\u17D2[\u1784\u1798-\u179A])\u17BB" to="\1\u17C9"/>
-
-
+        <transform from="(\u179F\u17D2[\u1784\u1789\u1793\u1794\u1798-\u179C\u17A2])([\u17B7-\u17BA])\u17BB" to="\1\u17CA\2"/>
+        <transform from="(\u179F\u17D2[\u1784\u1789\u1793\u1794\u1798-\u179C\u17A2])\u17BB(\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="(\u179F\u17D2[\u1784\u1789\u1793\u1794\u1798-\u179C\u17A2])\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="([\u179C\u17A3]\u17D2\u17A0[\u17B7-\u17BA])\u17BB" to="\1\u17CA"/>
+        <transform from="([\u179C\u17A3]\u17D2\u17A0)\u17BB(\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="([\u179C\u17A3]\u17D2\u17A0)\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="(\u17A2\u17D2[\u1784\u179C][\u17B7-\u17BA])\u17BB" to="\1\u17CA"/>
+        <transform from="(\u17A2\u17D2[\u1784\u179C])\u17BB(\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="(\u17A2\u17D2[\u1784\u179C])\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17CA\2"/>
+        <transform from="(\u179B\u17D2[\u1784\u1794\u1798\u1799\u179C][\u17B7-\u17BA])\u17BB" to="\1\u17C9"/>
+        <transform from="(\u179B\u17D2[\u1784\u1794\u1798\u1799\u179C])\u17BB(\u17B6\u17C6)" to="\1\u17C9\2"/>
+        <transform from="(\u179B\u17D2[\u1784\u1794\u1798\u1799\u179C])\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17C9\2"/>
+        <transform from="(\u1798\u17D2[\u1784\u1798-\u179A][\u17B7-\u17BA])\u17BB" to="\1\u17C9"/>
+        <transform from="(\u1798\u17D2[\u1784\u1798-\u179A])\u17BB(\u17B6\u17C6)" to="\1\u17C9\2"/>
+        <transform from="(\u1798\u17D2[\u1784\u1798-\u179A])\u17BB(\u17C6\u17B6\u17C6)" to="\1\u17C9\2"/>
     </transforms>
 </keyboard>

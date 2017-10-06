@@ -144,6 +144,7 @@ class Keyboard(object):
 
     def _process_empty(self, context, ruleset):
         '''Copy layer input to output'''
+        context.reset_output(ruleset)
         output = context.input(ruleset)[context.offset(ruleset):]
         context.results(ruleset, len(output), output)
 
@@ -151,7 +152,7 @@ class Keyboard(object):
         '''Handle a simple replacement transforms type'''
         if ruleset not in self.transforms:
             self._process_empty(context, ruleset)
-            return
+            return True
         trans = self.transforms[ruleset]
         if handleSettings:
             partial = self.settings.get('transformPartial', "") == "hide"
@@ -236,7 +237,7 @@ class Keyboard(object):
                 isinit = False
             length = r[1] or 1  # if 0 advance by 1 anyway
             # identify a run boundary
-            if not isinit and ((key[1] == 0 and key[2] == 0) or hasattr(r[0], 'prebase')):
+            if not isinit and ((key[0] == 0 and key[2] == 0) or hasattr(r[0], 'prebase')):
                 # output sorted run and reset for new run
                 context.results(ruleset, curr - startrun,
                                 self._sort(startrun, curr, instr, keys))
@@ -374,6 +375,7 @@ class Context(object):
         self.outputs[0] = chars                     # and copy it to its output
         self.offsets = [0] * len(self.slotnames)    # pointer into last layer output
                                                     # corresponding to end of stables
+        self.offsets[0] = len(chars)
         self.error = 0                              # are we in an error state?
 
     def clone(self, chars=""):
@@ -384,6 +386,7 @@ class Context(object):
         res.offsets = self.offsets[:]
         res.stables[0] += chars
         res.outputs[0] += chars
+        res.offsets[0] += len(chars)
         return res
 
     def __str__(self):

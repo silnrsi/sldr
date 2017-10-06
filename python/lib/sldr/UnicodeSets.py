@@ -37,7 +37,7 @@ simpleescs = {
     'n' : u"\u0010",
     '\\' : u"\u005C"
 }
-simpleescsre = re.compile(ur"\\(.)")
+simpleescsre = re.compile(ur"\\([^0-9])")
 groupsre = re.compile(ur"\\([0-9]+)")
 
 def escapechar(s):
@@ -115,13 +115,12 @@ def parse(s):
     while i < len(s):
         (i, item, nextitem) = parseitem(s, i, None, len(s))
         # a sequence can't have binary operators in it
-        if nextitem:
-            if nextitem.startgroup:
-                currgroup = len(res)
-            elif nextitem.endgroup:
-                res.groups.append((currgroup, len(res)))
-            if len(nextitem):
-                res.append(nextitem)
+        if nextitem.startgroup:
+            currgroup = len(res)
+        elif nextitem.endgroup:
+            res.groups.append((currgroup, len(res)))
+        if len(nextitem):
+            res.append(nextitem)
     return res
 
 def parseitem(s, ind, lastitem, end):
