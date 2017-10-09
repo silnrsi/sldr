@@ -25,6 +25,7 @@
 
 from xml.etree import ElementTree as et
 import itertools, re, os, sys
+from collections import namedtuple
 
 try:
     from . import UnicodeSets
@@ -33,6 +34,10 @@ except ValueError:
         sys.path.insert(0, os.path.dirname(__file__))
         import UnicodeSets
 
+
+CharCode = namedtuple('CharCode', ['primary', 'tertiary_base', 'tertiary', 'prebase'])
+SortKey = namedtuple('SortKey', ['primary', 'index', 'tertiary'])
+        
 
 class Keyboard(object):
 
@@ -183,11 +188,31 @@ class Keyboard(object):
         s = chars[begin:end]
         k = keys[:end-begin]
         # if there is no base, insert one
-        if (0, 0) not in [(x[0], x[2]) for x in k]:
+        if (0, 0) not in [(x.primary, x.tertiary) for x in k]:
             s += u"\u25CC"
-            k += [0, 0, 0]  # push this to the front
+            k += SortKey(0, 0, 0)  # push this to the front
         # sort key is (primary, secondary, string index)
         return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:k[x]))
+
+    def _padlist(self, val, num):
+        res = val.split()
+        if len(res) < num:
+            res += [res[-1]] * (num - len(res))
+        return res
+
+    def _get_charcodes(self, instr, curr, trans):
+        '''Returns a list of some CharCodes, 1 per char, for the string at curr''' 
+        r = trans.match(instr[curr:])
+        if r[0] is not None:
+            orders = [int(x) for x in self._padlist(getattr(r[0], 'order', "0"), r[1])]
+            bases = self._padlist(getattr(r[0], 'tertiary_base', "0"), r[1])
+            bases = [0 if int(x) > 5 else int(x) for x in bases]
+            tertiaries = [int(x) for x in self._padlist(getattr(r[0], 'tertiary', "0"), r[1])]
+            prebases = self._padlist(getattr(r[0], 'prebase', "False"), r[1])
+            prebases = [False if x.lower()=="false" or x=="0" else True for x in prebases]
+            return [CharCode(orders[i], bases[i], tertiaries[i], prebases[i]) for i in range(r[1])]
+        else:
+            return [CharCode(0, 0, 0, False)]
 
     def _process_reorder(self, context, ruleset='reorder'):
         '''Handle the reorder transforms'''
@@ -196,56 +221,62 @@ class Keyboard(object):
             return
         trans = self.transforms[ruleset]
         instr = context.input(ruleset)
+        context.reset_output(ruleset)
 
         # scan for start of sortable run. Normally empty
         startrun = context.offset(ruleset)
         curr = startrun
-        context.reset_output(ruleset)
         while curr < len(instr):
-            r = trans.match(instr[curr:])
-            if r[0] is None or not hasattr(r[0], 'tertiary') \
-                    or getattr(r[0], 'order', 0) == 0 or hasattr(r[0], 'prebase'):
-                break
-            curr += r[1]   # can't be 0 else would have break
-        if curr > startrun:    # just copy the odd characters across
+            codes = self._get_charcodes(instr, curr, trans)
+            for c in codes:
+                if c.prebase or (c.primary == 0 and c.tertiary == 0):
+                    break
+                curr += 1
+            else:
+                continue        # if didn't break inner loop, don't break outer loop
+            break               # if we broke in the inner loop, break the outer loop
+        if curr > startrun:     # just copy the odd characters across
             context.results(ruleset, curr - startrun, instr[startrun:curr])
 
         startrun = curr
-        keys = [0] * (len(instr) - startrun)
-        isinit = True   # inside the start of a run (.{prebase}* .{order==0 && secondary==0})
-        currprimary = 0
-        currbaseindex = curr
+        keys = [None] * (len(instr) - startrun)
+        isinit = True   # inside the start of a run (.{prebase}* .{order==0 && tertiary==0})
+        currprimaries = [0] * 5; currprimary = 0
+        currbaseindex = [curr] * 5; currbaseindex = curr
         while curr < context.len(ruleset):
-            r = trans.match(instr[curr:])
-            # calculate sort keys
-            if r[0] is not None:
-                if hasattr(r[0], 'tertiary') and curr > 0:
-                    key = (currprimary, currbaseindex, int(getattr(r[0], 'tertiary', '0')))
+            codes = self._get_charcodes(instr, curr, trans)
+            for i, c in enumerate(codes):
+                # calculate sort key for each character in turn
+                if c.tertiary and curr + i > startrun:     # can't start with tertiary, treat as primary 0
+                    if c.tertiary_base > 0:
+                        key = SortKey(currprimaries[c.tertiary_base], \
+                                        currbaseindices[c.tertiary_base], c.tertiary)
+                    else:
+                        key = SortKey(currprimary, currbaseindex, c.tertiary)
                 else:
-                    key = (getattr(r[0], 'order', 0), curr, 0)
-                    if getattr(r[0], 'tertiary_base', 0):
-                        currprimary = key[0]
-                        currbaseindex = curr
-            else:
-                currbaseindex = curr
-                key = (0, currbaseindex, 0)
-            # We have got past the prefix and base of a run
-            # Any prefix char after this creates a new run
-            if ((key[0] != 0 or key[2] != 0) and not hasattr(r[0], 'prebase')) \
-                    or (hasattr(r[0], 'prebase') and curr > startrun \
-                        and keys[curr-startrun-1][0] == 0 and keys[curr-startrun-1][2]==0):
-                isinit = False
-            length = r[1] or 1  # if 0 advance by 1 anyway
-            # identify a run boundary
-            if not isinit and ((key[0] == 0 and key[2] == 0) or hasattr(r[0], 'prebase')):
-                # output sorted run and reset for new run
-                context.results(ruleset, curr - startrun,
-                                self._sort(startrun, curr, instr, keys))
-                startrun = curr
-                keys = [0] * (len(instr) - startrun)
-                isinit = True
-            keys[curr-startrun:curr-startrun+length] = [key] * length
-            curr += length
+                    key = SortKey(c.primary, curr + i, 0)
+                    if c.primary == 0 :     # and implicitly c.tertiary == 0
+                        # reset all tertiary_bases
+                        currprimaries = [0] * 5; currprimary = 0
+                        currbaseindices = [curr+i] * 5; currbaseindex = curr + i
+                    elif c.tertiary_base:   # reset just the given tertiary_base
+                        currprimaries[c.tertiary_base] = currprimary = c[0]
+                        currbaseindices[c.tertiary_base] = currbaseindex = curr + i
+                if ((key.primary != 0 or key.tertiary != 0) and not c.prebase) \
+                        or (c.prebase and curr + i > startrun \
+                            and keys[curr+i-startrun-1].primary == 0):  # prebase can't have tertiary
+                    # After the prefix so any following prefix char starts a new run
+                    isinit = False
+                # identify a run boundary
+                if not isinit and ((key.primary == 0 and key.tertiary == 0) or c.prebase):
+                    # output sorted run and reset for new run
+                    context.results(ruleset, curr + i - startrun,
+                                    self._sort(startrun, curr + i, instr, keys))
+                    startrun = curr + i
+                    keys = [None] * (len(instr) - startrun)
+                    isinit = True
+                keys[curr+i-startrun] = key
+            curr += len(codes)
         if curr > startrun:
             # output but don't store any residue. Reprocess it next time.
             context.outputs[context.index(ruleset)] \
@@ -270,7 +301,7 @@ class Keyboard(object):
         context.outputs[-1] = instr[::-1]
         return True
 
-        
+
 class Rules(object):
     '''Corresponds to a transforms element in an LDML file'''
     def __init__(self, ruletype):
@@ -354,8 +385,6 @@ class Rule(dict):
             setattr(self, k, v)
         if 'to' in e:
             self.to = UnicodeSets.struni(e['to'], groups)
-        if 'order' in e:
-            self.order = int(e['order'])
         self.rule = True
 
 
