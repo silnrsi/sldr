@@ -27,7 +27,6 @@
 import os
 import sys
 import unittest
-from icu import UProperty
 
 try:
     from sldr.ldml_exemplars import UCD, Exemplars
@@ -44,11 +43,11 @@ class UCDTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_prop_true(self):
-        self.assertTrue(self.ucd.has_prop(UProperty.ALPHABETIC, u'cab'))
+    def test_mark_true(self):
+        self.assertTrue(self.ucd.ismark(u'\u0301'))
 
-    def test_prop_false(self):
-        self.assertFalse(self.ucd.has_prop(UProperty.ALPHABETIC, u'cab.1'))
+    def test_mark_false(self):
+        self.assertFalse(self.ucd.ismark(u'e'))
 
     def test_nfc(self):
         text = u'e\u0301'

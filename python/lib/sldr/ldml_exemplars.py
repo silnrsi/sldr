@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from icu import Char, UCharCategory, UProperty, Normalizer2, UNormalizationMode2
+from icu import Char, UCharCategory, Normalizer2, UNormalizationMode2
 
 
 def main():
@@ -44,27 +44,20 @@ class UCD(object):
         self.normalizer_nfkc = Normalizer2.getInstance(None, 'nfkc', UNormalizationMode2.COMPOSE)
         self.normalizer_nfkd = Normalizer2.getInstance(None, 'nfkc', UNormalizationMode2.DECOMPOSE)
 
-    def normalize(self, form, unistr):
+    def normalize(self, form, text):
         """Return the normal form form for the Unicode string unistr.
 
         Valid values for form are 'NFC', 'NFKC', 'NFD', and 'NFKD'.
         """
 
         if form == 'NFC':
-            return self.normalizer_nfc.normalize(unistr)
+            return self.normalizer_nfc.normalize(text)
         elif form == 'NFD':
-            return self.normalizer_nfd.normalize(unistr)
+            return self.normalizer_nfd.normalize(text)
         elif form == 'NFKC':
-            return self.normalizer_nfkc.normalize(unistr)
+            return self.normalizer_nfkc.normalize(text)
         elif form == 'NFKD':
-            return self.normalizer_nfkd.normalize(unistr)
-
-    def has_prop(self, prop, chars):
-        """Determine if all the characters in a string have a specific property."""
-        for char in chars:
-            if not Char.hasBinaryProperty(char, prop):
-                return False
-        return True
+            return self.normalizer_nfkd.normalize(text)
 
     @staticmethod
     def ismark(char):
