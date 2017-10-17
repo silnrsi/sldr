@@ -360,8 +360,10 @@ class Rules(object):
             curr = curr[s[ind]]
             ind += 1
             if curr.rule:
-                last = curr
-                lastind = ind
+                newlast = curr.context_match(s, start, ind)
+                if newlast is not None:
+                    lastind = ind
+                    last = newlast
         if partial and len(curr):
             return (None, ind - start)
         else:
@@ -375,18 +377,47 @@ class Rule(dict):
     def __init__(self):
         self.rule = False
         self.default = None
+        self.contexts = {}
 
     def __hash__(self):
         return hash(id(self))
 
     def merge(self, e, groups):
+        if 'before' in e or 'after' in e:
+            before = UnicodeSets.flatten(e.get('before', ""))
+            after = UnicodeSets.flatten(e.get('after', ""))
+            for b in before or [""]:
+                for a in after or [""]:
+                    k = (b, a)
+                    if k == ("", ""):
+                        self._coremerge(e, groups)
+                        continue
+                    if k not in self.contexts:
+                        self.contexts[k] = Rule()
+                    self.contexts[k]._coremerge(e, groups) 
+        else:
+            self._coremerge(e, groups)
+
+    def _coremerge(self, e, groups):
         for k, v in e.items():
-            if k == 'from': continue
+            if k in ('from', 'before', 'after'):
+                continue
             setattr(self, k, v)
         if 'to' in e:
             self.to = UnicodeSets.struni(e['to'], groups)
         self.rule = True
 
+    def _matchcontext(self, m, s, beg, end):
+        return (not len(m[0]) or (len(m[0]) <= beg          and s[beg-len(m[0]):beg] == m[0])) \
+           and (not len(m[1]) or (len(m[1]) <= len(s) - end and s[end:end+len(m[1])] == m[1]))
+
+    def context_match(self, s, beg, end):
+        if not len(self.contexts):
+            return self
+        for m, r in self.contexts.items():
+            if self._matchcontext(m, s, beg, end):
+                return r
+        return None
 
 class Context(object):
     '''Holds the processed state of each layer after a keystroke'''

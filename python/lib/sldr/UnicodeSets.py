@@ -72,11 +72,11 @@ class UnicodeSet(set):
 
 
 def _expand(p, vals, ind, indval):
-    if vals[i][x].startswith("\\"):
-        g = p.group(int(vals[i][x][1]))
+    if vals[ind][indval].startswith("\\"):
+        g = p.group(int(vals[ind][indval][1]))
         return "".join(_expand(p, vals, i, indices[i]) for i in range(g[0], g[1]))
     else:
-        return vals[i][x]
+        return vals[ind][indval]
 
 def flatten(s):
     p = parse(s)
