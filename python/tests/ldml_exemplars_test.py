@@ -57,11 +57,11 @@ class UCDTests(unittest.TestCase):
         text = u'\u00e9'
         self.assertEqual(u'e\u0301', self.ucd.normalize('NFD', text))
 
-    def test_nfc_tus10(self):
+    def ignore_nfc_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u00E0\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFC', text))
 
-    def test_nfd_tus10(self):
+    def ignore_nfd_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u0061\u0300\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFD', text))
 
@@ -109,6 +109,11 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u're\u0301sume\u0301')
         self.assertEqual(u'[\u00e9]', self.exemplars.get_auxiliary())
 
+    def test_english_index(self):
+        self.exemplars.set_auxiliary(u'[\u00e9]')
+        self.exemplars.process(u'r\u00e9sum\u00e9')
+        self.assertEqual(u'[\u00c9 M R S U]', self.exemplars.get_index())
+
     def test_french_main_nfc(self):
         self.exemplars.many_bases = 4
         self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
@@ -123,10 +128,19 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.assertEqual(u'[]', self.exemplars.get_auxiliary())
 
-    def test_swahili(self):
+    def test_french_index(self):
+        self.exemplars.process(u'r\u00e9sum\u00e9')
+        self.assertEqual(u'[\u00c9 M R S U]', self.exemplars.get_index())
+
+    def test_swahil_main(self):
         self.exemplars.set_main(u'[{ng} {ng\ua78c}]')
         self.exemplars.process(u'ran rang rang\ua78c')
         self.assertEqual(u'[a n {ng} {ng\ua78c} r]', self.exemplars.get_main())
+
+    def test_swahili_index(self):
+        self.exemplars.set_main(u'[{ng} {ng\ua78c}]')
+        self.exemplars.process(u'ran rang rang\ua78c')
+        self.assertEqual(u'[A N {NG} {NG\ua78b} R]', self.exemplars.get_index())
 
     def test_devanagari_generatively(self):
         self.exemplars.process(u'\u0958 \u0959 \u095A \u095B \u095C \u095D \u095E \u095F')
@@ -139,8 +153,9 @@ class ExemplarsTests(unittest.TestCase):
                          self.exemplars.get_main())
 
     def test_devanagari_index(self):
-        self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 \u0915\u093e \u0916\u093f')
-        self.assertEqual(u'[\u0905 \u0906 \u0915 \u0916]', self.exemplars.get_main())
+        self.exemplars.many_bases = 1
+        self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 \u0915\u093e \u0916\u093e')
+        self.assertEqual(u'[\u0905 \u0906 \u0915 \u0916]', self.exemplars.get_index())
 
 
 if __name__ == '__main__':

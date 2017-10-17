@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from icu import Char, UCharCategory, Normalizer2, UNormalizationMode2
+from icu import Char, UCharCategory, Normalizer2, UNormalizationMode2, UnicodeString
 
 
 def main():
@@ -69,6 +69,20 @@ class UCD(object):
             numeric_char_type == UCharCategory.ENCLOSING_MARK):
             return True
         return False
+
+    @staticmethod
+    def tolower(text):
+        """Map string to lowercase."""
+        uppercase = UnicodeString(text)
+        lowercase = uppercase.toLower()
+        return unicode(lowercase)
+
+    @staticmethod
+    def toupper(text):
+        """Map string to uppercase."""
+        lowercase = UnicodeString(text)
+        uppercase = lowercase.toUpper()
+        return unicode(uppercase)
 
 
 class Exemplars(object):
@@ -119,7 +133,8 @@ class Exemplars(object):
 
     def get_index(self):
         """Return LDML exemplars data for the index set."""
-        return self.ldml_write(self.auxiliary)
+        self.analyze()
+        return self.ldml_write(self.index)
 
     def get_punctuation(self):
         """Return LDML exemplars data for the punctuation set."""
@@ -156,6 +171,11 @@ class Exemplars(object):
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
+        self.analyze_marks()
+        self.analyze_index()
+
+    def analyze_marks(self):
+        """Analyze the found exemplars for marks and classify them."""
         for exemplar in self.clusters:
 
             # Split apart the exemplar into a base and marks.
@@ -178,6 +198,21 @@ class Exemplars(object):
                     else:
                         # otherwise add the combined exemplar.
                         self.main.add(exemplar)
+
+    def analyze_index(self):
+        """Analyze the found exemplars for indices and classify them."""
+        possible_index = self.main.union(self.auxiliary)
+        for exemplar in possible_index:
+
+            # An index should not be an isolated mark.
+            if self.ucd.ismark(exemplar[0]):
+                continue
+
+            # The lowercase version of an index must be in the main or auxiliary lists.
+            lowercase = self.ucd.tolower(exemplar)
+            if lowercase in possible_index:
+                uppercase = self.ucd.toupper(exemplar)
+                self.index.add(uppercase)
 
     def process(self, text):
         """Analyze a string."""
