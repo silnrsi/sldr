@@ -1,20 +1,26 @@
 #!/usr/bin/python
 
 import re, copy, os
+import unicodedata as ud
 from math import log10
 from itertools import groupby
 from difflib import SequenceMatcher
 
 def escape(s):
     '''Turn normal Unicode into escaped tailoring syntax'''
+    return s
     res = ""
     escs = ['\\&[]/<']
+    lastbase = False
     for k in s:
         if k in escs:
             res += u"\\" + k
             continue
         i = ord(k)
         if 32 < i < 127:
+            res += k
+        elif lastbase or not ud.category(k).startswith("M"):
+            lastbase = True
             res += k
         elif i > 0xFFFF:
             res += u'\\U' + ("00000000" + (hex(i)[2:]))[-8:]
@@ -109,14 +115,18 @@ class Collation(dict):
 
     def parse(self, string):
         """Parse LDML/ICU sort tailoring"""
-        for run in string.split('&'):
+        prefix = ""
+        string = re.sub(ur'^#.*$', '', string, flags=re.M)
+        for n, run in enumerate(string.split('&')):
             bits = [x.strip() for x in re.split(ur'([<=]+)', run)]
             base = unescape(bits[0])
             for i in range(1, len(bits), 2):
-                if bits[i] == '=': l = 4
+                s = re.sub(ur'\s#.*$', '', bits[i], flags=re.M)
+                if s == '=': l = 4
                 else:
-                    l = bits[i].count('<')
-                key = unescape(bits[i+1])
+                    l = s.count('<')
+                k = re.sub(ur'\s#.*$', '', bits[i+1], flags=re.M)
+                key = unescape(k)
                 exp = key.find("/")
                 expstr = ""
                 if exp > 0:
@@ -124,7 +134,13 @@ class Collation(dict):
                     key = key[:exp].strip()
                 else:
                     exp = None
+                while key in self:
+                    key += " "
                 self[key] = CollElement(base, l)
+                self[key].order = (n,i)
+                if prefix:
+                    self[key].prefix = prefix
+                    prefix = ""
                 if expstr:
                     self[key].exp = expstr
                 base = key
@@ -133,24 +149,43 @@ class Collation(dict):
         '''Calculates tailored sort keys for everything in this collation'''
         if len(self) > 0 :
             inc = 1. / pow(10, int(log10(len(self)))+1)
-            for v in self.values():
+            for v in sorted(self.values(), key=lambda x:x.order):
+                v.expand(self, self.ducet)
                 v.sortkey(self, self.ducet, inc)
 
-    def asICU(self):
+    def asICU(self, wrap=0, withkeys=False):
         """Returns ICU tailoring syntax of this Collation"""
         self._setSortKeys()
         lastk = None
         res = ""
-        for k, v in sorted(self.items(), key=lambda x:x[1].key):
-            if v.base != lastk:
+        loc = 0
+        eqchain = None
+        for k, v in sorted(self.items(), key=lambda x:x[1].shortkey):
+            k = k.rstrip()
+            if v.prefix:
+                res += v.prefix
+            if (v.base != lastk and (v.level != 4 or v.base != eqchain)) \
+                or (v.level == 4 and self[lastk].level != 4):
+#            if v.base != lastk:
+                loc = len(res) + 1
                 res += "\n&" + escape(v.base)
-            if v.level == 4:
-                res += "="
+                eqchain = None
+            if wrap and len(res) - loc > wrap:
+                res += "\n"
+                loc = len(res)
             else:
-                res += " " + ("<<<"[:v.level]) + " "
+                res += " "
+            if v.level == 4:
+                res += "= "
+                if eqchain is None:
+                    eqchain = v.base
+            else:
+                res += ("<<<"[:v.level]) + " "
             res += escape(k)
             if v.exp:
-                res += "/" + v.exp
+                res += "/" + escape(v.exp)
+            if withkeys:
+                res += str(v.key) + "|" + str(v.shortkey) + "(" + str(v.order) + ")"
             lastk = k
         return res[1:] if len(res) else ""
 
@@ -198,6 +233,8 @@ class CollElement(object):
         self.base = base
         self.level = level
         self.exp = ""
+        self.prefix = ""
+        self.order = (0,)
 
     def __repr__(self):
         res = u">>>>"[:self.level] + self.base
@@ -206,21 +243,41 @@ class CollElement(object):
         else:
             return repr(res)
 
+    def expand(self, collations, ducetDict):
+        if self.exp:
+            return
+        for i in range(len(self.base), 0, -1):
+            if self.base[:i] in collations or self.base[:i] in ducetDict:
+                l = i
+                break
+        else:
+            return
+        self.exp = self.base[l:]
+        self.base = self.base[:l]
+        
     def sortkey(self, collations, ducetDict, inc):
         if hasattr(self, 'key'):
             return self.key
         self.key = ducetSortKey(ducetDict, self.base)   # stop lookup loops
-        if self.base in collations:
-            basekey = copy.deepcopy(collations[self.base].sortkey(collations, ducetDict, inc))
+        b = collations.get(self.base, None)
+        if b is not None and b.order <= self.order:
+            b.sortkey(collations, ducetDict, inc)
+            basekey = copy.deepcopy(b.shortkey)
         else:
             basekey = copy.deepcopy(self.key)
-        basekey[self.level-1][0] += inc
+        if self.level < 4 :
+            basekey[self.level-1][-1] += inc
+        if not self.exp and b is not None and b.exp:
+            self.exp = b.exp
         if self.exp:
-            if self.exp in collations:
-                expkey = collations[self.exp].sortkey(collations, ducetDict, inc)
+            expkey = ducetSortKey(ducetDict, self.exp, extra=collations)
+            if expkey > basekey:
+                self.shortkey = copy.deepcopy(expkey) + [1]
             else:
-                expkey = ducetSortKey(ducetDict, self.exp)
+                self.shortkey = copy.deepcopy(basekey)
             basekey = [basekey[i] + expkey[i] for i in range(3)]
+        else:
+            self.shortkey = basekey
         self.key = basekey
         return basekey
 
