@@ -153,19 +153,18 @@ class Collation(dict):
                 v.expand(self, self.ducet)
                 v.sortkey(self, self.ducet, inc)
 
-    def asICU(self, wrap=0, withkeys=False):
+    def asICU(self, wrap=0, withkeys=False, ordering=lambda x:x[1].shortkey):
         """Returns ICU tailoring syntax of this Collation"""
         self._setSortKeys()
         lastk = None
         res = ""
         loc = 0
         eqchain = None
-        for k, v in sorted(self.items(), key=lambda x:x[1].shortkey):
+        for k, v in sorted(self.items(), key=ordering):
             k = k.rstrip()
             if v.prefix:
                 res += v.prefix
-            if (v.base != lastk and (v.level != 4 or v.base != eqchain)) \
-                or (v.level == 4 and self[lastk].level != 4):
+            if v.base != lastk and v.base != eqchain:
 #            if v.base != lastk:
                 loc = len(res) + 1
                 res += "\n&" + escape(v.base)
@@ -181,6 +180,7 @@ class Collation(dict):
                     eqchain = v.base
             else:
                 res += ("<<<"[:v.level]) + " "
+                eqchain = None
             res += escape(k)
             if v.exp:
                 res += "/" + escape(v.exp)

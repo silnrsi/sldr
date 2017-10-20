@@ -45,10 +45,9 @@ if args.adddot:
     count = 0
     for k, v in coll.items():
         if k.rstrip().endswith(u"\u103A"):
-            n = CollElement(v.base, 4)
-            n.exp = v.exp + u"\u1037"
-            n.level = v.level
-            n.order = list(v.order) + [1]
+            n = CollElement(k, 4)
+            n.exp = u"\u1037"
+            n.order = tuple(list(v.order) + [1])
             n.key = v.key
             n.shortkey = v.shortkey
             key = k[:-1] + u"\u1037" + k[-1]
@@ -56,7 +55,7 @@ if args.adddot:
             count += 1
     print("Added {} rules".format(count))
 
-output = coll.asICU(wrap=80, withkeys=args.keys)
+output = coll.asICU(wrap=80, withkeys=args.keys, ordering=lambda x:x[1].order)
 
 if args.output:
     outf = codecs.open(args.output, "w", encoding="utf-8")
