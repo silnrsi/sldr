@@ -93,11 +93,11 @@ class Exemplars(object):
         # User settable configuration.
         self.many_bases = 5
 
-        # User data that should be accessed through methods.
-        self.main = set()
-        self.auxiliary = set()
-        self.index = set()
-        self.punctuation = set()
+        # User data that should be accessed through getters and setters.
+        self._main = set()
+        self._auxiliary = set()
+        self._index = set()
+        self._punctuation = set()
 
         # Internal parameters.
         # self.bases = Counter()
@@ -106,39 +106,42 @@ class Exemplars(object):
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
 
-    def set_main(self, ldml_exemplars):
+    def _set_main(self, ldml_exemplars):
         """Set LDML exemplars data for the main set."""
-        self.main = self.ldml_read(ldml_exemplars)
+        self._main = self.ldml_read(ldml_exemplars)
 
-    def set_auxiliary(self, ldml_exemplars):
+    def _set_auxiliary(self, ldml_exemplars):
         """Set LDML exemplars data for the auxiliary set."""
-        self.auxiliary = self.ldml_read(ldml_exemplars)
+        self._auxiliary = self.ldml_read(ldml_exemplars)
 
-    def set_index(self, ldml_exemplars):
+    def _set_index(self, ldml_exemplars):
         """Set LDML exemplars data for the index set."""
-        self.index = self.ldml_read(ldml_exemplars)
+        self._index = self.ldml_read(ldml_exemplars)
 
-    def set_punctuation(self, ldml_exemplars):
+    def _set_punctuation(self, ldml_exemplars):
         """Set LDML exemplars data for the punctuation set."""
-        self.punctuation = self.ldml_read(ldml_exemplars)
+        self._punctuation = self.ldml_read(ldml_exemplars)
 
-    def get_main(self):
+    def _get_main(self):
         """Return LDML exemplars data for the main set."""
-        self.analyze()
-        return self.ldml_write(self.main)
+        return self.ldml_write(self._main)
 
-    def get_auxiliary(self):
+    def _get_auxiliary(self):
         """Return LDML exemplars data for the auxiliary set."""
-        return self.ldml_write(self.auxiliary)
+        return self.ldml_write(self._auxiliary)
 
-    def get_index(self):
+    def _get_index(self):
         """Return LDML exemplars data for the index set."""
-        self.analyze()
-        return self.ldml_write(self.index)
+        return self.ldml_write(self._index)
 
-    def get_punctuation(self):
+    def _get_punctuation(self):
         """Return LDML exemplars data for the punctuation set."""
-        return self.ldml_write(self.punctuation)
+        return self.ldml_write(self._punctuation)
+
+    main = property(_get_main, _set_main)
+    auxiliary = property(_get_auxiliary, _set_auxiliary)
+    index = property(_get_index, _set_index)
+    punctuation = property(_get_punctuation, _set_punctuation)
 
     @staticmethod
     def remove_bookends(start, end, text):
@@ -184,7 +187,7 @@ class Exemplars(object):
             marks = exemplar[1:]
 
             if len(marks) == 0:
-                self.main.add(exemplar)
+                self._main.add(exemplar)
 
             for mark in marks:
                 if mark in self.bases_for_marks:
@@ -193,15 +196,15 @@ class Exemplars(object):
                     # If a mark has more than many_bases ...
                     if len(s) > self.many_bases:
                         # then add the base and mark separately.
-                        self.main.add(base)
-                        self.main.add(mark)
+                        self._main.add(base)
+                        self._main.add(mark)
                     else:
                         # otherwise add the combined exemplar.
-                        self.main.add(exemplar)
+                        self._main.add(exemplar)
 
     def analyze_index(self):
         """Analyze the found exemplars for indices and classify them."""
-        possible_index = self.main.union(self.auxiliary)
+        possible_index = self._main.union(self._auxiliary)
         for exemplar in possible_index:
 
             # An index should not be an isolated mark.
@@ -212,7 +215,7 @@ class Exemplars(object):
             lowercase = self.ucd.tolower(exemplar)
             if lowercase in possible_index:
                 uppercase = self.ucd.toupper(exemplar)
-                self.index.add(uppercase)
+                self._index.add(uppercase)
 
     def process(self, text):
         """Analyze a string."""
@@ -226,19 +229,19 @@ class Exemplars(object):
             for multigraph_length in range(self.max_multigraph_length, 0, -1):
                 chars = text[i:i + multigraph_length]
 
-                if chars in self.main:
+                if chars in self._main:
                     i += multigraph_length
                     break
 
-                if chars in self.auxiliary:
+                if chars in self._auxiliary:
                     i += multigraph_length
                     break
 
-                if chars in self.index:
+                if chars in self._index:
                     i += multigraph_length
                     break
 
-                if chars in self.punctuation:
+                if chars in self._punctuation:
                     i += multigraph_length
                     break
 
@@ -252,7 +255,7 @@ class Exemplars(object):
 
             # Test for punctuation.
             if Char.ispunct(char):
-                self.punctuation.add(char)
+                self._punctuation.add(char)
                 i += 1
                 continue
 
