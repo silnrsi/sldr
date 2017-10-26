@@ -85,6 +85,19 @@ class UCD(object):
         return unicode(uppercase)
 
 
+class Exemplar(object):
+
+    def __init__(self, base, marks=''):
+        self.base = base
+        self.marks = marks
+
+    def _get_text(self):
+        """Return the whole exemplar (base + mark)."""
+        return self.base + self.marks
+
+    text = property(_get_text)
+
+
 class Exemplars(object):
 
     def __init__(self):
@@ -181,26 +194,21 @@ class Exemplars(object):
         """Analyze the found exemplars for marks and classify them."""
         for exemplar in self.clusters:
 
-            # Split apart the exemplar into a base and marks.
-            # The sequence of marks maybe empty.
-            base = exemplar[0]
-            marks = exemplar[1:]
+            if len(exemplar.marks) == 0:
+                self._main.add(exemplar.base)
 
-            if len(marks) == 0:
-                self._main.add(exemplar)
-
-            for mark in marks:
+            for mark in exemplar.marks:
                 if mark in self.bases_for_marks:
                     s = self.bases_for_marks[mark]
 
                     # If a mark has more than many_bases ...
                     if len(s) > self.many_bases:
                         # then add the base and mark separately.
-                        self._main.add(base)
+                        self._main.add(exemplar.base)
                         self._main.add(mark)
                     else:
                         # otherwise add the combined exemplar.
-                        self._main.add(exemplar)
+                        self._main.add(exemplar.text)
 
     def analyze_index(self):
         """Analyze the found exemplars for indices and classify them."""
@@ -295,9 +303,15 @@ class Exemplars(object):
                     break
 
             # Extract cluster
-            cluster = text[i:i + length]
+            if length == 1:
+                # No mark has been found.
+                exemplar = Exemplar(base)
+            else:
+                # Mark(s) have been found.
+                # Base is always one character long.
+                exemplar = Exemplar(base, text[i+1:i + length])
 
-            self.clusters.add(cluster)
+            self.clusters.add(exemplar)
             i += length
 
 
