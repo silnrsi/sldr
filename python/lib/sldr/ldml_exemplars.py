@@ -71,6 +71,13 @@ class UCD(object):
         return False
 
     @staticmethod
+    def isnukta(char):
+        """True if the character is a nukta."""
+        if Char.getCombiningClass(char) == 7:
+            return True
+        return False
+
+    @staticmethod
     def tolower(text):
         """Map string to lowercase."""
         uppercase = UnicodeString(text)
@@ -280,9 +287,14 @@ class Exemplars(object):
 
             # Then find the end of the cluster
             # (which may consist of only a base character).
-            length = 1
+            length = base_length = 1
             while i + length < len(text):
                 mark = text[i + length]
+                if self.ucd.isnukta(mark):
+                    # A nukta was found, so the base continues.
+                    base_length += 1
+                    length += 1
+                    continue
                 if self.ucd.ismark(mark):
                     # A Mark was found, so the cluster continues.
 
@@ -303,13 +315,12 @@ class Exemplars(object):
                     break
 
             # Extract cluster
-            if length == 1:
-                # No mark has been found.
-                exemplar = Exemplar(base)
-            else:
-                # Mark(s) have been found.
-                # Base is always one character long.
-                exemplar = Exemplar(base, text[i+1:i + length])
+
+            # If no nuktas have been found,
+            # then the base will be the single character already called base (or char).
+            # If no non-nukta marks have been found,
+            # then the marks paramater to Exemplar() will be an empty string.
+            exemplar = Exemplar(text[i:i + base_length], text[i + base_length:i + length])
 
             self.clusters.add(exemplar)
             i += length

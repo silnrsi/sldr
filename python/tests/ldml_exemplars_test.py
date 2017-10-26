@@ -49,6 +49,12 @@ class UCDTests(unittest.TestCase):
     def test_mark_false(self):
         self.assertFalse(self.ucd.ismark(u'e'))
 
+    def test_nukta_true(self):
+        self.assertTrue(self.ucd.isnukta(u'\u093c'))
+
+    def test_nukta_false(self):
+        self.assertFalse(self.ucd.isnukta(u'\u0915'))
+
     def test_nfc(self):
         text = u'e\u0301'
         self.assertEqual(u'\u00e9', self.ucd.normalize('NFC', text))
@@ -157,16 +163,16 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'[A N {NG} {NG\ua78b} R]', self.exemplars.index)
 
-    def test_devanagari_generatively(self):
-        self.exemplars.process(u'\u0958 \u0959 \u095A \u095B \u095C \u095D \u095E \u095F')
+    def test_devanagari_many(self):
+        self.exemplars.process(u'\u0958 \u0959 \u095a \u095b \u095c \u095d \u095e \u095f')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0915 \u0916 \u0917 \u091C \u0921 \u0922 \u092B \u092F \u093C]',
+        self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} {\u091c\u093c} {\u0921\u093c} {\u0922\u093c} {\u092b\u093c} {\u092f\u093c}]',
                          self.exemplars.main)
 
     def test_devanagari_few(self):
-        self.exemplars.process(u'\u0958 \u0959 \u095A')
+        self.exemplars.process(u'\u0958 \u0959 \u095a')
         self.exemplars.analyze()
-        self.assertEqual(u'[{\u0915\u093C} {\u0916\u093C} {\u0917\u093C}]',
+        self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c}]',
                          self.exemplars.main)
 
     def test_devanagari_index(self):
