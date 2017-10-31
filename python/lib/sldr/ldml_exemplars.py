@@ -286,7 +286,7 @@ class Exemplars(object):
             base = char
 
             # Then find the end of the cluster
-            # (which may consist of only a base character).
+            # (which may consist of only base characters).
             length = base_length = 1
             while i + length < len(text):
                 mark = text[i + length]
@@ -294,6 +294,7 @@ class Exemplars(object):
                     # A nukta was found, so the base continues.
                     base_length += 1
                     length += 1
+                    base = text[i:i + base_length]
                     continue
                 if self.ucd.ismark(mark):
                     # A Mark was found, so the cluster continues.
@@ -319,8 +320,9 @@ class Exemplars(object):
             # If no nuktas have been found,
             # then the base will be the single character already called base (or char).
             # If no non-nukta marks have been found,
-            # then the marks paramater to Exemplar() will be an empty string.
-            exemplar = Exemplar(text[i:i + base_length], text[i + base_length:i + length])
+            # then the marks variable will be an empty string.
+            marks = text[i + base_length:i + length]
+            exemplar = Exemplar(base, marks)
 
             self.clusters.add(exemplar)
             i += length
