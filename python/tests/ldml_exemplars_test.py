@@ -96,7 +96,7 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'[]', self.exemplars.main)
 
     def test_lithuanian_main(self):
-        self.exemplars.process(u'\u00e1\u0328 i\u0307\u0301')
+        self.exemplars.process(u'\u00c1\u0328 \u00e1\u0328 I\u0307\u0301 i\u0307\u0301')
         self.exemplars.analyze()
         self.assertEqual(u'[{\u0105\u0301} {i\u0307\u0301}]', self.exemplars.main)
 
@@ -180,9 +180,11 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_devanagari_index(self):
         self.exemplars.many_bases = 1
-        self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 \u0915\u093e \u0916\u093e')
+        self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 '
+                                u'\u0915\u093e \u0916\u093e '
+                                u'\u0958\u093e \u0959\u093e')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0905 \u0906 \u0915 \u0916]', self.exemplars.index)
+        self.assertEqual(u'[\u0905 \u0906 \u0915 {\u0915\u093c} \u0916 {\u0916\u093c}]', self.exemplars.index)
 
 
 if __name__ == '__main__':

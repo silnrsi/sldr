@@ -78,13 +78,6 @@ class UCD(object):
         return False
 
     @staticmethod
-    def tolower(text):
-        """Map string to lowercase."""
-        uppercase = UnicodeString(text)
-        lowercase = uppercase.toLower()
-        return unicode(lowercase)
-
-    @staticmethod
     def toupper(text):
         """Map string to uppercase."""
         lowercase = UnicodeString(text)
@@ -226,11 +219,9 @@ class Exemplars(object):
             if self.ucd.ismark(exemplar[0]):
                 continue
 
-            # The lowercase version of an index must be in the main or auxiliary lists.
-            lowercase = self.ucd.tolower(exemplar)
-            if lowercase in possible_index:
-                uppercase = self.ucd.toupper(exemplar)
-                self._index.add(uppercase)
+            # Index exemplars are uppercase.
+            uppercase = self.ucd.toupper(exemplar)
+            self._index.add(uppercase)
 
     def process(self, text):
         """Analyze a string."""
@@ -280,6 +271,12 @@ class Exemplars(object):
             if not Char.isUAlphabetic(char):
                 i += 1
                 continue
+
+            # Exemplars must be lowercase.
+            if Char.isUUppercase(char):
+                i += 1
+                continue
+
             # self.bases[char] += 1
 
             # The current character is a base character.
