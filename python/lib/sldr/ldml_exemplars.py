@@ -113,8 +113,6 @@ class Exemplars(object):
         self._punctuation = set()
 
         # Internal parameters.
-        # self.bases = Counter()
-        # self.marks = Counter()
         self.clusters = set()
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
@@ -187,11 +185,24 @@ class Exemplars(object):
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
+        self.count_marks()
         self.analyze_marks()
-        self.analyze_index()
+        self.make_index()
+
+    def count_marks(self):
+        """Count how many different bases a mark occurs on."""
+        for exemplar in self.clusters:
+            for mark in exemplar.marks:
+                if mark in self.bases_for_marks:
+                    s = self.bases_for_marks[mark]
+                    s.add(exemplar.base)
+                else:
+                    s = set()
+                    s.add(exemplar.base)
+                    self.bases_for_marks[mark] = s
 
     def analyze_marks(self):
-        """Analyze the found exemplars for marks and classify them."""
+        """Split clusters if needed before adding to exemplar list."""
         for exemplar in self.clusters:
 
             if len(exemplar.marks) == 0:
@@ -210,7 +221,7 @@ class Exemplars(object):
                         # otherwise add the combined exemplar.
                         self._main.add(exemplar.text)
 
-    def analyze_index(self):
+    def make_index(self):
         """Analyze the found exemplars for indices and classify them."""
         possible_index = self._main.union(self._auxiliary)
         for exemplar in possible_index:
@@ -277,8 +288,6 @@ class Exemplars(object):
                 i += 1
                 continue
 
-            # self.bases[char] += 1
-
             # The current character is a base character.
             base = char
 
@@ -287,26 +296,16 @@ class Exemplars(object):
             length = base_length = 1
             while i + length < len(text):
                 mark = text[i + length]
-                if self.ucd.isnukta(mark):
-                    # A nukta was found, so the base continues.
-                    base_length += 1
-                    length += 1
-                    base = text[i:i + base_length]
-                    continue
                 if self.ucd.ismark(mark):
                     # A Mark was found, so the cluster continues.
-
-                    # Count how many different bases this mark occurs on.
-                    if mark in self.bases_for_marks:
-                        s = self.bases_for_marks[mark]
-                        s.add(base)
-                    else:
-                        s = set()
-                        s.add(base)
-                        self.bases_for_marks[mark] = s
-                    # self.marks[mark] += 1
-
                     length += 1
+
+                    # Nukta marks are considered part of the base.
+                    if self.ucd.isnukta(mark):
+                        # A nukta was found, so the base continues,
+                        # as well as the cluster.
+                        base_length += 1
+                        base = text[i:i + base_length]
                     continue
                 else:
                     # No more marks, so the end of the cluster has been reached.
