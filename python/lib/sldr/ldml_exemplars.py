@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from icu import Char, Script, UCharCategory, UScriptCode, Normalizer2, UNormalizationMode2, UnicodeString
+from icu import Char, Script, UCharCategory, UProperty, UScriptCode, Normalizer2, UNormalizationMode2, UnicodeString
 
 
 def main():
@@ -98,13 +98,13 @@ class UCD(object):
 
 class Exemplar(object):
 
-    def __init__(self, base, marks=''):
+    def __init__(self, base, trailers=''):
         self.base = base
-        self.marks = marks
+        self.trailers = trailers
 
     def _get_text(self):
         """Return the whole exemplar (base + mark)."""
-        return self.base + self.marks
+        return self.base + self.trailers
 
     text = property(_get_text)
 
@@ -197,13 +197,18 @@ class Exemplars(object):
     def analyze(self):
         """Analyze the found exemplars and classify them."""
         self.count_marks()
-        self.analyze_marks()
+        self.analyze_trailers()
         self.make_index()
 
     def count_marks(self):
         """Count how many different bases a mark occurs on."""
         for exemplar in self.clusters:
-            for mark in exemplar.marks:
+            for trailer in exemplar.trailers:
+                if not self.ucd.ismark(trailer):
+                    continue
+
+                # Only Marks get counted (and added to self.bases_for_marks).
+                mark = trailer
                 if mark in self.bases_for_marks:
                     s = self.bases_for_marks[mark]
                     s.add(exemplar.base)
@@ -212,15 +217,18 @@ class Exemplars(object):
                     s.add(exemplar.base)
                     self.bases_for_marks[mark] = s
 
-    def analyze_marks(self):
+    def analyze_trailers(self):
         """Split clusters if needed before adding to exemplar list."""
         for exemplar in self.clusters:
 
-            if len(exemplar.marks) == 0:
+            if len(exemplar.trailers) == 0:
                 self._main.add(exemplar.base)
 
-            for mark in exemplar.marks:
-                if mark in self.bases_for_marks:
+            for trailer in exemplar.trailers:
+                if trailer in self.bases_for_marks:
+                    # The trailer is a Mark, as it was found
+                    # and only Marks are in that data structure.
+                    mark = trailer
                     s = self.bases_for_marks[mark]
 
                     # If a mark has more than many_bases ...
@@ -231,6 +239,10 @@ class Exemplars(object):
                     else:
                         # otherwise add the combined exemplar.
                         self._main.add(exemplar.text)
+                else:
+                    # The trailer is a Default_Ignorable_Code_Point
+                    # which needs to go in the auxiliary list.
+                    self._auxiliary.add(trailer)
 
     def make_index(self):
         """Analyze the found exemplars for indices and classify them."""
@@ -319,13 +331,17 @@ class Exemplars(object):
             # (which may consist of only base characters).
             length = base_length = 1
             while i + length < len(text):
-                mark = text[i + length]
-                if self.ucd.ismark(mark):
+                trailer = text[i + length]
+                if Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
+                    # A Default_Ignorable_Code_Point was found, so the cluster continues.
+                    length += 1
+                    continue
+                if self.ucd.ismark(trailer):
                     # A Mark was found, so the cluster continues.
                     length += 1
 
                     # Nukta marks are considered part of the base.
-                    if self.ucd.isnukta(mark):
+                    if self.ucd.isnukta(trailer):
                         # A nukta was found, so the base continues,
                         # as well as the cluster.
                         base_length += 1
@@ -340,9 +356,9 @@ class Exemplars(object):
             # If no nuktas have been found,
             # then the base will be the single character already called base (or char).
             # If no non-nukta marks have been found,
-            # then the marks variable will be an empty string.
-            marks = text[i + base_length:i + length]
-            exemplar = Exemplar(base, marks)
+            # then the trailers variable will be an empty string.
+            trailers = text[i + base_length:i + length]
+            exemplar = Exemplar(base, trailers)
 
             self.clusters.add(exemplar)
             i += length
