@@ -182,11 +182,11 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_devanagari_many(self):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
-                                u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
+                               u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
         self.exemplars.analyze()
         self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} '
-                            u'{\u091c\u093c} {\u0921\u093c} {\u0922\u093c} '
-                            u'{\u092b\u093c} {\u092f\u093c} \u093e]',
+                         u'{\u091c\u093c} {\u0921\u093c} {\u0922\u093c} '
+                         u'{\u092b\u093c} {\u092f\u093c} \u093e]',
                          self.exemplars.main)
 
     def test_devanagari_few(self):
@@ -198,10 +198,11 @@ class ExemplarsTests(unittest.TestCase):
     def test_devanagari_index(self):
         self.exemplars.many_bases = 1
         self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 '
-                                u'\u0915\u093e \u0916\u093e '
-                                u'\u0958\u093e \u0959\u093e')
+                               u'\u0915\u093e \u0916\u093e '
+                               u'\u0958\u093e \u0959\u093e')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0905 \u0906 \u0915 {\u0915\u093c} \u0916 {\u0916\u093c}]', self.exemplars.index)
+        self.assertEqual(u'[\u0905 \u0906 \u0915 {\u0915\u093c} \u0916 {\u0916\u093c}]',
+                         self.exemplars.index)
 
     def test_devanagari_vedic(self):
         """Exemplar bases should have a specific script, not the values Common or Inherited.

@@ -24,7 +24,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from icu import Char, Script, UCharCategory, UProperty, UScriptCode, Normalizer2, UNormalizationMode2, UnicodeString
+from icu import Char, Script, UCharCategory, UProperty, UScriptCode
+from icu import Normalizer2, UNormalizationMode2, UnicodeString
 
 
 def main():
@@ -65,8 +66,8 @@ class UCD(object):
 
         numeric_char_type = Char.charType(char)
         if (numeric_char_type == UCharCategory.NON_SPACING_MARK or
-            numeric_char_type == UCharCategory.COMBINING_SPACING_MARK or
-            numeric_char_type == UCharCategory.ENCLOSING_MARK):
+           numeric_char_type == UCharCategory.COMBINING_SPACING_MARK or
+           numeric_char_type == UCharCategory.ENCLOSING_MARK):
             return True
         return False
 
