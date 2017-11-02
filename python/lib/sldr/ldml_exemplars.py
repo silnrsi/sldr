@@ -24,7 +24,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-from icu import Char, UCharCategory, Normalizer2, UNormalizationMode2, UnicodeString
+from icu import Char, Script, UCharCategory, UScriptCode, Normalizer2, UNormalizationMode2, UnicodeString
 
 
 def main():
@@ -76,6 +76,17 @@ class UCD(object):
         if Char.getCombiningClass(char) == 7:
             return True
         return False
+
+    @staticmethod
+    def is_specific_script(char):
+        """True is the character has a specific Script property,
+        that is, not the values Common or Inherited.
+        """
+        script = Script.getScript(char)
+        script_code = Script.getScriptCode(script)
+        if script_code == UScriptCode.COMMON or script_code == UScriptCode.INHERITED:
+            return False
+        return True
 
     @staticmethod
     def toupper(text):
@@ -234,6 +245,24 @@ class Exemplars(object):
             uppercase = self.ucd.toupper(exemplar)
             self._index.add(uppercase)
 
+    def allowable(self, char):
+        """Make sure exemplars have the needed properties."""
+
+        # Exemplars must be Alphabetic.
+        if not Char.isUAlphabetic(char):
+            return False
+
+        # Exemplars must be lowercase.
+        if Char.isUUppercase(char):
+            return False
+
+        # Exemplar must have a specific script.
+        if not self.ucd.is_specific_script(char):
+            return False
+
+        # All conditions are met.
+        return True
+
     def process(self, text):
         """Analyze a string."""
         i = 0
@@ -278,13 +307,8 @@ class Exemplars(object):
 
             # Find grapheme clusters.
 
-            # First find a base character.
-            if not Char.isUAlphabetic(char):
-                i += 1
-                continue
-
-            # Exemplars must be lowercase.
-            if Char.isUUppercase(char):
+            # Ensure exemplar base has needed properties.
+            if not self.allowable(char):
                 i += 1
                 continue
 

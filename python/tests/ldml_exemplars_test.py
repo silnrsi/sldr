@@ -55,6 +55,15 @@ class UCDTests(unittest.TestCase):
     def test_nukta_false(self):
         self.assertFalse(self.ucd.isnukta(u'\u0915'))
 
+    def test_script_specific_true_latin(self):
+        self.assertTrue(self.ucd.is_specific_script(u'\ua78c'))
+
+    def test_script_specific_false_latin(self):
+        self.assertFalse(self.ucd.is_specific_script(u'\u02bc'))
+
+    def test_script_specific_false_vedic(self):
+        self.assertFalse(self.ucd.is_specific_script(u'\u1CD1'))
+
     def test_nfc(self):
         text = u'e\u0301'
         self.assertEqual(u'\u00e9', self.ucd.normalize('NFC', text))
@@ -163,6 +172,14 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'[A N {NG} {NG\ua78b} R]', self.exemplars.index)
 
+    def test_swahili_glottal(self):
+        """Exemplars should have a specific script, not the values Common or Inherited.
+        So U+A78C should be in the exemplar list, but not U+02BC or U+02C0.
+        """
+        self.exemplars.process(u'ng\ua78c ng\u02bc ng\u02c0')
+        self.exemplars.analyze()
+        self.assertEqual(u'[g n \ua78c]', self.exemplars.main)
+
     def test_devanagari_many(self):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
                                 u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
@@ -185,6 +202,14 @@ class ExemplarsTests(unittest.TestCase):
                                 u'\u0958\u093e \u0959\u093e')
         self.exemplars.analyze()
         self.assertEqual(u'[\u0905 \u0906 \u0915 {\u0915\u093c} \u0916 {\u0916\u093c}]', self.exemplars.index)
+
+    def test_devanagari_vedic(self):
+        """Exemplar bases should have a specific script, not the values Common or Inherited.
+        The character U+1CD1 has a script value of Inherited, but it is a mark, so allow it.
+        """
+        self.exemplars.process(u'\u0915\u1cd1')
+        self.exemplars.analyze()
+        self.assertEqual(u'[{\u0915\u1cd1}]', self.exemplars.main)
 
 
 if __name__ == '__main__':
