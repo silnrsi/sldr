@@ -26,6 +26,7 @@
 
 from icu import Char, Script, UCharCategory, UProperty, UScriptCode
 from icu import Normalizer2, UNormalizationMode2, UnicodeString
+from collections import Counter
 
 
 def main():
@@ -109,6 +110,16 @@ class Exemplar(object):
 
     text = property(_get_text)
 
+    def __hash__(self):
+        return hash((self.base, self.trailers))
+
+    def __eq__(self, other):
+        if self.base == other.base and self.trailers == other.trailers:
+            return True
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
 class Exemplars(object):
 
@@ -117,6 +128,7 @@ class Exemplars(object):
 
         # User settable configuration.
         self.many_bases = 5
+        self.frequent = 10
 
         # User data that should be accessed through getters and setters.
         self._main = set()
@@ -125,7 +137,7 @@ class Exemplars(object):
         self._punctuation = set()
 
         # Internal parameters.
-        self.clusters = set()
+        self.clusters = Counter()
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
 
@@ -199,11 +211,12 @@ class Exemplars(object):
         """Analyze the found exemplars and classify them."""
         self.count_marks()
         self.analyze_trailers()
+        self.parcel()
         self.make_index()
 
     def count_marks(self):
         """Count how many different bases a mark occurs on."""
-        for exemplar in self.clusters:
+        for exemplar in self.clusters.keys():
             for trailer in exemplar.trailers:
                 if not self.ucd.ismark(trailer):
                     continue
@@ -219,11 +232,8 @@ class Exemplars(object):
                     self.bases_for_marks[mark] = s
 
     def analyze_trailers(self):
-        """Split clusters if needed before adding to exemplar list."""
-        for exemplar in self.clusters:
-
-            if len(exemplar.trailers) == 0:
-                self._main.add(exemplar.base)
+        """Split clusters if needed."""
+        for exemplar in self.clusters.keys():
 
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
@@ -234,16 +244,35 @@ class Exemplars(object):
 
                     # If a mark has more than many_bases ...
                     if len(s) > self.many_bases:
-                        # then add the base and mark separately.
-                        self._main.add(exemplar.base)
-                        self._main.add(mark)
-                    else:
-                        # otherwise add the combined exemplar.
-                        self._main.add(exemplar.text)
-                else:
+                        # then the base and mark are separate exemplars.
+                        exemplar_base = Exemplar(exemplar.base)
+                        self.clusters[exemplar_base] += self.clusters[exemplar]
+
+                        exemplar_mark = Exemplar('', mark)
+                        self.clusters[exemplar_mark] += self.clusters[exemplar]
+
+                        del self.clusters[exemplar]
+
+    def parcel(self):
+        """Parcel exemplars to the correct exemplar list."""
+        frequent = self.frequent / float(100)
+        total_count = sum(self.clusters.values())
+
+        for exemplar in self.clusters.keys():
+
+            # Handle Default_Ignorable_Code_Point characters
+            for trailer in exemplar.trailers:
+                if trailer not in self.bases_for_marks:
                     # The trailer is a Default_Ignorable_Code_Point
                     # which needs to go in the auxiliary list.
                     self._auxiliary.add(trailer)
+
+            # Use frequency of occurrence to decide which exemplar list to add to.
+            occurs = self.clusters[exemplar] / float(total_count)
+            if occurs > frequent:
+                self._main.add(exemplar.text)
+            else:
+                self._auxiliary.add(exemplar.text)
 
     def make_index(self):
         """Analyze the found exemplars for indices and classify them."""
@@ -286,21 +315,21 @@ class Exemplars(object):
             # of multigraphs already specified in a LDML file.
             # Longest possible matches are looked at first.
             for multigraph_length in range(self.max_multigraph_length, 0, -1):
-                chars = text[i:i + multigraph_length]
+                multigraph = text[i:i + multigraph_length]
 
-                if chars in self._main:
+                if multigraph in self._main:
                     i += multigraph_length
                     break
 
-                if chars in self._auxiliary:
+                if multigraph in self._auxiliary:
                     i += multigraph_length
                     break
 
-                if chars in self._index:
+                if multigraph in self._index:
                     i += multigraph_length
                     break
 
-                if chars in self._punctuation:
+                if multigraph in self._punctuation:
                     i += multigraph_length
                     break
 
@@ -361,7 +390,7 @@ class Exemplars(object):
             trailers = text[i + base_length:i + length]
             exemplar = Exemplar(base, trailers)
 
-            self.clusters.add(exemplar)
+            self.clusters[exemplar] += 1
             i += length
 
 

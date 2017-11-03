@@ -142,18 +142,31 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.many_bases = 4
         self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
         self.exemplars.analyze()
-        self.assertEqual(u'[a e \u00e9 i m o r s u \u0302]', self.exemplars.main)
+        self.assertEqual(u'[\u00e9 u \u0302]', self.exemplars.main)
+        self.assertEqual(u'[a e i m o r s]', self.exemplars.auxiliary)
 
     def test_french_main_nfd(self):
         self.exemplars.many_bases = 4
         self.exemplars.process(u're\u0301sume\u0301 a\u0302 e\u0302 i\u0302 o\u0302 u\u0302')
         self.exemplars.analyze()
-        self.assertEqual(u'[a e \u00e9 i m o r s u \u0302]', self.exemplars.main)
+        self.assertEqual(u'[\u00e9 u \u0302]', self.exemplars.main)
+        self.assertEqual(u'[a e i m o r s]', self.exemplars.auxiliary)
 
     def test_french_auxiliary(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.exemplars.analyze()
         self.assertEqual(u'[]', self.exemplars.auxiliary)
+
+    def test_french_count(self):
+        """Infrequently occurring exemplars should go in the auxiliary list, not the main list."""
+        self.exemplars.many_bases = 4
+        base = u'a e i o u'
+        grave = u'\u00e0 \u00e8 \u00f9'
+        circumflex =  u'\u00e2 \u00ea \u00ee \u00f4 \u00fb'
+        self.exemplars.process(base + grave + circumflex)
+        self.exemplars.analyze()
+        self.assertEqual(u'[a e i o u \u0302]', self.exemplars.main)
+        self.assertEqual(u'[\u00e0 \u00e8 \u00f9]', self.exemplars.auxiliary)
 
     def test_french_index(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
@@ -184,10 +197,10 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
                                u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
         self.exemplars.analyze()
-        self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} '
-                         u'{\u091c\u093c} {\u0921\u093c} {\u0922\u093c} '
-                         u'{\u092b\u093c} {\u092f\u093c} \u093e]',
-                         self.exemplars.main)
+        self.assertEqual(u'[\u093e]', self.exemplars.main)
+        self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} {\u091c\u093c}'
+                         u' {\u0921\u093c} {\u0922\u093c} {\u092b\u093c} {\u092f\u093c}]',
+                         self.exemplars.auxiliary)
 
     def test_devanagari_few(self):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e')
