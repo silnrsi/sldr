@@ -55,6 +55,12 @@ class UCDTests(unittest.TestCase):
     def test_nukta_false(self):
         self.assertFalse(self.ucd.isnukta(u'\u0915'))
 
+    def test_number_true(self):
+        self.assertTrue(self.ucd.isnumber(u'1'))
+
+    def test_number_false(self):
+        self.assertFalse(self.ucd.isnumber(u'a'))
+
     def test_script_specific_true_latin(self):
         self.assertTrue(self.ucd.is_specific_script(u'\ua78c'))
 
@@ -98,6 +104,13 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'[. [ ] { }]', self.exemplars.punctuation)
+
+    def test_png(self):
+        """Digits are ignored, unless they have diacritics."""
+        self.exemplars.process(u'[1\u0301 2\u0301 3\u0301 4\u0301 5\u0301 6\u0301]')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u0301]', self.exemplars.main)
+        self.assertEqual(u'[1 2 3 4 5 6]', self.exemplars.auxiliary)
 
     def test_not_included(self):
         self.exemplars.process(u'\u034f\u00ad\u06dd')

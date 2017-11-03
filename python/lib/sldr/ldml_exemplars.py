@@ -80,6 +80,16 @@ class UCD(object):
         return False
 
     @staticmethod
+    def isnumber(char):
+        """True if the character is a number (general category N)."""
+        numeric_char_type = Char.charType(char)
+        if (numeric_char_type == UCharCategory.DECIMAL_DIGIT_NUMBER or
+           numeric_char_type == UCharCategory.LETTER_NUMBER or
+           numeric_char_type == UCharCategory.OTHER_NUMBER):
+            return True
+        return False
+
+    @staticmethod
     def is_specific_script(char):
         """True is the character has a specific Script property,
         that is, not the values Common or Inherited.
@@ -233,7 +243,11 @@ class Exemplars(object):
 
     def analyze_trailers(self):
         """Split clusters if needed."""
-        for exemplar in self.clusters.keys():
+        for exemplar in list(self.clusters.keys()):
+
+            # Discard numbers without diacritics
+            if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
+                del self.clusters[exemplar]
 
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
@@ -289,6 +303,10 @@ class Exemplars(object):
 
     def allowable(self, char):
         """Make sure exemplars have the needed properties."""
+
+        # Numbers might have diacritics so need to be allowed.
+        if self.ucd.isnumber(char):
+            return True
 
         # Exemplars must be Alphabetic.
         if not Char.isUAlphabetic(char):
