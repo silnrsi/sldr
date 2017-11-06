@@ -175,7 +175,7 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.many_bases = 4
         base = u'a e i o u'
         grave = u'\u00e0 \u00e8 \u00f9'
-        circumflex =  u'\u00e2 \u00ea \u00ee \u00f4 \u00fb'
+        circumflex = u'\u00e2 \u00ea \u00ee \u00f4 \u00fb'
         self.exemplars.process(base + grave + circumflex)
         self.exemplars.analyze()
         self.assertEqual(u'[a e i o u \u0302]', self.exemplars.main)
@@ -258,6 +258,23 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95')
         self.exemplars.analyze()
         self.assertEqual(u'[\u200d]', self.exemplars.auxiliary)
+
+    def test_kannada_graphemes(self):
+        """Clusters are useful for testing rendering."""
+        self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95 \u0cb0\u0ccd\u200d\u0c95')
+        self.exemplars.analyze()
+        self.assertEqual(u'\u0cb0\u200d\u0ccd \u0cb0\u0ccd\u200d \u0c95', self.exemplars.graphemes)
+
+    def test_yoruba(self):
+        """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
+        self.exemplars.process(u'a\u0301 a\u0300 a\u0304 '
+                               u'e\u0301 e\u0300 e\u0304 '
+                               u'i\u0301 i\u0300 i\u0304 '
+                               u'o\u0301 o\u0300 o\u0304 '
+                               u'u\u0301 u\u0300 u\u0304 ')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u0300 \u0301 \u0304]', self.exemplars.main)
+        self.assertEqual(u'[a e i o u]', self.exemplars.auxiliary)
 
 
 if __name__ == '__main__':

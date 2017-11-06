@@ -84,7 +84,6 @@ class UCD(object):
         """True if the character is a number (general category N)."""
         numeric_char_type = Char.charType(char)
         if (numeric_char_type == UCharCategory.DECIMAL_DIGIT_NUMBER or
-           numeric_char_type == UCharCategory.LETTER_NUMBER or
            numeric_char_type == UCharCategory.OTHER_NUMBER):
             return True
         return False
@@ -130,6 +129,7 @@ class Exemplar(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
 
 class Exemplars(object):
 
@@ -183,10 +183,18 @@ class Exemplars(object):
         """Return LDML exemplars data for the punctuation set."""
         return self.ldml_write(self._punctuation)
 
+    def _get_graphemes(self):
+        """Return the list of found graphemes."""
+        list_exemplars = list()
+        for exemplar in self.clusters:
+            list_exemplars.append(exemplar.text)
+        return ' '.join(list_exemplars)
+
     main = property(_get_main, _set_main)
     auxiliary = property(_get_auxiliary, _set_auxiliary)
     index = property(_get_index, _set_index)
     punctuation = property(_get_punctuation, _set_punctuation)
+    graphemes = property(_get_graphemes)
 
     @staticmethod
     def remove_bookends(start, end, text):
