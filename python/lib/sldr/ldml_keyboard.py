@@ -195,7 +195,8 @@ class Keyboard(object):
         return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:k[x]))
 
     def _padlist(self, val, num):
-        res = val.split()
+        boolmap = {'false' : "0", 'true': "1"}
+        res = [boolmap.get(x.lower(), x) for x in val.split()]
         if len(res) < num:
             res += [res[-1]] * (num - len(res))
         return res
@@ -205,11 +206,9 @@ class Keyboard(object):
         r = trans.match(instr[curr:])
         if r[0] is not None:
             orders = [int(x) for x in self._padlist(getattr(r[0], 'order', "0"), r[1])]
-            bases = self._padlist(getattr(r[0], 'tertiary_base', "0"), r[1])
-            bases = [0 if int(x) > 5 else int(x) for x in bases]
+            bases = [bool(x) for x in self._padlist(getattr(r[0], 'tertiary_base', "0"), r[1])]
             tertiaries = [int(x) for x in self._padlist(getattr(r[0], 'tertiary', "0"), r[1])]
-            prebases = self._padlist(getattr(r[0], 'prebase', "False"), r[1])
-            prebases = [False if x.lower()=="false" or x=="0" else True for x in prebases]
+            prebases = [bool(x) for x in self._padlist(getattr(r[0], 'prebase', "0"), r[1])]
             return [CharCode(orders[i], bases[i], tertiaries[i], prebases[i]) for i in range(r[1])]
         else:
             return [CharCode(0, 0, 0, False)]
@@ -229,7 +228,7 @@ class Keyboard(object):
         while curr < len(instr):
             codes = self._get_charcodes(instr, curr, trans)
             for c in codes:
-                if c.prebase or (c.primary == 0 and c.tertiary == 0):
+                if c.prebase or c.primary == 0:
                     break
                 curr += 1
             else:
@@ -240,33 +239,25 @@ class Keyboard(object):
 
         startrun = curr
         keys = [None] * (len(instr) - startrun)
-        isinit = True   # inside the start of a run (.{prebase}* .{order==0 && tertiary==0})
-        currprimaries = [0] * 5; currprimary = 0
-        currbaseindex = [curr] * 5; currbaseindex = curr
+        isinit = True           # inside the start of a run (.{prebase}* .{order==0 && tertiary==0})
+        currprimary = 0
+        currbaseindex = curr
         while curr < context.len(ruleset):
             codes = self._get_charcodes(instr, curr, trans)
-            for i, c in enumerate(codes):
-                # calculate sort key for each character in turn
-                if c.tertiary and curr + i > startrun:     # can't start with tertiary, treat as primary 0
-                    if c.tertiary_base > 0:
-                        key = SortKey(currprimaries[c.tertiary_base], \
-                                        currbaseindices[c.tertiary_base], c.tertiary)
-                    else:
-                        key = SortKey(currprimary, currbaseindex, c.tertiary)
+            for i, c in enumerate(codes):               # calculate sort key for each character in turn
+                if c.tertiary and curr + i > startrun:      # can't start with tertiary, treat as primary 0
+                    key = SortKey(currprimary, currbaseindex, c.tertiary)
                 else:
                     key = SortKey(c.primary, curr + i, 0)
-                    if c.primary == 0 :     # and implicitly c.tertiary == 0
-                        # reset all tertiary_bases
-                        currprimaries = [0] * 5; currprimary = 0
-                        currbaseindices = [curr+i] * 5; currbaseindex = curr + i
-                    elif c.tertiary_base:   # reset just the given tertiary_base
-                        currprimaries[c.tertiary_base] = currprimary = c[0]
-                        currbaseindices[c.tertiary_base] = currbaseindex = curr + i
+                    if c.primary == 0 or c.tertiary_base:   # primary 0 is always a tertiary base
+                        currprimary = c.primary
+                        currbaseindex = curr + i
+
                 if ((key.primary != 0 or key.tertiary != 0) and not c.prebase) \
                         or (c.prebase and curr + i > startrun \
                             and keys[curr+i-startrun-1].primary == 0):  # prebase can't have tertiary
-                    # After the prefix so any following prefix char starts a new run
-                    isinit = False
+                    isinit = False      # After the prefix, so any following prefix char starts a new run
+
                 # identify a run boundary
                 if not isinit and ((key.primary == 0 and key.tertiary == 0) or c.prebase):
                     # output sorted run and reset for new run
@@ -279,9 +270,7 @@ class Keyboard(object):
             curr += len(codes)
         if curr > startrun:
             # output but don't store any residue. Reprocess it next time.
-            context.outputs[context.index(ruleset)] \
-                    += self._sort(startrun, curr, instr, keys)
-        return True
+            context.outputs[context.index(ruleset)] += self._sort(startrun, curr, instr, keys)
 
     def _process_backspace(self, context, ruleset='backspace'):
         '''Handle the backspace transforms in response to bksp key'''
