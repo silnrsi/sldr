@@ -186,7 +186,7 @@ class Exemplars(object):
     def _get_graphemes(self):
         """Return the list of found graphemes."""
         list_exemplars = list()
-        for exemplar in self.clusters:
+        for exemplar, count in self.clusters.most_common():
             list_exemplars.append(exemplar.text)
         return ' '.join(list_exemplars)
 
@@ -277,8 +277,13 @@ class Exemplars(object):
 
     def parcel(self):
         """Parcel exemplars to the correct exemplar list."""
-        frequent = self.frequent / float(100)
         total_count = sum(self.clusters.values())
+        item_count = len(self.clusters)
+        if item_count != 0:
+            average = total_count / float(item_count)
+        else:
+            average = 0
+        frequent = average * (self.frequent / float(100))
 
         for exemplar in self.clusters.keys():
 
@@ -290,7 +295,7 @@ class Exemplars(object):
                     self._auxiliary.add(trailer)
 
             # Use frequency of occurrence to decide which exemplar list to add to.
-            occurs = self.clusters[exemplar] / float(total_count)
+            occurs = self.clusters[exemplar]
             if occurs > frequent:
                 self._main.add(exemplar.text)
             else:

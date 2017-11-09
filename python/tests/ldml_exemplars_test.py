@@ -109,8 +109,7 @@ class ExemplarsTests(unittest.TestCase):
         """Digits are ignored, unless they have diacritics."""
         self.exemplars.process(u'[1\u0301 2\u0301 3\u0301 4\u0301 5\u0301 6\u0301]')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0301]', self.exemplars.main)
-        self.assertEqual(u'[1 2 3 4 5 6]', self.exemplars.auxiliary)
+        self.assertEqual(u'[1 2 3 4 5 6 \u0301]', self.exemplars.main)
 
     def test_not_included(self):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
@@ -155,15 +154,13 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.many_bases = 4
         self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u00e9 u \u0302]', self.exemplars.main)
-        self.assertEqual(u'[a e i m o r s]', self.exemplars.auxiliary)
+        self.assertEqual(u'[a e \u00e9 i m o r s u \u0302]', self.exemplars.main)
 
     def test_french_main_nfd(self):
         self.exemplars.many_bases = 4
         self.exemplars.process(u're\u0301sume\u0301 a\u0302 e\u0302 i\u0302 o\u0302 u\u0302')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u00e9 u \u0302]', self.exemplars.main)
-        self.assertEqual(u'[a e i m o r s]', self.exemplars.auxiliary)
+        self.assertEqual(u'[a e \u00e9 i m o r s u \u0302]', self.exemplars.main)
 
     def test_french_auxiliary(self):
         self.exemplars.process(u'r\u00e9sum\u00e9')
@@ -173,6 +170,7 @@ class ExemplarsTests(unittest.TestCase):
     def test_french_count(self):
         """Infrequently occurring exemplars should go in the auxiliary list, not the main list."""
         self.exemplars.many_bases = 4
+        self.exemplars.frequent = 80
         base = u'a e i o u'
         grave = u'\u00e0 \u00e8 \u00f9'
         circumflex = u'\u00e2 \u00ea \u00ee \u00f4 \u00fb'
@@ -210,10 +208,10 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
                                u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u093e]', self.exemplars.main)
         self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} {\u091c\u093c}'
-                         u' {\u0921\u093c} {\u0922\u093c} {\u092b\u093c} {\u092f\u093c}]',
-                         self.exemplars.auxiliary)
+                         u' {\u0921\u093c} {\u0922\u093c} {\u092b\u093c} {\u092f\u093c}'
+                         u' \u093e]',
+                         self.exemplars.main)
 
     def test_devanagari_few(self):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e')
@@ -263,7 +261,7 @@ class ExemplarsTests(unittest.TestCase):
         """Clusters are useful for testing rendering."""
         self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95 \u0cb0\u0ccd\u200d\u0c95')
         self.exemplars.analyze()
-        self.assertEqual(u'\u0cb0\u200d\u0ccd \u0cb0\u0ccd\u200d \u0c95', self.exemplars.graphemes)
+        self.assertEqual(u'\u0c95 \u0cb0\u200d\u0ccd \u0cb0\u0ccd\u200d', self.exemplars.graphemes)
 
     def test_yoruba(self):
         """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
@@ -273,8 +271,7 @@ class ExemplarsTests(unittest.TestCase):
                                u'o\u0301 o\u0300 o\u0304 '
                                u'u\u0301 u\u0300 u\u0304 ')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0300 \u0301 \u0304]', self.exemplars.main)
-        self.assertEqual(u'[a e i o u]', self.exemplars.auxiliary)
+        self.assertEqual(u'[a e i o u \u0300 \u0301 \u0304]', self.exemplars.main)
 
 
 if __name__ == '__main__':
