@@ -228,8 +228,10 @@ class Exemplars(object):
     def analyze(self):
         """Analyze the found exemplars and classify them."""
         self.count_marks()
-        self.analyze_trailers()
-        self.parcel()
+        self.process_numbers()
+        self.analyze_productive_marks()
+        self.parcel_ignorable()
+        self.parcel_frequency()
         self.make_index()
 
     def count_marks(self):
@@ -249,14 +251,15 @@ class Exemplars(object):
                     s.add(exemplar.base)
                     self.bases_for_marks[mark] = s
 
-    def analyze_trailers(self):
-        """Split clusters if needed."""
+    def process_numbers(self):
+        """Discard numbers without diacritics."""
         for exemplar in list(self.clusters.keys()):
-
-            # Discard numbers without diacritics
             if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
                 del self.clusters[exemplar]
 
+    def analyze_productive_marks(self):
+        """Split clusters if a mark occurs on many bases."""
+        for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
                     # The trailer is a Mark, as it was found
@@ -275,8 +278,17 @@ class Exemplars(object):
 
                         del self.clusters[exemplar]
 
-    def parcel(self):
-        """Parcel exemplars to the correct exemplar list."""
+    def parcel_ignorable(self):
+        """Move Default_Ignorable_Code_Point characters to auxiliary."""
+        for exemplar in self.clusters.keys():
+            for trailer in exemplar.trailers:
+                if trailer not in self.bases_for_marks:
+                    # The trailer is a Default_Ignorable_Code_Point
+                    # which needs to go in the auxiliary list.
+                    self._auxiliary.add(trailer)
+
+    def parcel_frequency(self):
+        """Parcel exemplars between main and auxiliary based on frequency."""
         total_count = sum(self.clusters.values())
         item_count = len(self.clusters)
         if item_count != 0:
@@ -286,15 +298,6 @@ class Exemplars(object):
         frequent = average * (self.frequent / float(100))
 
         for exemplar in self.clusters.keys():
-
-            # Handle Default_Ignorable_Code_Point characters
-            for trailer in exemplar.trailers:
-                if trailer not in self.bases_for_marks:
-                    # The trailer is a Default_Ignorable_Code_Point
-                    # which needs to go in the auxiliary list.
-                    self._auxiliary.add(trailer)
-
-            # Use frequency of occurrence to decide which exemplar list to add to.
             occurs = self.clusters[exemplar]
             if occurs > frequent:
                 self._main.add(exemplar.text)
