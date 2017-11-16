@@ -229,7 +229,8 @@ class Exemplars(object):
         """Analyze the found exemplars and classify them."""
         self.count_marks()
         self.process_numbers()
-        self.analyze_productive_marks()
+        self.find_seperate_marks()
+        self.find_productive_marks()
         self.parcel_ignorable()
         self.parcel_frequency()
         self.make_index()
@@ -244,12 +245,12 @@ class Exemplars(object):
                 # Only Marks get counted (and added to self.bases_for_marks).
                 mark = trailer
                 if mark in self.bases_for_marks:
-                    s = self.bases_for_marks[mark]
-                    s.add(exemplar.base)
+                    bases_for_mark = self.bases_for_marks[mark]
+                    bases_for_mark.add(exemplar.base)
                 else:
-                    s = set()
-                    s.add(exemplar.base)
-                    self.bases_for_marks[mark] = s
+                    bases_for_mark = set()
+                    bases_for_mark.add(exemplar.base)
+                    self.bases_for_marks[mark] = bases_for_mark
 
     def process_numbers(self):
         """Discard numbers without diacritics."""
@@ -257,18 +258,45 @@ class Exemplars(object):
             if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
                 del self.clusters[exemplar]
 
-    def analyze_productive_marks(self):
+    def find_seperate_marks(self):
+        """If a set of diacritics has the sames bases, the diacritics are separate."""
+        for exemplar in list(self.clusters.keys()):
+            for trailer in exemplar.trailers:
+                if trailer in self.bases_for_marks:
+                    # The trailer is a Mark, as it was found,
+                    # and only Marks are in that data structure.
+                    current_mark = trailer
+                    current_bases = self.bases_for_marks[current_mark]
+
+        # for current_mark in self.bases_for_marks.keys():
+        #     current_bases = self.bases_for_marks[current_mark]
+
+                    # Compare the current set of bases to all the other sets of bases.
+                    for other_mark in self.bases_for_marks.keys():
+                        if current_mark != other_mark:
+                            other_bases = self.bases_for_marks[other_mark]
+                            difference = current_bases.symmetric_difference(other_bases)
+                            if len(difference) == 0:
+                                exemplar_mark = Exemplar('', current_mark)
+                                self.clusters[exemplar_mark] += 1
+
+                                exemplar_base = Exemplar(exemplar.base)
+                                self.clusters[exemplar_base] += self.clusters[exemplar]
+
+                                del self.clusters[exemplar]
+
+    def find_productive_marks(self):
         """Split clusters if a mark occurs on many bases."""
         for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
-                    # The trailer is a Mark, as it was found
+                    # The trailer is a Mark, as it was found,
                     # and only Marks are in that data structure.
                     mark = trailer
-                    s = self.bases_for_marks[mark]
+                    bases_for_mark = self.bases_for_marks[mark]
 
                     # If a mark has more than many_bases ...
-                    if len(s) > self.many_bases:
+                    if len(bases_for_mark) > self.many_bases:
                         # then the base and mark are separate exemplars.
                         exemplar_base = Exemplar(exemplar.base)
                         self.clusters[exemplar_base] += self.clusters[exemplar]
