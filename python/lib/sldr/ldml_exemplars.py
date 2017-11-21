@@ -90,7 +90,7 @@ class UCD(object):
 
     @staticmethod
     def is_specific_script(char):
-        """True is the character has a specific Script property,
+        """True if the character has a specific Script property,
         that is, not the values Common or Inherited.
         """
         script = Script.getScript(char)
@@ -98,6 +98,33 @@ class UCD(object):
         if script_code == UScriptCode.COMMON or script_code == UScriptCode.INHERITED:
             return False
         return True
+
+    @staticmethod
+    def is_exemplar_wordbreak(char):
+        """True if the character has the Word_Break properties Katakana, ALetter, or MidLetter."""
+
+        # The following should be exposed by PyICU, but does not seem to be implemented.
+        # There are other values, but these are the ones need for this function.
+        WB_ALETTER = 1
+        WB_KATAKANA = 3
+        WB_MIDLETTER = 4
+
+        numeric_wordbreak_type = Char.getIntPropertyValue(char, UProperty.WORD_BREAK)
+        if (numeric_wordbreak_type == WB_KATAKANA or
+           numeric_wordbreak_type == WB_ALETTER or
+           numeric_wordbreak_type == WB_MIDLETTER):
+            return True
+        return False
+
+    def ispunct(self, char):
+        """True if the character is punctuation for purposes of finding exemplars."""
+
+        # Some punctuation characters have other properties
+        # that means they are not punctuation exemplars.
+        if self.is_exemplar_wordbreak(char):
+            return False
+
+        return Char.ispunct(char)
 
     @staticmethod
     def toupper(text):
@@ -268,9 +295,6 @@ class Exemplars(object):
                     current_mark = trailer
                     current_bases = self.bases_for_marks[current_mark]
 
-        # for current_mark in self.bases_for_marks.keys():
-        #     current_bases = self.bases_for_marks[current_mark]
-
                     # Compare the current set of bases to all the other sets of bases.
                     for other_mark in self.bases_for_marks.keys():
                         if current_mark != other_mark:
@@ -352,10 +376,6 @@ class Exemplars(object):
         if self.ucd.isnumber(char):
             return True
 
-        # Exemplars must be Alphabetic.
-        if not Char.isUAlphabetic(char):
-            return False
-
         # Exemplars must be lowercase.
         if Char.isUUppercase(char):
             return False
@@ -363,6 +383,15 @@ class Exemplars(object):
         # Exemplar must have a specific script.
         if not self.ucd.is_specific_script(char):
             return False
+
+        # Some punctuation and symbols are handled as letters.
+        # Other characters must be Alphabetic.
+        if not self.ucd.is_exemplar_wordbreak(char) and not Char.isUAlphabetic(char):
+            return False
+
+        # Exemplars must be Alphabetic.
+        # if not Char.isUAlphabetic(char):
+        #     return False
 
         # All conditions are met.
         return True
@@ -404,7 +433,7 @@ class Exemplars(object):
             char = text[i]
 
             # Test for punctuation.
-            if Char.ispunct(char):
+            if self.ucd.ispunct(char):
                 self._punctuation.add(char)
                 i += 1
                 continue

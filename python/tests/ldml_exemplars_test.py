@@ -70,6 +70,15 @@ class UCDTests(unittest.TestCase):
     def test_script_specific_false_vedic(self):
         self.assertFalse(self.ucd.is_specific_script(u'\u1CD1'))
 
+    def test_wordbreak_katakana(self):
+        self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u309b'))
+
+    def test_wordbreak_aletter(self):
+        self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u05f3'))
+
+    def test_wordbreak_midletter(self):
+        self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u05f4'))
+
     def test_nfc(self):
         text = u'e\u0301'
         self.assertEqual(u'\u00e9', self.ucd.normalize('NFC', text))
@@ -104,6 +113,26 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'[. [ ] { }]', self.exemplars.punctuation)
+
+    def test_japanese_katakana(self):
+        """Characters with Word_Break property Katakana are letters."""
+        self.exemplars.process(u'\u307b\u309b')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u307b \u309b]', self.exemplars.main)
+
+    def test_hebrew_aletter(self):
+        """Characters with Word_Break property ALetter are not punctuation."""
+        self.exemplars.process(u'\u05d1\u05f3\u05d2')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u05d1 \u05d2 \u05f3]', self.exemplars.main)
+        self.assertEqual(u'[]', self.exemplars.punctuation)
+
+    def test_hebrew_midletter(self):
+        """Characters with Word_Break property MidLetter are not punctuation."""
+        self.exemplars.process(u'\u05f4\u05d0\u05f4')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u05d0 \u05f4]', self.exemplars.main)
+        self.assertEqual(u'[]', self.exemplars.punctuation)
 
     def test_png(self):
         """Digits are ignored, unless they have diacritics."""
