@@ -172,6 +172,7 @@ class Exemplars(object):
         self._auxiliary = set()
         self._index = set()
         self._punctuation = set()
+        self._digits = set()
 
         # Internal parameters.
         self.clusters = Counter()
@@ -194,6 +195,10 @@ class Exemplars(object):
         """Set LDML exemplars data for the punctuation set."""
         self._punctuation = self.ldml_read(ldml_exemplars)
 
+    def _set_digits(self, ldml_exemplars):
+        """Set LDML exemplars data for the digits set."""
+        self._digits = self.ldml_read(ldml_exemplars)
+
     def _get_main(self):
         """Return LDML exemplars data for the main set."""
         return self.ldml_write(self._main)
@@ -210,6 +215,10 @@ class Exemplars(object):
         """Return LDML exemplars data for the punctuation set."""
         return self.ldml_write(self._punctuation)
 
+    def _get_digits(self):
+        """Return LDML exemplars data for the digits set."""
+        return self.ldml_write(self._digits)
+
     def _get_graphemes(self):
         """Return the list of found graphemes."""
         list_exemplars = list()
@@ -221,6 +230,7 @@ class Exemplars(object):
     auxiliary = property(_get_auxiliary, _set_auxiliary)
     index = property(_get_index, _set_index)
     punctuation = property(_get_punctuation, _set_punctuation)
+    digits = property(_get_digits, _set_digits)
     graphemes = property(_get_graphemes)
 
     @staticmethod
@@ -280,9 +290,10 @@ class Exemplars(object):
                     self.bases_for_marks[mark] = bases_for_mark
 
     def process_numbers(self):
-        """Discard numbers without diacritics."""
+        """Numbers without diacritics go into the digits exemplar."""
         for exemplar in list(self.clusters.keys()):
             if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
+                self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
     def find_seperate_marks(self):
@@ -372,7 +383,7 @@ class Exemplars(object):
     def allowable(self, char):
         """Make sure exemplars have the needed properties."""
 
-        # Numbers might have diacritics so need to be allowed.
+        # Numbers with or without diacritics need to be allowed.
         if self.ucd.isnumber(char):
             return True
 
@@ -389,8 +400,8 @@ class Exemplars(object):
             return True
 
         # Other characters must be Alphabetic.
-        # if Char.isUAlphabetic(char):
-        #     return True
+        if Char.isUAlphabetic(char):
+            return True
 
         return False
 

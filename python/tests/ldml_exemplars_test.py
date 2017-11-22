@@ -45,9 +45,9 @@ class UCDTests(unittest.TestCase):
 
     def ignore_findit(self):
         from icu import Char
-        max = 0x10ffff
-        max = 0xffff
-        for usv in xrange(max):
+        maxchar = 0x10ffff
+        maxchar = 0xffff
+        for usv in xrange(maxchar):
             char = unichr(usv)
             if ((not self.ucd.is_specific_script(char)) and
                (not self.ucd.is_exemplar_wordbreak(char)) and
@@ -126,11 +126,13 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'[a b c]', self.exemplars.main)
+        self.assertEqual(u'[1]', self.exemplars.digits)
 
     def test_simple_punctuation(self):
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'[. [ ] { }]', self.exemplars.punctuation)
+        self.assertEqual(u'[1]', self.exemplars.digits)
 
     def test_japanese_katakana(self):
         """Characters with Word_Break property Katakana are letters."""
@@ -162,6 +164,7 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.process(u'[1\u0301 2\u0301 3\u0301 4\u0301 5\u0301 6\u0301]')
         self.exemplars.analyze()
         self.assertEqual(u'[1 2 3 4 5 6 \u0301]', self.exemplars.main)
+        self.assertEqual(u'[]', self.exemplars.digits)
 
     def test_not_included(self):
         self.exemplars.process(u'\u034f\u00ad\u06dd')
