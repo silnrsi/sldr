@@ -380,21 +380,19 @@ class Exemplars(object):
         if Char.isUUppercase(char):
             return False
 
-        # Exemplar must have a specific script.
-        if not self.ucd.is_specific_script(char):
-            return False
+        # Characters with a specific script can be exemplars.
+        if self.ucd.is_specific_script(char):
+            return True
 
         # Some punctuation and symbols are handled as letters.
+        if self.ucd.is_exemplar_wordbreak(char):
+            return True
+
         # Other characters must be Alphabetic.
-        if not self.ucd.is_exemplar_wordbreak(char) and not Char.isUAlphabetic(char):
-            return False
+        # if Char.isUAlphabetic(char):
+        #     return True
 
-        # Exemplars must be Alphabetic.
-        # if not Char.isUAlphabetic(char):
-        #     return False
-
-        # All conditions are met.
-        return True
+        return False
 
     def process(self, text):
         """Analyze a string."""

@@ -43,6 +43,18 @@ class UCDTests(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def ignore_findit(self):
+        from icu import Char
+        max = 0x10ffff
+        max = 0xffff
+        for usv in xrange(max):
+            char = unichr(usv)
+            if ((not self.ucd.is_specific_script(char)) and
+               (not self.ucd.is_exemplar_wordbreak(char)) and
+               (not Char.isUAlphabetic(char))):
+                print '%04X' % usv
+        self.assertTrue(False)
+
     def test_mark_true(self):
         self.assertTrue(self.ucd.ismark(u'\u0301'))
 
@@ -67,6 +79,9 @@ class UCDTests(unittest.TestCase):
     def test_script_specific_false_latin(self):
         self.assertFalse(self.ucd.is_specific_script(u'\u02bc'))
 
+    def test_script_specific_false_chinese(self):
+        self.assertFalse(self.ucd.is_specific_script(u'\ua700'))
+
     def test_script_specific_false_vedic(self):
         self.assertFalse(self.ucd.is_specific_script(u'\u1CD1'))
 
@@ -78,6 +93,9 @@ class UCDTests(unittest.TestCase):
 
     def test_wordbreak_midletter(self):
         self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u05f4'))
+
+    def test_wordbreak_chinese(self):
+        self.assertFalse(self.ucd.is_exemplar_wordbreak(u'\ua700'))
 
     def test_nfc(self):
         text = u'e\u0301'
@@ -133,6 +151,11 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'[\u05d0 \u05f4]', self.exemplars.main)
         self.assertEqual(u'[]', self.exemplars.punctuation)
+
+    def test_chinese(self):
+        self.exemplars.process(u'\u6606\u660e\ua700')
+        self.exemplars.analyze()
+        self.assertEqual(u'[\u6606 \u660e]', self.exemplars.main)
 
     def test_png(self):
         """Digits are ignored, unless they have diacritics."""
@@ -226,12 +249,14 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'[A N {NG} {NG\ua78b} R]', self.exemplars.index)
 
     def test_swahili_glottal(self):
-        """Exemplars should have a specific script, not the values Common or Inherited.
-        So U+A78C should be in the exemplar list, but not U+02BC or U+02C0.
+        """Exemplars should have a specific script, not the values Common or Inherited,
+        unless they have specific Word_Break properties.
+        So U+A78C should be included as it has a specific script,
+        and U+02BC or U+02C0 should be included as they have the needed Word_Break property.
         """
         self.exemplars.process(u'ng\ua78c ng\u02bc ng\u02c0')
         self.exemplars.analyze()
-        self.assertEqual(u'[g n \ua78c]', self.exemplars.main)
+        self.assertEqual(u'[g n \u02bc \u02c0 \ua78c]', self.exemplars.main)
 
     def test_devanagari_many(self):
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
