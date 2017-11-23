@@ -80,6 +80,17 @@ class UCD(object):
         return False
 
     @staticmethod
+    def is_indic_matra(char):
+        """True if the character is a an Indic matra."""
+
+        # The following code is not complete,
+        # it is only to allow the current function to be tested elsewhere.
+        # ICU currently does not give access to the Indic_Syllabic_Category property.
+        if ord(char) == 0x093E:
+            return True
+        return False
+
+    @staticmethod
     def isnumber(char):
         """True if the character is a number (general category N)."""
         numeric_char_type = Char.charType(char)
@@ -264,8 +275,9 @@ class Exemplars(object):
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
-        self.count_marks()
         self.process_numbers()
+        self.find_indic_matras()
+        self.count_marks()
         self.find_seperate_marks()
         self.find_productive_marks()
         self.parcel_ignorable()
@@ -296,6 +308,19 @@ class Exemplars(object):
                 self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
+    def find_indic_matras(self):
+        """Indic matras are always separate marks."""
+        for exemplar in list(self.clusters.keys()):
+            for trailer in exemplar.trailers:
+                if self.ucd.is_indic_matra(trailer):
+                    exemplar_mark = Exemplar('', trailer)
+                    self.clusters[exemplar_mark] += self.clusters[exemplar]
+
+                    exemplar_base = Exemplar(exemplar.base)
+                    self.clusters[exemplar_base] += self.clusters[exemplar]
+
+                    del self.clusters[exemplar]
+
     def find_seperate_marks(self):
         """If a set of diacritics has the sames bases, the diacritics are separate."""
         for exemplar in list(self.clusters.keys()):
@@ -313,7 +338,7 @@ class Exemplars(object):
                             difference = current_bases.symmetric_difference(other_bases)
                             if len(difference) == 0:
                                 exemplar_mark = Exemplar('', current_mark)
-                                self.clusters[exemplar_mark] += 1
+                                self.clusters[exemplar_mark] += self.clusters[exemplar]
 
                                 exemplar_base = Exemplar(exemplar.base)
                                 self.clusters[exemplar_base] += self.clusters[exemplar]

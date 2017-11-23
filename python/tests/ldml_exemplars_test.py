@@ -67,6 +67,12 @@ class UCDTests(unittest.TestCase):
     def test_nukta_false(self):
         self.assertFalse(self.ucd.isnukta(u'\u0915'))
 
+    def test_matra_true(self):
+        self.assertTrue(self.ucd.is_indic_matra(u'\u093e'))
+
+    def test_matra_false(self):
+        self.assertFalse(self.ucd.is_indic_matra(u'\u0906'))
+
     def test_number_true(self):
         self.assertTrue(self.ucd.isnumber(u'1'))
 
@@ -205,13 +211,21 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'[\u00c9 M R S U]', self.exemplars.index)
 
+    def test_spanish(self):
+        """Marks occurring on a few bases are not separate."""
+        self.exemplars.process(u'biling\u00fce')
+        self.exemplars.analyze()
+        self.assertEqual(u'[b e g i l n \u00fc]', self.exemplars.main)
+
     def test_french_main_nfc(self):
+        """Marks occurring on many bases are separate, even if the characters are combined (NFC)."""
         self.exemplars.many_bases = 4
         self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
         self.exemplars.analyze()
         self.assertEqual(u'[a e \u00e9 i m o r s u \u0302]', self.exemplars.main)
 
     def test_french_main_nfd(self):
+        """Marks occurring on many bases are separate."""
         self.exemplars.many_bases = 4
         self.exemplars.process(u're\u0301sume\u0301 a\u0302 e\u0302 i\u0302 o\u0302 u\u0302')
         self.exemplars.analyze()
@@ -252,8 +266,9 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'[A N {NG} {NG\ua78b} R]', self.exemplars.index)
 
     def test_swahili_glottal(self):
-        """Exemplars should have a specific script, not the values Common or Inherited,
-        unless they have specific Word_Break properties.
+        """Exemplars have a specific script, unless they have specific Word_Break properties.
+
+        The script values of Common or Inherited are not considered to be a specific script.
         So U+A78C should be included as it has a specific script,
         and U+02BC or U+02C0 should be included as they have the needed Word_Break property.
         """
@@ -262,6 +277,7 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'[g n \u02bc \u02c0 \ua78c]', self.exemplars.main)
 
     def test_devanagari_many(self):
+        """Indic matras are always separate."""
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e \u095b\u093e '
                                u'\u095c\u093e \u095d\u093e \u095e\u093e \u095f\u093e')
         self.exemplars.analyze()
@@ -271,9 +287,15 @@ class ExemplarsTests(unittest.TestCase):
                          self.exemplars.main)
 
     def test_devanagari_few(self):
+        """Indic matras are always separate (even on a few bases).
+
+        Even though the matras (Marks) occur on few bases
+        (which would otherwise classify them as not separate),
+        they are considered separate.
+        """
         self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e')
         self.exemplars.analyze()
-        self.assertEqual(u'[{\u0915\u093c\u093e} {\u0916\u093c\u093e} {\u0917\u093c\u093e}]',
+        self.assertEqual(u'[{\u0915\u093c} {\u0916\u093c} {\u0917\u093c} \u093e]',
                          self.exemplars.main)
 
     def test_devanagari_index(self):
@@ -287,6 +309,7 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_devanagari_vedic(self):
         """Exemplar bases should have a specific script, not the values Common or Inherited.
+
         The character U+1CD1 has a script value of Inherited, but it is a mark, so allow it.
         """
         self.exemplars.process(u'\u0915\u1cd1')
