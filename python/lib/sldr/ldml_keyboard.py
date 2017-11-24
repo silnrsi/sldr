@@ -36,7 +36,7 @@ except ValueError:
 
 
 CharCode = namedtuple('CharCode', ['primary', 'tertiary_base', 'tertiary', 'prebase'])
-SortKey = namedtuple('SortKey', ['primary', 'index', 'tertiary'])
+SortKey = namedtuple('SortKey', ['primary', 'index', 'tertiary', 'tiebreak'])
         
 
 class Keyboard(object):
@@ -190,7 +190,7 @@ class Keyboard(object):
         # if there is no base, insert one
         if (0, 0) not in [(x.primary, x.tertiary) for x in k]:
             s += u"\u25CC"
-            k += SortKey(0, 0, 0)  # push this to the front
+            k += SortKey(0, 0, 0, 0)  # push this to the front
         # sort key is (primary, secondary, string index)
         return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:k[x]))
 
@@ -246,9 +246,9 @@ class Keyboard(object):
             codes = self._get_charcodes(instr, curr, trans)
             for i, c in enumerate(codes):               # calculate sort key for each character in turn
                 if c.tertiary and curr + i > startrun:      # can't start with tertiary, treat as primary 0
-                    key = SortKey(currprimary, currbaseindex, c.tertiary)
+                    key = SortKey(currprimary, currbaseindex, c.tertiary, curr + i)
                 else:
-                    key = SortKey(c.primary, curr + i, 0)
+                    key = SortKey(c.primary, curr + i, 0, curr + i)
                     if c.primary == 0 or c.tertiary_base:   # primary 0 is always a tertiary base
                         currprimary = c.primary
                         currbaseindex = curr + i
