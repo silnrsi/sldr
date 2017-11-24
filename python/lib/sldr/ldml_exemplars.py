@@ -184,6 +184,7 @@ class Exemplars(object):
         self._index = set()
         self._punctuation = set()
         self._digits = set()
+        self._graphemes = list()
 
         # Internal parameters.
         self.clusters = Counter()
@@ -232,10 +233,7 @@ class Exemplars(object):
 
     def _get_graphemes(self):
         """Return the list of found graphemes."""
-        list_exemplars = list()
-        for exemplar, count in self.clusters.most_common():
-            list_exemplars.append(exemplar.text)
-        return ' '.join(list_exemplars)
+        return ' '.join(self._graphemes)
 
     main = property(_get_main, _set_main)
     auxiliary = property(_get_auxiliary, _set_auxiliary)
@@ -275,7 +273,8 @@ class Exemplars(object):
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
-        self.process_numbers()
+        self.save_graphemes()
+        self.find_numbers()
         self.find_indic_matras()
         self.count_marks()
         self.find_seperate_marks()
@@ -283,6 +282,11 @@ class Exemplars(object):
         self.parcel_ignorable()
         self.parcel_frequency()
         self.make_index()
+
+    def save_graphemes(self):
+        """Save the list of found graphemes."""
+        for exemplar, count in self.clusters.most_common():
+            self._graphemes.append(exemplar.text)
 
     def count_marks(self):
         """Count how many different bases a mark occurs on."""
@@ -301,7 +305,7 @@ class Exemplars(object):
                     bases_for_mark.add(exemplar.base)
                     self.bases_for_marks[mark] = bases_for_mark
 
-    def process_numbers(self):
+    def find_numbers(self):
         """Numbers without diacritics go into the digits exemplar."""
         for exemplar in list(self.clusters.keys()):
             if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
