@@ -249,20 +249,12 @@ class Exemplars(object):
     digits = property(_get_digits, _set_digits)
     graphemes = property(_get_graphemes)
 
-    @staticmethod
-    def remove_bookends(start, end, text):
-        """Remove specified bookends if they exist."""
-        if text.startswith(start) and text.endswith(end):
-            return text[1:-1]
-        return text
-
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
         ldml_exemplars = self.ucd.normalize('NFD', ldml_exemplars)
-        list_exemplars = self.remove_bookends('[', ']', ldml_exemplars).split()
+        list_exemplars = ldml_exemplars.split()
         exemplars = set()
         for exemplar in list_exemplars:
-            exemplar = self.remove_bookends('{', '}', exemplar)
             self.max_multigraph_length = max(self.max_multigraph_length, len(exemplar))
             exemplars.add(exemplar)
         return exemplars
@@ -270,13 +262,11 @@ class Exemplars(object):
     def ldml_write(self, exemplars):
         """Write exemplars to a string that can be written to a LDML formatted file."""
         list_exemplars = list()
-        # sort first so {} don't group together
         for exemplar in sorted(exemplars):
-            exemplar = self.ucd.normalize('NFC', exemplar)
-            if len(exemplar) > 1:
-                exemplar = u'{' + exemplar + u'}'
             list_exemplars.append(exemplar)
-        return u'[{}]'.format(' '.join(list_exemplars))
+        ldml_exemplars = ' '.join(list_exemplars)
+        ldml_exemplars = self.ucd.normalize('NFC', ldml_exemplars)
+        return ldml_exemplars
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
