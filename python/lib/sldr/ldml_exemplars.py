@@ -80,6 +80,13 @@ class UCD(object):
         return False
 
     @staticmethod
+    def isvirama(char):
+        """True if the character is a virama."""
+        if Char.getCombiningClass(char) == 9:
+            return True
+        return False
+
+    @staticmethod
     def is_indic_matra(char):
         """True if the character is a an Indic matra."""
 
@@ -275,7 +282,7 @@ class Exemplars(object):
         """Analyze the found exemplars and classify them."""
         self.save_graphemes()
         self.find_numbers()
-        self.find_indic_matras()
+        self.find_indic_matras_and_viramas()
         self.count_marks()
         self.find_seperate_marks()
         self.find_productive_marks()
@@ -312,16 +319,19 @@ class Exemplars(object):
                 self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
-    def find_indic_matras(self):
-        """Indic matras are always separate marks."""
+    def find_indic_matras_and_viramas(self):
+        """Indic matras and viramas are always separate marks."""
         for exemplar in list(self.clusters.keys()):
+            count = self.clusters[exemplar]
             for trailer in exemplar.trailers:
-                if self.ucd.is_indic_matra(trailer):
+                if (self.ucd.is_indic_matra(trailer) or
+                   self.ucd.isvirama(trailer) or
+                   Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
                     exemplar_mark = Exemplar('', trailer)
-                    self.clusters[exemplar_mark] += self.clusters[exemplar]
+                    self.clusters[exemplar_mark] += count
 
                     exemplar_base = Exemplar(exemplar.base)
-                    self.clusters[exemplar_base] += self.clusters[exemplar]
+                    self.clusters[exemplar_base] += count
 
                     del self.clusters[exemplar]
 
@@ -372,12 +382,14 @@ class Exemplars(object):
 
     def parcel_ignorable(self):
         """Move Default_Ignorable_Code_Point characters to auxiliary."""
-        for exemplar in self.clusters.keys():
+        for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer not in self.bases_for_marks:
+                # if Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
                     # The trailer is a Default_Ignorable_Code_Point
                     # which needs to go in the auxiliary list.
                     self._auxiliary.add(trailer)
+                    del self.clusters[exemplar]
 
     def parcel_frequency(self):
         """Parcel exemplars between main and auxiliary based on frequency."""

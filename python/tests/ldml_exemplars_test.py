@@ -67,6 +67,12 @@ class UCDTests(unittest.TestCase):
     def test_nukta_false(self):
         self.assertFalse(self.ucd.isnukta(u'\u0915'))
 
+    def test_virama_true(self):
+        self.assertTrue(self.ucd.isvirama(u'\u0ccd'))
+
+    def test_virama_false(self):
+        self.assertFalse(self.ucd.isvirama(u'\u0c95'))
+
     def test_matra_true(self):
         self.assertTrue(self.ucd.is_indic_matra(u'\u093e'))
 
@@ -325,21 +331,18 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_kannada_main_old(self):
         """Clusters with virama, ZWJ."""
-        self.exemplars.many_bases = 1
         self.exemplars.process(u'\u0cb0\u0ccd\u200d\u0c95 \u0c95\u0ccd\u200d\u0c95')
         self.exemplars.analyze()
         self.assertEqual(u'[\u0c95 \u0cb0 \u0ccd]', self.exemplars.main)
 
     def test_kannada_main_new(self):
         """Clusters with ZWJ, virama."""
-        self.exemplars.many_bases = 1
         self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95 \u0c95\u200d\u0ccd\u0c95')
         self.exemplars.analyze()
         self.assertEqual(u'[\u0c95 \u0cb0 \u0ccd]', self.exemplars.main)
 
     def test_kannada_auxiliary(self):
         """A Default_Ignorable_Code_Point such as ZWJ goes into the auxiliary exemplar."""
-        self.exemplars.many_bases = 1
         self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95')
         self.exemplars.analyze()
         self.assertEqual(u'[\u200d]', self.exemplars.auxiliary)
