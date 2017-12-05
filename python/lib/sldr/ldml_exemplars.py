@@ -80,6 +80,24 @@ class UCD(object):
         return False
 
     @staticmethod
+    def isvirama(char):
+        """True if the character is a virama."""
+        if Char.getCombiningClass(char) == 9:
+            return True
+        return False
+
+    @staticmethod
+    def is_indic_matra(char):
+        """True if the character is a an Indic matra."""
+
+        # The following code is not complete,
+        # it is only to allow the current function to be tested elsewhere.
+        # ICU currently does not give access to the Indic_Syllabic_Category property.
+        if ord(char) == 0x093E:
+            return True
+        return False
+
+    @staticmethod
     def isnumber(char):
         """True if the character is a number (general category N)."""
         numeric_char_type = Char.charType(char)
@@ -90,7 +108,7 @@ class UCD(object):
 
     @staticmethod
     def is_specific_script(char):
-        """True is the character has a specific Script property,
+        """True if the character has a specific Script property,
         that is, not the values Common or Inherited.
         """
         script = Script.getScript(char)
@@ -98,6 +116,33 @@ class UCD(object):
         if script_code == UScriptCode.COMMON or script_code == UScriptCode.INHERITED:
             return False
         return True
+
+    @staticmethod
+    def is_exemplar_wordbreak(char):
+        """True if the character has the Word_Break properties Katakana, ALetter, or MidLetter."""
+
+        # The following should be exposed by PyICU, but does not seem to be implemented.
+        # There are other values, but these are the ones need for this function.
+        WB_ALETTER = 1
+        WB_KATAKANA = 3
+        WB_MIDLETTER = 4
+
+        numeric_wordbreak_type = Char.getIntPropertyValue(char, UProperty.WORD_BREAK)
+        if (numeric_wordbreak_type == WB_KATAKANA or
+           numeric_wordbreak_type == WB_ALETTER or
+           numeric_wordbreak_type == WB_MIDLETTER):
+            return True
+        return False
+
+    def ispunct(self, char):
+        """True if the character is punctuation for purposes of finding exemplars."""
+
+        # Some punctuation characters have other properties
+        # that means they are not punctuation exemplars.
+        if self.is_exemplar_wordbreak(char):
+            return False
+
+        return Char.ispunct(char)
 
     @staticmethod
     def toupper(text):
@@ -145,6 +190,8 @@ class Exemplars(object):
         self._auxiliary = set()
         self._index = set()
         self._punctuation = set()
+        self._digits = set()
+        self._graphemes = list()
 
         # Internal parameters.
         self.clusters = Counter()
@@ -167,6 +214,10 @@ class Exemplars(object):
         """Set LDML exemplars data for the punctuation set."""
         self._punctuation = self.ldml_read(ldml_exemplars)
 
+    def _set_digits(self, ldml_exemplars):
+        """Set LDML exemplars data for the digits set."""
+        self._digits = self.ldml_read(ldml_exemplars)
+
     def _get_main(self):
         """Return LDML exemplars data for the main set."""
         return self.ldml_write(self._main)
@@ -183,33 +234,27 @@ class Exemplars(object):
         """Return LDML exemplars data for the punctuation set."""
         return self.ldml_write(self._punctuation)
 
+    def _get_digits(self):
+        """Return LDML exemplars data for the digits set."""
+        return self.ldml_write(self._digits)
+
     def _get_graphemes(self):
         """Return the list of found graphemes."""
-        list_exemplars = list()
-        for exemplar in self.clusters:
-            list_exemplars.append(exemplar.text)
-        return ' '.join(list_exemplars)
+        return ' '.join(self._graphemes)
 
     main = property(_get_main, _set_main)
     auxiliary = property(_get_auxiliary, _set_auxiliary)
     index = property(_get_index, _set_index)
     punctuation = property(_get_punctuation, _set_punctuation)
+    digits = property(_get_digits, _set_digits)
     graphemes = property(_get_graphemes)
-
-    @staticmethod
-    def remove_bookends(start, end, text):
-        """Remove specified bookends if they exist."""
-        if text.startswith(start) and text.endswith(end):
-            return text[1:-1]
-        return text
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
         ldml_exemplars = self.ucd.normalize('NFD', ldml_exemplars)
-        list_exemplars = self.remove_bookends('[', ']', ldml_exemplars).split()
+        list_exemplars = ldml_exemplars.split()
         exemplars = set()
         for exemplar in list_exemplars:
-            exemplar = self.remove_bookends('{', '}', exemplar)
             self.max_multigraph_length = max(self.max_multigraph_length, len(exemplar))
             exemplars.add(exemplar)
         return exemplars
@@ -217,20 +262,28 @@ class Exemplars(object):
     def ldml_write(self, exemplars):
         """Write exemplars to a string that can be written to a LDML formatted file."""
         list_exemplars = list()
-        # sort first so {} don't group together
         for exemplar in sorted(exemplars):
-            exemplar = self.ucd.normalize('NFC', exemplar)
-            if len(exemplar) > 1:
-                exemplar = u'{' + exemplar + u'}'
             list_exemplars.append(exemplar)
-        return u'[{}]'.format(' '.join(list_exemplars))
+        ldml_exemplars = ' '.join(list_exemplars)
+        ldml_exemplars = self.ucd.normalize('NFC', ldml_exemplars)
+        return ldml_exemplars
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
+        self.save_graphemes()
+        self.find_numbers()
+        self.find_indic_matras_and_viramas()
         self.count_marks()
-        self.analyze_trailers()
-        self.parcel()
+        self.find_seperate_marks()
+        self.find_productive_marks()
+        self.parcel_ignorable()
+        self.parcel_frequency()
         self.make_index()
+
+    def save_graphemes(self):
+        """Save the list of found graphemes."""
+        for exemplar, count in self.clusters.most_common():
+            self._graphemes.append(exemplar.text)
 
     def count_marks(self):
         """Count how many different bases a mark occurs on."""
@@ -242,30 +295,72 @@ class Exemplars(object):
                 # Only Marks get counted (and added to self.bases_for_marks).
                 mark = trailer
                 if mark in self.bases_for_marks:
-                    s = self.bases_for_marks[mark]
-                    s.add(exemplar.base)
+                    bases_for_mark = self.bases_for_marks[mark]
+                    bases_for_mark.add(exemplar.base)
                 else:
-                    s = set()
-                    s.add(exemplar.base)
-                    self.bases_for_marks[mark] = s
+                    bases_for_mark = set()
+                    bases_for_mark.add(exemplar.base)
+                    self.bases_for_marks[mark] = bases_for_mark
 
-    def analyze_trailers(self):
-        """Split clusters if needed."""
+    def find_numbers(self):
+        """Numbers without diacritics go into the digits exemplar."""
         for exemplar in list(self.clusters.keys()):
-
-            # Discard numbers without diacritics
             if self.ucd.isnumber(exemplar.base) and len(exemplar.trailers) == 0:
+                self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
+    def find_indic_matras_and_viramas(self):
+        """Indic matras and viramas are always separate marks."""
+        for exemplar in list(self.clusters.keys()):
+            count = self.clusters[exemplar]
+            for trailer in exemplar.trailers:
+                if (self.ucd.is_indic_matra(trailer) or
+                   self.ucd.isvirama(trailer) or
+                   Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
+                    exemplar_mark = Exemplar('', trailer)
+                    self.clusters[exemplar_mark] += count
+
+                    exemplar_base = Exemplar(exemplar.base)
+                    self.clusters[exemplar_base] += count
+
+                    del self.clusters[exemplar]
+
+    def find_seperate_marks(self):
+        """If a set of diacritics has the sames bases, the diacritics are separate."""
+        for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
-                    # The trailer is a Mark, as it was found
+                    # The trailer is a Mark, as it was found,
+                    # and only Marks are in that data structure.
+                    current_mark = trailer
+                    current_bases = self.bases_for_marks[current_mark]
+
+                    # Compare the current set of bases to all the other sets of bases.
+                    for other_mark in self.bases_for_marks.keys():
+                        if current_mark != other_mark:
+                            other_bases = self.bases_for_marks[other_mark]
+                            difference = current_bases.symmetric_difference(other_bases)
+                            if len(difference) == 0:
+                                exemplar_mark = Exemplar('', current_mark)
+                                self.clusters[exemplar_mark] += self.clusters[exemplar]
+
+                                exemplar_base = Exemplar(exemplar.base)
+                                self.clusters[exemplar_base] += self.clusters[exemplar]
+
+                                del self.clusters[exemplar]
+
+    def find_productive_marks(self):
+        """Split clusters if a mark occurs on many bases."""
+        for exemplar in list(self.clusters.keys()):
+            for trailer in exemplar.trailers:
+                if trailer in self.bases_for_marks:
+                    # The trailer is a Mark, as it was found,
                     # and only Marks are in that data structure.
                     mark = trailer
-                    s = self.bases_for_marks[mark]
+                    bases_for_mark = self.bases_for_marks[mark]
 
                     # If a mark has more than many_bases ...
-                    if len(s) > self.many_bases:
+                    if len(bases_for_mark) > self.many_bases:
                         # then the base and mark are separate exemplars.
                         exemplar_base = Exemplar(exemplar.base)
                         self.clusters[exemplar_base] += self.clusters[exemplar]
@@ -275,22 +370,29 @@ class Exemplars(object):
 
                         del self.clusters[exemplar]
 
-    def parcel(self):
-        """Parcel exemplars to the correct exemplar list."""
-        frequent = self.frequent / float(100)
-        total_count = sum(self.clusters.values())
-
-        for exemplar in self.clusters.keys():
-
-            # Handle Default_Ignorable_Code_Point characters
+    def parcel_ignorable(self):
+        """Move Default_Ignorable_Code_Point characters to auxiliary."""
+        for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer not in self.bases_for_marks:
+                # if Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
                     # The trailer is a Default_Ignorable_Code_Point
                     # which needs to go in the auxiliary list.
                     self._auxiliary.add(trailer)
+                    del self.clusters[exemplar]
 
-            # Use frequency of occurrence to decide which exemplar list to add to.
-            occurs = self.clusters[exemplar] / float(total_count)
+    def parcel_frequency(self):
+        """Parcel exemplars between main and auxiliary based on frequency."""
+        total_count = sum(self.clusters.values())
+        item_count = len(self.clusters)
+        if item_count != 0:
+            average = total_count / float(item_count)
+        else:
+            average = 0
+        frequent = average * (self.frequent / float(100))
+
+        for exemplar in self.clusters.keys():
+            occurs = self.clusters[exemplar]
             if occurs > frequent:
                 self._main.add(exemplar.text)
             else:
@@ -312,24 +414,27 @@ class Exemplars(object):
     def allowable(self, char):
         """Make sure exemplars have the needed properties."""
 
-        # Numbers might have diacritics so need to be allowed.
+        # Numbers with or without diacritics need to be allowed.
         if self.ucd.isnumber(char):
             return True
-
-        # Exemplars must be Alphabetic.
-        if not Char.isUAlphabetic(char):
-            return False
 
         # Exemplars must be lowercase.
         if Char.isUUppercase(char):
             return False
 
-        # Exemplar must have a specific script.
-        if not self.ucd.is_specific_script(char):
-            return False
+        # Characters with a specific script can be exemplars.
+        if self.ucd.is_specific_script(char):
+            return True
 
-        # All conditions are met.
-        return True
+        # Some punctuation and symbols are handled as letters.
+        if self.ucd.is_exemplar_wordbreak(char):
+            return True
+
+        # Other characters must be Alphabetic.
+        if Char.isUAlphabetic(char):
+            return True
+
+        return False
 
     def process(self, text):
         """Analyze a string."""
@@ -368,7 +473,7 @@ class Exemplars(object):
             char = text[i]
 
             # Test for punctuation.
-            if Char.ispunct(char):
+            if self.ucd.ispunct(char):
                 self._punctuation.add(char)
                 i += 1
                 continue
