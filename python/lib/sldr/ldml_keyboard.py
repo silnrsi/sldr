@@ -50,6 +50,13 @@ class Keyboard(object):
         self.context = ""
         self.parse(path)
 
+    def _addrules(self, element, transform):
+        if transform not in self.transforms:
+            self.transforms[transform] = Rules(transform)
+        rules = self.transforms[transform]
+        for m in element:
+            rules.append(m)
+
     def parse(self, fname):
         '''Read and parse an LDML keyboard layout file'''
         doc = et.parse(fname)
@@ -66,12 +73,11 @@ class Keyboard(object):
                 for m in c:
                     maps[m.get('iso')] = m.get('to')
             elif c.tag == 'transforms':
-                if c.get('type') not in self.transforms:
-                    rules = Rules(c.get('type'))
-                    self.transforms[c.get('type')] = rules
-                rules = self.transforms[c.get('type')]
-                for m in c:
-                    rules.append(m)
+                self._addrules(c, c.get('type'))
+            elif c.tag == 'reorders':
+                self._addrules(c, 'reorder')
+            elif c.tag == 'backspaces':
+                self._addrules(c, 'backspace')
             elif c.tag == 'settings':
                 self.settings.update(c.attrib)
             elif c.tag == 'import':
@@ -195,7 +201,7 @@ class Keyboard(object):
         return u"".join(s[y] for y in sorted(range(len(s)), key=lambda x:k[x]))
 
     def _padlist(self, val, num):
-        boolmap = {'false' : "0", 'true': "1"}
+        boolmap = {'false' : 0, 'true': 1}
         res = [boolmap.get(x.lower(), x) for x in val.split()]
         if len(res) < num:
             res += [res[-1]] * (num - len(res))
@@ -206,9 +212,9 @@ class Keyboard(object):
         r = trans.match(instr[curr:])
         if r[0] is not None:
             orders = [int(x) for x in self._padlist(getattr(r[0], 'order', "0"), r[1])]
-            bases = [bool(x) for x in self._padlist(getattr(r[0], 'tertiary_base', "0"), r[1])]
+            bases = [bool(x) for x in self._padlist(getattr(r[0], 'tertiary_base', "false"), r[1])]
             tertiaries = [int(x) for x in self._padlist(getattr(r[0], 'tertiary', "0"), r[1])]
-            prebases = [bool(x) for x in self._padlist(getattr(r[0], 'prebase', "0"), r[1])]
+            prebases = [bool(x) for x in self._padlist(getattr(r[0], 'prebase', "false"), r[1])]
             return [CharCode(orders[i], bases[i], tertiaries[i], prebases[i]) for i in range(r[1])]
         else:
             return [CharCode(0, 0, 0, False)]
