@@ -79,23 +79,26 @@ class UCD(object):
             return True
         return False
 
-    @staticmethod
-    def isvirama(char):
-        """True if the character is a virama."""
-        if Char.getCombiningClass(char) == 9:
+    def is_always_combine(self, char):
+        """True if Mark always combines (logically) with the base character."""
+        if self.isnukta(char):
             return True
         return False
 
     @staticmethod
-    def is_indic_matra(char):
-        """True if the character is a an Indic matra."""
-
-        # The following code is not complete,
-        # it is only to allow the current function to be tested elsewhere.
-        # ICU currently does not give access to the Indic_Syllabic_Category property.
-        if ord(char) == 0x093E:
+    def is_sometimes_combine(char):
+        """True if Mark sometimes combines (logically) with the base character."""
+        if 0x0300 <= ord(char) <= 0x036F:
             return True
         return False
+
+    def is_never_combine(self, char):
+        """True if Mark never combines (logically) with the base character."""
+        if self.is_always_combine(char):
+            return False
+        if self.is_sometimes_combine(char):
+            return False
+        return True
 
     @staticmethod
     def isnumber(char):
@@ -314,8 +317,7 @@ class Exemplars(object):
         for exemplar in list(self.clusters.keys()):
             count = self.clusters[exemplar]
             for trailer in exemplar.trailers:
-                if (self.ucd.is_indic_matra(trailer) or
-                   self.ucd.isvirama(trailer) or
+                if (self.ucd.is_never_combine(trailer) or
                    Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
                     exemplar_mark = Exemplar('', trailer)
                     self.clusters[exemplar_mark] += count
@@ -501,9 +503,9 @@ class Exemplars(object):
                     # A Mark was found, so the cluster continues.
                     length += 1
 
-                    # Nukta marks are considered part of the base.
-                    if self.ucd.isnukta(trailer):
-                        # A nukta was found, so the base continues,
+                    # Marks such as nuktas are considered part of the base.
+                    if self.ucd.is_always_combine(trailer):
+                        # A Mark such as a nukta was found, so the base continues,
                         # as well as the cluster.
                         base_length += 1
                         base = text[i:i + base_length]

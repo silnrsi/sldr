@@ -55,6 +55,8 @@ class UCDTests(unittest.TestCase):
                 print '%04X' % usv
         self.assertTrue(False)
 
+    # marks
+
     def test_mark_true(self):
         self.assertTrue(self.ucd.ismark(u'\u0301'))
 
@@ -67,17 +69,49 @@ class UCDTests(unittest.TestCase):
     def test_nukta_false(self):
         self.assertFalse(self.ucd.isnukta(u'\u0915'))
 
-    def test_virama_true(self):
-        self.assertTrue(self.ucd.isvirama(u'\u0ccd'))
+    # always_combine
 
-    def test_virama_false(self):
-        self.assertFalse(self.ucd.isvirama(u'\u0c95'))
+    def test_nukta_always_combine(self):
+        self.assertTrue(self.ucd.is_always_combine(u'\u093c'))
 
-    def test_matra_true(self):
-        self.assertTrue(self.ucd.is_indic_matra(u'\u093e'))
+    def test_diacritic_always_combine(self):
+        self.assertFalse(self.ucd.is_always_combine(u'\u0300'))
 
-    def test_matra_false(self):
-        self.assertFalse(self.ucd.is_indic_matra(u'\u0906'))
+    def test_virama_always_combine(self):
+        self.assertFalse(self.ucd.is_always_combine(u'\u0ccd'))
+
+    def test_matra_always_combine(self):
+        self.assertFalse(self.ucd.is_always_combine(u'\u093e'))
+
+    # sometimes_combine
+
+    def test_nukta_sometimes_combine(self):
+        self.assertFalse(self.ucd.is_sometimes_combine(u'\u093c'))
+
+    def test_diacritic_sometimes_combine(self):
+        self.assertTrue(self.ucd.is_sometimes_combine(u'\u0300'))
+
+    def test_virama_sometimes_combine(self):
+        self.assertFalse(self.ucd.is_sometimes_combine(u'\u0ccd'))
+
+    def test_matra_sometimes_combine(self):
+        self.assertFalse(self.ucd.is_sometimes_combine(u'\u093e'))
+
+    # never_combine
+
+    def test_nukta_never_combine(self):
+        self.assertFalse(self.ucd.is_never_combine(u'\u093c'))
+
+    def test_diacritic_never_combine(self):
+        self.assertFalse(self.ucd.is_never_combine(u'\u0300'))
+
+    def test_virama_never_combine(self):
+        self.assertTrue(self.ucd.is_never_combine(u'\u0ccd'))
+
+    def test_matra_never_combine(self):
+        self.assertTrue(self.ucd.is_never_combine(u'\u093e'))
+
+    # other tests
 
     def test_number_true(self):
         self.assertTrue(self.ucd.isnumber(u'1'))
@@ -327,7 +361,7 @@ class ExemplarsTests(unittest.TestCase):
         """
         self.exemplars.process(u'\u0915\u1cd1')
         self.exemplars.analyze()
-        self.assertEqual(u'\u0915\u1cd1', self.exemplars.main)
+        self.assertEqual(u'\u0915 \u1cd1', self.exemplars.main)
 
     def test_kannada_main_old(self):
         """Clusters with virama, ZWJ."""
