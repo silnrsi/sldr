@@ -397,6 +397,25 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'a e i o u \u0300 \u0301 \u0304', self.exemplars.main)
 
+    def test_vietnamese_vowels(self):
+        """Some diacritics indicate additional vowels."""
+        self.exemplars.process(u'\u0103\u00e2\u0111\u00ea\u00f4\u01a1\u01b0')
+        self.exemplars.analyze()
+        self.assertEqual(u'\u00e2 \u0103 \u00ea \u00f4 \u01a1 \u01b0 \u0111', self.exemplars.main)
+
+    def test_vietnamese_tones(self):
+        """Other diacritics indicate tones."""
+        mid = u'\u0061\u0103\u00e2\u0065\u00ea\u0069\u006f\u00f4\u01a1\u0075\u01b0\u0079'
+        low_falling = u'\u00e0\u1eb1\u1ea7\u00e8\u1ec1\u00ec\u00f2\u1ed3\u1edd\u00f9\u1eeb\u1ef3'
+        mid_falling = u'\u1ea3\u1eb3\u1ea9\u1ebb\u1ec3\u1ec9\u1ecf\u1ed5\u1edf\u1ee7\u1eed\u1ef7'
+        glottal_rising = u'\u00e3\u1eb5\u1eab\u1ebd\u1ec5\u0129\u00f5\u1ed7\u1ee1\u0169\u1eef\u1ef9'
+        high_rising = u'\u00e1\u1eaf\u1ea5\u00e9\u1ebf\u00ed\u00f3\u1ed1\u1edb\u00fa\u1ee9\u00fd'
+        glottal_falling = u'\u1ea1\u1eb7\u1ead\u1eb9\u1ec7\u1ecb\u1ecd\u1ed9\u1ee3\u1ee5\u1ef1\u1ef5'
+        text = mid + low_falling + mid_falling + glottal_rising + high_rising + glottal_falling
+        self.exemplars.process(text)
+        self.exemplars.analyze()
+        self.assertEqual(u'\u00e2 \u0103 \u00ea \u00f4 \u01a1 \u01b0 \u0111', self.exemplars.main)
+
 
 if __name__ == '__main__':
     unittest.main()
