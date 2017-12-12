@@ -198,6 +198,8 @@ class Exemplars(object):
 
         # Internal parameters.
         self.clusters = Counter()
+        self.scripts = Counter()
+        self.codes_for_scripts = dict()
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
 
@@ -245,12 +247,25 @@ class Exemplars(object):
         """Return the list of found graphemes."""
         return ' '.join(self._graphemes)
 
+    def _get_script(self):
+        """Return most frequently occurring script."""
+        script_code_and_count_list = self.scripts.most_common(1)
+        if len(script_code_and_count_list) == 0:
+            return ''
+        else:
+            script_code_and_count = script_code_and_count_list[0]
+            script_code = script_code_and_count[0]
+            script = self.codes_for_scripts[script_code]
+            script_name = Script.getShortName(script)
+            return script_name
+
     main = property(_get_main, _set_main)
     auxiliary = property(_get_auxiliary, _set_auxiliary)
     index = property(_get_index, _set_index)
     punctuation = property(_get_punctuation, _set_punctuation)
     digits = property(_get_digits, _set_digits)
     graphemes = property(_get_graphemes)
+    script = property(_get_script)
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
@@ -442,6 +457,15 @@ class Exemplars(object):
         """Analyze a string."""
         i = 0
         text = self.ucd.normalize('NFD', text)
+
+        # Record script of each character.
+        for char in text:
+            script = Script.getScript(char)
+            script_code = Script.getScriptCode(script)
+            self.scripts[script_code] += 1
+            self.codes_for_scripts[script_code] = script
+
+        # Record clusters
         while i < len(text):
 
             # Look for multigraphs (from length of max_multigraph_length down to 1) character(s)

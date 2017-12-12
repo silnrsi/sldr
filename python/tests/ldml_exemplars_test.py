@@ -387,6 +387,18 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'\u0c95 \u0cb0\u200d\u0ccd \u0cb0\u0ccd\u200d', self.exemplars.graphemes)
 
+    def test_kannada_script(self):
+        """Find most frequently occurring script."""
+        self.exemplars.process(u'\u201c\u0cb0\u200d\u0ccd\u0c95 \u0cb0\u0ccd\u200d\u0c95\u201d')
+        self.exemplars.analyze()
+        self.assertEqual(u'Knda', self.exemplars.script)
+
+    def test_no_script(self):
+        """If no script has been seen, return the empty string."""
+        self.exemplars.process(u'')
+        self.exemplars.analyze()
+        self.assertEqual(u'', self.exemplars.script)
+
     def test_yoruba(self):
         """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
         self.exemplars.process(u'a\u0301 a\u0300 a\u0304 '
