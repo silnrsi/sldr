@@ -193,14 +193,15 @@ class Collation(dict):
         '''Given two sorted lists of (k, sortkey(k)) delete from this
             collation any k that is not inserted into the first list.
             I.e. only keep things inserted into the ducet sequence'''
-        s = SequenceMatcher(a=a[0], b=b[0])
-        for g in s.get_opcodes():
-            if g[0] == 'insert' or g[0] == 'replace': continue
-            for i in range(g[3], g[4]):
-                # delete if we have the element 
-                #   and the primary sortkey lengths are different
-                if b[0][i] in self and len(a[1][g[1]+i-g[3]][0]) == len(b[1][i][0]):
-                    del self[b[0][i]]
+        if len(a) > 0 and len(b) > 0:
+            s = SequenceMatcher(a=a[0], b=b[0])
+            for g in s.get_opcodes():
+                if g[0] == 'insert' or g[0] == 'replace': continue
+                for i in range(g[3], g[4]):
+                    # delete if we have the element
+                    #   and the primary sortkey lengths are different
+                    if b[0][i] in self and len(a[1][g[1]+i-g[3]][0]) == len(b[1][i][0]):
+                        del self[b[0][i]]
 
     def minimise(self, alphabet):
         '''Minimise a sort tailoring such that the minimised tailoring
