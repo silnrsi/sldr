@@ -145,6 +145,11 @@ class Collation(dict):
                     self[key].exp = expstr
                 base = key
 
+    def __setitem__(self, key, val):
+        if key in self:
+            raise KeyError("key {} already exists in collation with value {}".format(key, self[key]))
+        dict.__setitem__(self, key, val)
+
     def _setSortKeys(self):
         '''Calculates tailored sort keys for everything in this collation'''
         if len(self) > 0 :

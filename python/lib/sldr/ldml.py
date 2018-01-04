@@ -1019,6 +1019,18 @@ class Ldml(ETWriter):
             for k, v in kws.items():
                 s.set(k, v)
 
+    def flag_nonroots(self):
+        """Add @sil:modified="true" to key elements"""
+        for n in self.root.findall('collations/collation'):
+            n.set('{'+self.silns+'}modified', 'true')
+
+    def flatten_collation(self, collstr, importfn):
+        """Flattens [import] statements in a collation tailoring"""
+        def doimport(m):
+            return self.flatten_collation(importfn(m.group('lang'), m.group('coll')), importfn)
+        return re.sub(ur'\[import\s*(?P<lang>.*?)-u-co-(?P<coll>.*?)\s*\]', doimport, collstr)
+
+
 def _prepare_parent(next, token):
     def select(context, result):
         for elem in result:
@@ -1027,13 +1039,14 @@ def _prepare_parent(next, token):
     return select
 ep.ops['..'] = _prepare_parent
 
-def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, skipstubs=False, fname=None):
+def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, skipstubs=False, fname=None, flattencollation=False):
     """ Flattens an ldml file by filling in missing details from the fallback chain.
         If rev true, then do the opposite and unflatten a flat LDML file by removing
         everything that is the same in the fallback chain.
         changed contains an optional set of locales that if present says that the operation
         is only applied if one or more of the fallback locales are in the changed set.
-        autoidentity says to insert or remove script information from the identity element."""
+        autoidentity says to insert or remove script information from the identity element.
+        Values for rev: f - flatten, r - unflatten, c - copy"""
     def trimtag(s):
         r = s.rfind('_')
         if r < 0:
@@ -1084,6 +1097,8 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, sk
                         dome = False
                         break   # only need one for unflatten
                     else:
+                        if f == 'root':
+                            l.flag_nonroots()
                         l.overlay(o)
                 f = trimtag(f)
             if not dome: break
@@ -1101,6 +1116,22 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, sk
                         i.remove(curr)
                 elif curr is None:
                     l.addnode(i, n, type=j)
+    if flattencollation:
+        collmap = {'phonebk' : 'phonebook'}
+        def getcollator(lang, coll):
+            try:
+                if l.fname.endswith(lang+'.xml'):
+                    c = l
+                else:
+                    c = getldml(('root' if lang == 'und' else lang), dirs)
+                col = c.root.find('collations/collation[@type="{}"]/cr'.format(collmap.get(coll, coll)))
+                return col.text
+            except:
+                return ''
+            
+        for i in l.root.findall('collations/collation/cr'):
+            i.text = l.flatten_collation(i.text, getcollator)
+
     return l
 
 if __name__ == '__main__':
