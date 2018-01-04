@@ -420,6 +420,12 @@ class Exemplars(object):
         possible_index = self._main.union(self._auxiliary)
         for exemplar in possible_index:
 
+            # An index cannot be an empty string.
+            # This case should not occur, but there is a bug in the processing of
+            # bases and marks that has not been fixed yet.
+            if exemplar == '':
+                continue
+
             # An index should not be an isolated mark.
             if self.ucd.ismark(exemplar[0]):
                 continue
