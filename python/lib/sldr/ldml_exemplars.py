@@ -292,7 +292,7 @@ class Exemplars(object):
         self.find_numbers()
         self.find_indic_matras_and_viramas()
         self.count_marks()
-        self.find_seperate_marks()
+        self.find_separate_marks()
         self.find_productive_marks()
         self.parcel_ignorable()
         self.parcel_frequency()
@@ -327,6 +327,16 @@ class Exemplars(object):
                 self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
+    def split_exemplar(self, exemplar, mark, count):
+        """Split an exemplar into separate exemplars."""
+        exemplar_mark = Exemplar('', mark)
+        self.clusters[exemplar_mark] += count
+
+        exemplar_base = Exemplar(exemplar.base)
+        self.clusters[exemplar_base] += count
+
+        del self.clusters[exemplar]
+
     def find_indic_matras_and_viramas(self):
         """Indic matras and viramas are always separate marks."""
         for exemplar in list(self.clusters.keys()):
@@ -334,17 +344,12 @@ class Exemplars(object):
             for trailer in exemplar.trailers:
                 if (self.ucd.is_never_combine(trailer) or
                    Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
-                    exemplar_mark = Exemplar('', trailer)
-                    self.clusters[exemplar_mark] += count
+                    self.split_exemplar(exemplar, trailer, count)
 
-                    exemplar_base = Exemplar(exemplar.base)
-                    self.clusters[exemplar_base] += count
-
-                    del self.clusters[exemplar]
-
-    def find_seperate_marks(self):
+    def find_separate_marks(self):
         """If a set of diacritics has the sames bases, the diacritics are separate."""
         for exemplar in list(self.clusters.keys()):
+            count = self.clusters[exemplar]
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
                     # The trailer is a Mark, as it was found,
@@ -358,17 +363,12 @@ class Exemplars(object):
                             other_bases = self.bases_for_marks[other_mark]
                             difference = current_bases.symmetric_difference(other_bases)
                             if len(difference) == 0:
-                                exemplar_mark = Exemplar('', current_mark)
-                                self.clusters[exemplar_mark] += self.clusters[exemplar]
-
-                                exemplar_base = Exemplar(exemplar.base)
-                                self.clusters[exemplar_base] += self.clusters[exemplar]
-
-                                del self.clusters[exemplar]
+                                self.split_exemplar(exemplar, current_mark, count)
 
     def find_productive_marks(self):
         """Split clusters if a mark occurs on many bases."""
         for exemplar in list(self.clusters.keys()):
+            count = self.clusters[exemplar]
             for trailer in exemplar.trailers:
                 if trailer in self.bases_for_marks:
                     # The trailer is a Mark, as it was found,
@@ -379,13 +379,7 @@ class Exemplars(object):
                     # If a mark has more than many_bases ...
                     if len(bases_for_mark) > self.many_bases:
                         # then the base and mark are separate exemplars.
-                        exemplar_base = Exemplar(exemplar.base)
-                        self.clusters[exemplar_base] += self.clusters[exemplar]
-
-                        exemplar_mark = Exemplar('', mark)
-                        self.clusters[exemplar_mark] += self.clusters[exemplar]
-
-                        del self.clusters[exemplar]
+                        self.split_exemplar(exemplar, mark, count)
 
     def parcel_ignorable(self):
         """Move Default_Ignorable_Code_Point characters to auxiliary."""

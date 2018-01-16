@@ -399,6 +399,12 @@ class ExemplarsTests(unittest.TestCase):
         self.exemplars.analyze()
         self.assertEqual(u'', self.exemplars.script)
 
+    def ignore_undetermined_script(self):
+        """Handle a script that ICU does not know about."""
+        self.exemplars.process(u'\U00011D0C')
+        self.exemplars.analyze()
+        self.assertEqual(u'Zyyy', self.exemplars.script)
+
     def test_yoruba(self):
         """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
         self.exemplars.process(u'a\u0301 a\u0300 a\u0304 '
