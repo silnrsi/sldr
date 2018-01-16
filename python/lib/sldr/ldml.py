@@ -417,7 +417,7 @@ class Ldml(ETWriter):
             fh = fname
         parser = et.XMLParser(target=et.TreeBuilder(), encoding="UTF-8")
         def doComment(data):
-            # resubmit as new start tag=! and sort out in main loop
+            # resubmit as new start tag=!-- and sort out in main loop
             parser.parser.StartElementHandler("!--", ('text', data))
             parser.parser.EndElementHandler("!--")
         parser.parser.CommentHandler = doComment
@@ -619,25 +619,59 @@ class Ldml(ETWriter):
         if ldraft is not None: return _draftratings.get(ldraft, 5)
         return _draftratings.get(default, self.default_draft)
 
-    def overlay(self, other, usedrafts=False, this=None, odraft='', tdraft=''):
+    def overlay(self, other, usedrafts=False, this=None):
         """Add missing information in self from other. Honours @draft attributes"""
         if this == None: this = self.root
         other = getattr(other, 'root', other)
-        if usedrafts:
-            tdraft = this.get('draft', tdraft)
-            odraft = other.get('draft', odraft)
         for o in other:
-            addme = True
-            for t in filter(lambda x: x.attrHash == o.attrHash, this):
-                addme = False
-                if o.contentHash != t.contentHash:
-                    if o.tag not in self.blocks:
-                        self.overlay(o, usedrafts=usedrafts, this=t, odraft=odraft, tdraft=tdraft)
-                    elif usedrafts:
-                        self._merge_leaf(other, t, o)
-                break  # only do one alignment
-            if addme and (o.tag != "alias" or not len(this)):  # alias in effect turns it into blocking
+            # simple if for now, if more use a dict
+            if o.tag == '{'+self.silns+'}external-resources':
+                self._overlay_external_resources(o, this, usedrafts)
+            else:
+                self._overlay_child(o, this, usedrafts)
+
+    def _overlay_child(self, o, this, usedrafts):
+        addme = True
+        for t in filter(lambda x: x.attrHash == o.attrHash, this):
+            addme = False
+            if o.contentHash != t.contentHash:
+                if o.tag not in self.blocks:
+                    self.overlay(o, usedrafts=usedrafts, this=t)
+                elif usedrafts:
+                    self._merge_leaf(other, t, o)
+            break  # only do one alignment
+        if addme and (o.tag != "alias" or not len(this)):  # alias in effect turns it into blocking
+            this.append(o)
+
+    def _overlay_external_resources(self, other, this, usedrafts):
+        """Handle sil:font fallback mechanism"""
+        silfonttag = '{'+self.silns+'}font'
+        fonts = []
+        this = filter(lambda x: x.attrHash == o.attrHash, this)[0]
+        for t in list(this):
+            if t.tag == silfonttag:
+                fonts.append(t)
+                this.remove(t)
+        for o in other:
+            if o.tag == silfonttag:
+                types = o.get('types', '').split(' ')
+                if not len(types):
+                    types = ['default']
+                for t in types:
+                    if t == 'default':
+                        fonts = []
+                        break
+                    else:
+                        for f in fonts:
+                            tt = f.get('types', 'default').split(' ')
+                            if t in tt:
+                                f.set('types', " ".join(filter(lambda x: x != t, tt)))
+                        fonts = filter(lambda x: x.get('types', '') != '', fonts)
                 this.append(o)
+            else:
+                self._overlay_child(o, this, usedrafts)
+        for f in fonts:
+            this.append(f)
 
     def _merge_leaf(self, other, b, o):
         """Handle @draft and @alt"""

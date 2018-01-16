@@ -202,7 +202,7 @@ def parseitem(s, ind, lastitem, end):
         e = s.index('}', ind+1)
         while e > 0 and s[e-1] == '\\':
             e = s.index('}', e+1)
-        res.add(simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s))
+        res.add(simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s[ind+1:e]))
         ind = e + 1
     elif s[ind] == '\\':
         x = s[ind+1]
