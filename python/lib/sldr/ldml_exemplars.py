@@ -29,6 +29,12 @@ from icu import Normalizer2, UNormalizationMode2, UnicodeString
 from collections import Counter
 import codecs
 
+try:
+    from sldr.UnicodeSets import parse
+except ImportError:
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'sldr', 'python', 'lib')))
+    from sldr.UnicodeSets import parse
+
 
 def main():
     pass
@@ -195,6 +201,96 @@ class Exemplar(object):
 
 
 class Exemplars(object):
+
+    def __init__(self):
+        self.ucd = UCD()
+        self.exemplars = ExemplarsItemString()
+
+        # User settable configuration.
+        self.many_bases = 5
+        self.frequent = 10
+
+    def _set_main(self, ldml_exemplars):
+        """Set LDML exemplars data for the main set."""
+        self.exemplars.main = self.ldml_read(ldml_exemplars)
+
+    def _set_auxiliary(self, ldml_exemplars):
+        """Set LDML exemplars data for the auxiliary set."""
+        self.exemplars.auxiliary = self.ldml_read(ldml_exemplars)
+
+    def _set_index(self, ldml_exemplars):
+        """Set LDML exemplars data for the index set."""
+        self.exemplars.index = self.ldml_read(ldml_exemplars)
+
+    def _set_punctuation(self, ldml_exemplars):
+        """Set LDML exemplars data for the punctuation set."""
+        self.exemplars.punctuation = self.ldml_read(ldml_exemplars)
+
+    def _set_digits(self, ldml_exemplars):
+        """Set LDML exemplars data for the digits set."""
+        self.exemplars.digits = self.ldml_read(ldml_exemplars)
+
+    def _get_main(self):
+        """Return LDML exemplars data for the main set."""
+        return self.ldml_write(self.exemplars.main)
+
+    def _get_auxiliary(self):
+        """Return LDML exemplars data for the auxiliary set."""
+        return self.ldml_write(self.exemplars.auxiliary)
+
+    def _get_index(self):
+        """Return LDML exemplars data for the index set."""
+        return self.ldml_write(self.exemplars.index)
+
+    def _get_punctuation(self):
+        """Return LDML exemplars data for the punctuation set."""
+        return self.ldml_write(self.exemplars.punctuation)
+
+    def _get_digits(self):
+        """Return LDML exemplars data for the digits set."""
+        return self.ldml_write(self.exemplars.digits)
+
+    def _get_graphemes(self):
+        """Return the list of found graphemes."""
+        return self.ldml_write(self.exemplars.graphemes)
+
+    def _get_script(self):
+        """Return most frequently occurring script."""
+        return self.exemplars.script
+
+    main = property(_get_main, _set_main)
+    auxiliary = property(_get_auxiliary, _set_auxiliary)
+    index = property(_get_index, _set_index)
+    punctuation = property(_get_punctuation, _set_punctuation)
+    digits = property(_get_digits, _set_digits)
+    graphemes = property(_get_graphemes)
+    script = property(_get_script)
+
+    def ldml_read(self, ldml_exemplars):
+        """Read exemplars from a string from a LDML formatted file."""
+        ldml_exemplars = parse(ldml_exemplars)[0]
+        return ' '.join(ldml_exemplars)
+
+    def ldml_write(self, exemplars):
+        """Write exemplars to a string that can be written to a LDML formatted file."""
+        list_exemplars = list()
+        for exemplar in exemplars.split():
+            exemplar = self.ucd.normalize('NFC', exemplar)
+            if len(exemplar) > 1:
+                exemplar = u'{' + exemplar + u'}'
+            list_exemplars.append(exemplar)
+        ldml_exemplars = u'[{}]'.format(' '.join(list_exemplars))
+        return ldml_exemplars
+
+    def analyze(self):
+        self.exemplars.analyze()
+
+    def process(self, text):
+        self.exemplars.many_bases = self.many_bases
+        self.exemplars.frequent = self.frequent
+        self.exemplars.process(text)
+
+class ExemplarsItemString(object):
 
     def __init__(self):
         self.ucd = UCD()

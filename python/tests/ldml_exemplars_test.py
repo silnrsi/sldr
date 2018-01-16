@@ -29,10 +29,10 @@ import sys
 import unittest
 
 try:
-    from sldr.ldml_exemplars import UCD, Exemplars
+    from sldr.ldml_exemplars import UCD, ExemplarsItemString
 except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
-    from sldr.ldml_exemplars import UCD, Exemplars
+    from sldr.ldml_exemplars import UCD, ExemplarsItemString
 
 
 class UCDTests(unittest.TestCase):
@@ -163,7 +163,7 @@ class UCDTests(unittest.TestCase):
 class ExemplarsTests(unittest.TestCase):
 
     def setUp(self):
-        self.exemplars = Exemplars()
+        self.exemplars = ExemplarsItemString()
 
     def tearDown(self):
         pass
