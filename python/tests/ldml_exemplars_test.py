@@ -432,7 +432,7 @@ class ExemplarsTests(unittest.TestCase):
         text = mid + low_falling + mid_falling + glottal_rising + high_rising + glottal_falling
         self.exemplars.process(text)
         self.exemplars.analyze()
-        self.assertEqual(u'\u00e2 \u0103 \u00ea \u00f4 \u01a1 \u01b0 \u0111', self.exemplars.main)
+        self.assertEqual(u'a \u00e2 \u0103 e \u00ea i o \u00f4 \u01a1 u \u01b0 y \u0300 \u0301 \u0303 \u0309 \u0323', self.exemplars.main)
 
 
 if __name__ == '__main__':

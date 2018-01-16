@@ -27,6 +27,7 @@
 from icu import Char, Script, UCharCategory, UProperty, UScriptCode
 from icu import Normalizer2, UNormalizationMode2, UnicodeString
 from collections import Counter
+import codecs
 
 
 def main():
@@ -167,6 +168,20 @@ class Exemplar(object):
 
     text = property(_get_text)
 
+    def __str__(self):
+        if self.trailers == '':
+            return self.base
+        else:
+            return '{} {}'.format(self.base, self.trailers)
+
+    def __repr__(self):
+        base = codecs.encode(self.base, 'unicode_escape')
+        if self.trailers == '':
+            return "'Exemplar('{}')'".format(base)
+        else:
+            trailers = codecs.encode(self.trailers, 'unicode_escape')
+            return "'Exemplar('{}', '{}')'".format(base, trailers)
+
     def __hash__(self):
         return hash((self.base, self.trailers))
 
@@ -202,6 +217,7 @@ class Exemplars(object):
         self.codes_for_scripts = dict()
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
+        self.need_splitting = True
 
     def _set_main(self, ldml_exemplars):
         """Set LDML exemplars data for the main set."""
@@ -290,10 +306,12 @@ class Exemplars(object):
         """Analyze the found exemplars and classify them."""
         self.save_graphemes()
         self.find_numbers()
-        self.find_indic_matras_and_viramas()
         self.count_marks()
-        self.find_separate_marks()
-        self.find_productive_marks()
+        while self.need_splitting:
+            self.need_splitting = False
+            self.find_indic_matras_and_viramas()
+            self.find_separate_marks()
+            self.find_productive_marks()
         self.parcel_ignorable()
         self.parcel_frequency()
         self.make_index()
@@ -327,30 +345,45 @@ class Exemplars(object):
                 self._digits.add(exemplar.base)
                 del self.clusters[exemplar]
 
-    def split_exemplar(self, exemplar, mark, count):
+    def split_exemplar(self, exemplar, index, count):
         """Split an exemplar into separate exemplars."""
+
+        # If the exemplar is already a separate mark,
+        # the base of the exemplar will be an empty string,
+        # and therefore no further processing is needed
+        # on that exemplar.
+        if exemplar.base == '':
+            return
+
+        mark = exemplar.trailers[index]
+        before_current_mark = exemplar.trailers[:index]
+        after_current_mark = exemplar.trailers[index+1:]
+
         exemplar_mark = Exemplar('', mark)
         self.clusters[exemplar_mark] += count
 
-        exemplar_base = Exemplar(exemplar.base)
-        self.clusters[exemplar_base] += count
+        new_exemplar = Exemplar(exemplar.base, before_current_mark + after_current_mark)
+        self.clusters[new_exemplar] += count
 
         del self.clusters[exemplar]
+        self.need_splitting = True
 
     def find_indic_matras_and_viramas(self):
         """Indic matras and viramas are always separate marks."""
         for exemplar in list(self.clusters.keys()):
             count = self.clusters[exemplar]
-            for trailer in exemplar.trailers:
+            for trailer_index in range(len(exemplar.trailers)):
+                trailer = exemplar.trailers[trailer_index]
                 if (self.ucd.is_never_combine(trailer) or
                    Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
-                    self.split_exemplar(exemplar, trailer, count)
+                    self.split_exemplar(exemplar, trailer_index, count)
 
     def find_separate_marks(self):
         """If a set of diacritics has the sames bases, the diacritics are separate."""
         for exemplar in list(self.clusters.keys()):
             count = self.clusters[exemplar]
-            for trailer in exemplar.trailers:
+            for trailer_index in range(len(exemplar.trailers)):
+                trailer = exemplar.trailers[trailer_index]
                 if trailer in self.bases_for_marks:
                     # The trailer is a Mark, as it was found,
                     # and only Marks are in that data structure.
@@ -363,13 +396,14 @@ class Exemplars(object):
                             other_bases = self.bases_for_marks[other_mark]
                             difference = current_bases.symmetric_difference(other_bases)
                             if len(difference) == 0:
-                                self.split_exemplar(exemplar, current_mark, count)
+                                self.split_exemplar(exemplar, trailer_index, count)
 
     def find_productive_marks(self):
         """Split clusters if a mark occurs on many bases."""
         for exemplar in list(self.clusters.keys()):
             count = self.clusters[exemplar]
-            for trailer in exemplar.trailers:
+            for trailer_index in range(len(exemplar.trailers)):
+                trailer = exemplar.trailers[trailer_index]
                 if trailer in self.bases_for_marks:
                     # The trailer is a Mark, as it was found,
                     # and only Marks are in that data structure.
@@ -379,7 +413,7 @@ class Exemplars(object):
                     # If a mark has more than many_bases ...
                     if len(bases_for_mark) > self.many_bases:
                         # then the base and mark are separate exemplars.
-                        self.split_exemplar(exemplar, mark, count)
+                        self.split_exemplar(exemplar, trailer_index, count)
 
     def parcel_ignorable(self):
         """Move Default_Ignorable_Code_Point characters to auxiliary."""
@@ -415,10 +449,11 @@ class Exemplars(object):
         for exemplar in possible_index:
 
             # An index cannot be an empty string.
-            # This case should not occur, but there is a bug in the processing of
-            # bases and marks that has not been fixed yet.
-            if exemplar == '':
-                continue
+            # This case should not occur, but it does, uncomment the test below
+            # to enable the script to run without errors until the bug that is
+            # causing empty exemplars to be produced is fixed.
+            # if exemplar == '':
+            #     continue
 
             # An index should not be an isolated mark.
             if self.ucd.ismark(exemplar[0]):
