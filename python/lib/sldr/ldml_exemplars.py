@@ -290,6 +290,7 @@ class Exemplars(object):
         self.exemplars.frequent = self.frequent
         self.exemplars.process(text)
 
+
 class ExemplarsItemString(object):
 
     def __init__(self):
@@ -313,6 +314,7 @@ class ExemplarsItemString(object):
         self.codes_for_scripts = dict()
         self.bases_for_marks = dict()
         self.max_multigraph_length = 1
+        self.always_separate_marks = set()
         self.need_splitting = True
 
     def _set_main(self, ldml_exemplars):
@@ -406,8 +408,9 @@ class ExemplarsItemString(object):
         while self.need_splitting:
             self.need_splitting = False
             self.find_indic_matras_and_viramas()
-            self.find_separate_marks()
+            self.find_marks_on_same_bases()
             self.find_productive_marks()
+            self.find_second_marks()
         self.parcel_ignorable()
         self.parcel_frequency()
         self.make_index()
@@ -474,7 +477,7 @@ class ExemplarsItemString(object):
                    Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT)):
                     self.split_exemplar(exemplar, trailer_index, count)
 
-    def find_separate_marks(self):
+    def find_marks_on_same_bases(self):
         """If a set of diacritics has the sames bases, the diacritics are separate."""
         for exemplar in list(self.clusters.keys()):
             count = self.clusters[exemplar]
@@ -511,12 +514,41 @@ class ExemplarsItemString(object):
                         # then the base and mark are separate exemplars.
                         self.split_exemplar(exemplar, trailer_index, count)
 
+    def find_second_marks(self):
+        """Split clusters if a mark is a second or later stacking diacritic."""
+        for exemplar in list(self.clusters.keys()):
+            count = self.clusters[exemplar]
+            for trailer_index in range(len(exemplar.trailers)):
+                trailer = exemplar.trailers[trailer_index]
+
+                # If the mark has already been found to be a always separate mark,
+                # split the exemplar.
+                if trailer in self.always_separate_marks:
+                    self.split_exemplar(exemplar, trailer_index, count)
+
+                # Only graphemes with more than one mark need to be looked at
+                # for finding stacking diacritics that are separate.
+                if trailer_index > 0:
+
+                    current_mark_ccc = Char.getCombiningClass(trailer)
+                    previous_mark_ccc = Char.getCombiningClass(previous_trailer)
+
+                    # If a mark has the same combining class (ccc) as the previous mark,
+                    # then the mark is a second or later stacking diacritic and is a separate mark.
+                    # Also, if the mark has already been found to be a always separate mark,
+                    # split the exemplar.
+                    if current_mark_ccc == previous_mark_ccc:
+                        self.always_separate_marks.add(trailer)
+                        self.split_exemplar(exemplar, trailer_index, count)
+
+                previous_trailer = trailer
+
     def parcel_ignorable(self):
         """Move Default_Ignorable_Code_Point characters to auxiliary."""
         for exemplar in list(self.clusters.keys()):
             for trailer in exemplar.trailers:
                 if trailer not in self.bases_for_marks:
-                # if Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
+                    # if Char.hasBinaryProperty(trailer, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
                     # The trailer is a Default_Ignorable_Code_Point
                     # which needs to go in the auxiliary list.
                     self._auxiliary.add(trailer)

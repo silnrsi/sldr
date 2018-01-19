@@ -220,7 +220,7 @@ class ExemplarsTests(unittest.TestCase):
     def test_lithuanian_main(self):
         self.exemplars.process(u'\u00c1\u0328 \u00e1\u0328 I\u0307\u0301 i\u0307\u0301')
         self.exemplars.analyze()
-        self.assertEqual(u'\u0105\u0301 i\u0307\u0301', self.exemplars.main)
+        self.assertEqual(u'\u0105 i\u0307 \u0301', self.exemplars.main)
 
     def test_lithuanian_index(self):
         self.exemplars.process(u'a \u0105 b c A \u0104 B C Z')
@@ -258,7 +258,10 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'b e g i l n \u00fc', self.exemplars.main)
 
     def test_french_main_nfc(self):
-        """Marks occurring on many bases are separate, even if the characters are combined (NFC)."""
+        """Marks occurring on many bases are separate.
+
+        Even if the characters are combined (NFC).
+        """
         self.exemplars.many_bases = 4
         self.exemplars.process(u'r\u00e9sum\u00e9 \u00e2 \u00ea \u00ee \u00f4 \u00fb')
         self.exemplars.analyze()
@@ -432,7 +435,16 @@ class ExemplarsTests(unittest.TestCase):
         text = mid + low_falling + mid_falling + glottal_rising + high_rising + glottal_falling
         self.exemplars.process(text)
         self.exemplars.analyze()
-        self.assertEqual(u'a \u00e2 \u0103 e \u00ea i o \u00f4 \u01a1 u \u01b0 y \u0300 \u0301 \u0303 \u0309 \u0323', self.exemplars.main)
+        self.assertEqual(u'a \u00e2 \u0103 e \u00ea i o \u00f4 \u01a1 u \u01b0 y '
+                         u'\u0300 \u0301 \u0303 \u0309 \u0323', self.exemplars.main)
+
+    def test_stacking_diacritics(self):
+        """Second level diacritics are always separate."""
+        self.exemplars.process(u'a\u0324 b\u032a c\u0303 d\u0306 e\u0301 '
+                               u'f\u0324\u032a\u0303\u0306\u0301')
+        self.exemplars.analyze()
+        self.assertEqual(u'a\u0324 b c\u0303 d e f\u0324\u0303 \u0301 \u0306 \u032a',
+                         self.exemplars.main)
 
 
 if __name__ == '__main__':
