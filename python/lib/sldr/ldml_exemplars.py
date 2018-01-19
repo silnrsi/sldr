@@ -268,7 +268,9 @@ class Exemplars(object):
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
-        ldml_exemplars = parse(ldml_exemplars)[0]
+        ldml_exemplars = parse(ldml_exemplars)
+        if len(ldml_exemplars) > 0:
+            ldml_exemplars = ldml_exemplars[0]
         return ' '.join(ldml_exemplars)
 
     def ldml_write(self, exemplars):
