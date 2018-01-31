@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2016 Unicode, Inc.
+<!-- Copyright © 1991-2017 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
+
+Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/ for derived annotations.
 -->
 <ldml>
 	<identity>
-		<version number="$Revision: 12922 $"/>
+		<version number="$Revision: 13701 $"/>
 		<language type="zu"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr" draft="approved"/>
@@ -566,8 +568,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="CW">i-Curaçao</territory>
 			<territory type="CX">i-Christmas Island</territory>
 			<territory type="CY">i-Cyprus</territory>
-			<territory type="CZ" alt="variant">i-Czechia</territory>
-			<territory type="CZ">i-Czech Republic</territory>
+			<territory type="CZ" alt="variant">i-Czech Republic</territory>
+			<territory type="CZ">i-Czechia</territory>
 			<territory type="DE">i-Germany</territory>
 			<territory type="DG">i-Diego Garcia</territory>
 			<territory type="DJ">i-Djibouti</territory>
@@ -584,6 +586,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="ES">i-Spain</territory>
 			<territory type="ET">i-Ethiopia</territory>
 			<territory type="EU">i-European Union</territory>
+			<territory type="EZ">EZ</territory>
 			<territory type="FI">i-Finland</territory>
 			<territory type="FJ">i-Fiji</territory>
 			<territory type="FK" alt="variant">i-Falkland Islands (Islas Malvinas)</territory>
@@ -775,7 +778,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="XK">i-Kosovo</territory>
 			<territory type="YE">i-Yemen</territory>
 			<territory type="YT">i-Mayotte</territory>
-			<territory type="ZA">i-South Africa</territory>
+			<territory type="ZA">iNingizimu Afrika</territory>
 			<territory type="ZM">i-Zambia</territory>
 			<territory type="ZW">iZimbabwe</territory>
 			<territory type="ZZ">iSifunda esingaziwa</territory>
@@ -911,11 +914,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<measurementSystemName type="US">i-US</measurementSystemName>
 			<measurementSystemName type="metric">i-Metric</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Ulimi: {0}</codePattern>
+			<codePattern type="script">Umbhalo: {0}</codePattern>
+			<codePattern type="territory">Isiyingi: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters type="auxiliary">[á à ă â å ä ã ā æ ç é è ĕ ê ë ē í ì ĭ î ï ī ñ ó ò ŏ ô ö ø ō œ ú ù ŭ û ü ū ÿ]</exemplarCharacters>
 		<exemplarCharacters type="index" draft="unconfirmed">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<exemplarCharacters>[a b {bh} c {ch} d {dl} {dy} e f g {gc} {gq} {gx} h {hh} {hl} i j k {kh} {kl} {kp} l m n {nc} {ngc} {ngq} {ngx} {nhl} {nk} {nkc} {nkq} {nkx} {nq} {ntsh} {nx} {ny} o p {ph} q {qh} r {rh} s {sh} t {th} {tl} {ts} {tsh} u v w x {xh} y z]</exemplarCharacters>
+		<parseLenients level="lenient" scope="date">
+			<parseLenient draft="provisional" sample="-">[\--/]</parseLenient>
+		</parseLenients>
+		<parseLenients level="lenient" scope="general">
+			<parseLenient draft="contributed" sample=".">[.․。︒﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients level="lenient" scope="number">
+			<parseLenient draft="contributed" sample="+">[+⁺₊➕﬩﹢＋]</parseLenient>
+		</parseLenients>
 	</characters>
 	<dates>
 		<calendars>
@@ -1059,7 +1076,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<month type="9">S</month>
 						</monthWidth>
 						<monthWidth type="wide">
-							<month type="1">UMasingana</month>
+							<month type="1">Januwari</month>
 							<month type="10">Okthoba</month>
 							<month type="11">Novemba</month>
 							<month type="12">Disemba</month>
@@ -1270,12 +1287,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
 							<dayPeriod type="afternoon1">emini</dayPeriod>
-							<dayPeriod type="am">a</dayPeriod>
+							<dayPeriod type="am">AM</dayPeriod>
 							<dayPeriod type="evening1">ntambama</dayPeriod>
 							<dayPeriod type="morning1">entathakusa</dayPeriod>
 							<dayPeriod type="morning2">ekuseni</dayPeriod>
 							<dayPeriod type="night1">ebusuku</dayPeriod>
-							<dayPeriod type="pm">p</dayPeriod>
+							<dayPeriod type="pm">PM</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
 							<dayPeriod type="afternoon1">emini</dayPeriod>
@@ -1329,14 +1346,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="Ed">d E</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">'week' W 'of' MMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">'week' W 'of' MMM</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">E, MMM d, y</dateFormatItem>
 						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
 						<dateFormatItem id="yMMMd">MMM d, y</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
-						<dateFormatItem id="yw" count="one">'week' w 'of' y</dateFormatItem>
+						<dateFormatItem id="yw" count="one">'week' w 'of' Y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatItem id="H">
@@ -1366,9 +1382,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="M">E, MMM d – E, MMM d</greatestDifference>
 							<greatestDifference id="d">E, MMM d – E, MMM d</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="MMMd">
-							<greatestDifference id="d">MMM d – d</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Md">
 							<greatestDifference id="M">M/d – M/d</greatestDifference>
@@ -1463,10 +1476,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} izinsuku ezedlule</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>usuku lonyaka</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>usuku lonyaka</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName>AM/PM</displayName>
 			</field>
+			<field type="dayperiod-narrow">
+				<displayName>AM/PM</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>AM/PM</displayName>
+			</field>
 			<field type="era">
+				<displayName>Isikhathi</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>Isikhathi</displayName>
+			</field>
+			<field type="era-short">
 				<displayName>Isikhathi</displayName>
 			</field>
 			<field type="fri">
@@ -1539,7 +1570,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</relativeTime>
 				<relativeTime type="past">
 					<relativeTimePattern count="one">{0} ihora eledlule</relativeTimePattern>
-					<relativeTimePattern count="other">{0} amahora edlule</relativeTimePattern>
+					<relativeTimePattern count="other">emahoreni angu-{0} edlule</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="minute">
@@ -1955,8 +1986,32 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</relativeTime>
 				<relativePeriod>evikini le-{0}</relativePeriod>
 			</field>
+			<field type="weekOfMonth">
+				<displayName>Iviki leNyanga</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>Iviki leNyanga</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>Iviki leNyanga</displayName>
+			</field>
 			<field type="weekday">
 				<displayName>Usuku evikini</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>Usuku evikini</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>Usuku evikini</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>usuku lwenyanga</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>usuku lwenyanga</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>usuku lwenyanga</displayName>
 			</field>
 			<field type="year">
 				<displayName>Unyaka</displayName>
@@ -1995,6 +2050,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</relativeTime>
 			</field>
 			<field type="zone">
+				<displayName>Isikhathi sendawo</displayName>
+			</field>
+			<field type="zone-narrow">
+				<displayName>Isikhathi sendawo</displayName>
+			</field>
+			<field type="zone-short">
 				<displayName>Isikhathi sendawo</displayName>
 			</field>
 		</fields>
@@ -2656,6 +2717,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Asia/Ashgabat">
 				<exemplarCity>i-Ashgabat</exemplarCity>
 			</zone>
+			<zone type="Asia/Atyrau">
+				<exemplarCity>Atyrau</exemplarCity>
+			</zone>
 			<zone type="Asia/Baghdad">
 				<exemplarCity>i-Baghdad</exemplarCity>
 			</zone>
@@ -2706,6 +2770,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Asia/Dushanbe">
 				<exemplarCity>i-Dushanbe</exemplarCity>
+			</zone>
+			<zone type="Asia/Famagusta">
+				<exemplarCity>Famagusta</exemplarCity>
 			</zone>
 			<zone type="Asia/Gaza">
 				<exemplarCity>iGaza</exemplarCity>
@@ -2940,6 +3007,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Australia/Sydney">
 				<exemplarCity>i-Sydney</exemplarCity>
+			</zone>
+			<zone type="Etc/UTC">
+				<long>
+					<standard>isikhathi somhlaba esididiyelwe</standard>
+				</long>
 			</zone>
 			<zone type="Etc/Unknown">
 				<exemplarCity>idolobha elingaziwa</exemplarCity>
@@ -4258,7 +4330,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currencyFormatLength>
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
-					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
+					<pattern>¤#,##0.00</pattern>
 				</currencyFormat>
 				<currencyFormat type="standard">
 					<pattern>¤#,##0.00</pattern>
@@ -4444,6 +4516,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="other">i-Chilean Peso</displayName>
 				<displayName>i-Chilean Peso</displayName>
 				<symbol draft="contributed">CLP</symbol>
+			</currency>
+			<currency type="CNH">
+				<displayName count="one">CNH</displayName>
+				<displayName count="other">CNH</displayName>
+				<displayName>CNH</displayName>
 			</currency>
 			<currency type="CNY">
 				<displayName count="one">i-Chinese Yuan</displayName>
@@ -5207,6 +5284,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<miscPatterns numberSystem="latn">
 			<pattern type="atLeast">{0}+</pattern>
 		</miscPatterns>
+		<minimalPairs>
+			<pluralMinimalPairs count="one">{0} usuku</pluralMinimalPairs>
+			<pluralMinimalPairs count="other">{0} izinsuku</pluralMinimalPairs>
+			<ordinalMinimalPairs ordinal="other">Thatha indlela ejikela kwesokudla engu-{0}</ordinalMinimalPairs>
+		</minimalPairs>
 	</numbers>
 	<units>
 		<unitLength type="long">
@@ -5604,6 +5686,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>pm</displayName>
 				<unitPattern count="one">{0} pm</unitPattern>
 				<unitPattern count="other">{0} pm</unitPattern>
+			</unit>
+			<unit type="length-point">
+				<displayName>pt</displayName>
+				<unitPattern count="one">{0} pt</unitPattern>
+				<unitPattern count="other">{0} pt</unitPattern>
 			</unit>
 			<unit type="length-yard">
 				<displayName>yd</displayName>
@@ -6273,6 +6360,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="length-picometer">
 				<unitPattern count="one">{0} pm</unitPattern>
+			</unit>
+			<unit type="length-point">
+				<unitPattern count="one">{0} pt</unitPattern>
 			</unit>
 			<unit type="length-yard">
 				<unitPattern count="one">{0} yd</unitPattern>
