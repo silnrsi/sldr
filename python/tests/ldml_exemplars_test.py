@@ -343,7 +343,8 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_devanagari_graphemes(self):
         """Graphemes are the found clusters before doing analysis."""
-        self.exemplars.process(u'\u0958\u093e \u0959\u093e \u095a\u093e')
+        self.exemplars.process(u'\u0958\u093e \u0959\u093e \u0959\u093e '
+                               u'\u095a\u093e \u095a\u093e \u095a\u093e')
         self.exemplars.analyze()
         self.assertEqual(u'[{\u0917\u093c\u093e} {\u0916\u093c\u093e} {\u0915\u093c\u093e}]',
                          self.exemplars.graphemes)
@@ -386,9 +387,11 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_kannada_graphemes(self):
         """Clusters are useful for testing rendering."""
-        self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95 \u0cb0\u0ccd\u200d\u0c95')
+        self.exemplars.process(u'\u0cb0\u200d\u0ccd\u0c95 \u0cb0\u200d\u0ccd\u0c95 '
+                               u'\u0cb0\u0ccd\u200d\u0c95')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u0c95 {\u0cb0\u200d\u0ccd} {\u0cb0\u0ccd\u200d}]', self.exemplars.graphemes)
+        self.assertEqual(u'[\u0c95 {\u0cb0\u200d\u0ccd} {\u0cb0\u0ccd\u200d}]',
+                         self.exemplars.graphemes)
 
     def test_kannada_script(self):
         """Find most frequently occurring script."""
@@ -422,7 +425,8 @@ class ExemplarsTests(unittest.TestCase):
         """Some diacritics indicate additional vowels."""
         self.exemplars.process(u'\u0103\u00e2\u0111\u00ea\u00f4\u01a1\u01b0')
         self.exemplars.analyze()
-        self.assertEqual(u'[\u00e2 \u0103 \u00ea \u00f4 \u01a1 \u01b0 \u0111]', self.exemplars.main)
+        self.assertEqual(u'[\u00e2 \u0103 \u00ea \u00f4 \u01a1 \u01b0 \u0111]',
+                         self.exemplars.main)
 
     def test_vietnamese_tones(self):
         """Other diacritics indicate tones."""
