@@ -54,7 +54,7 @@ class UCD(object):
         self.normalizer_nfkd = Normalizer2.getInstance(None, 'nfkc', UNormalizationMode2.DECOMPOSE)
 
     def normalize(self, form, text):
-        """Return the normal form form for the Unicode string unistr.
+        """Return the normal form form for the Unicode string text.
 
         Valid values for form are 'NFC', 'NFKC', 'NFD', and 'NFKD'.
         """
@@ -67,6 +67,10 @@ class UCD(object):
             return self.normalizer_nfkc.normalize(text)
         elif form == 'NFKD':
             return self.normalizer_nfkd.normalize(text)
+
+    def normalize_nfc(self, text):
+        """Return the NFC form for the Unicode string text."""
+        return self.normalize('NFC', text)
 
     @staticmethod
     def ismark(char):
@@ -292,10 +296,7 @@ class Exemplars(object):
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
-        ldml_exemplars = sldr.UnicodeSets.parse(ldml_exemplars)
-        list_exemplars = list()
-        if len(ldml_exemplars) > 0:
-            list_exemplars = ldml_exemplars[0]
+        list_exemplars = sldr.UnicodeSets.us2list(ldml_exemplars)
         exemplars = set()
         for exemplar in list_exemplars:
             exemplar = self.ucd.normalize('NFD', exemplar)
@@ -316,14 +317,8 @@ class Exemplars(object):
             # do nothing further here with the order.
             list_exemplars = exemplars
 
-        list_exemplars2 = list()
-        for exemplar in list_exemplars:
-            exemplar = self.ucd.normalize('NFC', exemplar)
-            if len(exemplar) > 1:
-                exemplar = u'{' + exemplar + u'}'
-            list_exemplars2.append(exemplar)
-        ldml_exemplars2 = u'[{}]'.format(' '.join(list_exemplars2))
-        return ldml_exemplars2
+        list_nfc_exemplars = map(self.ucd.normalize_nfc, list_exemplars)
+        return sldr.UnicodeSets.list2us(list_nfc_exemplars)
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""

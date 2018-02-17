@@ -23,6 +23,7 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+
 import re
 
 hexescre = re.compile(ur"(?:\\(?:ux)\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})|\\x([0-9a-fA-F]{2}))")
@@ -39,6 +40,28 @@ simpleescs = {
 }
 simpleescsre = re.compile(ur"\\([^0-9])")
 groupsre = re.compile(ur"\\([0-9]+)")
+
+
+def us2list(text):
+    """Convert a string of Unicode Sets into a list of strings."""
+    res = parse(text)
+    if len(res) > 0:
+        return res[0]
+    else:
+        return list()
+
+
+def list2us(character_strings):
+    """Convert a list of strings to a string of Unicode Sets.
+
+    The strings must be in NFC.
+    """
+    unicode_set = list()
+    for character_string in character_strings:
+        if len(character_string) > 1:
+            character_string = u'{' + character_string + u'}'
+        unicode_set.append(character_string)
+    return u'[{}]'.format(' '.join(unicode_set))
 
 
 def escapechar(s):
