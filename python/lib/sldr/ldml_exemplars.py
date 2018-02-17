@@ -230,6 +230,8 @@ class Exemplars(object):
         self.always_separate_marks = set()
         self.need_splitting = True
 
+        self.unittest = False
+
     def _set_main(self, ldml_exemplars):
         """Set LDML exemplars data for the main set."""
         self._main = self.ldml_read(ldml_exemplars)
@@ -296,7 +298,10 @@ class Exemplars(object):
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
-        list_exemplars = sldr.UnicodeSets.us2list(ldml_exemplars)
+        if self.unittest:
+            list_exemplars = ldml_exemplars.split()
+        else:
+            list_exemplars = sldr.UnicodeSets.us2list(ldml_exemplars)
         exemplars = set()
         for exemplar in list_exemplars:
             exemplar = self.ucd.normalize('NFD', exemplar)
@@ -318,7 +323,10 @@ class Exemplars(object):
             list_exemplars = exemplars
 
         list_nfc_exemplars = map(self.ucd.normalize_nfc, list_exemplars)
-        return sldr.UnicodeSets.list2us(list_nfc_exemplars)
+        if self.unittest:
+            return ' '.join(list_nfc_exemplars)
+        else:
+            return sldr.UnicodeSets.list2us(list_nfc_exemplars)
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
