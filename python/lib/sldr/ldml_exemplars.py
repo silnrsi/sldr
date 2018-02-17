@@ -30,10 +30,10 @@ from collections import Counter
 import codecs
 
 try:
-    from sldr.UnicodeSets import parse
+    import sldr.UnicodeSets
 except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'sldr', 'python', 'lib')))
-    from sldr.UnicodeSets import parse
+    import sldr.UnicodeSets
 
 
 def main():
@@ -292,7 +292,7 @@ class Exemplars(object):
 
     def ldml_read(self, ldml_exemplars):
         """Read exemplars from a string from a LDML formatted file."""
-        ldml_exemplars = parse(ldml_exemplars)
+        ldml_exemplars = sldr.UnicodeSets.parse(ldml_exemplars)
         list_exemplars = list()
         if len(ldml_exemplars) > 0:
             list_exemplars = ldml_exemplars[0]

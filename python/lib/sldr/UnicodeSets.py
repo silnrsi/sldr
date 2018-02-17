@@ -10,7 +10,7 @@
 # 3. Neither the name of the University nor the names of its contributors
 #    may be used to endorse or promote products derived from this software
 #    without specific prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -40,8 +40,10 @@ simpleescs = {
 simpleescsre = re.compile(ur"\\([^0-9])")
 groupsre = re.compile(ur"\\([0-9]+)")
 
+
 def escapechar(s):
     return u"\\"+ s if s in '[]{}\\&-|^$:' else s
+
 
 class UnicodeSetSequence(list):
 
@@ -78,6 +80,7 @@ def _expand(p, vals, ind, indval):
     else:
         return vals[ind][indval]
 
+
 def flatten(s):
     p = parse(s)
     vals = map(sorted, p)
@@ -96,11 +99,13 @@ def flatten(s):
         res = []
         yield u"".join(_expand(p, vals, i, x) for i, x in enumerate(indices))
 
+
 def struni(s, groups):
     s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
     s = simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s)
     s = groupsre.sub(lambda m:groups[int(m.group(1)) - 1], s)
     return s
+
 
 def parse(s):
     '''Returns a sequence of UnicodeSet'''
@@ -122,6 +127,7 @@ def parse(s):
         if len(nextitem):
             res.append(nextitem)
     return res
+
 
 def parseitem(s, ind, lastitem, end):
     '''Parses a single UnicodeSet or character. Doesn't handle property sets or variables, yet.'''
@@ -222,5 +228,3 @@ def parseitem(s, ind, lastitem, end):
         res.add(s[ind])
         ind += 1
     return (ind, lastitem, res)
-
-
