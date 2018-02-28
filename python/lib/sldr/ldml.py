@@ -218,7 +218,7 @@ def etwrite(et, write, topns = True, namespaces = None):
     base = ETWriter(et, namespaces)
     base.serialize_xml(write, topns = topns)
     
-_alldrafts = ('approved', 'contributed', 'provisional', 'unconfirmed', 'tentative', 'generated')
+_alldrafts = ('approved', 'contributed', 'provisional', 'unconfirmed', 'tentative', 'generated', 'suspect')
 _draftratings = dict(map(lambda x: (x[1], x[0]), enumerate(_alldrafts)))
 
 class _arrayDict(dict):
@@ -459,7 +459,7 @@ class Ldml(ETWriter):
         return res
 
     def addnode(self, parent, tag, attrib={}, **attribs):
-        attrib = attrib.copy()
+        attrib = dict((k,v) for k,v in attrib.items() if v)
         attrib.update(attribs)
         tag = self._reverselocalns(tag)
         e = parent.makeelement(tag, attrib)
