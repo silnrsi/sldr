@@ -51,17 +51,39 @@ def us2list(text):
         return list()
 
 
-def list2us(character_strings):
+def list2us(list_of_strings, ucd):
     """Convert a list of strings to a string of Unicode Sets.
 
     The strings must be in NFC.
     """
     unicode_set = list()
-    for character_string in character_strings:
-        if len(character_string) > 1:
-            character_string = u'{' + character_string + u'}'
-        unicode_set.append(character_string)
+    for text in list_of_strings:
+        text = _add_needed_braces(text)
+        text = _escape_isolated_marks(text, ucd)
+        unicode_set.append(text)
     return u'[{}]'.format(' '.join(unicode_set))
+
+
+def _add_needed_braces(text):
+    """Add braces if the string is more than one character in length."""
+    if len(text) > 1:
+        return u'{' + text + u'}'
+    return text
+
+
+def _escape_isolated_marks(text, ucd):
+    """Escape marks if they are isolated (that is, with no base character)."""
+    modified_text = ''
+    is_isolated = True
+    for cc in text:
+        if ucd.ismark(cc) and is_isolated:
+            cc = u'\\u{0:04x}'.format(ord(cc))
+        if cc == ' ':
+            is_isolated = True
+        else:
+            is_isolated = False
+        modified_text += cc
+    return modified_text
 
 
 def escapechar(s):

@@ -326,7 +326,7 @@ class Exemplars(object):
         if self.unittest:
             return ' '.join(list_nfc_exemplars)
         else:
-            return sldr.UnicodeSets.list2us(list_nfc_exemplars)
+            return sldr.UnicodeSets.list2us(list_nfc_exemplars, self.ucd)
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
