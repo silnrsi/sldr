@@ -84,6 +84,12 @@ class UnicodeSetsTests(unittest.TestCase):
         # []{}\\&-|^$:
         self.assertEqual(u'[\\[ \\] \\{ \\} \\\\ & - | ^ $]', self.list2us_helper(u'[ ] { } \\ & - | ^ $'))
 
+    # default ignorable characters
+
+    def test_ignorable(self):
+        """ Characters having the Default_Ignorable_Code_Point property need to be escaped."""
+        self.assertEqual(u'[\\u3164]', self.list2us_helper(u'\u3164'))
+
 
 if __name__ == '__main__':
     unittest.main()

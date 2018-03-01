@@ -165,6 +165,11 @@ class UCD(object):
         uppercase = lowercase.toUpper()
         return unicode(uppercase)
 
+    @staticmethod
+    def need_hex_escape(char):
+        """Determine if a characters needs to be escaped with hex digits."""
+        return Char.hasBinaryProperty(char, UProperty.DEFAULT_IGNORABLE_CODE_POINT)
+
 
 class Exemplar(object):
 

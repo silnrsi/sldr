@@ -60,7 +60,7 @@ def list2us(list_of_strings, ucd):
     for text in list_of_strings:
         braces_needed = _need_braces(text)
         text = _escape_us_syntax(text)
-        text = _escape_isolated_marks(text, ucd)
+        text = _hex_escape(text, ucd)
         if braces_needed:
             text = _add_needed_braces(text)
         unicode_set.append(text)
@@ -79,33 +79,33 @@ def _add_needed_braces(text):
     return u'{' + text + u'}'
 
 
-def _escape_isolated_marks(text, ucd):
+def _hex_escape(text, ucd):
     """Escape marks if they are isolated (that is, with no base character)."""
     modified_text = ''
     is_isolated = True
-    for cc in text:
-        if ucd.ismark(cc) and is_isolated:
-            cc = _escape_using_hex(cc)
-        if cc == ' ':
+    for char in text:
+        if (ucd.ismark(char) and is_isolated) or ucd.need_hex_escape(char):
+            char = _escape_using_hex(char)
+        if char == ' ':
             is_isolated = True
         else:
             is_isolated = False
-        modified_text += cc
+        modified_text += char
     return modified_text
 
 
 def _escape_us_syntax(text):
     """Escape characters used in Unicode Set syntax."""
     modified_text = ''
-    for cc in text:
-        cc = _escape_using_backslash(cc)
-        modified_text += cc
+    for char in text:
+        char = _escape_using_backslash(char)
+        modified_text += char
     return modified_text
 
 
-def _escape_using_hex(cc):
+def _escape_using_hex(char):
     """Use hex digits to escape the character."""
-    codepoint = ord(cc)
+    codepoint = ord(char)
     if codepoint > 0xFFFF:
         return u'\\U{:08x}'.format(codepoint)
     return u'\\u{:04x}'.format(codepoint)
