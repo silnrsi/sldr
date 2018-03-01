@@ -30,11 +30,11 @@ import unittest
 
 try:
     from sldr.ldml_exemplars import UCD
-    from sldr.UnicodeSets import list2us
+    import sldr.UnicodeSets
 except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
     from sldr.ldml_exemplars import UCD
-    from sldr.UnicodeSets import list2us
+    import sldr.UnicodeSets
 
 
 class UnicodeSetsTests(unittest.TestCase):
@@ -47,7 +47,7 @@ class UnicodeSetsTests(unittest.TestCase):
 
     def list2us_helper(self, text):
         """Wrap the list2us() function for ease of use."""
-        return list2us(text.split(), self.ucd)
+        return sldr.UnicodeSets.list2us(text.split(), self.ucd)
 
     # braces
 
@@ -63,9 +63,13 @@ class UnicodeSetsTests(unittest.TestCase):
 
     # isolated marks
 
-    def test_isolated_marks(self):
+    def test_isolated_marks_bmp(self):
         """Isolated marks (that is, with no base character) need to be escaped."""
         self.assertEqual(u'[\\u0300 \\u0301 {\u0105\u0301}]', self.list2us_helper(u'\u0300 \u0301 \u0105\u0301'))
+
+    def test_isolated_marks_nonbmp(self):
+        """Isolated marks (outside of the BMP as well) need to be escaped."""
+        self.assertEqual(u'[\U00011315 \\U0001133c]', self.list2us_helper(u'\U00011315 \U0001133C'))
 
 
 if __name__ == '__main__':

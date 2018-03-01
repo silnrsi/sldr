@@ -77,7 +77,7 @@ def _escape_isolated_marks(text, ucd):
     is_isolated = True
     for cc in text:
         if ucd.ismark(cc) and is_isolated:
-            cc = u'\\u{0:04x}'.format(ord(cc))
+            cc = escape_the_character(cc)
         if cc == ' ':
             is_isolated = True
         else:
@@ -85,6 +85,12 @@ def _escape_isolated_marks(text, ucd):
         modified_text += cc
     return modified_text
 
+def escape_the_character(cc):
+    """Use hex digits to escape the character."""
+    codepoint = ord(cc)
+    if codepoint > 0xFFFF:
+        return u'\\U{:08x}'.format(codepoint)
+    return u'\\u{:04x}'.format(codepoint)
 
 def escapechar(s):
     return u"\\"+ s if s in '[]{}\\&-|^$:' else s
