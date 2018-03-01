@@ -501,7 +501,7 @@ class Exemplars(object):
 
     def make_index(self):
         """Analyze the found exemplars for indices and classify them."""
-        possible_index = self._main.union(self._auxiliary)
+        possible_index = self._main  # .union(self._auxiliary)
         for exemplar in possible_index:
 
             # An index cannot be an empty string.

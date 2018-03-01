@@ -247,10 +247,11 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'\u00e9', self.exemplars.auxiliary)
 
     def test_english_index(self):
+        """Index set should start with main set, not main set plus auxiliary set."""
         self.exemplars.auxiliary = u'\u00e9'
         self.exemplars.process(u'r\u00e9sum\u00e9')
         self.exemplars.analyze()
-        self.assertEqual(u'\u00c9 M R S U', self.exemplars.index)
+        self.assertEqual(u'M R S U', self.exemplars.index)
 
     def test_spanish(self):
         """Marks occurring on a few bases are not separate."""
