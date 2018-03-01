@@ -462,7 +462,7 @@ class Ldml(ETWriter):
         attrib = dict((k,v) for k,v in attrib.items() if v)
         attrib.update(attribs)
         tag = self._reverselocalns(tag)
-        e = parent.makeelement(tag, attrib)
+        e = et.SubElement(parent, tag, attrib)
         e.parent = parent
         e.document = parent.document
         if self.useDrafts:
