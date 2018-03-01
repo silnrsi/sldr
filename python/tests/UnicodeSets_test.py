@@ -84,11 +84,15 @@ class UnicodeSetsTests(unittest.TestCase):
         # []{}\\&-|^$:
         self.assertEqual(u'[\\[ \\] \\{ \\} \\\\ & - | ^ $]', self.list2us_helper(u'[ ] { } \\ & - | ^ $'))
 
-    # default ignorable characters
+    # escape some characters with hex digits
 
     def test_ignorable(self):
         """ Characters having the Default_Ignorable_Code_Point property need to be escaped."""
         self.assertEqual(u'[\\u3164]', self.list2us_helper(u'\u3164'))
+
+    def test_format(self):
+        """ Characters having the format character (general category Cf) property need to be escaped."""
+        self.assertEqual(u'[\\u06dd]', self.list2us_helper(u'\u06dd'))
 
 
 if __name__ == '__main__':

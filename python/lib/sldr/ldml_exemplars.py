@@ -121,6 +121,14 @@ class UCD(object):
         return False
 
     @staticmethod
+    def isformat(char):
+        """True if the character is a format character (general category Cf)."""
+        numeric_char_type = Char.charType(char)
+        if numeric_char_type == UCharCategory.FORMAT_CHAR:
+            return True
+        return False
+
+    @staticmethod
     def is_specific_script(char):
         """True if the character has a specific Script property,
         that is, not the values Common or Inherited.
@@ -165,10 +173,15 @@ class UCD(object):
         uppercase = lowercase.toUpper()
         return unicode(uppercase)
 
-    @staticmethod
-    def need_hex_escape(char):
+    def need_hex_escape(self, char, is_isolated):
         """Determine if a characters needs to be escaped with hex digits."""
-        return Char.hasBinaryProperty(char, UProperty.DEFAULT_IGNORABLE_CODE_POINT)
+        if self.ismark(char) and is_isolated:
+            return True
+        if Char.hasBinaryProperty(char, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
+            return True
+        if self.isformat(char):
+            return True
+        return False
 
 
 class Exemplar(object):

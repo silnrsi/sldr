@@ -44,15 +44,17 @@ class UCDTests(unittest.TestCase):
         pass
 
     def ignore_findit(self):
-        from icu import Char
+        from icu import Char, UProperty
         maxchar = 0x10ffff
         maxchar = 0xffff
         for usv in xrange(maxchar):
             char = unichr(usv)
-            if ((not self.ucd.is_specific_script(char)) and
-               (not self.ucd.is_exemplar_wordbreak(char)) and
-               (not Char.isUAlphabetic(char))):
+            # if ((not self.ucd.is_specific_script(char)) and
+            #    (not self.ucd.is_exemplar_wordbreak(char)) and
+            #    (not Char.isUAlphabetic(char))):
+            if self.ucd.isformat(char) and not Char.hasBinaryProperty(char, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
                 print '%04X' % usv
+
         self.assertTrue(False)
 
     # marks
@@ -118,6 +120,12 @@ class UCDTests(unittest.TestCase):
 
     def test_number_false(self):
         self.assertFalse(self.ucd.isnumber(u'a'))
+
+    def test_format_true(self):
+        self.assertTrue(self.ucd.isformat(u'\u2060'))
+
+    def test_format_false(self):
+        self.assertFalse(self.ucd.isformat(u'a'))
 
     def test_script_specific_true_latin(self):
         self.assertTrue(self.ucd.is_specific_script(u'\ua78c'))

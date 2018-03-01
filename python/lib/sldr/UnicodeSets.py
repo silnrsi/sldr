@@ -84,7 +84,7 @@ def _hex_escape(text, ucd):
     modified_text = ''
     is_isolated = True
     for char in text:
-        if (ucd.ismark(char) and is_isolated) or ucd.need_hex_escape(char):
+        if ucd.need_hex_escape(char, is_isolated):
             char = _escape_using_hex(char)
         if char == ' ':
             is_isolated = True
