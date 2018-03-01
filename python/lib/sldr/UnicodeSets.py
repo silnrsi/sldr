@@ -32,10 +32,10 @@ simpleescs = {
     'a' : u"\u0007",
     'b' : u"\u0008",
     't' : u"\u0009",
+    'n' : u"\u000A",
     'v' : u"\u000B",
     'f' : u"\u000C",
     'r' : u"\u000D",
-    'n' : u"\u0010",
     '\\' : u"\u005C"
 }
 simpleescsre = re.compile(ur"\\([^0-9])")
@@ -58,17 +58,25 @@ def list2us(list_of_strings, ucd):
     """
     unicode_set = list()
     for text in list_of_strings:
-        text = _add_needed_braces(text)
+        braces_needed = _need_braces(text)
+        text = _escape_us_syntax(text)
         text = _escape_isolated_marks(text, ucd)
+        if braces_needed:
+            text = _add_needed_braces(text)
         unicode_set.append(text)
     return u'[{}]'.format(' '.join(unicode_set))
 
 
-def _add_needed_braces(text):
-    """Add braces if the string is more than one character in length."""
+def _need_braces(text):
+    """Determine if braces will be needed."""
     if len(text) > 1:
-        return u'{' + text + u'}'
-    return text
+        return True
+    return False
+
+
+def _add_needed_braces(text):
+    """Add braces."""
+    return u'{' + text + u'}'
 
 
 def _escape_isolated_marks(text, ucd):
@@ -77,7 +85,7 @@ def _escape_isolated_marks(text, ucd):
     is_isolated = True
     for cc in text:
         if ucd.ismark(cc) and is_isolated:
-            cc = escape_the_character(cc)
+            cc = _escape_using_hex(cc)
         if cc == ' ':
             is_isolated = True
         else:
@@ -85,12 +93,28 @@ def _escape_isolated_marks(text, ucd):
         modified_text += cc
     return modified_text
 
-def escape_the_character(cc):
+
+def _escape_us_syntax(text):
+    """Escape characters used in Unicode Set syntax."""
+    modified_text = ''
+    for cc in text:
+        cc = _escape_using_backslash(cc)
+        modified_text += cc
+    return modified_text
+
+
+def _escape_using_hex(cc):
     """Use hex digits to escape the character."""
     codepoint = ord(cc)
     if codepoint > 0xFFFF:
         return u'\\U{:08x}'.format(codepoint)
     return u'\\u{:04x}'.format(codepoint)
+
+
+def _escape_using_backslash(s):
+    """Use a backslash to escape the character."""
+    return u"\\" + s if s in '[]{}\\' else s
+
 
 def escapechar(s):
     return u"\\"+ s if s in '[]{}\\&-|^$:' else s

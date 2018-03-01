@@ -71,6 +71,19 @@ class UnicodeSetsTests(unittest.TestCase):
         """Isolated marks (outside of the BMP as well) need to be escaped."""
         self.assertEqual(u'[\U00011315 \\U0001133c]', self.list2us_helper(u'\U00011315 \U0001133C'))
 
+    # characters used in Unicode Set syntax
+
+    def ignore_control_escape(self):
+        """Some ASCII control characters should be escaped with a backslash."""
+        # []{}\\&-|^$:
+        self.assertEqual(u'[\u0007 \u0008 \u0009 \u000A \u000B \u000C \u000D]',
+                         self.list2us_helper(u'\u0007 \u0008 \u0009 \u000A \u000B \u000C \u000D'))
+
+    def test_syntax_escape(self):
+        """Some characters used in Unicode Set syntax need to be escaped with a backslash."""
+        # []{}\\&-|^$:
+        self.assertEqual(u'[\\[ \\] \\{ \\} \\\\ & - | ^ $]', self.list2us_helper(u'[ ] { } \\ & - | ^ $'))
+
 
 if __name__ == '__main__':
     unittest.main()
