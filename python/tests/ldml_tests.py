@@ -34,6 +34,8 @@ class LDMLTests(unittest.TestCase):
         e[0].text = teststr
         x = ldml.ensure_path('characters/exemplarCharacters[@type=""]', draft="generated", matchdraft="draft")
         self.assertTrue(x[0].text == teststr)
+        if '-v' in sys.argv:
+            ldml.serialize_xml(sys.stdout.write)
 
     def test_exemplar_double(self):
         tf = self._init_exemplar_test()
@@ -48,6 +50,8 @@ class LDMLTests(unittest.TestCase):
         for t in testdrafts:
             x = ldml.ensure_path(tpath, draft=t, matchdraft="draft")
             self.assertTrue(x[0].text == teststrs[t])
+        if '-v' in sys.argv:
+            ldml.serialize_xml(sys.stdout.write)
 
 if __name__ == '__main__':
     unittest.main()
