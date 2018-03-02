@@ -150,29 +150,23 @@ class ETWriter(object):
             if isinstance(p, tuple):
                 tag, attrs = p
             else:
-                tag, attrs = (p, None)
+                tag, attrs = (p, {})
             for job in curr:
                 for c in job:
                     if c.tag != tag:
                         continue
-                    if attrs:
-                        for k, v in attrs.items():
-                            if k not in c.attrib:
-                                break
-                            if v is not None and c.get(k) != v:
-                                break
-                        else:
-                            newcurr.append(c)
+                    for k, v in attrs.items():
+                        if k not in c.attrib:
+                            break
+                        if v is not None and c.get(k) != v:
+                            break
                     else:
                         newcurr.append(c)
             if not len(newcurr):
                 job = curr[0]
-                if attrs:
-                    se = self.addnode(job, tag, attrib=attrs)
-                else:
-                    se = self.addnode(job, tag)
-                if draft is not None and 'draft' not in se.attrib:
-                    se.set('draft', draft)
+                if draft is not None:
+                    attrs['draft'] = draft
+                se = self.addnode(job, tag, attrib=attrs)
                 newcurr.append(se)
         return newcurr
 
@@ -459,7 +453,7 @@ class Ldml(ETWriter):
         return res
 
     def addnode(self, parent, tag, attrib={}, **attribs):
-        attrib = dict((k,v) for k,v in attrib.items() if v)
+        attrib = dict((k,v) for k,v in attrib.items() if v) # filter @x=""
         attrib.update(attribs)
         tag = self._reverselocalns(tag)
         e = et.SubElement(parent, tag, attrib)
@@ -876,7 +870,7 @@ class Ldml(ETWriter):
                     return
             target.alternates[alt] = origin
             if hasattr(origin, 'alternates'):
-                for k, v in origin.alt.items():
+                for k, v in origin.alternates.items():
                     if k not in target.alternates or \
                             (self.get_draft(v, default) > self.get_draft(target.alternates[k], default)):
                         target.alternates[k] = v
