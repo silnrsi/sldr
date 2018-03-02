@@ -139,12 +139,14 @@ class ETWriter(object):
     def addnode(self, parent, tag, **kw):
         return et.SubElement(parent, tag, **kw)
 
-    def unify_path(self, path, base=None, draft=None):
+    def unify_path(self, path, base=None, draft=None, alt=None, matchdraft=None):
         '''Path contains a list of tags or (tag, attrs) to search in succession'''
         if base is None:
             base = self.root
         newcurr = [base]
-        for p in path:
+        if matchdraft is not None:
+            realalt = self.alt(alt)
+        for i, p in enumerate(path):
             curr = newcurr
             newcurr = []
             if isinstance(p, tuple):
@@ -156,21 +158,39 @@ class ETWriter(object):
                     if c.tag != tag:
                         continue
                     for k, v in attrs.items():
-                        if k not in c.attrib:
-                            break
-                        if v is not None and c.get(k) != v:
+                        if c.get(k, '') != v:
                             break
                     else:
                         newcurr.append(c)
+            if matchdraft is not None and i == len(path)-1:
+                temp = newcurr
+                newcurr = []
+                # matchdraft == 'draft' (find all alternates with given draf, including not alternate)
+                # matchdraft == 'alt' (find all alternates with given alt)
+                # matchdraft == 'both' (find all alternates with given alt and draft)
+                for c in temp:
+                    if matchdraft == 'draft' and c.get('draft', '') == draft:
+                        newcurr.append(c)
+                    if not hasattr(c, 'alternates'):
+                        continue
+                    if matchdraft == 'draft':
+                        tests = c.alternates.keys()
+                    else:
+                        tests = [realalt]
+                    for r in (c.alternates.get(t, None) for t in tests):
+                        if r is None:
+                            continue
+                        elif matchdraft == 'alt' or r.get('draft', '') == draft:
+                            newcurr.append(r)
             if not len(newcurr):
                 job = curr[0]
                 if draft is not None:
                     attrs['draft'] = draft
-                se = self.addnode(job, tag, attrib=attrs)
+                se = self.addnode(job, tag, attrib=attrs, alt=alt)
                 newcurr.append(se)
         return newcurr
 
-    def ensure_path(self, path, base=None, draft=None):
+    def ensure_path(self, path, base=None, draft=None, alt=None, matchdraft=None):
         if path.startswith("/"):
             raise SyntaxError
         steps = []
@@ -188,7 +208,7 @@ class ETWriter(object):
                 if k.startswith("@") and v[0] in '"\'':
                     attrs[k[1:]] = v[1:-1]
             steps.append((tag, attrs))
-        return self.unify_path(steps, base=base, draft=draft)
+        return self.unify_path(steps, base=base, draft=draft, alt=alt, matchdraft=matchdraft)
 
     def _reverselocalns(self, tag):
         '''Convert ns:tag -> {fullns}tag'''
@@ -452,27 +472,30 @@ class Ldml(ETWriter):
             res.parent = parent
         return res
 
-    def addnode(self, parent, tag, attrib={}, **attribs):
+    def addnode(self, parent, tag, attrib={}, alt=None, **attribs):
         attrib = dict((k,v) for k,v in attrib.items() if v) # filter @x=""
         attrib.update(attribs)
         tag = self._reverselocalns(tag)
-        e = et.SubElement(parent, tag, attrib)
+        e = parent.makeelement(tag, attrib)
         e.parent = parent
         e.document = parent.document
         if self.useDrafts:
+            alt = self.alt(alt)
             if 'draft' not in e.attrib and self.use_draft is not None:
                 e.set('draft', self.use_draft)
+            if 'alt' not in e.attrib:
+                e.set('alt', alt)
             self._calc_hashes(e, self.useDrafts)
             equivs = [x for x in parent if x.attrHash == e.attrHash]
             if len(equivs):
-                self._add_alt_leaf(equivs[0], e, default=e.get('draft', None), leaf=True)
-                return e
+                return self._add_alt_leaf(equivs[0], e, default=e.get('draft', None), leaf=True, alt=alt)
         parent.append(e)
         return e
 
-    def ensure_path(self, path, base=None, draft=None):
+    def ensure_path(self, path, base=None, draft=None, alt=None, matchdraft=None):
         draft = self.use_draft if draft is None else draft
-        return super(Ldml, self).ensure_path(path, base=base, draft=draft)
+        return super(Ldml, self).ensure_path(path, base=base,
+                        draft=draft, alt=alt, matchdraft=matchdraft)
 
     def find(self, path, elem=None):
         def nstons(m):
@@ -707,6 +730,14 @@ class Ldml(ETWriter):
             return True
         return False
 
+    def alt(self, *a):
+        proposed = a[0] if len(a) > 0 and a[0] else 'proposed'
+        res = ((a[1] + "-") if len(a) > 1 and a[1] else "") + proposed
+        if hasattr(self, 'uid') and self.uid is not None:
+            return res + "-" + str(self.uid)
+        else:
+            return res
+        
     def difference(self, other, this=None):
         """Strip out everything that is in other, from self, so long as the values are the same."""
         if this == None: this = self.root
@@ -855,19 +886,15 @@ class Ldml(ETWriter):
                 res = True
         return res
 
-    def _add_alt_leaf(self, target, origin, default='unconfirmed', leaf=True):
+    def _add_alt_leaf(self, target, origin, default='unconfirmed', leaf=True, alt=None):
         odraft = self.get_draft(origin, default)
-        if hasattr(origin.document, 'uid') and origin.document.uid is not None:
-            alt = 'proposed-' + origin.document.uid
-        else:
-            alt = 'proposed'
         if leaf:
             if not hasattr(target, 'alternates'):
                 target.alternates = {}
             elif alt in target.alternates:
                 v = target.alternates[alt]
                 if self.get_draft(v, default) < odraft:
-                    return
+                    return v
             target.alternates[alt] = origin
             if hasattr(origin, 'alternates'):
                 for k, v in origin.alternates.items():
@@ -878,10 +905,13 @@ class Ldml(ETWriter):
             v = target.alternates[alt]
             if self.get_draft(v, default) >= odraft:
                 del target.alternates[alt]
+        return origin
             
     
     def _add_alt(self, target, origin, default='unconfirmed'):
-        self._add_alt_leaf(target, origin.copy(), default=default, leaf=origin.contentHash is not None)
+        self._add_alt_leaf(target, origin.copy(),
+                default=default, leaf=origin.contentHash is not None,
+                alt = self.alt())
 
     def merge(self, other, base, this=None, default=None, copycomments=None):
         """ Does 3 way merging of self/this and other against a common base. O(N), base or other can be None.
