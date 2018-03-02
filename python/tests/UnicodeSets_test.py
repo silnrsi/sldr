@@ -47,7 +47,7 @@ class UnicodeSetsTests(unittest.TestCase):
 
     def list2us_helper(self, text):
         """Wrap the list2us() function for ease of use."""
-        return sldr.UnicodeSets.list2us(text.split(), self.ucd)
+        return sldr.UnicodeSets.list2us(text.split(' '), self.ucd)
 
     # braces
 
@@ -87,12 +87,16 @@ class UnicodeSetsTests(unittest.TestCase):
     # escape some characters with hex digits
 
     def test_ignorable(self):
-        """ Characters having the Default_Ignorable_Code_Point property need to be escaped."""
+        """Characters having the Default_Ignorable_Code_Point property need to be escaped."""
         self.assertEqual(u'[\\u3164]', self.list2us_helper(u'\u3164'))
 
     def test_format(self):
-        """ Characters having the format character (general category Cf) property need to be escaped."""
+        """Characters having the format character (general category Cf) property need to be escaped."""
         self.assertEqual(u'[\\u06dd]', self.list2us_helper(u'\u06dd'))
+
+    def test_space(self):
+        """Space like characters need to be escaped."""
+        self.assertEqual(u'[\\u200a]', self.list2us_helper(u'\u200a'))
 
 
 if __name__ == '__main__':

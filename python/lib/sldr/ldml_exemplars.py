@@ -181,6 +181,8 @@ class UCD(object):
             return True
         if self.isformat(char):
             return True
+        if Char.hasBinaryProperty(char, UProperty.WHITE_SPACE):
+            return True
         return False
 
 
