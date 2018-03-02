@@ -483,11 +483,11 @@ class Ldml(ETWriter):
             alt = self.alt(alt)
             if 'draft' not in e.attrib and self.use_draft is not None:
                 e.set('draft', self.use_draft)
-            if 'alt' not in e.attrib:
-                e.set('alt', alt)
             self._calc_hashes(e, self.useDrafts)
             equivs = [x for x in parent if x.attrHash == e.attrHash]
             if len(equivs):
+                if 'alt' not in e.attrib:
+                    e.set('alt', alt)
                 return self._add_alt_leaf(equivs[0], e, default=e.get('draft', None), leaf=True, alt=alt)
         parent.append(e)
         return e
