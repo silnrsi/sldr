@@ -127,6 +127,12 @@ class UCDTests(unittest.TestCase):
     def test_format_false(self):
         self.assertFalse(self.ucd.isformat(u'a'))
 
+    def test_space_separator_true(self):
+        self.assertTrue(self.ucd.is_space_separator(u'\u200a'))
+
+    def test_space_separator_false(self):
+        self.assertFalse(self.ucd.is_space_separator(u'a'))
+
     def test_script_specific_true_latin(self):
         self.assertTrue(self.ucd.is_specific_script(u'\ua78c'))
 

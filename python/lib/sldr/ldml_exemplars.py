@@ -113,7 +113,7 @@ class UCD(object):
 
     @staticmethod
     def isnumber(char):
-        """True if the character is a number (general category N)."""
+        """True if the character is a number (general category Nd or No)."""
         numeric_char_type = Char.charType(char)
         if (numeric_char_type == UCharCategory.DECIMAL_DIGIT_NUMBER or
            numeric_char_type == UCharCategory.OTHER_NUMBER):
@@ -125,6 +125,14 @@ class UCD(object):
         """True if the character is a format character (general category Cf)."""
         numeric_char_type = Char.charType(char)
         if numeric_char_type == UCharCategory.FORMAT_CHAR:
+            return True
+        return False
+
+    @staticmethod
+    def is_space_separator(char):
+        """True if the character is space separator (general category Zs)."""
+        numeric_char_type = Char.charType(char)
+        if numeric_char_type == UCharCategory.SPACE_SEPARATOR:
             return True
         return False
 
@@ -181,7 +189,7 @@ class UCD(object):
             return True
         if self.isformat(char):
             return True
-        if Char.hasBinaryProperty(char, UProperty.WHITE_SPACE):
+        if self.is_space_separator(char):
             return True
         return False
 
