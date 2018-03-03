@@ -178,12 +178,24 @@ class ExemplarsTests(unittest.TestCase):
         pass
 
     def test_simple_main(self):
+        """Simple test for main and digit exemplars.
+
+        Also, ignore specified exemplars if they do not occur in the data.
+        """
+        self.exemplars.main = u'z'
+        self.exemplars.digits = u'0'
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'a b c', self.exemplars.main)
         self.assertEqual(u'1', self.exemplars.digits)
 
     def test_simple_punctuation(self):
+        """Simple test for punctuation and digit exemplars.
+
+        Also, ignore specified exemplars if they do not occur in the data.
+        """
+        self.exemplars.punctuation = u','
+        self.exemplars.digits = u'0'
         self.exemplars.process(u'[{cab.1}]')
         self.exemplars.analyze()
         self.assertEqual(u'. [ ] { }', self.exemplars.punctuation)
@@ -237,29 +249,39 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'A \u0104 B C', self.exemplars.index)
 
     def test_english_main(self):
+        self.exemplars.frequent = 80
         self.exemplars.auxiliary = u'\u00e9'
-        self.exemplars.process(u'r\u00e9sum\u00e9')
+        self.exemplars.process(u'r\u00e9sum\u00e9 resume resume')
         self.exemplars.analyze()
-        self.assertEqual(u'm r s u', self.exemplars.main)
+        self.assertEqual(u'e m r s u', self.exemplars.main)
 
     def test_english_auxiliary_nfc(self):
-        self.exemplars.auxiliary = u'\u00e9'
-        self.exemplars.process(u'r\u00e9sum\u00e9')
+        """Handle exemplars being in NFC.
+
+        Also, ignore specified exemplars if they do not occur in the data.
+        """
+        self.exemplars.frequent = 80
+        self.exemplars.auxiliary = u'\u00e9 \u00fc'
+        # self.exemplars.auxiliary = u'\u00e9'
+        self.exemplars.process(u'r\u00e9sum\u00e9 resume resume')
         self.exemplars.analyze()
         self.assertEqual(u'\u00e9', self.exemplars.auxiliary)
 
     def test_english_auxiliary_nfd(self):
+        """Handle exemplars being in NFD."""
+        self.exemplars.frequent = 80
         self.exemplars.auxiliary = u'e\u0301'
-        self.exemplars.process(u're\u0301sume\u0301')
+        self.exemplars.process(u're\u0301sume\u0301 resume resume')
         self.exemplars.analyze()
         self.assertEqual(u'\u00e9', self.exemplars.auxiliary)
 
     def test_english_index(self):
         """Index set should start with main set, not main set plus auxiliary set."""
+        self.exemplars.frequent = 80
         self.exemplars.auxiliary = u'\u00e9'
-        self.exemplars.process(u'r\u00e9sum\u00e9')
+        self.exemplars.process(u'r\u00e9sum\u00e9 resume resume')
         self.exemplars.analyze()
-        self.assertEqual(u'M R S U', self.exemplars.index)
+        self.assertEqual(u'E M R S U', self.exemplars.index)
 
     def test_spanish(self):
         """Marks occurring on a few bases are not separate."""

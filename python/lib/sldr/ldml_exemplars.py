@@ -350,6 +350,8 @@ class Exemplars(object):
 
     def analyze(self):
         """Analyze the found exemplars and classify them."""
+        self.ignore_phantoms()
+        self.find_punctuation()
         self.save_graphemes()
         self.find_numbers()
         self.count_marks()
@@ -362,6 +364,25 @@ class Exemplars(object):
         self.parcel_ignorable()
         self.parcel_frequency()
         self.make_index()
+
+    def ignore_phantoms(self):
+        """Ignore phantom exemplars.
+
+        Phantoms are exemplars that have been set in one of the exemplar fields
+        (such as main or auxiliary) initially but not seen in the actual data processed.
+        """
+        self._main = set()
+        self._auxiliary = set()
+        self._index = set()
+        self._punctuation = set()
+        self._digits = set()
+
+    def find_punctuation(self):
+        """Put punctuation into the punctuation exemplar."""
+        for exemplar in list(self.clusters.keys()):
+            if self.ucd.ispunct(exemplar.base[0]):
+                self._punctuation.add(exemplar.base)
+                del self.clusters[exemplar]
 
     def save_graphemes(self):
         """Save the list of found graphemes."""
@@ -585,19 +606,12 @@ class Exemplars(object):
             for multigraph_length in range(self.max_multigraph_length, 0, -1):
                 multigraph = text[i:i + multigraph_length]
 
-                if multigraph in self._main:
-                    i += multigraph_length
-                    break
-
-                if multigraph in self._auxiliary:
-                    i += multigraph_length
-                    break
-
-                if multigraph in self._index:
-                    i += multigraph_length
-                    break
-
-                if multigraph in self._punctuation:
+                if (multigraph in self._main or
+                   multigraph in self._auxiliary or
+                   multigraph in self._index or
+                   multigraph in self._punctuation):
+                    exemplar = Exemplar(multigraph)
+                    self.clusters[exemplar] += 1
                     i += multigraph_length
                     break
 
@@ -611,7 +625,8 @@ class Exemplars(object):
 
             # Test for punctuation.
             if self.ucd.ispunct(char):
-                self._punctuation.add(char)
+                exemplar = Exemplar(char)
+                self.clusters[exemplar] += 1
                 i += 1
                 continue
 
