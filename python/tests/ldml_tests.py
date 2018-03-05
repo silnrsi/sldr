@@ -56,6 +56,7 @@ class LDMLTests(unittest.TestCase):
         n = self.ldml.change_draft(b, 'suspect')
         b = self.ldml.ensure_path(self.tpath)[0]
         self.assertTrue(b.text == self.teststrs['generated'])
+        self.assertTrue(id(b) == id(n))
 
 
 if __name__ == '__main__':
