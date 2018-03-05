@@ -233,7 +233,7 @@ def etwrite(et, write, topns = True, namespaces = None):
     base.serialize_xml(write, topns = topns)
     
 _alldrafts = ('approved', 'contributed', 'provisional', 'unconfirmed', 'tentative', 'generated', 'suspect')
-_draftratings = dict(map(lambda x: (x[1], x[0]), enumerate(_alldrafts)))
+draftratings = dict(map(lambda x: (x[1], x[0]), enumerate(_alldrafts)))
 
 class _arrayDict(dict):
     def set(self, k, v):
@@ -492,22 +492,22 @@ class Ldml(ETWriter):
         parent.append(e)
         return e
 
-    def _find_best(self, node, threshold=len(_draftratings), alt=None):
-        maxr = len(_draftratings)
+    def _find_best(self, node, threshold=len(draftratings), alt=None):
+        maxr = len(draftratings)
         if not hasattr(node, 'alternates'):
             return None
         res = None
         if alt is not None:
             bestalt = node.alternates.get(alt, None)
             if bestalt is not None:
-                bestalt = _draftratings.get(bestalt.get('draft', None), maxr)
+                bestalt = draftratings.get(bestalt.get('draft', None), maxr)
             else:
                 bestalt = None
         else:
             bestalt = None
 
         for k, v in node.alternates.items():
-            d = _draftratings.get(v.get('draft', self.use_draft), maxr)
+            d = draftratings.get(v.get('draft', self.use_draft), maxr)
             if d < threshold:
                 res = k
                 threshold = d
@@ -682,8 +682,8 @@ class Ldml(ETWriter):
 
     def get_draft(self, e, default=None):
         ldraft = e.get('draft', None) if e is not None else None
-        if ldraft is not None: return _draftratings.get(ldraft, 5)
-        return _draftratings.get(default, self.default_draft)
+        if ldraft is not None: return draftratings.get(ldraft, 5)
+        return draftratings.get(default, self.default_draft)
 
     def overlay(self, other, usedrafts=False, this=None):
         """Add missing information in self from other. Honours @draft attributes"""
