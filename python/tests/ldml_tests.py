@@ -12,7 +12,7 @@ except ImportError:
 
 class LDMLTests(unittest.TestCase):
 
-    def _init_exemplar_test(self):
+    def setUp(self):
         tf = StringIO('''<?xml version="1.0"?>
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
     <identity>
@@ -24,34 +24,41 @@ class LDMLTests(unittest.TestCase):
         <exemplarCharacters>[d e f a u l t]</exemplarCharacters>
     </characters>
 </ldml>''')
-        return tf
+        self.ldml = Ldml(tf)
+        self.tpath ='characters/exemplarCharacters[@type=""]' 
+
+    def tearDown(self):
+        if '-v' in sys.argv:
+            self.ldml.serialize_xml(sys.stdout.write)
 
     def test_exemplar_basic(self):
-        tf = self._init_exemplar_test()
         teststr = "[g e n e r a t e d]"
-        ldml = Ldml(tf)
-        e = ldml.ensure_path('characters/exemplarCharacters[@type=""]', draft="generated", matchdraft="draft")
+        e = self.ldml.ensure_path(self.tpath, draft="generated", matchdraft="draft")
         e[0].text = teststr
-        x = ldml.ensure_path('characters/exemplarCharacters[@type=""]', draft="generated", matchdraft="draft")
+        x = self.ldml.ensure_path(self.tpath, draft="generated", matchdraft="draft")
         self.assertTrue(x[0].text == teststr)
-        if '-v' in sys.argv:
-            ldml.serialize_xml(sys.stdout.write)
 
     def test_exemplar_double(self):
-        tf = self._init_exemplar_test()
-        tpath = 'characters/exemplarCharacters[@type=""]'
         testdrafts = ('generated', 'suspect')
         testalts = {'generated': None, 'suspect': 'proposed2'}
         teststrs = dict((x, "[" + " ".join(x) + "]") for x in testdrafts)
-        ldml = Ldml(tf)
         for t in testdrafts:
-            e = ldml.ensure_path(tpath, draft=t, alt=testalts[t], matchdraft="draft")
+            e = self.ldml.ensure_path(self.tpath, draft=t, alt=testalts[t], matchdraft="draft")
             e[0].text = teststrs[t]
         for t in testdrafts:
-            x = ldml.ensure_path(tpath, draft=t, matchdraft="draft")
+            x = self.ldml.ensure_path(self.tpath, draft=t, matchdraft="draft")
             self.assertTrue(x[0].text == teststrs[t])
-        if '-v' in sys.argv:
-            ldml.serialize_xml(sys.stdout.write)
+
+    def test_change_draft(self):
+        testdrafts = ('generated', 'suspect')
+        teststrs = dict((x, "[" + " ".join(x) + "]") for x in testdrafts)
+        b = self.ldml.ensure_path(self.tpath)[0]
+        e = self.ldml.ensure_path(self.tpath, draft='generated', matchdraft='draft')[0]
+        e.text = teststrs['generated']
+        n = self.ldml.change_draft(b, 'suspect')
+        b = self.ldml.ensure_path(self.tpath)[0]
+        self.assertTrue(b.text == teststrs['generated'])
+
 
 if __name__ == '__main__':
     unittest.main()

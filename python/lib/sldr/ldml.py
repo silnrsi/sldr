@@ -492,6 +492,55 @@ class Ldml(ETWriter):
         parent.append(e)
         return e
 
+    def _find_best(self, node, threshold=len(_draftratings), alt=None):
+        maxr = len(_draftratings)
+        if not hasattr(node, 'alternates'):
+            return None
+        res = None
+        if alt is not None:
+            bestalt = node.alternates.get(alt, None)
+            if bestalt is not None:
+                bestalt = _draftratings.get(bestalt.get('draft', None), maxr)
+            else:
+                bestalt = None
+        else:
+            bestalt = None
+
+        for k, v in node.alternates.items():
+            d = _draftratings.get(v.get('draft', self.use_draft), maxr)
+            if d < threshold:
+                res = k
+                threshold = d
+        if bestalt is not None and threshold == bestalt:
+            res = alt
+        return res
+
+    def change_draft(self, node, draft, alt=None):
+        alt = self.alt(alt)
+        best = self._find_best(node, draft, alt=alt)
+        node.set('draft', draft)
+        if best is None:
+            return
+        elif alt is None:
+            alt = best
+        v = node.alternates[best]
+        del v.attrib['alt']
+        temp = (v.attrib, v.text)
+        del node.alternates[best]
+        node.alternates[alt] = node
+        node.set('draft', draft)
+        new = node.parent.makeelement(node.tag, temp[0])
+        new.text = temp[1]
+        for i, e in enumerate(node.parent):
+            if id(e) == id(node):
+                break
+        node.parent.insert(i, new)
+        node.parent.remove(node)
+        new.alternates = node.alternates
+        delattr(node, 'alternates')
+        return new
+                
+
     def ensure_path(self, path, base=None, draft=None, alt=None, matchdraft=None):
         draft = self.use_draft if draft is None else draft
         return super(Ldml, self).ensure_path(path, base=base,
