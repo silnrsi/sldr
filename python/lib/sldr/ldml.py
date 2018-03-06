@@ -423,6 +423,7 @@ class Ldml(ETWriter):
 
         if fname is None:
             self.root = et.Element('ldml')
+            self.root.document = self
             return
         elif isinstance(fname, basestring):
             self.fname = fname
