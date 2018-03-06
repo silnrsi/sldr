@@ -77,6 +77,17 @@ class LangTag(object) :
         subtags.extend(self._extensions())
         return "-".join([x for x in subtags if x is not None])
 
+    def __len__(self):
+        '''Returns number of subtags in longest form, as per repr'''
+        l = 1
+        if self.script is not None: l += 1
+        if self.region is not None: l += 1
+        #if self.hidescript: l -= 1
+        #if self.hideregion: l -= 1
+        if self.variants is not None: l += len(self.variants)
+        if self.extensions is not None: l += sum(1+len(v) for v in self.extensions.values())
+        return l
+
     def __hash__(self) :
         return hash(str(self))
 
@@ -283,8 +294,9 @@ class LangTags(object) :
             self.add(t)
 
     def add(self, tag) :
-        for a in tag.allforms() :
-            if a not in self.tags : self.tags[a] = tag
+        for a in tag.allforms():
+            if a not in self.tags or len(tag) > len(self.tags[a]):
+                self.tags[a] = tag
 
     def generate_alltags(self) :
         res = []
