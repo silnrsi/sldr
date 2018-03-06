@@ -43,8 +43,10 @@ class ETWriter(object):
 
     def __init__(self, et, namespaces = None, attributeOrder = {}, takesCData = set()):
         self.root = et
-        if namespaces is None: namespaces = {}
-        self.namespaces = namespaces
+        if namespaces is not None:
+            self.namespaces = namespaces
+        if self.namespaces is None:
+            self.namespaces = {}
         self.attributeOrder = attributeOrder
         self.takesCData = takesCData
 
@@ -424,6 +426,7 @@ class Ldml(ETWriter):
         if fname is None:
             self.root = et.Element('ldml')
             self.root.document = self
+            self.default_draft = 'unconfirmed'
             return
         elif isinstance(fname, basestring):
             self.fname = fname
