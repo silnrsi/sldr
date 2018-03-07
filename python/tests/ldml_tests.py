@@ -58,6 +58,15 @@ class LDMLTests(unittest.TestCase):
         self.assertTrue(b.text == self.teststrs['generated'])
         self.assertTrue(id(b) == id(n))
 
+    def test_change_draft2(self):
+        b = self.ldml.ensure_path(self.tpath)[0]
+        n = self.ldml.change_draft(b, 'suspect')
+        e = self.ldml.ensure_path(self.tpath, draft='generated', matchdraft='draft')[0]
+        e.text = self.teststrs['generated']
+        b = self.ldml.ensure_path(self.tpath)[0]
+        self.assertTrue(b.text == self.teststrs['generated'])
+        self.assertTrue(id(b) == id(e))
+
 
 if __name__ == '__main__':
     unittest.main()

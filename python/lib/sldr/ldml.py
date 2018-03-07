@@ -524,7 +524,7 @@ class Ldml(ETWriter):
         best = self._find_best(node, draft, alt=alt)
         node.set('draft', draft)
         if best is None:
-            return
+            return node
         elif alt is None:
             alt = best
         v = node.alternates[best]
@@ -941,7 +941,25 @@ class Ldml(ETWriter):
 
     def _add_alt_leaf(self, target, origin, default='unconfirmed', leaf=True, alt=None):
         odraft = self.get_draft(origin, default)
+        res = origin
         if leaf:
+            tdraft = self.get_draft(target, default)
+            if odraft < tdraft:
+                target.set('alt', alt)
+                if 'alt' in origin.attrib:
+                    del origin.attrib['alt']
+                otemp = getattr(origin, 'alternates', {})
+                ttemp = getattr(target, 'alternates', None)
+                target.alternates = otemp
+                if ttemp is not None:
+                    origin.alternates = ttemp
+                (origin, target) = (target, origin)
+                for i, n in enumerate(origin.parent):
+                    if id(origin) == id(n):
+                        break
+                origin.parent.remove(origin)
+                origin.parent.insert(i, target)
+                res = target
             if not hasattr(target, 'alternates'):
                 target.alternates = {}
             elif alt in target.alternates:
@@ -958,7 +976,7 @@ class Ldml(ETWriter):
             v = target.alternates[alt]
             if self.get_draft(v, default) >= odraft:
                 del target.alternates[alt]
-        return origin
+        return res
             
     
     def _add_alt(self, target, origin, default='unconfirmed'):
