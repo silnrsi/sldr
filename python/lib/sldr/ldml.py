@@ -496,6 +496,33 @@ class Ldml(ETWriter):
         parent.append(e)
         return e
 
+    def _add_alt_leaf(self, target, origin, default='unconfirmed', leaf=True, alt=None):
+        odraft = self.get_draft(origin, default)
+        res = origin
+        if leaf:
+            tdraft = self.get_draft(target, default)
+            if odraft < tdraft:
+                self._promote(target, origin, alt=alt)
+                (origin, target) = (target, origin)
+                res = target
+            if not hasattr(target, 'alternates'):
+                target.alternates = {}
+            elif alt in target.alternates:
+                v = target.alternates[alt]
+                if self.get_draft(v, default) < odraft:
+                    return v
+            target.alternates[alt] = origin
+            if hasattr(origin, 'alternates'):
+                for k, v in origin.alternates.items():
+                    if k not in target.alternates or \
+                            (self.get_draft(v, default) > self.get_draft(target.alternates[k], default)):
+                        target.alternates[k] = v
+        elif hasattr(target, 'alternates') and alt in target.alternates:
+            v = target.alternates[alt]
+            if self.get_draft(v, default) >= odraft:
+                del target.alternates[alt]
+        return res
+            
     def _find_best(self, node, threshold=len(draftratings), alt=None):
         maxr = len(draftratings)
         if not hasattr(node, 'alternates'):
@@ -519,6 +546,28 @@ class Ldml(ETWriter):
             res = alt
         return res
 
+    def _promote(self, old, new, alt=None):
+        nalt = getattr(new, 'alternates', None)
+        oalt = getattr(old, 'alternates', {})
+        if nalt is not None:
+            old.alternates = nalt
+        if oalt is not None:
+            new.alternates = oalt
+        if alt is None:
+            alt = new.get('alt', None)
+        elif 'alt' in new.attrib and new.attrib['alt'] in new.alternates:
+            del new.alternates[new.attrib['alt']]
+        new.alternates[alt] = old
+        if nalt is not None:
+            del new.attrib['alt']
+            old.set('alt', nalt)
+        for i, e in enumerate(old.parent):
+            if id(e) == id(old):
+                break
+        old.parent.insert(i, new)
+        old.parent.remove(old)
+        return new
+
     def change_draft(self, node, draft, alt=None):
         alt = self.alt(alt)
         best = self._find_best(node, draft, alt=alt)
@@ -527,23 +576,7 @@ class Ldml(ETWriter):
             return node
         elif alt is None:
             alt = best
-        v = node.alternates[best]
-        del v.attrib['alt']
-        temp = (v.attrib, v.text)
-        del node.alternates[best]
-        node.alternates[alt] = node
-        node.set('draft', draft)
-        new = node.parent.makeelement(node.tag, temp[0])
-        new.text = temp[1]
-        for i, e in enumerate(node.parent):
-            if id(e) == id(node):
-                break
-        node.parent.insert(i, new)
-        node.parent.remove(node)
-        new.alternates = node.alternates
-        delattr(node, 'alternates')
-        return new
-                
+        return self._promote(node, node.alternates[best], alt=alt)
 
     def ensure_path(self, path, base=None, draft=None, alt=None, matchdraft=None):
         draft = self.use_draft if draft is None else draft
@@ -939,45 +972,6 @@ class Ldml(ETWriter):
                 res = True
         return res
 
-    def _add_alt_leaf(self, target, origin, default='unconfirmed', leaf=True, alt=None):
-        odraft = self.get_draft(origin, default)
-        res = origin
-        if leaf:
-            tdraft = self.get_draft(target, default)
-            if odraft < tdraft:
-                target.set('alt', alt)
-                if 'alt' in origin.attrib:
-                    del origin.attrib['alt']
-                otemp = getattr(origin, 'alternates', {})
-                ttemp = getattr(target, 'alternates', None)
-                target.alternates = otemp
-                if ttemp is not None:
-                    origin.alternates = ttemp
-                (origin, target) = (target, origin)
-                for i, n in enumerate(origin.parent):
-                    if id(origin) == id(n):
-                        break
-                origin.parent.remove(origin)
-                origin.parent.insert(i, target)
-                res = target
-            if not hasattr(target, 'alternates'):
-                target.alternates = {}
-            elif alt in target.alternates:
-                v = target.alternates[alt]
-                if self.get_draft(v, default) < odraft:
-                    return v
-            target.alternates[alt] = origin
-            if hasattr(origin, 'alternates'):
-                for k, v in origin.alternates.items():
-                    if k not in target.alternates or \
-                            (self.get_draft(v, default) > self.get_draft(target.alternates[k], default)):
-                        target.alternates[k] = v
-        elif hasattr(target, 'alternates') and alt in target.alternates:
-            v = target.alternates[alt]
-            if self.get_draft(v, default) >= odraft:
-                del target.alternates[alt]
-        return res
-            
     
     def _add_alt(self, target, origin, default='unconfirmed'):
         self._add_alt_leaf(target, origin.copy(),
