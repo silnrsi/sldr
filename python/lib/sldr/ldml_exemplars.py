@@ -248,6 +248,7 @@ class Exemplars(object):
         self._punctuation = set()
         self._digits = set()
         self._graphemes = list()
+        self._frequency = list()
 
         # Internal parameters.
         self.clusters = Counter()
@@ -304,6 +305,10 @@ class Exemplars(object):
         """Return the list of found graphemes."""
         return self.ldml_write(self._graphemes, sort=False)
 
+    def _get_frequency(self):
+        """Return the list of found graphemes with frequency of occurrence."""
+        return self.ldml_write(self._frequency, sort=False)
+
     def _get_script(self):
         """Return most frequently occurring script."""
         script_code_and_count_list = self.scripts.most_common(1)
@@ -322,6 +327,7 @@ class Exemplars(object):
     punctuation = property(_get_punctuation, _set_punctuation)
     digits = property(_get_digits, _set_digits)
     graphemes = property(_get_graphemes)
+    frequency = property(_get_frequency)
     script = property(_get_script)
 
     def ldml_read(self, ldml_exemplars):
@@ -396,6 +402,7 @@ class Exemplars(object):
         """Save the list of found graphemes."""
         for exemplar, count in self.clusters.most_common():
             self._graphemes.append(exemplar.text)
+            self._frequency.append(u'{}:{}'.format(exemplar.text, count))
 
     def count_marks(self):
         """Count how many different bases a mark occurs on."""

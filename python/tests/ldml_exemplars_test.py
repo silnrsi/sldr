@@ -387,6 +387,14 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'\u0917\u093c\u093e \u0916\u093c\u093e \u0915\u093c\u093e',
                          self.exemplars.graphemes)
 
+    def test_devanagari_frequency(self):
+        """For debugging, show the counts of each grapheme."""
+        self.exemplars.process(u'\u0958\u093e \u0959\u093e \u0959\u093e '
+                               u'\u095a\u093e \u095a\u093e \u095a\u093e')
+        self.exemplars.analyze()
+        self.assertEqual(u'\u0917\u093c\u093e:3 \u0916\u093c\u093e:2 \u0915\u093c\u093e:1',
+                         self.exemplars.frequency)
+
     def test_devanagari_index(self):
         self.exemplars.many_bases = 1
         self.exemplars.process(u'\u0905 \u0906 \u0915 \u0916 '
@@ -446,13 +454,13 @@ class ExemplarsTests(unittest.TestCase):
         """Handle a script that ICU does not know about."""
         self.exemplars.process(u'\U00011D0C')
         self.exemplars.analyze()
-        self.assertEqual(u'Zyyy', self.exemplars.script)
+        self.assertEqual(u'Zzzz', self.exemplars.script)
 
     def test_nonbmp(self):
         """Handle non-BMP characters."""
         self.exemplars.process(u'\U0001D510')
         self.exemplars.analyze()
-        self.assertEqual(u'\U0001D510', self.exemplars.main)
+        self.assertEqual(u'\U0001D510', self.exemplars.auxiliary)
 
     def test_yoruba(self):
         """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
