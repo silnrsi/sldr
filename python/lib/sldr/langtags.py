@@ -214,9 +214,13 @@ class LangTags(object) :
         for p in ps.findall('likelySubtag') :
             to = LangTag(p.get('to'))
             base = LangTag(p.get('from'))
+            if base.lang == 'und': continue
             to = to.analyse(self.tags)
-            if base.script is None : to.hidescript = True
-            if base.region is None : to.hideregion = True
+            if base.script is None: to.hidescript = True
+            if base.region is None:
+                if to.hidescript and base.script is not None:
+                    to.hidescript = False
+                to.hideregion = True
             self.add(to)
 
     def readExtras(self, ef) :
@@ -241,6 +245,7 @@ class LangTags(object) :
                 l = l.strip()
                 if l.startswith("Type: ") :
                     mode = l[6:]
+                    currlang = None
                 elif l.startswith("Subtag: ") :
                     if mode == "language" :
                         currlang = l[8:]
