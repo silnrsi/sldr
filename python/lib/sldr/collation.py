@@ -147,7 +147,7 @@ class Collation(dict):
 
     def __setitem__(self, key, val):
         if key in self:
-            raise KeyError("key {} already exists in collation with value {}".format(key, self[key]))
+            raise KeyError(u"key {} already exists in collation with value {}".format(key, self[key]))
         dict.__setitem__(self, key, val)
 
     def _setSortKeys(self):
