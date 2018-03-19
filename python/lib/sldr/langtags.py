@@ -44,11 +44,13 @@ class LangTag(object) :
     extensions = None
     hidescript = False
     hideregion = False
+    hideboth = True
 
     def __init__(self, tag=None, lang=None, script=None, region=None, variants=None, extensions=None) :
         self.lang = lang
         self.script = script
         self.region = region
+        self.hideboth = (self.script is None and self.region is None)
         self.variants = variants
         self.extensions = extensions
         if tag is not None : self.parse(tag)
@@ -65,7 +67,7 @@ class LangTag(object) :
         """ Output the canonical tag with things hidden """
         subtags = [self.lang]
         if not self.hidescript : subtags.append(self.script)
-        if not self.hideregion : subtags.append(self.region)
+        if not self.hideregion or (not self.hideboth and self.hidescript): subtags.append(self.region)
         if self.variants is not None : subtags.extend(self.variants)
         subtags.extend(self._extensions())
         return "-".join([x for x in subtags if x is not None])
@@ -99,14 +101,17 @@ class LangTag(object) :
         if 1 < len(bits[curr]) < 4 :
             self.lang = bits[curr].lower()
             curr += 1
+            self.hideboth = True
         if curr >= len(bits) : return
         if len(bits[curr]) == 4 :
             self.script = bits[curr].title()
             curr += 1
+            self.hideboth = False
         if curr >= len(bits) : return
         if 1 < len(bits[curr]) < 4 :
             self.region = bits[curr].upper()
             curr += 1
+            self.hideboth = False
         ns = ''
         extensions = {}
         variants = []
@@ -131,21 +136,24 @@ class LangTag(object) :
             self.region = tag.region
         if self.region == tag.region and not self.hideregion :
             self.hideregion = tag.hideregion
+        if not self.hideboth:
+            self.hideboth = tag.hideboth
 
     def allforms(self) :
-        ss = [self.script]
+        ss = [self.script] if self.script is not None else []
         if self.hidescript :
             ss.append(None)
-        rs = [self.region]
-        if self.hideregion :
+        rs = [self.region] if self.region is not None else []
+        if self.hideregion:
             rs.append(None)
+        srs = [[s] + [r] for s in ss for r in rs if s is not None or r is not None or self.hideboth]
         extras = []
         if self.variants is not None : extras.extend(self.variants)
         if self.extensions is not None :
             for ns in sorted(self.extensions.keys()) :
                 extras.append(ns)
                 extras.extend(sorted(self.extensions[ns]))
-        res = ["-".join([x for x in [self.lang] + [s] + [r] + extras if x is not None]) for s in ss for r in rs]
+        res = ["-".join([x for x in [self.lang] + s + extras if x is not None]) for s in srs]
         return res
 
     def matches(self, other) :
@@ -163,16 +171,21 @@ class LangTag(object) :
         if str(self) in alltags :
             return alltags[str(self)]
         if self.region is not None :
-            test = self.__class__(lang = self.lang, script = self.script, variants = self.variants, extensions = self.extensions)
-            test = test.analyse(alltags)
-            if str(test) in alltags :
-                self.merge_equivalent(test)
-            elif self.variants is not None or self.extensions is not None :
-                test = self.__class__(lang = self.lang, region = self.region)
+            if self.region == "ZZ":
+                self.region = None
+                self.hideregion = False
+            else:
+                test = self.__class__(lang = self.lang, script = self.script, variants = self.variants, extensions = self.extensions)
                 test = test.analyse(alltags)
-                self.merge_equivalent(test)
-        elif self.script is not None :
-            test = self.__class__(lang = self.lang, variants = self.variants, extensions = self.extensions)
+                if str(test) in alltags :
+                    self.merge_equivalent(test)
+                elif self.variants is not None or self.extensions is not None :
+                    test = self.__class__(lang = self.lang, region = self.region)
+                    test = test.analyse(alltags)
+                    self.merge_equivalent(test)
+                return self
+        if self.script is not None :
+            test = self.__class__(lang = self.lang, region = self.region, variants = self.variants, extensions = self.extensions)
             test = test.analyse(alltags)
             if str(test) in alltags :
                 self.merge_equivalent(test)
@@ -217,10 +230,8 @@ class LangTags(object) :
             if base.lang == 'und': continue
             to = to.analyse(self.tags)
             if base.script is None: to.hidescript = True
-            if base.region is None:
-                if to.hidescript and base.script is not None:
-                    to.hidescript = False
-                to.hideregion = True
+            if base.region is None: to.hideregion = True
+            to.hideboth = base.hideboth
             self.add(to)
 
     def readExtras(self, ef) :
@@ -299,9 +310,18 @@ class LangTags(object) :
             self.add(t)
 
     def add(self, tag) :
-        for a in tag.allforms():
-            if a not in self.tags or len(tag) > len(self.tags[a]):
-                self.tags[a] = tag
+        merge = [a for a in tag.allforms() if a in self.tags]
+        if len(merge):
+            k = sorted(merge, key=len)[-1]
+            v = self.tags[k]
+            v.merge_equivalent(tag)
+            for a in v.allforms():
+                if a not in self.tags:
+                    self.tags[a] = v
+        else:
+            for a in tag.allforms():
+                if a not in self.tags:
+                    self.tags[a] = tag
 
     def generate_alltags(self) :
         res = []
