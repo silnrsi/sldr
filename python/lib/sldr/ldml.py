@@ -558,9 +558,9 @@ class Ldml(ETWriter):
         elif 'alt' in new.attrib and new.attrib['alt'] in new.alternates:
             del new.alternates[new.attrib['alt']]
         new.alternates[alt] = old
-        if nalt is not None:
+        if 'alt' in new.attrib:
             del new.attrib['alt']
-            old.set('alt', nalt)
+            old.set('alt', alt)
         for i, e in enumerate(old.parent):
             if id(e) == id(old):
                 break
