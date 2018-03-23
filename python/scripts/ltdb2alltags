@@ -59,12 +59,14 @@ args = parser.parse_args()
 
 lts = lt.LangTags()
 allentries = {}
+allmacros = {}
 with open(args.infile) as csvfile :
     reader = csv.DictReader(csvfile)
     for row in reader :
 #        if 'CLDR' in row['confirmed'] : continue
         id = row['Lang_Id']
         ls = row['likely_subtag']
+        macro = row['Macro']
         t = lt.LangTag(ls)
         if t.script == 'Zyyy' or t.script == 'Qaax' : continue
         b = lt.LangTag(id)
@@ -75,6 +77,10 @@ with open(args.infile) as csvfile :
         t.hideboth = b.hideboth
         lts.add(t)
         allentries[id] = (t, row['regions'].split(' '))
+        if macro != "":
+            s = str(t)
+            b.lang = macro
+            allmacros[s] = str(b)
 
 for l in os.listdir(args.indir) :
     if l.endswith('.xml') :
@@ -85,6 +91,16 @@ for l in os.listdir(args.indir) :
             if s.endswith('.xml') :
                 if 1 < len(s.split('_', 1)[0]) < 4 :
                     process_cldrentry(s[:-4], lts, allentries, root=args.indir)
+
+for k, v in allmacros.items():
+    try:
+        macro = lts.tags[v]
+        base = lts.tags[k]
+    except KeyError:
+        continue
+    macro.base = base
+    base.skip = True
+    
 
 with open(args.outfile, "w") as alltags :
     res = lts.generate_alltags()
@@ -102,8 +118,8 @@ with open(args.outfile, "w") as alltags :
                 if hasstar:
                     if args.operators:
                         l[0] = " |= " if issimple(tf) else " <= "
-                    else:
-                        l[0] = " | "
+#                    else:
+#                        l[0] = " | "
                 elif args.operators and hasattr(lts.tags.get(l[1], l[1]), "parent"):
                     x = lts.tags[l[1]]
                     l[1] = l[1] + (" >| " if x.parentsame else " > ") + "*" + str(x.parent)

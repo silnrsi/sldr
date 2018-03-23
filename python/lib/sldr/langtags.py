@@ -45,6 +45,8 @@ class LangTag(object) :
     hidescript = False
     hideregion = False
     hideboth = True
+    skip = False
+    base = None
 
     def __init__(self, tag=None, lang=None, script=None, region=None, variants=None, extensions=None) :
         self.lang = lang
@@ -154,6 +156,8 @@ class LangTag(object) :
                 extras.append(ns)
                 extras.extend(sorted(self.extensions[ns]))
         res = ["-".join([x for x in [self.lang] + s + extras if x is not None]) for s in srs]
+        if self.base is not None:
+            res += self.base.allforms()
         return res
 
     def matches(self, other) :
@@ -326,7 +330,7 @@ class LangTags(object) :
     def generate_alltags(self) :
         res = []
         alltags = set(self.tags.values())
-        for t in sorted(alltags) :
+        for t in (x for x in sorted(alltags) if not x.skip):
             outs = sorted(t.allforms(), key = len)
             res.append(outs)
         return res
