@@ -696,6 +696,8 @@ class Ldml(ETWriter):
         base.contentHash.merge(base.attrHash)               #   and keying hash
 
     def serialize_xml(self, write, base = None, indent = '', topns = True, namespaces = {}):
+        if self.uid is not None:
+            self.ensure_path('identity/special/sil:identity/@uid="{}"'.format(self.uid))
         if self.useDrafts:
             n = base if base is not None else self.root
             draft = n.get('draft', '')
