@@ -175,10 +175,11 @@ def flatten(s):
         yield u"".join(_expand(p, vals, i, x) for i, x in enumerate(indices))
 
 
-def struni(s, groups):
+def struni(s, groups=None):
     s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
     s = simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s)
-    s = groupsre.sub(lambda m:groups[int(m.group(1)) - 1], s)
+    if groups is not None:
+        s = groupsre.sub(lambda m:groups[int(m.group(1)) - 1], s)
     return s
 
 

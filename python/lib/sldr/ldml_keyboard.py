@@ -151,7 +151,7 @@ class Keyboard(object):
             res = self.keyboards[self.modifiers[modstr]][k]
         except KeyError:
             return ""
-        return UnicodeSets.struni(res, [])
+        return UnicodeSets.struni(res)
 
     def _process_empty(self, context, ruleset):
         '''Copy layer input to output'''
@@ -311,28 +311,28 @@ class Rules(object):
             chars = UnicodeSets.parse(f).reverse()
         else:
             chars = UnicodeSets.parse(f)
-        jobs = set([(self.rules, "")])
+        jobs = set([self.rules])
         for i, k in enumerate(chars):
             isFinal = i + 1 == len(chars)
             newjobs = set()
             # inefficient trie is fine
-            for j, string in jobs:
+            for j in jobs:
                 j.fail = False
                 for l in k:
                     if l not in j:
                         j[l] = Rule()
                     if not k.negative:
-                        newjobs.add((j[l], string+l))
+                        newjobs.add(j[l])
                 if k.negative:
                     for d in j.keys():
                         if d not in k:
-                            newjobs.add((j[d], string+d))
+                            newjobs.add(j[d])
                     if j.default is None:
                         j.default = Rule()
-                    newjobs.add((j.default, string+" "))
+                    newjobs.add(j.default)
                 if isFinal:
                     for j, string in newjobs:
-                        j.merge(transform.attrib, [string[x:y] for x,y in chars.groups])
+                        j.merge(transform.attrib)
             jobs = newjobs
 
     def match(self, s, ind=0, partial=False, fail=False):
@@ -377,7 +377,7 @@ class Rule(dict):
     def __hash__(self):
         return hash(id(self))
 
-    def merge(self, e, groups):
+    def merge(self, e):
         if 'before' in e or 'after' in e:
             before = UnicodeSets.flatten(e.get('before', ""))
             after = UnicodeSets.flatten(e.get('after', ""))
@@ -385,21 +385,21 @@ class Rule(dict):
                 for a in after or [""]:
                     k = (b, a)
                     if k == ("", ""):
-                        self._coremerge(e, groups)
+                        self._coremerge(e)
                         continue
                     if k not in self.contexts:
                         self.contexts[k] = Rule()
-                    self.contexts[k]._coremerge(e, groups) 
+                    self.contexts[k]._coremerge(e) 
         else:
-            self._coremerge(e, groups)
+            self._coremerge(e)
 
-    def _coremerge(self, e, groups):
+    def _coremerge(self, e):
         for k, v in e.items():
             if k in ('from', 'before', 'after'):
                 continue
             setattr(self, k, v)
         if 'to' in e:
-            self.to = UnicodeSets.struni(e['to'], groups)
+            self.to = UnicodeSets.struni(e['to'])
         self.rule = True
 
     def _matchcontext(self, m, s, beg, end):
