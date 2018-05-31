@@ -28,14 +28,14 @@ def issimple(testf):
 
 def process_cldrentry(s, lts, allentries, root='.'):
     s = s.replace("_", "-")
-    if s in lts.tags:
+    if s in lts:
         return
     l = lt.LangTag(s)
     if l.region is not None:
         t = lt.LangTag(tag=None, lang=l.lang, script=l.script, variants=l.variants, extensions=l.extensions)
         n = None
-        if t in lts.tags:
-            n = lts.tags[t]
+        if t in lts:
+            n = lts[t]
         elif str(t) in allentries:
             if str(l.region) in allentries[str(t)][1]:
                 n = allentries[str(t)][0]
@@ -57,7 +57,7 @@ parser.add_argument('-i','--indir', default='.', help='Directory containing sldr
 parser.add_argument('-p','--operators',action="store_true",default=False,help="Output complex operators")
 args = parser.parse_args()
 
-lts = lt.LangTags()
+lts = lt.LangTags(noalltags=True)
 allentries = {}
 allmacros = {}
 with open(args.infile) as csvfile :
@@ -94,8 +94,8 @@ for l in os.listdir(args.indir) :
 
 for k, v in allmacros.items():
     try:
-        macro = lts.tags[v]
-        base = lts.tags[k]
+        macro = lts[v]
+        base = lts[k]
     except KeyError:
         continue
     macro.base = base
@@ -120,8 +120,8 @@ with open(args.outfile, "w") as alltags :
                         l[0] = " |= " if issimple(tf) else " <= "
 #                    else:
 #                        l[0] = " | "
-                elif args.operators and hasattr(lts.tags.get(l[1], l[1]), "parent"):
-                    x = lts.tags[l[1]]
+                elif args.operators and hasattr(lts.get(l[1], l[1]), "parent"):
+                    x = lts[l[1]]
                     l[1] = l[1] + (" >| " if x.parentsame else " > ") + "*" + str(x.parent)
                 l[1] = "*" + l[1]
                 hasstar = True

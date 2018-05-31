@@ -170,8 +170,7 @@ class LangTag(object) :
 
     def analyse(self, alltags = None) :
         if alltags is None :
-            lts = LangTags()
-            alltags = lts.tags
+            alltags = LangTags()
         if str(self) in alltags :
             return alltags[str(self)]
         if self.region is not None :
@@ -208,19 +207,42 @@ class LangTag(object) :
         return self
 
 
-class LangTags(object) :
-
+class LangTags(dict):
     __metaclass__ = Singleton
 
-    def __init__(self, extrasfile=None) :
-        """ Everything is keyed by language """
-        self.tags = {}
+    def __init__(self, extrasfile=None, noalltags=False):
+        super(LangTags, self).__init__()
+        if noalltags or not self.readAlltags():
+            self.readIana()
+            self.readLikelySubtags()
+            if extrasfile is not None :
+                self.readExtras(extrasfile)
+            self.readSupplementalData()
 
-        self.readIana()
-        self.readLikelySubtags()
-        if extrasfile is not None :
-            self.readExtras(extrasfile)
-        self.readSupplementalData()
+    def readAlltags(self):
+        for p in [os.path.dirname(__file__),
+                  os.path.join(os.path.dirname(__file__), '../../../extras')]:
+            fname = os.path.join(p, 'alltags.txt')
+            if os.path.exists(fname):
+                break
+        else:
+            return False
+        with open(fname) as fh:
+            for l in fh.readlines():
+                tags = [x[1:] if x.startswith("*") else x for x in l.split() if x != "="]
+                temp = {}
+                ltag = LangTag(tag=tags[-1])
+                while ltag.lang not in temp:
+                    self[tags[-1]] = ltag
+                    temp[ltag.lang] = ltag
+                    tags.pop()
+                    ltag = LangTag(tag=tags[-1])
+                for t in tags:
+                    lt = LangTag(tag=t)
+                    if not lt.script: temp[lt.lang].hidescript = True
+                    if not lt.region: temp[lt.lang].hideregion = True
+                    self[t] = temp[lt.lang]
+        return True
 
     def readLikelySubtags(self, fname = None) :
         """Reads the likely subtag mappings"""
@@ -232,7 +254,7 @@ class LangTags(object) :
             to = LangTag(p.get('to'))
             base = LangTag(p.get('from'))
             if base.lang == 'und': continue
-            to = to.analyse(self.tags)
+            to = to.analyse(self)
             if base.script is None: to.hidescript = True
             if base.region is None: to.hideregion = True
             to.hideboth = base.hideboth
@@ -244,7 +266,7 @@ class LangTags(object) :
             for row in reader :
                 if row['confirmed'] == 'CLDR' : continue
                 base = LangTag(row['langtag'])
-                to = LangTag(row['likely_subtag']).analyse(self.tags)
+                to = LangTag(row['likely_subtag']).analyse(self)
                 if base.script is None : to.hidescript = True
                 if base.region is None : to.hideregion = True
                 self.add(to)
@@ -300,8 +322,8 @@ class LangTags(object) :
             if len(r) > 1 : continue
             r = r[0]
             t = LangTag(l)      # could include script
-            if str(t) in self.tags :
-                t = self.tags[str(t)]
+            if str(t) in self :
+                t = self[str(t)]
             if t.region is None :
                 t.region = r
                 t.hideregion = True
@@ -310,26 +332,26 @@ class LangTags(object) :
             if l in scripts and len(scripts[l]) == 1 :
                 if t.script is None  : t.script = scripts[l][0]
                 t.hidescript = True
-            t = t.analyse(self.tags)
+            t = t.analyse(self)
             self.add(t)
 
     def add(self, tag) :
-        merge = [a for a in tag.allforms() if a in self.tags]
+        merge = [a for a in tag.allforms() if a in self]
         if len(merge):
             k = sorted(merge, key=len)[-1]
-            v = self.tags[k]
+            v = self[k]
             v.merge_equivalent(tag)
             for a in v.allforms():
-                if a not in self.tags:
-                    self.tags[a] = v
+                if a not in self:
+                    self[a] = v
         else:
             for a in tag.allforms():
-                if a not in self.tags:
-                    self.tags[a] = tag
+                if a not in self:
+                    self[a] = tag
 
     def generate_alltags(self) :
         res = []
-        alltags = set(self.tags.values())
+        alltags = set(self.values())
         for t in (x for x in sorted(alltags) if not x.skip):
             outs = sorted(t.allforms(), key = len)
             res.append(outs)
@@ -366,8 +388,8 @@ if __name__ == '__main__' :
                             alllocales.add(s[:-4])
     for l in alllocales :
         t = LangTag(l)
-        if str(t) not in lts.tags :
-            t = t.analyse(lts.tags)
+        if str(t) not in lts :
+            t = t.analyse(lts)
             lts.add(t)
             outs = sorted(t.allforms(), key = len)
             res.append(outs)
