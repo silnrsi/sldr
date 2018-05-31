@@ -229,13 +229,15 @@ class LangTags(dict):
             return False
         with open(fname) as fh:
             for l in fh.readlines():
-                tags = [x[1:] if x.startswith("*") else x for x in l.split() if x != "="]
+                tags = [x[1:] if x.startswith("*") else x for x in l.strip().split() if x != "="]
                 temp = {}
                 ltag = LangTag(tag=tags[-1])
                 while ltag.lang not in temp:
                     self[tags[-1]] = ltag
                     temp[ltag.lang] = ltag
                     tags.pop()
+                    if not len(tags):
+                        break
                     ltag = LangTag(tag=tags[-1])
                 for t in tags:
                     lt = LangTag(tag=t)
