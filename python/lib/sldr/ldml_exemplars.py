@@ -155,12 +155,12 @@ class UCD(object):
         # There are other values, but these are the ones need for this function.
         WB_ALETTER = 1
         WB_KATAKANA = 3
-        WB_MIDLETTER = 4
+        # WB_MIDLETTER = 4
 
         numeric_wordbreak_type = Char.getIntPropertyValue(char, UProperty.WORD_BREAK)
         if (numeric_wordbreak_type == WB_KATAKANA or
-           numeric_wordbreak_type == WB_ALETTER or
-           numeric_wordbreak_type == WB_MIDLETTER):
+           # numeric_wordbreak_type == WB_MIDLETTER or
+           numeric_wordbreak_type == WB_ALETTER):
             return True
         return False
 

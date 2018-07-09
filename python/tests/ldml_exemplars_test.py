@@ -152,7 +152,7 @@ class UCDTests(unittest.TestCase):
         self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u05f3'))
 
     def test_wordbreak_midletter(self):
-        self.assertTrue(self.ucd.is_exemplar_wordbreak(u'\u05f4'))
+        self.assertFalse(self.ucd.is_exemplar_wordbreak(u'\u05f4'))
 
     def test_wordbreak_chinese(self):
         self.assertFalse(self.ucd.is_exemplar_wordbreak(u'\ua700'))
@@ -229,11 +229,16 @@ class ExemplarsTests(unittest.TestCase):
         self.assertEqual(u'', self.exemplars.punctuation)
 
     def test_hebrew_midletter(self):
-        """Characters with Word_Break property MidLetter are not punctuation."""
+        """Characters with Word_Break property MidLetter could be classified as non punctuation.
+
+        If so, they could be in the main or auxiliary exemplars.
+        This is allowed by http://unicode.org/reports/tr35/tr35-general.html#Restrictions
+        However, in most cases, these characters are used as punctuation.
+        """
         self.exemplars.process(u'\u05f4\u05d0\u05f4')
         self.exemplars.analyze()
-        self.assertEqual(u'\u05d0 \u05f4', self.exemplars.main)
-        self.assertEqual(u'', self.exemplars.punctuation)
+        self.assertEqual(u'\u05d0', self.exemplars.main)
+        self.assertEqual(u'\u05f4', self.exemplars.punctuation)
 
     def test_chinese(self):
         self.exemplars.process(u'\u6606\u660e\ua700')
