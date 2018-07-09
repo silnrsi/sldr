@@ -239,7 +239,7 @@ class Exemplars(object):
 
         # User settable configuration.
         self.many_bases = 5
-        self.frequent = 0.1
+        self.frequent = 1
 
         # User data that should be accessed through getters and setters.
         self._main = set()

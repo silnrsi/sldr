@@ -187,6 +187,7 @@ class ExemplarsTests(unittest.TestCase):
     def setUp(self):
         self.exemplars = Exemplars()
         self.exemplars.unittest = True
+        self.exemplars.frequent = 10
 
     def tearDown(self):
         pass
