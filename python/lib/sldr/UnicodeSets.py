@@ -113,7 +113,7 @@ def _escape_using_hex(char):
 
 def _escape_using_backslash(s):
     """Use a backslash to escape the character."""
-    return u"\\" + s if s in '[]{}\\' else s
+    return escapechar(s)
 
 
 def escapechar(s):

@@ -74,15 +74,23 @@ class UnicodeSetsTests(unittest.TestCase):
     # characters used in Unicode Set syntax
 
     def ignore_control_escape(self):
-        """Some ASCII control characters should be escaped with a backslash."""
-        # []{}\\&-|^$:
+        """Some ASCII control characters should be escaped with a backslash.
+
+        These maybe already listed in the variable simpleescs.
+        """
         self.assertEqual(u'[\u0007 \u0008 \u0009 \u000A \u000B \u000C \u000D]',
                          self.list2us_helper(u'\u0007 \u0008 \u0009 \u000A \u000B \u000C \u000D'))
 
     def test_syntax_escape(self):
-        """Some characters used in Unicode Set syntax need to be escaped with a backslash."""
-        # []{}\\&-|^$:
-        self.assertEqual(u'[\\[ \\] \\{ \\} \\\\ & - | ^ $]', self.list2us_helper(u'[ ] { } \\ & - | ^ $'))
+        """Some characters used in Unicode Set syntax need to be escaped with a backslash.
+
+        The following characters are escaped: []{}\\&-|^$:
+        They are all used in Unicode Set format
+        https://unicode.org/reports/tr35/tr35.html#Unicode_Sets
+        except for |. We escape | anyway, it should still work.
+        """
+        self.assertEqual(u'[\\[ \\] \\{ \\} \\\\ \\& \\- \\| \\^ \\$ \\:]',
+                         self.list2us_helper(u'[ ] { } \\ & - | ^ $ :'))
 
     # escape some characters with hex digits
 
