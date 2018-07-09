@@ -165,13 +165,21 @@ class UCDTests(unittest.TestCase):
         text = u'\u00e9'
         self.assertEqual(u'e\u0301', self.ucd.normalize('NFD', text))
 
-    def ignore_nfc_tus10(self):
+    def test_nfc_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u00E0\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFC', text))
 
-    def ignore_nfd_tus10(self):
+    def test_nfd_tus10(self):
         text = u'\u0061\u035C\u0315\u0300\u1DF6\u0062'
         self.assertEqual(u'\u0061\u0300\u0315\u1DF6\u035C\u0062', self.ucd.normalize('NFD', text))
+
+    def ignore_nfc_tus11(self):
+        text = u'\u0061\u0315\u0300\u05AE\u09FE\u0062'
+        self.assertEqual(u'\u00E0\u05AE\u09FE\u0315\u0062', self.ucd.normalize('NFC', text))
+
+    def ignore_nfd_tus11(self):
+        text = u'\u0061\u0315\u0300\u05AE\u09FE\u0062'
+        self.assertEqual(u'\u0061\u05AE\u0300\u09FE\u0315\u0062', self.ucd.normalize('NFD', text))
 
 
 class ExemplarsTests(unittest.TestCase):
@@ -452,15 +460,15 @@ class ExemplarsTests(unittest.TestCase):
 
     def test_undetermined_script(self):
         """Handle a script that ICU does not know about."""
-        self.exemplars.process(u'\U00011D0C')
+        self.exemplars.process(u'\U00010F77')
         self.exemplars.analyze()
         self.assertEqual(u'Zzzz', self.exemplars.script)
 
     def test_nonbmp(self):
         """Handle non-BMP characters."""
-        self.exemplars.process(u'\U0001D510')
+        self.exemplars.process(u'\U0001D52A')
         self.exemplars.analyze()
-        self.assertEqual(u'\U0001D510', self.exemplars.auxiliary)
+        self.assertEqual(u'\U0001D52A', self.exemplars.main)
 
     def test_yoruba(self):
         """If a set of diacritics has the sames bases, the diacritics are separate exemplars."""
