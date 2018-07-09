@@ -98,6 +98,18 @@ class UnicodeSetsTests(unittest.TestCase):
         """Space like characters need to be escaped."""
         self.assertEqual(u'[\\u200a]', self.list2us_helper(u'\u200a'))
 
+    def test_pua_bmp(self):
+        """PUA characters (in the BMP) need to be escaped."""
+        self.assertEqual(u'[\\ue000]', self.list2us_helper(u'\ue000'))
+
+    def test_pua_nonbmp_a(self):
+        """PUA characters (outside of the BMP) need to be escaped."""
+        self.assertEqual(u'[\\U000fff80]', self.list2us_helper(u'\U000fff80'))
+
+    def test_pua_nonbmp_b(self):
+        """PUA characters (outside of the BMP and SMP) need to be escaped."""
+        self.assertEqual(u'[\\U0010ff80]', self.list2us_helper(u'\U0010ff80'))
+
 
 if __name__ == '__main__':
     unittest.main()

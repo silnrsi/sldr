@@ -133,6 +133,21 @@ class UCDTests(unittest.TestCase):
     def test_space_separator_false(self):
         self.assertFalse(self.ucd.is_space_separator(u'a'))
 
+    def test_pua_false_bmp(self):
+        self.assertFalse(self.ucd.is_pua(u'a'))
+
+    def test_pua_true_bmp(self):
+        self.assertTrue(self.ucd.is_pua(u'\ue000'))
+
+    def test_pua_false_nonbmp(self):
+        self.assertFalse(self.ucd.is_pua(u'\U0001D510'))
+
+    def test_pua_true_nonbmp_a(self):
+        self.assertTrue(self.ucd.is_pua(u'\U000fff80'))
+
+    def test_pua_true_nonbmp_b(self):
+        self.assertTrue(self.ucd.is_pua(u'\U000fff80'))
+
     def test_script_specific_true_latin(self):
         self.assertTrue(self.ucd.is_specific_script(u'\ua78c'))
 

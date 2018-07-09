@@ -137,6 +137,18 @@ class UCD(object):
         return False
 
     @staticmethod
+    def is_pua(char):
+        """True if the character is a PUA character."""
+        numeric_char = ord(char)
+        if 0xE000 <= numeric_char <= 0xF8FF:
+            return True
+        if 0xFFF80 <= numeric_char < 0xFFFFE:
+            return True
+        if 0x10FF80 <= numeric_char < 0x10FFFE:
+            return True
+        return False
+
+    @staticmethod
     def is_specific_script(char):
         """True if the character has a specific Script property,
         that is, not the values Common or Inherited.
@@ -190,6 +202,8 @@ class UCD(object):
         if self.isformat(char):
             return True
         if self.is_space_separator(char):
+            return True
+        if self.is_pua(char):
             return True
         return False
 
