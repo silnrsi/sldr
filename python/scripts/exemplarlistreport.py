@@ -5,7 +5,7 @@ def reportfordir(path, reportfilename):
     """
     Usage: python3 exemplarlistreport.py directorypath reportfile.txt
     """
-    with open(reportfilename, mode="w") as ofile:
+    with open(reportfilename, mode="w", encoding='utf-8') as ofile:
         chars = ofile.write("Report for " + path)
         try: 
             for file in sorted(os.listdir(path)):
