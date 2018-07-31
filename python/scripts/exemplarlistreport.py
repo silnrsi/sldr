@@ -3,7 +3,7 @@ import os, sys
 
 def reportfordir(path, reportfilename):
     """
-    Usage: python3 exemplarlistreport.py directorypath reportfile.txt
+    Usage: python exemplarlistreport.py directorypath reportfile.txt
     """
     with open(reportfilename, mode="w", encoding='utf-8') as ofile:
         chars = ofile.write("Report for " + path)
