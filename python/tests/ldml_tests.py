@@ -10,23 +10,25 @@ try:
     from sldr.ldml import Ldml, draftratings
 except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
-    from sldr.ldml import Ldml, draftratings
+    from sldr.ldml import Ldml, draftratings, etwrite
 
 
 class LDMLTests(unittest.TestCase):
 
     def setUp(self):
-        tf = StringIO('''<?xml version="1.0"?>
+        self.tf = u'''<?xml version="1.0" encoding="utf-8"?>
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
-    <identity>
-        <special>
-            <sil:identity uid="test1"/>
-        </special>
-    </identity>
-    <characters>
-        <exemplarCharacters>[d e f a u l t]</exemplarCharacters>
-    </characters>
-</ldml>''')
+	<identity>
+		<special>
+			<!-- not very interesting -->
+			<sil:identity uid="test1"/>
+		</special>
+	</identity>
+	<characters>
+		<exemplarCharacters>[d e f a u l t]</exemplarCharacters>
+	</characters>
+</ldml>'''
+        tf = StringIO(self.tf)
         self.ldml = Ldml(tf)
         self.tpath ='characters/exemplarCharacters[@type=""]' 
         self.teststrs = dict((x, "[" + " ".join(x) + "]") for x in draftratings.keys())
@@ -70,6 +72,10 @@ class LDMLTests(unittest.TestCase):
         self.assertTrue(b.text == self.teststrs['generated'])
         self.assertTrue(id(b) == id(e))
 
+    def test_output(self):
+        res = StringIO()
+        self.ldml.serialize_xml(res.write)
+        self.assertEqual(res.getvalue().strip(), self.tf)
 
 if __name__ == '__main__':
     unittest.main()
