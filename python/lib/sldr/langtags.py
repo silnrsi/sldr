@@ -26,7 +26,7 @@
 from xml.etree import ElementTree as et
 from xml.etree import ElementPath as ep
 import os, re, csv
-from ldml import Ldml
+from sldr.ldml import Ldml  ## need package name?????
 
 class Singleton(type):
     _instances = {}
@@ -398,5 +398,5 @@ if __name__ == '__main__' :
     outstrings = []
     for o in res :
         outstrings.append(" = ".join(["*" + x if find_file(x, indir[0]) else x for x in o]))
-    print "\n".join(sorted(outstrings, key=lambda x:x.replace('*', '')))
+    print("\n".join(sorted(outstrings, key=lambda x:x.replace('*', ''))))
 

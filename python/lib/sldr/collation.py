@@ -30,8 +30,8 @@ def escape(s):
 
 def unescape(s):
     '''Parse tailoring escaped characters into normal Unicode'''
-    s = re.sub(ur'(?:\\U([0-9A-F]{8})|\\u([0-9A-F]{4}))', lambda m:unichr(int(m.group(m.lastindex), 16)), s, re.I)
-    s = re.sub(ur'\\(.)', ur'\1', s)
+    s = re.sub(r'(?:\\U([0-9A-F]{8})|\\u([0-9A-F]{4}))', lambda m:unichr(int(m.group(m.lastindex), 16)), s, re.I)
+    s = re.sub(r'\\(.)', r'\1', s)
     return s
 
 def ducetSortKey(d, k, extra=None):
@@ -87,8 +87,8 @@ def readDucet(path="") :
         ducetpath = path
 
     result = {}
-    keyre = re.compile(ur'([0-9A-F]{4})', re.I)
-    valre = re.compile(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
+    keyre = re.compile(r'([0-9A-F]{4})', re.I)
+    valre = re.compile(r'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
 
     try :
         with open(ducetpath, 'r') as f :
@@ -100,7 +100,7 @@ def readDucet(path="") :
                 vals = valre.findall(parts[1])
                 result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
     except :
-        print "ERROR: unable to read DUCET data in allkeys.txt"
+        print("ERROR: unable to read DUCET data in allkeys.txt")
         return {}
     if not path:
         __moduleDucet__ = result
@@ -116,16 +116,16 @@ class Collation(dict):
     def parse(self, string):
         """Parse LDML/ICU sort tailoring"""
         prefix = ""
-        string = re.sub(ur'^#.*$', '', string, flags=re.M)
+        string = re.sub(r'^#.*$', '', string, flags=re.M)
         for n, run in enumerate(string.split('&')):
-            bits = [x.strip() for x in re.split(ur'([<=]+)', run)]
+            bits = [x.strip() for x in re.split(r'([<=]+)', run)]
             base = unescape(bits[0])
             for i in range(1, len(bits), 2):
-                s = re.sub(ur'\s#.*$', '', bits[i], flags=re.M)
+                s = re.sub(r'\s#.*$', '', bits[i], flags=re.M)
                 if s == '=': l = 4
                 else:
                     l = s.count('<')
-                k = re.sub(ur'\s#.*$', '', bits[i+1], flags=re.M)
+                k = re.sub(r'\s#.*$', '', bits[i+1], flags=re.M)
                 key = unescape(k)
                 exp = key.find("/")
                 expstr = ""
@@ -295,4 +295,4 @@ if __name__ == '__main__':
         alphabet = "a b c d e f g h i j k l m n o p q r s t u v w x y z".split()
         alphabet += coll.keys()
         coll.minimise(alphabet)
-        print coll.asICU()
+        print(coll.asICU())

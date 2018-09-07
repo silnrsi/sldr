@@ -189,9 +189,12 @@ class UCD(object):
     @staticmethod
     def toupper(text):
         """Map string to uppercase."""
-        lowercase = UnicodeString(text)
-        uppercase = lowercase.toUpper()
-        return unicode(uppercase)
+        #lowercase = UnicodeString(text)  # Python 2
+        #uppercase = lowercase.toUpper()
+        #return unicode(uppercase)
+
+        return text.upper()
+
 
     def need_hex_escape(self, char, is_isolated):
         """Determine if a characters needs to be escaped with hex digits."""

@@ -26,8 +26,8 @@
 
 import re
 
-hexescre = re.compile(ur"(?:\\(?:ux)\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})|\\x([0-9a-fA-F]{2}))")
-hexgre = re.compile(ur"\\u\{([0-9a-fA-F]+)\}")
+hexescre = re.compile(r"(?:\\(?:ux)\{([0-9a-fA-F]+)\}|\\u([0-9a-fA-F]{4})|\\U([0-9a-fA-F]{8})|\\x([0-9a-fA-F]{2}))")
+hexgre = re.compile(r"\\u\{([0-9a-fA-F]+)\}")
 simpleescs = {
     'a' : u"\u0007",
     'b' : u"\u0008",
@@ -38,8 +38,8 @@ simpleescs = {
     'r' : u"\u000D",
     '\\' : u"\u005C"
 }
-simpleescsre = re.compile(ur"\\([^0-9])")
-groupsre = re.compile(ur"\\([0-9]+)")
+simpleescsre = re.compile(r"\\([^0-9])")
+groupsre = re.compile(r"\\([0-9]+)")
 
 
 def us2list(text):
@@ -114,6 +114,7 @@ def _escape_using_hex(char):
 def _escape_using_backslash(s):
     """Use a backslash to escape the character."""
     return escapechar(s)
+    ###return "\\" + s if s in '[]{}\\' else s
 
 
 def escapechar(s):

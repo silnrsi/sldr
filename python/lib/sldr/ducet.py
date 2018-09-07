@@ -10,22 +10,32 @@ def readDucet(path="") :
         with open(ducetFilename, 'r') as f :
             content = f.readlines()
     except :
-        print "ERROR: unable to read DUCET data in allkeys.txt"
+        print("ERROR: unable to read DUCET data in allkeys.txt")
         return {}
 
     result = {}
-    keyre = re.compile(ur'([0-9A-F]{4})', re.I)
-    valre = re.compile(ur'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
-    
-    for contentLine in content :
+    keyre = re.compile(r'([0-9A-F]{4})', re.I)
+    valre = re.compile(r'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
+
+    lineno = 0
+    for contentLine in content:
+        lineno = lineno + 1
+        if contentLine[0] == '#':
+            continue
         parts = contentLine.split(';')
         if len(parts) != 2:
             continue
-        key = u"".join(unichr(int(x, 16)) for x in keyre.findall(parts[0]))
-        vals = valre.findall(parts[1])
-        result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
+
+        try:
+            key = u"".join(chr(int(x, 16)) for x in keyre.findall(parts[0]))
+            vals = valre.findall(parts[1])
+            result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
+        except:
+            print("Error processing DUCET line" + lineno)
 
     return result
+
+# end of readDucet
 
 
 def ducetCompare(ducetDict, str1, str2) :
@@ -95,5 +105,5 @@ def _generateSortKey(rawSortKey, separate=False) :
             
 # leveledResult = [[ki[level] for ki in rawSortKey] for level in range(3)]
   
-# end of readDucet
+
 
