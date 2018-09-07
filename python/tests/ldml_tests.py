@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
 import unittest, sys, os
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 try:
     from sldr.ldml import Ldml, draftratings

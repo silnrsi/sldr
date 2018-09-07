@@ -22,10 +22,14 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+from __future__ import print_function
 from xml.etree import ElementTree as et
 from xml.etree import ElementPath as ep
-import xml.parsers.expat
 import re, os, codecs
+import xml.parsers.expat
+from functools import reduce
+from six import string_types
+from .py3xmlparser import XMLParser
 
 _elementprotect = {
     '&': '&amp;',
@@ -63,7 +67,7 @@ class ETWriter(object):
             return (tag, None, None)
 
     def _protect(self, txt, base=_attribprotect):
-        return re.sub(ur'['+ur"".join(base.keys())+ur"]", lambda m: base[m.group(0)], txt)
+        return re.sub(u'['+u"".join(base.keys())+u"]", lambda m: base[m.group(0)], txt)
 
     def _nsprotectattribs(self, attribs, localattribs, namespaces):
         if attribs is not None:
@@ -77,12 +81,7 @@ class ETWriter(object):
     def _sortedattrs(self, n, attribs=None):
         def getorder(x):
             return self.attributeOrder.get(n.tag, {}).get(x, self.maxAts)
-        def cmpat(x, y):
-            return cmp(getorder(x), getorder(y)) or cmp(x, y)
-        if attribs != None :
-            return sorted(attribs, cmp=cmpat)
-        else:
-            return sorted(n.keys(), cmp=cmpat)
+        return sorted((attribs if attribs is not None else n.keys()), key=lambda x:(getorder(x), x))
 
     def serialize_xml(self, write, base = None, indent = '', topns = True, namespaces = {}):
         """Output the object using write() in a normalised way:
@@ -197,7 +196,7 @@ class ETWriter(object):
             raise SyntaxError
         steps = []
         for s in path.split("/"):
-            parts = re.split(ur"\[(.*?)\]", s)
+            parts = re.split(r"\[(.*?)\]", s)
             tag = parts.pop(0)
             tag = self._reverselocalns(tag)
             if not len(parts):
@@ -428,12 +427,16 @@ class Ldml(ETWriter):
             self.root.document = self
             self.default_draft = 'unconfirmed'
             return
-        elif isinstance(fname, basestring):
+        elif isinstance(fname, string_types):
             self.fname = fname
             fh = open(self.fname, 'rb')     # expat does utf-8 decoding itself. Don't do it twice
         else:
             fh = fname
-        parser = et.XMLParser(target=et.TreeBuilder(), encoding="UTF-8")
+        if hasattr(et, '_Element_Py'):
+            tb = et.TreeBuilder(element_factory=et._Element_Py)
+        else:
+            tb = et.TreeBuilder()
+        parser = XMLParser(target=tb, encoding="UTF-8")
         def doComment(data):
             # resubmit as new start tag=!-- and sort out in main loop
             parser.parser.StartElementHandler("!--", ('text', data))
@@ -570,7 +573,7 @@ class Ldml(ETWriter):
 
     def change_draft(self, node, draft, alt=None):
         alt = self.alt(alt)
-        best = self._find_best(node, draft, alt=alt)
+        best = self._find_best(node, draftratings.get(draft, len(draftratings)), alt=alt)
         node.set('draft', draft)
         if best is None:
             return node
@@ -592,7 +595,7 @@ class Ldml(ETWriter):
 
         if elem is None:
             elem = self.root
-        path = re.sub(ur"([a-z0-9]+):", nstons, path)
+        path = re.sub(r"([a-z0-9]+):", nstons, path)
         return elem.find(path)
 
     def get_parent_locales(self, name):
@@ -618,6 +621,15 @@ class Ldml(ETWriter):
                 return self.attributeOrder.get(base.tag, {}).get(x, self.maxAts)
             def cmpat(x, y):
                 return cmp(getorder(x), getorder(y)) or cmp(x, y)
+            def keyel(x):
+                xl = self._sortedattrs(x)
+                res = [self.elementOrder.get(x.tag, self.maxEls), x.tag]
+                for k, a in ((l, x.get(l)) for l in xl):
+                    if k == 'id' and all(q in _digits for q in a):
+                        res += (k, float(a))
+                    else:
+                        res += (k, a)
+                return res
             def cmpel(x, y):   # order by elementOrder and within that attributes in attributeOrder
                 res = cmp(self.elementOrder.get(x.tag, self.maxEls), self.elementOrder.get(y.tag, self.maxEls) or cmp(x.tag, y.tag))
                 if res != 0: return res
@@ -636,11 +648,11 @@ class Ldml(ETWriter):
                     if res != 0: return res
                 if len(yl) > len(xl): return 1
                 return 0
-            children = sorted(base, cmp=cmpel)              # if base.tag not in self.blocks else list(base)
+            children = sorted(base, key=keyel)              # if base.tag not in self.blocks else list(base)
             base[:] = children
         if base.text:
             t = base.text.strip()
-            base.text = re.sub(ur'\s*\n\s*', '\n', t)       # content hash has text in lines
+            base.text = re.sub(r'\s*\n\s*', '\n', t)       # content hash has text in lines
         base.tail = None
         if usedrafts or addguids:
             self._calc_hashes(base, usedrafts=usedrafts)
@@ -654,7 +666,7 @@ class Ldml(ETWriter):
             for c in tbase:
                 a = c.get('alt', '')
                 if a.find("proposed") != -1 and c.attrHash in temp:
-                    #a = re.sub(ur"-?proposed.*$", "", a)
+                    #a = re.sub(r"-?proposed.*$", "", a)
                     t = temp[c.attrHash]
                     if not hasattr(t, 'alternates'):
                         t.alternates = {}
@@ -686,7 +698,7 @@ class Ldml(ETWriter):
         base.attrHash.update(base.tag)                      # keying hash has tag
         for k, v in sorted(base.items()):                      # any consistent order is fine
             if usedrafts and k == 'alt' and v.find("proposed") != -1:
-                val = re.sub(ur"-?proposed.*$", "", v)
+                val = re.sub(r"-?proposed.*$", "", v)
                 if len(val):
                     base.attrHash.update(k, val)
             elif k in distkeys:
@@ -803,7 +815,7 @@ class Ldml(ETWriter):
                     # res.set('{'+self.silns+'}alias', "1")
                     # self.namespaces[self.silns] = 'sil'
                     if v in _cache:
-                        print "Alias loop discovered: %s in %s" % (v, self.fname)
+                        print("Alias loop discovered: %s in %s" % (v, self.fname))
                         return True
                     _cache.add(v)
                     self.resolve_aliases(res, _cache)
@@ -1153,7 +1165,7 @@ class Ldml(ETWriter):
         """Flattens [import] statements in a collation tailoring"""
         def doimport(m):
             return self.flatten_collation(importfn(m.group('lang'), m.group('coll')), importfn)
-        return re.sub(ur'\[import\s*(?P<lang>.*?)-u-co-(?P<coll>.*?)\s*\]', doimport, collstr)
+        return re.sub(r'\[import\s*(?P<lang>.*?)-u-co-(?P<coll>.*?)\s*\]', doimport, collstr)
 
 
 def _prepare_parent(next, token):
@@ -1192,7 +1204,7 @@ def flattenlocale(lname, dirs=[], rev='f', changed=set(), autoidentity=False, sk
     if isinstance(lname, Ldml):
         l = lname
         lname = fname
-    elif not isinstance(lname, basestring):
+    elif not isinstance(lname, string_types):
         l = Ldml(lname)
         lname = fname
     else:
