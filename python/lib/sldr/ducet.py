@@ -26,6 +26,8 @@ def readDucet(path="") :
         if len(parts) != 2:
             continue
 
+        ####if lineno < 9500 or lineno > 10000: continue
+
         try:
             key = u"".join(chr(int(x, 16)) for x in keyre.findall(parts[0]))
             vals = valre.findall(parts[1])

@@ -48,7 +48,8 @@ def ducetSortKey(d, k, extra=None):
         except KeyError:
             i -= 1
             continue
-        res = [res[j] + list(key[j]) for j in range(3)]
+        key_list = list(key)
+        res = [res[j] + list(key_list[j]) for j in range(3)]
         k = k[i:]
         i = len(k)
     return res
@@ -194,10 +195,12 @@ class Collation(dict):
             lastk = k
         return res[1:] if len(res) else ""
 
-    def _stripoverlaps(self, a, b):
+    def _stripoverlaps(self, a_arg, b_arg):
         '''Given two sorted lists of (k, sortkey(k)) delete from this
             collation any k that is not inserted into the first list.
             I.e. only keep things inserted into the ducet sequence'''
+        a = list(a_arg)
+        b = list(b_arg)
         if len(a) > 0 and len(b) > 0:
             s = SequenceMatcher(a=a[0], b=b[0])
             for g in s.get_opcodes():
