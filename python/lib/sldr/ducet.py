@@ -17,9 +17,7 @@ def readDucet(path="") :
     keyre = re.compile(r'([0-9A-F]{4})', re.I)
     valre = re.compile(r'\[[.*]([0-9A-F]{4})\.([0-9A-F]{4})\.([0-9A-F]{4})\]', re.I)
 
-    lineno = 0
-    for contentLine in content:
-        lineno = lineno + 1
+    for lineno, contentLine in enumerate(content):
         if contentLine[0] == '#':
             continue
         parts = contentLine.split(';')
@@ -33,7 +31,7 @@ def readDucet(path="") :
             vals = valre.findall(parts[1])
             result[key] = tuple(tuple(int(x, 16) for x in v) for v in vals)
         except:
-            print("Error processing DUCET line" + lineno)
+            print("Error processing DUCET line: " + str(lineno + 1))
 
     return result
 
