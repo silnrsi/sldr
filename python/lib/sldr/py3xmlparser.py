@@ -5,6 +5,81 @@
 
 from xml.parsers import expat
 
+class TreeBuilder:
+    """Generic element structure builder.
+
+    This builder converts a sequence of start, data, and end method
+    calls to a well-formed element structure.
+
+    You can use this class to build an element structure using a custom XML
+    parser, or a parser for some other XML-like format.
+
+    *element_factory* is an optional element factory which is called
+    to create new Element instances, as necessary.
+
+    """
+    def __init__(self, element_factory=None):
+        self._data = [] # data collector
+        self._elem = [] # element stack
+        self._last = None # last element
+        self._tail = None # true if we're after an end tag
+        if element_factory is None:
+            element_factory = Element
+        self._factory = element_factory
+
+    def close(self):
+        """Flush builder buffers and return toplevel document Element."""
+        assert len(self._elem) == 0, "missing end tags"
+        assert self._last is not None, "missing toplevel element"
+        return self._last
+
+    def _flush(self):
+        if self._data:
+            if self._last is not None:
+                text = "".join(self._data)
+                if self._tail:
+                    assert self._last.tail is None, "internal error (tail)"
+                    self._last.tail = text
+                else:
+                    assert self._last.text is None, "internal error (text)"
+                    self._last.text = text
+            self._data = []
+
+    def data(self, data):
+        """Add text to current element."""
+        self._data.append(data)
+
+    def start(self, tag, attrs):
+        """Open new element and return it.
+
+        *tag* is the element name, *attrs* is a dict containing element
+        attributes.
+
+        """
+        self._flush()
+        self._last = elem = self._factory(tag, attrs)
+        if self._elem:
+            self._elem[-1].append(elem)
+        self._elem.append(elem)
+        self._tail = 0
+        return elem
+
+    def end(self, tag):
+        """Close and return current Element.
+
+        *tag* is the element name.
+
+        """
+        self._flush()
+        self._last = self._elem.pop()
+        assert self._last.tag == tag,\
+               "end tag mismatch (expected %s, got %s)" % (
+                   self._last.tag, tag)
+        self._tail = 1
+        return self._last
+
+
+
 class XMLParser:
     """Element structure builder for XML source data based on the expat parser.
 
@@ -88,6 +163,9 @@ class XMLParser:
                 def handler(prefix, event=event_name, append=append):
                     append((event, None))
                 parser.EndNamespaceDeclHandler = handler
+            elif event_name == "comment":
+                def handler(prefix, event=event_name, append=append):
+                    append((event, 
             else:
                 raise ValueError("unknown event %r" % event_name)
 

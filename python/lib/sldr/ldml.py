@@ -29,7 +29,7 @@ import re, os, codecs
 import xml.parsers.expat
 from functools import reduce
 from six import string_types
-from .py3xmlparser import XMLParser
+from .py3xmlparser import XMLParser, TreeBuilder
 
 _elementprotect = {
     '&': '&amp;',
@@ -433,9 +433,9 @@ class Ldml(ETWriter):
         else:
             fh = fname
         if hasattr(et, '_Element_Py'):
-            tb = et.TreeBuilder(element_factory=et._Element_Py)
+            tb = TreeBuilder(element_factory=et._Element_Py)
         else:
-            tb = et.TreeBuilder()
+            tb = TreeBuilder()
         parser = XMLParser(target=tb, encoding="UTF-8")
         def doComment(data):
             # resubmit as new start tag=!-- and sort out in main loop
