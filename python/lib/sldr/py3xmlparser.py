@@ -163,9 +163,6 @@ class XMLParser:
                 def handler(prefix, event=event_name, append=append):
                     append((event, None))
                 parser.EndNamespaceDeclHandler = handler
-            elif event_name == "comment":
-                def handler(prefix, event=event_name, append=append):
-                    append((event, 
             else:
                 raise ValueError("unknown event %r" % event_name)
 
