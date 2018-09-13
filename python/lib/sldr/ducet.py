@@ -1,4 +1,9 @@
-﻿import os, re
+#!/usr/bin/python
+
+# Py2 and Py3 compatibility
+from __future__ import print_function
+
+import os, re
 
 
 # Read the DUCET file and return a corresponding data structure.

@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
+# Py2 and Py3 compatibility
+from __future__ import print_function
+
 import time, struct, base64, random
 
 t = int(time.time())
 s = struct.pack("IH", t, random.randint(0, 65535))
-print base64.b64encode(s)
+print(base64.b64encode(s).decode())

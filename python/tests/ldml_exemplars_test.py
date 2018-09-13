@@ -24,6 +24,11 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+# Py2 and Py3 compatibility
+from __future__ import print_function
+from builtins import range
+from builtins import chr
+
 import os
 import sys
 import unittest
@@ -47,13 +52,13 @@ class UCDTests(unittest.TestCase):
         from icu import Char, UProperty
         maxchar = 0x10ffff
         maxchar = 0xffff
-        for usv in xrange(maxchar):
-            char = unichr(usv)
+        for usv in range(maxchar):
+            char = chr(usv)
             # if ((not self.ucd.is_specific_script(char)) and
             #    (not self.ucd.is_exemplar_wordbreak(char)) and
             #    (not Char.isUAlphabetic(char))):
             if self.ucd.isformat(char) and not Char.hasBinaryProperty(char, UProperty.DEFAULT_IGNORABLE_CODE_POINT):
-                print '%04X' % usv
+                print('%04X' % usv)
 
         self.assertTrue(False)
 

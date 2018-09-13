@@ -1,3 +1,8 @@
+#!/usr/bin/python
+
+# Py2 and Py3 compatibility
+from __future__ import print_function
+
 from xml.etree import ElementTree as et
 import os, sys
 

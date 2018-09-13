@@ -23,6 +23,9 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+# Py2 and Py3 compatibility
+from __future__ import print_function
+
 from xml.etree import ElementTree as et
 from xml.etree import ElementPath as ep
 import os, re, csv

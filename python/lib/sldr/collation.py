@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+# Py2 and Py3 compatibility
+from __future__ import print_function
+
 import re, copy, os
 import unicodedata as ud
 from math import log10

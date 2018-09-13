@@ -24,6 +24,9 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+# Py2 and Py3 compatibility
+from builtins import str
+
 from icu import Char, Script, UCharCategory, UProperty, UScriptCode
 from icu import Normalizer2, UNormalizationMode2, UnicodeString
 from collections import Counter
@@ -189,12 +192,9 @@ class UCD(object):
     @staticmethod
     def toupper(text):
         """Map string to uppercase."""
-        #lowercase = UnicodeString(text)  # Python 2
-        #uppercase = lowercase.toUpper()
-        #return unicode(uppercase)
-
-        return text.upper()
-
+        lowercase = UnicodeString(text)
+        uppercase = lowercase.toUpper()
+        return str(uppercase)
 
     def need_hex_escape(self, char, is_isolated):
         """Determine if a characters needs to be escaped with hex digits."""

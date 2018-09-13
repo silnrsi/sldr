@@ -23,6 +23,8 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+# Py2 and Py3 compatibility
+from builtins import chr
 
 import re
 
@@ -177,7 +179,7 @@ def flatten(s):
 
 
 def struni(s, groups=None):
-    s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
+    s = hexescre.sub(lambda m:escapechar(chr(int(m.group(m.lastindex), 16))), s)
     s = simpleescsre.sub(lambda m:simpleescs.get(m.group(1), m.group(1)), s)
     if groups is not None:
         s = groupsre.sub(lambda m:groups[int(m.group(1)) - 1], s)
@@ -187,9 +189,9 @@ def struni(s, groups=None):
 def parse(s):
     '''Returns a sequence of UnicodeSet'''
     # convert escapes
-    s = hexescre.sub(lambda m:escapechar(unichr(int(m.group(m.lastindex), 16))), s)
+    s = hexescre.sub(lambda m:escapechar(chr(int(m.group(m.lastindex), 16))), s)
     # don't flatten \\ escapes here since we need to differentiate with action chars {}[]
-    s = hexgre.sub(lambda m:"{"+u"".join(escapechar(unichr(int(x, 16))) for x in m.group(1).split())+"}", s)
+    s = hexgre.sub(lambda m:"{"+u"".join(escapechar(chr(int(x, 16))) for x in m.group(1).split())+"}", s)
     s = s.replace(' ', '')
     res = UnicodeSetSequence()
     i = 0
@@ -275,7 +277,7 @@ def parseitem(s, ind, lastitem, end):
                 # char range
                 elif lastitem and item and len(lastitem) == 1 and len(item) == 1:
                     for x in range(ord(lastitem.pop()), ord(item.pop())):
-                        res.add(unichr(x))
+                        res.add(chr(x))
                     lastitem = None
                 else:
                     res.add(u"-")
