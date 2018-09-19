@@ -9,13 +9,14 @@ import os, sys
 def reportfordir(path, reportfilename):
     """
     Usage: python exemplarlistreport.py directorypath reportfile.txt
+    Output will be appended to existing reportfile.txt
     """
-    with open(reportfilename, mode="w", encoding='utf-8') as ofile:
+    with open(reportfilename, mode="a", encoding='utf-8') as ofile:
         chars = ofile.write("Report for " + path)
         try: 
             for file in sorted(os.listdir(path)):
                 cf = os.path.join(path, file)
-                chars = ofile.write("\n" + file)
+                chars = ofile.write("\n\n" + file)
                 r = et.parse(cf).getroot()
                 e = set(r.findall(".//exemplarCharacters[@draft='generated']"))
                 if len(e) == 0:
@@ -30,7 +31,8 @@ def reportfordir(path, reportfilename):
                     chars = ofile.write("\nGenerated main exemplar list: " + m[0].text)
                 a = r.findall(".//exemplarCharacters[@draft='generated'][@type='auxiliary']")
                 if len(a) == 0:
-                    chars = ofile.write("\nNo generated auxiliary list found")
+                    null
+                    # chars = ofile.write("\nNo generated auxiliary list found")
                 else:
                     chars = ofile.write("\nGenerated auxiliary exemplar list: " + a[0].text)
         except OSError:
