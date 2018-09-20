@@ -12,7 +12,7 @@ def reportfordir(path, reportfilename):
     Output will be appended to existing reportfile.txt
     """
     with open(reportfilename, mode="a", encoding='utf-8') as ofile:
-        chars = ofile.write("Report for " + path)
+        chars = ofile.write("\n\nReport for " + path)
         try: 
             for file in sorted(os.listdir(path)):
                 cf = os.path.join(path, file)
