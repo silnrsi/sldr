@@ -31,7 +31,7 @@ def reportfordir(path, reportfilename):
                     chars = ofile.write("\nGenerated main exemplar list: " + m[0].text)
                 a = r.findall(".//exemplarCharacters[@draft='generated'][@type='auxiliary']")
                 if len(a) == 0:
-                    null
+                    pass
                     # chars = ofile.write("\nNo generated auxiliary list found")
                 else:
                     chars = ofile.write("\nGenerated auxiliary exemplar list: " + a[0].text)
