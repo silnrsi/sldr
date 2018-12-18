@@ -37,7 +37,7 @@ def pytest_addoption(parser):
 def pytest_generate_tests(metafunc):
     if 'langid' not in metafunc.fixturenames:
         return
-    vals = metafunc.config.getoption('locale')
+    vals = [v.lower().replace("-","_") for v in metafunc.config.getoption('locale')]
     allpaths = getallpaths()
     vals = [allpaths[v] for v in vals if v in allpaths]
     if not len(vals):
