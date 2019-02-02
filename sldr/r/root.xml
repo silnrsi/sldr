@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2017 Unicode, Inc.
+<!-- Copyright © 1991-2018 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -10,11 +10,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 -->
 <ldml>
 	<identity>
-		<version number="$Revision: 13701 $"/>
-		<language type="root"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr" draft="approved"/>
+			<sil:identity source="cldr"/>
 		</special>
+		<version number="$Revision: 14491 $"/>
+		<language type="root"/>
 	</identity>
 	<localeDisplayNames>
 		<localeDisplayPattern>
@@ -40,10 +40,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</orientation>
 	</layout>
 	<characters>
+		<exemplarCharacters>[]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- , ; \: ! ? . ( ) \[ \] \{ \}]</exemplarCharacters>
-		<exemplarCharacters>[]</exemplarCharacters>
 		<ellipsis type="final">{0}…</ellipsis>
 		<ellipsis type="initial">…{0}</ellipsis>
 		<ellipsis type="medial">{0}…{1}</ellipsis>
@@ -51,22 +51,27 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<ellipsis type="word-initial">… {0}</ellipsis>
 		<ellipsis type="word-medial">{0} … {1}</ellipsis>
 		<moreInformation>?</moreInformation>
-		<parseLenients level="lenient" scope="date">
+		<parseLenients scope="date" level="lenient">
 			<parseLenient sample="-">[\--/]</parseLenient>
-			<parseLenient sample=":">[\:∶]</parseLenient>
+			<parseLenient sample=":">[\:∶︓﹕：]</parseLenient>
 		</parseLenients>
-		<parseLenients level="lenient" scope="general">
-			<parseLenient sample="$">[\$﹩＄$]</parseLenient>
+		<parseLenients scope="general" level="lenient">
+			<parseLenient sample="$">[\$﹩＄]</parseLenient>
+			<parseLenient sample="%">[%٪﹪％]</parseLenient>
 			<parseLenient sample=".">[.․。︒﹒．｡]</parseLenient>
-			<parseLenient sample="£">[£₤]</parseLenient>
+			<parseLenient sample="£">[£₤￡]</parseLenient>
+			<parseLenient sample="¥">[¥￥]</parseLenient>
+			<parseLenient sample="’">['ʼ՚᾽᾿’＇]</parseLenient>
+			<parseLenient sample="‰">[؉‰]</parseLenient>
+			<parseLenient sample="₩">[₩￦]</parseLenient>
 			<parseLenient sample="₹">[₨₹{Rp}{Rs}]</parseLenient>
 		</parseLenients>
-		<parseLenients level="lenient" scope="number">
+		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="+">[+⁺₊➕﬩﹢＋]</parseLenient>
 			<parseLenient sample=",">[,،٫、︐︑﹐﹑，､]</parseLenient>
-			<parseLenient sample="-">[\-‒⁻₋−➖﹣－]</parseLenient>
+			<parseLenient sample="-">[\-‐‒–⁻₋−➖﹣－]</parseLenient>
 		</parseLenients>
-		<parseLenients level="stricter" scope="number">
+		<parseLenients scope="number" level="stricter">
 			<parseLenient sample=",">[,٫︐﹐，]</parseLenient>
 			<parseLenient sample=".">[.․﹒．｡]</parseLenient>
 		</parseLenients>
@@ -949,6 +954,44 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">G y – G y</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">GGGGG y-MM – GGGGG y-MM</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM – y-MM</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">GGGGG y-MM-dd, E – GGGGG y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="d">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">G y MMM – G y MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">G y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">G y MMM d, E – G y MMM d, E</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">G y MMM d – G y MMM d</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="d">G y MMM d–d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">GGGGG y-MM-dd – GGGGG y-MM-dd</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="d">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH–HH</greatestDifference>
 						</intervalFormatItem>
@@ -1328,6 +1371,44 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">G y – G y</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">GGGGG y-MM – GGGGG y-MM</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM – y-MM</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">GGGGG y-MM-dd, E – GGGGG y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="d">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">G y MMM – G y MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">G y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">G y MMM d, E – G y MMM d, E</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">G y MMM d – G y MMM d</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="d">G y MMM d–d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">GGGGG y-MM-dd – GGGGG y-MM-dd</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="d">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH–HH</greatestDifference>
 						</intervalFormatItem>
@@ -1443,8 +1524,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="4">Tevet</month>
 							<month type="5">Shevat</month>
 							<month type="6">Adar I</month>
-							<month type="7" yeartype="leap">Adar II</month>
 							<month type="7">Adar</month>
+							<month type="7" yeartype="leap">Adar II</month>
 							<month type="8">Nisan</month>
 							<month type="9">Iyar</month>
 						</monthWidth>
@@ -1464,8 +1545,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="4">4</month>
 							<month type="5">5</month>
 							<month type="6">6</month>
-							<month type="7" yeartype="leap">7</month>
 							<month type="7">7</month>
+							<month type="7" yeartype="leap">7</month>
 							<month type="8">8</month>
 							<month type="9">9</month>
 						</monthWidth>
@@ -1949,6 +2030,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<era type="233">Taishō</era>
 						<era type="234">Shōwa</era>
 						<era type="235">Heisei</era>
+						<era type="236">Qqqq</era>
 						<era type="24">Ninju (851–854)</era>
 						<era type="25">Saikō (854–857)</era>
 						<era type="26">Ten-an (857–859)</era>
@@ -2187,6 +2269,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<era type="233">T</era>
 						<era type="234">S</era>
 						<era type="235">H</era>
+						<era type="236">Q</era>
 						<era type="24">Ninju (851–854)</era>
 						<era type="25">Saikō (854–857)</era>
 						<era type="26">Ten-an (857–859)</era>
@@ -2724,9 +2807,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT{0}</gmtFormat>
 			<gmtZeroFormat>GMT</gmtZeroFormat>
+			<regionFormat>{0}</regionFormat>
 			<regionFormat type="daylight">{0} (+1)</regionFormat>
 			<regionFormat type="standard">{0} (+0)</regionFormat>
-			<regionFormat>{0}</regionFormat>
 			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Africa/Asmera">
 				<exemplarCity>Asmara</exemplarCity>
@@ -2836,6 +2919,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<otherNumberingSystems>
 			<native>latn</native>
 		</otherNumberingSystems>
+		<minimumGroupingDigits>1</minimumGroupingDigits>
+		<symbols>
+			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
+		</symbols>
+		<symbols numberSystem="adlm">
+			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
+		</symbols>
 		<symbols numberSystem="arab">
 			<decimal>٫</decimal>
 			<group>٬</group>
@@ -2888,6 +2978,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
 		<symbols numberSystem="fullwide">
+			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
+		</symbols>
+		<symbols numberSystem="gong">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
 		<symbols numberSystem="gonm">
@@ -2970,6 +3063,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<symbols numberSystem="osma">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
+		<symbols numberSystem="rohg">
+			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
+		</symbols>
 		<symbols numberSystem="saur">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
@@ -3003,9 +3099,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<symbols numberSystem="vaii">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
-		<symbols>
-			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
-		</symbols>
+		<decimalFormats>
+			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
+		</decimalFormats>
+		<decimalFormats numberSystem="adlm">
+			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
+		</decimalFormats>
 		<decimalFormats numberSystem="arab">
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
@@ -3031,6 +3130,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
 		<decimalFormats numberSystem="fullwide">
+			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
+		</decimalFormats>
+		<decimalFormats numberSystem="gong">
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
 		<decimalFormats numberSystem="gonm">
@@ -3067,6 +3169,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<alias source="locale" path="../decimalFormatLength[@type='short']"/>
 			</decimalFormatLength>
@@ -3084,11 +3191,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<pattern type="1000000000000" count="other">0T</pattern>
 					<pattern type="10000000000000" count="other">00T</pattern>
 					<pattern type="100000000000000" count="other">000T</pattern>
-				</decimalFormat>
-			</decimalFormatLength>
-			<decimalFormatLength>
-				<decimalFormat>
-					<pattern>#,##0.###</pattern>
 				</decimalFormat>
 			</decimalFormatLength>
 		</decimalFormats>
@@ -3125,6 +3227,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<decimalFormats numberSystem="osma">
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
+		<decimalFormats numberSystem="rohg">
+			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
+		</decimalFormats>
 		<decimalFormats numberSystem="saur">
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
@@ -3158,9 +3263,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<decimalFormats numberSystem="vaii">
 			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
 		</decimalFormats>
-		<decimalFormats>
-			<alias source="locale" path="../decimalFormats[@numberSystem='latn']"/>
-		</decimalFormats>
+		<scientificFormats>
+			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
+		</scientificFormats>
+		<scientificFormats numberSystem="adlm">
+			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
+		</scientificFormats>
 		<scientificFormats numberSystem="arab">
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
@@ -3186,6 +3294,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
 		<scientificFormats numberSystem="fullwide">
+			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
+		</scientificFormats>
+		<scientificFormats numberSystem="gong">
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
 		<scientificFormats numberSystem="gonm">
@@ -3261,6 +3372,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<scientificFormats numberSystem="osma">
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
+		<scientificFormats numberSystem="rohg">
+			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
+		</scientificFormats>
 		<scientificFormats numberSystem="saur">
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
@@ -3294,13 +3408,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<scientificFormats numberSystem="vaii">
 			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
 		</scientificFormats>
-		<scientificFormats>
-			<alias source="locale" path="../scientificFormats[@numberSystem='latn']"/>
-		</scientificFormats>
+		<percentFormats>
+			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
+		</percentFormats>
+		<percentFormats numberSystem="adlm">
+			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
+		</percentFormats>
 		<percentFormats numberSystem="arab">
 			<percentFormatLength>
 				<percentFormat>
-					<pattern>#,##0 %</pattern>
+					<pattern>#,##0%</pattern>
 				</percentFormat>
 			</percentFormatLength>
 		</percentFormats>
@@ -3326,6 +3443,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
 		</percentFormats>
 		<percentFormats numberSystem="fullwide">
+			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
+		</percentFormats>
+		<percentFormats numberSystem="gong">
 			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
 		</percentFormats>
 		<percentFormats numberSystem="gonm">
@@ -3401,6 +3521,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<percentFormats numberSystem="osma">
 			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
 		</percentFormats>
+		<percentFormats numberSystem="rohg">
+			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
+		</percentFormats>
 		<percentFormats numberSystem="saur">
 			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
 		</percentFormats>
@@ -3434,9 +3557,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<percentFormats numberSystem="vaii">
 			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
 		</percentFormats>
-		<percentFormats>
-			<alias source="locale" path="../percentFormats[@numberSystem='latn']"/>
-		</percentFormats>
+		<currencyFormats>
+			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
+		</currencyFormats>
+		<currencyFormats numberSystem="adlm">
+			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
+		</currencyFormats>
 		<currencyFormats numberSystem="arab">
 			<currencySpacing>
 				<alias source="locale" path="../../currencyFormats[@numberSystem='latn']/currencySpacing"/>
@@ -3472,6 +3598,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
 		<currencyFormats numberSystem="fullwide">
+			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
+		</currencyFormats>
+		<currencyFormats numberSystem="gong">
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
 		<currencyFormats numberSystem="gonm">
@@ -3520,6 +3649,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<insertBetween/>
 				</afterCurrency>
 			</currencySpacing>
+			<currencyFormatLength>
+				<currencyFormat type="accounting">
+					<alias source="locale" path="../currencyFormat[@type='standard']"/>
+				</currencyFormat>
+				<currencyFormat type="standard">
+					<pattern>¤ #,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
 			<currencyFormatLength type="short">
 				<currencyFormat type="standard">
 					<pattern type="1000" count="other">¤ 0K</pattern>
@@ -3534,14 +3671,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<pattern type="1000000000000" count="other">¤ 0T</pattern>
 					<pattern type="10000000000000" count="other">¤ 00T</pattern>
 					<pattern type="100000000000000" count="other">¤ 000T</pattern>
-				</currencyFormat>
-			</currencyFormatLength>
-			<currencyFormatLength>
-				<currencyFormat type="accounting">
-					<alias source="locale" path="../currencyFormat[@type='standard']"/>
-				</currencyFormat>
-				<currencyFormat type="standard">
-					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 			<unitPattern count="other">{0} {1}</unitPattern>
@@ -3579,6 +3708,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<currencyFormats numberSystem="osma">
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
+		<currencyFormats numberSystem="rohg">
+			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
+		</currencyFormats>
 		<currencyFormats numberSystem="saur">
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
@@ -3612,9 +3744,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<currencyFormats numberSystem="vaii">
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
-		<currencyFormats>
-			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
-		</currencyFormats>
 		<currencies>
 			<currency type="AOA">
 				<symbol alt="narrow">Kz</symbol>
@@ -3623,8 +3752,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="AUD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>A$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="BAM">
 				<symbol alt="narrow">KM</symbol>
@@ -3645,8 +3774,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">Bs</symbol>
 			</currency>
 			<currency type="BRL">
-				<symbol alt="narrow">R$</symbol>
 				<symbol>R$</symbol>
+				<symbol alt="narrow">R$</symbol>
 			</currency>
 			<currency type="BSD">
 				<symbol alt="narrow">$</symbol>
@@ -3661,15 +3790,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="CAD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>CA$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="CLP">
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="CNY">
-				<symbol alt="narrow">¥</symbol>
 				<symbol>CN¥</symbol>
+				<symbol alt="narrow">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<symbol alt="narrow">$</symbol>
@@ -3699,8 +3828,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">₧</symbol>
 			</currency>
 			<currency type="EUR">
-				<symbol alt="narrow">€</symbol>
 				<symbol>€</symbol>
+				<symbol alt="narrow">€</symbol>
 			</currency>
 			<currency type="FJD">
 				<symbol alt="narrow">$</symbol>
@@ -3709,8 +3838,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">£</symbol>
 			</currency>
 			<currency type="GBP">
-				<symbol alt="narrow">£</symbol>
 				<symbol>£</symbol>
+				<symbol alt="narrow">£</symbol>
 			</currency>
 			<currency type="GEL">
 				<symbol alt="narrow">₾</symbol>
@@ -3728,8 +3857,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="HKD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>HK$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<symbol alt="narrow">L</symbol>
@@ -3744,12 +3873,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">Rp</symbol>
 			</currency>
 			<currency type="ILS">
-				<symbol alt="narrow">₪</symbol>
 				<symbol>₪</symbol>
+				<symbol alt="narrow">₪</symbol>
 			</currency>
 			<currency type="INR">
-				<symbol alt="narrow">₹</symbol>
 				<symbol>₹</symbol>
+				<symbol alt="narrow">₹</symbol>
 			</currency>
 			<currency type="ISK">
 				<symbol alt="narrow">kr</symbol>
@@ -3758,8 +3887,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="JPY">
-				<symbol alt="narrow">¥</symbol>
 				<symbol>JP¥</symbol>
+				<symbol alt="narrow">¥</symbol>
 			</currency>
 			<currency type="KHR">
 				<symbol alt="narrow">៛</symbol>
@@ -3771,8 +3900,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">₩</symbol>
 			</currency>
 			<currency type="KRW">
-				<symbol alt="narrow">₩</symbol>
 				<symbol>₩</symbol>
+				<symbol alt="narrow">₩</symbol>
 			</currency>
 			<currency type="KYD">
 				<symbol alt="narrow">$</symbol>
@@ -3811,8 +3940,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">Rs</symbol>
 			</currency>
 			<currency type="MXN">
-				<symbol alt="narrow">$</symbol>
 				<symbol>MX$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="MYR">
 				<symbol alt="narrow">RM</symbol>
@@ -3833,8 +3962,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">Rs</symbol>
 			</currency>
 			<currency type="NZD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>NZ$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="PHP">
 				<symbol alt="narrow">₱</symbol>
@@ -3878,7 +4007,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<currency type="SSP">
 				<symbol alt="narrow">£</symbol>
 			</currency>
-			<currency type="STD">
+			<currency type="STN">
 				<symbol alt="narrow">Db</symbol>
 			</currency>
 			<currency type="SYP">
@@ -3898,15 +4027,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="TWD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>NT$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="UAH">
 				<symbol alt="narrow">₴</symbol>
 			</currency>
 			<currency type="USD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>US$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="UYU">
 				<symbol alt="narrow">$</symbol>
@@ -3915,21 +4044,24 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">Bs</symbol>
 			</currency>
 			<currency type="VND">
-				<symbol alt="narrow">₫</symbol>
 				<symbol>₫</symbol>
+				<symbol alt="narrow">₫</symbol>
 			</currency>
 			<currency type="XAF">
 				<symbol>FCFA</symbol>
 			</currency>
 			<currency type="XCD">
-				<symbol alt="narrow">$</symbol>
 				<symbol>EC$</symbol>
+				<symbol alt="narrow">$</symbol>
 			</currency>
 			<currency type="XOF">
 				<symbol>CFA</symbol>
 			</currency>
 			<currency type="XPF">
 				<symbol>CFPF</symbol>
+			</currency>
+			<currency type="XXX">
+				<symbol>¤</symbol>
 			</currency>
 			<currency type="ZAR">
 				<symbol alt="narrow">R</symbol>
@@ -3938,6 +4070,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<symbol alt="narrow">ZK</symbol>
 			</currency>
 		</currencies>
+		<miscPatterns numberSystem="adlm">
+			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
+		</miscPatterns>
 		<miscPatterns numberSystem="arab">
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
@@ -3963,6 +4098,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
 		<miscPatterns numberSystem="fullwide">
+			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
+		</miscPatterns>
+		<miscPatterns numberSystem="gong">
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
 		<miscPatterns numberSystem="gonm">
@@ -3999,7 +4137,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
 		<miscPatterns numberSystem="latn">
-			<pattern type="atLeast">⩾{0}</pattern>
+			<pattern type="approximately">~{0}</pattern>
+			<pattern type="atLeast">≥{0}</pattern>
+			<pattern type="atMost">≤{0}</pattern>
 			<pattern type="range">{0}–{1}</pattern>
 		</miscPatterns>
 		<miscPatterns numberSystem="lepc">
@@ -4035,6 +4175,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<miscPatterns numberSystem="osma">
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
+		<miscPatterns numberSystem="rohg">
+			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
+		</miscPatterns>
 		<miscPatterns numberSystem="saur">
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
@@ -4068,7 +4211,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<miscPatterns numberSystem="vaii">
 			<alias source="locale" path="../miscPatterns[@numberSystem='latn']"/>
 		</miscPatterns>
-		<minimumGroupingDigits>1</minimumGroupingDigits>
 		<minimalPairs>
 			<pluralMinimalPairs count="other">{0}?</pluralMinimalPairs>
 			<ordinalMinimalPairs ordinal="other">{0}?</ordinalMinimalPairs>
@@ -4082,9 +4224,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../unitLength[@type='short']"/>
 		</unitLength>
 		<unitLength type="short">
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>g-force</displayName>
 				<unitPattern count="other">{0} G</unitPattern>
@@ -4170,6 +4309,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ppm</displayName>
 				<unitPattern count="other">{0} ppm</unitPattern>
 			</unit>
+			<unit type="concentr-percent">
+				<displayName>%</displayName>
+				<unitPattern count="other">{0}%</unitPattern>
+			</unit>
+			<unit type="concentr-permille">
+				<displayName>‰</displayName>
+				<unitPattern count="other">{0}‰</unitPattern>
+			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>L/100km</displayName>
 				<unitPattern count="other">{0} L/100km</unitPattern>
@@ -4217,6 +4364,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="digital-megabyte">
 				<displayName>MB</displayName>
 				<unitPattern count="other">{0} MB</unitPattern>
+			</unit>
+			<unit type="digital-petabyte">
+				<displayName>PB</displayName>
+				<unitPattern count="other">{0} PB</unitPattern>
 			</unit>
 			<unit type="digital-terabit">
 				<displayName>Tb</displayName>
@@ -4360,7 +4511,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="length-fathom">
 				<displayName>fm</displayName>
-				<unitPattern count="other">{0} fm</unitPattern>
+				<unitPattern count="other">{0} fth</unitPattern>
 			</unit>
 			<unit type="length-foot">
 				<displayName>ft</displayName>
@@ -4505,6 +4656,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="power-watt">
 				<displayName>watt</displayName>
 				<unitPattern count="other">{0} W</unitPattern>
+			</unit>
+			<unit type="pressure-atmosphere">
+				<displayName>atm</displayName>
+				<unitPattern count="other">{0} atm</unitPattern>
 			</unit>
 			<unit type="pressure-hectopascal">
 				<displayName>hPa</displayName>
@@ -4663,7 +4818,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>tsp</displayName>
 				<unitPattern count="other">{0} tsp</unitPattern>
 			</unit>
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<coordinateUnit>
+				<displayName>direction</displayName>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
@@ -4684,11 +4843,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</durationUnit>
 	</units>
 	<listPatterns>
+		<listPattern>
+			<listPatternPart type="2">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+		</listPattern>
 		<listPattern type="or">
 			<listPatternPart type="2">{0} or {1}</listPatternPart>
 			<listPatternPart type="end">{0}, or {1}</listPatternPart>
 			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+		</listPattern>
+		<listPattern type="or-narrow">
+			<alias source="locale" path="../listPattern[@type='or-short']"/>
+		</listPattern>
+		<listPattern type="or-short">
+			<alias source="locale" path="../listPattern[@type='or']"/>
+		</listPattern>
+		<listPattern type="standard-narrow">
+			<alias source="locale" path="../listPattern[@type='standard-short']"/>
 		</listPattern>
 		<listPattern type="standard-short">
 			<alias source="locale" path="../listPattern"/>
@@ -4702,30 +4876,72 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<listPattern type="unit-short">
 			<alias source="locale" path="../listPattern"/>
 		</listPattern>
-		<listPattern>
-			<listPatternPart type="2">{0}, {1}</listPatternPart>
-			<listPatternPart type="end">{0}, {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
-			<listPatternPart type="start">{0}, {1}</listPatternPart>
-		</listPattern>
 	</listPatterns>
 	<collations>
 		<defaultCollation>standard</defaultCollation>
 		<collation type="emoji">
 			<cr><![CDATA[
-				# Generating for repertoire of E5.0, based on ordering for E6.0
+				# Generating for repertoire of E11.0, based on ordering for E12.0
 				# START AUTOGENERATED EMOJI ORDER
-				& [last primary ignorable]<<*🏻🏼🏽🏾🏿
+				& [last primary ignorable]<<*🦰🦱🦳🦲🏻🏼🏽🏾🏿
 				& [before 1]﷑€
-				<*😀😁😂🤣😃😄😅😆😉😊😋😎😍😘😗😙😚☺🙂🤗🤩
-				<*🤔🤨😐😑😶🙄😏😣😥😮🤐😯😪😫😴😌😛😜😝🤤😒😓😔😕🙃🤑😲
-				<*☹🙁😖😞😟😤😢😭😦😧😨😩🤯😬😰😱😳🤪😵😡😠🤬
-				<*😷🤒🤕🤢🤮🤧
-				<*😇🤠🤡🤥🤫🤭🧐🤓
-				<*😈👿👹👺💀☠👻👽👾🤖💩
+				<*😀😃😄😁😆😅🤣😂🙂🙃😉😊😇
+				<*🥰😍🤩😘😗☺😚😙
+				<*😋😛😜🤪😝🤑
+				<*🤗🤭🤫🤔
+				<*🤐🤨😐😑😶😏😒🙄😬🤥
+				<*😌😔😪🤤😴
+				<*😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯
+				<*🤠🥳
+				<*😎🤓🧐
+				<*😕😟🙁☹😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫
+				<*😤😡😠🤬😈👿💀☠
+				<*💩🤡👹👺👻👽👾🤖
 				<*😺😸😹😻😼😽🙀😿😾
 				<*🙈🙉🙊
-				<*👶🧒👦👧🧑👨👩🧓👴👵
+				<*💋💌💘💝💖💗💓💞💕💟❣💔❤🧡💛💚💙💜🖤💯💢💥💫💦💨🕳💣💬
+				< 👁‍🗨 = 👁️‍🗨
+				<*🗨🗯💭💤
+				<*👋🤚🖐✋🖖
+				<*👌✌🤞🤟🤘🤙
+				<*👈👉👆🖕👇☝
+				<*👍👎✊👊🤛🤜
+				<*👏🙌👐🤲🤝🙏
+				<*✍💅🤳
+				<*💪🦵🦶👂👃🧠🦷🦴👀👁👅👄
+				<*👶🧒👦👧🧑 <<👱
+				<*👨
+				< 👱‍♂ << 👱🏻‍♂ << 👱🏼‍♂ << 👱🏽‍♂ << 👱🏾‍♂ << 👱🏿‍♂ <<🧔
+				<*👩
+				< 👱‍♀ << 👱🏻‍♀ << 👱🏼‍♀ << 👱🏽‍♀ << 👱🏾‍♀ << 👱🏿‍♀
+				<*🧓👴👵
+				<*🙍
+				< 🙍‍♂ << 🙍🏻‍♂ << 🙍🏼‍♂ << 🙍🏽‍♂ << 🙍🏾‍♂ << 🙍🏿‍♂
+				< 🙍‍♀ << 🙍🏻‍♀ << 🙍🏼‍♀ << 🙍🏽‍♀ << 🙍🏾‍♀ << 🙍🏿‍♀
+				<*🙎
+				< 🙎‍♂ << 🙎🏻‍♂ << 🙎🏼‍♂ << 🙎🏽‍♂ << 🙎🏾‍♂ << 🙎🏿‍♂
+				< 🙎‍♀ << 🙎🏻‍♀ << 🙎🏼‍♀ << 🙎🏽‍♀ << 🙎🏾‍♀ << 🙎🏿‍♀
+				<*🙅
+				< 🙅‍♂ << 🙅🏻‍♂ << 🙅🏼‍♂ << 🙅🏽‍♂ << 🙅🏾‍♂ << 🙅🏿‍♂
+				< 🙅‍♀ << 🙅🏻‍♀ << 🙅🏼‍♀ << 🙅🏽‍♀ << 🙅🏾‍♀ << 🙅🏿‍♀
+				<*🙆
+				< 🙆‍♂ << 🙆🏻‍♂ << 🙆🏼‍♂ << 🙆🏽‍♂ << 🙆🏾‍♂ << 🙆🏿‍♂
+				< 🙆‍♀ << 🙆🏻‍♀ << 🙆🏼‍♀ << 🙆🏽‍♀ << 🙆🏾‍♀ << 🙆🏿‍♀
+				<*💁
+				< 💁‍♂ << 💁🏻‍♂ << 💁🏼‍♂ << 💁🏽‍♂ << 💁🏾‍♂ << 💁🏿‍♂
+				< 💁‍♀ << 💁🏻‍♀ << 💁🏼‍♀ << 💁🏽‍♀ << 💁🏾‍♀ << 💁🏿‍♀
+				<*🙋
+				< 🙋‍♂ << 🙋🏻‍♂ << 🙋🏼‍♂ << 🙋🏽‍♂ << 🙋🏾‍♂ << 🙋🏿‍♂
+				< 🙋‍♀ << 🙋🏻‍♀ << 🙋🏼‍♀ << 🙋🏽‍♀ << 🙋🏾‍♀ << 🙋🏿‍♀
+				<*🙇
+				< 🙇‍♂ << 🙇🏻‍♂ << 🙇🏼‍♂ << 🙇🏽‍♂ << 🙇🏾‍♂ << 🙇🏿‍♂
+				< 🙇‍♀ << 🙇🏻‍♀ << 🙇🏼‍♀ << 🙇🏽‍♀ << 🙇🏾‍♀ << 🙇🏿‍♀
+				<*🤦
+				< 🤦‍♂ << 🤦🏻‍♂ << 🤦🏼‍♂ << 🤦🏽‍♂ << 🤦🏾‍♂ << 🤦🏿‍♂
+				< 🤦‍♀ << 🤦🏻‍♀ << 🤦🏼‍♀ << 🤦🏽‍♀ << 🤦🏾‍♀ << 🤦🏿‍♀
+				<*🤷
+				< 🤷‍♂ << 🤷🏻‍♂ << 🤷🏼‍♂ << 🤷🏽‍♂ << 🤷🏾‍♂ << 🤷🏿‍♂
+				< 🤷‍♀ << 🤷🏻‍♀ << 🤷🏼‍♀ << 🤷🏽‍♀ << 🤷🏾‍♀ << 🤷🏿‍♀
 				< 🧑‍⚕ << 🧑🏻‍⚕ << 🧑🏼‍⚕ << 🧑🏽‍⚕ << 🧑🏾‍⚕ << 🧑🏿‍⚕
 				< 👨‍⚕ << 👨🏻‍⚕ << 👨🏼‍⚕ << 👨🏽‍⚕ << 👨🏾‍⚕ << 👨🏿‍⚕
 				< 👩‍⚕ << 👩🏻‍⚕ << 👩🏼‍⚕ << 👩🏽‍⚕ << 👩🏾‍⚕ << 👩🏿‍⚕
@@ -4789,58 +5005,34 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🤴👸👳
 				< 👳‍♂ << 👳🏻‍♂ << 👳🏼‍♂ << 👳🏽‍♂ << 👳🏾‍♂ << 👳🏿‍♂
 				< 👳‍♀ << 👳🏻‍♀ << 👳🏼‍♀ << 👳🏽‍♀ << 👳🏾‍♀ << 👳🏿‍♀
-				<*👲🧕🧔👱
-				< 👱‍♂ << 👱🏻‍♂ << 👱🏼‍♂ << 👱🏽‍♂ << 👱🏾‍♂ << 👱🏿‍♂
-				< 👱‍♀ << 👱🏻‍♀ << 👱🏼‍♀ << 👱🏽‍♀ << 👱🏾‍♀ << 👱🏿‍♀
-				<*🤵👰🤰🤱
-				<*👼🎅🤶🧙
-				< 🧙‍♀ << 🧙🏻‍♀ << 🧙🏼‍♀ << 🧙🏽‍♀ << 🧙🏾‍♀ << 🧙🏿‍♀
+				<*👲🧕🤵👰🤰🤱
+				<*👼🎅🤶🦸
+				< 🦸‍♂ << 🦸🏻‍♂ << 🦸🏼‍♂ << 🦸🏽‍♂ << 🦸🏾‍♂ << 🦸🏿‍♂
+				< 🦸‍♀ << 🦸🏻‍♀ << 🦸🏼‍♀ << 🦸🏽‍♀ << 🦸🏾‍♀ << 🦸🏿‍♀
+				<*🦹
+				< 🦹‍♂ << 🦹🏻‍♂ << 🦹🏼‍♂ << 🦹🏽‍♂ << 🦹🏾‍♂ << 🦹🏿‍♂
+				< 🦹‍♀ << 🦹🏻‍♀ << 🦹🏼‍♀ << 🦹🏽‍♀ << 🦹🏾‍♀ << 🦹🏿‍♀
+				<*🧙
 				< 🧙‍♂ << 🧙🏻‍♂ << 🧙🏼‍♂ << 🧙🏽‍♂ << 🧙🏾‍♂ << 🧙🏿‍♂
+				< 🧙‍♀ << 🧙🏻‍♀ << 🧙🏼‍♀ << 🧙🏽‍♀ << 🧙🏾‍♀ << 🧙🏿‍♀
 				<*🧚
-				< 🧚‍♀ << 🧚🏻‍♀ << 🧚🏼‍♀ << 🧚🏽‍♀ << 🧚🏾‍♀ << 🧚🏿‍♀
 				< 🧚‍♂ << 🧚🏻‍♂ << 🧚🏼‍♂ << 🧚🏽‍♂ << 🧚🏾‍♂ << 🧚🏿‍♂
+				< 🧚‍♀ << 🧚🏻‍♀ << 🧚🏼‍♀ << 🧚🏽‍♀ << 🧚🏾‍♀ << 🧚🏿‍♀
 				<*🧛
-				< 🧛‍♀ << 🧛🏻‍♀ << 🧛🏼‍♀ << 🧛🏽‍♀ << 🧛🏾‍♀ << 🧛🏿‍♀
 				< 🧛‍♂ << 🧛🏻‍♂ << 🧛🏼‍♂ << 🧛🏽‍♂ << 🧛🏾‍♂ << 🧛🏿‍♂
+				< 🧛‍♀ << 🧛🏻‍♀ << 🧛🏼‍♀ << 🧛🏽‍♀ << 🧛🏾‍♀ << 🧛🏿‍♀
 				<*🧜
-				< 🧜‍♀ << 🧜🏻‍♀ << 🧜🏼‍♀ << 🧜🏽‍♀ << 🧜🏾‍♀ << 🧜🏿‍♀
 				< 🧜‍♂ << 🧜🏻‍♂ << 🧜🏼‍♂ << 🧜🏽‍♂ << 🧜🏾‍♂ << 🧜🏿‍♂
+				< 🧜‍♀ << 🧜🏻‍♀ << 🧜🏼‍♀ << 🧜🏽‍♀ << 🧜🏾‍♀ << 🧜🏿‍♀
 				<*🧝
-				< 🧝‍♀ << 🧝🏻‍♀ << 🧝🏼‍♀ << 🧝🏽‍♀ << 🧝🏾‍♀ << 🧝🏿‍♀
 				< 🧝‍♂ << 🧝🏻‍♂ << 🧝🏼‍♂ << 🧝🏽‍♂ << 🧝🏾‍♂ << 🧝🏿‍♂
+				< 🧝‍♀ << 🧝🏻‍♀ << 🧝🏼‍♀ << 🧝🏽‍♀ << 🧝🏾‍♀ << 🧝🏿‍♀
 				<*🧞
-				< 🧞‍♀
 				< 🧞‍♂
+				< 🧞‍♀
 				<*🧟
-				< 🧟‍♀
 				< 🧟‍♂
-				<*🙍
-				< 🙍‍♂ << 🙍🏻‍♂ << 🙍🏼‍♂ << 🙍🏽‍♂ << 🙍🏾‍♂ << 🙍🏿‍♂
-				< 🙍‍♀ << 🙍🏻‍♀ << 🙍🏼‍♀ << 🙍🏽‍♀ << 🙍🏾‍♀ << 🙍🏿‍♀
-				<*🙎
-				< 🙎‍♂ << 🙎🏻‍♂ << 🙎🏼‍♂ << 🙎🏽‍♂ << 🙎🏾‍♂ << 🙎🏿‍♂
-				< 🙎‍♀ << 🙎🏻‍♀ << 🙎🏼‍♀ << 🙎🏽‍♀ << 🙎🏾‍♀ << 🙎🏿‍♀
-				<*🙅
-				< 🙅‍♂ << 🙅🏻‍♂ << 🙅🏼‍♂ << 🙅🏽‍♂ << 🙅🏾‍♂ << 🙅🏿‍♂
-				< 🙅‍♀ << 🙅🏻‍♀ << 🙅🏼‍♀ << 🙅🏽‍♀ << 🙅🏾‍♀ << 🙅🏿‍♀
-				<*🙆
-				< 🙆‍♂ << 🙆🏻‍♂ << 🙆🏼‍♂ << 🙆🏽‍♂ << 🙆🏾‍♂ << 🙆🏿‍♂
-				< 🙆‍♀ << 🙆🏻‍♀ << 🙆🏼‍♀ << 🙆🏽‍♀ << 🙆🏾‍♀ << 🙆🏿‍♀
-				<*💁
-				< 💁‍♂ << 💁🏻‍♂ << 💁🏼‍♂ << 💁🏽‍♂ << 💁🏾‍♂ << 💁🏿‍♂
-				< 💁‍♀ << 💁🏻‍♀ << 💁🏼‍♀ << 💁🏽‍♀ << 💁🏾‍♀ << 💁🏿‍♀
-				<*🙋
-				< 🙋‍♂ << 🙋🏻‍♂ << 🙋🏼‍♂ << 🙋🏽‍♂ << 🙋🏾‍♂ << 🙋🏿‍♂
-				< 🙋‍♀ << 🙋🏻‍♀ << 🙋🏼‍♀ << 🙋🏽‍♀ << 🙋🏾‍♀ << 🙋🏿‍♀
-				<*🙇
-				< 🙇‍♂ << 🙇🏻‍♂ << 🙇🏼‍♂ << 🙇🏽‍♂ << 🙇🏾‍♂ << 🙇🏿‍♂
-				< 🙇‍♀ << 🙇🏻‍♀ << 🙇🏼‍♀ << 🙇🏽‍♀ << 🙇🏾‍♀ << 🙇🏿‍♀
-				<*🤦
-				< 🤦‍♂ << 🤦🏻‍♂ << 🤦🏼‍♂ << 🤦🏽‍♂ << 🤦🏾‍♂ << 🤦🏿‍♂
-				< 🤦‍♀ << 🤦🏻‍♀ << 🤦🏼‍♀ << 🤦🏽‍♀ << 🤦🏾‍♀ << 🤦🏿‍♀
-				<*🤷
-				< 🤷‍♂ << 🤷🏻‍♂ << 🤷🏼‍♂ << 🤷🏽‍♂ << 🤷🏾‍♂ << 🤷🏿‍♂
-				< 🤷‍♀ << 🤷🏻‍♀ << 🤷🏼‍♀ << 🤷🏽‍♀ << 🤷🏾‍♀ << 🤷🏿‍♀
+				< 🧟‍♀
 				<*💆
 				< 💆‍♂ << 💆🏻‍♂ << 💆🏼‍♂ << 💆🏽‍♂ << 💆🏾‍♂ << 💆🏿‍♂
 				< 💆‍♀ << 💆🏻‍♀ << 💆🏼‍♀ << 💆🏽‍♀ << 💆🏾‍♀ << 💆🏿‍♀
@@ -4853,19 +5045,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🏃
 				< 🏃‍♂ << 🏃🏻‍♂ << 🏃🏼‍♂ << 🏃🏽‍♂ << 🏃🏾‍♂ << 🏃🏿‍♂
 				< 🏃‍♀ << 🏃🏻‍♀ << 🏃🏼‍♀ << 🏃🏽‍♀ << 🏃🏾‍♀ << 🏃🏿‍♀
-				<*💃🕺👯
+				<*💃🕺🕴👯
 				< 👯‍♂
 				< 👯‍♀
 				<*🧖
-				< 🧖‍♀ << 🧖🏻‍♀ << 🧖🏼‍♀ << 🧖🏽‍♀ << 🧖🏾‍♀ << 🧖🏿‍♀
 				< 🧖‍♂ << 🧖🏻‍♂ << 🧖🏼‍♂ << 🧖🏽‍♂ << 🧖🏾‍♂ << 🧖🏿‍♂
+				< 🧖‍♀ << 🧖🏻‍♀ << 🧖🏼‍♀ << 🧖🏽‍♀ << 🧖🏾‍♀ << 🧖🏿‍♀
 				<*🧗
-				< 🧗‍♀ << 🧗🏻‍♀ << 🧗🏼‍♀ << 🧗🏽‍♀ << 🧗🏾‍♀ << 🧗🏿‍♀
 				< 🧗‍♂ << 🧗🏻‍♂ << 🧗🏼‍♂ << 🧗🏽‍♂ << 🧗🏾‍♂ << 🧗🏿‍♂
-				<*🧘
-				< 🧘‍♀ << 🧘🏻‍♀ << 🧘🏼‍♀ << 🧘🏽‍♀ << 🧘🏾‍♀ << 🧘🏿‍♀
-				< 🧘‍♂ << 🧘🏻‍♂ << 🧘🏼‍♂ << 🧘🏽‍♂ << 🧘🏾‍♂ << 🧘🏿‍♂
-				<*🛀🛌🕴🗣👤👥
+				< 🧗‍♀ << 🧗🏻‍♀ << 🧗🏼‍♀ << 🧗🏽‍♀ << 🧗🏾‍♀ << 🧗🏿‍♀
 				<*🤺🏇⛷🏂🏌
 				< 🏌‍♂ = 🏌️‍♂ << 🏌🏻‍♂ << 🏌🏼‍♂ << 🏌🏽‍♂ << 🏌🏾‍♂ << 🏌🏿‍♂
 				< 🏌‍♀ = 🏌️‍♀ << 🏌🏻‍♀ << 🏌🏼‍♀ << 🏌🏽‍♀ << 🏌🏾‍♀ << 🏌🏿‍♀
@@ -4890,7 +5078,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🚵
 				< 🚵‍♂ << 🚵🏻‍♂ << 🚵🏼‍♂ << 🚵🏽‍♂ << 🚵🏾‍♂ << 🚵🏿‍♂
 				< 🚵‍♀ << 🚵🏻‍♀ << 🚵🏼‍♀ << 🚵🏽‍♀ << 🚵🏾‍♀ << 🚵🏿‍♀
-				<*🏎🏍🤸
+				<*🤸
 				< 🤸‍♂ << 🤸🏻‍♂ << 🤸🏼‍♂ << 🤸🏽‍♂ << 🤸🏾‍♂ << 🤸🏿‍♂
 				< 🤸‍♀ << 🤸🏻‍♀ << 🤸🏼‍♀ << 🤸🏽‍♀ << 🤸🏾‍♀ << 🤸🏿‍♀
 				<*🤼
@@ -4905,6 +5093,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🤹
 				< 🤹‍♂ << 🤹🏻‍♂ << 🤹🏼‍♂ << 🤹🏽‍♂ << 🤹🏾‍♂ << 🤹🏿‍♂
 				< 🤹‍♀ << 🤹🏻‍♀ << 🤹🏼‍♀ << 🤹🏽‍♀ << 🤹🏾‍♀ << 🤹🏿‍♀
+				<*🧘
+				< 🧘‍♂ << 🧘🏻‍♂ << 🧘🏼‍♂ << 🧘🏽‍♂ << 🧘🏾‍♂ << 🧘🏿‍♂
+				< 🧘‍♀ << 🧘🏻‍♀ << 🧘🏼‍♀ << 🧘🏽‍♀ << 🧘🏾‍♀ << 🧘🏿‍♀
+				<*🛀🛌
 				<*👫👬👭💏
 				< 👩‍❤‍💋‍👨 = 👩‍❤️‍💋‍👨
 				< 👨‍❤‍💋‍👨 = 👨‍❤️‍💋‍👨
@@ -4939,58 +5131,58 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				< 👩‍👧
 				< 👩‍👧‍👦
 				< 👩‍👧‍👧
-				<*🤳💪👈👉☝👆🖕👇✌🤞🖖🤘🤙🖐✋👌👍👎✊👊🤛🤜🤚👋🤟✍👏👐🙌🤲🙏🤝💅👂👃👣👀👁
-				< 👁‍🗨 = 👁️‍🗨
-				<*🧠👅👄
-				<*💋💘❤💓💔💕💖💗💙💚💛🧡💜🖤💝💞💟❣💌💤💢💣💥💦💨💫💬🗨🗯💭🕳
-				<*👓🕶👔👕👖🧣🧤🧥🧦👗👘👙👚👛👜👝🛍🎒👞👟👠👡👢👑👒🎩🎓🧢⛑📿💄💍💎
-				<*🐵🐒🦍🐶🐕🐩🐺🦊🐱🐈🦁🐯🐅🐆🐴🐎🦄🦓🦌🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🦒🐘🦏🐭🐁🐀🐹🐰🐇🐿🦔🦇🐻🐨🐼🐾
-				<*🦃🐔🐓🐣🐤🐥🐦🐧🕊🦅🦆🦉
+				<*🗣👤👥👣
+				<*🦰🦱🦳🦲
+				<*♀♂
+				<*🐵🐒🦍🐶🐕🐩🐺🦊🦝🐱🐈🦁🐯🐅🐆🐴🐎🦄🦓🦌🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🦙🦒🐘🦏🦛🐭🐁🐀🐹🐰🐇🐿🦔🦇🐻🐨🐼🦘🦡
+				<*🦃🐔🐓🐣🐤🐥🐦🐧🕊🦅🦆🦢🦉🦚🦜
 				<*🐸
 				<*🐊🐢🦎🐍🐲🐉🦕🦖
-				<*🐳🐋🐬🐟🐠🐡🦈🐙🐚🦀🦐🦑
-				<*🐌🦋🐛🐜🐝🐞🦗🕷🕸🦂
+				<*🐳🐋🐬🐟🐠🐡🦈🐙🐚
+				<*🐌🦋🐛🐜🐝🐞🦗🕷🕸🦂🦟🦠
 				<*💐🌸💮🏵🌹🥀🌺🌻🌼🌷
 				<*🌱🌲🌳🌴🌵🌾🌿☘🍀🍁🍂🍃
-				<*🍇🍈🍉🍊🍋🍌🍍🍎🍏🍐🍑🍒🍓🥝🍅🥥
-				<*🥑🍆🥔🥕🌽🌶🥒🥦🍄🥜🌰
-				<*🍞🥐🥖🥨🥞🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🥙🥚🍳🥘🍲🥣🥗🍿🥫
-				<*🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🍡🥟🥠🥡
-				<*🍦🍧🍨🍩🍪🎂🍰🥧🍫🍬🍭🍮🍯
+				<*🍇🍈🍉🍊🍋🍌🍍🥭🍎🍏🍐🍑🍒🍓🥝🍅🥥
+				<*🥑🍆🥔🥕🌽🌶🥒🥬🥦🍄🥜🌰
+				<*🍞🥐🥖🥨🥯🥞🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🥙🥚🍳🥘🍲🥣🥗🍿🧂🥫
+				<*🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🥮🍡🥟🥠🥡
+				<*🦀🦞🦐🦑
+				<*🍦🍧🍨🍩🍪🎂🍰🧁🥧🍫🍬🍭🍮🍯
 				<*🍼🥛☕🍵🍶🍾🍷🍸🍹🍺🍻🥂🥃🥤
 				<*🥢🍽🍴🥄🔪🏺
-				<*🌍🌎🌏🌐🗺🗾
+				<*🌍🌎🌏🌐🗺🗾🧭
 				<*🏔⛰🌋🗻🏕🏖🏜🏝🏞
-				<*🏟🏛🏗🏘🏚🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽
+				<*🏟🏛🏗🧱🏘🏚🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽
 				<*⛪🕌🕍⛩🕋
 				<*⛲⛺🌁🌃🏙🌄🌅🌆🌇🌉♨🌌🎠🎡🎢💈🎪
-				<*🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🚚🚛🚜🚲🛴🛵🚏🛣🛤🛢⛽🚨🚥🚦🛑🚧
+				<*🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🚚🚛🚜🏎🏍🛵🚲🛴🛹🚏🛣🛤🛢⛽🚨🚥🚦🛑🚧
 				<*⚓⛵🛶🚤🛳⛴🛥🚢
 				<*✈🛩🛫🛬💺🚁🚟🚠🚡🛰🚀🛸
-				<*🛎
+				<*🛎🧳
 				<*⌛⏳⌚⏰⏱⏲🕰🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦
 				<*🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌛🌜🌡☀🌝🌞⭐🌟🌠☁⛅⛈🌤🌥🌦🌧🌨🌩🌪🌫🌬🌀🌈🌂☂☔⛱⚡❄☃⛄☄🔥💧🌊
-				<*🎃🎄🎆🎇✨🎈🎉🎊🎋🎍🎎🎏🎐🎑🎀🎁🎗🎟🎫
+				<*🎃🎄🎆🎇🧨✨🎈🎉🎊🎋🎍🎎🎏🎐🎑🧧🎀🎁🎗🎟🎫
 				<*🎖🏆🏅🥇🥈🥉
-				<*⚽⚾🏀🏐🏈🏉🎾🎳🏏🏑🏒🏓🏸🥊🥋🥅⛳⛸🎣🎽🎿🛷🥌
-				<*🎯🎱🔮🎮🕹🎰🎲♠♥♦♣🃏🀄🎴
-				<*🎭🖼🎨
+				<*⚽⚾🥎🏀🏐🏈🏉🎾🥏🎳🏏🏑🏒🥍🏓🏸🥊🥋🥅⛳⛸🎣🎽🎿🛷🥌
+				<*🎯🎱🔮🧿🎮🕹🎰🎲🧩🧸♠♥♦♣♟🃏🀄🎴
+				<*🎭🖼🎨🧵🧶
+				<*👓🕶🥽🥼👔👕👖🧣🧤🧥🧦👗👘👙👚👛👜👝🛍🎒👞👟🥾🥿👠👡👢👑👒🎩🎓🧢⛑📿💄💍💎
 				<*🔇🔈🔉🔊📢📣📯🔔🔕
 				<*🎼🎵🎶🎙🎚🎛🎤🎧📻
 				<*🎷🎸🎹🎺🎻🥁
 				<*📱📲☎📞📟📠
-				<*🔋🔌💻🖥🖨⌨🖱🖲💽💾💿📀
+				<*🔋🔌💻🖥🖨⌨🖱🖲💽💾💿📀🧮
 				<*🎥🎞📽🎬📺📷📸📹📼🔍🔎🕯💡🔦🏮
 				<*📔📕📖📗📘📙📚📓📒📃📜📄📰🗞📑🔖🏷
-				<*💰💴💵💶💷💸💳💹💱💲
+				<*💰💴💵💶💷💸💳🧾💹💱💲
 				<*✉📧📨📩📤📥📦📫📪📬📭📮🗳
 				<*✏✒🖋🖊🖌🖍📝
 				<*💼📁📂🗂📅📆🗒🗓📇📈📉📊📋📌📍📎🖇📏📐✂🗃🗄🗑
 				<*🔒🔓🔏🔐🔑🗝
-				<*🔨⛏⚒🛠🗡⚔🔫🏹🛡🔧🔩⚙🗜⚖🔗⛓
-				<*⚗🔬🔭📡
+				<*🔨⛏⚒🛠🗡⚔🔫🏹🛡🔧🔩⚙🗜⚖🔗⛓🧰🧲
+				<*⚗🧪🧫🧬🔬🔭📡
 				<*💉💊
-				<*🚪🛏🛋🚽🚿🛁🛒
+				<*🚪🛏🛋🚽🚿🛁🧴🧷🧹🧺🧻🧼🧽🧯🛒
 				<*🚬⚰⚱🗿
 				<*🏧🚮🚰♿🚹🚺🚻🚼🚾🛂🛃🛄🛅
 				<*⚠🚸⛔🚫🚳🚭🚯🚱🚷📵🔞☢☣
@@ -4998,7 +5190,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🛐⚛🕉✡☸☯✝☦☪☮🕎🔯
 				<*♈♉♊♋♌♍♎♏♐♑♒♓⛎
 				<*🔀🔁🔂▶⏩⏭⏯◀⏪⏮🔼⏫🔽⏬⏸⏹⏺⏏🎦🔅🔆📶📳📴
-				<*♀♂⚕♻⚜🔱📛🔰⭕✅☑✔✖❌❎➕➖➗➰➿〽✳✴❇‼⁉❓❔❕❗〰©®™
+				<*⚕♾♻⚜🔱📛🔰⭕✅☑✔✖❌❎➕➖➗➰➿〽✳✴❇‼⁉❓❔❕❗〰©®™
 				< '#⃣' = '#️⃣'
 				< '*⃣' = '*️⃣'
 				< 0⃣ = 0️⃣
@@ -5012,10 +5204,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				< 8⃣ = 8️⃣
 				< 9⃣ = 9️⃣
 				<*🔟
-				<*💯🔠🔡🔢🔣🔤🅰🆎🅱🆑🆒🆓ℹ🆔Ⓜ🆕🆖🅾🆗🅿🆘🆙🆚🈁🈂🈷🈶🈯🉐🈹🈚🈲🉑🈸🈴🈳㊗㊙🈺🈵
-				<*▪▫◻◼◽◾⬛⬜🔶🔷🔸🔹🔺🔻💠🔘🔲🔳⚪⚫🔴🔵
+				<*🔠🔡🔢🔣🔤🅰🆎🅱🆑🆒🆓ℹ🆔Ⓜ🆕🆖🅾🆗🅿🆘🆙🆚🈁🈂🈷🈶🈯🉐🈹🈚🈲🉑🈸🈴🈳㊗㊙🈺🈵
+				<*🔴🔵⚪⚫⬜⬛◼◻◽◾▫▪🔶🔷🔸🔹🔺🔻💠🔘🔲🔳
 				<*🏁🚩🎌🏴🏳
 				< 🏳‍🌈 = 🏳️‍🌈
+				< 🏴‍☠
 				<*🇦🇧🇨🇩🇪🇫🇬🇭🇮🇯🇰🇱🇲🇳🇴🇵🇶🇷🇸🇹🇺🇻🇼🇽🇾🇿
 				< 🏴󠁧󠁢󠁥󠁮󠁧󠁿
 				< 🏴󠁧󠁢󠁳󠁣󠁴󠁿
@@ -5962,19 +6155,113 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<nostr>no:n</nostr>
 		</messages>
 	</posix>
+	<characterLabels>
+		<characterLabelPattern type="all">{0} — all</characterLabelPattern>
+		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
+		<characterLabelPattern type="compatibility">{0} — compatibility</characterLabelPattern>
+		<characterLabelPattern type="enclosed">{0} — enclosed</characterLabelPattern>
+		<characterLabelPattern type="extended">{0} — extended</characterLabelPattern>
+		<characterLabelPattern type="historic">{0} — historic</characterLabelPattern>
+		<characterLabelPattern type="miscellaneous">{0} — miscellaneous</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — other</characterLabelPattern>
+		<characterLabelPattern type="scripts">scripts — {0}</characterLabelPattern>
+		<characterLabelPattern type="strokes" count="other">{0} strokes</characterLabelPattern>
+		<!-- regular -->
+		<characterLabel type="activities">activity</characterLabel>
+		<characterLabel type="african_scripts">African script</characterLabel>
+		<characterLabel type="american_scripts">American script</characterLabel>
+		<characterLabel type="animal">animal</characterLabel>
+		<characterLabel type="animals_nature">animal or nature</characterLabel>
+		<characterLabel type="arrows">arrow</characterLabel>
+		<characterLabel type="body">body</characterLabel>
+		<characterLabel type="box_drawing">box drawing</characterLabel>
+		<characterLabel type="braille">braille</characterLabel>
+		<characterLabel type="building">building</characterLabel>
+		<characterLabel type="bullets_stars">bullet or star</characterLabel>
+		<characterLabel type="consonantal_jamo">consonantal jamo</characterLabel>
+		<characterLabel type="currency_symbols">currency symbol</characterLabel>
+		<characterLabel type="dash_connector">dash or connector</characterLabel>
+		<characterLabel type="digits">digit</characterLabel>
+		<characterLabel type="dingbats">dingbat</characterLabel>
+		<characterLabel type="divination_symbols">divination symbol</characterLabel>
+		<characterLabel type="downwards_arrows">downwards arrow</characterLabel>
+		<characterLabel type="downwards_upwards_arrows">downwards upwards arrow</characterLabel>
+		<characterLabel type="east_asian_scripts">East Asian script</characterLabel>
+		<characterLabel type="emoji">emoji</characterLabel>
+		<characterLabel type="european_scripts">European script</characterLabel>
+		<characterLabel type="female">female</characterLabel>
+		<characterLabel type="flag">flag</characterLabel>
+		<characterLabel type="flags">flags</characterLabel>
+		<characterLabel type="food_drink">food &amp; drink</characterLabel>
+		<characterLabel type="format">format</characterLabel>
+		<characterLabel type="format_whitespace">format &amp; whitespace</characterLabel>
+		<characterLabel type="full_width_form_variant">full-width variant</characterLabel>
+		<characterLabel type="geometric_shapes">geometric shape</characterLabel>
+		<characterLabel type="half_width_form_variant">half-width variant</characterLabel>
+		<characterLabel type="han_characters">Han character</characterLabel>
+		<characterLabel type="han_radicals">Han radical</characterLabel>
+		<characterLabel type="hanja">hanja</characterLabel>
+		<characterLabel type="hanzi_simplified">Hanzi (simplified)</characterLabel>
+		<characterLabel type="hanzi_traditional">Hanzi (traditional)</characterLabel>
+		<characterLabel type="heart">heart</characterLabel>
+		<characterLabel type="historic_scripts">historic script</characterLabel>
+		<characterLabel type="ideographic_desc_characters">ideographic desc. character</characterLabel>
+		<characterLabel type="japanese_kana">Japanese kana</characterLabel>
+		<characterLabel type="kanbun">kanbun</characterLabel>
+		<characterLabel type="kanji">kanji</characterLabel>
+		<characterLabel type="keycap">keycap</characterLabel>
+		<characterLabel type="leftwards_arrows">leftwards arrow</characterLabel>
+		<characterLabel type="leftwards_rightwards_arrows">leftwards rightwards arrow</characterLabel>
+		<characterLabel type="letterlike_symbols">letterlike symbol</characterLabel>
+		<characterLabel type="limited_use">limited-use</characterLabel>
+		<characterLabel type="male">male</characterLabel>
+		<characterLabel type="math_symbols">math symbol</characterLabel>
+		<characterLabel type="middle_eastern_scripts">Middle Eastern script</characterLabel>
+		<characterLabel type="miscellaneous">miscellaneous</characterLabel>
+		<characterLabel type="modern_scripts">modern script</characterLabel>
+		<characterLabel type="modifier">modifier</characterLabel>
+		<characterLabel type="musical_symbols">musical symbol</characterLabel>
+		<characterLabel type="nature">nature</characterLabel>
+		<characterLabel type="nonspacing">nonspacing</characterLabel>
+		<characterLabel type="numbers">numbers</characterLabel>
+		<characterLabel type="objects">object</characterLabel>
+		<characterLabel type="other">other</characterLabel>
+		<characterLabel type="paired">paired</characterLabel>
+		<characterLabel type="person">person</characterLabel>
+		<characterLabel type="phonetic_alphabet">phonetic alphabet</characterLabel>
+		<characterLabel type="pictographs">pictograph</characterLabel>
+		<characterLabel type="place">place</characterLabel>
+		<characterLabel type="plant">plant</characterLabel>
+		<characterLabel type="punctuation">punctuation</characterLabel>
+		<characterLabel type="rightwards_arrows">rightwards arrow</characterLabel>
+		<characterLabel type="sign_standard_symbols">sign or symbol</characterLabel>
+		<characterLabel type="small_form_variant">small variants</characterLabel>
+		<characterLabel type="smiley">smiley</characterLabel>
+		<characterLabel type="smileys_people">smiley or person</characterLabel>
+		<characterLabel type="south_asian_scripts">South Asian script</characterLabel>
+		<characterLabel type="southeast_asian_scripts">Southeast Asian script</characterLabel>
+		<characterLabel type="spacing">spacing</characterLabel>
+		<characterLabel type="sport">sport</characterLabel>
+		<characterLabel type="symbols">symbol</characterLabel>
+		<characterLabel type="technical_symbols">technical symbol</characterLabel>
+		<characterLabel type="tone_marks">tone mark</characterLabel>
+		<characterLabel type="travel">travel</characterLabel>
+		<characterLabel type="travel_places">travel or place</characterLabel>
+		<characterLabel type="upwards_arrows">upwards arrows</characterLabel>
+		<characterLabel type="variant_forms">variant</characterLabel>
+		<characterLabel type="vocalic_jamo">vocalic jamo</characterLabel>
+		<characterLabel type="weather">weather</characterLabel>
+		<characterLabel type="western_asian_scripts">Western Asian script</characterLabel>
+		<characterLabel type="whitespace">whitespace</characterLabel>
+	</characterLabels>
 	<segmentations>
 		<segmentation type="GraphemeClusterBreak">
 			<variables>
 				<variable id="$CR">\p{Grapheme_Cluster_Break=CR}</variable>
 				<variable id="$Control">\p{Grapheme_Cluster_Break=Control}</variable>
-				<variable id="$EBG">\p{Grapheme_Cluster_Break=E_Base_GAZ}</variable>
-				<variable id="$E_Base">\p{Grapheme_Cluster_Break=E_Base}</variable>
-				<variable id="$E_Modifier">\p{Grapheme_Cluster_Break=E_Modifier}</variable>
-				<variable id="$EmojiNRK">[[\p{Emoji}] - [\p{Grapheme_Cluster_Break=Regional_Indicator}*\u00230-9©®™〰〽]]</variable>
-				<!-- END Special CLDR extensions for Emoji -->
+				<variable id="$ExtCccZwj">[[$Extend-\p{ccc=0}] $ZWJ]</variable>
+				<variable id="$ExtPict">\p{Extended_Pictographic}</variable>
 				<variable id="$Extend">\p{Grapheme_Cluster_Break=Extend}</variable>
-				<!-- START Special CLDR extensions for Emoji -->
-				<variable id="$Extended_Pict">[\u2388\u2605\u2607-\u260D\u260F-\u2610\u2612\u2616-\u2617\u2619-\u261C\u261E-\u261F\u2621\u2624-\u2625\u2627-\u2629\u262B-\u262D\u2630-\u2637\u263B-\u2647\u2654-\u265F\u2661-\u2662\u2664\u2667\u2669-\u267A\u267C-\u267E\u2680-\u2691\u2695\u2698\u269A\u269D-\u269F\u26A2-\u26A9\u26AC-\u26AF\u26B2-\u26BC\u26BF-\u26C3\u26C6-\u26C7\u26C9-\u26CD\u26D0\u26D2\u26D5-\u26E8\u26EB-\u26EF\u26F6\u26FB-\u26FC\u26FE-\u2701\u2703-\u2704\u270E\u2710-\u2711\u2765-\u2767\U0001F000-\U0001F003\U0001F005-\U0001F0FF\U0001F10D-\U0001F10F\U0001F12F\U0001F16C-\U0001F16F\U0001F1AD-\U0001F1E5\U0001F203-\U0001F20F\U0001F23C-\U0001F23F\U0001F249-\U0001F24F\U0001F252-\U0001F2FF\U0001F322-\U0001F323\U0001F394-\U0001F395\U0001F398\U0001F39C-\U0001F39D\U0001F3F1-\U0001F3F2\U0001F3F6\U0001F4FE\U0001F53E-\U0001F548\U0001F54F\U0001F568-\U0001F56E\U0001F571-\U0001F572\U0001F57B-\U0001F586\U0001F588-\U0001F589\U0001F58E-\U0001F58F\U0001F591-\U0001F594\U0001F597-\U0001F5A3\U0001F5A6-\U0001F5A7\U0001F5A9-\U0001F5B0\U0001F5B3-\U0001F5BB\U0001F5BD-\U0001F5C1\U0001F5C5-\U0001F5D0\U0001F5D4-\U0001F5DB\U0001F5DF-\U0001F5E0\U0001F5E2\U0001F5E4-\U0001F5E7\U0001F5E9-\U0001F5EE\U0001F5F0-\U0001F5F2\U0001F5F4-\U0001F5F9\U0001F6C6-\U0001F6CA\U0001F6D3-\U0001F6DF\U0001F6E6-\U0001F6E8\U0001F6EA\U0001F6ED-\U0001F6EF\U0001F6F1-\U0001F6F2\U0001F6F7-\U0001F6FF\U0001F774-\U0001F77F\U0001F7D5-\U0001F7FF\U0001F80C-\U0001F80F\U0001F848-\U0001F84F\U0001F85A-\U0001F85F\U0001F888-\U0001F88F\U0001F8AE-\U0001F90F\U0001F91F\U0001F928-\U0001F92F\U0001F931-\U0001F932\U0001F93F\U0001F94C-\U0001F94F\U0001F95F-\U0001F97F\U0001F992-\U0001F9BF\U0001F9C1-\U0001FFFD]</variable>
 				<variable id="$L">\p{Grapheme_Cluster_Break=L}</variable>
 				<variable id="$LF">\p{Grapheme_Cluster_Break=LF}</variable>
 				<variable id="$LV">\p{Grapheme_Cluster_Break=LV}</variable>
@@ -5987,14 +6274,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$ZWJ">\p{Grapheme_Cluster_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<!-- Do not break within emoji modifier sequences or emoji zwj sequences. -->
-				<rule id="10">($E_Base | $EBG) $Extend* × $E_Modifier</rule>
-				<!-- START Special CLDR extensions for Emoji -->
-				<rule id="11">($Extended_Pict | $EmojiNRK) $Extend* $ZWJ × ($Extended_Pict | $EmojiNRK)</rule>
-				<!-- END Special CLDR extensions for Emoji -->
-				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
-				<rule id="12">^ ($RI $RI)* $RI × $RI</rule>
-				<rule id="13">[^$RI] ($RI $RI)* $RI × $RI</rule>
 				<!-- Rules -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break between a CR and LF. Otherwise, break before and after controls. -->
@@ -6010,6 +6289,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- Only for extended grapheme clusters: Do not break before SpacingMarks, or after Prepend characters. -->
 				<rule id="9.1">× $SpacingMark</rule>
 				<rule id="9.2">$Prepend ×</rule>
+				<!-- Do not break within emoji modifier sequences or emoji zwj sequences. -->
+				<rule id="11">$ExtPict $Extend* $ZWJ × $ExtPict</rule>
+				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
+				<rule id="12">^ ($RI $RI)* $RI × $RI</rule>
+				<rule id="13">[^$RI] ($RI $RI)* $RI × $RI</rule>
 			</segmentRules>
 			<!-- Otherwise, break everywhere. -->
 		</segmentation>
@@ -6022,10 +6306,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- LB 1  Assign a line breaking class to each code point of the input. -->
 				<!-- Resolve AI, CB, SA, SG, and XX into other line breaking classes depending on criteria outside the scope of this algorithm. -->
 				<!-- NOTE: CB is ok to fall through, but must handle others here. -->
-				<!-- START Special CLDR extensions for CM -->
-				<variable id="$AL">[$AI $AL $SG $XX [$SA-[[:Mn:][:Mc:]]]]</variable>
+				<variable id="$AL">[$AI $AL $SG $XX $SA]</variable>
 				<variable id="$AL">($AL $X)</variable>
-				<!-- END Special CLDR extensions for Emoji -->
 				<!-- OUT OF ORDER ON PURPOSE -->
 				<!-- LB 10  Treat any remaining combining mark as AL. -->
 				<variable id="$AL">($AL | ^ $CM | (?&lt;=$Spec1_) $CM)</variable>
@@ -6041,10 +6323,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$CJ">\p{Line_Break=Conditional_Japanese_Starter}</variable>
 				<variable id="$CL">\p{Line_Break=Close_Punctuation}</variable>
 				<variable id="$CL">($CL $X)</variable>
-				<!-- END Special CLDR extensions for Emoji -->
 				<!-- Macros -->
 				<variable id="$CM">[$CM1 $ZWJ]</variable>
-				<variable id="$CM">[$CM $ZWJ [$SA &amp; [[:Mn:][:Mc:]]]]</variable>
 				<variable id="$CM">($CM $X)</variable>
 				<variable id="$CM1">\p{Line_Break=Combining_Mark}</variable>
 				<variable id="$CP">\p{Line_Break=CP}</variable>
@@ -6056,12 +6336,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$EM">($EM $X)</variable>
 				<variable id="$EX">\p{Line_Break=Exclamation}</variable>
 				<variable id="$EX">($EX $X)</variable>
-				<!-- START Special CLDR extensions for Emoji -->
-				<variable id="$EmojiNRK">[[\p{Emoji}] - [$RI \u002a\u00230-9©®™〰〽]]</variable>
-				<!-- START Special CLDR extensions for Emoji -->
-				<variable id="$EmojiNRK">($EmojiNRK $X)</variable>
-				<variable id="$Extended_Pict">[\u2388\u2605\u2607-\u260D\u260F-\u2610\u2612\u2616-\u2617\u2619-\u261C\u261E-\u261F\u2621\u2624-\u2625\u2627-\u2629\u262B-\u262D\u2630-\u2637\u263B-\u2647\u2654-\u265F\u2661-\u2662\u2664\u2667\u2669-\u267A\u267C-\u267E\u2680-\u2691\u2695\u2698\u269A\u269D-\u269F\u26A2-\u26A9\u26AC-\u26AF\u26B2-\u26BC\u26BF-\u26C3\u26C6-\u26C7\u26C9-\u26CD\u26D0\u26D2\u26D5-\u26E8\u26EB-\u26EF\u26F6\u26FB-\u26FC\u26FE-\u2701\u2703-\u2704\u270E\u2710-\u2711\u2765-\u2767\U0001F000-\U0001F003\U0001F005-\U0001F0FF\U0001F10D-\U0001F10F\U0001F12F\U0001F16C-\U0001F16F\U0001F1AD-\U0001F1E5\U0001F203-\U0001F20F\U0001F23C-\U0001F23F\U0001F249-\U0001F24F\U0001F252-\U0001F2FF\U0001F322-\U0001F323\U0001F394-\U0001F395\U0001F398\U0001F39C-\U0001F39D\U0001F3F1-\U0001F3F2\U0001F3F6\U0001F4FE\U0001F53E-\U0001F548\U0001F54F\U0001F568-\U0001F56E\U0001F571-\U0001F572\U0001F57B-\U0001F586\U0001F588-\U0001F589\U0001F58E-\U0001F58F\U0001F591-\U0001F594\U0001F597-\U0001F5A3\U0001F5A6-\U0001F5A7\U0001F5A9-\U0001F5B0\U0001F5B3-\U0001F5BB\U0001F5BD-\U0001F5C1\U0001F5C5-\U0001F5D0\U0001F5D4-\U0001F5DB\U0001F5DF-\U0001F5E0\U0001F5E2\U0001F5E4-\U0001F5E7\U0001F5E9-\U0001F5EE\U0001F5F0-\U0001F5F2\U0001F5F4-\U0001F5F9\U0001F6C6-\U0001F6CA\U0001F6D3-\U0001F6DF\U0001F6E6-\U0001F6E8\U0001F6EA\U0001F6ED-\U0001F6EF\U0001F6F1-\U0001F6F2\U0001F6F7-\U0001F6FF\U0001F774-\U0001F77F\U0001F7D5-\U0001F7FF\U0001F80C-\U0001F80F\U0001F848-\U0001F84F\U0001F85A-\U0001F85F\U0001F888-\U0001F88F\U0001F8AE-\U0001F90F\U0001F91F\U0001F928-\U0001F92F\U0001F931-\U0001F932\U0001F93F\U0001F94C-\U0001F94F\U0001F95F-\U0001F97F\U0001F992-\U0001F9BF\U0001F9C1-\U0001FFFD]</variable>
-				<variable id="$Extended_Pict">($Extended_Pict $X)</variable>
 				<variable id="$GL">\p{Line_Break=Glue}</variable>
 				<variable id="$GL">($GL $X)</variable>
 				<variable id="$H2">\p{Line_Break=H2}</variable>
@@ -6087,7 +6361,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$LF">\p{Line_Break=Line_Feed}</variable>
 				<variable id="$NL">\p{Line_Break=Next_Line}</variable>
 				<variable id="$NS">\p{Line_Break=Nonstarter}</variable>
-				<!-- START Special CLDR extensions for CM -->
 				<variable id="$NS">[$NS $CJ]</variable>
 				<variable id="$NS">($NS $X)</variable>
 				<variable id="$NU">\p{Line_Break=Numeric}</variable>
@@ -6115,6 +6388,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$Spec3a_">[^ $SP $BA $HY $CM]</variable>
 				<variable id="$Spec3b_">[^ $BA $HY $CM]</variable>
 				<variable id="$Spec4_">[^ $NU $CM]</variable>
+				<variable id="$Spec5_">[$BK $CB $CR $LF $NL $SP $ZW]</variable>
 				<variable id="$WJ">\p{Line_Break=Word_Joiner}</variable>
 				<variable id="$WJ">($WJ $X)</variable>
 				<!-- WARNING: Fixes for Rule 9 -->
@@ -6129,6 +6403,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$ZWJ_O">\p{Line_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
+				<!-- Rules -->
+				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
+				<rule id="4">$BK ÷</rule>
+				<!-- LB 5  Treat CR followed by LF, as well as CR, LF and NL as hard line breaks. -->
+				<rule id="5.01">$CR × $LF</rule>
+				<rule id="5.02">$CR ÷</rule>
+				<rule id="5.03">$LF ÷</rule>
+				<rule id="5.04">$NL ÷</rule>
+				<!-- LB 6  Do not break before hard line breaks. -->
+				<rule id="6">× ( $BK | $CR | $LF | $NL )</rule>
+				<!-- LB 7  Do not break before spaces or zero-width space. -->
+				<rule id="7.01">× $SP</rule>
+				<rule id="7.02">× $ZW</rule>
+				<!-- LB 8  Break before any character following a zero-width space, even if one or more spaces intervene. -->
+				<rule id="8">$ZW $SP* ÷</rule>
+				<!-- LB 8a  Don't break between ZWJ and IDs (for use in Emoji ZWJ sequences) -->
+				<rule id="8.1">$ZWJ_O ×</rule>
+				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character -->
+				<!-- in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.) -->
+				<rule id="9">$Spec2_ × $CM</rule>
 				<!-- WARNING: this is done by modifying the variable values for all but SP.... That is, $AL is really ($AI $CM*)! -->
 				<!-- LB 11  Do not break before or after WORD JOINER and related characters. -->
 				<rule id="11.01">× $WJ</rule>
@@ -6160,6 +6454,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- LB 20  Break before and after unresolved CB. -->
 				<rule id="20.01">÷ $CB</rule>
 				<rule id="20.02">$CB ÷</rule>
+				<!-- LB 20.9  Don't break between Hyphens and Letters when there is a break preceding the hyphen. -->
+				<!-- Originally added as a Finnish tailoring, now promoted to default CLDR/ICU behavior. -->
+				<!-- Must be before LB 21. Note: this is not default UAX-14 behaviour. See ICU issue ICU-8151. -->
+				<!-- (Unlike in ICU, here we just check a limited set of known breaks, ignoring some cases like LB 14). -->
+				<rule id="20.09">$Spec5_ ($HY | $HH) × $AL</rule>
 				<!-- LB 21  Do not break before hyphen-minus, other hyphens, fixed-width spaces, small kana and other non-starters, or after acute accents. -->
 				<rule id="21.01">× $BA</rule>
 				<rule id="21.02">× $HY</rule>
@@ -6212,28 +6511,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="30.12">[^$RI] ($RI $RI)* $RI × $RI</rule>
 				<rule id="30.13">$RI ÷ $RI</rule>
 				<rule id="30.2">$EB × $EM</rule>
-				<!-- Rules -->
-				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
-				<rule id="4">$BK ÷</rule>
-				<!-- LB 5  Treat CR followed by LF, as well as CR, LF and NL as hard line breaks. -->
-				<rule id="5.01">$CR × $LF</rule>
-				<rule id="5.02">$CR ÷</rule>
-				<rule id="5.03">$LF ÷</rule>
-				<rule id="5.04">$NL ÷</rule>
-				<!-- LB 6  Do not break before hard line breaks. -->
-				<rule id="6">× ( $BK | $CR | $LF | $NL )</rule>
-				<!-- LB 7  Do not break before spaces or zero-width space. -->
-				<rule id="7.01">× $SP</rule>
-				<rule id="7.02">× $ZW</rule>
-				<!-- LB 8  Break before any character following a zero-width space, even if one or more spaces intervene. -->
-				<rule id="8">$ZW $SP* ÷</rule>
-				<!-- LB 8a  Don't break between ZWJ and IDs (for use in Emoji ZWJ sequences) -->
-				<!-- START Special CLDR extensions for Emoji -->
-				<rule id="8.1">$ZWJ_0 × ($ID | $Extended_Pict | $EmojiNRK)</rule>
-				<!-- END Special CLDR extensions for Emoji -->
-				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character -->
-				<!-- in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.) -->
-				<rule id="9">$Spec2_ × $CM</rule>
 			</segmentRules>
 		</segmentation>
 		<segmentation type="SentenceBreak">
@@ -6272,9 +6549,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$Upper">($Upper $FE*)</variable>
 			</variables>
 			<segmentRules>
-				<!-- Note the fix to $Sp*, $Sep? -->
-				<rule id="10">$SATerm $Close* $Sp* × ( $Sp | $ParaSep )</rule>
-				<rule id="11">$SATerm $Close* $Sp* $ParaSep? ÷</rule>
 				<!-- Rules -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break within CRLF. -->
@@ -6295,6 +6569,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="8.1">$SATerm $Close* $Sp* × ($SContinue | $SATerm)</rule>
 				<!-- Break after sentence terminators, but include closing punctuation, trailing spaces, and any paragraph separator. [See note below.] Include closing punctuation, trailing spaces, and (optionally) a paragraph separator. -->
 				<rule id="9">$SATerm $Close* × ( $Close | $Sp | $ParaSep )</rule>
+				<!-- Note the fix to $Sp*, $Sep? -->
+				<rule id="10">$SATerm $Close* $Sp* × ( $Sp | $ParaSep )</rule>
+				<rule id="11">$SATerm $Close* $Sp* $ParaSep? ÷</rule>
 				<!-- Otherwise, do not break -->
 				<rule id="998">× $Any</rule>
 			</segmentRules>
@@ -6303,25 +6580,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</segmentation>
 		<segmentation type="WordBreak">
 			<variables>
-				<!-- END Special CLDR extensions for Emoji -->
 				<!-- Macros -->
 				<variable id="$AHLetter">($ALetter | $Hebrew_Letter)</variable>
-				<!-- REMOVAL for Special CLDR extensions for Emoji -->
 				<variable id="$AHLetter">($AHLetter $FE*)</variable>
 				<variable id="$ALetter">\p{Word_Break=ALetter}</variable>
 				<variable id="$ALetter">($ALetter $FE*)</variable>
 				<variable id="$CR">\p{Word_Break=CR}</variable>
 				<variable id="$Double_Quote">\p{Word_Break=Double_Quote}</variable>
 				<variable id="$Double_Quote">($Double_Quote $FE*)</variable>
-				<variable id="$EBG">\p{Word_Break=E_Base_GAZ}</variable>
-				<variable id="$E_Base">\p{Word_Break=E_Base}</variable>
-				<variable id="$E_Modifier">\p{Word_Break=E_Modifier}</variable>
-				<variable id="$EmojiNRK">[[\p{Emoji}] - [\p{Word_Break=Regional_Indicator}\u002a\u00230-9©®™〰〽]]</variable>
+				<variable id="$ExtPict">\p{Extended_Pictographic}</variable>
 				<variable id="$Extend">\p{Word_Break=Extend}</variable>
 				<variable id="$ExtendNumLet">\p{Word_Break=ExtendNumLet}</variable>
 				<variable id="$ExtendNumLet">($ExtendNumLet $FE*)</variable>
-				<!-- START Special CLDR extensions for Emoji -->
-				<variable id="$Extended_Pict">[\u2388\u2605\u2607-\u260D\u260F-\u2610\u2612\u2616-\u2617\u2619-\u261C\u261E-\u261F\u2621\u2624-\u2625\u2627-\u2629\u262B-\u262D\u2630-\u2637\u263B-\u2647\u2654-\u265F\u2661-\u2662\u2664\u2667\u2669-\u267A\u267C-\u267E\u2680-\u2691\u2695\u2698\u269A\u269D-\u269F\u26A2-\u26A9\u26AC-\u26AF\u26B2-\u26BC\u26BF-\u26C3\u26C6-\u26C7\u26C9-\u26CD\u26D0\u26D2\u26D5-\u26E8\u26EB-\u26EF\u26F6\u26FB-\u26FC\u26FE-\u2701\u2703-\u2704\u270E\u2710-\u2711\u2765-\u2767\U0001F000-\U0001F003\U0001F005-\U0001F0FF\U0001F10D-\U0001F10F\U0001F12F\U0001F16C-\U0001F16F\U0001F1AD-\U0001F1E5\U0001F203-\U0001F20F\U0001F23C-\U0001F23F\U0001F249-\U0001F24F\U0001F252-\U0001F2FF\U0001F322-\U0001F323\U0001F394-\U0001F395\U0001F398\U0001F39C-\U0001F39D\U0001F3F1-\U0001F3F2\U0001F3F6\U0001F4FE\U0001F53E-\U0001F548\U0001F54F\U0001F568-\U0001F56E\U0001F571-\U0001F572\U0001F57B-\U0001F586\U0001F588-\U0001F589\U0001F58E-\U0001F58F\U0001F591-\U0001F594\U0001F597-\U0001F5A3\U0001F5A6-\U0001F5A7\U0001F5A9-\U0001F5B0\U0001F5B3-\U0001F5BB\U0001F5BD-\U0001F5C1\U0001F5C5-\U0001F5D0\U0001F5D4-\U0001F5DB\U0001F5DF-\U0001F5E0\U0001F5E2\U0001F5E4-\U0001F5E7\U0001F5E9-\U0001F5EE\U0001F5F0-\U0001F5F2\U0001F5F4-\U0001F5F9\U0001F6C6-\U0001F6CA\U0001F6D3-\U0001F6DF\U0001F6E6-\U0001F6E8\U0001F6EA\U0001F6ED-\U0001F6EF\U0001F6F1-\U0001F6F2\U0001F6F7-\U0001F6FF\U0001F774-\U0001F77F\U0001F7D5-\U0001F7FF\U0001F80C-\U0001F80F\U0001F848-\U0001F84F\U0001F85A-\U0001F85F\U0001F888-\U0001F88F\U0001F8AE-\U0001F90F\U0001F91F\U0001F928-\U0001F92F\U0001F931-\U0001F932\U0001F93F\U0001F94C-\U0001F94F\U0001F95F-\U0001F97F\U0001F992-\U0001F9BF\U0001F9C1-\U0001FFFD]</variable>
 				<!-- WARNING: For Rule 4: Fixes for GC, Format -->
 				<!-- Add format and extend to everything -->
 				<variable id="$FE">[$Format $Extend $ZWJ]</variable>
@@ -6349,25 +6619,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$RI">($RI $FE*)</variable>
 				<variable id="$Single_Quote">\p{Word_Break=Single_Quote}</variable>
 				<variable id="$Single_Quote">($Single_Quote $FE*)</variable>
+				<variable id="$WSegSpace">\p{Word_Break=WSegSpace}</variable>
 				<variable id="$ZWJ">\p{Word_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<rule id="10">$Numeric × $AHLetter</rule>
-				<!-- Do not break within sequences, such as “3.2” or “3,456.789”. -->
-				<rule id="11">$Numeric ($MidNum | $MidNumLetQ) × $Numeric</rule>
-				<rule id="12">$Numeric × ($MidNum | $MidNumLetQ) $Numeric</rule>
-				<!-- Do not break between Katakana. -->
-				<rule id="13">$Katakana × $Katakana</rule>
-				<!-- Do not break from extenders. -->
-				<rule id="13.1">($AHLetter | $Numeric | $Katakana | $ExtendNumLet) × $ExtendNumLet</rule>
-				<rule id="13.2">$ExtendNumLet × ($AHLetter | $Numeric | $Katakana)</rule>
-				<!-- Do not break within emoji modifier sequences. -->
-				<!-- START Special CLDR extensions for Emoji -->
-				<rule id="14">($E_Base | $EBG) ($Format | $Extend | $ZWJ)* × $E_Modifier</rule>
-				<!-- END Special CLDR extensions for Emoji -->
-				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
-				<rule id="15">^ ($RI $RI)* $RI × $RI</rule>
-				<rule id="16">[^$RI] ($RI $RI)* $RI × $RI</rule>
 				<!-- Rules -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break within CRLF. -->
@@ -6376,9 +6631,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="3.1">($Newline | $CR | $LF) ÷</rule>
 				<rule id="3.2">÷ ($Newline | $CR | $LF)</rule>
 				<!-- Do not break within emoji zwj sequences. -->
-				<!-- START Special CLDR extensions for Emoji -->
-				<rule id="3.3">$ZWJ × ($Extended_Pict | $EmojiNRK)</rule>
-				<!-- END Special CLDR extensions for Emoji -->
+				<rule id="3.3">$ZWJ × $ExtPict</rule>
+				<rule id="3.4">$WSegSpace × $WSegSpace</rule>
 				<!-- Ignore Format and Extend characters, except after sot, CR, LF, and Newline. (See Section 6.2, Replacing Ignore Rules.) This also has the effect of: Any × (Format | Extend) -->
 				<!-- WARNING: Implemented as don't break before format (except after linebreaks), -->
 				<!-- AND add format and extend in all variables definitions that appear after this point! -->
@@ -6395,6 +6649,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- Do not break within sequences of digits, or digits adjacent to letters (“3a”, or “A3”). -->
 				<rule id="8">$Numeric × $Numeric</rule>
 				<rule id="9">$AHLetter × $Numeric</rule>
+				<rule id="10">$Numeric × $AHLetter</rule>
+				<!-- Do not break within sequences, such as “3.2” or “3,456.789”. -->
+				<rule id="11">$Numeric ($MidNum | $MidNumLetQ) × $Numeric</rule>
+				<rule id="12">$Numeric × ($MidNum | $MidNumLetQ) $Numeric</rule>
+				<!-- Do not break between Katakana. -->
+				<rule id="13">$Katakana × $Katakana</rule>
+				<!-- Do not break from extenders. -->
+				<rule id="13.1">($AHLetter | $Numeric | $Katakana | $ExtendNumLet) × $ExtendNumLet</rule>
+				<rule id="13.2">$ExtendNumLet × ($AHLetter | $Numeric | $Katakana)</rule>
+				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
+				<rule id="15">^ ($RI $RI)* $RI × $RI</rule>
+				<rule id="16">[^$RI] ($RI $RI)* $RI × $RI</rule>
 			</segmentRules>
 			<!-- Otherwise, break everywhere (including around ideographs). -->
 		</segmentation>
@@ -6424,103 +6690,74 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<casingItem type="zone_exemplarCity">titlecase</casingItem>
 		</casingData>
 	</metadata>
-	<characterLabels>
-		<!-- regular -->
-		<characterLabel type="activities">activity</characterLabel>
-		<characterLabel type="african_scripts">African script</characterLabel>
-		<characterLabelPattern type="all">{0} — all</characterLabelPattern>
-		<characterLabel type="american_scripts">American script</characterLabel>
-		<characterLabel type="animal">animal</characterLabel>
-		<characterLabel type="animals_nature">animal or nature</characterLabel>
-		<characterLabel type="arrows">arrow</characterLabel>
-		<characterLabel type="body">body</characterLabel>
-		<characterLabel type="box_drawing">box drawing</characterLabel>
-		<characterLabel type="braille">braille</characterLabel>
-		<characterLabel type="building">building</characterLabel>
-		<characterLabel type="bullets_stars">bullet or star</characterLabel>
-		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
-		<characterLabelPattern type="compatibility">{0} — compatibility</characterLabelPattern>
-		<characterLabel type="consonantal_jamo">consonantal jamo</characterLabel>
-		<characterLabel type="currency_symbols">currency symbol</characterLabel>
-		<characterLabel type="dash_connector">dash or connector</characterLabel>
-		<characterLabel type="digits">digit</characterLabel>
-		<characterLabel type="dingbats">dingbat</characterLabel>
-		<characterLabel type="divination_symbols">divination symbol</characterLabel>
-		<characterLabel type="downwards_arrows">downwards arrow</characterLabel>
-		<characterLabel type="downwards_upwards_arrows">downwards upwards arrow</characterLabel>
-		<characterLabel type="east_asian_scripts">East Asian script</characterLabel>
-		<characterLabel type="emoji">emoji</characterLabel>
-		<characterLabelPattern type="enclosed">{0} — enclosed</characterLabelPattern>
-		<characterLabel type="european_scripts">European script</characterLabel>
-		<characterLabelPattern type="extended">{0} — extended</characterLabelPattern>
-		<characterLabel type="female">female</characterLabel>
-		<characterLabel type="flag">flag</characterLabel>
-		<characterLabel type="flags">flags</characterLabel>
-		<characterLabel type="food_drink">food &amp; drink</characterLabel>
-		<characterLabel type="format">format</characterLabel>
-		<characterLabel type="format_whitespace">format &amp; whitespace</characterLabel>
-		<characterLabel type="full_width_form_variant">full-width variant</characterLabel>
-		<characterLabel type="geometric_shapes">geometric shape</characterLabel>
-		<characterLabel type="half_width_form_variant">half-width variant</characterLabel>
-		<characterLabel type="han_characters">Han character</characterLabel>
-		<characterLabel type="han_radicals">Han radical</characterLabel>
-		<characterLabel type="hanja">hanja</characterLabel>
-		<characterLabel type="hanzi_simplified">Hanzi (simplified)</characterLabel>
-		<characterLabel type="hanzi_traditional">Hanzi (traditional)</characterLabel>
-		<characterLabel type="heart">heart</characterLabel>
-		<characterLabelPattern type="historic">{0} — historic</characterLabelPattern>
-		<characterLabel type="historic_scripts">historic script</characterLabel>
-		<characterLabel type="ideographic_desc_characters">ideographic desc. character</characterLabel>
-		<characterLabel type="japanese_kana">Japanese kana</characterLabel>
-		<characterLabel type="kanbun">kanbun</characterLabel>
-		<characterLabel type="kanji">kanji</characterLabel>
-		<characterLabel type="keycap">keycap</characterLabel>
-		<characterLabel type="leftwards_arrows">leftwards arrow</characterLabel>
-		<characterLabel type="leftwards_rightwards_arrows">leftwards rightwards arrow</characterLabel>
-		<characterLabel type="letterlike_symbols">letterlike symbol</characterLabel>
-		<characterLabel type="limited_use">limited-use</characterLabel>
-		<characterLabel type="male">male</characterLabel>
-		<characterLabel type="math_symbols">math symbol</characterLabel>
-		<characterLabel type="middle_eastern_scripts">Middle Eastern script</characterLabel>
-		<characterLabelPattern type="miscellaneous">{0} — miscellaneous</characterLabelPattern>
-		<characterLabel type="miscellaneous">miscellaneous</characterLabel>
-		<characterLabel type="modern_scripts">modern script</characterLabel>
-		<characterLabel type="modifier">modifier</characterLabel>
-		<characterLabel type="musical_symbols">musical symbol</characterLabel>
-		<characterLabel type="nature">nature</characterLabel>
-		<characterLabel type="nonspacing">nonspacing</characterLabel>
-		<characterLabel type="numbers">numbers</characterLabel>
-		<characterLabel type="objects">object</characterLabel>
-		<characterLabelPattern type="other">{0} — other</characterLabelPattern>
-		<characterLabel type="other">other</characterLabel>
-		<characterLabel type="paired">paired</characterLabel>
-		<characterLabel type="person">person</characterLabel>
-		<characterLabel type="phonetic_alphabet">phonetic alphabet</characterLabel>
-		<characterLabel type="pictographs">pictograph</characterLabel>
-		<characterLabel type="place">place</characterLabel>
-		<characterLabel type="plant">plant</characterLabel>
-		<characterLabel type="punctuation">punctuation</characterLabel>
-		<characterLabel type="rightwards_arrows">rightwards arrow</characterLabel>
-		<characterLabelPattern type="scripts">scripts — {0}</characterLabelPattern>
-		<characterLabel type="sign_standard_symbols">sign or symbol</characterLabel>
-		<characterLabel type="small_form_variant">small variants</characterLabel>
-		<characterLabel type="smiley">smiley</characterLabel>
-		<characterLabel type="smileys_people">smiley or person</characterLabel>
-		<characterLabel type="south_asian_scripts">South Asian script</characterLabel>
-		<characterLabel type="southeast_asian_scripts">Southeast Asian script</characterLabel>
-		<characterLabel type="spacing">spacing</characterLabel>
-		<characterLabel type="sport">sport</characterLabel>
-		<characterLabelPattern type="strokes" count="other">{0} strokes</characterLabelPattern>
-		<characterLabel type="symbols">symbol</characterLabel>
-		<characterLabel type="technical_symbols">technical symbol</characterLabel>
-		<characterLabel type="tone_marks">tone mark</characterLabel>
-		<characterLabel type="travel">travel</characterLabel>
-		<characterLabel type="travel_places">travel or place</characterLabel>
-		<characterLabel type="upwards_arrows">upwards arrows</characterLabel>
-		<characterLabel type="variant_forms">variant</characterLabel>
-		<characterLabel type="vocalic_jamo">vocalic jamo</characterLabel>
-		<characterLabel type="weather">weather</characterLabel>
-		<characterLabel type="western_asian_scripts">Western Asian script</characterLabel>
-		<characterLabel type="whitespace">whitespace</characterLabel>
-	</characterLabels>
+	<typographicNames>
+		<axisName type="ital">italic</axisName>
+		<axisName type="opsz">optical size</axisName>
+		<axisName type="slnt">slant</axisName>
+		<axisName type="wdth">width</axisName>
+		<axisName type="wght">weight</axisName>
+		<featureName type="afrc">vertical fractions</featureName>
+		<featureName type="cpsp">capital spacing</featureName>
+		<featureName type="dlig">optional ligatures</featureName>
+		<featureName type="frac">diagonal fractions</featureName>
+		<featureName type="lnum">lining numbers</featureName>
+		<featureName type="onum">old-style figures</featureName>
+		<featureName type="ordn">ordinals</featureName>
+		<featureName type="pnum">proportional numbers</featureName>
+		<featureName type="smcp">small capitals</featureName>
+		<featureName type="tnum">tabular numbers</featureName>
+		<featureName type="zero">slashed zero</featureName>
+		<styleName alt="compressed" subtype="50" type="wdth">ultracompressed</styleName>
+		<styleName alt="compressed" subtype="62.5" type="wdth">extra-compressed</styleName>
+		<styleName alt="compressed" subtype="75" type="wdth">compressed</styleName>
+		<styleName alt="compressed" subtype="87.5" type="wdth">semicompressed</styleName>
+		<styleName alt="demi" subtype="600" type="wght">demibold</styleName>
+		<styleName alt="extended" subtype="112.5" type="wdth">semiextended</styleName>
+		<styleName alt="extended" subtype="125" type="wdth">extended</styleName>
+		<styleName alt="extended" subtype="150" type="wdth">extra-extended</styleName>
+		<styleName alt="extended" subtype="200" type="wdth">ultraextended</styleName>
+		<styleName alt="heavy" subtype="900" type="wght">heavy</styleName>
+		<styleName alt="narrow" subtype="50" type="wdth">ultranarrow</styleName>
+		<styleName alt="narrow" subtype="62.5" type="wdth">extra-narrow</styleName>
+		<styleName alt="narrow" subtype="75" type="wdth">compressed</styleName>
+		<styleName alt="narrow" subtype="87.5" type="wdth">seminarrow</styleName>
+		<styleName alt="ultra" subtype="200" type="wght">ultralight</styleName>
+		<styleName alt="ultrablack" subtype="950" type="wght">ultrablack</styleName>
+		<styleName alt="ultraheavy" subtype="950" type="wght">ultraheavy</styleName>
+		<styleName alt="wide" subtype="112.5" type="wdth">semiwide</styleName>
+		<styleName alt="wide" subtype="125" type="wdth">wide</styleName>
+		<styleName alt="wide" subtype="150" type="wdth">extra-wide</styleName>
+		<styleName alt="wide" subtype="200" type="wdth">ultrawide</styleName>
+		<styleName subtype="-12" type="slnt">backslanted</styleName>
+		<styleName subtype="0" type="slnt">upright</styleName>
+		<styleName subtype="1" type="ital">cursive</styleName>
+		<styleName subtype="100" type="wdth">normal</styleName>
+		<styleName subtype="100" type="wght">thin</styleName>
+		<styleName subtype="112.5" type="wdth">semiexpanded</styleName>
+		<styleName subtype="12" type="opsz">text</styleName>
+		<styleName subtype="12" type="slnt">slanted</styleName>
+		<styleName subtype="125" type="wdth">expanded</styleName>
+		<styleName subtype="144" type="opsz">poster</styleName>
+		<styleName subtype="150" type="wdth">extra-expanded</styleName>
+		<styleName subtype="18" type="opsz">titling</styleName>
+		<styleName subtype="200" type="wdth">ultraexpanded</styleName>
+		<styleName subtype="200" type="wght">extra-light</styleName>
+		<styleName subtype="24" type="slnt">extra-slanted</styleName>
+		<styleName subtype="300" type="wght">light</styleName>
+		<styleName subtype="350" type="wght">semilight</styleName>
+		<styleName subtype="380" type="wght">book</styleName>
+		<styleName subtype="400" type="wght">regular</styleName>
+		<styleName subtype="50" type="wdth">ultracondensed</styleName>
+		<styleName subtype="500" type="wght">medium</styleName>
+		<styleName subtype="600" type="wght">semibold</styleName>
+		<styleName subtype="62.5" type="wdth">extra-condensed</styleName>
+		<styleName subtype="700" type="wght">bold</styleName>
+		<styleName subtype="72" type="opsz">display</styleName>
+		<styleName subtype="75" type="wdth">condensed</styleName>
+		<styleName subtype="8" type="opsz">caption</styleName>
+		<styleName subtype="800" type="wght">extra-bold</styleName>
+		<styleName subtype="87.5" type="wdth">semicondensed</styleName>
+		<styleName subtype="900" type="wght">black</styleName>
+		<styleName subtype="950" type="wght">extra-black</styleName>
+	</typographicNames>
 </ldml>

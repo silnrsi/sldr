@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2017 Unicode, Inc.
+<!-- Copyright © 1991-2018 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<version number="$Revision: 13708 $"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity source="cldr"/>
+		</special>
+		<version number="$Revision: 14450 $"/>
 		<language type="de"/>
 		<territory type="CH"/>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr" draft="approved"/>
-		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
 			<language type="ace">Aceh-Sprache</language>
 			<language type="ach">Acholi-Sprache</language>
+			<language type="ars">Nadschd-Arabisch</language>
 			<language type="bas">Basaa-Sprache</language>
 			<language type="be">Weissrussisch</language>
 			<language type="bik">Bikol-Sprache</language>
@@ -46,16 +47,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<key type="ms">Mass-System</key>
 		</keys>
 		<types>
-			<type type="no" key="colCaseLevel" draft="contributed">Ohne Gross-/Kleinschreibung sortieren</type>
-			<type type="uksystem" key="ms">britisches Mass-System</type>
-			<type type="upper" key="colCaseFirst" draft="contributed">Grossbuchstaben zuerst aufführen</type>
-			<type type="ussystem" key="ms">US Mass-System</type>
-			<type type="yes" key="colCaseLevel" draft="contributed">Nach Gross-/Kleinschreibung sortieren</type>
+			<type key="colCaseFirst" type="upper" draft="contributed">Grossbuchstaben zuerst aufführen</type>
+			<type key="colCaseLevel" type="no" draft="contributed">Ohne Gross-/Kleinschreibung sortieren</type>
+			<type key="colCaseLevel" type="yes" draft="contributed">Nach Gross-/Kleinschreibung sortieren</type>
+			<type key="ms" type="uksystem">britisches Mass-System</type>
+			<type key="ms" type="ussystem">US Mass-System</type>
 		</types>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters type="numbers">[\- . ’ % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<exemplarCharacters>[a ä b c d e f g h i j k l m n o ö p q r s t u ü v w x y z]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- . ’ % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -105,9 +106,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 		</fields>
 		<timeZoneNames>
+			<zone type="Asia/Brunei">
+				<exemplarCity>Brunei</exemplarCity>
+			</zone>
+			<zone type="Asia/Macau">
+				<exemplarCity>Macao</exemplarCity>
+			</zone>
 			<zone type="Europe/Saratov">
 				<exemplarCity>Saratov</exemplarCity>
 			</zone>
+			<metazone type="Brunei">
+				<long>
+					<standard>Brunei-Zeit</standard>
+				</long>
+			</metazone>
+			<metazone type="Solomon">
+				<long>
+					<standard>Salomoninseln-Zeit</standard>
+				</long>
+			</metazone>
 		</timeZoneNames>
 	</dates>
 	<numbers>
@@ -131,22 +148,33 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</currencyFormats>
 		<currencies>
 			<currency type="BYN">
+				<displayName>Weissrussischer Rubel</displayName>
 				<displayName count="one">Weissrussischer Rubel</displayName>
 				<displayName count="other">Weissrussische Rubel</displayName>
-				<displayName>Weissrussischer Rubel</displayName>
 			</currency>
 			<currency type="BYR">
+				<displayName>Weissrussischer Rubel (2000–2016)</displayName>
 				<displayName count="one">Weissrussischer Rubel (2000–2016)</displayName>
 				<displayName count="other">Weissrussische Rubel (2000–2016)</displayName>
-				<displayName>Weissrussischer Rubel (2000–2016)</displayName>
 			</currency>
 			<currency type="EUR">
-				<symbol alt="narrow" draft="contributed">EUR</symbol>
 				<symbol>EUR</symbol>
+				<symbol alt="narrow" draft="contributed">EUR</symbol>
 			</currency>
-			<currency type="PEN">
-				<displayName count="one">Peruanischer Neuer Sol</displayName>
-				<displayName>Peruanischer Neuer Sol</displayName>
+			<currency type="STN">
+				<displayName>São-toméischer Dobra (2018)</displayName>
+				<displayName count="one">São-toméischer Dobra (2018)</displayName>
+				<displayName count="other">São-toméischer Dobra (2018)</displayName>
+			</currency>
+			<currency type="VEF">
+				<displayName>Venezolanischer Bolívar</displayName>
+				<displayName count="one">Venezolanischer Bolívar</displayName>
+				<displayName count="other">Venezolanische Bolívares</displayName>
+			</currency>
+			<currency type="VES">
+				<displayName>VES</displayName>
+				<displayName count="one">VES</displayName>
+				<displayName count="other">VES</displayName>
 			</currency>
 		</currencies>
 	</numbers>
@@ -172,6 +200,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} Kubikfuss</unitPattern>
 			</unit>
 			<unit type="volume-gallon-imperial">
+				<unitPattern count="one">{0} gal Imp.</unitPattern>
 				<unitPattern count="other">{0} gal Imp.</unitPattern>
 				<perUnitPattern>{0}/gal Imp.</perUnitPattern>
 			</unit>
@@ -187,4 +216,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 		</unitLength>
 	</units>
+	<typographicNames>
+		<axisName type="opsz">optische Grösse</axisName>
+		<styleName alt="demi" subtype="600" type="wght">demibold</styleName>
+		<styleName alt="heavy" subtype="900" type="wght">heavy</styleName>
+		<styleName alt="ultra" subtype="200" type="wght">ultralight</styleName>
+		<styleName subtype="12" type="opsz">Lesegrösse</styleName>
+		<styleName subtype="144" type="opsz">Ferngrösse</styleName>
+		<styleName subtype="18" type="opsz">Schaugrösse</styleName>
+		<styleName subtype="500" type="wght">medium</styleName>
+		<styleName subtype="72" type="opsz">Plakatgrösse</styleName>
+		<styleName subtype="8" type="opsz">Konsultationsgrösse</styleName>
+	</typographicNames>
 </ldml>

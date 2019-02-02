@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2017 Unicode, Inc.
+<!-- Copyright © 1991-2018 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<version number="$Revision: 13701 $"/>
-		<language type="ig"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr" draft="approved"/>
+			<sil:identity source="cldr"/>
 		</special>
+		<version number="$Revision: 14488 $"/>
+		<language type="ig"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -71,8 +71,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</territories>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<exemplarCharacters>[a b {ch} d e ẹ f g {gb} {gh} {gw} h i ị j k {kp} {kw} l m n ṅ {nw} {ny} o ọ p r s {sh} t u ụ v w y z]</exemplarCharacters>
+		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -330,22 +330,22 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dayPeriods>
 				<eras>
 					<eraNames>
-						<era type="0" alt="variant">BCE</era>
 						<era type="0">Tupu Kristi</era>
-						<era type="1" alt="variant">CE</era>
+						<era type="0" alt="variant">BCE</era>
 						<era type="1">Afọ Kristi</era>
+						<era type="1" alt="variant">CE</era>
 					</eraNames>
 					<eraAbbr>
-						<era type="0" alt="variant">BCE</era>
 						<era type="0">T.K.</era>
-						<era type="1" alt="variant">CE</era>
+						<era type="0" alt="variant">BCE</era>
 						<era type="1">A.K.</era>
+						<era type="1" alt="variant">CE</era>
 					</eraAbbr>
 					<eraNarrow>
-						<era type="0" alt="variant">BCE</era>
 						<era type="0">T.K.</era>
-						<era type="1" alt="variant">CE</era>
+						<era type="0" alt="variant">BCE</era>
 						<era type="1">A.K.</era>
+						<era type="1" alt="variant">CE</era>
 					</eraNarrow>
 				</eras>
 				<dateFormats>
@@ -462,6 +462,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<symbols numberSystem="cakm">
 			<timeSeparator draft="contributed">:</timeSeparator>
 		</symbols>
+		<percentFormats numberSystem="arab">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0 %</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<currencyFormats numberSystem="arab">
 			<currencyFormatLength>
 				<currencyFormat type="standard">
@@ -479,6 +486,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencyFormats numberSystem="latn">
+			<currencyFormatLength>
+				<currencyFormat type="accounting">
+					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
+				</currencyFormat>
+				<currencyFormat type="standard">
+					<pattern>¤#,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
 			<currencyFormatLength type="short">
 				<currencyFormat type="standard">
 					<pattern type="1000" count="other" draft="provisional">¤0K</pattern>
@@ -495,14 +510,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<pattern type="100000000000000" count="other" draft="provisional">¤000T</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
-			<currencyFormatLength>
-				<currencyFormat type="accounting">
-					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
-				</currencyFormat>
-				<currencyFormat type="standard">
-					<pattern>¤#,##0.00</pattern>
-				</currencyFormat>
-			</currencyFormatLength>
 		</currencyFormats>
 		<currencies>
 			<currency type="CVE">
@@ -515,7 +522,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</currencies>
 	</numbers>
 	<collations>
-		<collation type="standard">
+		<collation type="standard" sil:modified="true" xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<cr><![CDATA[
 				[normalization on]
 				&B<ch<<<Ch<<<CH
