@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -26,12 +26,7 @@
 
 import os, sys, codecs
 
-try :
-    from sldr.ldml import Ldml, flattenlocale, etwrite
-except ImportError :
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'lib')))
-    from sldr.ldml import Ldml, flattenlocale, etwrite
-     
+from palaso.sldr.ldml import Ldml, flattenlocale, etwrite
 from argparse import ArgumentParser
 from multiprocessing import Pool
 from xml.etree.ElementTree import ElementTree, Element, SubElement
@@ -80,8 +75,8 @@ def doit(l) :
     else :
         try :
             curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
-        except Exception, e :
-            print "Failed in " + l
+        except Exception as e :
+            #print("Failed in " + l)
             raise e
     if curr is not None :
         curr.normalise()
