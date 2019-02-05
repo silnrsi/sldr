@@ -81,6 +81,9 @@ Update those three files from /common/supplemental
 Now we are ready to commit our changes. First we stage all the additions, changes and removals and then we commit and merge into master
 
     git add -A sldr
+	git add python/lib/sldr/likelySubtags.xml
+    git add python/lib/sldr/supplementalData.xml
+    git add python/lib/sldr/supplementalMetadata.xml
     git commit -m "CLDR import from svn revision xxxxx"
     git checkout master
     git merge cldr
@@ -121,6 +124,9 @@ Update those three files from /common/supplemental
 Now we are ready to commit our changes. First we stage all the additions, changes and removals and then we commit and merge into master
 
     git add -A sldr
+	git add python/lib/sldr/likelySubtags.xml
+    git add python/lib/sldr/supplementalData.xml
+    git add python/lib/sldr/supplementalMetadata.xml
     git commit -m "CLDR import from svn revision xxxxx"
     git merge cldr
     git push
