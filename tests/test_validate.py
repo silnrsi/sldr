@@ -1,7 +1,7 @@
 import unittest
 import pytest
 import logging, os
-from lxml.etree import RelaxNG, parse
+from lxml.etree import RelaxNG, parse, DocumentInvalid
 import palaso.sldr.UnicodeSets as usets
 
 @pytest.fixture(scope="session")
@@ -16,7 +16,18 @@ def iscldr(ldml):
 
 def test_validate(ldml, validator):
     xml = parse(ldml.path)
-    #validator.assertValid(xml)
+    try:
+        validator.assertValid(xml)
+    except DocumentInvalid as e:
+        # import pdb; pdb.set_trace()
+        if str(e).startswith("Did not expect element"):
+            tag = str(e)[23:]
+            tag = tag[:tag.find(" ")]
+            if tag == "language":
+                ldml.ldml.ensure_path('identity/version[@number="0.0.1"]', before="language")
+                ldml.dirty = True
+                return
+        assert False, str(e)
 
 def test_exemplars(ldml):
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data

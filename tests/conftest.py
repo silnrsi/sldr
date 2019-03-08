@@ -10,6 +10,7 @@ class LdmlFile(object):
             setattr(self, k, v)
         self.path = path
         self.ldml = Ldml(self.path)
+        self.dirty = False
 
 @pytest.fixture(scope="session")
 def langid(request):
@@ -17,7 +18,10 @@ def langid(request):
 
 @pytest.fixture(scope="session")
 def ldml(langid):
-    return LdmlFile(langid)
+    ldml = LdmlFile(langid)
+    yield ldml
+    if ldml.dirty:
+        ldml.ldml.save_as(ldml.path)
 
 def getallpaths():
     res = {}
