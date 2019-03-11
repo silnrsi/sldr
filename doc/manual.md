@@ -75,77 +75,94 @@ in sldr and commit your change.
 
 ## Importing CLDR Data
 
-This document describes the process for importing a new version of CLDR data into the SLDR.
-
-Importing CLDR data is an activity that happens alongside regular editing of LDML files.
-As a result, the easiest way to manage this is to use a git branch. All changes to CLDR will
-be imported into a separate branch called `cldr` and then those changes are merged into the
-`master` branch. This means that only the changes between versions of the CLDR will be merged
+This document describes the process for importing a new version of CLDR data into the SLDR. Importing CLDR data is an activity that happens alongside regular editing of LDML files. As a result, the easiest way to manage this is to use a git branch. All changes to CLDR will be imported into a separate branch called `cldr` and then those changes are merged into the `master` branch. This means that only the changes between versions of the CLDR will be merged
 into the data rather than confusion over who edited what and when.
 
+Note that different commands need to be used on a Windows machine from those used on a Linux machine, so follow the relevant section below:
+
+Linux Machine
+=============
 We start by switching to the `cldr` branch:
 
 ```
-git checkout cldr
+    git checkout cldr
 ```
 
-The process of creating an SLDR file is slightly more involved than simply copying a file. Files
-are flattened and then unflattened. This has the effect of stripping any information that is
-inherited. We do this because that is the process used to normalise data imports from other
-sources. We send out flat files and then unflatten them on import. To allow for good merging,
-therefore, it is necessary that the cldr files are held in the same form.
+The process of creating an SLDR file is slightly more involved than simply copying a file. Files are flattened and then unflattened. This has the effect of stripping any information that is inherited. We do this because that is the process used to normalise data imports from other sources. We send out flat files and then unflatten them on import. To allow for good merging, therefore, it is necessary that the cldr files are held in the same form.
 
-To do this, we use two temporary directories that are not committed. If they already exist, they
-should be removed and rebuilt so that any files that have been removed from the CLDR or that
-would be removed by stub removal, do not remain and get propagated forward. It also allows us to
-merge back from master for things like tools.
+To do this, we use two temporary directories that are not committed. If they already exist, they should be removed and rebuilt so that any files that have been removed from the CLDR or that would be removed by stub removal, do not remain and get propagated forward. It also allows us to merge back from master for things like tools.
 
     mkdir cldrdata
     mkdir flat
 
+Copy /common from the latest CLDR release into current directory
+
 Then we import the data:
 
-    python python/scripts/cldrimport --hg ~/mycldrsource/common cldrdata
+    python python/scripts/cldrimport --hg common cldrdata    
+
     python python/scripts/ldmlflatten -i cldrdata -o flat -a
 
-Bear in mind that one can use `pypy` instead of `python` in the above and life will
-run faster (in exchange for more memory usage).
+Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage).
 
 Now we unflatten the files to their sldr form and merge them into the sldr
 
     python python/scripts/ldmlflatten -i flat -o sldr -r -a
 
-Now we are ready to commit our changes. First we stage all the additions, changes and removals
-and then we commit and merge into master
+We also need to overwrite Supplemental data & Metadata and Likely subtags in python dir
+Rename existing files in sldr/python/lib/sldr with suffix _old
+
+Update those three files from /common/supplemental
+
+Now we are ready to commit our changes. First we stage all the additions, changes and removals and then we commit and merge into master
 
     git add -A sldr
+	git add python/lib/sldr/likelySubtags.xml
+    git add python/lib/sldr/supplementalData.xml
+    git add python/lib/sldr/supplementalMetadata.xml
     git commit -m "CLDR import from svn revision xxxxx"
     git checkout master
     git merge cldr
-    git push --all
+    git push
 
+Windows Machine
+===============
+We start by switching to the `cldr` branch:
 
-## Editing LDML Files
+    git checkout cldr
 
-There are various ways of editing an LDML file.
+The process of creating an SLDR file is slightly more involved than simply copying a file. Files are flattened and then unflattened. This has the effect of stripping any information that is inherited. We do this because that is the process used to normalise data imports from other sources. We send out flat files and then unflatten them on import. To allow for good merging, therefore, it is necessary that the cldr files are held in the same form.
 
-### Text editor
+To do this, we use two temporary directories that are not committed. If they already exist, they should be removed and rebuilt so that any files that have been removed from the CLDR or that would be removed by stub removal, do not remain and get propagated forward. It also allows us to merge back from master for things like tools.
 
-One approach is to use a text editor of your choice. But once the editing is complete,
-before a file can be committed, it should be normalised. The following command will
-normalise a file:
+    mkdir cldrdata
+    mkdir flat
 
-    python python/scripts/ldmlflatten -c -i *srcdir* -o *outputdir* -l *locale*
+We copy /common from the latest CLDR release into current directory
 
-for example:
+Then we import the data:
 
-    python python/scripts/ldmlflatten -c -i sldr -o sldr -l en_US
+    python python/scripts/cldrimport -s common cldrdata    
 
-Yes you can use the same input and output directories. Although the source file will be
-overwritten in that case. Caveat emptor.
+    python python/scripts/ldmlflatten -s -i cldrdata -o flat -a
 
-If ldmlflatten fails, it can be helpful to run it single process which will give
-more helpful? error messages:
+Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage). [MR: I haven’t tried this on Windows, but it only takes c. 10 minutes anyway]
 
-    python python/scripts/ldmlflatten -s -c -i sldr -o sldr -l en_US
+Now we unflatten the files to their sldr form and merge them into the sldr
 
+    python python/scripts/ldmlflatten -s -i flat -o sldr -r -a
+
+We also need to overwrite Supplemental data & Metadata and Likely subtags in python dir
+Rename existing files in sldr/python/lib/sldr with suffix _old
+
+Update those three files from /common/supplemental
+
+Now we are ready to commit our changes. First we stage all the additions, changes and removals and then we commit and merge into master
+
+    git add -A sldr
+	git add python/lib/sldr/likelySubtags.xml
+    git add python/lib/sldr/supplementalData.xml
+    git add python/lib/sldr/supplementalMetadata.xml
+    git commit -m "CLDR import from svn revision xxxxx"
+    git merge cldr
+    git push

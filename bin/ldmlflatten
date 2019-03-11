@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -24,9 +24,9 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
-import os, sys, codecs, subprocess
+import os, sys, codecs
+
 from palaso.sldr.ldml import Ldml, flattenlocale, etwrite
-     
 from argparse import ArgumentParser
 from multiprocessing import Pool
 from xml.etree.ElementTree import ElementTree, Element, SubElement
@@ -75,9 +75,9 @@ def doit(l) :
         curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs, flattencollation=True)
     else :
         try :
-            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs, flattencollation=True)
-        except Exception, e :
-            print "Failed in " + l
+            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
+        except Exception as e :
+            #print("Failed in " + l)
             raise e
     if curr is not None :
         #curr.normalise()
