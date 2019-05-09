@@ -23,8 +23,8 @@ def test_validate(ldml, validator):
         if str(e).startswith("Did not expect element"):
             tag = str(e)[23:]
             tag = tag[:tag.find(" ")]
-            if tag == "language":
-                ldml.ldml.ensure_path('identity/version[@number="0.0.1"]', before="language")
+            if tag in ("generation", "language"):
+                ldml.ldml.ensure_path('identity/version[@number="0.0.1"]', before=tag)
                 ldml.dirty = True
                 return
         assert False, str(e)

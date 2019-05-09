@@ -45,6 +45,7 @@ parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace d
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
 parser.add_argument('-g','--git',action='store_true',help='get revid from last change to file')
 parser.add_argument('--skipstubs',action='store_true',help="Don't store files with only an identity block")
+parser.add_argument("--debug",type=int,default=0,help="1 = list all locales, 2 = list output filenames")
 args = parser.parse_args()
 
 if not args.locale or not len(args.locale) :
@@ -57,7 +58,7 @@ if not args.locale or not len(args.locale) :
                 for t in os.listdir(os.path.join(d, l)) :
                     if t.endswith('.xml') :
                         alllocales.add(t[:-4])
-    args.locale = list(alllocales)
+    args.locale = sorted(alllocales)
 
 if args.private :
     private = Element("private")
@@ -79,6 +80,8 @@ def doit(l) :
         except Exception as e :
             #print("Failed in " + l)
             raise e
+    if args.debug & 4:
+        print(l + (" Failed" if curr is None else ""))
     if curr is not None :
         #curr.normalise()
         if private is not None :
@@ -96,6 +99,8 @@ def doit(l) :
         if not os.path.exists(os.path.dirname(outf)) :
             os.makedirs(os.path.dirname(outf))
         curr.normalise()
+        if int(args.debug) & 2:
+            print(outf)
         outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write, topns = args.topns)
         outfh.close()
@@ -113,12 +118,15 @@ def dogit(l) :
     (rev, date) = clog.split("\n")
     return rev
 
+if args.debug & 1:
+    print(args.locale)
+
 if not args.single :
     pool = Pool()
     if private is not None :
-        res = pool.map(doit, sorted(args.locale))
+        res = pool.map(doit, args.locale)
     else :
-        pool.map_async(doit, sorted(args.locale))
+        pool.map_async(doit, args.locale)
     pool.close()
     pool.join()
 elif private is not None:

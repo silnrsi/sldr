@@ -226,7 +226,7 @@ sil.font = element sil:font {
     (sil.url*)
 }
 attlist.sil.fontelement &= attribute types
-                                     { "default" | "heading" | "emphasis" | text }+
+                                     { "default" | "heading" | "emphasis" | text }*
 attlist.sil.fontelement &= attribute name { text }
 attlist.sil.fontelement &= attribute size { xsd:decimal }?
 attlist.sil.fontelement &= attribute minversion { xsd:decimal }?
