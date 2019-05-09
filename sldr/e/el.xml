@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2019 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -8,11 +8,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 -->
 <ldml>
 	<identity>
+		<version number="$Revision$"/>
+		<language type="el"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr"/>
 		</special>
-		<version number="$Revision: 14365 $"/>
-		<language type="el"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -87,6 +87,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="car">Καρίμπ</language>
 			<language type="cay">Καγιούγκα</language>
 			<language type="cch">Ατσάμ</language>
+			<language type="ccp" draft="contributed">Τσάκμα</language>
 			<language type="ce">Τσετσενικά</language>
 			<language type="ceb">Σεμπουάνο</language>
 			<language type="cgg">Τσίγκα</language>
@@ -324,7 +325,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="mi">Μαορί</language>
 			<language type="mic">Μικμάκ</language>
 			<language type="min">Μινανγκαμπάου</language>
-			<language type="mk">Σλαβομακεδονικά</language>
+			<language type="mk">Μακεδονικά</language>
 			<language type="ml">Μαλαγιαλαμικά</language>
 			<language type="mn">Μογγολικά</language>
 			<language type="mnc">Μαντσού</language>
@@ -875,8 +876,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="MF">Άγιος Μαρτίνος (Γαλλικό τμήμα)</territory>
 			<territory type="MG">Μαδαγασκάρη</territory>
 			<territory type="MH">Νήσοι Μάρσαλ</territory>
-			<territory type="MK">Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας</territory>
-			<territory type="MK" alt="variant">Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας (ΠΓΔΜ)</territory>
+			<territory type="MK">Βόρεια Μακεδονία</territory>
 			<territory type="ML">Μάλι</territory>
 			<territory type="MM">Μιανμάρ (Βιρμανία)</territory>
 			<territory type="MN">Μογγολία</territory>
@@ -985,6 +985,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="VU">Βανουάτου</territory>
 			<territory type="WF">Γουάλις και Φουτούνα</territory>
 			<territory type="WS">Σαμόα</territory>
+			<territory type="XA" draft="contributed">Ψευδο-προφορές</territory>
+			<territory type="XB" draft="contributed">Ψευδο-αμφικατευθυντικό</territory>
 			<territory type="XK">Κοσσυφοπέδιο</territory>
 			<territory type="YE">Υεμένη</territory>
 			<territory type="YT">Μαγιότ</territory>
@@ -1187,18 +1189,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
+			<parseLenient sample="%" draft="contributed">↑↑↑</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
-			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
+			<parseLenient sample="¥" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="’" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="‰" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="₩" draft="contributed">↑↑↑</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
-			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
-			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
-		</parseLenients>
-		<parseLenients scope="number" level="stricter">
-			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -1262,21 +1261,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
-						<dateFormatItem id="E" draft="contributed">ccc</dateFormatItem>
 						<dateFormatItem id="Ed" draft="contributed">E d</dateFormatItem>
 						<dateFormatItem id="Gy" draft="contributed">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM" draft="contributed">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd" draft="contributed">E, d MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd" draft="contributed">d MMM y G</dateFormatItem>
-						<dateFormatItem id="M" draft="contributed">L</dateFormatItem>
 						<dateFormatItem id="MEd" draft="contributed">E, d/M</dateFormatItem>
-						<dateFormatItem id="MMM" draft="contributed">LLL</dateFormatItem>
 						<dateFormatItem id="MMMEd" draft="contributed">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd" draft="contributed">E, d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd" draft="contributed">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd" draft="contributed">d MMM</dateFormatItem>
 						<dateFormatItem id="Md" draft="contributed">d/M</dateFormatItem>
-						<dateFormatItem id="d" draft="contributed">d</dateFormatItem>
 						<dateFormatItem id="y" draft="contributed">y G</dateFormatItem>
 						<dateFormatItem id="yyyy" draft="contributed">y G</dateFormatItem>
 						<dateFormatItem id="yyyyM" draft="contributed">M/y GGGGG</dateFormatItem>
@@ -1286,25 +1281,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yyyyMMMM" draft="contributed">MMMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMd" draft="contributed">d MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMd" draft="contributed">d/M/y GGGGG</dateFormatItem>
-						<dateFormatItem id="yyyyQQQ" draft="contributed">G y QQQ</dateFormatItem>
-						<dateFormatItem id="yyyyQQQQ" draft="contributed">G y QQQQ</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatFallback draft="contributed">{0} - {1}</intervalFormatFallback>
-						<intervalFormatItem id="H">
-							<greatestDifference id="H" draft="contributed">HH–HH</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="Hm">
-							<greatestDifference id="H" draft="contributed">HH:mm–HH:mm</greatestDifference>
-							<greatestDifference id="m" draft="contributed">HH:mm–HH:mm</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="Hmv">
-							<greatestDifference id="H" draft="contributed">HH:mm–HH:mm v</greatestDifference>
-							<greatestDifference id="m" draft="contributed">HH:mm–HH:mm v</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="Hv">
-							<greatestDifference id="H" draft="contributed">HH–HH v</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M" draft="contributed">M–M</greatestDifference>
 						</intervalFormatItem>
@@ -1326,27 +1305,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<intervalFormatItem id="Md">
 							<greatestDifference id="M" draft="contributed">dd/MM – dd/MM</greatestDifference>
 							<greatestDifference id="d" draft="contributed">dd/MM – dd/MM</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="d">
-							<greatestDifference id="d" draft="contributed">d–d</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="h">
-							<greatestDifference id="a" draft="contributed">h a – h a</greatestDifference>
-							<greatestDifference id="h" draft="contributed">h–h a</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hm">
-							<greatestDifference id="a" draft="contributed">h:mm a – h:mm a</greatestDifference>
-							<greatestDifference id="h" draft="contributed">h:mm–h:mm a</greatestDifference>
-							<greatestDifference id="m" draft="contributed">h:mm–h:mm a</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hmv">
-							<greatestDifference id="a" draft="contributed">h:mm a – h:mm a v</greatestDifference>
-							<greatestDifference id="h" draft="contributed">h:mm–h:mm a v</greatestDifference>
-							<greatestDifference id="m" draft="contributed">h:mm–h:mm a v</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hv">
-							<greatestDifference id="a" draft="contributed">h a – h a v</greatestDifference>
-							<greatestDifference id="h" draft="contributed">h–h a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="y">
 							<greatestDifference id="y" draft="contributed">y–y G</greatestDifference>
@@ -1453,79 +1411,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						</monthWidth>
 					</monthContext>
 				</months>
-				<eras>
-					<eraNames>
-						<era type="0" draft="contributed">ERA0</era>
-						<era type="1" draft="contributed">ERA1</era>
-					</eraNames>
-					<eraNarrow>
-						<era type="0" draft="contributed">ERA0</era>
-						<era type="1" draft="contributed">ERA1</era>
-					</eraNarrow>
-				</eras>
-			</calendar>
-			<calendar type="ethiopic">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Meskerem</month>
-							<month type="10" draft="contributed">Sene</month>
-							<month type="11" draft="contributed">Hamle</month>
-							<month type="12" draft="contributed">Nehasse</month>
-							<month type="13" draft="contributed">Pagumen</month>
-							<month type="2" draft="contributed">Tekemt</month>
-							<month type="3" draft="contributed">Hedar</month>
-							<month type="4" draft="contributed">Tahsas</month>
-							<month type="5" draft="contributed">Ter</month>
-							<month type="6" draft="contributed">Yekatit</month>
-							<month type="7" draft="contributed">Megabit</month>
-							<month type="8" draft="contributed">Miazia</month>
-							<month type="9" draft="contributed">Genbot</month>
-						</monthWidth>
-					</monthContext>
-					<monthContext type="stand-alone">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Meskerem</month>
-							<month type="10" draft="contributed">Sene</month>
-							<month type="11" draft="contributed">Hamle</month>
-							<month type="12" draft="contributed">Nehasse</month>
-							<month type="13" draft="contributed">Pagumen</month>
-							<month type="2" draft="contributed">Tekemt</month>
-							<month type="3" draft="contributed">Hedar</month>
-							<month type="4" draft="contributed">Tahsas</month>
-							<month type="5" draft="contributed">Ter</month>
-							<month type="6" draft="contributed">Yekatit</month>
-							<month type="7" draft="contributed">Megabit</month>
-							<month type="8" draft="contributed">Miazia</month>
-							<month type="9" draft="contributed">Genbot</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1" draft="contributed">Meskerem</month>
-							<month type="10" draft="contributed">Sene</month>
-							<month type="11" draft="contributed">Hamle</month>
-							<month type="12" draft="contributed">Nehasse</month>
-							<month type="13" draft="contributed">Pagumen</month>
-							<month type="2" draft="contributed">Tekemt</month>
-							<month type="3" draft="contributed">Hedar</month>
-							<month type="4" draft="contributed">Tahsas</month>
-							<month type="5" draft="contributed">Ter</month>
-							<month type="6" draft="contributed">Yekatit</month>
-							<month type="7" draft="contributed">Megabit</month>
-							<month type="8" draft="contributed">Miazia</month>
-							<month type="9" draft="contributed">Genbot</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-				<eras>
-					<eraNames>
-						<era type="0" draft="contributed">ERA0</era>
-						<era type="1" draft="contributed">ERA1</era>
-					</eraNames>
-					<eraNarrow>
-						<era type="0" draft="contributed">ERA0</era>
-						<era type="1" draft="contributed">ERA1</era>
-					</eraNarrow>
-				</eras>
 			</calendar>
 			<calendar type="generic">
 				<dateFormats>
@@ -1595,6 +1480,51 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">y G – y G</greatestDifference>
+							<greatestDifference id="y">y–y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">MM-y GGGGG – MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">MM-y – MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">MM-y – MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">E dd-MM-y GGGGG – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="d">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">MMM y G – MMM y G</greatestDifference>
+							<greatestDifference id="M">MMM – MMM y G</greatestDifference>
+							<greatestDifference id="y">MMM y – MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">E d MMM y G – E d MMM y G</greatestDifference>
+							<greatestDifference id="M">E d MMM – E d MMM y G</greatestDifference>
+							<greatestDifference id="d">E d MMM – E d MMM y G</greatestDifference>
+							<greatestDifference id="y">E d MMM y – E d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">d MMM y G – d MMM y G</greatestDifference>
+							<greatestDifference id="M">d MMM – d MMM y G</greatestDifference>
+							<greatestDifference id="d">d–d MMM y G</greatestDifference>
+							<greatestDifference id="y">d MMM y – d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">dd-MM-y GGGGG – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="d">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M–M</greatestDifference>
 						</intervalFormatItem>
@@ -2003,8 +1933,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="MMM">MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="one">εβδομάδα W του MMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">εβδομάδα W του MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">εβδομάδα W του MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">εβδομάδα W του MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
@@ -2020,6 +1950,51 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">y G – y G</greatestDifference>
+							<greatestDifference id="y">y–y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">MM-y GGGGG – MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">MM-y – MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">MM-y – MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">E dd-MM-y GGGGG – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="d">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">E dd-MM-y – E dd-MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">MMM y G – MMM y G</greatestDifference>
+							<greatestDifference id="M">MMM – MMM y G</greatestDifference>
+							<greatestDifference id="y">MMM y – MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">E d MMM y G – E d MMM y G</greatestDifference>
+							<greatestDifference id="M">E d MMM – E d MMM y G</greatestDifference>
+							<greatestDifference id="d">E d MMM – E d MMM y G</greatestDifference>
+							<greatestDifference id="y">E d MMM y – E d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">d MMM y G – d MMM y G</greatestDifference>
+							<greatestDifference id="M">d MMM – d MMM y G</greatestDifference>
+							<greatestDifference id="d">d–d MMM y G</greatestDifference>
+							<greatestDifference id="y">d MMM y – d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">dd-MM-y GGGGG – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="M">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="d">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+							<greatestDifference id="y">dd-MM-y – dd-MM-y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M–M</greatestDifference>
 						</intervalFormatItem>
@@ -2148,64 +2123,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						</monthWidth>
 					</monthContext>
 				</months>
-				<eras>
-					<eraNames>
-						<era type="0">AM</era>
-					</eraNames>
-					<eraNarrow>
-						<era type="0" draft="contributed">AM</era>
-					</eraNarrow>
-				</eras>
 			</calendar>
 			<calendar type="indian">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Chaitra</month>
-							<month type="10" draft="contributed">Pausa</month>
-							<month type="11" draft="contributed">Magha</month>
-							<month type="12" draft="contributed">Phalguna</month>
-							<month type="2" draft="contributed">Vaisakha</month>
-							<month type="3" draft="contributed">Jyaistha</month>
-							<month type="4" draft="contributed">Asadha</month>
-							<month type="5" draft="contributed">Sravana</month>
-							<month type="6" draft="contributed">Bhadra</month>
-							<month type="7" draft="contributed">Asvina</month>
-							<month type="8" draft="contributed">Kartika</month>
-							<month type="9" draft="contributed">Agrahayana</month>
-						</monthWidth>
-					</monthContext>
-					<monthContext type="stand-alone">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Chaitra</month>
-							<month type="10" draft="contributed">Pausa</month>
-							<month type="11" draft="contributed">Magha</month>
-							<month type="12" draft="contributed">Phalguna</month>
-							<month type="2" draft="contributed">Vaisakha</month>
-							<month type="3" draft="contributed">Jyaistha</month>
-							<month type="4" draft="contributed">Asadha</month>
-							<month type="5" draft="contributed">Sravana</month>
-							<month type="6" draft="contributed">Bhadra</month>
-							<month type="7" draft="contributed">Asvina</month>
-							<month type="8" draft="contributed">Kartika</month>
-							<month type="9" draft="contributed">Agrahayana</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1" draft="contributed">Chaitra</month>
-							<month type="10" draft="contributed">Pausa</month>
-							<month type="11" draft="contributed">Magha</month>
-							<month type="12" draft="contributed">Phalguna</month>
-							<month type="2" draft="contributed">Vaisakha</month>
-							<month type="3" draft="contributed">Jyaistha</month>
-							<month type="4" draft="contributed">Asadha</month>
-							<month type="5" draft="contributed">Sravana</month>
-							<month type="6" draft="contributed">Bhadra</month>
-							<month type="7" draft="contributed">Asvina</month>
-							<month type="8" draft="contributed">Kartika</month>
-							<month type="9" draft="contributed">Agrahayana</month>
-						</monthWidth>
-					</monthContext>
-				</months>
 				<eras>
 					<eraNames>
 						<era type="0" draft="contributed">Σάκα</era>
@@ -2219,38 +2138,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</eras>
 			</calendar>
 			<calendar type="islamic">
-				<months>
-					<monthContext type="stand-alone">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Muh.</month>
-							<month type="10" draft="contributed">Shaw.</month>
-							<month type="11" draft="contributed">Dhuʻl-Q.</month>
-							<month type="12" draft="contributed">Dhuʻl-H.</month>
-							<month type="2" draft="contributed">Saf.</month>
-							<month type="3" draft="contributed">Rab. I</month>
-							<month type="4" draft="contributed">Rab. II</month>
-							<month type="5" draft="contributed">Jum. I</month>
-							<month type="6" draft="contributed">Jum. II</month>
-							<month type="7" draft="contributed">Raj.</month>
-							<month type="8" draft="contributed">Sha.</month>
-							<month type="9" draft="contributed">Ram.</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1" draft="contributed">Muharram</month>
-							<month type="10" draft="contributed">Shawwal</month>
-							<month type="11" draft="contributed">Dhuʻl-Qiʻdah</month>
-							<month type="12" draft="contributed">Dhuʻl-Hijjah</month>
-							<month type="2" draft="contributed">Safar</month>
-							<month type="3" draft="contributed">Rabiʻ I</month>
-							<month type="4" draft="contributed">Rabiʻ II</month>
-							<month type="5" draft="contributed">Jumada I</month>
-							<month type="6" draft="contributed">Jumada II</month>
-							<month type="7" draft="contributed">Rajab</month>
-							<month type="8" draft="contributed">Shaʻban</month>
-							<month type="9" draft="contributed">Ramadan</month>
-						</monthWidth>
-					</monthContext>
-				</months>
 				<eras>
 					<eraNames>
 						<era type="0" draft="contributed">Ε.Ε.</era>
@@ -2264,6 +2151,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</eras>
 			</calendar>
 			<calendar type="japanese">
+				<eras>
+					<eraAbbr>
+						<era type="235" draft="contributed">Χεϊσέι</era>
+						<era type="236" draft="contributed">Ρέιβα</era>
+					</eraAbbr>
+				</eras>
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
@@ -2306,723 +2199,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</availableFormats>
 				</dateTimeFormats>
 			</calendar>
-			<calendar type="persian">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Farvardin</month>
-							<month type="10" draft="contributed">Dey</month>
-							<month type="11" draft="contributed">Bahman</month>
-							<month type="12" draft="contributed">Esfand</month>
-							<month type="2" draft="contributed">Ordibehesht</month>
-							<month type="3" draft="contributed">Khordad</month>
-							<month type="4" draft="contributed">Tir</month>
-							<month type="5" draft="contributed">Mordad</month>
-							<month type="6" draft="contributed">Shahrivar</month>
-							<month type="7" draft="contributed">Mehr</month>
-							<month type="8" draft="contributed">Aban</month>
-							<month type="9" draft="contributed">Azar</month>
-						</monthWidth>
-					</monthContext>
-					<monthContext type="stand-alone">
-						<monthWidth type="abbreviated">
-							<month type="1" draft="contributed">Farvardin</month>
-							<month type="10" draft="contributed">Dey</month>
-							<month type="11" draft="contributed">Bahman</month>
-							<month type="12" draft="contributed">Esfand</month>
-							<month type="2" draft="contributed">Ordibehesht</month>
-							<month type="3" draft="contributed">Khordad</month>
-							<month type="4" draft="contributed">Tir</month>
-							<month type="5" draft="contributed">Mordad</month>
-							<month type="6" draft="contributed">Shahrivar</month>
-							<month type="7" draft="contributed">Mehr</month>
-							<month type="8" draft="contributed">Aban</month>
-							<month type="9" draft="contributed">Azar</month>
-						</monthWidth>
-						<monthWidth type="wide">
-							<month type="1" draft="contributed">Farvardin</month>
-							<month type="10" draft="contributed">Dey</month>
-							<month type="11" draft="contributed">Bahman</month>
-							<month type="12" draft="contributed">Esfand</month>
-							<month type="2" draft="contributed">Ordibehesht</month>
-							<month type="3" draft="contributed">Khordad</month>
-							<month type="4" draft="contributed">Tir</month>
-							<month type="5" draft="contributed">Mordad</month>
-							<month type="6" draft="contributed">Shahrivar</month>
-							<month type="7" draft="contributed">Mehr</month>
-							<month type="8" draft="contributed">Aban</month>
-							<month type="9" draft="contributed">Azar</month>
-						</monthWidth>
-					</monthContext>
-				</months>
-				<eras>
-					<eraNames>
-						<era type="0" draft="contributed">AP</era>
-					</eraNames>
-					<eraNarrow>
-						<era type="0" draft="contributed">AP</era>
-					</eraNarrow>
-				</eras>
-			</calendar>
 			<calendar type="roc">
 				<eras>
 					<eraNames>
 						<era type="0" draft="contributed">προ R.O.C.</era>
-						<era type="1" draft="contributed">R.O.C.</era>
 					</eraNames>
 					<eraAbbr>
 						<era type="0">προ R.O.C.</era>
 					</eraAbbr>
 					<eraNarrow>
 						<era type="0" draft="contributed">προ R.O.C.</era>
-						<era type="1" draft="contributed">R.O.C.</era>
 					</eraNarrow>
 				</eras>
 			</calendar>
 		</calendars>
-		<fields>
-			<field type="day">
-				<displayName>ημέρα</displayName>
-				<relative type="-1">χθες</relative>
-				<relative type="-2">προχθές</relative>
-				<relative type="0">σήμερα</relative>
-				<relative type="1">αύριο</relative>
-				<relative type="2">μεθαύριο</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ημέρα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ημέρες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} ημέρα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} ημέρες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>ημ.</displayName>
-				<relative type="-1">χθες</relative>
-				<relative type="0">σήμερα</relative>
-				<relative type="1">αύριο</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ημ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ημ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ημ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ημ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>ημ.</displayName>
-				<relative type="-1">χθες</relative>
-				<relative type="0">σήμερα</relative>
-				<relative type="1">αύριο</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ημ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ημ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} ημ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} ημ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>ημέρα έτους</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>ημ. έτους</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>ημ. έτους</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>π.μ./μ.μ.</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>πμ/μμ</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>πμ/μμ</displayName>
-			</field>
-			<field type="era">
-				<displayName>περίοδος</displayName>
-			</field>
-			<field type="era-narrow">
-				<displayName>περ.</displayName>
-			</field>
-			<field type="era-short">
-				<displayName>περ.</displayName>
-			</field>
-			<field type="fri">
-				<relative type="-1">προηγούμενη Παρασκευή</relative>
-				<relative type="0">αυτήν την Παρασκευή</relative>
-				<relative type="1">επόμενη Παρασκευή</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Παρασκευή</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Παρασκευές</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Παρασκευή</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Παρασκευές</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-narrow">
-				<relative type="-1">προηγ. Πα</relative>
-				<relative type="0">αυτήν την Πα</relative>
-				<relative type="1">επόμ. Πα</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Πα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Πα</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Πα πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Πα πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">προηγ. Παρ.</relative>
-				<relative type="0">αυτήν την Παρ.</relative>
-				<relative type="1">επόμ. Παρ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Παρ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Παρ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Παρ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Παρ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour">
-				<displayName>ώρα</displayName>
-				<relative type="0">τρέχουσα ώρα</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ώρα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ώρες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} ώρα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} ώρες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-narrow">
-				<displayName>ώ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ώ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ώ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ώ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ώ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-short">
-				<displayName>ώ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} ώ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} ώ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} ώ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} ώ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>λεπτό</displayName>
-				<relative type="0">τρέχον λεπτό</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} λεπτό</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} λεπτά</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} λεπτό</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} λεπτά</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>λ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} λ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} λ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} λ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} λ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>λεπ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} λεπ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} λεπ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} λεπ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} λεπ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">προηγούμενη Δευτέρα</relative>
-				<relative type="0">αυτήν τη Δευτέρα</relative>
-				<relative type="1">επόμενη Δευτέρα</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Δευτέρα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Δευτέρες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Δευτέρα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Δευτέρες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">προηγ. Δε</relative>
-				<relative type="0">αυτήν τη Δε</relative>
-				<relative type="1">επόμ. Δε</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Δε</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Δε</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Δε πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Δε πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">προηγ. Δευτ.</relative>
-				<relative type="0">αυτήν τη Δευτ.</relative>
-				<relative type="1">επόμ. Δευτ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Δευτ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Δευτ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Δευτ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Δευτ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>μήνας</displayName>
-				<relative type="-1">προηγούμενος μήνας</relative>
-				<relative type="0">τρέχων μήνας</relative>
-				<relative type="1">επόμενος μήνας</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} μήνα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} μήνες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} μήνα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} μήνες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>μήν.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} μ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} μ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} μ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} μ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>μήν.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} μήνα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} μήνες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} μήνα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} μήνες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>τρίμηνο</displayName>
-				<relative type="-1">προηγούμενο τρίμηνο</relative>
-				<relative type="0">τρέχον τρίμηνο</relative>
-				<relative type="1">επόμενο τρίμηνο</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} τρίμηνο</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} τρίμηνα</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} τρίμηνο</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} τρίμηνα</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>τρίμ.</displayName>
-				<relative type="-1">προηγ. τρίμ.</relative>
-				<relative type="0">τρέχον τρίμ.</relative>
-				<relative type="1">επόμ. τρίμ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} τρίμ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} τρίμ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} τρίμ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} τρίμ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>τρίμ.</displayName>
-				<relative type="-1">προηγ. τρίμ.</relative>
-				<relative type="0">τρέχον τρίμ.</relative>
-				<relative type="1">επόμ. τρίμ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} τρίμ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} τρίμ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} τρίμ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} τρίμ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">προηγούμενο Σάββατο</relative>
-				<relative type="0">αυτό το Σάββατο</relative>
-				<relative type="1">επόμενο Σάββατο</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Σάββατο</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Σάββατα</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Σάββατο</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Σάββατα</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">προηγ. Σά</relative>
-				<relative type="0">αυτό το Σά</relative>
-				<relative type="1">επόμ. Σά</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Σά</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Σά</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Σά πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Σά πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">προηγ. Σάβ.</relative>
-				<relative type="0">αυτό το Σάβ.</relative>
-				<relative type="1">επόμ. Σάβ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Σάβ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Σάβ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Σάβ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Σάβ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>δευτερόλεπτο</displayName>
-				<relative type="0">τώρα</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} δευτερόλεπτο</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} δευτερόλεπτα</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} δευτερόλεπτο</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} δευτερόλεπτα</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>δ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} δ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} δ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} δ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} δ. πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>δευτ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} δευτ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} δευτ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} δευτ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} δευτ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun">
-				<relative type="-1">προηγούμενη Κυριακή</relative>
-				<relative type="0">αυτήν την Κυριακή</relative>
-				<relative type="1">επόμενη Κυριακή</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Κυριακή</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Κυριακές</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Κυριακή</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Κυριακές</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">προηγ. Κυ</relative>
-				<relative type="0">αυτήν την Κυ</relative>
-				<relative type="1">επόμ. Κυ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Κυ</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Κυ</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Κυ πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Κυ πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">προηγ. Κυρ.</relative>
-				<relative type="0">αυτήν την Κυρ.</relative>
-				<relative type="1">επόμ. Κυρ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Κυρ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Κυρ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Κυρ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Κυρ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">προηγούμενη Πέμπτη</relative>
-				<relative type="0">αυτήν την Πέμπτη</relative>
-				<relative type="1">επόμενη Πέμπτη</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Πέμπτη</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Πέμπτες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Πέμπτη</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Πέμπτες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">προηγ. Πέ</relative>
-				<relative type="0">αυτήν την Πέ</relative>
-				<relative type="1">επόμ. Πέ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Πέ</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Πέ</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Πέ πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Πέ πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">προηγ. Πέμ.</relative>
-				<relative type="0">αυτήν την Πέμ.</relative>
-				<relative type="1">επόμ. Πέμ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Πέμ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Πέμ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Πέμ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Πέμ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">προηγούμενη Τρίτη</relative>
-				<relative type="0">αυτήν την Τρίτη</relative>
-				<relative type="1">επόμενη Τρίτη</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τρίτη</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τρίτες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Τρίτη</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Τρίτες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">προηγ. Τρ</relative>
-				<relative type="0">αυτήν την Τρ</relative>
-				<relative type="1">επόμ. Τρ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τρ</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τρ</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Τρ πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Τρ πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">προηγ. Τρ.</relative>
-				<relative type="0">αυτήν την Τρ.</relative>
-				<relative type="1">επόμ. Τρ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τρ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τρ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Τρ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Τρ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">προηγούμενη Τετάρτη</relative>
-				<relative type="0">αυτήν την Τετάρτη</relative>
-				<relative type="1">επόμενη Τετάρτη</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τετάρτη</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τετάρτες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Τετάρτη</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Τετάρτες</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">προηγ. Τε</relative>
-				<relative type="0">αυτήν την Τε</relative>
-				<relative type="1">επόμ. Τε</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τε</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τε</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Τε πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Τε πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">προηγ. Τετ.</relative>
-				<relative type="0">αυτήν την Τετ.</relative>
-				<relative type="1">επόμ. Τετ.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} Τετ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} Τετ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} Τετ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} Τετ.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>εβδομάδα</displayName>
-				<relative type="-1">προηγούμενη εβδομάδα</relative>
-				<relative type="0">τρέχουσα εβδομάδα</relative>
-				<relative type="1">επόμενη εβδομάδα</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} εβδομάδα</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} εβδομάδες</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} εβδομάδα</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} εβδομάδες</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>την εβδομάδα {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>εβδ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} εβδ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} εβδ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} εβδ. πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} εβδ. πριν</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>την εβδ. {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>εβδ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} εβδ.</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} εβδ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} εβδ.</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} εβδ.</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>την εβδ. {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>εβδομάδα μήνα</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>εβδ. μήνα</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>εβδ. μήνα</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>καθημερινή</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>καθημερ.</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>καθημερ.</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>καθημερινή μήνα</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>καθημερ. μήνα</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>καθημερ. μήνα</displayName>
-			</field>
-			<field type="year">
-				<displayName>έτος</displayName>
-				<relative type="-1">πέρσι</relative>
-				<relative type="0">φέτος</relative>
-				<relative type="1">επόμενο έτος</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} έτος</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} έτη</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>έτ.</displayName>
-				<relative type="-1">πέρσι</relative>
-				<relative type="0">φέτος</relative>
-				<relative type="1">επόμενο έτος</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} έτος πριν</relativeTimePattern>
-					<relativeTimePattern count="other">{0} έτη πριν</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>έτ.</displayName>
-				<relative type="-1">πέρσι</relative>
-				<relative type="0">φέτος</relative>
-				<relative type="1">επόμενο έτος</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
-					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">πριν από {0} έτος</relativeTimePattern>
-					<relativeTimePattern count="other">πριν από {0} έτη</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="zone">
-				<displayName>ζώνη ώρας</displayName>
-			</field>
-			<field type="zone-narrow">
-				<displayName>ζώνη</displayName>
-			</field>
-			<field type="zone-short">
-				<displayName>ζώνη</displayName>
-			</field>
-		</fields>
 		<timeZoneNames>
 			<regionFormat>Ώρα ({0})</regionFormat>
 			<regionFormat type="daylight">Θερινή ώρα ({0})</regionFormat>
@@ -3832,6 +3022,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<zone type="Asia/Qatar">
 				<exemplarCity>Κατάρ</exemplarCity>
 			</zone>
+			<zone type="Asia/Qostanay">
+				<exemplarCity>Κοστανάι</exemplarCity>
+			</zone>
 			<zone type="Asia/Qyzylorda">
 				<exemplarCity>Κιζιλορντά</exemplarCity>
 			</zone>
@@ -4021,10 +3214,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>Κοπεγχάγη</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
+				<exemplarCity>Δουβλίνο</exemplarCity>
 				<long>
 					<daylight>Χειμερινή ώρα Ιρλανδίας</daylight>
 				</long>
-				<exemplarCity>Δουβλίνο</exemplarCity>
 			</zone>
 			<zone type="Europe/Gibraltar">
 				<exemplarCity>Γιβραλτάρ</exemplarCity>
@@ -4060,10 +3253,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>Λιουμπλιάνα</exemplarCity>
 			</zone>
 			<zone type="Europe/London">
+				<exemplarCity>Λονδίνο</exemplarCity>
 				<long>
 					<daylight>Θερινή ώρα Βρετανίας</daylight>
 				</long>
-				<exemplarCity>Λονδίνο</exemplarCity>
 			</zone>
 			<zone type="Europe/Luxembourg">
 				<exemplarCity>Λουξεμβούργο</exemplarCity>
@@ -5250,15 +4443,658 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</long>
 			</metazone>
 		</timeZoneNames>
+		<fields>
+			<field type="day">
+				<relative type="-1">χθες</relative>
+				<relative type="-2">προχθές</relative>
+				<relative type="0">σήμερα</relative>
+				<relative type="1">αύριο</relative>
+				<relative type="2">μεθαύριο</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ημέρα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ημέρες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} ημέρα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} ημέρες</relativeTimePattern>
+				</relativeTime>
+				<displayName>ημέρα</displayName>
+			</field>
+			<field type="day-narrow">
+				<relative type="-1">χθες</relative>
+				<relative type="0">σήμερα</relative>
+				<relative type="1">αύριο</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ημ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ημ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ημ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ημ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>ημ.</displayName>
+			</field>
+			<field type="day-short">
+				<relative type="-1">χθες</relative>
+				<relative type="0">σήμερα</relative>
+				<relative type="1">αύριο</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ημ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ημ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} ημ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} ημ.</relativeTimePattern>
+				</relativeTime>
+				<displayName>ημ.</displayName>
+			</field>
+			<field type="dayOfYear">
+				<displayName>ημέρα έτους</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>ημ. έτους</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>ημ. έτους</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>π.μ./μ.μ.</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>πμ/μμ</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>πμ/μμ</displayName>
+			</field>
+			<field type="era">
+				<displayName>περίοδος</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>περ.</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>περ.</displayName>
+			</field>
+			<field type="fri">
+				<relative type="-1">προηγούμενη Παρασκευή</relative>
+				<relative type="0">αυτήν την Παρασκευή</relative>
+				<relative type="1">επόμενη Παρασκευή</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Παρασκευή</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Παρασκευές</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Παρασκευή</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Παρασκευές</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">προηγ. Πα</relative>
+				<relative type="0">αυτήν την Πα</relative>
+				<relative type="1">επόμ. Πα</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Πα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Πα</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Πα πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Πα πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">προηγ. Παρ.</relative>
+				<relative type="0">αυτήν την Παρ.</relative>
+				<relative type="1">επόμ. Παρ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Παρ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Παρ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Παρ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Παρ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour">
+				<relative type="0">τρέχουσα ώρα</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ώρα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ώρες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} ώρα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} ώρες</relativeTimePattern>
+				</relativeTime>
+				<displayName>ώρα</displayName>
+			</field>
+			<field type="hour-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ώ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ώ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ώ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ώ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>ώ.</displayName>
+			</field>
+			<field type="hour-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} ώ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} ώ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} ώ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} ώ.</relativeTimePattern>
+				</relativeTime>
+				<displayName>ώ.</displayName>
+			</field>
+			<field type="minute">
+				<relative type="0">τρέχον λεπτό</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} λεπτό</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} λεπτά</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} λεπτό</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} λεπτά</relativeTimePattern>
+				</relativeTime>
+				<displayName>λεπτό</displayName>
+			</field>
+			<field type="minute-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} λ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} λ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} λ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} λ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>λ.</displayName>
+			</field>
+			<field type="minute-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} λεπ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} λεπ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} λεπ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} λεπ.</relativeTimePattern>
+				</relativeTime>
+				<displayName>λεπ.</displayName>
+			</field>
+			<field type="mon">
+				<relative type="-1">προηγούμενη Δευτέρα</relative>
+				<relative type="0">αυτήν τη Δευτέρα</relative>
+				<relative type="1">επόμενη Δευτέρα</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Δευτέρα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Δευτέρες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Δευτέρα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Δευτέρες</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">προηγ. Δε</relative>
+				<relative type="0">αυτήν τη Δε</relative>
+				<relative type="1">επόμ. Δε</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Δε</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Δε</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Δε πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Δε πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">προηγ. Δευτ.</relative>
+				<relative type="0">αυτήν τη Δευτ.</relative>
+				<relative type="1">επόμ. Δευτ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Δευτ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Δευτ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Δευτ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Δευτ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<relative type="-1">προηγούμενος μήνας</relative>
+				<relative type="0">τρέχων μήνας</relative>
+				<relative type="1">επόμενος μήνας</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} μήνα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} μήνες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} μήνα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} μήνες</relativeTimePattern>
+				</relativeTime>
+				<displayName>μήνας</displayName>
+			</field>
+			<field type="month-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} μ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} μ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} μ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} μ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>μήν.</displayName>
+			</field>
+			<field type="month-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} μήνα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} μήνες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} μήνα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} μήνες</relativeTimePattern>
+				</relativeTime>
+				<displayName>μήν.</displayName>
+			</field>
+			<field type="quarter">
+				<relative type="-1">προηγούμενο τρίμηνο</relative>
+				<relative type="0">τρέχον τρίμηνο</relative>
+				<relative type="1">επόμενο τρίμηνο</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} τρίμηνο</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} τρίμηνα</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} τρίμηνο</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} τρίμηνα</relativeTimePattern>
+				</relativeTime>
+				<displayName>τρίμηνο</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<relative type="-1">προηγ. τρίμ.</relative>
+				<relative type="0">τρέχον τρίμ.</relative>
+				<relative type="1">επόμ. τρίμ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} τρίμ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} τρίμ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} τρίμ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} τρίμ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>τρίμ.</displayName>
+			</field>
+			<field type="quarter-short">
+				<relative type="-1">προηγ. τρίμ.</relative>
+				<relative type="0">τρέχον τρίμ.</relative>
+				<relative type="1">επόμ. τρίμ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} τρίμ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} τρίμ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} τρίμ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} τρίμ.</relativeTimePattern>
+				</relativeTime>
+				<displayName>τρίμ.</displayName>
+			</field>
+			<field type="sat">
+				<relative type="-1">προηγούμενο Σάββατο</relative>
+				<relative type="0">αυτό το Σάββατο</relative>
+				<relative type="1">επόμενο Σάββατο</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Σάββατο</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Σάββατα</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Σάββατο</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Σάββατα</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">προηγ. Σά</relative>
+				<relative type="0">αυτό το Σά</relative>
+				<relative type="1">επόμ. Σά</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Σά</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Σά</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Σά πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Σά πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">προηγ. Σάβ.</relative>
+				<relative type="0">αυτό το Σάβ.</relative>
+				<relative type="1">επόμ. Σάβ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Σάβ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Σάβ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Σάβ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Σάβ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<relative type="0">τώρα</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} δευτερόλεπτο</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} δευτερόλεπτα</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} δευτερόλεπτο</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} δευτερόλεπτα</relativeTimePattern>
+				</relativeTime>
+				<displayName>δευτερόλεπτο</displayName>
+			</field>
+			<field type="second-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} δ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} δ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} δ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} δ. πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>δ.</displayName>
+			</field>
+			<field type="second-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} δευτ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} δευτ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} δευτ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} δευτ.</relativeTimePattern>
+				</relativeTime>
+				<displayName>δευτ.</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">προηγούμενη Κυριακή</relative>
+				<relative type="0">αυτήν την Κυριακή</relative>
+				<relative type="1">επόμενη Κυριακή</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Κυριακή</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Κυριακές</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Κυριακή</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Κυριακές</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">προηγ. Κυ</relative>
+				<relative type="0">αυτήν την Κυ</relative>
+				<relative type="1">επόμ. Κυ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Κυ</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Κυ</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Κυ πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Κυ πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">προηγ. Κυρ.</relative>
+				<relative type="0">αυτήν την Κυρ.</relative>
+				<relative type="1">επόμ. Κυρ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Κυρ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Κυρ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Κυρ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Κυρ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">προηγούμενη Πέμπτη</relative>
+				<relative type="0">αυτήν την Πέμπτη</relative>
+				<relative type="1">επόμενη Πέμπτη</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Πέμπτη</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Πέμπτες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Πέμπτη</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Πέμπτες</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">προηγ. Πέ</relative>
+				<relative type="0">αυτήν την Πέ</relative>
+				<relative type="1">επόμ. Πέ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Πέ</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Πέ</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Πέ πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Πέ πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">προηγ. Πέμ.</relative>
+				<relative type="0">αυτήν την Πέμ.</relative>
+				<relative type="1">επόμ. Πέμ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Πέμ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Πέμ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Πέμ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Πέμ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">προηγούμενη Τρίτη</relative>
+				<relative type="0">αυτήν την Τρίτη</relative>
+				<relative type="1">επόμενη Τρίτη</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τρίτη</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τρίτες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Τρίτη</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Τρίτες</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">προηγ. Τρ</relative>
+				<relative type="0">αυτήν την Τρ</relative>
+				<relative type="1">επόμ. Τρ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τρ</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τρ</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Τρ πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Τρ πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">προηγ. Τρ.</relative>
+				<relative type="0">αυτήν την Τρ.</relative>
+				<relative type="1">επόμ. Τρ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τρ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τρ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Τρ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Τρ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">προηγούμενη Τετάρτη</relative>
+				<relative type="0">αυτήν την Τετάρτη</relative>
+				<relative type="1">επόμενη Τετάρτη</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τετάρτη</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τετάρτες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Τετάρτη</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Τετάρτες</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">προηγ. Τε</relative>
+				<relative type="0">αυτήν την Τε</relative>
+				<relative type="1">επόμ. Τε</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τε</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τε</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Τε πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Τε πριν</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">προηγ. Τετ.</relative>
+				<relative type="0">αυτήν την Τετ.</relative>
+				<relative type="1">επόμ. Τετ.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} Τετ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} Τετ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} Τετ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} Τετ.</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<relative type="-1">προηγούμενη εβδομάδα</relative>
+				<relative type="0">τρέχουσα εβδομάδα</relative>
+				<relative type="1">επόμενη εβδομάδα</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} εβδομάδα</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} εβδομάδες</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} εβδομάδα</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} εβδομάδες</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>την εβδομάδα {0}</relativePeriod>
+				<displayName>εβδομάδα</displayName>
+			</field>
+			<field type="week-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} εβδ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} εβδ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} εβδ. πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} εβδ. πριν</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>την εβδ. {0}</relativePeriod>
+				<displayName>εβδ.</displayName>
+			</field>
+			<field type="week-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} εβδ.</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} εβδ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} εβδ.</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} εβδ.</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>την εβδ. {0}</relativePeriod>
+				<displayName>εβδ.</displayName>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>εβδομάδα μήνα</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>εβδ. μήνα</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>εβδ. μήνα</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>καθημερινή</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>καθημερ.</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>καθημερ.</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>καθημερινή μήνα</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>καθημερ. μήνα</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>καθημερ. μήνα</displayName>
+			</field>
+			<field type="year">
+				<relative type="-1">πέρσι</relative>
+				<relative type="0">φέτος</relative>
+				<relative type="1">επόμενο έτος</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} έτος</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} έτη</relativeTimePattern>
+				</relativeTime>
+				<displayName>έτος</displayName>
+			</field>
+			<field type="year-narrow">
+				<relative type="-1">πέρσι</relative>
+				<relative type="0">φέτος</relative>
+				<relative type="1">επόμενο έτος</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} έτος πριν</relativeTimePattern>
+					<relativeTimePattern count="other">{0} έτη πριν</relativeTimePattern>
+				</relativeTime>
+				<displayName>έτ.</displayName>
+			</field>
+			<field type="year-short">
+				<relative type="-1">πέρσι</relative>
+				<relative type="0">φέτος</relative>
+				<relative type="1">επόμενο έτος</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">σε {0} έτος</relativeTimePattern>
+					<relativeTimePattern count="other">σε {0} έτη</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">πριν από {0} έτος</relativeTimePattern>
+					<relativeTimePattern count="other">πριν από {0} έτη</relativeTimePattern>
+				</relativeTime>
+				<displayName>έτ.</displayName>
+			</field>
+			<field type="zone">
+				<displayName>ζώνη ώρας</displayName>
+			</field>
+			<field type="zone-narrow">
+				<displayName>ζώνη</displayName>
+			</field>
+			<field type="zone-short">
+				<displayName>ζώνη</displayName>
+			</field>
+		</fields>
 	</dates>
 	<numbers>
 		<otherNumberingSystems>
 			<traditional>grek</traditional>
 		</otherNumberingSystems>
 		<symbols numberSystem="latn">
+			<exponential>e</exponential>
 			<decimal>,</decimal>
 			<group>.</group>
-			<exponential>e</exponential>
 		</symbols>
 		<decimalFormats numberSystem="latn">
 			<decimalFormatLength type="long">
@@ -5367,7 +5203,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ντιράμ Ηνωμένων Αραβικών Εμιράτων</displayName>
 				<displayName count="one">ντιράμ Ηνωμένων Αραβικών Εμιράτων</displayName>
 				<displayName count="other">ντιράμ Ηνωμένων Αραβικών Εμιράτων</displayName>
-				<symbol>AED</symbol>
 			</currency>
 			<currency type="AFA">
 				<displayName>Αφγανί Αφγανιστάν (1927–2002)</displayName>
@@ -5378,7 +5213,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Αφγάνι Αφγανιστάν</displayName>
 				<displayName count="one">αφγάνι Αφγανιστάν</displayName>
 				<displayName count="other">αφγάνια Αφγανιστάν</displayName>
-				<symbol>AFN</symbol>
 			</currency>
 			<currency type="ALK">
 				<displayName count="one" draft="provisional">Παλαιό λεκ Αλβανίας</displayName>
@@ -5388,25 +5222,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λεκ Αλβανίας</displayName>
 				<displayName count="one">λεκ Αλβανίας</displayName>
 				<displayName count="other">λεκ Αλβανίας</displayName>
-				<symbol>ALL</symbol>
 			</currency>
 			<currency type="AMD">
 				<displayName>Ντραμ Αρμενίας</displayName>
 				<displayName count="one">ντραμ Αρμενίας</displayName>
 				<displayName count="other">ντραμ Αρμενίας</displayName>
-				<symbol>AMD</symbol>
 			</currency>
 			<currency type="ANG">
 				<displayName>Γκίλντα Ολλανδικών Αντιλλών</displayName>
 				<displayName count="one">γκίλντα Ολλανδικών Αντιλλών</displayName>
 				<displayName count="other">γκίλντες Ολλανδικών Αντιλλών</displayName>
-				<symbol>ANG</symbol>
 			</currency>
 			<currency type="AOA">
 				<displayName>Κουάνζα Ανγκόλας</displayName>
 				<displayName count="one">κουάνζα Ανγκόλας</displayName>
 				<displayName count="other">κουάνζα Ανγκόλας</displayName>
-				<symbol>AOA</symbol>
 			</currency>
 			<currency type="AOK">
 				<displayName>Κουάνζα Ανγκόλας (1977–1990)</displayName>
@@ -5436,7 +5266,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Πέσο Αργεντινής</displayName>
 				<displayName count="one">πέσο Αργεντινής</displayName>
 				<displayName count="other">πέσο Αργεντινής</displayName>
-				<symbol>ARS</symbol>
 			</currency>
 			<currency type="ATS">
 				<displayName>Σελίνι Αυστρίας</displayName>
@@ -5452,7 +5281,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Φλορίνι Αρούμπας</displayName>
 				<displayName count="one">φλορίνι Αρούμπας</displayName>
 				<displayName count="other">φλορίνια Αρούμπας</displayName>
-				<symbol>AWG</symbol>
 			</currency>
 			<currency type="AZM">
 				<displayName>Μανάτ Αζερμπαϊτζάν (1993–2006)</displayName>
@@ -5463,7 +5291,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μανάτ Αζερμπαϊτζάν</displayName>
 				<displayName count="one">μανάτ Αζερμπαϊτζάν</displayName>
 				<displayName count="other">μανάτ Αζερμπαϊτζάν</displayName>
-				<symbol>AZN</symbol>
 			</currency>
 			<currency type="BAD">
 				<displayName>Δηνάριο Βοσνίας-Ερζεγοβίνης</displayName>
@@ -5474,7 +5301,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μετατρέψιμο Μάρκο Βοσνίας-Ερζεγοβίνης</displayName>
 				<displayName count="one">μετατρέψιμο μάρκο Βοσνίας-Ερζεγοβίνης</displayName>
 				<displayName count="other">μετατρέψιμα μάρκα Βοσνίας-Ερζεγοβίνης</displayName>
-				<symbol>BAM</symbol>
 			</currency>
 			<currency type="BAN">
 				<displayName count="one" draft="provisional">Νέο δινάριο Βοσνίας-Ερζεγοβίνης</displayName>
@@ -5484,13 +5310,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δολάριο Μπαρμπέιντος</displayName>
 				<displayName count="one">δολάριο Μπαρμπέιντος</displayName>
 				<displayName count="other">δολάρια Μπαρμπέιντος</displayName>
-				<symbol>BBD</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>Τάκα Μπαγκλαντές</displayName>
 				<displayName count="one">τάκα Μπαγκλαντές</displayName>
 				<displayName count="other">τάκα Μπαγκλαντές</displayName>
-				<symbol>BDT</symbol>
 			</currency>
 			<currency type="BEC">
 				<displayName>Φράγκο Βελγίου (μετατρέψιμο)</displayName>
@@ -5520,7 +5344,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λεβ Βουλγαρίας</displayName>
 				<displayName count="one">λεβ Βουλγαρίας</displayName>
 				<displayName count="other">λεβ Βουλγαρίας</displayName>
-				<symbol>BGN</symbol>
 			</currency>
 			<currency type="BGO">
 				<displayName count="one" draft="provisional">Παλαιό λεβ Βουλγαρίας</displayName>
@@ -5530,31 +5353,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δηνάριο Μπαχρέιν</displayName>
 				<displayName count="one">δηνάριο Μπαχρέιν</displayName>
 				<displayName count="other">δηνάρια Μπαχρέιν</displayName>
-				<symbol>BHD</symbol>
 			</currency>
 			<currency type="BIF">
 				<displayName>Φράγκο Μπουρούντι</displayName>
 				<displayName count="one">φράγκο Μπουρούντι</displayName>
 				<displayName count="other">φράγκα Μπουρούντι</displayName>
-				<symbol>BIF</symbol>
 			</currency>
 			<currency type="BMD">
 				<displayName>Δολάριο Βερμούδων</displayName>
 				<displayName count="one">δολάριο Βερμούδων</displayName>
 				<displayName count="other">δολάρια Βερμούδων</displayName>
-				<symbol>BMD</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>Δολάριο Μπρουνέι</displayName>
 				<displayName count="one">δολάριο Μπρουνέι</displayName>
 				<displayName count="other">δολάρια Μπρουνέι</displayName>
-				<symbol>BND</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>Μπολιβιάνο Βολιβίας</displayName>
 				<displayName count="one">μπολιβιάνο Βολιβίας</displayName>
 				<displayName count="other">μπολιβιάνο Βολιβίας</displayName>
-				<symbol>BOB</symbol>
 			</currency>
 			<currency type="BOL">
 				<displayName count="one" draft="provisional">Παλαιό βολιβιάνο Βολιβίας</displayName>
@@ -5608,13 +5426,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δολάριο Μπαχαμών</displayName>
 				<displayName count="one">δολάριο Μπαχαμών</displayName>
 				<displayName count="other">δολάρια Μπαχαμών</displayName>
-				<symbol>BSD</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>Νγκούλτρουμ Μπουτάν</displayName>
 				<displayName count="one">νγκούλτρουμ Μπουτάν</displayName>
 				<displayName count="other">νγκούλτρουμ Μπουτάν</displayName>
-				<symbol>BTN</symbol>
 			</currency>
 			<currency type="BUK">
 				<displayName>Κιατ Βιρμανίας</displayName>
@@ -5625,7 +5441,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Πούλα Μποτσουάνας</displayName>
 				<displayName count="one">πούλα Μποτσουάνας</displayName>
 				<displayName count="other">πούλα Μποτσουάνας</displayName>
-				<symbol>BWP</symbol>
 			</currency>
 			<currency type="BYB">
 				<displayName>Νέο Ρούβλι Λευκορωσίας (1994–1999)</displayName>
@@ -5636,19 +5451,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ρούβλι Λευκορωσίας</displayName>
 				<displayName count="one">ρούβλι Λευκορωσίας</displayName>
 				<displayName count="other">ρούβλια Λευκορωσίας</displayName>
-				<symbol>BYN</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>Ρούβλι Λευκορωσίας (2000–2016)</displayName>
 				<displayName count="one">ρούβλι Λευκορωσίας (2000–2016)</displayName>
 				<displayName count="other">ρούβλια Λευκορωσίας (2000–2016)</displayName>
-				<symbol>BYR</symbol>
 			</currency>
 			<currency type="BZD">
 				<displayName>Δολάριο Μπελίζ</displayName>
 				<displayName count="one">δολάριο Μπελίζ</displayName>
 				<displayName count="other">δολάρια Μπελίζ</displayName>
-				<symbol>BZD</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>Δολάριο Καναδά</displayName>
@@ -5659,7 +5471,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Φράγκο Κονγκό</displayName>
 				<displayName count="one">φράγκο Κονγκό</displayName>
 				<displayName count="other">φράγκα Κονγκό</displayName>
-				<symbol>CDF</symbol>
 			</currency>
 			<currency type="CHE">
 				<displayName>Ευρώ WIR</displayName>
@@ -5670,7 +5481,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Φράγκο Ελβετίας</displayName>
 				<displayName count="one">φράγκο Ελβετίας</displayName>
 				<displayName count="other">φράγκα Ελβετίας</displayName>
-				<symbol>CHF</symbol>
 			</currency>
 			<currency type="CHW">
 				<displayName>Φράγκο WIR</displayName>
@@ -5691,13 +5501,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Πέσο Χιλής</displayName>
 				<displayName count="one">πέσο Χιλής</displayName>
 				<displayName count="other">πέσο Χιλής</displayName>
-				<symbol>CLP</symbol>
 			</currency>
 			<currency type="CNH">
+				<symbol draft="contributed">CNH</symbol>
 				<displayName>Γουάν Κίνας (υπεράκτιο)</displayName>
 				<displayName count="one">γουάν Κίνας (υπεράκτιο)</displayName>
 				<displayName count="other">γουάν Κίνας (υπεράκτια)</displayName>
-				<symbol draft="contributed">CNH</symbol>
 			</currency>
 			<currency type="CNX">
 				<displayName count="one" draft="provisional">Δολάριο Λαϊκής Τράπεζας Κίνας</displayName>
@@ -5712,13 +5521,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Πέσο Κολομβίας</displayName>
 				<displayName count="one">πέσο Κολομβίας</displayName>
 				<displayName count="other">πέσο Κολομβίας</displayName>
-				<symbol>COP</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>Κολόν Κόστα Ρίκα</displayName>
 				<displayName count="one">κολόν Κόστα Ρίκα</displayName>
 				<displayName count="other">κολόν Κόστα Ρίκα</displayName>
-				<symbol>CRC</symbol>
 			</currency>
 			<currency type="CSD">
 				<displayName>Παλαιό Δηνάριο Σερβίας</displayName>
@@ -5734,19 +5541,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μετατρέψιμο πέσο Κούβας</displayName>
 				<displayName count="one">μετατρέψιμο πέσο Κούβας</displayName>
 				<displayName count="other">μετατρέψιμα πέσο Κούβας</displayName>
-				<symbol>CUC</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>Πέσο Κούβας</displayName>
 				<displayName count="one">πέσο Κούβας</displayName>
 				<displayName count="other">πέσο Κούβας</displayName>
-				<symbol>CUP</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>Εσκούδο Πράσινου Ακρωτηρίου</displayName>
 				<displayName count="one">εσκούδο Πράσινου Ακρωτηρίου</displayName>
 				<displayName count="other">εσκούδο Πράσινου Ακρωτηρίου</displayName>
-				<symbol>CVE</symbol>
 			</currency>
 			<currency type="CYP">
 				<displayName>Λίρα Κύπρου</displayName>
@@ -5757,7 +5561,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κορόνα Τσεχίας</displayName>
 				<displayName count="one">κορόνα Τσεχίας</displayName>
 				<displayName count="other">κορόνες Τσεχίας</displayName>
-				<symbol>CZK</symbol>
 			</currency>
 			<currency type="DDM">
 				<displayName>Οστμάρκ Ανατολικής Γερμανίας</displayName>
@@ -5773,25 +5576,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Φράγκο Τζιμπουτί</displayName>
 				<displayName count="one">φράγκο Τζιμπουτί</displayName>
 				<displayName count="other">φράγκα Τζιμπουτί</displayName>
-				<symbol>DJF</symbol>
 			</currency>
 			<currency type="DKK">
 				<displayName>Κορόνα Δανίας</displayName>
 				<displayName count="one">κορόνα Δανίας</displayName>
 				<displayName count="other">κορόνες Δανίας</displayName>
-				<symbol>DKK</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>Πέσο Δομινικανής Δημοκρατίας</displayName>
 				<displayName count="one">πέσο Δομινικανής Δημοκρατίας</displayName>
 				<displayName count="other">πέσο Δομινικανής Δημοκρατίας</displayName>
-				<symbol>DOP</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>Δηνάριο Αλγερίας</displayName>
 				<displayName count="one">δηνάριο Αλγερίας</displayName>
 				<displayName count="other">δηνάρια Αλγερίας</displayName>
-				<symbol>DZD</symbol>
 			</currency>
 			<currency type="ECS">
 				<displayName>Σούκρε Εκουαδόρ</displayName>
@@ -5807,13 +5606,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίρα Αιγύπτου</displayName>
 				<displayName count="one">λίρα Αιγύπτου</displayName>
 				<displayName count="other">λίρες Αιγύπτου</displayName>
-				<symbol>EGP</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>Νάκφα Ερυθραίας</displayName>
 				<displayName count="one">νάκφα Ερυθραίας</displayName>
 				<displayName count="other">νάκφα Ερυθραίας</displayName>
-				<symbol>ERN</symbol>
 			</currency>
 			<currency type="ESA">
 				<displayName>πεσέτα Ισπανίας (λογαριασμός Α)</displayName>
@@ -5834,7 +5631,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μπιρ Αιθιοπίας</displayName>
 				<displayName count="one">μπιρ Αιθιοπίας</displayName>
 				<displayName count="other">μπιρ Αιθιοπίας</displayName>
-				<symbol>ETB</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>Ευρώ</displayName>
@@ -5850,13 +5646,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δολάριο Φίτζι</displayName>
 				<displayName count="one">δολάριο Φίτζι</displayName>
 				<displayName count="other">δολάρια Φίτζι</displayName>
-				<symbol>FJD</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>Λίρα Νήσων Φόκλαντ</displayName>
 				<displayName count="one">λίρα Νήσων Φόκλαντ</displayName>
 				<displayName count="other">λίρες Νήσων Φόκλαντ</displayName>
-				<symbol>FKP</symbol>
 			</currency>
 			<currency type="FRF">
 				<displayName>Φράγκο Γαλλίας</displayName>
@@ -5874,11 +5668,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">κούπον λάρι Γεωργίας</displayName>
 			</currency>
 			<currency type="GEL">
+				<symbol alt="variant" draft="contributed">₾</symbol>
 				<displayName>Λάρι Γεωργίας</displayName>
 				<displayName count="one">λάρι Γεωργίας</displayName>
 				<displayName count="other">λάρι Γεωργίας</displayName>
-				<symbol>GEL</symbol>
-				<symbol alt="variant" draft="contributed">₾</symbol>
 			</currency>
 			<currency type="GHC">
 				<displayName>Σέντι Γκάνας (1979–2007)</displayName>
@@ -5889,25 +5682,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σέντι Γκάνας</displayName>
 				<displayName count="one">σέντι Γκάνας</displayName>
 				<displayName count="other">σέντι Γκάνας</displayName>
-				<symbol>GHS</symbol>
 			</currency>
 			<currency type="GIP">
 				<displayName>Λίρα Γιβραλτάρ</displayName>
 				<displayName count="one">λίρα Γιβραλτάρ</displayName>
 				<displayName count="other">λίρες Γιβραλτάρ</displayName>
-				<symbol>GIP</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>Νταλάσι Γκάμπιας</displayName>
 				<displayName count="one">νταλάσι Γκάμπιας</displayName>
 				<displayName count="other">νταλάσι Γκάμπιας</displayName>
-				<symbol>GMD</symbol>
 			</currency>
 			<currency type="GNF">
 				<displayName>Φράγκο Γουινέας</displayName>
 				<displayName count="one">φράγκο Γουινέας</displayName>
 				<displayName count="other">φράγκα Γουινέας</displayName>
-				<symbol>GNF</symbol>
 			</currency>
 			<currency type="GNS">
 				<displayName>Συλί Γουινέας</displayName>
@@ -5920,19 +5709,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">εκουέλε Ισημερινής Γουινέας</displayName>
 			</currency>
 			<currency type="GRD">
+				<symbol>Δρχ</symbol>
+				<decimal>,</decimal>
+				<group>.</group>
 				<pattern>#,##0.00 ¤</pattern>
 				<displayName>Δραχμή Ελλάδας</displayName>
 				<displayName count="one">δραχμή Ελλάδας</displayName>
 				<displayName count="other">δραχμές Ελλάδας</displayName>
-				<decimal>,</decimal>
-				<group>.</group>
-				<symbol>Δρχ</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>Κουετσάλ Γουατεμάλας</displayName>
 				<displayName count="one">κουετσάλ Γουατεμάλας</displayName>
 				<displayName count="other">κουετσάλ Γουατεμάλας</displayName>
-				<symbol>GTQ</symbol>
 			</currency>
 			<currency type="GWE">
 				<displayName>Γκινέα Εσκούδο Πορτογαλίας</displayName>
@@ -5948,7 +5736,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δολάριο Γουιάνας</displayName>
 				<displayName count="one">δολάριο Γουιάνας</displayName>
 				<displayName count="other">δολάρια Γουιάνας</displayName>
-				<symbol>GYD</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>Δολάριο Χονγκ Κονγκ</displayName>
@@ -5959,7 +5746,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λεμπίρα Ονδούρας</displayName>
 				<displayName count="one">λεμπίρα Ονδούρας</displayName>
 				<displayName count="other">λεμπίρα Ονδούρας</displayName>
-				<symbol>HNL</symbol>
 			</currency>
 			<currency type="HRD">
 				<displayName>Δηνάριο Κροατίας</displayName>
@@ -5970,25 +5756,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κούνα Κροατίας</displayName>
 				<displayName count="one">κούνα Κροατίας</displayName>
 				<displayName count="other">κούνα Κροατίας</displayName>
-				<symbol>HRK</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>Γκουρντ Αϊτής</displayName>
 				<displayName count="one">γκουρντ Αϊτής</displayName>
 				<displayName count="other">γκουρντ Αϊτής</displayName>
-				<symbol>HTG</symbol>
 			</currency>
 			<currency type="HUF">
 				<displayName>Φιορίνι Ουγγαρίας</displayName>
 				<displayName count="one">φιορίνι Ουγγαρίας</displayName>
 				<displayName count="other">φιορίνια Ουγγαρίας</displayName>
-				<symbol>HUF</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>Ρουπία Ινδονησίας</displayName>
 				<displayName count="one">ρουπία Ινδονησίας</displayName>
 				<displayName count="other">ρουπία Ινδονησίας</displayName>
-				<symbol>IDR</symbol>
 			</currency>
 			<currency type="IEP">
 				<displayName>Λίρα Ιρλανδίας</displayName>
@@ -6019,13 +5801,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δηνάριο Ιράκ</displayName>
 				<displayName count="one">δηνάριο Ιράκ</displayName>
 				<displayName count="other">δηνάρια Ιράκ</displayName>
-				<symbol>IQD</symbol>
 			</currency>
 			<currency type="IRR">
 				<displayName>Ριάλ Ιράν</displayName>
 				<displayName count="one">ριάλ Ιράν</displayName>
 				<displayName count="other">ριάλ Ιράν</displayName>
-				<symbol>IRR</symbol>
 			</currency>
 			<currency type="ISJ">
 				<displayName>Παλιά κορόνα Ισλανδίας</displayName>
@@ -6036,7 +5816,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κορόνα Ισλανδίας</displayName>
 				<displayName count="one">κορόνα Ισλανδίας</displayName>
 				<displayName count="other">κορόνες Ισλανδίας</displayName>
-				<symbol>ISK</symbol>
 			</currency>
 			<currency type="ITL">
 				<displayName>Λιρέτα Ιταλίας</displayName>
@@ -6047,13 +5826,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δολάριο Τζαμάικας</displayName>
 				<displayName count="one">δολάριο Τζαμάικας</displayName>
 				<displayName count="other">δολάρια Τζαμάικας</displayName>
-				<symbol>JMD</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>Δηνάριο Ιορδανίας</displayName>
 				<displayName count="one">δηνάριο Ιορδανίας</displayName>
 				<displayName count="other">δηνάρια Ιορδανίας</displayName>
-				<symbol>JOD</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>Γιεν Ιαπωνίας</displayName>
@@ -6064,31 +5841,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σελίνι Κένυας</displayName>
 				<displayName count="one">σελίνι Κένυας</displayName>
 				<displayName count="other">σελίνια Κένυας</displayName>
-				<symbol>KES</symbol>
 			</currency>
 			<currency type="KGS">
 				<displayName>Σομ Κιργιζίας</displayName>
 				<displayName count="one">σομ Κιργιζίας</displayName>
 				<displayName count="other">σομ Κιργιζίας</displayName>
-				<symbol>KGS</symbol>
 			</currency>
 			<currency type="KHR">
 				<displayName>Ρίελ Καμπότζης</displayName>
 				<displayName count="one">ρίελ Καμπότζης</displayName>
 				<displayName count="other">ρίελ Καμπότζης</displayName>
-				<symbol>KHR</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>Φράγκο Κομορών</displayName>
 				<displayName count="one">φράγκο Κομορών</displayName>
 				<displayName count="other">φράγκα Κομορών</displayName>
-				<symbol>KMF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>Γουόν Βόρειας Κορέας</displayName>
 				<displayName count="one">γουόν Βόρειας Κορέας</displayName>
 				<displayName count="other">γουόν Βόρειας Κορέας</displayName>
-				<symbol>KPW</symbol>
 			</currency>
 			<currency type="KRO">
 				<displayName count="one" draft="provisional">Παλιό γον Νότιας Κορέας</displayName>
@@ -6103,43 +5875,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δηνάριο Κουβέιτ</displayName>
 				<displayName count="one">δηνάριο Κουβέιτ</displayName>
 				<displayName count="other">δηνάρια Κουβέιτ</displayName>
-				<symbol>KWD</symbol>
 			</currency>
 			<currency type="KYD">
 				<displayName>Δολάριο Νήσων Κέιμαν</displayName>
 				<displayName count="one">δολάριο Νήσων Κέιμαν</displayName>
 				<displayName count="other">δολάρια Νήσων Κέιμαν</displayName>
-				<symbol>KYD</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>Τένγκε Καζακστάν</displayName>
 				<displayName count="one">τένγκε Καζακστάν</displayName>
 				<displayName count="other">τένγκε Καζακστάν</displayName>
-				<symbol>KZT</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>Κιπ Λάος</displayName>
 				<displayName count="one">κιπ Λάος</displayName>
 				<displayName count="other">κιπ Λάος</displayName>
-				<symbol>LAK</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>Λίρα Λιβάνου</displayName>
 				<displayName count="one">λίρα Λιβάνου</displayName>
 				<displayName count="other">λίρες Λιβάνου</displayName>
-				<symbol>LBP</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>Ρουπία Σρι Λάνκα</displayName>
 				<displayName count="one">ρουπία Σρι Λάνκα</displayName>
 				<displayName count="other">ρουπίες Σρι Λάνκα</displayName>
-				<symbol>LKR</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>Δολάριο Λιβερίας</displayName>
 				<displayName count="one">δολάριο Λιβερίας</displayName>
 				<displayName count="other">δολάρια Λιβερίας</displayName>
-				<symbol>LRD</symbol>
 			</currency>
 			<currency type="LSL">
 				<displayName>Λότι Λεσότο</displayName>
@@ -6150,7 +5915,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίτα Λιθουανίας</displayName>
 				<displayName count="one">λίτα Λιθουανίας</displayName>
 				<displayName count="other">λίτα Λιθουανίας</displayName>
-				<symbol>LTL</symbol>
 			</currency>
 			<currency type="LTT">
 				<displayName>Ταλόνας Λιθουανίας</displayName>
@@ -6172,7 +5936,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λατς Λετονίας</displayName>
 				<displayName count="one">λατς Λετονίας</displayName>
 				<displayName count="other">λατς Λετονίας</displayName>
-				<symbol>LVL</symbol>
 			</currency>
 			<currency type="LVR">
 				<displayName>Ρούβλι Λετονίας</displayName>
@@ -6183,13 +5946,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δηνάριο Λιβύης</displayName>
 				<displayName count="one">δηνάριο Λιβύης</displayName>
 				<displayName count="other">δηνάρια Λιβύης</displayName>
-				<symbol>LYD</symbol>
 			</currency>
 			<currency type="MAD">
 				<displayName>Ντιράμ Μαρόκου</displayName>
 				<displayName count="one">ντιράμ Μαρόκου</displayName>
 				<displayName count="other">ντιράμ Μαρόκου</displayName>
-				<symbol>MAD</symbol>
 			</currency>
 			<currency type="MAF">
 				<displayName>Φράγκο Μαρόκου</displayName>
@@ -6208,13 +5969,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λέου Μολδαβίας</displayName>
 				<displayName count="one">λέου Μολδαβίας</displayName>
 				<displayName count="other">λέου Μολδαβίας</displayName>
-				<symbol>MDL</symbol>
 			</currency>
 			<currency type="MGA">
 				<displayName>Αριάρι Μαδαγασκάρης</displayName>
 				<displayName count="one">αριάρι Μαδαγασκάρης</displayName>
 				<displayName count="other">αριάρι Μαδαγασκάρης</displayName>
-				<symbol>MGA</symbol>
 			</currency>
 			<currency type="MGF">
 				<displayName>Φράγκο Μαδαγασκάρης</displayName>
@@ -6225,7 +5984,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Δηνάριο ΠΓΔΜ</displayName>
 				<displayName count="one">δηνάριο ΠΓΔΜ</displayName>
 				<displayName count="other">δηνάρια ΠΓΔΜ</displayName>
-				<symbol>MKD</symbol>
 			</currency>
 			<currency type="MKN">
 				<displayName count="one" draft="provisional">Παλιό δηνάριο ΠΓΔΜ</displayName>
@@ -6240,31 +5998,27 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κιάτ Μιανμάρ</displayName>
 				<displayName count="one">κιάτ Μιανμάρ</displayName>
 				<displayName count="other">κιάτ Μιανμάρ</displayName>
-				<symbol>MMK</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>Τουγκρίκ Μογγολίας</displayName>
 				<displayName count="one">τουγκρίκ Μογγολίας</displayName>
 				<displayName count="other">τουγκρίκ Μογγολίας</displayName>
-				<symbol>MNT</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>Πατάκα Μακάο</displayName>
 				<displayName count="one">πατάκα Μακάο</displayName>
 				<displayName count="other">πατάκα Μακάο</displayName>
-				<symbol>MOP</symbol>
 			</currency>
 			<currency type="MRO">
 				<displayName>Ουγκίγια Μαυριτανίας (1973–2017)</displayName>
 				<displayName count="one">ουγκίγια Μαυριτανίας (1973–2017)</displayName>
 				<displayName count="other">ουγκίγια Μαυριτανίας (1973–2017)</displayName>
-				<symbol>MRO</symbol>
 			</currency>
 			<currency type="MRU">
+				<symbol draft="contributed">MRU</symbol>
 				<displayName>Ουγκίγια Μαυριτανίας</displayName>
 				<displayName count="one">ουγκίγια Μαυριτανίας</displayName>
 				<displayName count="other">ουγκίγια Μαυριτανίας</displayName>
-				<symbol draft="contributed">MRU</symbol>
 			</currency>
 			<currency type="MTL">
 				<displayName>Λιρέτα Μάλτας</displayName>
@@ -6280,19 +6034,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ρουπία Μαυρικίου</displayName>
 				<displayName count="one">ρουπία Μαυρικίου</displayName>
 				<displayName count="other">ρουπίες Μαυρικίου</displayName>
-				<symbol>MUR</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>Ρουφίγια Μαλδίβων</displayName>
 				<displayName count="one">ρουφίγια Μαλδίβων</displayName>
 				<displayName count="other">ρουφίγιες Μαλδίβων</displayName>
-				<symbol>MVR</symbol>
 			</currency>
 			<currency type="MWK">
 				<displayName>Κουάτσα Μαλάουι</displayName>
 				<displayName count="one">κουάτσα Μαλάουι</displayName>
 				<displayName count="other">κουάτσα Μαλάουι</displayName>
-				<symbol>MWK</symbol>
 			</currency>
 			<currency type="MXN">
 				<displayName>Πέσο Μεξικού</displayName>
@@ -6308,7 +6059,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ρινγκίτ Μαλαισίας</displayName>
 				<displayName count="one">ρινγκίτ Μαλαισίας</displayName>
 				<displayName count="other">ρινγκίτ Μαλαισίας</displayName>
-				<symbol>MYR</symbol>
 			</currency>
 			<currency type="MZE">
 				<displayName>Εσκούδο Μοζαμβίκης</displayName>
@@ -6324,19 +6074,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μετικάλ Μοζαμβίκης</displayName>
 				<displayName count="one">μετικάλ Μοζαμβίκης</displayName>
 				<displayName count="other">μετικάλ Μοζαμβίκης</displayName>
-				<symbol>MZN</symbol>
 			</currency>
 			<currency type="NAD">
 				<displayName>Δολάριο Ναμίμπιας</displayName>
 				<displayName count="one">δολάριο Ναμίμπιας</displayName>
 				<displayName count="other">δολάρια Ναμίμπιας</displayName>
-				<symbol>NAD</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>Νάιρα Νιγηρίας</displayName>
 				<displayName count="one">νάιρα Νιγηρίας</displayName>
 				<displayName count="other">νάιρα Νιγηρίας</displayName>
-				<symbol>NGN</symbol>
 			</currency>
 			<currency type="NIC">
 				<displayName>Κόρδοβα Νικαράγουας</displayName>
@@ -6347,7 +6094,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Χρυσή Κόρδοβα Νικαράγουας</displayName>
 				<displayName count="one">χρυσή κόρδοβα Νικαράγουας</displayName>
 				<displayName count="other">χρυσές κόρδοβα Νικαράγουας</displayName>
-				<symbol>NIO</symbol>
 			</currency>
 			<currency type="NLG">
 				<displayName>Γκίλντα Ολλανδίας</displayName>
@@ -6358,13 +6104,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κορόνα Νορβηγίας</displayName>
 				<displayName count="one">κορόνα Νορβηγίας</displayName>
 				<displayName count="other">κορόνες Νορβηγίας</displayName>
-				<symbol>NOK</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>Ρουπία Νεπάλ</displayName>
 				<displayName count="one">ρουπία Νεπάλ</displayName>
 				<displayName count="other">ρουπίες Νεπάλ</displayName>
-				<symbol>NPR</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>Δολάριο Νέας Ζηλανδίας</displayName>
@@ -6375,13 +6119,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ριάλ Ομάν</displayName>
 				<displayName count="one">ριάλ Ομάν</displayName>
 				<displayName count="other">ριάλ Ομάν</displayName>
-				<symbol>OMR</symbol>
 			</currency>
 			<currency type="PAB">
 				<displayName>Μπαλμπόα Παναμά</displayName>
 				<displayName count="one">μπαλμπόα Παναμά</displayName>
 				<displayName count="other">μπαλμπόα Παναμά</displayName>
-				<symbol>PAB</symbol>
 			</currency>
 			<currency type="PEI">
 				<displayName>Ίντι Περού</displayName>
@@ -6392,7 +6134,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σολ Περού</displayName>
 				<displayName count="one">σολ Περού</displayName>
 				<displayName count="other">σολ Περού</displayName>
-				<symbol>PEN</symbol>
 			</currency>
 			<currency type="PES">
 				<displayName>Σολ Περού (1863–1965)</displayName>
@@ -6403,25 +6144,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κίνα Παπούας Νέας Γουινέας</displayName>
 				<displayName count="one">κίνα Παπούας Νέας Γουινέας</displayName>
 				<displayName count="other">κίνα Παπούας Νέας Γουινέας</displayName>
-				<symbol>PGK</symbol>
 			</currency>
 			<currency type="PHP">
 				<displayName>Πέσο Φιλιππίνων</displayName>
 				<displayName count="one">πέσο Φιλιππίνων</displayName>
 				<displayName count="other">πέσο Φιλιππίνων</displayName>
-				<symbol>PHP</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Ρουπία Πακιστάν</displayName>
 				<displayName count="one">ρουπία Πακιστάν</displayName>
 				<displayName count="other">ρουπίες Πακιστάν</displayName>
-				<symbol>PKR</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>Ζλότι Πολωνίας</displayName>
 				<displayName count="one">ζλότι Πολωνίας</displayName>
 				<displayName count="other">ζλότι Πολωνίας</displayName>
-				<symbol>PLN</symbol>
 			</currency>
 			<currency type="PLZ">
 				<displayName>Ζλότυ Πολωνίας (1950–1995)</displayName>
@@ -6437,13 +6174,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Γκουαρανί Παραγουάης</displayName>
 				<displayName count="one">γκουαρανί Παραγουάης</displayName>
 				<displayName count="other">γκουαρανί Παραγουάης</displayName>
-				<symbol>PYG</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>Ριάλ Κατάρ</displayName>
 				<displayName count="one">ριάλ Κατάρ</displayName>
 				<displayName count="other">ριάλ Κατάρ</displayName>
-				<symbol>QAR</symbol>
 			</currency>
 			<currency type="RHD">
 				<displayName>Δολάριο Ροδεσίας</displayName>
@@ -6459,19 +6194,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λέου Ρουμανίας</displayName>
 				<displayName count="one">λέου Ρουμανίας</displayName>
 				<displayName count="other">λέου Ρουμανίας</displayName>
-				<symbol>RON</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>Δηνάριο Σερβίας</displayName>
 				<displayName count="one">δηνάριο Σερβίας</displayName>
 				<displayName count="other">δηνάρια Σερβίας</displayName>
-				<symbol>RSD</symbol>
 			</currency>
 			<currency type="RUB">
 				<displayName>Ρούβλι Ρωσίας</displayName>
 				<displayName count="one">ρούβλι Ρωσίας</displayName>
 				<displayName count="other">ρούβλια Ρωσίας</displayName>
-				<symbol>RUB</symbol>
 			</currency>
 			<currency type="RUR">
 				<displayName>Ρούβλι Ρωσίας (1991–1998)</displayName>
@@ -6482,25 +6214,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Φράγκο Ρουάντας</displayName>
 				<displayName count="one">φράγκο Ρουάντας</displayName>
 				<displayName count="other">φράγκα Ρουάντας</displayName>
-				<symbol>RWF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>Ριάλ Σαουδικής Αραβίας</displayName>
 				<displayName count="one">ριάλ Σαουδικής Αραβίας</displayName>
 				<displayName count="other">ριάλ Σαουδικής Αραβίας</displayName>
-				<symbol>SAR</symbol>
 			</currency>
 			<currency type="SBD">
 				<displayName>Δολάριο Νήσων Σολομώντος</displayName>
 				<displayName count="one">δολάριο Νήσων Σολομώντος</displayName>
 				<displayName count="other">δολάρια Νήσων Σολομώντος</displayName>
-				<symbol>SBD</symbol>
 			</currency>
 			<currency type="SCR">
 				<displayName>Ρουπία Σεϋχελλών</displayName>
 				<displayName count="one">ρουπία Σεϋχελλών</displayName>
 				<displayName count="other">ρουπίες Σεϋχελλών</displayName>
-				<symbol>SCR</symbol>
 			</currency>
 			<currency type="SDD">
 				<displayName>Δηνάριο Σουδάν</displayName>
@@ -6511,7 +6239,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίρα Σουδάν</displayName>
 				<displayName count="one">λίρα Σουδάν</displayName>
 				<displayName count="other">λίρες Σουδάν</displayName>
-				<symbol>SDG</symbol>
 			</currency>
 			<currency type="SDP">
 				<displayName>Παλαιά Λίρα Σουδάν</displayName>
@@ -6522,19 +6249,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κορόνα Σουηδίας</displayName>
 				<displayName count="one">κορόνα Σουηδίας</displayName>
 				<displayName count="other">κορόνες Σουηδίας</displayName>
-				<symbol>SEK</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>Δολάριο Σιγκαπούρης</displayName>
 				<displayName count="one">δολάριο Σιγκαπούρης</displayName>
 				<displayName count="other">δολάρια Σιγκαπούρης</displayName>
-				<symbol>SGD</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>Λίρα Αγίας Ελένης</displayName>
 				<displayName count="one">λίρα Αγίας Ελένης</displayName>
 				<displayName count="other">λίρες Αγίας Ελένης</displayName>
-				<symbol>SHP</symbol>
 			</currency>
 			<currency type="SIT">
 				<displayName>Τόλαρ Σλοβενίας</displayName>
@@ -6550,19 +6274,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λεόνε Σιέρα Λεόνε</displayName>
 				<displayName count="one">λεόνε Σιέρα Λεόνε</displayName>
 				<displayName count="other">λεόνε Σιέρα Λεόνε</displayName>
-				<symbol>SLL</symbol>
 			</currency>
 			<currency type="SOS">
 				<displayName>Σελίνι Σομαλίας</displayName>
 				<displayName count="one">σελίνι Σομαλίας</displayName>
 				<displayName count="other">σελίνια Σομαλίας</displayName>
-				<symbol>SOS</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>Δολάριο Σουρινάμ</displayName>
 				<displayName count="one">δολάριο Σουρινάμ</displayName>
 				<displayName count="other">δολάρια Σουρινάμ</displayName>
-				<symbol>SRD</symbol>
 			</currency>
 			<currency type="SRG">
 				<displayName>Γκίλντα Σουρινάμ</displayName>
@@ -6573,19 +6294,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίρα Νότιου Σουδάν</displayName>
 				<displayName count="one">λίρα Νότιου Σουδάν</displayName>
 				<displayName count="other">λίρες Νότιου Σουδάν</displayName>
-				<symbol>SSP</symbol>
 			</currency>
 			<currency type="STD">
 				<displayName>Ντόμπρα Σάο Τομέ και Πρίνσιπε (1977–2017)</displayName>
 				<displayName count="one">ντόμπρα Σάο Τομέ και Πρίνσιπε (1977–2017)</displayName>
 				<displayName count="other">ντόμπρα Σάο Τομέ και Πρίνσιπε (1977–2017)</displayName>
-				<symbol>STD</symbol>
 			</currency>
 			<currency type="STN">
+				<symbol draft="contributed">STN</symbol>
 				<displayName>Ντόμπρα Σάο Τομέ και Πρίνσιπε</displayName>
 				<displayName count="one">ντόμπρα Σάο Τομέ και Πρίνσιπε</displayName>
 				<displayName count="other">ντόμπρα Σάο Τομέ και Πρίνσιπε</displayName>
-				<symbol draft="contributed">STN</symbol>
 			</currency>
 			<currency type="SUR">
 				<displayName>Σοβιετικό Ρούβλι</displayName>
@@ -6601,19 +6320,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίρα Συρίας</displayName>
 				<displayName count="one">λίρα Συρίας</displayName>
 				<displayName count="other">λίρες Συρίας</displayName>
-				<symbol>SYP</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>Λιλανγκένι Σουαζιλάνδης</displayName>
 				<displayName count="one">λιλανγκένι Σουαζιλάνδης</displayName>
 				<displayName count="other">λιλανγκένι Σουαζιλάνδης</displayName>
-				<symbol>SZL</symbol>
 			</currency>
 			<currency type="THB">
+				<symbol>฿</symbol>
 				<displayName>Μπατ Ταϊλάνδης</displayName>
 				<displayName count="one">μπατ Ταϊλάνδης</displayName>
 				<displayName count="other">μπατ Ταϊλάνδης</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJR">
 				<displayName>Ρούβλι Τατζικιστάν</displayName>
@@ -6624,7 +6341,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σομόνι Τατζικιστάν</displayName>
 				<displayName count="one">σομόνι Τατζικιστάν</displayName>
 				<displayName count="other">σομόνι Τατζικιστάν</displayName>
-				<symbol>TJS</symbol>
 			</currency>
 			<currency type="TMM">
 				<displayName>Μανάτ Τουρκμενιστάν</displayName>
@@ -6635,25 +6351,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μάνατ Τουρκμενιστάν</displayName>
 				<displayName count="one">μάνατ Τουρκμενιστάν</displayName>
 				<displayName count="other">μάνατ Τουρκμενιστάν</displayName>
-				<symbol>TMT</symbol>
 			</currency>
 			<currency type="TND">
 				<displayName>Δηνάριο Τυνησίας</displayName>
 				<displayName count="one">δηνάριο Τυνησίας</displayName>
 				<displayName count="other">δηνάρια Τυνησίας</displayName>
-				<symbol>TND</symbol>
 			</currency>
 			<currency type="TOP">
 				<displayName>Παάγκα Τόνγκα</displayName>
 				<displayName count="one">παάγκα Τόνγκα</displayName>
 				<displayName count="other">παάγκα Τόνγκα</displayName>
-				<symbol>TOP</symbol>
 			</currency>
 			<currency type="TPE">
 				<displayName>Εσκούδο Τιμόρ</displayName>
 				<displayName count="one">εσκούδο Τιμόρ</displayName>
 				<displayName count="other">εσκούδο Τιμόρ</displayName>
-				<symbol draft="contributed">TPE</symbol>
 			</currency>
 			<currency type="TRL">
 				<displayName>Παλιά Λίρα Τουρκίας</displayName>
@@ -6664,13 +6376,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Λίρα Τουρκίας</displayName>
 				<displayName count="one">λίρα Τουρκίας</displayName>
 				<displayName count="other">λίρες Τουρκίας</displayName>
-				<symbol>TRY</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Δολάριο Τρινιντάντ και Τομπάγκο</displayName>
 				<displayName count="one">δολάριο Τρινιντάντ και Τομπάγκο</displayName>
 				<displayName count="other">δολάρια Τρινιντάντ και Τομπάγκο</displayName>
-				<symbol>TTD</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>Νέο δολάριο Ταϊβάν</displayName>
@@ -6681,13 +6391,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σελίνι Τανζανίας</displayName>
 				<displayName count="one">σελίνι Τανζανίας</displayName>
 				<displayName count="other">σελίνια Τανζανίας</displayName>
-				<symbol>TZS</symbol>
 			</currency>
 			<currency type="UAH">
 				<displayName>Γρίβνα Ουκρανίας</displayName>
 				<displayName count="one">γρίβνα Ουκρανίας</displayName>
 				<displayName count="other">γρίβνα Ουκρανίας</displayName>
-				<symbol>UAH</symbol>
 			</currency>
 			<currency type="UAK">
 				<displayName>Καρμποβανέτς Ουκρανίας</displayName>
@@ -6703,13 +6411,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Σελίνι Ουγκάντας</displayName>
 				<displayName count="one">σελίνι Ουγκάντας</displayName>
 				<displayName count="other">σελίνια Ουγκάντας</displayName>
-				<symbol>UGX</symbol>
 			</currency>
 			<currency type="USD">
+				<symbol>$</symbol>
 				<displayName>Δολάριο ΗΠΑ</displayName>
 				<displayName count="one">δολάριο ΗΠΑ</displayName>
 				<displayName count="other">δολάρια ΗΠΑ</displayName>
-				<symbol>$</symbol>
 			</currency>
 			<currency type="USN">
 				<displayName>Δολάριο ΗΠΑ (επόμενη ημέρα)</displayName>
@@ -6730,13 +6437,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Πέσο Ουρουγουάης</displayName>
 				<displayName count="one">πέσο Ουρουγουάης</displayName>
 				<displayName count="other">πέσο Ουρουγουάης</displayName>
-				<symbol>UYU</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>Σομ Ουζμπεκιστάν</displayName>
 				<displayName count="one">σομ Ουζμπεκιστάν</displayName>
 				<displayName count="other">σομ Ουζμπεκιστάν</displayName>
-				<symbol>UZS</symbol>
 			</currency>
 			<currency type="VEB">
 				<displayName>Μπολιβάρ Βενεζουέλας (1871–2008)</displayName>
@@ -6747,13 +6452,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Μπολιβάρ Βενεζουέλας (2008–2018)</displayName>
 				<displayName count="one">μπολιβάρ Βενεζουέλας (2008–2018)</displayName>
 				<displayName count="other">μπολιβάρ Βενεζουέλας (2008–2018)</displayName>
-				<symbol>VEF</symbol>
 			</currency>
 			<currency type="VES">
+				<symbol draft="contributed">VES</symbol>
 				<displayName>Μπολιβάρ Βενεζουέλας</displayName>
 				<displayName count="one">μπολιβάρ Βενεζουέλας</displayName>
 				<displayName count="other">μπολιβάρ Βενεζουέλας</displayName>
-				<symbol draft="contributed">VES</symbol>
 			</currency>
 			<currency type="VND">
 				<displayName>Ντονγκ Βιετνάμ</displayName>
@@ -6768,13 +6472,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Βατού Βανουάτου</displayName>
 				<displayName count="one">βατού Βανουάτου</displayName>
 				<displayName count="other">βατού Βανουάτου</displayName>
-				<symbol>VUV</symbol>
 			</currency>
 			<currency type="WST">
 				<displayName>Τάλα Σαμόα</displayName>
 				<displayName count="one">τάλα Σαμόα</displayName>
 				<displayName count="other">τάλα Σαμόα</displayName>
-				<symbol>WST</symbol>
 			</currency>
 			<currency type="XAF">
 				<displayName>Φράγκο CFA Κεντρικής Αφρικής</displayName>
@@ -6854,7 +6556,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ριάλ Υεμένης</displayName>
 				<displayName count="one">ριάλ Υεμένης</displayName>
 				<displayName count="other">ριάλ Υεμένης</displayName>
-				<symbol>YER</symbol>
 			</currency>
 			<currency type="YUD">
 				<displayName>Μεταλλικό Δηνάριο Γιουγκοσλαβίας</displayName>
@@ -6884,7 +6585,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ραντ Νότιας Αφρικής</displayName>
 				<displayName count="one">ραντ Νότιας Αφρικής</displayName>
 				<displayName count="other">ραντ Νότιας Αφρικής</displayName>
-				<symbol>ZAR</symbol>
 			</currency>
 			<currency type="ZMK">
 				<displayName>Κουάνζα Ζαΐρ (1968–2012)</displayName>
@@ -6895,7 +6595,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Κουάτσα Ζάμπιας</displayName>
 				<displayName count="one">κουάτσα Ζάμπιας</displayName>
 				<displayName count="other">κουάτσα Ζάμπιας</displayName>
-				<symbol>ZMW</symbol>
 			</currency>
 			<currency type="ZRN">
 				<displayName>Νέο Ζαΐρ Ζαΐρ</displayName>
@@ -6933,6 +6632,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0} ανά {1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>δύναμη επιτάχυνσης</displayName>
 				<unitPattern count="one">{0} δύναμη επιτάχυνσης</unitPattern>
@@ -6972,6 +6674,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ακρ</displayName>
 				<unitPattern count="one">{0} ακρ</unitPattern>
 				<unitPattern count="other">{0} ακρ</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>ντούναμ</displayName>
+				<unitPattern count="one">{0} ντούναμ</unitPattern>
+				<unitPattern count="other">{0} ντούναμ</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>εκτάρια</displayName>
@@ -7033,6 +6740,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} χιλιοστογραμμομόριο ανά λίτρο</unitPattern>
 				<unitPattern count="other">{0} χιλιοστογραμμομόρια ανά λίτρο</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName>μολ</displayName>
+				<unitPattern count="one">{0} μολ</unitPattern>
+				<unitPattern count="other">{0} μολ</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
 				<displayName>μέρη ανά εκατομμύριο</displayName>
 				<unitPattern count="one">{0} μέρος ανά εκατομμύριο</unitPattern>
@@ -7047,6 +6759,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>τοις χιλίοις</displayName>
 				<unitPattern count="one">{0} τοις χιλίοις</unitPattern>
 				<unitPattern count="other">{0} τοις χιλίοις</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>ποσοστόσημο τοις δεκάκις χιλίοις</displayName>
+				<unitPattern count="one">{0} ποσοστόσημο τοις δεκάκις χιλίοις</unitPattern>
+				<unitPattern count="other">{0} ποσοστόσημο τοις δεκάκις χιλίοις</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>λίτρα ανά 100 χιλιόμετρα</displayName>
@@ -7205,10 +6922,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} βολτ</unitPattern>
 				<unitPattern count="other">{0} βολτ</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>βρετανικές μονάδες θερμότητας</displayName>
+				<unitPattern count="one">{0} βρετανική μονάδα θερμότητας</unitPattern>
+				<unitPattern count="other">{0} βρετανικές μονάδες θερμότητας</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>θερμίδες</displayName>
 				<unitPattern count="one">{0} θερμίδα</unitPattern>
 				<unitPattern count="other">{0} θερμίδες</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>ηλεκτρονιοβόλτ</displayName>
+				<unitPattern count="one">{0} ηλεκτρονιοβόλτ</unitPattern>
+				<unitPattern count="other">{0} ηλεκτρονιοβόλτ</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>Θερμίδες</displayName>
@@ -7234,6 +6961,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>κιλοβατώρες</displayName>
 				<unitPattern count="one">{0} κιλοβατώρα</unitPattern>
 				<unitPattern count="other">{0} κιλοβατώρες</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>νιούτον</displayName>
+				<unitPattern count="one">{0} νιούτον</unitPattern>
+				<unitPattern count="other">{0} νιούτον</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>λίβρες δύναμης</displayName>
+				<unitPattern count="one">{0} λίβρα δύναμης</unitPattern>
+				<unitPattern count="other">{0} λίβρες δύναμης</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>γιγαχέρτζ</displayName>
@@ -7345,6 +7082,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} στιγμή</unitPattern>
 				<unitPattern count="other">{0} στιγμές</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one">{0} ακτίνα του Ήλιου</unitPattern>
+				<unitPattern count="other">{0} ακτίνες του Ήλιου</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>γιάρδες</displayName>
 				<unitPattern count="one">{0} γιάρδα</unitPattern>
@@ -7355,10 +7097,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λουξ</unitPattern>
 				<unitPattern count="other">{0} λουξ</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one">{0} ηλιακή φωτεινότητα</unitPattern>
+				<unitPattern count="other">{0} ηλιακές φωτεινότητες</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>καράτια</displayName>
 				<unitPattern count="one">{0} καράτι</unitPattern>
 				<unitPattern count="other">{0} καράτια</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>Ντάλτον</displayName>
+				<unitPattern count="one">{0} Ντάλτον</unitPattern>
+				<unitPattern count="other">{0} Ντάλτον</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>μάζες της Γης</displayName>
+				<unitPattern count="one">{0} μάζα της Γης</unitPattern>
+				<unitPattern count="other">{0} μάζες της Γης</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>γραμμάρια</displayName>
@@ -7403,6 +7160,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λίβρα</unitPattern>
 				<unitPattern count="other">{0} λίβρες</unitPattern>
 				<perUnitPattern>{0} ανά λίβρα</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>μάζες του Ήλιου</displayName>
+				<unitPattern count="one">{0} μάζα του Ήλιου</unitPattern>
+				<unitPattern count="other">{0} μάζες του Ήλιου</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>τόνοι</displayName>
@@ -7453,6 +7215,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ίντσες στήλης υδραργύρου</displayName>
 				<unitPattern count="one">{0} ίντσα στήλης υδραργύρου</unitPattern>
 				<unitPattern count="other">{0} ίντσες στήλης υδραργύρου</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>κιλοπασκάλ</displayName>
+				<unitPattern count="one">{0} κιλοπασκάλ</unitPattern>
+				<unitPattern count="other">{0} κιλοπασκάλ</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>μεγαπασκάλ</displayName>
+				<unitPattern count="one">{0} μεγαπασκάλ</unitPattern>
+				<unitPattern count="other">{0} μεγαπασκάλ</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<displayName>μιλιμπάρ</displayName>
@@ -7509,10 +7281,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} βαθμός Κέλβιν</unitPattern>
 				<unitPattern count="other">{0} βαθμοί Κέλβιν</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>νιουτόμετρα</displayName>
+				<unitPattern count="one">{0} νιουτόμετρο</unitPattern>
+				<unitPattern count="other">{0} νιουτόμετρα</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>λίβρες-πόδια</displayName>
+				<unitPattern count="one">{0} λίβρα-πόδι</unitPattern>
+				<unitPattern count="other">{0} λίβρες-πόδια</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ακρ-πόδια</displayName>
 				<unitPattern count="one">{0} ακρ-πόδι</unitPattern>
 				<unitPattern count="other">{0} ακρ-πόδια</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>βαρέλι</displayName>
+				<unitPattern count="one">{0} βαρέλι</unitPattern>
+				<unitPattern count="other">{0} βαρέλι</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>εκατοστόλιτρα</displayName>
@@ -7576,6 +7363,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ουγγιά όγκου</unitPattern>
 				<unitPattern count="other">{0} ουγγιές όγκου</unitPattern>
 			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>αγγλοσαξονικές ουγγιές όγκου</displayName>
+				<unitPattern count="one">{0} αγγλοσαξονική ουγγιά όγκου</unitPattern>
+				<unitPattern count="other">{0} αγγλοσαξονικές ουγγιές όγκου</unitPattern>
+			</unit>
 			<unit type="volume-gallon">
 				<displayName>γαλόνια</displayName>
 				<unitPattern count="one">{0} γαλόνι</unitPattern>
@@ -7634,9 +7426,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} κουταλιά του γλυκού</unitPattern>
 				<unitPattern count="other">{0} κουταλιές του γλυκού</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0} ανά {1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>σημεία ορίζοντα</displayName>
 				<coordinateUnitPattern type="east">{0} ανατολικά</coordinateUnitPattern>
@@ -7646,6 +7435,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<unitPattern count="one">{0} G</unitPattern>
 				<unitPattern count="other">{0} G</unitPattern>
@@ -7859,9 +7651,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λ.</unitPattern>
 				<unitPattern count="other">{0} λ.</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>σημεία</displayName>
 				<coordinateUnitPattern type="east">{0} Α</coordinateUnitPattern>
@@ -7906,6 +7695,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ακρ</displayName>
 				<unitPattern count="one">{0} ακρ</unitPattern>
 				<unitPattern count="other">{0} ακρ</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>ντούναμ</displayName>
+				<unitPattern count="one">{0} ντούναμ</unitPattern>
+				<unitPattern count="other">{0} ντούναμ</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>εκτ.</displayName>
@@ -7963,6 +7757,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-millimole-per-liter">
 				<unitPattern count="one">{0} mmol/L</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName>μολ</displayName>
+				<unitPattern count="one">{0} μολ</unitPattern>
+				<unitPattern count="other">{0} μολ</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
 				<unitPattern count="one">{0} ppm</unitPattern>
 			</unit>
@@ -7973,6 +7772,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-permille">
 				<displayName>τοις χιλίοις</displayName>
 				<unitPattern count="one">{0}‰</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>ποσοστόσημο τοις δεκάκις χιλίοις</displayName>
+				<unitPattern count="one">{0}‱</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>λ./100 χλμ.</displayName>
@@ -8103,10 +7906,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>βολτ</displayName>
 				<unitPattern count="one">{0} V</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>BTU</displayName>
+				<unitPattern count="one">{0} BTU</unitPattern>
+				<unitPattern count="other">{0} BTU</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>θερμ.</displayName>
 				<unitPattern count="one">{0} θερμ.</unitPattern>
 				<unitPattern count="other">{0} θερμ.</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>ηλεκτρονιοβόλτ</displayName>
+				<unitPattern count="one">{0} eV</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>θερμ.</displayName>
@@ -8127,6 +7939,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="energy-kilowatt-hour">
 				<displayName>κιλοβάτ/ώρα</displayName>
 				<unitPattern count="one">{0} kWh</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>νιούτον</displayName>
+				<unitPattern count="one">{0} N</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>λίβρες δύναμης</displayName>
+				<unitPattern count="one">{0} lbf</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>γιγαχέρτζ</displayName>
@@ -8228,6 +8048,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} στ.</unitPattern>
 				<unitPattern count="other">{0} στ.</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>ακτίνες Ήλιου</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>γιάρδες</displayName>
 				<unitPattern count="one">{0} γρδ</unitPattern>
@@ -8238,10 +8063,22 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λουξ</unitPattern>
 				<unitPattern count="other">{0} λουξ</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>ηλιακές φωτεινότητες</displayName>
+				<unitPattern count="one">{0} L☉</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>καράτια</displayName>
 				<unitPattern count="one">{0} κρτ</unitPattern>
 				<unitPattern count="other">{0} κρτ</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>Ντάλτον</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>μάζες Γης</displayName>
+				<unitPattern count="one">{0} M⊕</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>γραμμ.</displayName>
@@ -8277,6 +8114,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λβ</unitPattern>
 				<unitPattern count="other">{0} λβ</unitPattern>
 				<perUnitPattern>{0}/λβ</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>μάζες Ήλιου</displayName>
+				<unitPattern count="one">{0} M☉</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>τόνοι</displayName>
@@ -8316,6 +8157,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="pressure-inch-hg">
 				<unitPattern count="one">{0} inHg</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<unitPattern count="one">{0} kPa</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<unitPattern count="one">{0} MPa</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<unitPattern count="one">{0} mbar</unitPattern>
@@ -8362,10 +8209,23 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="temperature-kelvin">
 				<unitPattern count="one">{0} K</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<unitPattern count="one">{0} N⋅m</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>λβρ⋅πδ</displayName>
+				<unitPattern count="one">{0} λβρ⋅πδ</unitPattern>
+				<unitPattern count="other">{0} λβρ⋅πδ</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ακρ πόδια</displayName>
 				<unitPattern count="one">{0} ακρ πδ</unitPattern>
 				<unitPattern count="other">{0} ακρ πδ</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>βαρέλι</displayName>
+				<unitPattern count="one">{0} βρλ</unitPattern>
+				<unitPattern count="other">{0} βρλ</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<unitPattern count="one">{0} cL</unitPattern>
@@ -8406,7 +8266,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} dL</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
+				<displayName>fl oz</displayName>
 				<unitPattern count="one">{0} fl oz</unitPattern>
+				<unitPattern count="other">{0} fl oz</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>αγγλ. ουγγιές όγκου</displayName>
+				<unitPattern count="one">{0} αγγλ. ουγγιά όγκου</unitPattern>
+				<unitPattern count="other">{0} αγγλ. ουγγιές όγκου</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>γαλ.</displayName>
@@ -8477,6 +8344,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<listPattern type="or">
 			<listPatternPart type="2">{0} ή {1}</listPatternPart>
 			<listPatternPart type="end">{0} ή {1}</listPatternPart>
+		</listPattern>
+		<listPattern type="standard-narrow">
+			<listPatternPart type="2">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle" draft="contributed">↑↑↑</listPatternPart>
+			<listPatternPart type="start" draft="contributed">↑↑↑</listPatternPart>
 		</listPattern>
 		<listPattern type="standard-short">
 			<listPatternPart type="2">{0} και {1}</listPatternPart>
@@ -8676,7 +8549,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<styleName subtype="-12" type="slnt">επικλινή πίσω</styleName>
 		<styleName subtype="0" type="slnt">κατακόρυφα</styleName>
 		<styleName subtype="1" type="ital">λοξά</styleName>
-		<styleName subtype="100" type="wdth">κανονικά</styleName>
+		<styleName subtype="100" type="wdth">απλά</styleName>
 		<styleName subtype="100" type="wght">λεπτά</styleName>
 		<styleName subtype="112.5" type="wdth">ημιανεπτυγμένα</styleName>
 		<styleName subtype="12" type="opsz">κείμενο</styleName>

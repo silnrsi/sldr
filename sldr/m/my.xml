@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2019 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -8,11 +8,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 -->
 <ldml>
 	<identity>
+		<version number="$Revision$"/>
+		<language type="my"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr"/>
 		</special>
-		<version number="$Revision: 14488 $"/>
-		<language type="my"/>
 	</identity>
 	<localeDisplayNames>
 		<localeDisplayPattern>
@@ -680,8 +680,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="MF">စိန့်မာတင်</territory>
 			<territory type="MG">မဒါဂတ်စကား</territory>
 			<territory type="MH">မာရှယ် ကျွန်းစု</territory>
-			<territory type="MK">မက်ဆီဒိုးနီးယား</territory>
-			<territory type="MK" alt="variant">မက်ဆီဒိုးနီးယား (ယခင် ယူဂိုစလားဗီးယား မက်ဆီဒိုးနီးယားပြည်ထောင်စု)</territory>
+			<territory type="MK">မြောက် မက်ဆီဒိုးနီးယား</territory>
 			<territory type="ML">မာလီ</territory>
 			<territory type="MM">မြန်မာ</territory>
 			<territory type="MN">မွန်ဂိုးလီးယား</territory>
@@ -908,18 +907,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
-			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
-			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
-			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
-		</parseLenients>
-		<parseLenients scope="number" level="stricter">
-			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
 	<dates>
@@ -973,6 +964,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yyyyMd">GGGGG dd/MM/Y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M – M</greatestDifference>
 						</intervalFormatItem>
@@ -1386,7 +1384,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="MEd">d/M၊ E</dateFormatItem>
 						<dateFormatItem id="MMMEd">MMM d၊ E</dateFormatItem>
 						<dateFormatItem id="MMMMEd">MMMM d ရက် Eနေ့</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">MMM လ W ပတ်မြောက်</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">MMMM လ W ပတ်မြောက်</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="h">B h</dateFormatItem>
@@ -1406,6 +1404,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<appendItem request="Timezone">{1} {0}</appendItem>
 					</appendItems>
 					<intervalFormats>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="y">G y – y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="d">G y MMM d – d</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
 						</intervalFormatItem>
@@ -1499,547 +1510,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
-		<fields>
-			<field type="day">
-				<displayName>ရက်</displayName>
-				<relative type="-1">မနေ့က</relative>
-				<relative type="-2">တစ်နေ့က</relative>
-				<relative type="0">ယနေ့</relative>
-				<relative type="1">မနက်ဖြန်</relative>
-				<relative type="2">သန်ဘက်ခါ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>ရက်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>ရက်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>နံနက်/ညနေ</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>နံနက်/ညနေ</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>နံနက်/ညနေ</displayName>
-			</field>
-			<field type="era">
-				<displayName>ခေတ်</displayName>
-			</field>
-			<field type="era-narrow">
-				<displayName>ခေတ်</displayName>
-			</field>
-			<field type="era-short">
-				<displayName>ခေတ်</displayName>
-			</field>
-			<field type="fri">
-				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
-				<relative type="0">ဤသောကြာနေ့</relative>
-				<relative type="1">လာမည့် သောကြာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
-				<relative type="0">ဤသောကြာနေ့</relative>
-				<relative type="1">လာမည့် သောကြာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
-				<relative type="0">ဤသောကြာနေ့</relative>
-				<relative type="1">လာမည့် သောကြာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour">
-				<displayName>နာရီ</displayName>
-				<relative type="0">ဤအချိန်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-narrow">
-				<displayName>နာရီ</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-short">
-				<displayName>နာရီ</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>မိနစ်</displayName>
-				<relative type="0">ဤမိနစ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>မိနစ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>မိနစ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
-				<relative type="0">ဤတနင်္လာနေ့</relative>
-				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
-				<relative type="0">ဤတနင်္လာနေ့</relative>
-				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
-				<relative type="0">ဤတနင်္လာနေ့</relative>
-				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>လ</displayName>
-				<relative type="-1">ပြီးခဲ့သည့်လ</relative>
-				<relative type="0">ယခုလ</relative>
-				<relative type="1">လာမည့်လ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>လ</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>လ</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>သုံးလပတ်</displayName>
-				<relative type="-1">ပြီးခဲ့သည့် သုံးလပတ်</relative>
-				<relative type="0">ယခု သုံးလပတ်</relative>
-				<relative type="1">လာမည့် သုံးလပတ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>သုံးလပတ်</displayName>
-				<relative type="-1">ပြီးခဲ့သောသုံးလပတ်</relative>
-				<relative type="0">ယခုသုံးလပတ်</relative>
-				<relative type="1">နောက်လာမည့်သုံးလပတ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>သုံးလပတ်</displayName>
-				<relative type="-1">ပြီးခဲ့သောသုံးလပတ်</relative>
-				<relative type="0">ယခုသုံးလပတ်</relative>
-				<relative type="1">နောက်လာမည့်သုံးလပတ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
-				<relative type="0">ဤစနေနေ့</relative>
-				<relative type="1">လာမည့် စနေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
-				<relative type="0">ဤစနေနေ့</relative>
-				<relative type="1">လာမည့် စနေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
-				<relative type="0">ဤစနေနေ့</relative>
-				<relative type="1">လာမည့် စနေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>စက္ကန့်</displayName>
-				<relative type="0">ယခု</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>စက္ကန့်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>စက္ကန့်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
-				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
-				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
-				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
-				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
-				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
-				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
-				<relative type="0">ဤကြာသပတေးနေ့</relative>
-				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
-				<relative type="0">ဤကြာသပတေးနေ့</relative>
-				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
-				<relative type="0">ဤကြာသပတေးနေ့</relative>
-				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
-				<relative type="0">ဤအင်္ဂါနေ့</relative>
-				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
-				<relative type="0">ဤအင်္ဂါနေ့</relative>
-				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
-				<relative type="0">ဤအင်္ဂါနေ့</relative>
-				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
-				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>ပတ်</displayName>
-				<relative type="-1">ပြီးခဲ့သည့် သီတင်းပတ်</relative>
-				<relative type="0">ယခု သီတင်းပတ်</relative>
-				<relative type="1">လာမည့် သီတင်းပတ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>ပတ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>ပတ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>နေ့</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>နေ့</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>နေ့</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
-			</field>
-			<field type="year">
-				<displayName>နှစ်</displayName>
-				<relative type="-1">ယမန်နှစ်</relative>
-				<relative type="0">ယခုနှစ်</relative>
-				<relative type="1">လာမည့်နှစ်</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>နှစ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>နှစ်</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="zone">
-				<displayName>ဇုန်</displayName>
-			</field>
-			<field type="zone-narrow">
-				<displayName>ဇုန်</displayName>
-			</field>
-			<field type="zone-short">
-				<displayName>ဇုန်</displayName>
-			</field>
-		</fields>
 		<timeZoneNames>
 			<regionFormat>{0} အချိန်</regionFormat>
 			<regionFormat type="daylight">{0} နွေရာသီ စံတော်ချိန်</regionFormat>
@@ -2093,7 +1563,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>ကိုနာကရီး</exemplarCity>
 			</zone>
 			<zone type="Africa/Dakar">
-				<exemplarCity>ဒက်ကား</exemplarCity>
+				<exemplarCity>ဒကျကား</exemplarCity>
 			</zone>
 			<zone type="Africa/Dar_es_Salaam">
 				<exemplarCity>ဒါရက်စ်ဆာလမ်</exemplarCity>
@@ -2285,7 +1755,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>ကာရာကာစ်</exemplarCity>
 			</zone>
 			<zone type="America/Catamarca">
-				<exemplarCity>ကာတာမာရျကာ</exemplarCity>
+				<exemplarCity>ကာတာမာရကွာ</exemplarCity>
 			</zone>
 			<zone type="America/Cayenne">
 				<exemplarCity>ကေညင်န်</exemplarCity>
@@ -3040,10 +2510,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>ကိုပင်ဟေဂင်</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
+				<exemplarCity>ဒတ်ဘလင်</exemplarCity>
 				<long>
 					<daylight>အိုင်းရစ်ရှ် စံတော်ချိန်</daylight>
 				</long>
-				<exemplarCity>ဒတ်ဘလင်</exemplarCity>
 			</zone>
 			<zone type="Europe/Gibraltar">
 				<exemplarCity>ဂျီဘရော်လ်တာ</exemplarCity>
@@ -3079,10 +2549,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>လူဘလီအားနား</exemplarCity>
 			</zone>
 			<zone type="Europe/London">
+				<exemplarCity>လန်ဒန်</exemplarCity>
 				<long>
 					<daylight>ဗြိတိန် နွေရာသီ အချိန်</daylight>
 				</long>
-				<exemplarCity>လန်ဒန်</exemplarCity>
 			</zone>
 			<zone type="Europe/Luxembourg">
 				<exemplarCity>လူဇင်ဘတ်</exemplarCity>
@@ -4228,6 +3698,547 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</long>
 			</metazone>
 		</timeZoneNames>
+		<fields>
+			<field type="day">
+				<relative type="-1">မနေ့က</relative>
+				<relative type="-2">တစ်နေ့က</relative>
+				<relative type="0">ယနေ့</relative>
+				<relative type="1">မနက်ဖြန်</relative>
+				<relative type="2">သန်ဘက်ခါ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
+				</relativeTime>
+				<displayName>ရက်</displayName>
+			</field>
+			<field type="day-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
+				</relativeTime>
+				<displayName>ရက်</displayName>
+			</field>
+			<field type="day-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ရက်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ရက်</relativeTimePattern>
+				</relativeTime>
+				<displayName>ရက်</displayName>
+			</field>
+			<field type="dayOfYear">
+				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>တစ်နှစ်အတွင်း ရက်ရေတွက်ပုံ</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>နံနက်/ညနေ</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>နံနက်/ညနေ</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>နံနက်/ညနေ</displayName>
+			</field>
+			<field type="era">
+				<displayName>ခေတ်</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>ခေတ်</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>ခေတ်</displayName>
+			</field>
+			<field type="fri">
+				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
+				<relative type="0">ဤသောကြာနေ့</relative>
+				<relative type="1">လာမည့် သောကြာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
+				<relative type="0">ဤသောကြာနေ့</relative>
+				<relative type="1">လာမည့် သောကြာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">ပြီးခဲ့သည့် သောကြာနေ့</relative>
+				<relative type="0">ဤသောကြာနေ့</relative>
+				<relative type="1">လာမည့် သောကြာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သောကြာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour">
+				<relative type="0">ဤအချိန်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
+				</relativeTime>
+				<displayName>နာရီ</displayName>
+			</field>
+			<field type="hour-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
+				</relativeTime>
+				<displayName>နာရီ</displayName>
+			</field>
+			<field type="hour-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နာရီအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နာရီ</relativeTimePattern>
+				</relativeTime>
+				<displayName>နာရီ</displayName>
+			</field>
+			<field type="minute">
+				<relative type="0">ဤမိနစ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>မိနစ်</displayName>
+			</field>
+			<field type="minute-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>မိနစ်</displayName>
+			</field>
+			<field type="minute-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} မိနစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} မိနစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>မိနစ်</displayName>
+			</field>
+			<field type="mon">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
+				<relative type="0">ဤတနင်္လာနေ့</relative>
+				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
+				<relative type="0">ဤတနင်္လာနေ့</relative>
+				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္လာနေ့</relative>
+				<relative type="0">ဤတနင်္လာနေ့</relative>
+				<relative type="1">လာမည့် တနင်္လာနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္လာ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္လာ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<relative type="-1">ပြီးခဲ့သည့်လ</relative>
+				<relative type="0">ယခုလ</relative>
+				<relative type="1">လာမည့်လ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
+				</relativeTime>
+				<displayName>လ</displayName>
+			</field>
+			<field type="month-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
+				</relativeTime>
+				<displayName>လ</displayName>
+			</field>
+			<field type="month-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} လအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} လ</relativeTimePattern>
+				</relativeTime>
+				<displayName>လ</displayName>
+			</field>
+			<field type="quarter">
+				<relative type="-1">ပြီးခဲ့သည့် သုံးလပတ်</relative>
+				<relative type="0">ယခု သုံးလပတ်</relative>
+				<relative type="1">လာမည့် သုံးလပတ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<displayName>သုံးလပတ်</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<relative type="-1">ပြီးခဲ့သောသုံးလပတ်</relative>
+				<relative type="0">ယခုသုံးလပတ်</relative>
+				<relative type="1">နောက်လာမည့်သုံးလပတ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<displayName>သုံးလပတ်</displayName>
+			</field>
+			<field type="quarter-short">
+				<relative type="-1">ပြီးခဲ့သောသုံးလပတ်</relative>
+				<relative type="0">ယခုသုံးလပတ်</relative>
+				<relative type="1">နောက်လာမည့်သုံးလပတ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် သုံးလပတ်ကာလ {0} ခုအတွင်း</relativeTimePattern>
+				</relativeTime>
+				<displayName>သုံးလပတ်</displayName>
+			</field>
+			<field type="sat">
+				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
+				<relative type="0">ဤစနေနေ့</relative>
+				<relative type="1">လာမည့် စနေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
+				<relative type="0">ဤစနေနေ့</relative>
+				<relative type="1">လာမည့် စနေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">ပြီးခဲ့သည့် စနေနေ့</relative>
+				<relative type="0">ဤစနေနေ့</relative>
+				<relative type="1">လာမည့် စနေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် စနေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<relative type="0">ယခု</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
+				</relativeTime>
+				<displayName>စက္ကန့်</displayName>
+			</field>
+			<field type="second-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
+				</relativeTime>
+				<displayName>စက္ကန့်</displayName>
+			</field>
+			<field type="second-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} စက္ကန့်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} စက္ကန့်</relativeTimePattern>
+				</relativeTime>
+				<displayName>စက္ကန့်</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
+				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
+				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
+				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
+				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">ပြီးခဲ့သည့် တနင်္ဂနွေနေ့</relative>
+				<relative type="0">ဤတနင်္ဂနွေနေ့</relative>
+				<relative type="1">လာမည့် တနင်္ဂနွေနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">တနင်္ဂနွေ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် တနင်္ဂနွေ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
+				<relative type="0">ဤကြာသပတေးနေ့</relative>
+				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
+				<relative type="0">ဤကြာသပတေးနေ့</relative>
+				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">ပြီးခဲ့သည့် ကြာသပတေးနေ့</relative>
+				<relative type="0">ဤကြာသပတေးနေ့</relative>
+				<relative type="1">လာမည့် ကြာသပတေးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ကြာသပတေး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ကြာသပတေး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
+				<relative type="0">ဤအင်္ဂါနေ့</relative>
+				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
+				<relative type="0">ဤအင်္ဂါနေ့</relative>
+				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">ပြီးခဲ့သည့် အင်္ဂါနေ့</relative>
+				<relative type="0">ဤအင်္ဂါနေ့</relative>
+				<relative type="1">လာမည့် အင်္ဂါနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">အင်္ဂါ {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် အင်္ဂါ {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">ပြီးခဲ့သည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="0">ဤဗုဒ္ဓဟူးနေ့</relative>
+				<relative type="1">လာမည့် ဗုဒ္ဓဟူးနေ့</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ဗုဒ္ဓဟူး {0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် ဗုဒ္ဓဟူး {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<relative type="-1">ပြီးခဲ့သည့် သီတင်းပတ်</relative>
+				<relative type="0">ယခု သီတင်းပတ်</relative>
+				<relative type="1">လာမည့် သီတင်းပတ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
+				<displayName>ပတ်</displayName>
+			</field>
+			<field type="week-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
+				<displayName>ပတ်</displayName>
+			</field>
+			<field type="week-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ပတ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} ပတ်</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} ပတ်မြောက် သီတင်းပတ်</relativePeriod>
+				<displayName>ပတ်</displayName>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>တစ်လအတွင်းရှိသီတင်းပတ်</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>နေ့</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>နေ့</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>နေ့</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>တစ်လအတွင်းရှိအလုပ်ရက်</displayName>
+			</field>
+			<field type="year">
+				<relative type="-1">ယမန်နှစ်</relative>
+				<relative type="0">ယခုနှစ်</relative>
+				<relative type="1">လာမည့်နှစ်</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>နှစ်</displayName>
+			</field>
+			<field type="year-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>နှစ်</displayName>
+			</field>
+			<field type="year-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} နှစ်အတွင်း</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ပြီးခဲ့သည့် {0} နှစ်</relativeTimePattern>
+				</relativeTime>
+				<displayName>နှစ်</displayName>
+			</field>
+			<field type="zone">
+				<displayName>ဇုန်</displayName>
+			</field>
+			<field type="zone-narrow">
+				<displayName>ဇုန်</displayName>
+			</field>
+			<field type="zone-short">
+				<displayName>ဇုန်</displayName>
+			</field>
+		</fields>
 	</dates>
 	<numbers>
 		<defaultNumberingSystem>mymr</defaultNumberingSystem>
@@ -4238,8 +4249,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<nan>ဂဏန်းမဟုတ်သော</nan>
 		</symbols>
 		<symbols numberSystem="mymr">
-			<decimal draft="contributed">.</decimal>
-			<group draft="contributed">,</group>
 			<list>၊</list>
 			<percentSign>%</percentSign>
 			<plusSign draft="contributed">+</plusSign>
@@ -4249,6 +4258,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<perMille>‰</perMille>
 			<infinity>∞</infinity>
 			<nan>ဂဏန်းမဟုတ်သော</nan>
+			<decimal draft="contributed">.</decimal>
+			<group draft="contributed">,</group>
 		</symbols>
 		<decimalFormats numberSystem="latn">
 			<decimalFormatLength type="long">
@@ -4341,105 +4352,105 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
+				<symbol draft="contributed">AED</symbol>
 				<displayName>အာရပ်စော်ဘွားများ ပြည်ထောင်စု ဒါဟမ်း</displayName>
 				<displayName count="other">အာရပ်စော်ဘွားများ ပြည်ထောင်စု ဒါဟမ်း</displayName>
-				<symbol draft="contributed">AED</symbol>
 			</currency>
 			<currency type="AFN">
+				<symbol draft="contributed">AFN</symbol>
 				<displayName>အာဖဂန် အာဖဂါနီ</displayName>
 				<displayName count="other">အာဖဂန် အာဖဂါနီ</displayName>
-				<symbol draft="contributed">AFN</symbol>
 			</currency>
 			<currency type="ALL">
+				<symbol draft="contributed">ALL</symbol>
 				<displayName>အယ်ဘေးနီးယား လီခ်</displayName>
 				<displayName count="other">အယ်ဘေးနီးယား လီခ်</displayName>
-				<symbol draft="contributed">ALL</symbol>
 			</currency>
 			<currency type="AMD">
+				<symbol draft="contributed">AMD</symbol>
 				<displayName>အာမေးနီးယား ဒရမ်</displayName>
 				<displayName count="other">အာမေးနီးယား ဒရမ်</displayName>
-				<symbol draft="contributed">AMD</symbol>
 			</currency>
 			<currency type="ANG">
+				<symbol draft="contributed">NAf</symbol>
 				<displayName>နယ်သာလန် အန်တီလန် ဂင်းဒါး</displayName>
 				<displayName count="other">နယ်သာလန် အန်တီလန် ဂင်းဒါး</displayName>
-				<symbol draft="contributed">NAf</symbol>
 			</currency>
 			<currency type="AOA">
+				<symbol draft="contributed">AOA</symbol>
 				<displayName>အန်ဂိုလာ ကွမ်ဇာ</displayName>
 				<displayName count="other">အန်ဂိုလာ ကွမ်ဇာ</displayName>
-				<symbol draft="contributed">AOA</symbol>
 			</currency>
 			<currency type="ARP">
 				<displayName>အာဂျင်တီးနား ပီဆို (၁၉၈၃–၁၉၈၅)</displayName>
 			</currency>
 			<currency type="ARS">
+				<symbol draft="contributed">ARS</symbol>
 				<displayName>အာဂျင်တီးနား ပီဆို</displayName>
 				<displayName count="other">အာဂျင်တီးနား ပီဆို</displayName>
-				<symbol draft="contributed">ARS</symbol>
 			</currency>
 			<currency type="AUD">
 				<displayName>ဩစတြေးလျ ဒေါ်လာ</displayName>
 				<displayName count="other">ဩစတြေးလျ ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="AWG">
+				<symbol draft="contributed">Afl</symbol>
 				<displayName>အရူးဗာ ဖလိုရင်း</displayName>
 				<displayName count="other">အရူးဗာ ဖလိုရင်း</displayName>
-				<symbol draft="contributed">Afl</symbol>
 			</currency>
 			<currency type="AZN">
+				<symbol draft="contributed">AZN</symbol>
 				<displayName>အဇာဘိုင်ဂျန် မာနတ်</displayName>
 				<displayName count="other">အဇာဘိုင်ဂျန် မာနတ်</displayName>
-				<symbol draft="contributed">AZN</symbol>
 			</currency>
 			<currency type="BAM">
+				<symbol draft="contributed">BAM</symbol>
 				<displayName>ဘော့စနီးယားနှင့် ဟာဇီဂိုဘီးနား ငွေလဲနိုင်သော မတ်က်</displayName>
 				<displayName count="other">ဘော့စနီးယားနှင့် ဟာဇီဂိုဘီးနားမတ်က်</displayName>
-				<symbol draft="contributed">BAM</symbol>
 			</currency>
 			<currency type="BBD">
-				<displayName>ဘာဘေးဒီယန်း ဒေါ်လာ</displayName>
-				<displayName count="other">ဘာဘေးဒီယန်း ဒေါ်လာ</displayName>
 				<symbol alt="narrow" draft="contributed">Bds$</symbol>
 				<symbol draft="contributed">BBD</symbol>
+				<displayName>ဘာဘေးဒီယန်း ဒေါ်လာ</displayName>
+				<displayName count="other">ဘာဘေးဒီယန်း ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="BDT">
+				<symbol draft="contributed">BDT</symbol>
 				<displayName>ဘင်္ဂလားဒေ့ရှ် တာကာ</displayName>
 				<displayName count="other">ဘင်္ဂလားဒေ့ရှ် တာကာ</displayName>
-				<symbol draft="contributed">BDT</symbol>
 			</currency>
 			<currency type="BEF">
 				<displayName>ဘယ်လ်ဂျီယမ် ဖရန့်</displayName>
 			</currency>
 			<currency type="BGN">
+				<symbol draft="contributed">BGN</symbol>
 				<displayName>ဘူလ်ဂေးရီးယား လက်ဖ်</displayName>
 				<displayName count="other">ဘူလ်ဂေးရီးယား လက်ဖ်</displayName>
-				<symbol draft="contributed">BGN</symbol>
 			</currency>
 			<currency type="BHD">
+				<symbol draft="contributed">BHD</symbol>
 				<displayName>ဘာရိန်း ဒီနား</displayName>
 				<displayName count="other">ဘာရိန်း ဒီနား</displayName>
-				<symbol draft="contributed">BHD</symbol>
 			</currency>
 			<currency type="BIF">
+				<symbol draft="contributed">BIF</symbol>
 				<displayName>ဘူရွန်ဒီ ဖရန့်</displayName>
 				<displayName count="other">ဘူရွန်ဒီ ဖရန့်</displayName>
-				<symbol draft="contributed">BIF</symbol>
 			</currency>
 			<currency type="BMD">
+				<symbol draft="contributed">BMD</symbol>
 				<displayName>ဘာမြူဒါ ဒေါ်လာ</displayName>
 				<displayName count="other">ဘာမြူဒါ ဒေါ်လာ</displayName>
-				<symbol draft="contributed">BMD</symbol>
 			</currency>
 			<currency type="BND">
+				<symbol draft="contributed">BND</symbol>
 				<displayName>ဘရူနိုင်း ဒေါ်လာ</displayName>
 				<displayName count="other">ဘရူနိုင်း ဒေါ်လာ</displayName>
-				<symbol draft="contributed">BND</symbol>
 			</currency>
 			<currency type="BOB">
+				<symbol draft="contributed">BOB</symbol>
 				<displayName>ဘိုလီးဗီးယား ဘိုလီးဗီယားနို</displayName>
 				<displayName count="other">ဘိုလီးဗီးယား ဘိုလီးဗီယားနို</displayName>
-				<symbol draft="contributed">BOB</symbol>
 			</currency>
 			<currency type="BOP">
 				<displayName>ဘိုလီးဘီးယား ပီဆို</displayName>
@@ -4449,157 +4460,154 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">ဘရာဇီး ရီးယဲ</displayName>
 			</currency>
 			<currency type="BSD">
-				<displayName>ဘဟားမား ဒေါ်လာ</displayName>
-				<displayName count="other">ဘဟားမား ဒေါ်လာ</displayName>
 				<symbol alt="narrow" draft="contributed">B$</symbol>
 				<symbol draft="contributed">BSD</symbol>
+				<displayName>ဘဟားမား ဒေါ်လာ</displayName>
+				<displayName count="other">ဘဟားမား ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="BTN">
+				<symbol draft="contributed">BTN</symbol>
 				<displayName>ဘူတန် အံဂါလ်ထရန်</displayName>
 				<displayName count="other">ဘူတန် အံဂါလ်ထရန်</displayName>
-				<symbol draft="contributed">BTN</symbol>
 			</currency>
 			<currency type="BUK">
 				<displayName>ဗမာ ကျပ်</displayName>
 			</currency>
 			<currency type="BWP">
+				<symbol draft="contributed">BWP</symbol>
 				<displayName>ဘော့ဆွာနာ ပုလ</displayName>
 				<displayName count="other">ဘော့ဆွာနာ ပုလ</displayName>
-				<symbol draft="contributed">BWP</symbol>
 			</currency>
 			<currency type="BYB">
 				<displayName>ဘီလာရုစ် ရူဘယ်အသစ် (၁၉၉၄–၁၉၉၉)</displayName>
 			</currency>
 			<currency type="BYN">
+				<symbol draft="contributed">BYN</symbol>
 				<displayName>ဘီလာရုစ် ရူဘယ်</displayName>
 				<displayName count="other">ဘီလာရုစ် ရူဘယ်</displayName>
-				<symbol draft="contributed">BYN</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>ဘီလာရုဇ် ရူဘယ် (၂၀၀၀–၂၀၁၆)</displayName>
 				<displayName count="other">ဘီလာရုဇ် ရူဘယ် (၂၀၀၀–၂၀၁၆)</displayName>
-				<symbol draft="contributed">BYR</symbol>
 			</currency>
 			<currency type="BZD">
+				<symbol draft="contributed">BZD</symbol>
 				<displayName>ဘလိဇ် ဒေါ်လာ</displayName>
 				<displayName count="other">ဘလိဇ် ဒေါ်လာ</displayName>
-				<symbol draft="contributed">BZD</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>ကနေဒါ ဒေါ်လာ</displayName>
 				<displayName count="other">ကနေဒါ ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="CDF">
+				<symbol draft="contributed">CDF</symbol>
 				<displayName>ကွန်ဂို ဖရန့်</displayName>
 				<displayName count="other">ကွန်ဂို ဖရန့်</displayName>
-				<symbol draft="contributed">CDF</symbol>
 			</currency>
 			<currency type="CHF">
+				<symbol draft="contributed">CHF</symbol>
 				<displayName>ဆွစ် ဖရန့်</displayName>
 				<displayName count="other">ဆွစ် ဖရန့်</displayName>
-				<symbol draft="contributed">CHF</symbol>
 			</currency>
 			<currency type="CLP">
+				<symbol draft="contributed">CLP</symbol>
 				<displayName>ချီလီ ပီဆို</displayName>
 				<displayName count="other">ချီလီ ပီဆို</displayName>
-				<symbol draft="contributed">CLP</symbol>
 			</currency>
 			<currency type="CNH">
 				<displayName>တရုတ် ယွမ် (ဟောင်ကောင်)</displayName>
 				<displayName count="other">တရုတ် ယွမ် (ဟောင်ကောင်)</displayName>
-				<symbol draft="contributed">CNH</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>တရုတ် ယွမ်</displayName>
 				<displayName count="other">တရုတ် ယွမ်</displayName>
 			</currency>
 			<currency type="COP">
+				<symbol draft="contributed">COP</symbol>
 				<displayName>ကိုလံဘီယာ ပီဆို</displayName>
 				<displayName count="other">ကိုလံဘီယာ ပီဆို</displayName>
-				<symbol draft="contributed">COP</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>ကို့စတာရီကာ ကိုလွန်</displayName>
 				<displayName count="other">ကို့စတာရီကာ ကိုလွန်</displayName>
-				<symbol>CRC</symbol>
 			</currency>
 			<currency type="CUC">
+				<symbol draft="contributed">CUC</symbol>
 				<displayName>နိုင်ငံခြားငွေလဲလှယ်နိုင်သော ကျူးဘားပီဆို</displayName>
 				<displayName count="other">နိုင်ငံခြားငွေလဲလှယ်နိုင်သော ကျူးဘားပီဆို</displayName>
-				<symbol draft="contributed">CUC</symbol>
 			</currency>
 			<currency type="CUP">
+				<symbol draft="contributed">CUP</symbol>
 				<displayName>ကျူးဘား ပီဆို</displayName>
 				<displayName count="other">ကျူးဘား ပီဆို</displayName>
-				<symbol draft="contributed">CUP</symbol>
 			</currency>
 			<currency type="CVE">
+				<symbol draft="contributed">CVE</symbol>
 				<displayName>ကိတ်ပ်ဗာဒီ အက်စ်ခူဒို</displayName>
 				<displayName count="other">ကိတ်ပ်ဗာဒီ အက်စ်ခူဒို</displayName>
-				<symbol draft="contributed">CVE</symbol>
 			</currency>
 			<currency type="CYP">
 				<displayName>ဆိုက်ပရက်စ် ပေါင်</displayName>
 			</currency>
 			<currency type="CZK">
+				<symbol draft="contributed">CZK</symbol>
 				<displayName>ချက် ခိုရိုနာ</displayName>
 				<displayName count="other">ချက် ခိုရိုနာ</displayName>
-				<symbol draft="contributed">CZK</symbol>
 			</currency>
 			<currency type="DEM">
 				<displayName>ဂျာမဏီ မတ်</displayName>
 			</currency>
 			<currency type="DJF">
+				<symbol draft="contributed">DJF</symbol>
 				<displayName>ဂျီဘူတီ ဖရန့်</displayName>
 				<displayName count="other">ဂျီဘူတီ ဖရန့်</displayName>
-				<symbol draft="contributed">DJF</symbol>
 			</currency>
 			<currency type="DKK">
+				<symbol draft="contributed">DKK</symbol>
 				<displayName>ဒိန်းမတ် ခရိုဏာ</displayName>
 				<displayName count="other">ဒိန်းမတ် ခရိုဏာ</displayName>
-				<symbol draft="contributed">DKK</symbol>
 			</currency>
 			<currency type="DOP">
+				<symbol draft="contributed">DOP</symbol>
 				<displayName>ဒိုမီနီကန် ပီဆို</displayName>
 				<displayName count="other">ဒိုမီနီကန် ပီဆို</displayName>
-				<symbol draft="contributed">DOP</symbol>
 			</currency>
 			<currency type="DZD">
+				<symbol draft="contributed">DZD</symbol>
 				<displayName>အယ်လ်ဂျီးရီးယား ဒီနာ</displayName>
 				<displayName count="other">အယ်လ်ဂျီးရီးယား ဒီနာ</displayName>
-				<symbol draft="contributed">DZD</symbol>
 			</currency>
 			<currency type="EGP">
+				<symbol draft="contributed">EGP</symbol>
 				<displayName>အီဂျစ် ပေါင်</displayName>
 				<displayName count="other">အီဂျစ် ပေါင်</displayName>
-				<symbol draft="contributed">EGP</symbol>
 			</currency>
 			<currency type="ERN">
+				<symbol draft="contributed">ERN</symbol>
 				<displayName>အီရီထရီးယား နာ့ခ်ဖာ</displayName>
 				<displayName count="other">အီရီထရီးယား နာ့ခ်ဖာ</displayName>
-				<symbol draft="contributed">ERN</symbol>
 			</currency>
 			<currency type="ESP">
 				<displayName>စပိန် ပယ်စေးတာ</displayName>
 			</currency>
 			<currency type="ETB">
+				<symbol draft="contributed">ETB</symbol>
 				<displayName>အီသီယိုးပီးယား ဘီးယာ</displayName>
 				<displayName count="other">အီသီယိုးပီးယား ဘီးယာ</displayName>
-				<symbol draft="contributed">ETB</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>ယူရို</displayName>
 				<displayName count="other">ယူရို</displayName>
 			</currency>
 			<currency type="FJD">
+				<symbol draft="contributed">FJD</symbol>
 				<displayName>ဖီဂျီ ဒေါ်လာ</displayName>
 				<displayName count="other">ဖီဂျီ ဒေါ်လာ</displayName>
-				<symbol draft="contributed">FJD</symbol>
 			</currency>
 			<currency type="FKP">
+				<symbol draft="contributed">FKP</symbol>
 				<displayName>ဖော့ကလန်ကျွန်းစု ပေါင်</displayName>
 				<displayName count="other">ဖော့ကလန်ကျွန်းစု ပေါင်</displayName>
-				<symbol draft="contributed">FKP</symbol>
 			</currency>
 			<currency type="FRF">
 				<displayName>ပြင်သစ် ဖရန့်</displayName>
@@ -4609,68 +4617,68 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">ဗြိတိသျှ ပေါင်</displayName>
 			</currency>
 			<currency type="GEL">
+				<symbol draft="contributed">GEL</symbol>
 				<displayName>ဂျော်ဂျီယာ လားရီ</displayName>
 				<displayName count="other">ဂျော်ဂျီယာ လားရီ</displayName>
-				<symbol draft="contributed">GEL</symbol>
 			</currency>
 			<currency type="GHS">
+				<symbol draft="contributed">GHS</symbol>
 				<displayName>ဂါနာ ဆဲဒီ</displayName>
 				<displayName count="other">ဂါနာ ဆဲဒီ</displayName>
-				<symbol draft="contributed">GHS</symbol>
 			</currency>
 			<currency type="GIP">
+				<symbol draft="contributed">GIP</symbol>
 				<displayName>ဂျီဘရော်လ်တာ ပေါင်</displayName>
 				<displayName count="other">ဂျီဘရော်လ်တာ ပေါင်</displayName>
-				<symbol draft="contributed">GIP</symbol>
 			</currency>
 			<currency type="GMD">
+				<symbol draft="contributed">GMD</symbol>
 				<displayName>ဂမ်ဘီယာ ဒါလာစီ</displayName>
 				<displayName count="other">ဂမ်ဘီယာ ဒါလာစီ</displayName>
-				<symbol draft="contributed">GMD</symbol>
 			</currency>
 			<currency type="GNF">
+				<symbol draft="contributed">GNF</symbol>
 				<displayName>ဂီနီရာ ဖရန့်</displayName>
 				<displayName count="other">ဂီနီရာ ဖရန့်</displayName>
-				<symbol draft="contributed">GNF</symbol>
 			</currency>
 			<currency type="GTQ">
+				<symbol draft="contributed">GTQ</symbol>
 				<displayName>ဂွါတီမာလာ ခက်ဇော်လ်</displayName>
 				<displayName count="other">ဂွါတီမာလာ ခက်ဇော်လ်</displayName>
-				<symbol draft="contributed">GTQ</symbol>
 			</currency>
 			<currency type="GYD">
+				<symbol draft="contributed">GYD</symbol>
 				<displayName>ဂိုင်ယာနာ ဒေါ်လာ</displayName>
 				<displayName count="other">ဂိုင်ယာနာ ဒေါ်လာ</displayName>
-				<symbol draft="contributed">GYD</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>ဟောင်ကောင် ဒေါ်လာ</displayName>
 				<displayName count="other">ဟောင်ကောင် ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="HNL">
+				<symbol draft="contributed">HNL</symbol>
 				<displayName>ဟွန်ဒူးရပ်စ် လမ်းပီရာ</displayName>
 				<displayName count="other">ဟွန်ဒူးရပ်စ် လမ်းပီရာ</displayName>
-				<symbol draft="contributed">HNL</symbol>
 			</currency>
 			<currency type="HRK">
+				<symbol draft="contributed">HRK</symbol>
 				<displayName>ခရိုအေးရှား ခူးနာ</displayName>
 				<displayName count="other">ခရိုအေးရှား ခူးနာ</displayName>
-				<symbol draft="contributed">HRK</symbol>
 			</currency>
 			<currency type="HTG">
+				<symbol draft="contributed">G</symbol>
 				<displayName>ဟေတီဂူးအော်ဒ်</displayName>
 				<displayName count="other">ဟေတီဂူးအော်ဒ်</displayName>
-				<symbol draft="contributed">G</symbol>
 			</currency>
 			<currency type="HUF">
+				<symbol draft="contributed">HUF</symbol>
 				<displayName>ဟန်ဂေရီယံ ဖော်ရင့်တ်</displayName>
 				<displayName count="other">ဟန်ဂေရီယံ ဖော်ရင့်တ်</displayName>
-				<symbol draft="contributed">HUF</symbol>
 			</currency>
 			<currency type="IDR">
+				<symbol draft="contributed">IDR</symbol>
 				<displayName>အင်ဒိုနီးရှား ရူပီးယား</displayName>
 				<displayName count="other">အင်ဒိုနီးရှား ရူပီးယား</displayName>
-				<symbol draft="contributed">IDR</symbol>
 			</currency>
 			<currency type="ILP">
 				<displayName>အစ္စရေး ပေါင်</displayName>
@@ -4684,97 +4692,97 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">အိန္ဒိယ ရူပီး</displayName>
 			</currency>
 			<currency type="IQD">
+				<symbol draft="contributed">IQD</symbol>
 				<displayName>အီရတ် ဒီနာ</displayName>
 				<displayName count="other">အီရတ် ဒီနာ</displayName>
-				<symbol draft="contributed">IQD</symbol>
 			</currency>
 			<currency type="IRR">
+				<symbol draft="contributed">IRR</symbol>
 				<displayName>အီရန် ရီအော်လ်</displayName>
 				<displayName count="other">အီရန် ရီအော်လ်</displayName>
-				<symbol draft="contributed">IRR</symbol>
 			</currency>
 			<currency type="ISK">
+				<symbol draft="contributed">ISK</symbol>
 				<displayName>အိုက်စလန် ခရိုဏာ</displayName>
 				<displayName count="other">အိုက်စလန် ခရိုဏာ</displayName>
-				<symbol draft="contributed">ISK</symbol>
 			</currency>
 			<currency type="JMD">
+				<symbol draft="contributed">JMD</symbol>
 				<displayName>ဂျမေကာ ဒေါ်လာ</displayName>
 				<displayName count="other">ဂျမေကာ ဒေါ်လာ</displayName>
-				<symbol draft="contributed">JMD</symbol>
 			</currency>
 			<currency type="JOD">
+				<symbol draft="contributed">JOD</symbol>
 				<displayName>ဂျော်ဒန် ဒီနာ</displayName>
 				<displayName count="other">ဂျော်ဒန် ဒီနာ</displayName>
-				<symbol draft="contributed">JOD</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>ဂျပန် ယန်း</displayName>
 				<displayName count="other">ဂျပန် ယန်း</displayName>
 			</currency>
 			<currency type="KES">
+				<symbol draft="contributed">KES</symbol>
 				<displayName>ကင်ညာ သျှီလင်</displayName>
 				<displayName count="other">ကင်ညာ သျှီလင်</displayName>
-				<symbol draft="contributed">KES</symbol>
 			</currency>
 			<currency type="KGS">
+				<symbol draft="contributed">KGS</symbol>
 				<displayName>ကာဂျစ္စတန် ဆော်မ်</displayName>
 				<displayName count="other">ကာဂျစ္စတန် ဆော်မ်</displayName>
-				<symbol draft="contributed">KGS</symbol>
 			</currency>
 			<currency type="KHR">
+				<symbol draft="contributed">KHR</symbol>
 				<displayName>ကမ္ဘောဒီးယား ရီးယဲ</displayName>
 				<displayName count="other">ကမ္ဘောဒီးယား ရီးယဲ</displayName>
-				<symbol draft="contributed">KHR</symbol>
 			</currency>
 			<currency type="KMF">
+				<symbol draft="contributed">KMF</symbol>
 				<displayName>ကိုမိုရိုစ် ဖရန့်</displayName>
 				<displayName count="other">ကိုမိုရိုစ် ဖရန့်</displayName>
-				<symbol draft="contributed">KMF</symbol>
 			</currency>
 			<currency type="KPW">
+				<symbol draft="contributed">KPW</symbol>
 				<displayName>မြောက်ကိုရီးယား ဝမ်</displayName>
 				<displayName count="other">မြောက်ကိုရီးယား ဝမ်</displayName>
-				<symbol draft="contributed">KPW</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>တောင်ကိုရီးယား ဝမ်</displayName>
 				<displayName count="other">တောင်ကိုရီးယား ဝမ်</displayName>
 			</currency>
 			<currency type="KWD">
+				<symbol draft="contributed">KWD</symbol>
 				<displayName>ကူဝိတ် ဒီနာ</displayName>
 				<displayName count="other">ကူဝိတ် ဒီနာ</displayName>
-				<symbol draft="contributed">KWD</symbol>
 			</currency>
 			<currency type="KYD">
+				<symbol draft="contributed">KYD</symbol>
 				<displayName>ကေမန် ကျွန်းစု ဒေါ်လာ</displayName>
 				<displayName count="other">ကေမန် ကျွန်းစု ဒေါ်လာ</displayName>
-				<symbol draft="contributed">KYD</symbol>
 			</currency>
 			<currency type="KZT">
+				<symbol draft="contributed">KZT</symbol>
 				<displayName>ကာဇက်စတန် ထိန်ဂျီ</displayName>
 				<displayName count="other">ကာဇက်စတန် ထိန်ဂျီ</displayName>
-				<symbol draft="contributed">KZT</symbol>
 			</currency>
 			<currency type="LAK">
+				<symbol draft="contributed">LAK</symbol>
 				<displayName>လာအို ကစ်</displayName>
 				<displayName count="other">လာအို ကစ်</displayName>
-				<symbol draft="contributed">LAK</symbol>
 			</currency>
 			<currency type="LBP">
+				<symbol draft="contributed">LBP</symbol>
 				<displayName>လက်ဘနွန် ပေါင်</displayName>
 				<displayName count="other">လက်ဘနွန် ပေါင်</displayName>
-				<symbol draft="contributed">LBP</symbol>
 			</currency>
 			<currency type="LKR">
+				<symbol draft="contributed">LKR</symbol>
 				<displayName>သီရိလင်္ကာ ရူပီး</displayName>
 				<displayName count="other">သီရိလင်္ကာ ရူပီး</displayName>
-				<symbol draft="contributed">LKR</symbol>
 			</currency>
 			<currency type="LRD">
+				<symbol draft="contributed">LRD</symbol>
 				<displayName>လိုက်ဘေးရီးယား ဒေါ်လာ</displayName>
 				<displayName count="other">လိုက်ဘေးရီးယား ဒေါ်လာ</displayName>
-				<symbol draft="contributed">LRD</symbol>
 			</currency>
 			<currency type="LTL">
 				<displayName>လစ်သူယေးနီးယားလီတားစ်</displayName>
@@ -4785,242 +4793,242 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">လတ်ဗီးယားလတ်</displayName>
 			</currency>
 			<currency type="LYD">
+				<symbol draft="contributed">LYD</symbol>
 				<displayName>လစ်ဗျား ဒိုင်နာ</displayName>
 				<displayName count="other">လစ်ဗျား ဒိုင်နာ</displayName>
-				<symbol draft="contributed">LYD</symbol>
 			</currency>
 			<currency type="MAD">
+				<symbol draft="contributed">MAD</symbol>
 				<displayName>မိုရိုကို ဒရမ်</displayName>
 				<displayName count="other">မိုရိုကို ဒရမ်</displayName>
-				<symbol draft="contributed">MAD</symbol>
 			</currency>
 			<currency type="MDL">
+				<symbol draft="contributed">MDL</symbol>
 				<displayName>မောလ်ဒိုဗာ လယ်အို</displayName>
 				<displayName count="other">မောလ်ဒိုဗာ လယ်အို</displayName>
-				<symbol draft="contributed">MDL</symbol>
 			</currency>
 			<currency type="MGA">
+				<symbol draft="contributed">MGA</symbol>
 				<displayName>မာလာဂါစီ အရီရရီ</displayName>
 				<displayName count="other">မာလာဂါစီ အရီရရီ</displayName>
-				<symbol draft="contributed">MGA</symbol>
 			</currency>
 			<currency type="MKD">
+				<symbol draft="contributed">MKD</symbol>
 				<displayName>မက်ဆီဒိုးနီးယား ဒီနာ</displayName>
 				<displayName count="other">မက်ဆီဒိုးနီးယား ဒီနာ</displayName>
-				<symbol draft="contributed">MKD</symbol>
 			</currency>
 			<currency type="MMK">
+				<symbol>K</symbol>
 				<displayName>မြန်မာ ကျပ်</displayName>
 				<displayName count="other">မြန်မာ ကျပ်</displayName>
-				<symbol>K</symbol>
 			</currency>
 			<currency type="MNT">
+				<symbol draft="contributed">MNT</symbol>
 				<displayName>မွန်ဂိုးလီးယား ထူးဂရခ်</displayName>
 				<displayName count="other">မွန်ဂိုးလီးယား ထူးဂရခ်</displayName>
-				<symbol draft="contributed">MNT</symbol>
 			</currency>
 			<currency type="MOP">
+				<symbol draft="contributed">MOP</symbol>
 				<displayName>မကာအို ပါတားကား</displayName>
 				<displayName count="other">မကာအို ပါတားကား</displayName>
-				<symbol draft="contributed">MOP</symbol>
 			</currency>
 			<currency type="MRO">
+				<symbol draft="contributed">MRO</symbol>
 				<displayName>မော်ရီတေးနီးယား အူဂီးယာ (၁၉၇၃–၂၀၁၇)</displayName>
 				<displayName count="other">မော်ရီတေးနီးယား အူဂီးယာ (၁၉၇၃–၂၀၁၇)</displayName>
-				<symbol draft="contributed">MRO</symbol>
 			</currency>
 			<currency type="MRU">
 				<displayName>မော်ရီတေးနီးယန်း အူဂီးယာ</displayName>
 				<displayName count="other">မော်ရီတေးနီးယန်း အူဂီးယာ</displayName>
 			</currency>
 			<currency type="MUR">
+				<symbol draft="contributed">MUR</symbol>
 				<displayName>မောရစ်ရှ ရူပီး</displayName>
 				<displayName count="other">မောရစ်ရှ ရူပီး</displayName>
-				<symbol draft="contributed">MUR</symbol>
 			</currency>
 			<currency type="MVR">
+				<symbol draft="contributed">MVR</symbol>
 				<displayName>မော်လ်ဒိုက် ရူးဖီရာ</displayName>
 				<displayName count="other">မော်လ်ဒိုက် ရူးဖီရာ</displayName>
-				<symbol draft="contributed">MVR</symbol>
 			</currency>
 			<currency type="MWK">
+				<symbol draft="contributed">MWK</symbol>
 				<displayName>မာလာဝီ ခွါးချာ</displayName>
 				<displayName count="other">မာလာဝီ ခွါးချာ</displayName>
-				<symbol draft="contributed">MWK</symbol>
 			</currency>
 			<currency type="MXN">
 				<displayName>မက်ကဆီကို ပီဆို</displayName>
 				<displayName count="other">မက်ကဆီကို ပီဆို</displayName>
 			</currency>
 			<currency type="MYR">
+				<symbol draft="contributed">MYR</symbol>
 				<displayName>မလေးရှား ရင်းဂစ်</displayName>
 				<displayName count="other">မလေးရှား ရင်းဂစ်</displayName>
-				<symbol draft="contributed">MYR</symbol>
 			</currency>
 			<currency type="MZN">
+				<symbol draft="contributed">MZN</symbol>
 				<displayName>မိုဇမ်ဘစ် မက်တီခယ်လ်</displayName>
 				<displayName count="other">မိုဇမ်ဘစ် မက်တီခယ်လ်</displayName>
-				<symbol draft="contributed">MZN</symbol>
 			</currency>
 			<currency type="NAD">
+				<symbol draft="contributed">NAD</symbol>
 				<displayName>နမီးဘီးယား ဒေါ်လာ</displayName>
 				<displayName count="other">နမီးဘီးယား ဒေါ်လာ</displayName>
-				<symbol draft="contributed">NAD</symbol>
 			</currency>
 			<currency type="NGN">
+				<symbol draft="contributed">NGN</symbol>
 				<displayName>နိုင်ဂျီးရီးယား နိုင်းရာ</displayName>
 				<displayName count="other">နိုင်ဂျီးရီးယား နိုင်းရာ</displayName>
-				<symbol draft="contributed">NGN</symbol>
 			</currency>
 			<currency type="NIO">
+				<symbol draft="contributed">NIO</symbol>
 				<displayName>နီကာရာဂွါ ခိုးဒိုဘာ</displayName>
 				<displayName count="other">နီကာရာဂွါ ခိုးဒိုဘာ</displayName>
-				<symbol draft="contributed">NIO</symbol>
 			</currency>
 			<currency type="NOK">
+				<symbol draft="contributed">NOK</symbol>
 				<displayName>နော်ဝေ ခရိုဏာ</displayName>
 				<displayName count="other">နော်ဝေ ခရိုဏာ</displayName>
-				<symbol draft="contributed">NOK</symbol>
 			</currency>
 			<currency type="NPR">
+				<symbol draft="contributed">NPR</symbol>
 				<displayName>နီပေါ ရူပီး</displayName>
 				<displayName count="other">နီပေါ ရူပီး</displayName>
-				<symbol draft="contributed">NPR</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>နယူးဇီလန် ဒေါ်လာ</displayName>
 				<displayName count="other">နယူးဇီလန် ဒေါ်လာ</displayName>
 			</currency>
 			<currency type="OMR">
+				<symbol draft="contributed">OMR</symbol>
 				<displayName>အိုမန်နီ ရီရယ်</displayName>
 				<displayName count="other">အိုမန်နီ ရီရယ်</displayName>
-				<symbol draft="contributed">OMR</symbol>
 			</currency>
 			<currency type="PAB">
+				<symbol draft="contributed">B/.</symbol>
 				<displayName>ပနားမား ဘလျဘိုးအာ</displayName>
 				<displayName count="other">ပနားမား ဘလျဘိုးအာ</displayName>
-				<symbol draft="contributed">B/.</symbol>
 			</currency>
 			<currency type="PEN">
+				<symbol draft="contributed">PEN</symbol>
 				<displayName>ပီရူး ဆိုးလ်</displayName>
 				<displayName count="other">ပီရူး ဆိုးလ်</displayName>
-				<symbol draft="contributed">PEN</symbol>
 			</currency>
 			<currency type="PGK">
+				<symbol draft="contributed">PGK</symbol>
 				<displayName>ပါပူအာ နယူးဂီနီ ခီးနာ</displayName>
 				<displayName count="other">ပါပူအာ နယူးဂီနီ ခီးနာ</displayName>
-				<symbol draft="contributed">PGK</symbol>
 			</currency>
 			<currency type="PHP">
+				<symbol draft="contributed">PHP</symbol>
 				<displayName>ဖိလစ်ပိုင် ပီဆို</displayName>
 				<displayName count="other">ဖိလစ်ပိုင် ပီဆို</displayName>
-				<symbol draft="contributed">PHP</symbol>
 			</currency>
 			<currency type="PKR">
+				<symbol draft="contributed">PKR</symbol>
 				<displayName>ပါကစ္စတန် ရူပီး</displayName>
 				<displayName count="other">ပါကစ္စတန် ရူပီး</displayName>
-				<symbol draft="contributed">PKR</symbol>
 			</currency>
 			<currency type="PLN">
+				<symbol draft="contributed">PLN</symbol>
 				<displayName>ပိုလန် ဇလော့တီ</displayName>
 				<displayName count="other">ပိုလန် ဇလော့တီ</displayName>
-				<symbol draft="contributed">PLN</symbol>
 			</currency>
 			<currency type="PYG">
+				<symbol draft="contributed">PYG</symbol>
 				<displayName>ပါရာဂွေး ဂွါးအ်နီး</displayName>
 				<displayName count="other">ပါရာဂွေး ဂွါးအ်နီး</displayName>
-				<symbol draft="contributed">PYG</symbol>
 			</currency>
 			<currency type="QAR">
+				<symbol draft="contributed">QAR</symbol>
 				<displayName>ကာတာရီ ရီရယ်</displayName>
 				<displayName count="other">ကာတာရီ ရီရယ်</displayName>
-				<symbol draft="contributed">QAR</symbol>
 			</currency>
 			<currency type="RON">
+				<symbol draft="contributed">RON</symbol>
 				<displayName>ရိုမေးနီးယား လယ်အို</displayName>
 				<displayName count="other">ရိုမေးနီးယား လယ်အို</displayName>
-				<symbol draft="contributed">RON</symbol>
 			</currency>
 			<currency type="RSD">
+				<symbol draft="contributed">RSD</symbol>
 				<displayName>ဆားဘီးယား ဒယ်နား</displayName>
 				<displayName count="other">ဆားဘီးယား ဒယ်နား</displayName>
-				<symbol draft="contributed">RSD</symbol>
 			</currency>
 			<currency type="RUB">
+				<symbol draft="contributed">RUB</symbol>
 				<displayName>ရုရှ ရူဘယ်</displayName>
 				<displayName count="other">ရုရှ ရူဘယ်</displayName>
-				<symbol draft="contributed">RUB</symbol>
 			</currency>
 			<currency type="RUR">
 				<displayName>ရုရှ ရူဘယ် (၁၉၉၁–၁၉၉၈)</displayName>
 			</currency>
 			<currency type="RWF">
+				<symbol draft="contributed">RWF</symbol>
 				<displayName>ရဝန်ဒါ ဖရန့်</displayName>
 				<displayName count="other">ရဝန်ဒါ ဖရန့်</displayName>
-				<symbol draft="contributed">RWF</symbol>
 			</currency>
 			<currency type="SAR">
+				<symbol draft="contributed">SAR</symbol>
 				<displayName>ဆော်ဒီအာရေးဗီးယား ရီယော်လ်</displayName>
 				<displayName count="other">ဆော်ဒီအာရေးဗီးယား ရီယော်လ်</displayName>
-				<symbol draft="contributed">SAR</symbol>
 			</currency>
 			<currency type="SBD">
+				<symbol draft="contributed">SBD</symbol>
 				<displayName>ဆော်လမွန်ကျွန်းစု ဒေါ်လာ</displayName>
 				<displayName count="other">ဆော်လမွန်ကျွန်းစု ဒေါ်လာ</displayName>
-				<symbol draft="contributed">SBD</symbol>
 			</currency>
 			<currency type="SCR">
+				<symbol draft="contributed">SCR</symbol>
 				<displayName>ဆေးရှဲ ရူပီး</displayName>
 				<displayName count="other">ဆေးရှဲ ရူပီး</displayName>
-				<symbol draft="contributed">SCR</symbol>
 			</currency>
 			<currency type="SDG">
+				<symbol draft="contributed">SDG</symbol>
 				<displayName>ဆူဒန် ပေါင်</displayName>
 				<displayName count="other">ဆူဒန် ပေါင်</displayName>
-				<symbol draft="contributed">SDG</symbol>
 			</currency>
 			<currency type="SDP">
 				<displayName>ဆူဒန် ပေါင်အဟောင်း</displayName>
 			</currency>
 			<currency type="SEK">
+				<symbol draft="contributed">SEK</symbol>
 				<displayName>ဆွီဒင် ခရိုဏာ</displayName>
 				<displayName count="other">ဆွီဒင် ခရိုဏာ</displayName>
-				<symbol draft="contributed">SEK</symbol>
 			</currency>
 			<currency type="SGD">
+				<symbol draft="contributed">SGD</symbol>
 				<displayName>စင်္ကာပူ ဒေါ်လာ</displayName>
 				<displayName count="other">စင်္ကာပူ ဒေါ်လာ</displayName>
-				<symbol draft="contributed">SGD</symbol>
 			</currency>
 			<currency type="SHP">
+				<symbol draft="contributed">SHP</symbol>
 				<displayName>စိန့်ဟယ်လယ်နာ ပေါင်</displayName>
 				<displayName count="other">စိန့်ဟယ်လယ်နာ ပေါင်</displayName>
-				<symbol draft="contributed">SHP</symbol>
 			</currency>
 			<currency type="SLL">
+				<symbol draft="contributed">SLL</symbol>
 				<displayName>ဆီယာရာလီယွန်း လီအိုနီ</displayName>
 				<displayName count="other">ဆီယာရာလီယွန်း လီအိုနီ</displayName>
-				<symbol draft="contributed">SLL</symbol>
 			</currency>
 			<currency type="SOS">
+				<symbol draft="contributed">SOS</symbol>
 				<displayName>ဆိုမာလီ သျှီလင်</displayName>
 				<displayName count="other">ဆိုမာလီ သျှီလင်</displayName>
-				<symbol draft="contributed">SOS</symbol>
 			</currency>
 			<currency type="SRD">
+				<symbol draft="contributed">SRD</symbol>
 				<displayName>ဆူရီနမ်း ဒေါ်လာ</displayName>
 				<displayName count="other">ဆူရီနမ်း ဒေါ်လာ</displayName>
-				<symbol draft="contributed">SRD</symbol>
 			</currency>
 			<currency type="SSP">
+				<symbol draft="contributed">SSP</symbol>
 				<displayName>တောင်ဆူဒန် ပေါင်</displayName>
 				<displayName count="other">တောင်ဆူဒန် ပေါင်</displayName>
-				<symbol draft="contributed">SSP</symbol>
 			</currency>
 			<currency type="STD">
+				<symbol draft="contributed">STD</symbol>
 				<displayName>ဆောင်တူမေးနှင့် ပရင်စီပီ ဒိုဘရာ</displayName>
 				<displayName count="other">ဆောင်တူမေးနှင့် ပရင်စီပီ ဒိုဘရာ</displayName>
-				<symbol draft="contributed">STD</symbol>
 			</currency>
 			<currency type="STN">
 				<displayName>ဆောင်တူမေးနှင့် ပရင်စီပီ ဒိုဘရာ (၂၀၁၈)</displayName>
@@ -5030,71 +5038,71 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ဆိုဗီယက် ရူဗယ်</displayName>
 			</currency>
 			<currency type="SYP">
+				<symbol draft="contributed">SYP</symbol>
 				<displayName>ဆီးရီးယား ပေါင်</displayName>
 				<displayName count="other">ဆီးရီးယား ပေါင်</displayName>
-				<symbol draft="contributed">SYP</symbol>
 			</currency>
 			<currency type="SZL">
+				<symbol draft="contributed">SZL</symbol>
 				<displayName>ဆွာဇီလန် လီလန်းဂီနီ</displayName>
 				<displayName count="other">ဆွာဇီလန် လီလန်းဂီနီ</displayName>
-				<symbol draft="contributed">SZL</symbol>
 			</currency>
 			<currency type="THB">
+				<symbol>฿</symbol>
 				<displayName>ထိုင်း ဘတ်</displayName>
 				<displayName count="other">ထိုင်း ဘတ်</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJS">
+				<symbol draft="contributed">TJS</symbol>
 				<displayName>တာဂျစ်ကစ္စတန် ဆိုမိုနီ</displayName>
 				<displayName count="other">တာဂျစ်ကစ္စတန် ဆိုမိုနီ</displayName>
-				<symbol draft="contributed">TJS</symbol>
 			</currency>
 			<currency type="TMT">
+				<symbol draft="contributed">TMT</symbol>
 				<displayName>တာ့ခ်မင်နစ္စတန် မာနတ်</displayName>
 				<displayName count="other">တာ့ခ်မင်နစ္စတန် မာနတ်</displayName>
-				<symbol draft="contributed">TMT</symbol>
 			</currency>
 			<currency type="TND">
+				<symbol draft="contributed">TND</symbol>
 				<displayName>တူနီးရှား ဒိုင်နာ</displayName>
 				<displayName count="other">တူနီးရှား ဒိုင်နာ</displayName>
-				<symbol draft="contributed">TND</symbol>
 			</currency>
 			<currency type="TOP">
+				<symbol draft="contributed">TOP</symbol>
 				<displayName>တွန်ဂါ ဗန်ဂါ</displayName>
 				<displayName count="other">တွန်ဂါ ဗန်ဂါ</displayName>
-				<symbol draft="contributed">TOP</symbol>
 			</currency>
 			<currency type="TRL">
 				<displayName>ရှေးဟောင်းတူရကီ လိုင်ရာ</displayName>
 			</currency>
 			<currency type="TRY">
+				<symbol draft="contributed">TRY</symbol>
 				<displayName>တူရကီ လိုင်ရာ</displayName>
 				<displayName count="other">တူရကီ လိုင်ရာ</displayName>
-				<symbol draft="contributed">TRY</symbol>
 			</currency>
 			<currency type="TTD">
+				<symbol draft="contributed">TT$</symbol>
 				<displayName>ထရီနီဒတ်နှင့် တိုဘက်ဂို ဒေါ်လာ</displayName>
 				<displayName count="other">ထရီနီဒတ်နှင့် တိုဘက်ဂို ဒေါ်လာ</displayName>
-				<symbol draft="contributed">TT$</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>ထိုင်ဝမ် ဒေါ်လာအသစ်</displayName>
 				<displayName count="other">ထိုင်ဝမ် ဒေါ်လာအသစ်</displayName>
 			</currency>
 			<currency type="TZS">
+				<symbol draft="contributed">TZS</symbol>
 				<displayName>တန်ဇန်းနီးယား သျှီလင်</displayName>
 				<displayName count="other">တန်ဇန်းနီးယား သျှီလင်</displayName>
-				<symbol draft="contributed">TZS</symbol>
 			</currency>
 			<currency type="UAH">
+				<symbol draft="contributed">UAH</symbol>
 				<displayName>ယူကရိန်း ဟီရီဗင်းညား</displayName>
 				<displayName count="other">ယူကရိန်း ဟီရီဗင်းညား</displayName>
-				<symbol draft="contributed">UAH</symbol>
 			</currency>
 			<currency type="UGX">
+				<symbol draft="contributed">UGX</symbol>
 				<displayName>ယူဂန္ဒာ သျှီလင်</displayName>
 				<displayName count="other">ယူဂန္ဒာ သျှီလင်</displayName>
-				<symbol draft="contributed">UGX</symbol>
 			</currency>
 			<currency type="USD">
 				<displayName>အမေရိကန် ဒေါ်လာ</displayName>
@@ -5107,19 +5115,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>အမေရိကန် ဒေါ်လာ (တနေ့တည်း)</displayName>
 			</currency>
 			<currency type="UYU">
+				<symbol draft="contributed">UYU</symbol>
 				<displayName>ဥရုဂွေး ပီဆို</displayName>
 				<displayName count="other">ဥရုဂွေး ပီဆို</displayName>
-				<symbol draft="contributed">UYU</symbol>
 			</currency>
 			<currency type="UZS">
+				<symbol draft="contributed">UZS</symbol>
 				<displayName>ဥဇဘက်ကစ္စတန် ဆော်မ်</displayName>
 				<displayName count="other">ဥဇဘက်ကစ္စတန် ဆော်မ်</displayName>
-				<symbol draft="contributed">UZS</symbol>
 			</currency>
 			<currency type="VEF">
+				<symbol draft="contributed">VEF</symbol>
 				<displayName>ဗင်နီဇွဲလား ဘိုလီဗာ (၂၀၀၈–၂၀၁၈)</displayName>
 				<displayName count="other">ဗင်နီဇွဲလား ဘိုလီဗာ (၂၀၀၈–၂၀၁၈)</displayName>
-				<symbol draft="contributed">VEF</symbol>
 			</currency>
 			<currency type="VES">
 				<displayName>ဗင်နီဇွဲလန်း ဘိုလီဗာ</displayName>
@@ -5130,14 +5138,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">ဗီယက်နမ် ဒေါင်</displayName>
 			</currency>
 			<currency type="VUV">
+				<symbol draft="contributed">VUV</symbol>
 				<displayName>ဗနွားတူ ဗားထူ</displayName>
 				<displayName count="other">ဗနွားတူ ဗားထူ</displayName>
-				<symbol draft="contributed">VUV</symbol>
 			</currency>
 			<currency type="WST">
+				<symbol draft="contributed">WST</symbol>
 				<displayName>ဆမိုအား ထားလာ</displayName>
 				<displayName count="other">ဆမိုအား ထားလာ</displayName>
-				<symbol draft="contributed">WST</symbol>
 			</currency>
 			<currency type="XAF">
 				<displayName>ကင်မရွန်း ဖရန့်</displayName>
@@ -5178,19 +5186,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">(မသိသို့မဟုတ်မရှိသောငွေကြေး)</displayName>
 			</currency>
 			<currency type="YER">
+				<symbol draft="contributed">YER</symbol>
 				<displayName>ယီမင်နီ ရီရယ်</displayName>
 				<displayName count="other">ယီမင်နီ ရီရယ်</displayName>
-				<symbol draft="contributed">YER</symbol>
 			</currency>
 			<currency type="ZAR">
+				<symbol draft="contributed">ZAR</symbol>
 				<displayName>တောင်အာဖရိက ရန်း</displayName>
 				<displayName count="other">တောင်အာဖရိက ရန်း</displayName>
-				<symbol draft="contributed">ZAR</symbol>
 			</currency>
 			<currency type="ZMW">
+				<symbol draft="contributed">ZMW</symbol>
 				<displayName>ဇင်ဘာဘွေ ခွါးချာ</displayName>
 				<displayName count="other">ဇင်ဘာဘွေ ခွါးချာ</displayName>
-				<symbol draft="contributed">ZMW</symbol>
 			</currency>
 			<currency type="ZWD">
 				<displayName>ဇင်ဘာဘွေ ဒေါ်လာ</displayName>
@@ -5207,6 +5215,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>တစ်{1} လျှင် {0}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>ဆွဲငင်အား</displayName>
 				<unitPattern count="other">{0} ဆွဲငင်အား</unitPattern>
@@ -5238,6 +5249,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="area-acre">
 				<displayName>ဧက</displayName>
 				<unitPattern count="other">{0} ဧက</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>dunams</displayName>
+				<unitPattern count="other">{0} dunam</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>ဟက်တာ</displayName>
@@ -5288,6 +5303,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>တစ်လီတာရှိ မီလီမိုးလ်</displayName>
 				<unitPattern count="other">တစ်လီတာရှိ {0} မီလီမိုးလ်</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName>mol</displayName>
+				<unitPattern count="other">{0} mol</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
 				<displayName>တစ်သန်းပုံ တစ်ပုံ</displayName>
 				<unitPattern count="other">တစ်သန်းပုံ {0} ပုံ</unitPattern>
@@ -5299,6 +5318,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-permille">
 				<displayName>ထောင်လီစိတ်</displayName>
 				<unitPattern count="other">{0} ထောင်လီစိတ်</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>ပါမီရိတ်</displayName>
+				<unitPattern count="other">{0} ပါမီရိတ်</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>တစ်ရာကီလိုမီတာရှိ လီတာ</displayName>
@@ -5427,9 +5450,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ဗို့</displayName>
 				<unitPattern count="other">{0} ဗို့</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>ဗြိတိသျှ သာမယ်လ်ယူနစ်</displayName>
+				<unitPattern count="other">{0} ဗြိတိသျှ သာမယ်လ်ယူနစ်</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>ကယ်လိုရီ</displayName>
 				<unitPattern count="other">{0} ကယ်လိုရီ</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>အီလက်ထရွန်ဗို့</displayName>
+				<unitPattern count="other">{0} အီလက်ထရွန်ဗို့</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>ကယ်လိုရီ</displayName>
@@ -5450,6 +5481,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="energy-kilowatt-hour">
 				<displayName>ကီလိုဝပ်-နာရီ</displayName>
 				<unitPattern count="other">{0} ကီလိုဝပ်-နာရီ</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>နယူတန်</displayName>
+				<unitPattern count="other">{0} နယူတန်</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>lbf</displayName>
+				<unitPattern count="other">{0} lbf</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>ဂီဂါဟတ်ဇ်</displayName>
@@ -5540,6 +5579,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ပွိုင့်</displayName>
 				<unitPattern count="other">{0} ပွိုင့်</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>ဆိုလာ ရာဒီ</displayName>
+				<unitPattern count="other">{0} ဆိုလာ ရာဒီ</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>ကိုက်</displayName>
 				<unitPattern count="other">{0} ကိုက်</unitPattern>
@@ -5548,9 +5591,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>လတ်ခ်</displayName>
 				<unitPattern count="other">{0} လတ်ခ်</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>ဆိုလာ လူမီနိုစီတီးစ်</displayName>
+				<unitPattern count="other">{0} ဆိုလာ လူမီနိုစီးတီးစ်</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>ကာရက်</displayName>
 				<unitPattern count="other">{0} ကာရက်</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>ဒဲလ်တန်စ်</displayName>
+				<unitPattern count="other">{0} ဒဲလ်တန်စ်</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>ကမ္ဘာ့ဒြပ်ထု</displayName>
+				<unitPattern count="other">{0} ကမ္ဘာ့ဒြပ်ထု</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>ဂရမ်</displayName>
@@ -5587,6 +5642,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ပေါင်</displayName>
 				<unitPattern count="other">{0} ပေါင်</unitPattern>
 				<perUnitPattern>တစ်ပေါင်လျှင် {0}</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>နေရောင်ခြည် ဒြပ်ထု</displayName>
+				<unitPattern count="other">{0} နေရောင်ခြည် ဒြပ်ထု</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>တန်</displayName>
@@ -5627,6 +5686,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="pressure-inch-hg">
 				<displayName>ပြဒါးလက်မ</displayName>
 				<unitPattern count="other">{0} ပြဒါးလက်မ</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>ကီလိုပါစကယ်</displayName>
+				<unitPattern count="other">{0} ကီလိုပါစကယ်</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>မီဂါပါစကယ်</displayName>
+				<unitPattern count="other">{0} မီဂါပါစကယ်</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<displayName>မီလီဘား</displayName>
@@ -5672,9 +5739,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ကယ်လ်ဗင်</displayName>
 				<unitPattern count="other">{0} ကယ်လ်ဗင်</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>နယူတန်−မီတာ</displayName>
+				<unitPattern count="other">{0} နယူတန်−မီတာ</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>lbf.ft</displayName>
+				<unitPattern count="other">{0} lbf.ft</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ဧက-ပေ</displayName>
 				<unitPattern count="other">{0} ဧက-ပေ</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>ဘယ်ရလ်စ်</displayName>
+				<unitPattern count="other">{0} ဘယ်ရလ်စ်</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>စင်တီလီတာ</displayName>
@@ -5726,6 +5805,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>အရည်အောင်စ</displayName>
 				<unitPattern count="other">{0} အရည်အောင်စ</unitPattern>
 			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>Imp. fl oz</displayName>
+				<unitPattern count="other">{0} Imp. fl oz</unitPattern>
+			</unit>
 			<unit type="volume-gallon">
 				<displayName>ဂါလံ</displayName>
 				<unitPattern count="other">{0} ဂါလံ</unitPattern>
@@ -5773,9 +5856,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>လက်ဖက်ရည်ဇွန်း</displayName>
 				<unitPattern count="other">လက်ဖက်ရည်ဇွန်း {0} ဇွန်း</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>တစ်{1} လျှင် {0}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>အရပ် လေးမျက်နှာ</displayName>
 				<coordinateUnitPattern type="east">{0} အရှေ့</coordinateUnitPattern>
@@ -5785,6 +5865,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<unitPattern count="other">{0} G</unitPattern>
 			</unit>
@@ -5948,9 +6031,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>လီတာ</displayName>
 				<unitPattern count="other">{0}L</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>လမ်းကြောင်း</displayName>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
@@ -5982,6 +6062,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="area-acre">
 				<displayName>ဧက</displayName>
 			</unit>
+			<unit type="area-dunam">
+				<displayName>dunams</displayName>
+			</unit>
 			<unit type="area-hectare">
 				<displayName>ဟက်တာ</displayName>
 			</unit>
@@ -6011,6 +6094,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="concentr-part-per-million">
 				<displayName>တစ်သန်းပုံ တစ်ပုံ</displayName>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>ပါမီရိတ်</displayName>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>တစ်ရာကီလိုမီတာရှိ လီတာ</displayName>
@@ -6111,8 +6197,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="electric-volt">
 				<displayName>ဗို့</displayName>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>BTU</displayName>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>ကယ်လိုရီ</displayName>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>အီလက်ထရွန်ဗို့</displayName>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>ကယ်လိုရီ</displayName>
@@ -6128,6 +6220,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="energy-kilowatt-hour">
 				<displayName>ကီလိုဝပ်-နာရီ</displayName>
+			</unit>
+			<unit type="force-newton">
+				<displayName>နယူတန်</displayName>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>ဂီဂါဟတ်ဇ်</displayName>
@@ -6172,6 +6267,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ပွိုင့်</displayName>
 				<unitPattern count="other">{0} ပွိုင့်</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>ဆိုလာ ရာဒီ</displayName>
+			</unit>
 			<unit type="length-yard">
 				<displayName>ကိုက်</displayName>
 				<unitPattern count="other">{0} ကိုက်</unitPattern>
@@ -6179,8 +6277,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="light-lux">
 				<displayName>လတ်ခ်</displayName>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>ဆိုလာ လူမီနိုစီးတီးစ်</displayName>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>ကာရက်</displayName>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>ဒဲလ်တန်စ်</displayName>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>ကမ္ဘာ့ဒြပ်ထု</displayName>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>ဂရမ်</displayName>
@@ -6202,6 +6309,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="mass-pound">
 				<displayName>ပေါင်</displayName>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>နေရောင်ခြည် ဒြပ်ထု</displayName>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>တန်</displayName>
@@ -6236,8 +6346,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="speed-mile-per-hour">
 				<displayName>မိုင်/နာရီ</displayName>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>N.m</displayName>
+				<unitPattern count="other">{0} N.m</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>lbf.ft</displayName>
+				<unitPattern count="other">{0} lbf.ft</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ဧက-ပေ</displayName>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>ဘယ်ရလ်</displayName>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>စင်တီလီတာ</displayName>
@@ -6274,6 +6395,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>အရည်အောင်စ</displayName>
+				<unitPattern count="other">{0} fl oz</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>ဂါလံ</displayName>
@@ -6332,6 +6454,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<listPatternPart type="end">{0} သို့မဟုတ် {1}</listPatternPart>
 			<listPatternPart type="middle">{0} {1}</listPatternPart>
 			<listPatternPart type="start">{0} {1}</listPatternPart>
+		</listPattern>
+		<listPattern type="standard-narrow">
+			<listPatternPart type="2">↑↑↑</listPatternPart>
+			<listPatternPart type="end">↑↑↑</listPatternPart>
+			<listPatternPart type="middle">↑↑↑</listPatternPart>
+			<listPatternPart type="start">↑↑↑</listPatternPart>
 		</listPattern>
 		<listPattern type="standard-short">
 			<listPatternPart type="2">{0}နှင့် {1}</listPatternPart>

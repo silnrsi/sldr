@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2019 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -8,11 +8,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 -->
 <ldml>
 	<identity>
+		<version number="$Revision$"/>
+		<language type="sq"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr"/>
 		</special>
-		<version number="$Revision: 14350 $"/>
-		<language type="sq"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -63,6 +63,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="bug">buginezisht</language>
 			<language type="byn">blinisht</language>
 			<language type="ca">katalonisht</language>
+			<language type="ccp">çakmaisht</language>
 			<language type="ce">çeçenisht</language>
 			<language type="ceb">sebuanisht</language>
 			<language type="cgg">çigisht</language>
@@ -657,8 +658,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="MF">Sen-Marten</territory>
 			<territory type="MG">Madagaskar</territory>
 			<territory type="MH">Ishujt Marshall</territory>
-			<territory type="MK">Maqedoni</territory>
-			<territory type="MK" alt="variant">Maqedoni (IRJM)</territory>
+			<territory type="MK">Maqedonia e Veriut</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Mianmar (Burmë)</territory>
 			<territory type="MN">Mongoli</territory>
@@ -730,7 +730,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="SV">Salvador</territory>
 			<territory type="SX">Sint-Marten</territory>
 			<territory type="SY">Siri</territory>
-			<territory type="SZ">Suazilend</territory>
+			<territory type="SZ">Esvatini</territory>
+			<territory type="SZ" alt="variant">Suazilend</territory>
 			<territory type="TA">Tristan-da-Kuna</territory>
 			<territory type="TC">Ishujt Turks dhe Kaikos</territory>
 			<territory type="TD">Çad</territory>
@@ -767,6 +768,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="VU">Vanuatu</territory>
 			<territory type="WF">Uollis e Futuna</territory>
 			<territory type="WS">Samoa</territory>
+			<territory type="XA">Pseudo-thekse</territory>
+			<territory type="XB">Pseudo-bidi</territory>
 			<territory type="XK">Kosovë</territory>
 			<territory type="YE">Jemen</territory>
 			<territory type="YT">Majotë</territory>
@@ -882,18 +885,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
+			<parseLenient sample="%" draft="contributed">↑↑↑</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
-			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
+			<parseLenient sample="¥" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="’" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="‰" draft="contributed">↑↑↑</parseLenient>
+			<parseLenient sample="₩" draft="contributed">↑↑↑</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
-			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
-			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
-		</parseLenients>
-		<parseLenients scope="number" level="stricter">
-			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -963,7 +963,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="MEd">E, d.M</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d MMM</dateFormatItem>
-						<dateFormatItem id="MMMMd">d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMdd">MM-dd</dateFormatItem>
 						<dateFormatItem id="Md">d.M</dateFormatItem>
@@ -981,6 +981,51 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">y G – y G</greatestDifference>
+							<greatestDifference id="y">y – y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">M.y GGGGG – M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">M.y – M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">M.y – M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">E, d.M.y GGGGG – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="d">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">MMM y G – MMM y G</greatestDifference>
+							<greatestDifference id="M">MMM – MMM y G</greatestDifference>
+							<greatestDifference id="y">MMM y – MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">E, d MMM y G – E, d MMM y G</greatestDifference>
+							<greatestDifference id="M">E, d MMM – E, d MMM y G</greatestDifference>
+							<greatestDifference id="d">E, d MMM – E, d MMM y G</greatestDifference>
+							<greatestDifference id="y">E, d MMM y – E, d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">d MMM y G – d MMM y G</greatestDifference>
+							<greatestDifference id="M">d MMM – d MMM y G</greatestDifference>
+							<greatestDifference id="d">d – d MMM y G</greatestDifference>
+							<greatestDifference id="y">d MMM y – d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">d.M.y – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="d">d.M.y – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">d.M.y – d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M – M</greatestDifference>
 						</intervalFormatItem>
@@ -1439,8 +1484,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="MEd">E, d.M</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="one">'java' W 'e' MMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">'java' W 'e' MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">'java' W 'e' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">'java' W 'e' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMdd">d.M</dateFormatItem>
@@ -1464,6 +1509,51 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} - {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="h">h – h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">y G – y G</greatestDifference>
+							<greatestDifference id="y">y – y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">M.y GGGGG – M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">M.y – M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">M.y – M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G">E, d.M.y GGGGG – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="d">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">E, d.M.y – E, d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">MMM y G – MMM y G</greatestDifference>
+							<greatestDifference id="M">MMM y G – MMM y G</greatestDifference>
+							<greatestDifference id="y">MMM y G – MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G">E, d MMM y G – E, d MMM y G</greatestDifference>
+							<greatestDifference id="M">E, d MMM – E, d MMM y G</greatestDifference>
+							<greatestDifference id="d">E, d MMM – E, d MMM y G</greatestDifference>
+							<greatestDifference id="y">E, d MMM y – E, d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G">d MMM y G – d MMM y G</greatestDifference>
+							<greatestDifference id="M">d MMM – d MMM y G</greatestDifference>
+							<greatestDifference id="d">d – d MMM y G</greatestDifference>
+							<greatestDifference id="y">d MMM y – d MMM y G</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">d.M.y – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="d">d.M.y – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">d.M.y – d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
 						</intervalFormatItem>
@@ -1558,653 +1648,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
-		<fields>
-			<field type="day">
-				<displayName>ditë</displayName>
-				<relative type="-1">dje</relative>
-				<relative type="0">sot</relative>
-				<relative type="1">nesër</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>ditë</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>ditë</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>ditë e vitit</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>ditë e vitit</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>ditë e vitit</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>paradite/pasdite</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>paradite/pasdite</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>paradite/pasdite</displayName>
-			</field>
-			<field type="era">
-				<displayName>erë</displayName>
-			</field>
-			<field type="era-narrow">
-				<displayName>erë</displayName>
-			</field>
-			<field type="era-short">
-				<displayName>erë</displayName>
-			</field>
-			<field type="fri">
-				<relative type="-1">të premten e kaluar</relative>
-				<relative type="0">këtë të premte</relative>
-				<relative type="1">të premten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-narrow">
-				<relative type="-1">të premten e kaluar</relative>
-				<relative type="0">këtë të premte</relative>
-				<relative type="1">të premten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">të premten e kaluar</relative>
-				<relative type="0">këtë të premte</relative>
-				<relative type="1">të premten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour">
-				<displayName>orë</displayName>
-				<relative type="0">këtë orë</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-narrow">
-				<displayName>orë</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-short">
-				<displayName>orë</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>minutë</displayName>
-				<relative type="0">këtë minutë</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} minute</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} minutash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} minutë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} minuta më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>min</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} min</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} min</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} min më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} min më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>min</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} min</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} min</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} min më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} min më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">të hënën e kaluar</relative>
-				<relative type="0">këtë të hënë</relative>
-				<relative type="1">të hënën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">të hënën e kaluar</relative>
-				<relative type="0">këtë të hënë</relative>
-				<relative type="1">të hënën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">të hënën e kaluar</relative>
-				<relative type="0">këtë të hënë</relative>
-				<relative type="1">të hënën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>muaj</displayName>
-				<relative type="-1">muajin e kaluar</relative>
-				<relative type="0">këtë muaj</relative>
-				<relative type="1">muajin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>muaj</displayName>
-				<relative type="-1">muajin e kaluar</relative>
-				<relative type="0">këtë muaj</relative>
-				<relative type="1">muajin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>muaj</displayName>
-				<relative type="-1">muajin e kaluar</relative>
-				<relative type="0">këtë muaj</relative>
-				<relative type="1">muajin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>tremujor</displayName>
-				<relative type="-1">tremujorin e kaluar</relative>
-				<relative type="0">këtë tremujor</relative>
-				<relative type="1">tremujorin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>tremujor</displayName>
-				<relative type="-1">tremujorin e kaluar</relative>
-				<relative type="0">këtë tremujor</relative>
-				<relative type="1">tremujorin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>tremujor</displayName>
-				<relative type="-1">tremujorin e kaluar</relative>
-				<relative type="0">këtë tremujor</relative>
-				<relative type="1">tremujorin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">të shtunën e kaluar</relative>
-				<relative type="0">këtë të shtunë</relative>
-				<relative type="1">të shtunën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">të shtunën e kaluar</relative>
-				<relative type="0">këtë të shtunë</relative>
-				<relative type="1">të shtunën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">të shtunën e kaluar</relative>
-				<relative type="0">këtë të shtunë</relative>
-				<relative type="1">të shtunën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>sekondë</displayName>
-				<relative type="0">tani</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} sekonde</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} sekondash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sekondë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sekonda më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>sek</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} sek</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} sek</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sek më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sek më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>sek</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} sek</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} sek</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sek më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sek më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun">
-				<relative type="-1">të dielën e kaluar</relative>
-				<relative type="0">këtë të diel</relative>
-				<relative type="1">të dielën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">të dielën e kaluar</relative>
-				<relative type="0">këtë të diel</relative>
-				<relative type="1">të dielën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">të dielën e kaluar</relative>
-				<relative type="0">këtë të diel</relative>
-				<relative type="1">të dielën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">të enjten e kaluar</relative>
-				<relative type="0">këtë të enjte</relative>
-				<relative type="1">të enjten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">të enjten e kaluar</relative>
-				<relative type="0">këtë të enjte</relative>
-				<relative type="1">të enjten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">të enjten e kaluar</relative>
-				<relative type="0">këtë të enjte</relative>
-				<relative type="1">të enjten e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">të martën e kaluar</relative>
-				<relative type="0">këtë të martë</relative>
-				<relative type="1">të martën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">të martën e kaluar</relative>
-				<relative type="0">këtë të martë</relative>
-				<relative type="1">të martën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">të martën e kaluar</relative>
-				<relative type="0">këtë të martë</relative>
-				<relative type="1">të martën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">të mërkurën e kaluar</relative>
-				<relative type="0">këtë të mërkurë</relative>
-				<relative type="1">të mërkurën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">të mërkurën e kaluar</relative>
-				<relative type="0">këtë të mërkurë</relative>
-				<relative type="1">të mërkurën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">të mërkurën e kaluar</relative>
-				<relative type="0">këtë të mërkurë</relative>
-				<relative type="1">të mërkurën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>javë</displayName>
-				<relative type="-1">javën e kaluar</relative>
-				<relative type="0">këtë javë</relative>
-				<relative type="1">javën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>java e {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>javë</displayName>
-				<relative type="-1">javën e kaluar</relative>
-				<relative type="0">këtë javë</relative>
-				<relative type="1">javën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>java e {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>javë</displayName>
-				<relative type="-1">javën e kaluar</relative>
-				<relative type="0">këtë javë</relative>
-				<relative type="1">javën e ardhshme</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>java e {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>javë e muajit</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>javë e muajit</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>javë e muajit</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>ditë e javës</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>ditë e javës</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>ditë e javës</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>ditë pune e muajit</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>ditë pune e muajit</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>ditë pune e muajit</displayName>
-			</field>
-			<field type="year">
-				<displayName>vit</displayName>
-				<relative type="-1">vjet</relative>
-				<relative type="0">sivjet</relative>
-				<relative type="1">mot</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>vit</displayName>
-				<relative type="-1">vitin e kaluar</relative>
-				<relative type="0">këtë vit</relative>
-				<relative type="1">vitin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>vit</displayName>
-				<relative type="-1">vitin e kaluar</relative>
-				<relative type="0">këtë vit</relative>
-				<relative type="1">vitin e ardhshëm</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
-					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
-					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="zone">
-				<displayName>brezi orar</displayName>
-			</field>
-			<field type="zone-narrow">
-				<displayName>brezi orar</displayName>
-			</field>
-			<field type="zone-short">
-				<displayName>brezi orar</displayName>
-			</field>
-		</fields>
 		<timeZoneNames>
 			<regionFormat>Ora: {0}</regionFormat>
 			<regionFormat type="daylight">Ora verore: {0}</regionFormat>
@@ -3196,10 +2639,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>Kopenhagen</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
+				<exemplarCity>Dublin</exemplarCity>
 				<long>
 					<daylight>Ora strandarde e Irlandës</daylight>
 				</long>
-				<exemplarCity>Dublin</exemplarCity>
 			</zone>
 			<zone type="Europe/Gibraltar">
 				<exemplarCity>Gjibraltar</exemplarCity>
@@ -3235,10 +2678,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>Lubjanë</exemplarCity>
 			</zone>
 			<zone type="Europe/London">
+				<exemplarCity>Londër</exemplarCity>
 				<long>
 					<daylight>Ora verore britanike</daylight>
 				</long>
-				<exemplarCity>Londër</exemplarCity>
 			</zone>
 			<zone type="Europe/Luxembourg">
 				<exemplarCity>Luksemburg</exemplarCity>
@@ -4455,6 +3898,653 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</long>
 			</metazone>
 		</timeZoneNames>
+		<fields>
+			<field type="day">
+				<relative type="-1">dje</relative>
+				<relative type="0">sot</relative>
+				<relative type="1">nesër</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>ditë</displayName>
+			</field>
+			<field type="day-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>ditë</displayName>
+			</field>
+			<field type="day-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} dite</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} ditësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ditë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ditë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>ditë</displayName>
+			</field>
+			<field type="dayOfYear">
+				<displayName>ditë e vitit</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>ditë e vitit</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>ditë e vitit</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>paradite/pasdite</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>paradite/pasdite</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>paradite/pasdite</displayName>
+			</field>
+			<field type="era">
+				<displayName>erë</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>erë</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>erë</displayName>
+			</field>
+			<field type="fri">
+				<relative type="-1">të premten e kaluar</relative>
+				<relative type="0">këtë të premte</relative>
+				<relative type="1">të premten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">të premten e kaluar</relative>
+				<relative type="0">këtë të premte</relative>
+				<relative type="1">të premten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">të premten e kaluar</relative>
+				<relative type="0">këtë të premte</relative>
+				<relative type="1">të premten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të premteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të premtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të premte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të premte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour">
+				<relative type="0">këtë orë</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>orë</displayName>
+			</field>
+			<field type="hour-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>orë</displayName>
+			</field>
+			<field type="hour-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} ore</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} orësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} orë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} orë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>orë</displayName>
+			</field>
+			<field type="minute">
+				<relative type="0">këtë minutë</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} minute</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} minutash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} minutë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} minuta më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>minutë</displayName>
+			</field>
+			<field type="minute-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} min</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} min</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} min më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} min më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>min</displayName>
+			</field>
+			<field type="minute-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} min</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} min</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} min më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} min më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>min</displayName>
+			</field>
+			<field type="mon">
+				<relative type="-1">të hënën e kaluar</relative>
+				<relative type="0">këtë të hënë</relative>
+				<relative type="1">të hënën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">të hënën e kaluar</relative>
+				<relative type="0">këtë të hënë</relative>
+				<relative type="1">të hënën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">të hënën e kaluar</relative>
+				<relative type="0">këtë të hënë</relative>
+				<relative type="1">të hënën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të hëne</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të hënash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të hënë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të hëna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<relative type="-1">muajin e kaluar</relative>
+				<relative type="0">këtë muaj</relative>
+				<relative type="1">muajin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>muaj</displayName>
+			</field>
+			<field type="month-narrow">
+				<relative type="-1">muajin e kaluar</relative>
+				<relative type="0">këtë muaj</relative>
+				<relative type="1">muajin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>muaj</displayName>
+			</field>
+			<field type="month-short">
+				<relative type="-1">muajin e kaluar</relative>
+				<relative type="0">këtë muaj</relative>
+				<relative type="1">muajin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} muaji</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} muajsh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} muaj më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} muaj më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>muaj</displayName>
+			</field>
+			<field type="quarter">
+				<relative type="-1">tremujorin e kaluar</relative>
+				<relative type="0">këtë tremujor</relative>
+				<relative type="1">tremujorin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>tremujor</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<relative type="-1">tremujorin e kaluar</relative>
+				<relative type="0">këtë tremujor</relative>
+				<relative type="1">tremujorin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>tremujor</displayName>
+			</field>
+			<field type="quarter-short">
+				<relative type="-1">tremujorin e kaluar</relative>
+				<relative type="0">këtë tremujor</relative>
+				<relative type="1">tremujorin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} tremujori</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} tremujorësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} tremujor më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tremujorë më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>tremujor</displayName>
+			</field>
+			<field type="sat">
+				<relative type="-1">të shtunën e kaluar</relative>
+				<relative type="0">këtë të shtunë</relative>
+				<relative type="1">të shtunën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">të shtunën e kaluar</relative>
+				<relative type="0">këtë të shtunë</relative>
+				<relative type="1">të shtunën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">të shtunën e kaluar</relative>
+				<relative type="0">këtë të shtunë</relative>
+				<relative type="1">të shtunën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të shtune</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të shtunash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të shtunë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të shtuna më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<relative type="0">tani</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} sekonde</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} sekondash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sekondë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sekonda më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>sekondë</displayName>
+			</field>
+			<field type="second-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} sek</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} sek</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sek më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sek më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>sek</displayName>
+			</field>
+			<field type="second-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} sek</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} sek</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sek më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sek më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>sek</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">të dielën e kaluar</relative>
+				<relative type="0">këtë të diel</relative>
+				<relative type="1">të dielën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">të dielën e kaluar</relative>
+				<relative type="0">këtë të diel</relative>
+				<relative type="1">të dielën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">të dielën e kaluar</relative>
+				<relative type="0">këtë të diel</relative>
+				<relative type="1">të dielën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të diele</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të dielash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të dielë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të diela më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">të enjten e kaluar</relative>
+				<relative type="0">këtë të enjte</relative>
+				<relative type="1">të enjten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">të enjten e kaluar</relative>
+				<relative type="0">këtë të enjte</relative>
+				<relative type="1">të enjten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">të enjten e kaluar</relative>
+				<relative type="0">këtë të enjte</relative>
+				<relative type="1">të enjten e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të enjteje</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të enjtesh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të enjte më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të enjte më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">të martën e kaluar</relative>
+				<relative type="0">këtë të martë</relative>
+				<relative type="1">të martën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">të martën e kaluar</relative>
+				<relative type="0">këtë të martë</relative>
+				<relative type="1">të martën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">të martën e kaluar</relative>
+				<relative type="0">këtë të martë</relative>
+				<relative type="1">të martën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të marte</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të martash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të martë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të marta më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">të mërkurën e kaluar</relative>
+				<relative type="0">këtë të mërkurë</relative>
+				<relative type="1">të mërkurën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">të mërkurën e kaluar</relative>
+				<relative type="0">këtë të mërkurë</relative>
+				<relative type="1">të mërkurën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">të mërkurën e kaluar</relative>
+				<relative type="0">këtë të mërkurë</relative>
+				<relative type="1">të mërkurën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} të mërkure</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} të mërkurash</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} të mërkurë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} të mërkura më parë</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<relative type="-1">javën e kaluar</relative>
+				<relative type="0">këtë javë</relative>
+				<relative type="1">javën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>java e {0}</relativePeriod>
+				<displayName>javë</displayName>
+			</field>
+			<field type="week-narrow">
+				<relative type="-1">javën e kaluar</relative>
+				<relative type="0">këtë javë</relative>
+				<relative type="1">javën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>java e {0}</relativePeriod>
+				<displayName>javë</displayName>
+			</field>
+			<field type="week-short">
+				<relative type="-1">javën e kaluar</relative>
+				<relative type="0">këtë javë</relative>
+				<relative type="1">javën e ardhshme</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} jave</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} javësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} javë më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} javë më parë</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>java e {0}</relativePeriod>
+				<displayName>javë</displayName>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>javë e muajit</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>javë e muajit</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>javë e muajit</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>ditë e javës</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>ditë e javës</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>ditë e javës</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>ditë pune e muajit</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>ditë pune e muajit</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>ditë pune e muajit</displayName>
+			</field>
+			<field type="year">
+				<relative type="-1">vjet</relative>
+				<relative type="0">sivjet</relative>
+				<relative type="1">mot</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>vit</displayName>
+			</field>
+			<field type="year-narrow">
+				<relative type="-1">vitin e kaluar</relative>
+				<relative type="0">këtë vit</relative>
+				<relative type="1">vitin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>vit</displayName>
+			</field>
+			<field type="year-short">
+				<relative type="-1">vitin e kaluar</relative>
+				<relative type="0">këtë vit</relative>
+				<relative type="1">vitin e ardhshëm</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">pas {0} viti</relativeTimePattern>
+					<relativeTimePattern count="other">pas {0} vjetësh</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} vit më parë</relativeTimePattern>
+					<relativeTimePattern count="other">{0} vjet më parë</relativeTimePattern>
+				</relativeTime>
+				<displayName>vit</displayName>
+			</field>
+			<field type="zone">
+				<displayName>brezi orar</displayName>
+			</field>
+			<field type="zone-narrow">
+				<displayName>brezi orar</displayName>
+			</field>
+			<field type="zone-short">
+				<displayName>brezi orar</displayName>
+			</field>
+		</fields>
 	</dates>
 	<numbers>
 		<minimumGroupingDigits draft="contributed">2</minimumGroupingDigits>
@@ -4564,43 +4654,37 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dirhami i Emirateve të Bashkuara Arabe</displayName>
 				<displayName count="one">dirham i Emirateve të Bashkuara Arabe</displayName>
 				<displayName count="other">dirhamë të Emirateve të Bashkuara Arabe</displayName>
-				<symbol draft="contributed">AED</symbol>
 			</currency>
 			<currency type="AFN">
 				<displayName>Afgani afgan</displayName>
 				<displayName count="one">afgan afgan</displayName>
 				<displayName count="other">afganë afgan</displayName>
-				<symbol draft="contributed">AFN</symbol>
 			</currency>
 			<currency type="ALL">
+				<symbol>Lekë</symbol>
 				<displayName>Leku shqiptar</displayName>
 				<displayName count="one">lek shqiptar</displayName>
 				<displayName count="other">lekë shqiptar</displayName>
-				<symbol>Lekë</symbol>
 			</currency>
 			<currency type="AMD">
 				<displayName>Dramia armene</displayName>
 				<displayName count="one">drami armene</displayName>
 				<displayName count="other">drami armene</displayName>
-				<symbol draft="contributed">AMD</symbol>
 			</currency>
 			<currency type="ANG">
 				<displayName>Gilderi antilian holandez</displayName>
 				<displayName count="one">gilder antilian holandez</displayName>
 				<displayName count="other">gilderë antilian holandez</displayName>
-				<symbol draft="contributed">ANG</symbol>
 			</currency>
 			<currency type="AOA">
 				<displayName>Kuanza e Angolës</displayName>
 				<displayName count="one">kuanzë angole</displayName>
 				<displayName count="other">kuanza angole</displayName>
-				<symbol draft="contributed">AOA</symbol>
 			</currency>
 			<currency type="ARS">
 				<displayName>Pesoja argjentinase</displayName>
 				<displayName count="one">peso argjentinase</displayName>
 				<displayName count="other">peso argjentinase</displayName>
-				<symbol draft="contributed">ARS</symbol>
 			</currency>
 			<currency type="AUD">
 				<displayName>Dollari australian</displayName>
@@ -4611,67 +4695,56 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Florini aruban</displayName>
 				<displayName count="one">florin aruban</displayName>
 				<displayName count="other">florinë aruban</displayName>
-				<symbol draft="contributed">AWG</symbol>
 			</currency>
 			<currency type="AZN">
 				<displayName>Manata azerbajxhanase</displayName>
 				<displayName count="one">manatë azerbajxhanase</displayName>
 				<displayName count="other">manata azerbajxhanase</displayName>
-				<symbol draft="contributed">AZN</symbol>
 			</currency>
 			<currency type="BAM">
 				<displayName>Marka e Bosnjë-Hercegovinës [e shkëmbyeshme]</displayName>
 				<displayName count="one">markë e Bosnjë-Hercegovinës [e shkëmbyeshme]</displayName>
 				<displayName count="other">marka të Bosnjë-Hercegovinës [të shkëmbyeshme]</displayName>
-				<symbol draft="contributed">BAM</symbol>
 			</currency>
 			<currency type="BBD">
 				<displayName>Dollari barbadian</displayName>
 				<displayName count="one">dollar barbadian</displayName>
 				<displayName count="other">dollarë barbadian</displayName>
-				<symbol draft="contributed">BBD</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>Taka e Bangladeshit</displayName>
 				<displayName count="one">takë bangladeshi</displayName>
 				<displayName count="other">taka bangladeshi</displayName>
-				<symbol draft="contributed">BDT</symbol>
 			</currency>
 			<currency type="BGN">
 				<displayName>Leva bullgare</displayName>
 				<displayName count="one">levë bullgare</displayName>
 				<displayName count="other">leva bullgare</displayName>
-				<symbol draft="contributed">BGN</symbol>
 			</currency>
 			<currency type="BHD">
 				<displayName>Dinari i Bahreinit</displayName>
 				<displayName count="one">dinar bahreini</displayName>
 				<displayName count="other">dinarë bahreini</displayName>
-				<symbol draft="contributed">BHD</symbol>
 			</currency>
 			<currency type="BIF">
 				<displayName>Franga burundiane</displayName>
 				<displayName count="one">frangë burundiane</displayName>
 				<displayName count="other">franga burundiane</displayName>
-				<symbol draft="contributed">BIF</symbol>
 			</currency>
 			<currency type="BMD">
 				<displayName>Dollari i Bermudeve</displayName>
 				<displayName count="one">dollar bermude</displayName>
 				<displayName count="other">dollarë bermude</displayName>
-				<symbol draft="contributed">BMD</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>Dollari i Bruneit</displayName>
 				<displayName count="one">dollar brunei</displayName>
 				<displayName count="other">dollarë brunei</displayName>
-				<symbol draft="contributed">BND</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>Boliviani i Bolivisë</displayName>
 				<displayName count="one">bolivian i Bolivisë</displayName>
 				<displayName count="other">bolivianë të Bolivisë</displayName>
-				<symbol draft="contributed">BOB</symbol>
 			</currency>
 			<currency type="BRL">
 				<displayName>Reali brazilian</displayName>
@@ -4682,37 +4755,31 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari i Bahamasit</displayName>
 				<displayName count="one">dollar bahamez</displayName>
 				<displayName count="other">dollarë bahamez</displayName>
-				<symbol draft="contributed">BSD</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>Ngultrumi butanez</displayName>
 				<displayName count="one">ngultrum butanez</displayName>
 				<displayName count="other">ngultrumë butanez</displayName>
-				<symbol draft="contributed">BTN</symbol>
 			</currency>
 			<currency type="BWP">
 				<displayName>Pula botsuane</displayName>
 				<displayName count="one">pulë botsuane</displayName>
 				<displayName count="other">pula botsuane</displayName>
-				<symbol draft="contributed">BWP</symbol>
 			</currency>
 			<currency type="BYN">
 				<displayName>Rubla bjelloruse</displayName>
 				<displayName count="one">rubël bjelloruse</displayName>
 				<displayName count="other">rubla bjelloruse</displayName>
-				<symbol draft="contributed">BYN</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>Rubla bjelloruse (2000–2016)</displayName>
 				<displayName count="one">rubël bjelloruse (2000–2016)</displayName>
 				<displayName count="other">rubla bjelloruse (2000–2016)</displayName>
-				<symbol draft="contributed">BYR</symbol>
 			</currency>
 			<currency type="BZD">
 				<displayName>Dollari i Ishujve Belize</displayName>
 				<displayName count="one">dollar belize</displayName>
 				<displayName count="other">dollarë belize</displayName>
-				<symbol draft="contributed">BZD</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>Dollari kanadez</displayName>
@@ -4723,25 +4790,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Franga kongole</displayName>
 				<displayName count="one">frangë kongole</displayName>
 				<displayName count="other">franga kongole</displayName>
-				<symbol draft="contributed">CDF</symbol>
 			</currency>
 			<currency type="CHF">
 				<displayName>Franga zvicerane</displayName>
 				<displayName count="one">frangë zvicerane</displayName>
 				<displayName count="other">franga zvicerane</displayName>
-				<symbol draft="contributed">CHF</symbol>
 			</currency>
 			<currency type="CLP">
 				<displayName>Pesoja kiliane</displayName>
 				<displayName count="one">peso kiliane</displayName>
 				<displayName count="other">peso kiliane</displayName>
-				<symbol draft="contributed">CLP</symbol>
 			</currency>
 			<currency type="CNH">
 				<displayName>Juani kinez (për treg të jashtëm)</displayName>
 				<displayName count="one">juan kinez (për treg të jashtëm)</displayName>
 				<displayName count="other">juanë kinez (për treg të jashtëm)</displayName>
-				<symbol draft="contributed">CNH</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>Juani kinez</displayName>
@@ -4752,79 +4815,66 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Pesoja kolumbiane</displayName>
 				<displayName count="one">peso kolumbiane</displayName>
 				<displayName count="other">peso kolumbiane</displayName>
-				<symbol draft="contributed">COP</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>Koloni kostarikan</displayName>
 				<displayName count="one">kolon kostarikan</displayName>
 				<displayName count="other">kolonë kostarikan</displayName>
-				<symbol draft="contributed">CRC</symbol>
 			</currency>
 			<currency type="CUC">
 				<displayName>Pesoja kubaneze e shkëmbyeshme</displayName>
 				<displayName count="one">peso kubaneze e shkëmbyeshme</displayName>
 				<displayName count="other">peso kubaneze e shkëmbyeshme</displayName>
-				<symbol draft="contributed">CUC</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>Pesoja kubaneze</displayName>
 				<displayName count="one">peso kubaneze</displayName>
 				<displayName count="other">peso kubaneze</displayName>
-				<symbol draft="contributed">CUP</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>Eskudoja e Kepit të Gjelbër</displayName>
 				<displayName count="one">eskudo e Kepit të Gjelbër</displayName>
 				<displayName count="other">eskudo të Kepit të Gjelbër</displayName>
-				<symbol draft="contributed">CVE</symbol>
 			</currency>
 			<currency type="CZK">
 				<displayName>Koruna e Çekisë</displayName>
 				<displayName count="one">korunë çeke</displayName>
 				<displayName count="other">koruna çeke</displayName>
-				<symbol draft="contributed">CZK</symbol>
 			</currency>
 			<currency type="DJF">
 				<displayName>Franga xhibutiane</displayName>
 				<displayName count="one">frangë xhibutiane</displayName>
 				<displayName count="other">franga xhibutiane</displayName>
-				<symbol draft="contributed">DJF</symbol>
 			</currency>
 			<currency type="DKK">
 				<displayName>Korona daneze</displayName>
 				<displayName count="one">koronë daneze</displayName>
 				<displayName count="other">korona daneze</displayName>
-				<symbol draft="contributed">DKK</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>Pesoja dominikane</displayName>
 				<displayName count="one">peso dominikane</displayName>
 				<displayName count="other">peso dominikane</displayName>
-				<symbol draft="contributed">DOP</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>Dinari algjerian</displayName>
 				<displayName count="one">dinar algjerian</displayName>
 				<displayName count="other">dinarë algjerian</displayName>
-				<symbol draft="contributed">DZD</symbol>
 			</currency>
 			<currency type="EGP">
 				<displayName>Sterlina egjiptiane</displayName>
 				<displayName count="one">sterlinë egjiptiane</displayName>
 				<displayName count="other">sterlina egjiptiane</displayName>
-				<symbol draft="contributed">EGP</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>Nakfa e Eritresë</displayName>
 				<displayName count="one">nakfë eritreje</displayName>
 				<displayName count="other">nakfa eritreje</displayName>
-				<symbol draft="contributed">ERN</symbol>
 			</currency>
 			<currency type="ETB">
 				<displayName>Bira etiopiane</displayName>
 				<displayName count="one">birë etiopiane</displayName>
 				<displayName count="other">bira etiopiane</displayName>
-				<symbol draft="contributed">ETB</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>Euroja</displayName>
@@ -4835,13 +4885,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari i Fixhit</displayName>
 				<displayName count="one">dollar fixhi</displayName>
 				<displayName count="other">dollarë fixhi</displayName>
-				<symbol draft="contributed">FJD</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>Stërlina e Ishujve Falkland</displayName>
 				<displayName count="one">stërlinë e Ishujve Falkland</displayName>
 				<displayName count="other">stërlina të Ishujve Falkland</displayName>
-				<symbol draft="contributed">FKP</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>Sterlina britanike</displayName>
@@ -4852,43 +4900,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Laria gjeorgjiane</displayName>
 				<displayName count="one">lari gjeorgjian</displayName>
 				<displayName count="other">lari gjeorgjiane</displayName>
-				<symbol draft="contributed">GEL</symbol>
 			</currency>
 			<currency type="GHS">
 				<displayName>Sejda ganeze</displayName>
 				<displayName count="one">sejdë ganeze</displayName>
 				<displayName count="other">sejda ganeze</displayName>
-				<symbol draft="contributed">GHS</symbol>
 			</currency>
 			<currency type="GIP">
 				<displayName>Sterlina e Gjibraltarit</displayName>
 				<displayName count="one">sterlinë gjibraltari</displayName>
 				<displayName count="other">sterlina gjibraltari</displayName>
-				<symbol draft="contributed">GIP</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>Dalasi gambian</displayName>
 				<displayName count="one">dalas gambian</displayName>
 				<displayName count="other">dalasë gambian</displayName>
-				<symbol draft="contributed">GMD</symbol>
 			</currency>
 			<currency type="GNF">
 				<displayName>Franga guinease</displayName>
 				<displayName count="one">frangë guineje</displayName>
 				<displayName count="other">franga guineje</displayName>
-				<symbol draft="contributed">GNF</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>Kuecali i Guatemalës</displayName>
 				<displayName count="one">kuecal guatemalas</displayName>
 				<displayName count="other">kuecalë guatemalas</displayName>
-				<symbol draft="contributed">GTQ</symbol>
 			</currency>
 			<currency type="GYD">
 				<displayName>Dollari guajanez</displayName>
 				<displayName count="one">dollar guajanez</displayName>
 				<displayName count="other">dollarë guajanez</displayName>
-				<symbol draft="contributed">GYD</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>Dollari i Hong-Kongut</displayName>
@@ -4899,31 +4940,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Lempira hondurase</displayName>
 				<displayName count="one">lempirë hondurase</displayName>
 				<displayName count="other">lempira hondurase</displayName>
-				<symbol draft="contributed">HNL</symbol>
 			</currency>
 			<currency type="HRK">
 				<displayName>Kuna kroate</displayName>
 				<displayName count="one">kunë kroate</displayName>
 				<displayName count="other">kuna kroate</displayName>
-				<symbol draft="contributed">HRK</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>Gurdi haitian</displayName>
 				<displayName count="one">gurd haitian</displayName>
 				<displayName count="other">gurdë haitian</displayName>
-				<symbol draft="contributed">HTG</symbol>
 			</currency>
 			<currency type="HUF">
 				<displayName>Forinta hungareze</displayName>
 				<displayName count="one">forintë hungareze</displayName>
 				<displayName count="other">forinta hungareze</displayName>
-				<symbol draft="contributed">HUF</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>Rupia indoneziane</displayName>
 				<displayName count="one">rupi indoneziane</displayName>
 				<displayName count="other">rupi indoneziane</displayName>
-				<symbol draft="contributed">IDR</symbol>
 			</currency>
 			<currency type="ILS">
 				<displayName>Shekeli izrealit</displayName>
@@ -4939,31 +4975,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dinari irakian</displayName>
 				<displayName count="one">dinar irakian</displayName>
 				<displayName count="other">dinarë irakian</displayName>
-				<symbol draft="contributed">IQD</symbol>
 			</currency>
 			<currency type="IRR">
 				<displayName>Riali iranian</displayName>
 				<displayName count="one">rial iranian</displayName>
 				<displayName count="other">rialë iranian</displayName>
-				<symbol draft="contributed">IRR</symbol>
 			</currency>
 			<currency type="ISK">
 				<displayName>Korona islandeze</displayName>
 				<displayName count="one">koronë islandeze</displayName>
 				<displayName count="other">korona islandeze</displayName>
-				<symbol draft="contributed">ISK</symbol>
 			</currency>
 			<currency type="JMD">
 				<displayName>Dollari xhamajkan</displayName>
 				<displayName count="one">dollar xhamajkan</displayName>
 				<displayName count="other">dollarë xhamajkan</displayName>
-				<symbol draft="contributed">JMD</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>Dinari jordanez</displayName>
 				<displayName count="one">dinar jordanez</displayName>
 				<displayName count="other">dinarë jordanez</displayName>
-				<symbol draft="contributed">JOD</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>Jeni japonez</displayName>
@@ -4974,31 +5005,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Shilinga keniane</displayName>
 				<displayName count="one">shilingë keniane</displayName>
 				<displayName count="other">shilinga keniane</displayName>
-				<symbol draft="contributed">KES</symbol>
 			</currency>
 			<currency type="KGS">
 				<displayName>Soma kirgize</displayName>
 				<displayName count="one">somë kirgize</displayName>
 				<displayName count="other">soma kirgize</displayName>
-				<symbol draft="contributed">KGS</symbol>
 			</currency>
 			<currency type="KHR">
 				<displayName>Riali kamboxhian</displayName>
 				<displayName count="one">rial kamboxhian</displayName>
 				<displayName count="other">rialë kamboxhian</displayName>
-				<symbol draft="contributed">KHR</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>Franga komore</displayName>
 				<displayName count="one">frangë komore</displayName>
 				<displayName count="other">franga komori</displayName>
-				<symbol draft="contributed">KMF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>Uoni koreano-verior</displayName>
 				<displayName count="one">uon koreano-verior</displayName>
 				<displayName count="other">uonë koreano-verior</displayName>
-				<symbol draft="contributed">KPW</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>Uoni koreano-jugor</displayName>
@@ -5009,109 +5035,91 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dinari kuvajtian</displayName>
 				<displayName count="one">dinar kuvajtian</displayName>
 				<displayName count="other">dinarë kuvajtian</displayName>
-				<symbol draft="contributed">KWD</symbol>
 			</currency>
 			<currency type="KYD">
 				<displayName>Dollari i Ishujve Kajman</displayName>
 				<displayName count="one">dollar i Ishujve Kajman</displayName>
 				<displayName count="other">dollarë të Ishujve Kajman</displayName>
-				<symbol draft="contributed">KYD</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>Tenga kazake</displayName>
 				<displayName count="one">tengë kazake</displayName>
 				<displayName count="other">tenga kazake</displayName>
-				<symbol draft="contributed">KZT</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>Kipa e Laosit</displayName>
 				<displayName count="one">kipë laosi</displayName>
 				<displayName count="other">kipa laosi</displayName>
-				<symbol draft="contributed">LAK</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>Sterlina libaneze</displayName>
 				<displayName count="one">sterlinë libaneze</displayName>
 				<displayName count="other">sterlina libaneze</displayName>
-				<symbol draft="contributed">LBP</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>Rupia e Sri-Lankës</displayName>
 				<displayName count="one">rupi sri-lanke</displayName>
 				<displayName count="other">rupi sri-lanke</displayName>
-				<symbol draft="contributed">LKR</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>Dollari liberian</displayName>
 				<displayName count="one">dollar liberian</displayName>
 				<displayName count="other">dollarë liberian</displayName>
-				<symbol draft="contributed">LRD</symbol>
 			</currency>
 			<currency type="LTL">
 				<displayName>Lita lituaneze</displayName>
 				<displayName count="one">litë lituaneze</displayName>
 				<displayName count="other">lita lituaneze</displayName>
-				<symbol draft="contributed">LTL</symbol>
 			</currency>
 			<currency type="LVL">
 				<displayName>Lata letoneze</displayName>
 				<displayName count="one">latë letoneze</displayName>
 				<displayName count="other">lata letoneze</displayName>
-				<symbol draft="contributed">LVL</symbol>
 			</currency>
 			<currency type="LYD">
 				<displayName>Dinari libian</displayName>
 				<displayName count="one">dinar libian</displayName>
 				<displayName count="other">dinarë libian</displayName>
-				<symbol draft="contributed">LYD</symbol>
 			</currency>
 			<currency type="MAD">
 				<displayName>Dirhami maroken</displayName>
 				<displayName count="one">dirham maroken</displayName>
 				<displayName count="other">dirhamë maroken</displayName>
-				<symbol draft="contributed">MAD</symbol>
 			</currency>
 			<currency type="MDL">
 				<displayName>Leuja moldave</displayName>
 				<displayName count="one">leu moldave</displayName>
 				<displayName count="other">leu moldave</displayName>
-				<symbol draft="contributed">MDL</symbol>
 			</currency>
 			<currency type="MGA">
 				<displayName>Arieri malagez</displayName>
 				<displayName count="one">arier malagez</displayName>
 				<displayName count="other">arierë malagez</displayName>
-				<symbol draft="contributed">MGA</symbol>
 			</currency>
 			<currency type="MKD">
 				<displayName>Denari maqedonas</displayName>
 				<displayName count="one">denar maqedonas</displayName>
 				<displayName count="other">denarë maqedonas</displayName>
-				<symbol draft="contributed">MKD</symbol>
 			</currency>
 			<currency type="MMK">
 				<displayName>Kiata e Mianmarit</displayName>
 				<displayName count="one">kiatë mianmari</displayName>
 				<displayName count="other">kiata mianmari</displayName>
-				<symbol draft="contributed">MMK</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>Tugrika mongole</displayName>
 				<displayName count="one">tugrikë mongole</displayName>
 				<displayName count="other">tugrika mongole</displayName>
-				<symbol draft="contributed">MNT</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>Pataka e Makaos</displayName>
 				<displayName count="one">patakë e Makaos</displayName>
 				<displayName count="other">pataka të Makaos</displayName>
-				<symbol draft="contributed">MOP</symbol>
 			</currency>
 			<currency type="MRO">
 				<displayName>Ugija mauritane (1973–2017)</displayName>
 				<displayName count="one">ugijë mauritane (1973–2017)</displayName>
 				<displayName count="other">ugija mauritane (1973–2017)</displayName>
-				<symbol draft="contributed">MRO</symbol>
 			</currency>
 			<currency type="MRU">
 				<displayName>Ugija mauritane</displayName>
@@ -5122,19 +5130,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Rupia mauritiane</displayName>
 				<displayName count="one">rupi mauritiane</displayName>
 				<displayName count="other">rupi mauritiane</displayName>
-				<symbol draft="contributed">MUR</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>Rufiu i Maldivit</displayName>
 				<displayName count="one">rufi maldivi</displayName>
 				<displayName count="other">rufi maldivi</displayName>
-				<symbol draft="contributed">MVR</symbol>
 			</currency>
 			<currency type="MWK">
 				<displayName>Kuaça malaviane</displayName>
 				<displayName count="one">kuaçë malaviane</displayName>
 				<displayName count="other">kuaça malaviane</displayName>
-				<symbol draft="contributed">MWK</symbol>
 			</currency>
 			<currency type="MXN">
 				<displayName>Pesoja meksikane</displayName>
@@ -5145,43 +5150,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Ringiti malajzian</displayName>
 				<displayName count="one">ringit malajzian</displayName>
 				<displayName count="other">ringitë malajzian</displayName>
-				<symbol draft="contributed">MYR</symbol>
 			</currency>
 			<currency type="MZN">
 				<displayName>Metikali i Mozambikut</displayName>
 				<displayName count="one">metikal mozambiku</displayName>
 				<displayName count="other">metikalë mozambiku</displayName>
-				<symbol draft="contributed">MZN</symbol>
 			</currency>
 			<currency type="NAD">
 				<displayName>Dollari i Namibisë</displayName>
 				<displayName count="one">dollar namibie</displayName>
 				<displayName count="other">dollarë namibie</displayName>
-				<symbol draft="contributed">NAD</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>Naira nigeriane</displayName>
 				<displayName count="one">nairë nigeriane</displayName>
 				<displayName count="other">naira nigeriane</displayName>
-				<symbol draft="contributed">NGN</symbol>
 			</currency>
 			<currency type="NIO">
 				<displayName>Kordoba nikaraguane</displayName>
 				<displayName count="one">kordobë nikaraguane</displayName>
 				<displayName count="other">kordoba nikaraguane</displayName>
-				<symbol draft="contributed">NIO</symbol>
 			</currency>
 			<currency type="NOK">
 				<displayName>Korona norvegjeze</displayName>
 				<displayName count="one">koronë norvegjeze</displayName>
 				<displayName count="other">korona norvegjeze</displayName>
-				<symbol draft="contributed">NOK</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>Rupia nepaleze</displayName>
 				<displayName count="one">rupi nepaleze</displayName>
 				<displayName count="other">rupi nepaleze</displayName>
-				<symbol draft="contributed">NPR</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>Dollari i Zelandës së Re</displayName>
@@ -5192,211 +5190,177 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Riali i Omanit</displayName>
 				<displayName count="one">rial omani</displayName>
 				<displayName count="other">rialë omani</displayName>
-				<symbol draft="contributed">OMR</symbol>
 			</currency>
 			<currency type="PAB">
 				<displayName>Balboa panameze</displayName>
 				<displayName count="one">balboa panameze</displayName>
 				<displayName count="other">balboa panameze</displayName>
-				<symbol draft="contributed">PAB</symbol>
 			</currency>
 			<currency type="PEN">
 				<displayName>Sola peruane</displayName>
 				<displayName count="one">solë peruane</displayName>
 				<displayName count="other">sola peruane</displayName>
-				<symbol draft="contributed">PEN</symbol>
 			</currency>
 			<currency type="PGK">
 				<displayName>Kina e Guinesë së Re-Papua</displayName>
 				<displayName count="one">kinë e Guinesë së Re-Papua</displayName>
 				<displayName count="other">kina të Guinesë së Re-Papua</displayName>
-				<symbol draft="contributed">PGK</symbol>
 			</currency>
 			<currency type="PHP">
 				<displayName>Pesoja filipinase</displayName>
 				<displayName count="one">peso filipinase</displayName>
 				<displayName count="other">peso filipinase</displayName>
-				<symbol draft="contributed">PHP</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Rupia pakistaneze</displayName>
 				<displayName count="one">rupi pakistaneze</displayName>
 				<displayName count="other">rupi pakistaneze</displayName>
-				<symbol draft="contributed">PKR</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>Zllota polake</displayName>
 				<displayName count="one">zllotë polake</displayName>
 				<displayName count="other">zllota polake</displayName>
-				<symbol draft="contributed">PLN</symbol>
 			</currency>
 			<currency type="PYG">
 				<displayName>Guarani paraguaian</displayName>
 				<displayName count="one">guaran paraguaian</displayName>
 				<displayName count="other">guaranë paraguaian</displayName>
-				<symbol draft="contributed">PYG</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>Riali i Katarit</displayName>
 				<displayName count="one">rial katari</displayName>
 				<displayName count="other">rialë katari</displayName>
-				<symbol draft="contributed">QAR</symbol>
 			</currency>
 			<currency type="RON">
 				<displayName>Leuja rumune</displayName>
 				<displayName count="one">leu rumune</displayName>
 				<displayName count="other">leu rumune</displayName>
-				<symbol draft="contributed">RON</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>Dinari serb</displayName>
 				<displayName count="one">dinar serb</displayName>
 				<displayName count="other">dinarë serb</displayName>
-				<symbol draft="contributed">RSD</symbol>
 			</currency>
 			<currency type="RUB">
 				<displayName>Rubla ruse</displayName>
 				<displayName count="one">rubël ruse</displayName>
 				<displayName count="other">rubla ruse</displayName>
-				<symbol draft="contributed">RUB</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>Franga ruandeze</displayName>
 				<displayName count="one">frangë ruandeze</displayName>
 				<displayName count="other">franga ruandeze</displayName>
-				<symbol draft="contributed">RWF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>Riali saudit</displayName>
 				<displayName count="one">rial saudit</displayName>
 				<displayName count="other">rialë saudit</displayName>
-				<symbol draft="contributed">SAR</symbol>
 			</currency>
 			<currency type="SBD">
 				<displayName>Dollari i Ishujve Solomonë</displayName>
 				<displayName count="one">dollar i Ishujve Solomonë</displayName>
 				<displayName count="other">dollarë të Ishujve Solomonë</displayName>
-				<symbol draft="contributed">SBD</symbol>
 			</currency>
 			<currency type="SCR">
 				<displayName>Rupia e Ishujve Sishelë</displayName>
 				<displayName count="one">rupi e Ishujve Sishelë</displayName>
 				<displayName count="other">rupi të Ishujve Sishelë</displayName>
-				<symbol draft="contributed">SCR</symbol>
 			</currency>
 			<currency type="SDG">
 				<displayName>Sterlina sudaneze</displayName>
 				<displayName count="one">sterlinë sudaneze</displayName>
 				<displayName count="other">sterlina sudaneze</displayName>
-				<symbol draft="contributed">SDG</symbol>
 			</currency>
 			<currency type="SEK">
 				<displayName>Korona suedeze</displayName>
 				<displayName count="one">koronë suedeze</displayName>
 				<displayName count="other">korona suedeze</displayName>
-				<symbol draft="contributed">SEK</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>Dollari i Singaporit</displayName>
 				<displayName count="one">dollar singapori</displayName>
 				<displayName count="other">dollarë singapori</displayName>
-				<symbol draft="contributed">SGD</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>Sterlina e Ishullit të Shën-Helenës</displayName>
 				<displayName count="one">sterlinë e Ishullit të Shën-Helenës</displayName>
 				<displayName count="other">sterlina e Ishullit të Shën-Helenës</displayName>
-				<symbol draft="contributed">SHP</symbol>
 			</currency>
 			<currency type="SLL">
 				<displayName>Leoni i Sierra-Leones</displayName>
 				<displayName count="one">leon i Sierra-Leones</displayName>
 				<displayName count="other">leonë të Sierra-Leones</displayName>
-				<symbol draft="contributed">SLL</symbol>
 			</currency>
 			<currency type="SOS">
 				<displayName>Shilinga somaleze</displayName>
 				<displayName count="one">shilingë somaleze</displayName>
 				<displayName count="other">shilinga somaleze</displayName>
-				<symbol draft="contributed">SOS</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>Dollari surinamez</displayName>
 				<displayName count="one">dollar surinamez</displayName>
 				<displayName count="other">dollarë surinamez</displayName>
-				<symbol draft="contributed">SRD</symbol>
 			</currency>
 			<currency type="SSP">
 				<displayName>Sterlina sudanezo-jugore</displayName>
 				<displayName count="one">sterlinë sudanezo-jugore</displayName>
 				<displayName count="other">sterlina sudanezo-jugore</displayName>
-				<symbol draft="contributed">SSP</symbol>
 			</currency>
 			<currency type="STD">
 				<displayName>Dobra e Sao-Tomes dhe Prinsipes (1977–2017)</displayName>
 				<displayName count="one">dobër e Sao-Tomes dhe Prinsipes (1977–2017)</displayName>
 				<displayName count="other">dobra të Sao-Tomes dhe Prinsipes (1977–2017)</displayName>
-				<symbol draft="contributed">STD</symbol>
 			</currency>
 			<currency type="STN">
 				<displayName>Dobra e Sao-Tomes dhe Prinsipes</displayName>
 				<displayName count="one">dobër e Sao-Tomes dhe Prinsipes</displayName>
 				<displayName count="other">dobra të Sao-Tomes dhe Prinsipes</displayName>
-				<symbol draft="contributed">STN</symbol>
 			</currency>
 			<currency type="SYP">
 				<displayName>Sterlina siriane</displayName>
 				<displayName count="one">sterlinë siriane</displayName>
 				<displayName count="other">sterlina siriane</displayName>
-				<symbol draft="contributed">SYP</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>Lilangeni i Suazilandës</displayName>
 				<displayName count="one">lilangen suazilande</displayName>
 				<displayName count="other">lilangenë suazilande</displayName>
-				<symbol draft="contributed">SZL</symbol>
 			</currency>
 			<currency type="THB">
+				<symbol>฿</symbol>
 				<displayName>Bata tajlandeze</displayName>
 				<displayName count="one">batë tajlandeze</displayName>
 				<displayName count="other">bata tajlandeze</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>Somona taxhike</displayName>
 				<displayName count="one">somonë taxhike</displayName>
 				<displayName count="other">somona taxhike</displayName>
-				<symbol draft="contributed">TJS</symbol>
 			</currency>
 			<currency type="TMT">
 				<displayName>Manata turkmene</displayName>
 				<displayName count="one">manatë turkmene</displayName>
 				<displayName count="other">manata turkmene</displayName>
-				<symbol draft="contributed">TMT</symbol>
 			</currency>
 			<currency type="TND">
 				<displayName>Dinari tunizian</displayName>
 				<displayName count="one">dinar tunizian</displayName>
 				<displayName count="other">dinarë tunizian</displayName>
-				<symbol draft="contributed">TND</symbol>
 			</currency>
 			<currency type="TOP">
 				<displayName>Panga tongane</displayName>
 				<displayName count="one">pangë tongane</displayName>
 				<displayName count="other">panga tongane</displayName>
-				<symbol draft="contributed">TOP</symbol>
 			</currency>
 			<currency type="TRY">
 				<displayName>Lira turke</displayName>
 				<displayName count="one">lirë turke</displayName>
 				<displayName count="other">lira turke</displayName>
-				<symbol draft="contributed">TRY</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Dollari i Trinidadit dhe Tobagos</displayName>
 				<displayName count="one">dollar i Trinidadit dhe Tobagos</displayName>
 				<displayName count="other">dollarë të Trinidadit dhe Tobagos</displayName>
-				<symbol draft="contributed">TTD</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>Dollari tajvanez</displayName>
@@ -5407,19 +5371,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Shilinga e Tanzanisë</displayName>
 				<displayName count="one">shilingë tanzanie</displayName>
 				<displayName count="other">shilinga tanzanie</displayName>
-				<symbol draft="contributed">TZS</symbol>
 			</currency>
 			<currency type="UAH">
 				<displayName>Rivnia ukrainase</displayName>
 				<displayName count="one">rivni ukrainase</displayName>
 				<displayName count="other">rivni ukrainase</displayName>
-				<symbol draft="contributed">UAH</symbol>
 			</currency>
 			<currency type="UGX">
 				<displayName>Shilinga ugandeze</displayName>
 				<displayName count="one">shilingë ugandeze</displayName>
 				<displayName count="other">shilinga ugandeze</displayName>
-				<symbol draft="contributed">UGX</symbol>
 			</currency>
 			<currency type="USD">
 				<displayName>Dollari amerikan</displayName>
@@ -5430,25 +5391,22 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Pesoja uruguaiane</displayName>
 				<displayName count="one">peso uruguaiane</displayName>
 				<displayName count="other">peso uruguaiane</displayName>
-				<symbol draft="contributed">UYU</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>Soma uzbeke</displayName>
 				<displayName count="one">somë uzbeke</displayName>
 				<displayName count="other">soma uzbeke</displayName>
-				<symbol draft="contributed">UZS</symbol>
 			</currency>
 			<currency type="VEF">
+				<symbol draft="contributed">VEF</symbol>
 				<displayName>Bolivari venezuelian (2008–2018)</displayName>
 				<displayName count="one">bolivar venezuelian (2008–2018)</displayName>
 				<displayName count="other">bolivarë venezuelian (2008–2018)</displayName>
-				<symbol draft="contributed">VEF</symbol>
 			</currency>
 			<currency type="VES">
 				<displayName>Bolivari venezuelas</displayName>
 				<displayName count="one">bolivar venezuelas</displayName>
 				<displayName count="other">bolivarë venezuelas</displayName>
-				<symbol draft="contributed">VES</symbol>
 			</currency>
 			<currency type="VND">
 				<displayName>Donga vietnameze</displayName>
@@ -5459,13 +5417,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Vatuja e Vanuatusë</displayName>
 				<displayName count="one">vatu vanuatuje</displayName>
 				<displayName count="other">vatu vanuatuje</displayName>
-				<symbol draft="contributed">VUV</symbol>
 			</currency>
 			<currency type="WST">
 				<displayName>Tala samoane</displayName>
 				<displayName count="one">talë samoane</displayName>
 				<displayName count="other">tala samoane</displayName>
-				<symbol draft="contributed">WST</symbol>
 			</currency>
 			<currency type="XAF">
 				<displayName>Franga kamerunase</displayName>
@@ -5496,19 +5452,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Riali i Jemenit</displayName>
 				<displayName count="one">rial jemeni</displayName>
 				<displayName count="other">rialë jemeni</displayName>
-				<symbol draft="contributed">YER</symbol>
 			</currency>
 			<currency type="ZAR">
 				<displayName>Randi afrikano-jugor</displayName>
 				<displayName count="one">rand afrikano-jugor</displayName>
 				<displayName count="other">randë afrikano-jugor</displayName>
-				<symbol draft="contributed">ZAR</symbol>
 			</currency>
 			<currency type="ZMW">
 				<displayName>Kuaça e Zambikut</displayName>
 				<displayName count="one">kuaçë zambiku</displayName>
 				<displayName count="other">kuaça zambiku</displayName>
-				<symbol draft="contributed">ZMW</symbol>
 			</currency>
 		</currencies>
 		<miscPatterns numberSystem="latn">
@@ -5525,6 +5478,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0} në {1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>g-forcë</displayName>
 				<unitPattern count="one">{0} g-forcë</unitPattern>
@@ -5564,6 +5520,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>akra</displayName>
 				<unitPattern count="one">{0} akër</unitPattern>
 				<unitPattern count="other">{0} akra</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>dynym</displayName>
+				<unitPattern count="one">{0} dynym</unitPattern>
+				<unitPattern count="other">{0} dynymë</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>hektarë</displayName>
@@ -5625,6 +5586,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} milimol për litër</unitPattern>
 				<unitPattern count="other">{0} milimolë për litër</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName>molë</displayName>
+				<unitPattern count="one">{0} mol</unitPattern>
+				<unitPattern count="other">{0} molë</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
 				<displayName>pjesë për milion</displayName>
 				<unitPattern count="one">{0} pjesë për milion</unitPattern>
@@ -5639,6 +5605,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>përmijë</displayName>
 				<unitPattern count="one">{0} përmijë</unitPattern>
 				<unitPattern count="other">{0} përmijë</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>përdhjetëmijë</displayName>
+				<unitPattern count="one">{0} përdhjetëmijë</unitPattern>
+				<unitPattern count="other">{0} përdhjetëmijë</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName>litra për 100 kilometra</displayName>
@@ -5797,10 +5768,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} volt</unitPattern>
 				<unitPattern count="other">{0} volt</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>njësi termale britanike</displayName>
+				<unitPattern count="one">{0} njësi termale britanike</unitPattern>
+				<unitPattern count="other">{0} njësi termale britanike</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>kalori</displayName>
 				<unitPattern count="one">{0} kalori</unitPattern>
 				<unitPattern count="other">{0} kalori</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>elektrovolt</displayName>
+				<unitPattern count="one">{0} elektrovolt</unitPattern>
+				<unitPattern count="other">{0} elektrovolt</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>kalori ushqimore</displayName>
@@ -5826,6 +5807,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>kilovat-orë</displayName>
 				<unitPattern count="one">{0} kilovat-orë</unitPattern>
 				<unitPattern count="other">{0} kilovat-orë</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>njuton</displayName>
+				<unitPattern count="one">{0} njuton</unitPattern>
+				<unitPattern count="other">{0} njuton</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>paund force</displayName>
+				<unitPattern count="one">{0} paund force</unitPattern>
+				<unitPattern count="other">{0} paund force</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>gigaherc</displayName>
@@ -5937,6 +5928,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} shkallë</unitPattern>
 				<unitPattern count="other">{0} shkallë</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>rreze diellore</displayName>
+				<unitPattern count="one">{0} rreze diellore</unitPattern>
+				<unitPattern count="other">{0} rreze diellore</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>jardë</displayName>
 				<unitPattern count="one">{0} jard</unitPattern>
@@ -5947,10 +5943,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} luks</unitPattern>
 				<unitPattern count="other">{0} luks</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>lumenë diellorë</displayName>
+				<unitPattern count="one">{0} lumen diellorë</unitPattern>
+				<unitPattern count="other">{0} lumenë diellorë</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>karatë</displayName>
 				<unitPattern count="one">{0} karat</unitPattern>
 				<unitPattern count="other">{0} karatë</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>dalton</displayName>
+				<unitPattern count="one">{0} dalton</unitPattern>
+				<unitPattern count="other">{0} dalton</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>masa Toke</displayName>
+				<unitPattern count="one">{0} masë Toke</unitPattern>
+				<unitPattern count="other">{0} masa Toke</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>gramë</displayName>
@@ -5995,6 +6006,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} paund</unitPattern>
 				<unitPattern count="other">{0} paund</unitPattern>
 				<perUnitPattern>{0}/paund</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>masa diellore</displayName>
+				<unitPattern count="one">{0} masë diellore</unitPattern>
+				<unitPattern count="other">{0} masa diellore</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>tonë</displayName>
@@ -6045,6 +6061,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>inç merkuri</displayName>
 				<unitPattern count="one">{0} inç merkuri</unitPattern>
 				<unitPattern count="other">{0} inç merkuri</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>kilopaskal</displayName>
+				<unitPattern count="one">{0} kilopaskal</unitPattern>
+				<unitPattern count="other">{0} kilopaskal</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>megapaskal</displayName>
+				<unitPattern count="one">{0} megapaskal</unitPattern>
+				<unitPattern count="other">{0} megapaskal</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<displayName>milibare</displayName>
@@ -6101,10 +6127,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} Kelvin</unitPattern>
 				<unitPattern count="other">{0} Kelvin</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>njuton-metra</displayName>
+				<unitPattern count="one">{0} njuton-metër</unitPattern>
+				<unitPattern count="other">{0} njuton-metra</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>paund-këmbë</displayName>
+				<unitPattern count="one">{0} paund-këmbë</unitPattern>
+				<unitPattern count="other">{0} paund-këmbë</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>këmbë-akër</displayName>
 				<unitPattern count="one">{0} këmbë-akër</unitPattern>
 				<unitPattern count="other">{0} këmbë-akër</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>fuçi</displayName>
+				<unitPattern count="one">{0} fuçi</unitPattern>
+				<unitPattern count="other">{0} fuçi</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>centilitra</displayName>
@@ -6168,6 +6209,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ons i lëngshëm</unitPattern>
 				<unitPattern count="other">{0} onsë të lëngshëm</unitPattern>
 			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>onsë të lëngshëm imperial</displayName>
+				<unitPattern count="one">{0} ons i lëngshëm imperial</unitPattern>
+				<unitPattern count="other">{0} onsë të lëngshëm imperial</unitPattern>
+			</unit>
 			<unit type="volume-gallon">
 				<displayName>gallonë</displayName>
 				<unitPattern count="one">{0} gallon</unitPattern>
@@ -6226,9 +6272,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} lugë kafeje</unitPattern>
 				<unitPattern count="other">{0} lugë kafeje</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0} në {1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>drejtimi kardinal</displayName>
 				<coordinateUnitPattern type="east">{0} Lindje</coordinateUnitPattern>
@@ -6238,6 +6281,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<unitPattern count="one">{0} g-forcë</unitPattern>
 				<unitPattern count="other">{0} g-forcë</unitPattern>
@@ -6477,9 +6523,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} L</unitPattern>
 				<unitPattern count="other">{0} L</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>drejtimi</displayName>
 				<coordinateUnitPattern type="east">{0} L</coordinateUnitPattern>
@@ -6522,6 +6565,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ac</displayName>
 				<unitPattern count="one">{0} ac</unitPattern>
 			</unit>
+			<unit type="area-dunam">
+				<displayName>dynymë</displayName>
+				<unitPattern count="one">{0} dynym</unitPattern>
+				<unitPattern count="other">{0} dynymë</unitPattern>
+			</unit>
 			<unit type="area-hectare">
 				<displayName>ha</displayName>
 				<unitPattern count="one">{0} ha</unitPattern>
@@ -6556,6 +6604,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-millimole-per-liter">
 				<unitPattern count="one">{0} mmol/L</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
 				<unitPattern count="one">{0} ppm</unitPattern>
 			</unit>
@@ -6564,6 +6617,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="concentr-permille">
 				<unitPattern count="one">{0}‰</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<unitPattern count="one">{0} L/100km</unitPattern>
@@ -6698,8 +6756,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>V</displayName>
 				<unitPattern count="one">{0} V</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<unitPattern count="one">{0} cal</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<unitPattern count="one">{0} Cal</unitPattern>
@@ -6716,6 +6784,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="energy-kilowatt-hour">
 				<unitPattern count="one">{0} kWh</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<unitPattern count="one">{0} GHz</unitPattern>
@@ -6784,14 +6862,34 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>shkallë</displayName>
 				<unitPattern count="one">{0} pt</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<unitPattern count="one">{0} yd</unitPattern>
 			</unit>
 			<unit type="light-lux">
 				<unitPattern count="one">{0} lx</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<unitPattern count="one">{0} CD</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>g</displayName>
@@ -6817,6 +6915,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="mass-pound">
 				<unitPattern count="one">{0} lb</unitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<unitPattern count="one">{0} tn</unitPattern>
@@ -6848,6 +6951,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="pressure-inch-hg">
 				<unitPattern count="one">{0} inHg</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<unitPattern count="one">{0} mbar</unitPattern>
@@ -6886,8 +6999,23 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="temperature-kelvin">
 				<unitPattern count="one">{0} K</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<unitPattern count="one">{0} ac ft</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<unitPattern count="one">{0} cL</unitPattern>
@@ -6925,7 +7053,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} dL</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
+				<displayName>fl oz</displayName>
 				<unitPattern count="one">{0} fl oz</unitPattern>
+				<unitPattern count="other">{0} fl oz</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>gallon</displayName>
@@ -6984,6 +7119,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<listPattern type="or">
 			<listPatternPart type="2">{0} ose {1}</listPatternPart>
 			<listPatternPart type="end">{0} ose {1}</listPatternPart>
+		</listPattern>
+		<listPattern type="standard-narrow">
+			<listPatternPart type="2">↑↑↑</listPatternPart>
+			<listPatternPart type="end">↑↑↑</listPatternPart>
+			<listPatternPart type="middle">↑↑↑</listPatternPart>
+			<listPatternPart type="start">↑↑↑</listPatternPart>
 		</listPattern>
 		<listPattern type="standard-short">
 			<listPatternPart type="2">{0} dhe {1}</listPatternPart>
@@ -7206,7 +7347,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<styleName subtype="125" type="wdth">i zgjeruar</styleName>
 		<styleName subtype="144" type="opsz">afishues</styleName>
 		<styleName subtype="150" type="wdth">tepër i zgjeruar</styleName>
-		<styleName subtype="18" type="opsz">titull</styleName>
+		<styleName subtype="18" type="opsz">titra</styleName>
 		<styleName subtype="200" type="wdth">tejet i zgjeruar</styleName>
 		<styleName subtype="200" type="wght">tepër i lehtë</styleName>
 		<styleName subtype="24" type="slnt">tepër pjerrtas</styleName>

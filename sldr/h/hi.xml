@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2019 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -8,11 +8,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 -->
 <ldml>
 	<identity>
+		<version number="$Revision$"/>
+		<language type="hi"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
 			<sil:identity source="cldr"/>
 		</special>
-		<version number="$Revision: 14350 $"/>
-		<language type="hi"/>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -938,6 +938,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="SX">सिंट मार्टिन</territory>
 			<territory type="SY">सीरिया</territory>
 			<territory type="SZ">स्वाज़ीलैंड</territory>
+			<territory type="SZ" alt="variant" draft="contributed">स्वाज़िलैंड</territory>
 			<territory type="TA">ट्रिस्टन दा कुना</territory>
 			<territory type="TC">तुर्क और कैकोज़ द्वीपसमूह</territory>
 			<territory type="TD">चाड</territory>
@@ -1145,18 +1146,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
-			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
-			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
-			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
-		</parseLenients>
-		<parseLenients scope="number" level="stricter">
-			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
 	<dates>
@@ -1227,6 +1220,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">B h</dateFormatItem>
+						<dateFormatItem id="Bhm">B h:mm</dateFormatItem>
+						<dateFormatItem id="Bhms">B h:mm:ss</dateFormatItem>
+						<dateFormatItem id="EBhm">E B h:mm</dateFormatItem>
+						<dateFormatItem id="EBhms">E B h:mm:ss</dateFormatItem>
 						<dateFormatItem id="Ed">d E</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">G E, d MMM y</dateFormatItem>
 						<dateFormatItem id="GyMMMd">G d MMM y</dateFormatItem>
@@ -1248,6 +1246,53 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yyyyQQQQ">QQQQ G y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B" draft="contributed">B h – B h</greatestDifference>
+							<greatestDifference id="h" draft="contributed">B h–h</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B" draft="contributed">B h:mm – B h:mm</greatestDifference>
+							<greatestDifference id="h" draft="contributed">B h:mm–h:mm</greatestDifference>
+							<greatestDifference id="m" draft="contributed">B h:mm–h:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M–M</greatestDifference>
 						</intervalFormatItem>
@@ -1516,60 +1561,60 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<dayPeriods>
 					<dayPeriodContext type="format">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="afternoon1">अपराह्न</dayPeriod>
-							<dayPeriod type="am">पूर्वाह्न</dayPeriod>
+							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">मध्यरात्रि</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अपराह्न</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="afternoon1">अपराह्न</dayPeriod>
-							<dayPeriod type="am">पू</dayPeriod>
+							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">मध्यरात्रि</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अ</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="afternoon1">अपराह्न</dayPeriod>
-							<dayPeriod type="am">पूर्वाह्न</dayPeriod>
+							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">मध्यरात्रि</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अपराह्न</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 					<dayPeriodContext type="stand-alone">
 						<dayPeriodWidth type="abbreviated">
 							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
-							<dayPeriod type="am">पूर्वाह्न</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">मध्यरात्रि</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अपराह्न</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="afternoon1">अपराह्न</dayPeriod>
-							<dayPeriod type="am">पू</dayPeriod>
+							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">आधी रात</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अ</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
 							<dayPeriod type="afternoon1">दोपहर</dayPeriod>
-							<dayPeriod type="am">पूर्वाह्न</dayPeriod>
+							<dayPeriod type="am">am</dayPeriod>
 							<dayPeriod type="evening1">शाम</dayPeriod>
 							<dayPeriod type="midnight">मध्यरात्रि</dayPeriod>
 							<dayPeriod type="morning1">सुबह</dayPeriod>
 							<dayPeriod type="night1">रात</dayPeriod>
-							<dayPeriod type="pm">अपराह्न</dayPeriod>
+							<dayPeriod type="pm">pm</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 				</dayPeriods>
@@ -1666,8 +1711,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="MEd">E, d/M</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="one">MMM का सप्ताह W</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">MMM का सप्ताह W</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">MMMM का सप्ताह W</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">MMMM का सप्ताह W</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMdd">dd/MM</dateFormatItem>
@@ -1687,6 +1732,53 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yw" count="other">Y का सप्ताह w</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">B h – B h</greatestDifference>
+							<greatestDifference id="h">B h–h</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">B h:mm – B h:mm</greatestDifference>
+							<greatestDifference id="h">B h:mm–h:mm</greatestDifference>
+							<greatestDifference id="m">B h:mm–h:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="G" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="M" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="d" draft="contributed">↑↑↑</greatestDifference>
+							<greatestDifference id="y" draft="contributed">↑↑↑</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">M–M</greatestDifference>
 						</intervalFormatItem>
@@ -2003,6 +2095,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<era type="233" draft="contributed">ताईशो</era>
 						<era type="234" draft="contributed">शोवा</era>
 						<era type="235" draft="contributed">हेईसेई</era>
+						<era type="236" draft="contributed">रेइवा</era>
 						<era type="24" draft="contributed">निंजू (851–854)</era>
 						<era type="25" draft="contributed">शाईकू (854–857)</era>
 						<era type="26" draft="contributed">टेनन (857–859)</era>
@@ -2110,637 +2203,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</months>
 			</calendar>
 		</calendars>
-		<fields>
-			<field type="day">
-				<displayName>दिन</displayName>
-				<relative type="-1">कल</relative>
-				<relative type="-2">परसों</relative>
-				<relative type="0">आज</relative>
-				<relative type="1">कल</relative>
-				<relative type="2">परसों</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>दिन</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>दिन</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>वर्ष का दिन</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>वर्ष का दिन</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>वर्ष का दिन</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>पूर्वाह्न/अपराह्न</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>पू/अ</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>पू/अ</displayName>
-			</field>
-			<field type="era">
-				<displayName>युग</displayName>
-			</field>
-			<field type="era-narrow">
-				<displayName>युग</displayName>
-			</field>
-			<field type="era-short">
-				<displayName>युग</displayName>
-			</field>
-			<field type="fri">
-				<relative type="-1">पिछला शुक्रवार</relative>
-				<relative type="0">इस शुक्रवार</relative>
-				<relative type="1">अगला शुक्रवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शुक्रवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्रवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शुक्रवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्रवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-narrow">
-				<relative type="-1">पिछला शुक्र॰</relative>
-				<relative type="0">इस शुक्र॰</relative>
-				<relative type="1">अगला शुक्र॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शुक्र॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्र॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शुक्र॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्र॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">पिछला शुक्र॰</relative>
-				<relative type="0">इस शुक्र॰</relative>
-				<relative type="1">अगला शुक्र॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शुक्र॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्र॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शुक्र॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शुक्र॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour">
-				<displayName>घंटा</displayName>
-				<relative type="0">यह घंटा</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} घंटे में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घंटे में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} घंटे पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घंटे पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-narrow">
-				<displayName>घं॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} घं॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घं॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} घं॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घं॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-short">
-				<displayName>घं॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} घं॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घं॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} घं॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} घं॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>मिनट</displayName>
-				<relative type="0">यह मिनट</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मिनट में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मिनट में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मिनट पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मिनट पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>मि॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मि॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मि॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>मि॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मि॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मि॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">पिछला सोमवार</relative>
-				<relative type="0">इस सोमवार</relative>
-				<relative type="1">अगला सोमवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सोमवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोमवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सोमवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोमवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">पिछला सोम॰</relative>
-				<relative type="0">इस सोम॰</relative>
-				<relative type="1">अगला सोम॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सोम॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोम॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सोम॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोम॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">पिछला सोम॰</relative>
-				<relative type="0">इस सोम॰</relative>
-				<relative type="1">अगला सोम॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सोम॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोम॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सोम॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सोम॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>माह</displayName>
-				<relative type="-1">पिछला माह</relative>
-				<relative type="0">इस माह</relative>
-				<relative type="1">अगला माह</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>माह</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>माह</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>तिमाही</displayName>
-				<relative type="-1">अंतिम तिमाही</relative>
-				<relative type="0">इस तिमाही</relative>
-				<relative type="1">अगली तिमाही</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} तिमाही में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} तिमाहियों में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} तिमाही पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} तिमाही पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>तिमाही</displayName>
-				<relative type="-1" draft="contributed">अंतिम तिमाही</relative>
-				<relative type="0" draft="contributed">इस तिमाही</relative>
-				<relative type="1" draft="contributed">अगली तिमाही</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ति॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ति॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ति॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ति॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>तिमाही</displayName>
-				<relative type="-1" draft="contributed">अंतिम तिमाही</relative>
-				<relative type="0" draft="contributed">इस तिमाही</relative>
-				<relative type="1" draft="contributed">अगली तिमाही</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} तिमाही में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} तिमाहियों में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} तिमाही पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} तिमाहियों पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">पिछला शनिवार</relative>
-				<relative type="0">इस शनिवार</relative>
-				<relative type="1">अगला शनिवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शनिवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनिवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शनिवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनिवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">पिछला शनि॰</relative>
-				<relative type="0">इस शनि॰</relative>
-				<relative type="1">अगला शनि॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शनि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शनि॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनि॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">पिछला शनि॰</relative>
-				<relative type="0">इस शनि॰</relative>
-				<relative type="1">अगला शनि॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} शनि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} शनि॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} शनि॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>सेकंड</displayName>
-				<relative type="0">अब</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सेकंड में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सेकंड में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सेकंड पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सेकंड पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>से॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} से॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} से॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} से॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} से॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>से॰</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} से॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} से॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} से॰ पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} से॰ पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun">
-				<relative type="-1">पिछला रविवार</relative>
-				<relative type="0">इस रविवार</relative>
-				<relative type="1">अगला रविवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} रविवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रविवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} रविवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रविवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">पिछला रवि॰</relative>
-				<relative type="0">इस रवि॰</relative>
-				<relative type="1">अगला रवि॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} रवि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रवि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} रवि॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रवि॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">पिछला रवि॰</relative>
-				<relative type="0">इस रवि॰</relative>
-				<relative type="1">अगला रवि॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} रवि॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रवि॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} रवि॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} रवि॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">पिछला गुरुवार</relative>
-				<relative type="0">इस गुरुवार</relative>
-				<relative type="1">अगला गुरुवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} गुरुवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरुवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} गुरुवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरुवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">पिछला गुरु॰</relative>
-				<relative type="0">इस गुरु॰</relative>
-				<relative type="1">अगला गुरु॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} गुरु॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरु॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} गुरु॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरु॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">पिछला गुरु॰</relative>
-				<relative type="0">इस गुरु॰</relative>
-				<relative type="1">अगला गुरु॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} गुरु॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरु॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} गुरु॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} गुरु॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">पिछला मंगलवार</relative>
-				<relative type="0">इस मंगलवार</relative>
-				<relative type="1">अगला मंगलवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मंगलवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगलवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मंगलवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगलवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">पिछला मंगल॰</relative>
-				<relative type="0">इस मंगल॰</relative>
-				<relative type="1">अगला मंगल॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मंगल॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगल॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मंगल॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगल॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">पिछला मंगल॰</relative>
-				<relative type="0">इस मंगल॰</relative>
-				<relative type="1">अगला मंगल॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} मंगल॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगल॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} मंगल॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} मंगल॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">पिछला बुधवार</relative>
-				<relative type="0">इस बुधवार</relative>
-				<relative type="1">अगला बुधवार</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} बुधवार में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुधवार में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} बुधवार पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुधवार पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">पिछला बुध॰</relative>
-				<relative type="0">इस बुध॰</relative>
-				<relative type="1">अगला बुध॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} बुध॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुध॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} बुध॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुध॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">पिछला बुध॰</relative>
-				<relative type="0">इस बुध॰</relative>
-				<relative type="1">अगला बुध॰</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} बुध॰ में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुध॰ में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} बुध॰ पूर्व</relativeTimePattern>
-					<relativeTimePattern count="other">{0} बुध॰ पूर्व</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>सप्ताह</displayName>
-				<relative type="-1">पिछला सप्ताह</relative>
-				<relative type="0">इस सप्ताह</relative>
-				<relative type="1">अगला सप्ताह</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} के सप्ताह</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>सप्ताह</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} के सप्ताह</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>सप्ताह</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} के सप्ताह</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>माह का सप्ताह</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>माह का सप्ताह</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>माह का सप्ताह</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>सप्ताह का दिन</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>सप्ताह का दिन</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>सप्ताह का दिन</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>माह के कार्यदिवस</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>माह के कार्यदिवस</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>माह के कार्यदिवस</displayName>
-			</field>
-			<field type="year">
-				<displayName>वर्ष</displayName>
-				<relative type="-1">पिछला वर्ष</relative>
-				<relative type="0">इस वर्ष</relative>
-				<relative type="1">अगला वर्ष</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>वर्ष</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>वर्ष</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
-					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="zone">
-				<displayName>समय क्षेत्र</displayName>
-			</field>
-			<field type="zone-narrow">
-				<displayName>क्षेत्र</displayName>
-			</field>
-			<field type="zone-short">
-				<displayName>क्षेत्र</displayName>
-			</field>
-		</fields>
 		<timeZoneNames>
 			<regionFormat>{0} समय</regionFormat>
 			<regionFormat type="daylight">{0} डेलाइट समय</regionFormat>
@@ -3511,7 +2973,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>कुवैत</exemplarCity>
 			</zone>
 			<zone type="Asia/Macau">
-				<exemplarCity>मकाउ</exemplarCity>
+				<exemplarCity>मकाऊ</exemplarCity>
 			</zone>
 			<zone type="Asia/Magadan">
 				<exemplarCity>मागादान</exemplarCity>
@@ -3551,6 +3013,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</zone>
 			<zone type="Asia/Qatar">
 				<exemplarCity>कतर</exemplarCity>
+			</zone>
+			<zone type="Asia/Qostanay">
+				<exemplarCity draft="contributed">कोस्टाने</exemplarCity>
 			</zone>
 			<zone type="Asia/Qyzylorda">
 				<exemplarCity>केज़ेलोर्डा</exemplarCity>
@@ -3741,10 +3206,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>कोपेनहेगन</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
+				<exemplarCity>डबलिन</exemplarCity>
 				<long>
 					<daylight>आइरिश मानक समय</daylight>
 				</long>
-				<exemplarCity>डबलिन</exemplarCity>
 			</zone>
 			<zone type="Europe/Gibraltar">
 				<exemplarCity>जिब्राल्टर</exemplarCity>
@@ -3780,10 +3245,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<exemplarCity>ल्यूबेलजाना</exemplarCity>
 			</zone>
 			<zone type="Europe/London">
+				<exemplarCity>लंदन</exemplarCity>
 				<long>
 					<daylight>ब्रिटिश ग्रीष्मकालीन समय</daylight>
 				</long>
-				<exemplarCity>लंदन</exemplarCity>
 			</zone>
 			<zone type="Europe/Luxembourg">
 				<exemplarCity>लक्ज़मबर्ग</exemplarCity>
@@ -4941,17 +4406,644 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</long>
 			</metazone>
 		</timeZoneNames>
+		<fields>
+			<field type="day">
+				<relative type="-1">कल</relative>
+				<relative type="-2">परसों</relative>
+				<relative type="0">आज</relative>
+				<relative type="1">कल</relative>
+				<relative type="2">परसों</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>दिन</displayName>
+			</field>
+			<field type="day-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>दिन</displayName>
+			</field>
+			<field type="day-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} दिन में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} दिन पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} दिन पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>दिन</displayName>
+			</field>
+			<field type="dayOfYear">
+				<displayName>वर्ष का दिन</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>वर्ष का दिन</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>वर्ष का दिन</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>पूर्वाह्न/अपराह्न</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>पू/अ</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>पू/अ</displayName>
+			</field>
+			<field type="era">
+				<displayName>युग</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>युग</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>युग</displayName>
+			</field>
+			<field type="fri">
+				<relative type="-1">पिछला शुक्रवार</relative>
+				<relative type="0">इस शुक्रवार</relative>
+				<relative type="1">अगला शुक्रवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शुक्रवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्रवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शुक्रवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्रवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">पिछला शुक्र॰</relative>
+				<relative type="0">इस शुक्र॰</relative>
+				<relative type="1">अगला शुक्र॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शुक्र॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्र॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शुक्र॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्र॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">पिछला शुक्र॰</relative>
+				<relative type="0">इस शुक्र॰</relative>
+				<relative type="1">अगला शुक्र॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शुक्र॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्र॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शुक्र॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शुक्र॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour">
+				<relative type="0">यह घंटा</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} घंटे में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घंटे में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} घंटे पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घंटे पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>घंटा</displayName>
+			</field>
+			<field type="hour-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} घं॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घं॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} घं॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घं॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>घं॰</displayName>
+			</field>
+			<field type="hour-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} घं॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घं॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} घं॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} घं॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>घं॰</displayName>
+			</field>
+			<field type="minute">
+				<relative type="0">यह मिनट</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मिनट में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मिनट में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मिनट पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मिनट पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>मिनट</displayName>
+			</field>
+			<field type="minute-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मि॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मि॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>मि॰</displayName>
+			</field>
+			<field type="minute-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मि॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मि॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>मि॰</displayName>
+			</field>
+			<field type="mon">
+				<relative type="-1">पिछला सोमवार</relative>
+				<relative type="0">इस सोमवार</relative>
+				<relative type="1">अगला सोमवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सोमवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोमवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सोमवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोमवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">पिछला सोम॰</relative>
+				<relative type="0">इस सोम॰</relative>
+				<relative type="1">अगला सोम॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सोम॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोम॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सोम॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोम॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">पिछला सोम॰</relative>
+				<relative type="0">इस सोम॰</relative>
+				<relative type="1">अगला सोम॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सोम॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोम॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सोम॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सोम॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<relative type="-1">पिछला माह</relative>
+				<relative type="0">इस माह</relative>
+				<relative type="1">अगला माह</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>माह</displayName>
+			</field>
+			<field type="month-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>माह</displayName>
+			</field>
+			<field type="month-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} माह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} माह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} माह पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>माह</displayName>
+			</field>
+			<field type="quarter">
+				<relative type="-1">अंतिम तिमाही</relative>
+				<relative type="0">इस तिमाही</relative>
+				<relative type="1">अगली तिमाही</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} तिमाही में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} तिमाहियों में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} तिमाही पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} तिमाही पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>तिमाही</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<relative type="-1" draft="contributed">अंतिम तिमाही</relative>
+				<relative type="0" draft="contributed">इस तिमाही</relative>
+				<relative type="1" draft="contributed">अगली तिमाही</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ति॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ति॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ति॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ति॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>तिमाही</displayName>
+			</field>
+			<field type="quarter-short">
+				<relative type="-1" draft="contributed">अंतिम तिमाही</relative>
+				<relative type="0" draft="contributed">इस तिमाही</relative>
+				<relative type="1" draft="contributed">अगली तिमाही</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} तिमाही में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} तिमाहियों में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} तिमाही पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} तिमाहियों पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>तिमाही</displayName>
+			</field>
+			<field type="sat">
+				<relative type="-1">पिछला शनिवार</relative>
+				<relative type="0">इस शनिवार</relative>
+				<relative type="1">अगला शनिवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शनिवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनिवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शनिवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनिवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">पिछला शनि॰</relative>
+				<relative type="0">इस शनि॰</relative>
+				<relative type="1">अगला शनि॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शनि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शनि॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनि॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">पिछला शनि॰</relative>
+				<relative type="0">इस शनि॰</relative>
+				<relative type="1">अगला शनि॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} शनि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} शनि॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} शनि॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<relative type="0">अब</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सेकंड में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सेकंड में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सेकंड पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सेकंड पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>सेकंड</displayName>
+			</field>
+			<field type="second-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} से॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} से॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} से॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} से॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>से॰</displayName>
+			</field>
+			<field type="second-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} से॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} से॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} से॰ पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} से॰ पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>से॰</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">पिछला रविवार</relative>
+				<relative type="0">इस रविवार</relative>
+				<relative type="1">अगला रविवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} रविवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रविवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} रविवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रविवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">पिछला रवि॰</relative>
+				<relative type="0">इस रवि॰</relative>
+				<relative type="1">अगला रवि॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} रवि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रवि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} रवि॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रवि॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">पिछला रवि॰</relative>
+				<relative type="0">इस रवि॰</relative>
+				<relative type="1">अगला रवि॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} रवि॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रवि॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} रवि॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} रवि॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">पिछला गुरुवार</relative>
+				<relative type="0">इस गुरुवार</relative>
+				<relative type="1">अगला गुरुवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} गुरुवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरुवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} गुरुवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरुवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">पिछला गुरु॰</relative>
+				<relative type="0">इस गुरु॰</relative>
+				<relative type="1">अगला गुरु॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} गुरु॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरु॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} गुरु॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरु॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">पिछला गुरु॰</relative>
+				<relative type="0">इस गुरु॰</relative>
+				<relative type="1">अगला गुरु॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} गुरु॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरु॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} गुरु॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} गुरु॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">पिछला मंगलवार</relative>
+				<relative type="0">इस मंगलवार</relative>
+				<relative type="1">अगला मंगलवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मंगलवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगलवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मंगलवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगलवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">पिछला मंगल॰</relative>
+				<relative type="0">इस मंगल॰</relative>
+				<relative type="1">अगला मंगल॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मंगल॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगल॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मंगल॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगल॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">पिछला मंगल॰</relative>
+				<relative type="0">इस मंगल॰</relative>
+				<relative type="1">अगला मंगल॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} मंगल॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगल॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} मंगल॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} मंगल॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">पिछला बुधवार</relative>
+				<relative type="0">इस बुधवार</relative>
+				<relative type="1">अगला बुधवार</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} बुधवार में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुधवार में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} बुधवार पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुधवार पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">पिछला बुध॰</relative>
+				<relative type="0">इस बुध॰</relative>
+				<relative type="1">अगला बुध॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} बुध॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुध॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} बुध॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुध॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">पिछला बुध॰</relative>
+				<relative type="0">इस बुध॰</relative>
+				<relative type="1">अगला बुध॰</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} बुध॰ में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुध॰ में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} बुध॰ पूर्व</relativeTimePattern>
+					<relativeTimePattern count="other">{0} बुध॰ पूर्व</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<relative type="-1">पिछला सप्ताह</relative>
+				<relative type="0">इस सप्ताह</relative>
+				<relative type="1">अगला सप्ताह</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} के सप्ताह</relativePeriod>
+				<displayName>सप्ताह</displayName>
+			</field>
+			<field type="week-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} के सप्ताह</relativePeriod>
+				<displayName>सप्ताह</displayName>
+			</field>
+			<field type="week-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} सप्ताह में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} सप्ताह पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} सप्ताह पहले</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} के सप्ताह</relativePeriod>
+				<displayName>सप्ताह</displayName>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>माह का सप्ताह</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>माह का सप्ताह</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>माह का सप्ताह</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>सप्ताह का दिन</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>सप्ताह का दिन</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>सप्ताह का दिन</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>माह के कार्यदिवस</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>माह के कार्यदिवस</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>माह के कार्यदिवस</displayName>
+			</field>
+			<field type="year">
+				<relative type="-1">पिछला वर्ष</relative>
+				<relative type="0">इस वर्ष</relative>
+				<relative type="1">अगला वर्ष</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>वर्ष</displayName>
+			</field>
+			<field type="year-narrow">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>वर्ष</displayName>
+			</field>
+			<field type="year-short">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} वर्ष में</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष में</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} वर्ष पहले</relativeTimePattern>
+					<relativeTimePattern count="other">{0} वर्ष पहले</relativeTimePattern>
+				</relativeTime>
+				<displayName>वर्ष</displayName>
+			</field>
+			<field type="zone">
+				<displayName>समय क्षेत्र</displayName>
+			</field>
+			<field type="zone-narrow">
+				<displayName>क्षेत्र</displayName>
+			</field>
+			<field type="zone-short">
+				<displayName>क्षेत्र</displayName>
+			</field>
+		</fields>
 	</dates>
 	<numbers>
 		<otherNumberingSystems>
 			<native>deva</native>
 		</otherNumberingSystems>
 		<symbols numberSystem="deva">
-			<decimal>.</decimal>
-			<group>,</group>
 			<percentSign>%</percentSign>
-			<plusSign>+</plusSign>
-			<minusSign>-</minusSign>
 		</symbols>
 		<decimalFormats numberSystem="deva">
 			<decimalFormatLength>
@@ -5102,7 +5194,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>संयुक्त अरब अमीरात दिरहाम</displayName>
 				<displayName count="one">संयुक्त अरब अमीरात दिरहाम</displayName>
 				<displayName count="other">संयुक्त अरब अमीरात दिरहाम</displayName>
-				<symbol>AED</symbol>
 			</currency>
 			<currency type="AFA">
 				<displayName>अफगानी (1927–2002)</displayName>
@@ -5111,37 +5202,31 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>अफ़गान अफ़गानी</displayName>
 				<displayName count="one">अफ़गान अफ़गानी</displayName>
 				<displayName count="other">अफ़गान अफ़गानी</displayName>
-				<symbol>AFN</symbol>
 			</currency>
 			<currency type="ALL">
 				<displayName>अल्बानियाई लेक</displayName>
 				<displayName count="one">अल्बानियाई लेक</displayName>
 				<displayName count="other">अल्बानियाई लेक</displayName>
-				<symbol>ALL</symbol>
 			</currency>
 			<currency type="AMD">
 				<displayName>आर्मेनियाई द्राम</displayName>
 				<displayName count="one">आर्मेनियाई द्राम</displayName>
 				<displayName count="other">आर्मेनियाई द्राम</displayName>
-				<symbol>AMD</symbol>
 			</currency>
 			<currency type="ANG">
 				<displayName>नीदरलैंड एंटीलियन गिल्डर</displayName>
 				<displayName count="one">नीदरलैंड एंटीलियन गिल्डर</displayName>
 				<displayName count="other">नीदरलैंड एंटीलियन गिल्डर</displayName>
-				<symbol>ANG</symbol>
 			</currency>
 			<currency type="AOA">
 				<displayName>अंगोला क्वांज़ा</displayName>
 				<displayName count="one">अंगोला क्वांज़ा</displayName>
 				<displayName count="other">अंगोला क्वांज़ा</displayName>
-				<symbol>AOA</symbol>
 			</currency>
 			<currency type="ARS">
 				<displayName>अर्जेंटीनी पेसो</displayName>
 				<displayName count="one">अर्जेंटीनी पेसो</displayName>
 				<displayName count="other">अर्जेंटीनी पेसो</displayName>
-				<symbol>ARS</symbol>
 			</currency>
 			<currency type="AUD">
 				<displayName>ऑस्ट्रेलियाई डॉलर</displayName>
@@ -5152,67 +5237,56 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>अरूबाई फ़्लोरिन</displayName>
 				<displayName count="one">अरूबाई फ़्लोरिन</displayName>
 				<displayName count="other">अरूबाई फ़्लोरिन</displayName>
-				<symbol>AWG</symbol>
 			</currency>
 			<currency type="AZN">
 				<displayName>अज़रबैजानी मैनेट</displayName>
 				<displayName count="one">अज़रबैजानी मैनेट</displayName>
 				<displayName count="other">अज़रबैजानी मैनेट</displayName>
-				<symbol>AZN</symbol>
 			</currency>
 			<currency type="BAM">
 				<displayName>बोस्निया हर्ज़ेगोविना परिवर्तनीय मार्क</displayName>
 				<displayName count="one">बोस्निया हर्ज़ेगोविना परिवर्तनीय मार्क</displayName>
 				<displayName count="other">बोस्निया हर्ज़ेगोविना परिवर्तनीय मार्क</displayName>
-				<symbol>BAM</symbol>
 			</currency>
 			<currency type="BBD">
 				<displayName>बार्बेडियन डॉलर</displayName>
 				<displayName count="one">बार्बेडियन डॉलर</displayName>
 				<displayName count="other">बार्बेडियन डॉलर</displayName>
-				<symbol>BBD</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>बांग्लादेशी टका</displayName>
 				<displayName count="one">बांग्लादेशी टका</displayName>
 				<displayName count="other">बांग्लादेशी टका</displayName>
-				<symbol>BDT</symbol>
 			</currency>
 			<currency type="BGN">
 				<displayName>बुल्गारियाई लेव</displayName>
 				<displayName count="one">बुल्गारियाई लेव</displayName>
 				<displayName count="other">बुल्गारियाई लेव</displayName>
-				<symbol>BGN</symbol>
 			</currency>
 			<currency type="BHD">
 				<displayName>बहरीनी दिनार</displayName>
 				<displayName count="one">बहरीनी दिनार</displayName>
 				<displayName count="other">बहरीनी दिनार</displayName>
-				<symbol>BHD</symbol>
 			</currency>
 			<currency type="BIF">
 				<displayName>बुरूंडी फ़्रैंक</displayName>
 				<displayName count="one">बुरूंडी फ़्रैंक</displayName>
 				<displayName count="other">बुरूंडी फ़्रैंक</displayName>
-				<symbol>BIF</symbol>
 			</currency>
 			<currency type="BMD">
 				<displayName>बरमूडा डॉलर</displayName>
 				<displayName count="one">बरमूडा डॉलर</displayName>
 				<displayName count="other">बरमूडा डॉलर</displayName>
-				<symbol>BMD</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>ब्रूनेई डॉलर</displayName>
 				<displayName count="one">ब्रूनेई डॉलर</displayName>
 				<displayName count="other">ब्रूनेई डॉलर</displayName>
-				<symbol>BND</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>बोलिवियाई बोलिवियानो</displayName>
 				<displayName count="one">बोलिवियाई बोलिवियानो</displayName>
 				<displayName count="other">बोलिवियाई बोलिवियानो</displayName>
-				<symbol>BOB</symbol>
 			</currency>
 			<currency type="BRL">
 				<displayName>ब्राज़ीली रियाल</displayName>
@@ -5223,37 +5297,31 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>बहामाई डॉलर</displayName>
 				<displayName count="one">बहामाई डॉलर</displayName>
 				<displayName count="other">बहामाई डॉलर</displayName>
-				<symbol>BSD</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>भूटानी नंगलट्रम</displayName>
 				<displayName count="one">भूटानी नंगलट्रम</displayName>
 				<displayName count="other">भूटानी नंगलट्रम</displayName>
-				<symbol>BTN</symbol>
 			</currency>
 			<currency type="BWP">
 				<displayName>बोत्सवानियाई पुला</displayName>
 				<displayName count="one">बोत्सवानियाई पुला</displayName>
 				<displayName count="other">बोत्सवानियाई पुला</displayName>
-				<symbol>BWP</symbol>
 			</currency>
 			<currency type="BYN">
 				<displayName>बेलारूसी रूबल</displayName>
 				<displayName count="one">बेलारूसी रूबल</displayName>
 				<displayName count="other">बेलारूसी रूबल</displayName>
-				<symbol>BYN</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>बेलारूसी रूबल (2000–2016)</displayName>
 				<displayName count="one">बेलारूसी रूबल (2000–2016)</displayName>
 				<displayName count="other">बेलारूसी रूबल (2000–2016)</displayName>
-				<symbol>BYR</symbol>
 			</currency>
 			<currency type="BZD">
 				<displayName>बेलीज़ डॉलर</displayName>
 				<displayName count="one">बेलीज़ डॉलर</displayName>
 				<displayName count="other">बेलीज़ डॉलर</displayName>
-				<symbol>BZD</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>कनाडाई डॉलर</displayName>
@@ -5264,25 +5332,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>कोंगोली फ़्रैंक</displayName>
 				<displayName count="one">कोंगोली फ़्रैंक</displayName>
 				<displayName count="other">कोंगोली फ़्रैंक</displayName>
-				<symbol>CDF</symbol>
 			</currency>
 			<currency type="CHF">
 				<displayName>स्विस फ़्रैंक</displayName>
 				<displayName count="one">स्विस फ़्रैंक</displayName>
 				<displayName count="other">स्विस फ़्रैंक</displayName>
-				<symbol>CHF</symbol>
 			</currency>
 			<currency type="CLP">
 				<displayName>चिली पेसो</displayName>
 				<displayName count="one">चिली पेसो</displayName>
 				<displayName count="other">चिली पेसो</displayName>
-				<symbol>CLP</symbol>
 			</currency>
 			<currency type="CNH">
 				<displayName>चीनी यूआन</displayName>
 				<displayName count="one">चीनी यूआन</displayName>
 				<displayName count="other">चीनी यूआन</displayName>
-				<symbol draft="contributed">CNH</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>चीनी युआन</displayName>
@@ -5293,13 +5357,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>कोलंबियाई पेसो</displayName>
 				<displayName count="one">कोलंबियाई पेसो</displayName>
 				<displayName count="other">कोलंबियाई पेसो</displayName>
-				<symbol>COP</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>कोस्टा रिका कोलोन</displayName>
 				<displayName count="one">कोस्टा रिका कोलोन</displayName>
 				<displayName count="other">कोस्टा रिका कोलोन</displayName>
-				<symbol>CRC</symbol>
 			</currency>
 			<currency type="CSD">
 				<displayName>सर्बिय का ढीनार</displayName>
@@ -5308,19 +5370,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>क्यूबाई परिवर्तनीय पेसो</displayName>
 				<displayName count="one">क्यूबाई परिवर्तनीय पेसो</displayName>
 				<displayName count="other">क्यूबाई परिवर्तनीय पेसो</displayName>
-				<symbol>CUC</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>क्यूबाई पेसो</displayName>
 				<displayName count="one">क्यूबाई पेसो</displayName>
 				<displayName count="other">क्यूबाई पेसो</displayName>
-				<symbol>CUP</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>केप वर्ड एस्कूडो</displayName>
 				<displayName count="one">केप वर्ड एस्कूडो</displayName>
 				<displayName count="other">केप वर्ड एस्कूडो</displayName>
-				<symbol>CVE</symbol>
 			</currency>
 			<currency type="CYP">
 				<displayName draft="contributed">साईप्रस पाऊंड</displayName>
@@ -5329,7 +5388,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>चेक गणराज्य कोरुना</displayName>
 				<displayName count="one">चेक गणराज्य कोरुना</displayName>
 				<displayName count="other">चेक गणराज्य कोरुना</displayName>
-				<symbol>CZK</symbol>
 			</currency>
 			<currency type="DEM">
 				<displayName draft="contributed">डच मार्क</displayName>
@@ -5338,25 +5396,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>जिबूती फ़्रैंक</displayName>
 				<displayName count="one">जिबूती फ़्रैंक</displayName>
 				<displayName count="other">जिबूती फ़्रैंक</displayName>
-				<symbol>DJF</symbol>
 			</currency>
 			<currency type="DKK">
 				<displayName>डैनिश क्रोन</displayName>
 				<displayName count="one">डैनिश क्रोन</displayName>
 				<displayName count="other">डैनिश क्रोन</displayName>
-				<symbol>DKK</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>डोमिनिकन पेसो</displayName>
 				<displayName count="one">डोमिनिकन पेसो</displayName>
 				<displayName count="other">डोमिनिकन पेसो</displayName>
-				<symbol>DOP</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>अल्जीरियाई दिनार</displayName>
 				<displayName count="one">अल्जीरियाई दिनार</displayName>
 				<displayName count="other">अल्जीरियाई दिनार</displayName>
-				<symbol>DZD</symbol>
 			</currency>
 			<currency type="EEK">
 				<displayName draft="contributed">एस्टोनियाई क्रून्</displayName>
@@ -5365,19 +5419,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>मिस्र पाउंड</displayName>
 				<displayName count="one">मिस्र पाउंड</displayName>
 				<displayName count="other">मिस्र पाउंड</displayName>
-				<symbol>EGP</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>इरीट्रियन नाक्फ़ा</displayName>
 				<displayName count="one">इरीट्रियन नाक्फ़ा</displayName>
 				<displayName count="other">इरीट्रियन नाक्फ़ा</displayName>
-				<symbol>ERN</symbol>
 			</currency>
 			<currency type="ETB">
 				<displayName>इथियोपियन बिर</displayName>
 				<displayName count="one">इथियोपियन बिर</displayName>
 				<displayName count="other">इथियोपियन बिर</displayName>
-				<symbol>ETB</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>यूरो</displayName>
@@ -5388,13 +5439,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>फ़िजी डॉलर</displayName>
 				<displayName count="one">फ़िजी डॉलर</displayName>
 				<displayName count="other">फ़िजी डॉलर</displayName>
-				<symbol>FJD</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>फ़ॉकलैंड द्वीपसमूह पाउंड</displayName>
 				<displayName count="one">फ़ॉकलैंड द्वीपसमूह पाउंड</displayName>
 				<displayName count="other">फ़ॉकलैंड द्वीपसमूह पाउंड</displayName>
-				<symbol>FKP</symbol>
 			</currency>
 			<currency type="FRF">
 				<displayName>फ़्रांसीसी फ़्रैंक</displayName>
@@ -5405,47 +5454,40 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="other">ब्रिटिश पाउंड स्टर्लिंग</displayName>
 			</currency>
 			<currency type="GEL">
+				<symbol alt="variant" draft="contributed">ლ</symbol>
 				<displayName>जॉर्जियन लारी</displayName>
 				<displayName count="one">जॉर्जियन लारी</displayName>
 				<displayName count="other">जॉर्जियन लारी</displayName>
-				<symbol>GEL</symbol>
-				<symbol alt="variant" draft="contributed">ლ</symbol>
 			</currency>
 			<currency type="GHS">
 				<displayName>घानियन सेडी</displayName>
 				<displayName count="one">घानियन सेडी</displayName>
 				<displayName count="other">घानियन सेडी</displayName>
-				<symbol>GHS</symbol>
 			</currency>
 			<currency type="GIP">
 				<displayName>जिब्राल्टर पाउंड</displayName>
 				<displayName count="one">जिब्राल्टर पाउंड</displayName>
 				<displayName count="other">जिब्राल्टर पाउंड</displayName>
-				<symbol>GIP</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>गैंबियन डलासी</displayName>
 				<displayName count="one">गैंबियन डलासी</displayName>
 				<displayName count="other">गैंबियन डलासी</displayName>
-				<symbol>GMD</symbol>
 			</currency>
 			<currency type="GNF">
 				<displayName>गिनीयन फ़्रैंक</displayName>
 				<displayName count="one">गिनीयन फ़्रैंक</displayName>
 				<displayName count="other">गिनीयन फ़्रैंक</displayName>
-				<symbol>GNF</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>ग्वाटेमाला क्वेटज़ल</displayName>
 				<displayName count="one">ग्वाटेमाला क्वेटज़ल</displayName>
 				<displayName count="other">ग्वाटेमाला क्वेटज़ल</displayName>
-				<symbol>GTQ</symbol>
 			</currency>
 			<currency type="GYD">
 				<displayName>गयानीज़ डॉलर</displayName>
 				<displayName count="one">गयानीज़ डॉलर</displayName>
 				<displayName count="other">गयानीज़ डॉलर</displayName>
-				<symbol>GYD</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>हाँगकाँग डॉलर</displayName>
@@ -5456,7 +5498,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>होंडुरन लेम्पिरा</displayName>
 				<displayName count="one">होंडुरन लेम्पिरा</displayName>
 				<displayName count="other">होंडुरन लेम्पिरा</displayName>
-				<symbol>HNL</symbol>
 			</currency>
 			<currency type="HRD">
 				<displayName draft="contributed">क्रोएशियन दिनार</displayName>
@@ -5465,25 +5506,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>क्रोएशियाई कुना</displayName>
 				<displayName count="one">क्रोएशियाई कुना</displayName>
 				<displayName count="other">क्रोएशियाई कुना</displayName>
-				<symbol>HRK</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>हैतियाई गर्ड</displayName>
 				<displayName count="one">हैतियाई गर्ड</displayName>
 				<displayName count="other">हैतियाई गर्ड</displayName>
-				<symbol>HTG</symbol>
 			</currency>
 			<currency type="HUF">
 				<displayName>हंगेरियन फ़ोरिंट</displayName>
 				<displayName count="one">हंगेरियन फ़ोरिंट</displayName>
 				<displayName count="other">हंगेरियन फ़ोरिंट</displayName>
-				<symbol>HUF</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>इंडोनेशियाई रुपिया</displayName>
 				<displayName count="one">इंडोनेशियाई रुपिया</displayName>
 				<displayName count="other">इंडोनेशियाई रुपिये</displayName>
-				<symbol>IDR</symbol>
 			</currency>
 			<currency type="ILS">
 				<displayName>इज़राइली न्यू शेकेल</displayName>
@@ -5499,19 +5536,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>इराकी दिनार</displayName>
 				<displayName count="one">इराकी दिनार</displayName>
 				<displayName count="other">इराकी दिनार</displayName>
-				<symbol>IQD</symbol>
 			</currency>
 			<currency type="IRR">
 				<displayName>ईरानी रियाल</displayName>
 				<displayName count="one">ईरानी रियाल</displayName>
 				<displayName count="other">ईरानी रियाल</displayName>
-				<symbol>IRR</symbol>
 			</currency>
 			<currency type="ISK">
 				<displayName>आइसलैंडिक क्रोना</displayName>
 				<displayName count="one">आइसलैंडिक क्रोना</displayName>
 				<displayName count="other">आइसलैंडिक क्रोना</displayName>
-				<symbol>ISK</symbol>
 			</currency>
 			<currency type="ITL">
 				<displayName>इतली का लीरा</displayName>
@@ -5520,13 +5554,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>जमैकन डॉलर</displayName>
 				<displayName count="one">जमैकन डॉलर</displayName>
 				<displayName count="other">जमैकन डॉलर</displayName>
-				<symbol>JMD</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>जॉर्डनियन दिनार</displayName>
 				<displayName count="one">जॉर्डनियन दिनार</displayName>
 				<displayName count="other">जॉर्डनियन दिनार</displayName>
-				<symbol>JOD</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>जापानी येन</displayName>
@@ -5537,31 +5569,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>केन्याई शिलिंग</displayName>
 				<displayName count="one">केन्याई शिलिंग</displayName>
 				<displayName count="other">केन्याई शिलिंग</displayName>
-				<symbol>KES</symbol>
 			</currency>
 			<currency type="KGS">
 				<displayName>किर्गिस्तानी सोम</displayName>
 				<displayName count="one">किर्गिस्तानी सोम</displayName>
 				<displayName count="other">किर्गिस्तानी सोम</displayName>
-				<symbol>KGS</symbol>
 			</currency>
 			<currency type="KHR">
 				<displayName>कंबोडियाई रियाल</displayName>
 				<displayName count="one">कंबोडियाई रियाल</displayName>
 				<displayName count="other">कंबोडियाई रियाल</displayName>
-				<symbol>KHR</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>कोमोरियन फ़्रैंक</displayName>
 				<displayName count="one">कोमोरियन फ़्रैंक</displayName>
 				<displayName count="other">कोमोरियन फ़्रैंक</displayName>
-				<symbol>KMF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>उत्तर कोरियाई वॉन</displayName>
 				<displayName count="one">उत्तर कोरियाई वॉन</displayName>
 				<displayName count="other">उत्तर कोरियाई वॉन</displayName>
-				<symbol>KPW</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>दक्षिण कोरियाई वॉन</displayName>
@@ -5572,70 +5599,61 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>कुवैती दिनार</displayName>
 				<displayName count="one">कुवैती दिनार</displayName>
 				<displayName count="other">कुवैती दिनार</displayName>
-				<symbol>KWD</symbol>
 			</currency>
 			<currency type="KYD">
 				<displayName>कैमेन द्वीपसमूह डॉलर</displayName>
 				<displayName count="one">कैमेन द्वीपसमूह डॉलर</displayName>
 				<displayName count="other">कैमेन द्वीपसमूह डॉलर</displayName>
-				<symbol>KYD</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>कज़ाखिस्तानी टेंज़</displayName>
 				<displayName count="one">कज़ाखिस्तानी टेंज़</displayName>
 				<displayName count="other">कज़ाखिस्तानी टेंज़</displayName>
-				<symbol>KZT</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>लाओशियन किप</displayName>
 				<displayName count="one">लाओशियन किप</displayName>
 				<displayName count="other">लाओशियन किप</displayName>
-				<symbol>LAK</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>लेबनानी पाउंड</displayName>
 				<displayName count="one">लेबनानी पाउंड</displayName>
 				<displayName count="other">लेबनानी पाउंड</displayName>
-				<symbol>LBP</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>श्रीलंकाई रुपया</displayName>
 				<displayName count="one">श्रीलंकाई रुपया</displayName>
 				<displayName count="other">श्रीलंकाई रुपए</displayName>
-				<symbol>LKR</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>लाइबेरियाई डॉलर</displayName>
 				<displayName count="one">लाइबेरियाई डॉलर</displayName>
 				<displayName count="other">लाइबेरियाई डॉलर</displayName>
-				<symbol>LRD</symbol>
 			</currency>
 			<currency type="LSL">
 				<displayName draft="contributed">लेसोथो लोटी</displayName>
 			</currency>
 			<currency type="LTL">
+				<symbol>LTL</symbol>
 				<displayName>लिथुआनियाई लितास</displayName>
 				<displayName count="one">लिथुआनियाई लितास</displayName>
 				<displayName count="other">लिथुआनियाई लितास</displayName>
-				<symbol>LTL</symbol>
 			</currency>
 			<currency type="LVL">
+				<symbol>LVL</symbol>
 				<displayName>लात्वियन लैत्स</displayName>
 				<displayName count="one">लात्वियन लैत्स</displayName>
 				<displayName count="other">लात्वियन लैत्स</displayName>
-				<symbol>LVL</symbol>
 			</currency>
 			<currency type="LYD">
 				<displayName>लीबियाई दिनार</displayName>
 				<displayName count="one">लीबियाई दिनार</displayName>
 				<displayName count="other">लीबियाई दिनार</displayName>
-				<symbol>LYD</symbol>
 			</currency>
 			<currency type="MAD">
 				<displayName>मोरक्को दिरहम</displayName>
 				<displayName count="one">मोरक्को दिरहम</displayName>
 				<displayName count="other">मोरक्को दिरहम</displayName>
-				<symbol>MAD</symbol>
 			</currency>
 			<currency type="MAF">
 				<displayName draft="contributed">मोरक्को फ्रैंक</displayName>
@@ -5644,67 +5662,56 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>मोल्डोवन लियू</displayName>
 				<displayName count="one">मोल्डोवन लियू</displayName>
 				<displayName count="other">मोल्डोवन लियू</displayName>
-				<symbol>MDL</symbol>
 			</currency>
 			<currency type="MGA">
 				<displayName>मालागासी आरियरी</displayName>
 				<displayName count="one">मालागासी आरियरी</displayName>
 				<displayName count="other">मालागासी आरियरी</displayName>
-				<symbol>MGA</symbol>
 			</currency>
 			<currency type="MKD">
 				<displayName>मैसीडोनियन दिनार</displayName>
 				<displayName count="one">मैसीडोनियन दिनार</displayName>
 				<displayName count="other">मैसीडोनियन दिनार</displayName>
-				<symbol>MKD</symbol>
 			</currency>
 			<currency type="MMK">
 				<displayName>म्यांमार क्याट</displayName>
 				<displayName count="one">म्यांमार क्याट</displayName>
 				<displayName count="other">म्यांमार क्याट</displayName>
-				<symbol>MMK</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>मंगोलियाई टगरिक</displayName>
 				<displayName count="one">मंगोलियाई टगरिक</displayName>
 				<displayName count="other">मंगोलियाई टगरिक</displayName>
-				<symbol>MNT</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>मेकानीज़ पाटाका</displayName>
 				<displayName count="one">मेकानीज़ पाटाका</displayName>
 				<displayName count="other">मेकानीज़ पाटाका</displayName>
-				<symbol>MOP</symbol>
 			</currency>
 			<currency type="MRO">
 				<displayName>मॉरीटेनियन ओगुइया (1973–2017)</displayName>
 				<displayName count="one">मॉरीटेनियन ओगुइया (1973–2017)</displayName>
 				<displayName count="other">मॉरीटेनियन ओगुइया (1973–2017)</displayName>
-				<symbol>MRO</symbol>
 			</currency>
 			<currency type="MRU">
 				<displayName>मॉरीटेनियन ओगुइया</displayName>
 				<displayName count="one">मॉरीटेनियन ओगुइया</displayName>
 				<displayName count="other">मॉरीटेनियन ओगुइया</displayName>
-				<symbol draft="contributed">MRU</symbol>
 			</currency>
 			<currency type="MUR">
 				<displayName>मॉरिशियन रुपया</displayName>
 				<displayName count="one">मॉरिशियन रुपया</displayName>
 				<displayName count="other">मॉरिशियन रुपया</displayName>
-				<symbol>MUR</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>मालदीवी रुफ़िया</displayName>
 				<displayName count="one">मालदीवी रुफ़िया</displayName>
 				<displayName count="other">मालदीवी रुफ़िया</displayName>
-				<symbol>MVR</symbol>
 			</currency>
 			<currency type="MWK">
 				<displayName>मालावियन क्वाचा</displayName>
 				<displayName count="one">मालावियन क्वाचा</displayName>
 				<displayName count="other">मालावियन क्वाचा</displayName>
-				<symbol>MWK</symbol>
 			</currency>
 			<currency type="MXN">
 				<displayName>मैक्सिकन पेसो</displayName>
@@ -5715,43 +5722,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>मलेशियाई रिंगित</displayName>
 				<displayName count="one">मलेशियाई रिंगित</displayName>
 				<displayName count="other">मलेशियाई रिंगित</displayName>
-				<symbol>MYR</symbol>
 			</currency>
 			<currency type="MZN">
 				<displayName>मोज़ाम्बिकन मेटिकल</displayName>
 				<displayName count="one">मोज़ाम्बिकन मेटिकल</displayName>
 				<displayName count="other">मोज़ाम्बिकन मेटिकल</displayName>
-				<symbol>MZN</symbol>
 			</currency>
 			<currency type="NAD">
 				<displayName>नामीबियाई डॉलर</displayName>
 				<displayName count="one">नामीबियाई डॉलर</displayName>
 				<displayName count="other">नामीबियाई डॉलर</displayName>
-				<symbol>NAD</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>नाइजीरियाई नाइरा</displayName>
 				<displayName count="one">नाइजीरियाई नाइरा</displayName>
 				<displayName count="other">नाइजीरियाई नाइरा</displayName>
-				<symbol>NGN</symbol>
 			</currency>
 			<currency type="NIO">
 				<displayName>निकारागुअन कोरडोबा</displayName>
 				<displayName count="one">निकारागुअन कोरडोबा</displayName>
 				<displayName count="other">निकारागुअन कोरडोबा</displayName>
-				<symbol>NIO</symbol>
 			</currency>
 			<currency type="NOK">
 				<displayName>नॉर्वेजियन क्रोन</displayName>
 				<displayName count="one">नॉर्वेजियन क्रोन</displayName>
 				<displayName count="other">नॉर्वेजियन क्रोन</displayName>
-				<symbol>NOK</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>नेपाली रुपया</displayName>
 				<displayName count="one">नेपाली रुपया</displayName>
 				<displayName count="other">नेपाली रुपए</displayName>
-				<symbol>NPR</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>न्यूज़ीलैंड डॉलर</displayName>
@@ -5762,101 +5762,85 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ओमानी रियाल</displayName>
 				<displayName count="one">ओमानी रियाल</displayName>
 				<displayName count="other">ओमानी रियाल</displayName>
-				<symbol>OMR</symbol>
 			</currency>
 			<currency type="PAB">
 				<displayName>पनामेनियन बैल्बोआ</displayName>
 				<displayName count="one">पनामेनियन बैल्बोआ</displayName>
 				<displayName count="other">पनामेनियन बैल्बोआ</displayName>
-				<symbol>PAB</symbol>
 			</currency>
 			<currency type="PEN">
 				<displayName>पेरूवियन सोल</displayName>
 				<displayName count="one">पेरूवियन सोल</displayName>
 				<displayName count="other">पेरूवियन सोल</displayName>
-				<symbol>PEN</symbol>
 			</currency>
 			<currency type="PGK">
 				<displayName>पापुआ न्यू गिनीयन किना</displayName>
 				<displayName count="one">पापुआ न्यू गिनीयन किना</displayName>
 				<displayName count="other">पापुआ न्यू गिनीयन किना</displayName>
-				<symbol>PGK</symbol>
 			</currency>
 			<currency type="PHP">
 				<displayName>फ़िलिपीनी पेसो</displayName>
 				<displayName count="one">फ़िलिपीनी पेसो</displayName>
 				<displayName count="other">फ़िलिपीनी पेसो</displayName>
-				<symbol>PHP</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>पाकिस्तानी रुपया</displayName>
 				<displayName count="one">पाकिस्तानी रुपया</displayName>
 				<displayName count="other">पाकिस्तानी रुपए</displayName>
-				<symbol>PKR</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>पोलिश ज़्लॉटी</displayName>
 				<displayName count="one">पोलिश ज़्लॉटी</displayName>
 				<displayName count="other">पोलिश ज़्लॉटी</displayName>
-				<symbol>PLN</symbol>
 			</currency>
 			<currency type="PYG">
 				<displayName>पैराग्वियन गुआरानी</displayName>
 				<displayName count="one">पैराग्वियन गुआरानी</displayName>
 				<displayName count="other">पैराग्वियन गुआरानी</displayName>
-				<symbol>PYG</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>क़तरी रियाल</displayName>
 				<displayName count="one">क़तरी रियाल</displayName>
 				<displayName count="other">क़तरी रियाल</displayName>
-				<symbol>QAR</symbol>
 			</currency>
 			<currency type="RHD">
 				<displayName draft="contributed">रोडेशियाई डालर</displayName>
 			</currency>
 			<currency type="RON">
+				<symbol alt="narrow" draft="contributed">लेई</symbol>
 				<displayName>रोमानियाई ल्यू</displayName>
 				<displayName count="one">रोमानियाई ल्यू</displayName>
 				<displayName count="other">रोमानियाई ल्यू</displayName>
-				<symbol>RON</symbol>
-				<symbol alt="narrow" draft="contributed">लेई</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>सर्बियन दिनार</displayName>
 				<displayName count="one">सर्बियन दिनार</displayName>
 				<displayName count="other">सर्बियन दिनार</displayName>
-				<symbol>RSD</symbol>
 			</currency>
 			<currency type="RUB">
 				<displayName>रूसी रूबल</displayName>
 				<displayName count="one">रूसी रूबल</displayName>
 				<displayName count="other">रूसी रूबल</displayName>
-				<symbol>RUB</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>रवांडाई फ़्रैंक</displayName>
 				<displayName count="one">रवांडाई फ़्रैंक</displayName>
 				<displayName count="other">रवांडाई फ़्रैंक</displayName>
-				<symbol>RWF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>सउदी रियाल</displayName>
 				<displayName count="one">सउदी रियाल</displayName>
 				<displayName count="other">सउदी रियाल</displayName>
-				<symbol>SAR</symbol>
 			</currency>
 			<currency type="SBD">
 				<displayName>सोलोमन द्वीपसमूह डॉलर</displayName>
 				<displayName count="one">सोलोमन द्वीपसमूह डॉलर</displayName>
 				<displayName count="other">सोलोमन द्वीपसमूह डॉलर</displayName>
-				<symbol>SBD</symbol>
 			</currency>
 			<currency type="SCR">
 				<displayName>सेशेल्सियाई रुपया</displayName>
 				<displayName count="one">सेशेल्सियाई रुपया</displayName>
 				<displayName count="other">सेशेल्सियाई रुपया</displayName>
-				<symbol>SCR</symbol>
 			</currency>
 			<currency type="SDD">
 				<displayName draft="contributed">पुरानी सूडानी दिनार</displayName>
@@ -5865,7 +5849,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>सूडानी पाउंड</displayName>
 				<displayName count="one">सूडानी पाउंड</displayName>
 				<displayName count="other">सूडानी पाउंड</displayName>
-				<symbol>SDG</symbol>
 			</currency>
 			<currency type="SDP">
 				<displayName draft="contributed">पुराना सूडानी पाउंड</displayName>
@@ -5874,19 +5857,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>स्वीडीश क्रोना</displayName>
 				<displayName count="one">स्वीडीश क्रोना</displayName>
 				<displayName count="other">स्वीडीश क्रोना</displayName>
-				<symbol>SEK</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>सिंगापुर डॉलर</displayName>
 				<displayName count="one">सिंगापुर डॉलर</displayName>
 				<displayName count="other">सिंगापुर डॉलर</displayName>
-				<symbol>SGD</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>सेंट हेलेना पाउंड</displayName>
 				<displayName count="one">सेंट हेलेना पाउंड</displayName>
 				<displayName count="other">सेंट हेलेना पाउंड</displayName>
-				<symbol>SHP</symbol>
 			</currency>
 			<currency type="SIT">
 				<displayName draft="contributed">स्लोवेनियाई तोलार</displayName>
@@ -5898,19 +5878,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>सिएरा लियोनियन लियोन</displayName>
 				<displayName count="one">सिएरा लियोनियन लियोन</displayName>
 				<displayName count="other">सिएरा लियोनियन लियोन</displayName>
-				<symbol>SLL</symbol>
 			</currency>
 			<currency type="SOS">
 				<displayName>सोमाली शिलिंग</displayName>
 				<displayName count="one">सोमाली शिलिंग</displayName>
 				<displayName count="other">सोमाली शिलिंग</displayName>
-				<symbol>SOS</symbol>
 			</currency>
 			<currency type="SRD">
 				<displayName>सूरीनामी डॉलर</displayName>
 				<displayName count="one">सूरीनामी डॉलर</displayName>
 				<displayName count="other">सूरीनामी डॉलर</displayName>
-				<symbol>SRD</symbol>
 			</currency>
 			<currency type="SRG">
 				<displayName draft="contributed">सूरीनामी गिल्डर</displayName>
@@ -5919,19 +5896,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>दक्षिण सूडानी पाउंड</displayName>
 				<displayName count="one">दक्षिण सूडानी पाउंड</displayName>
 				<displayName count="other">दक्षिण सूडानी पाउंड</displayName>
-				<symbol>SSP</symbol>
 			</currency>
 			<currency type="STD">
 				<displayName>साओ तोम और प्रिंसिपे डोबरा (1977–2017)</displayName>
 				<displayName count="one">साओ तोम और प्रिंसिपे डोबरा (1977–2017)</displayName>
 				<displayName count="other">साओ तोम और प्रिंसिपे डोबरा (1977–2017)</displayName>
-				<symbol>STD</symbol>
 			</currency>
 			<currency type="STN">
+				<symbol draft="contributed">STN</symbol>
 				<displayName>साओ टोम और प्रिंसिपे डोबरा</displayName>
 				<displayName count="one">साओ टोम और प्रिंसिपे डोबरा</displayName>
 				<displayName count="other">साओ टोम और प्रिंसिपे डोबरा</displayName>
-				<symbol draft="contributed">STN</symbol>
 			</currency>
 			<currency type="SUR">
 				<displayName draft="contributed">सोवियत रूबल</displayName>
@@ -5940,19 +5915,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>सीरियाई पाउंड</displayName>
 				<displayName count="one">सीरियाई पाउंड</displayName>
 				<displayName count="other">सीरियाई पाउंड</displayName>
-				<symbol>SYP</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>स्वाज़ी लिलांजेनी</displayName>
 				<displayName count="one">स्वाज़ी लिलांजेनी</displayName>
 				<displayName count="other">स्वाज़ी लिलांजेनी</displayName>
-				<symbol>SZL</symbol>
 			</currency>
 			<currency type="THB">
+				<symbol>฿</symbol>
 				<displayName>थाई बहत</displayName>
 				<displayName count="one">थाई बहत</displayName>
 				<displayName count="other">थाई बहत</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJR">
 				<displayName draft="contributed">तजाखी रूबल</displayName>
@@ -5961,25 +5934,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ताजिकिस्तानी सोमोनी</displayName>
 				<displayName count="one">ताजिकिस्तानी सोमोनी</displayName>
 				<displayName count="other">ताजिकिस्तानी सोमोनी</displayName>
-				<symbol>TJS</symbol>
 			</currency>
 			<currency type="TMT">
 				<displayName>तुर्कमेनिस्तानी मैनत</displayName>
 				<displayName count="one">तुर्कमेनिस्तानी मैनत</displayName>
 				<displayName count="other">तुर्कमेनिस्तानी मैनत</displayName>
-				<symbol>TMT</symbol>
 			</currency>
 			<currency type="TND">
 				<displayName>ट्यूनीशियाई दिनार</displayName>
 				<displayName count="one">ट्यूनीशियाई दिनार</displayName>
 				<displayName count="other">ट्यूनीशियाई दिनार</displayName>
-				<symbol>TND</symbol>
 			</currency>
 			<currency type="TOP">
 				<displayName>टोंगन पांगा</displayName>
 				<displayName count="one">टोंगन पांगा</displayName>
 				<displayName count="other">टोंगन पांगा</displayName>
-				<symbol>TOP</symbol>
 			</currency>
 			<currency type="TRL">
 				<displayName draft="contributed">पुरानी तुर्की लीरा</displayName>
@@ -5988,43 +5957,38 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>तुर्की लीरा</displayName>
 				<displayName count="one">तुर्की लीरा</displayName>
 				<displayName count="other">तुर्की लीरा</displayName>
-				<symbol>TRY</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>त्रिनिदाद और टोबैगो डॉलर</displayName>
 				<displayName count="one">त्रिनिदाद और टोबैगो डॉलर</displayName>
 				<displayName count="other">त्रिनिदाद और टोबैगो डॉलर</displayName>
-				<symbol>TTD</symbol>
 			</currency>
 			<currency type="TWD">
+				<symbol alt="narrow" draft="contributed">NT$</symbol>
 				<displayName>नया ताईवानी डॉलर</displayName>
 				<displayName count="one">नया ताईवानी डॉलर</displayName>
 				<displayName count="other">नया ताईवानी डॉलर</displayName>
-				<symbol alt="narrow" draft="contributed">NT$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>तंज़ानियाई शिलिंग</displayName>
 				<displayName count="one">तंज़ानियाई शिलिंग</displayName>
 				<displayName count="other">तंज़ानियाई शिलिंग</displayName>
-				<symbol>TZS</symbol>
 			</currency>
 			<currency type="UAH">
 				<displayName>यूक्रेनियन रिव्निया</displayName>
 				<displayName count="one">यूक्रेनियन रिव्निया</displayName>
 				<displayName count="other">यूक्रेनियन रिव्निया</displayName>
-				<symbol>UAH</symbol>
 			</currency>
 			<currency type="UGX">
 				<displayName>युगांडाई शिलिंग</displayName>
 				<displayName count="one">युगांडाई शिलिंग</displayName>
 				<displayName count="other">युगांडाई शिलिंग</displayName>
-				<symbol>UGX</symbol>
 			</currency>
 			<currency type="USD">
+				<symbol>$</symbol>
 				<displayName>यूएस डॉलर</displayName>
 				<displayName count="one">यूएस डॉलर</displayName>
 				<displayName count="other">यूएस डॉलर</displayName>
-				<symbol>$</symbol>
 			</currency>
 			<currency type="USN">
 				<displayName draft="contributed">अमेरीकी डालर (कल)</displayName>
@@ -6036,13 +6000,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>उरुग्वियन पेसो</displayName>
 				<displayName count="one">उरुग्वियन पेसो</displayName>
 				<displayName count="other">उरुग्वियन पेसो</displayName>
-				<symbol>UYU</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>उज़्बेकिस्तान सोम</displayName>
 				<displayName count="one">उज़्बेकिस्तान सोम</displayName>
 				<displayName count="other">उज़्बेकिस्तान सोम</displayName>
-				<symbol>UZS</symbol>
 			</currency>
 			<currency type="VEB">
 				<displayName draft="contributed">वेनेज़ुएला बोलिवर (1871–2008)</displayName>
@@ -6051,13 +6013,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>वेनेज़ुएला बोलिवर (2008–2018)</displayName>
 				<displayName count="one">वेनेज़ुएला बोलिवर (2008–2018)</displayName>
 				<displayName count="other">वेनेज़ुएला बोलिवर (2008–2018)</displayName>
-				<symbol>VEF</symbol>
 			</currency>
 			<currency type="VES">
 				<displayName>वेनेज़ुएला बोलिवर</displayName>
 				<displayName count="one">वेनेज़ुएला बोलिवर</displayName>
 				<displayName count="other">वेनेज़ुएला बोलिवर</displayName>
-				<symbol draft="contributed">VES</symbol>
 			</currency>
 			<currency type="VND">
 				<displayName>वियतनामी डोंग</displayName>
@@ -6068,13 +6028,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>वनुआतू वातू</displayName>
 				<displayName count="one">वनुआतू वातू</displayName>
 				<displayName count="other">वनुआतू वातू</displayName>
-				<symbol>VUV</symbol>
 			</currency>
 			<currency type="WST">
 				<displayName>समोआई ताला</displayName>
 				<displayName count="one">समोआई ताला</displayName>
 				<displayName count="other">समोआई ताला</displayName>
-				<symbol>WST</symbol>
 			</currency>
 			<currency type="XAF">
 				<displayName>केंद्रीय अफ़्रीकी CFA फ़्रैंक</displayName>
@@ -6105,13 +6063,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>यमनी रियाल</displayName>
 				<displayName count="one">यमनी रियाल</displayName>
 				<displayName count="other">यमनी रियाल</displayName>
-				<symbol>YER</symbol>
 			</currency>
 			<currency type="ZAR">
 				<displayName>दक्षिण अफ़्रीकी रैंड</displayName>
 				<displayName count="one">दक्षिण अफ़्रीकी रैंड</displayName>
 				<displayName count="other">दक्षिण अफ़्रीकी रैंड</displayName>
-				<symbol>ZAR</symbol>
 			</currency>
 			<currency type="ZMK">
 				<displayName draft="contributed">ज़ाम्बियन क्वाचा (1968–2012)</displayName>
@@ -6120,7 +6076,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>ज़ाम्बियन क्वाचा</displayName>
 				<displayName count="one">ज़ाम्बियन क्वाचा</displayName>
 				<displayName count="other">ज़ाम्बियन क्वाचा</displayName>
-				<symbol>ZMW</symbol>
 			</currency>
 		</currencies>
 		<miscPatterns numberSystem="latn">
@@ -6138,6 +6093,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern draft="contributed">{0} प्रति {1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>गुरुत्व बल</displayName>
 				<unitPattern count="one" draft="contributed">{0} गु–बल</unitPattern>
@@ -6177,6 +6135,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>एकड़</displayName>
 				<unitPattern count="one">{0} एकड़</unitPattern>
 				<unitPattern count="other">{0} एकड़</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName draft="contributed">डोनम</displayName>
+				<unitPattern count="one" draft="contributed">{0} डोनम</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} डोनम</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>हेक्टेयर</displayName>
@@ -6238,8 +6201,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} मिलीमोल प्रति लीटर</unitPattern>
 				<unitPattern count="other">{0} मिलीमोल प्रति लीटर</unitPattern>
 			</unit>
+			<unit type="concentr-mole">
+				<displayName draft="contributed">मोल</displayName>
+				<unitPattern count="one" draft="contributed">{0} मोल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} मोल</unitPattern>
+			</unit>
 			<unit type="concentr-part-per-million">
-				<displayName draft="contributed">ppm</displayName>
 				<unitPattern count="one" draft="contributed">{0} ppm</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} हिस्सा प्रति दस लाख</unitPattern>
 			</unit>
@@ -6252,6 +6219,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName draft="contributed">प्रति हज़ार</displayName>
 				<unitPattern count="one" draft="contributed">{0} प्रति हज़ार</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} प्रति हज़ार</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName draft="contributed">प्रति दस हज़ार</displayName>
+				<unitPattern count="one" draft="contributed">{0} प्रति दस हज़ार</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} प्रति दस हज़ार</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName draft="contributed">लीटर प्रति 100 किलोमीटर</displayName>
@@ -6410,10 +6382,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} वोल्ट</unitPattern>
 				<unitPattern count="other">{0} वोल्ट</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName draft="contributed">ब्रिटिश थर्मल यूनिट</displayName>
+				<unitPattern count="one" draft="contributed">{0} ब्रिटिश थर्मल यूनिट</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} ब्रिटिश थर्मल यूनिट</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>कैलोरी</displayName>
 				<unitPattern count="one">{0} कैलोरी</unitPattern>
 				<unitPattern count="other">{0} कैलोरी</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName draft="contributed">इलेक्ट्रॉनवोल्ट</displayName>
+				<unitPattern count="one" draft="contributed">{0} इलेक्ट्रॉनवोल्ट</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} इलेक्ट्रॉनवोल्ट</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>कैलोरी</displayName>
@@ -6439,6 +6421,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>किलोवॉट घंटे</displayName>
 				<unitPattern count="one">{0} किलोवॉट घंटा</unitPattern>
 				<unitPattern count="other">{0} किलोवॉट घंटे</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName draft="contributed">न्यूटन</displayName>
+				<unitPattern count="one" draft="contributed">{0} न्यूटन</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} न्यूटन</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName draft="contributed">पाउंड-बल</displayName>
+				<unitPattern count="one" draft="contributed">{0} पाउंड-बल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} पाउंड-बल</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>गीगाहर्ट्ज़</displayName>
@@ -6550,6 +6542,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} pt</unitPattern>
 				<unitPattern count="other">{0} pt</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName draft="contributed">सौर अर्धव्यास</displayName>
+				<unitPattern count="one" draft="contributed">{0} सौर अर्धव्यास</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} सौर अर्धव्यास</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>यार्ड</displayName>
 				<unitPattern count="one">{0} यार्ड</unitPattern>
@@ -6560,10 +6557,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} लक्स</unitPattern>
 				<unitPattern count="other">{0} लक्स</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName draft="contributed">सौर ज्योति</displayName>
+				<unitPattern count="one" draft="contributed">{0} सौर ज्योति</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} सौर ज्योति</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>कैरेट</displayName>
 				<unitPattern count="one">{0} कैरेट</unitPattern>
 				<unitPattern count="other">{0} कैरेट</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName draft="contributed">डाल्टन</displayName>
+				<unitPattern count="one" draft="contributed">{0} डाल्टन</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} डाल्टन</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName draft="contributed">पृथ्वी द्रव्यमान</displayName>
+				<unitPattern count="one" draft="contributed">{0} पृथ्वी द्रव्यमान</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} पृथ्वी द्रव्यमान</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>ग्राम</displayName>
@@ -6608,6 +6620,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} पौंड</unitPattern>
 				<unitPattern count="other">{0} पौंड</unitPattern>
 				<perUnitPattern>{0}/पौंड</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName draft="contributed">सौर द्रव्यमान</displayName>
+				<unitPattern count="one" draft="contributed">{0} सौर द्रव्यमान</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} सौर द्रव्यमान</unitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>टन</displayName>
@@ -6659,6 +6676,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} मर्करी इंच</unitPattern>
 				<unitPattern count="other">{0} मर्करी इंच</unitPattern>
 			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName draft="contributed">किलोपास्कल</displayName>
+				<unitPattern count="one" draft="contributed">{0} किलोपास्कल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} किलोपास्कल</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName draft="contributed">मेगापास्कल</displayName>
+				<unitPattern count="one" draft="contributed">{0} मेगापास्कल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} मेगापास्कल</unitPattern>
+			</unit>
 			<unit type="pressure-millibar">
 				<displayName>मिलीबार</displayName>
 				<unitPattern count="one">{0} मिलीबार</unitPattern>
@@ -6704,20 +6731,30 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} डिग्री फ़ेरनहाइट</unitPattern>
 				<unitPattern count="other">{0} डिग्री फ़ेरनहाइट</unitPattern>
 			</unit>
-			<unit type="temperature-generic">
-				<displayName>°</displayName>
-				<unitPattern count="one">{0}°</unitPattern>
-				<unitPattern count="other">{0}°</unitPattern>
-			</unit>
 			<unit type="temperature-kelvin">
 				<displayName>केल्विन</displayName>
 				<unitPattern count="one">{0} केल्विन</unitPattern>
 				<unitPattern count="other">{0} केल्विन</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName draft="contributed">न्यूटन-मीटर</displayName>
+				<unitPattern count="one" draft="contributed">{0} न्यूटन-मीटर</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} न्यूटन-मीटर</unitPattern>
+			</unit>
+			<unit type="torque-pound-foot">
+				<displayName draft="contributed">पाउंड-फ़ीट</displayName>
+				<unitPattern count="one" draft="contributed">{0} पाउंड-फ़ुट</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} पाउंड-फ़ुट</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>एकड़ फ़ीट</displayName>
 				<unitPattern count="one">{0} एकड़ फ़ूट</unitPattern>
 				<unitPattern count="other">{0} एकड़ फ़ीट</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName draft="contributed">बैरल</displayName>
+				<unitPattern count="one" draft="contributed">{0} बैरल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} बैरल</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>सेंटीलीटर</displayName>
@@ -6781,6 +6818,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} फ़्लूइड आउंस</unitPattern>
 				<unitPattern count="other">{0} फ़्लूइड आउंस</unitPattern>
 			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName draft="contributed">इम्पी॰ फ़्लुइड आउंस</displayName>
+				<unitPattern count="one" draft="contributed">{0} इम्पी॰ फ़्लुइड आउंस</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} इम्पी॰ फ़्लुइड आउंस</unitPattern>
+			</unit>
 			<unit type="volume-gallon">
 				<displayName>गैलन</displayName>
 				<unitPattern count="one">{0} गैलन</unitPattern>
@@ -6839,15 +6881,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} टी स्पून</unitPattern>
 				<unitPattern count="other">{0} टी स्पून</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern draft="contributed">{0} प्रति {1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName draft="contributed">प्रधान दिशा</displayName>
-				<coordinateUnitPattern type="east" draft="contributed">{0}E</coordinateUnitPattern>
-				<coordinateUnitPattern type="north" draft="contributed">{0}N</coordinateUnitPattern>
-				<coordinateUnitPattern type="south" draft="contributed">{0}S</coordinateUnitPattern>
-				<coordinateUnitPattern type="west" draft="contributed">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
@@ -6891,11 +6926,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="area-square-mile">
 				<unitPattern count="one">{0}वर्ग मील</unitPattern>
 				<unitPattern count="other">{0}वर्ग मील</unitPattern>
-			</unit>
-			<unit type="concentr-percent">
-				<displayName draft="contributed">%</displayName>
-				<unitPattern count="one" draft="contributed">{0}%</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}%</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName draft="contributed">ली॰/100 कि॰मी॰</displayName>
@@ -7063,15 +7093,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0}ली॰</unitPattern>
 				<unitPattern count="other">{0}ली॰</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern draft="contributed">{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName draft="contributed">दिशा</displayName>
-				<coordinateUnitPattern type="east" draft="contributed">{0}E</coordinateUnitPattern>
-				<coordinateUnitPattern type="north" draft="contributed">{0}N</coordinateUnitPattern>
-				<coordinateUnitPattern type="south" draft="contributed">{0}S</coordinateUnitPattern>
-				<coordinateUnitPattern type="west" draft="contributed">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
@@ -7113,6 +7136,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>एकड़</displayName>
 				<unitPattern count="one">{0} एकड़</unitPattern>
 				<unitPattern count="other">{0} एकड़</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName draft="contributed">डोनम</displayName>
+				<unitPattern count="one" draft="contributed">{0} डोनम</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} डोनम</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>हेक्टेयर</displayName>
@@ -7161,7 +7189,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="concentr-karat">
 				<displayName>कैरट</displayName>
-				<unitPattern count="one">{0} kt</unitPattern>
 			</unit>
 			<unit type="concentr-milligram-per-deciliter">
 				<displayName>मि॰ग्रा॰/डे॰ली॰</displayName>
@@ -7173,16 +7200,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} मिलीमोल/ली॰</unitPattern>
 				<unitPattern count="other">{0} मिलीमोल/ली॰</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<unitPattern count="one" draft="contributed">{0} ppm</unitPattern>
+			<unit type="concentr-mole">
+				<displayName draft="contributed">मोल</displayName>
+				<unitPattern count="one" draft="contributed">{0} मोल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} मोल</unitPattern>
 			</unit>
 			<unit type="concentr-percent">
 				<displayName draft="contributed">प्रतिशत</displayName>
-				<unitPattern count="one" draft="contributed">{0}%</unitPattern>
 			</unit>
 			<unit type="concentr-permille">
 				<displayName draft="contributed">प्रति हज़ार</displayName>
-				<unitPattern count="one" draft="contributed">{0}‰</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-100kilometers">
 				<displayName draft="contributed">ली॰/100 कि॰मी॰</displayName>
@@ -7214,33 +7246,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} बाइट</unitPattern>
 				<unitPattern count="other">{0} बाइट</unitPattern>
 			</unit>
-			<unit type="digital-gigabit">
-				<unitPattern count="one">{0} Gb</unitPattern>
-			</unit>
-			<unit type="digital-gigabyte">
-				<unitPattern count="one">{0} GB</unitPattern>
-			</unit>
-			<unit type="digital-kilobit">
-				<unitPattern count="one">{0} kb</unitPattern>
-			</unit>
-			<unit type="digital-kilobyte">
-				<unitPattern count="one">{0} kB</unitPattern>
-			</unit>
-			<unit type="digital-megabit">
-				<unitPattern count="one">{0} Mb</unitPattern>
-			</unit>
-			<unit type="digital-megabyte">
-				<unitPattern count="one">{0} MB</unitPattern>
-			</unit>
 			<unit type="digital-petabyte">
 				<displayName draft="contributed">पेटाबाइट</displayName>
-				<unitPattern count="one" draft="contributed">{0} PB</unitPattern>
-			</unit>
-			<unit type="digital-terabit">
-				<unitPattern count="one">{0} Tb</unitPattern>
-			</unit>
-			<unit type="digital-terabyte">
-				<unitPattern count="one">{0} TB</unitPattern>
 			</unit>
 			<unit type="duration-century">
 				<displayName>शता</displayName>
@@ -7315,43 +7322,35 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="electric-ohm">
 				<displayName>ओम</displayName>
-				<unitPattern count="one">{0} Ω</unitPattern>
 			</unit>
 			<unit type="electric-volt">
 				<displayName>वोल्ट</displayName>
-				<unitPattern count="one">{0} V</unitPattern>
 			</unit>
-			<unit type="energy-calorie">
-				<unitPattern count="one">{0} cal</unitPattern>
+			<unit type="energy-british-thermal-unit">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
-			<unit type="energy-foodcalorie">
-				<unitPattern count="one">{0} Cal</unitPattern>
+			<unit type="energy-electronvolt">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="energy-joule">
 				<displayName>जूल</displayName>
-				<unitPattern count="one">{0} J</unitPattern>
-			</unit>
-			<unit type="energy-kilocalorie">
-				<unitPattern count="one">{0} kcal</unitPattern>
 			</unit>
 			<unit type="energy-kilojoule">
 				<displayName>किलो जूल</displayName>
-				<unitPattern count="one">{0} kJ</unitPattern>
 			</unit>
-			<unit type="energy-kilowatt-hour">
-				<unitPattern count="one">{0} kWh</unitPattern>
+			<unit type="force-newton">
+				<displayName draft="contributed">न्यू॰</displayName>
+				<unitPattern count="one" draft="contributed">{0} न्यू॰</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} न्यू॰</unitPattern>
 			</unit>
-			<unit type="frequency-gigahertz">
-				<unitPattern count="one">{0} GHz</unitPattern>
-			</unit>
-			<unit type="frequency-hertz">
-				<unitPattern count="one">{0} Hz</unitPattern>
-			</unit>
-			<unit type="frequency-kilohertz">
-				<unitPattern count="one">{0} kHz</unitPattern>
-			</unit>
-			<unit type="frequency-megahertz">
-				<unitPattern count="one">{0} MHz</unitPattern>
+			<unit type="force-pound-force">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>खगो॰ इका॰</displayName>
@@ -7408,9 +7407,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} मील</unitPattern>
 				<unitPattern count="other">{0} मील</unitPattern>
 			</unit>
-			<unit type="length-mile-scandinavian">
-				<unitPattern count="one" draft="contributed">{0} smi</unitPattern>
-			</unit>
 			<unit type="length-millimeter">
 				<displayName>मि॰मी॰</displayName>
 				<unitPattern count="one">{0} मि॰मी॰</unitPattern>
@@ -7439,6 +7435,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="length-point">
 				<unitPattern count="one">{0} pt</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>यार्ड</displayName>
 				<unitPattern count="one">{0} यार्ड</unitPattern>
@@ -7446,12 +7447,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="light-lux">
 				<displayName>लक्स</displayName>
-				<unitPattern count="one">{0} lx</unitPattern>
+			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="mass-carat">
 				<displayName>कै॰</displayName>
 				<unitPattern count="one">{0} कै॰</unitPattern>
 				<unitPattern count="other">{0} कै॰</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName draft="contributed">डाल्टन</displayName>
+				<unitPattern count="one" draft="contributed">{0} डाल्टन</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} डाल्टन</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>ग्राम</displayName>
@@ -7497,47 +7512,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="other">{0} पौंड</unitPattern>
 				<perUnitPattern>{0}/पौंड</perUnitPattern>
 			</unit>
+			<unit type="mass-solar-mass">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
+			</unit>
 			<unit type="mass-ton">
 				<displayName>टन</displayName>
 				<unitPattern count="one">{0} टन</unitPattern>
 				<unitPattern count="other">{0} टन</unitPattern>
 			</unit>
-			<unit type="power-gigawatt">
-				<unitPattern count="one">{0} GW</unitPattern>
-			</unit>
-			<unit type="power-horsepower">
-				<unitPattern count="one">{0} hp</unitPattern>
-			</unit>
-			<unit type="power-kilowatt">
-				<unitPattern count="one">{0} kW</unitPattern>
-			</unit>
-			<unit type="power-megawatt">
-				<unitPattern count="one">{0} MW</unitPattern>
-			</unit>
-			<unit type="power-milliwatt">
-				<unitPattern count="one">{0} mW</unitPattern>
-			</unit>
 			<unit type="power-watt">
 				<displayName>वॉट</displayName>
-				<unitPattern count="one">{0} W</unitPattern>
 			</unit>
-			<unit type="pressure-atmosphere">
-				<unitPattern count="one" draft="contributed">{0} atm</unitPattern>
+			<unit type="pressure-kilopascal">
+				<displayName draft="contributed">किपा॰</displayName>
+				<unitPattern count="one" draft="contributed">{0} किपा॰</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} किपा॰</unitPattern>
 			</unit>
-			<unit type="pressure-hectopascal">
-				<unitPattern count="one">{0} hPa</unitPattern>
-			</unit>
-			<unit type="pressure-inch-hg">
-				<unitPattern count="one">{0} inHg</unitPattern>
-			</unit>
-			<unit type="pressure-millibar">
-				<unitPattern count="one">{0} mbar</unitPattern>
-			</unit>
-			<unit type="pressure-millimeter-of-mercury">
-				<unitPattern count="one">{0} mm Hg</unitPattern>
-			</unit>
-			<unit type="pressure-pound-per-square-inch">
-				<unitPattern count="one">{0} psi</unitPattern>
+			<unit type="pressure-megapascal">
+				<displayName draft="contributed">मेपा॰</displayName>
+				<unitPattern count="one" draft="contributed">{0} मेपा॰</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} मेपा॰</unitPattern>
 			</unit>
 			<unit type="speed-kilometer-per-hour">
 				<displayName>कि॰मी॰/घं॰</displayName>
@@ -7569,16 +7565,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0}°फ़ेरन</unitPattern>
 				<unitPattern count="other">{0}°फ़ेरन</unitPattern>
 			</unit>
-			<unit type="temperature-generic">
-				<unitPattern count="one">{0}°</unitPattern>
+			<unit type="torque-newton-meter">
+				<displayName draft="contributed">न्यू॰मी॰</displayName>
+				<unitPattern count="one" draft="contributed">{0} न्यू॰मी॰</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} न्यू॰मी॰</unitPattern>
 			</unit>
-			<unit type="temperature-kelvin">
-				<unitPattern count="one">{0} K</unitPattern>
+			<unit type="torque-pound-foot">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>एकड़ फ़ीट</displayName>
 				<unitPattern count="one">{0} ए॰फ़ी॰</unitPattern>
 				<unitPattern count="other">{0} ए॰फ़ी॰</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName draft="contributed">बैरल</displayName>
+				<unitPattern count="one" draft="contributed">{0} बैरल</unitPattern>
+				<unitPattern count="other" draft="contributed">{0} बैरल</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>सें॰ली॰</displayName>
@@ -7641,6 +7646,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>फ़्लूइड आउंस</displayName>
 				<unitPattern count="one">{0} फ़्लूइड आउंस</unitPattern>
 				<unitPattern count="other">{0} फ़्लूइड आउंस</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName draft="contributed">↑↑↑</displayName>
+				<unitPattern count="one" draft="contributed">↑↑↑</unitPattern>
+				<unitPattern count="other" draft="contributed">↑↑↑</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>गैलन</displayName>
@@ -7714,29 +7724,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<listPatternPart type="2">{0} या {1}</listPatternPart>
 			<listPatternPart type="end">{0} या {1}</listPatternPart>
 		</listPattern>
+		<listPattern type="standard-narrow">
+			<listPatternPart type="middle" draft="contributed">↑↑↑</listPatternPart>
+			<listPatternPart type="start" draft="contributed">↑↑↑</listPatternPart>
+		</listPattern>
 		<listPattern type="standard-short">
 			<listPatternPart type="2" draft="contributed">{0} और {1}</listPatternPart>
 			<listPatternPart type="end" draft="contributed">{0} और {1}</listPatternPart>
-			<listPatternPart type="middle" draft="contributed">{0}, {1}</listPatternPart>
-			<listPatternPart type="start" draft="contributed">{0}, {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit">
 			<listPatternPart type="2">{0} और {1}</listPatternPart>
 			<listPatternPart type="end">{0}, और {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
-			<listPatternPart type="start">{0}, {1}</listPatternPart>
-		</listPattern>
-		<listPattern type="unit-narrow">
-			<listPatternPart type="2">{0}, {1}</listPatternPart>
-			<listPatternPart type="end">{0}, {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
-			<listPatternPart type="start">{0}, {1}</listPatternPart>
-		</listPattern>
-		<listPattern type="unit-short">
-			<listPatternPart type="2">{0}, {1}</listPatternPart>
-			<listPatternPart type="end">{0}, {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
-			<listPatternPart type="start">{0}, {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
 	<collations>
