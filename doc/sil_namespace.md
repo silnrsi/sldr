@@ -58,10 +58,10 @@ characters =
         mapping*, parseLenients*,
         characters.special?, special*))
   }
-collations =
-  element collations {
-    attlist.collations,
-    (alias | (defaultCollation?, \default*, collation*, collation.special?, special*))
+collation =
+  element collation {
+    attlist.collation,
+    (alias | (cr*, collation.special?, special*))
   }
 delimiters =
   element delimiters {
@@ -87,14 +87,13 @@ LDML currently has only one descriptive language for collations. But collations 
 
 ```rnc
 collation.special = element special {
-    attlist.collation,
     (sil.reordered | sil.simple)?
 }
 
-attlist.collation &= attribute sil:secondary { text }?
-attlist.collation &= attribute sil:prefrom { text }?
-attlist.collation &= attribute sil:preto { text }?
-attlist.collation &= attribute sil:needscompiling { xsd:boolean }?
+attlist.sil.collation &= attribute sil:secondary { text }?
+attlist.sil.collation &= attribute sil:prefrom { text }?
+attlist.sil.collation &= attribute sil:preto { text }?
+attlist.sil.collation &= attribute sil:needscompiling { xsd:boolean }?
 ```
 
 For collations that are described in languages other than ICU tailoring rules, the LDML needs to store both the source collation description in its language and also an ICU tailoring form. Thus a collation would contain its ICU tailoring form and then a special containing the source form. There is no intention that there be more than one source form for a collation, although it is technically possible. For example (from the Akoose language):
@@ -105,8 +104,8 @@ For collations that are described in languages other than ICU tailoring rules, t
         &B<ch<Ch &E<ǝ<<<Ə &N<ŋ<<<Ŋ &O<ɔ<<<Ɔ &Z<\u02BC<\u0027
         &[first primary ignorable] << \u030C << \u0301 << \u0302 << \u0304
     ]]></cr>
-    <special xmlns:sil="urn://www.sil.org/ldml/0.1" sil:needscompiling="false">
-        <sil:simple sil:secondary="&#x030C; &#x0301; &#x0302; &#x0304">
+    <special xmlns:sil="urn://www.sil.org/ldml/0.1">
+        <sil:simple sil:needscompiling="false" sil:secondary="&#x030C; &#x0301; &#x0302; &#x0304">
             <!\[CDATA\[
                 a/A
                 b/B
@@ -158,17 +157,18 @@ Various attributes have been added to the main collation, since it is shared by 
 
 ```rnc
 sil.reordered = element sil:reordered {
+    attlist.sil.global, attlist.sil.collation, 
     (sil.reorder*, cr)
 }
 
 sil.reorder = element sil:reorder {
-    attlist.sil.reorder, attlist.sil.global
+    attlist.sil.reorder
 }
 attlist.sil.reorder &= attribute match { text }
 attlist.sil.reorder &= attribute reorder { text }
 
 sil.simple = element sil:simple {
-    attlist.sil.simple, attlist.sil.global,
+    attlist.sil.simple, attlist.sil.global, attlist.sil.collation,
     text
 }
 
