@@ -24,13 +24,17 @@
 # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
 # SUCH DAMAGE.
 
+'''CLDR keeps different parts of the description for a locale in files in
+different directories. This program merges them and also optionally adds
+revision information, ready for integrating into the SLDR.'''
+
 import os, sys, codecs, subprocess
 from argparse import ArgumentParser
 from palaso.sldr.ldml import Ldml
 
 from multiprocessing import Pool
 
-parser = ArgumentParser()
+parser = ArgumentParser(description=__doc__)
 parser.add_argument('indir', help='cldr common directory (path/cldr/common, or path/cldr/seed)')
 parser.add_argument('outdir', help='Directory to store results in')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
