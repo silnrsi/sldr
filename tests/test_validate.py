@@ -53,4 +53,5 @@ def test_exemplars(ldml):
         else:
             test = main
         m = set([x.lower() for x in exemplars['index']])
-        assert not len(m - test), "Not all index entries found in main or auxiliary"
+        diff = m - test
+        assert not len(diff), "Not all index entries found in main or auxiliary"

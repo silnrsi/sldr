@@ -32,7 +32,7 @@ ldml =
     (alias
      | (fallback*, localeDisplayNames?, layout?, contextTransforms?, characters?, delimiters?,
         measurement?, dates?, numbers?, units?, listPatterns?, collations?, posix?, characterLabels?,
-        segmentations?, rbnf?, annotations?, metadata?, references?,
+        segmentations?, rbnf?, typographicNames?, annotations?, metadata?, references?,
         ldml.special?, special*))
   }
 identity =
@@ -89,6 +89,8 @@ LDML currently has only one descriptive language for collations. But collations 
 collation.special = element special {
     (sil.reordered | sil.simple)?
 }
+
+attlist.collation &= attribute sil:modified { "true" | "false" }?
 
 attlist.sil.collation &= attribute sil:secondary { text }?
 attlist.sil.collation &= attribute sil:prefrom { text }?

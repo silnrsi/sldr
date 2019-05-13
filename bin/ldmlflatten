@@ -73,12 +73,15 @@ elif args.copy :
     
 def doit(l) :
     if args.single :
-        curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs, flattencollation=True)
+        try:
+            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs, flattencollation=True)
+        except Exception as e:
+            print("Failed in " + l)
+            raise e
     else :
         try :
             curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
         except Exception as e :
-            #print("Failed in " + l)
             raise e
     if args.debug & 4:
         print(l + (" Failed" if curr is None else ""))
