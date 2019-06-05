@@ -73,7 +73,7 @@ delimiters =
 }
 
 attlist.sil.global &= attribute draft { "approved" | "contributed" | "provisional" |
-                                        "unconfirmed" | "proposed" | "tentative" |
+                                        "unconfirmed" | "tentative" |
                                         "generated" | "suspect" }?
 attlist.sil.global &= attribute alt { text }?
 attlist.sil.global &= attribute references { text }*
