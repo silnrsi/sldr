@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import argparse
+from palaso.sldr.ldml import Ldml
+
+parser = argparse.ArgumentParser()
+parser.add_argument("infile")
+parser.add_argument("outfile", nargs="?")
+args = parser.parse_args()
+
+if args.outfile is None:
+    args.outfile = args.infile
+
+l = Ldml(args.infile)
+l.save_as(args.outfile)
+
