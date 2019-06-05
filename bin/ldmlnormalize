@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-import argparse
+import argparse, os
 from palaso.sldr.ldml import Ldml
 
 parser = argparse.ArgumentParser()
-parser.add_argument("infile")
-parser.add_argument("outfile", nargs="?")
+parser.add_argument("infile", help="Input file")
+parser.add_argument("outfile", nargs="?", help="Output file, default to input")
+parser.add_argument("-v","--validate",action="store_true", help="Validate file")
 args = parser.parse_args()
 
 if args.outfile is None:
@@ -13,4 +14,10 @@ if args.outfile is None:
 
 l = Ldml(args.infile)
 l.save_as(args.outfile)
+
+if args.validate:
+    from lxml.etree import parse, RelaxNG
+    validator = RelaxNG(file=os.path.join(os.path.dirname(__file__), '..', 'doc', 'sil.rng'))
+    xml = parse(args.infile)
+    validator.assertValid(xml)
 
