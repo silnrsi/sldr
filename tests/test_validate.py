@@ -3,6 +3,7 @@ import pytest
 import logging, os
 from lxml.etree import RelaxNG, parse, DocumentInvalid
 import palaso.sldr.UnicodeSets as usets
+from unicodedata import normalize
 
 @pytest.fixture(scope="session")
 def validator(request):
@@ -35,7 +36,7 @@ def test_exemplars(ldml):
     exemplars = {}
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'):
         t = e.get('type', None)
-        s = usets.parse(e.text)
+        s = usets.parse(e.text or "", 'NFD')
         if not len(s):
             continue
         exemplars[t] = s[0]
@@ -46,7 +47,8 @@ def test_exemplars(ldml):
     for k, v in exemplars.items():
         if k in (None, "index", "numbers"):
             continue
-        assert not len(main & v), "Overlap found between main and %s" % (k)
+        diff = main & v
+        assert not len(diff), "Overlap found between main and %s" % (k)
     if 'index' in exemplars:
         if 'auxiliary' in exemplars:
             test = main.union(exemplars['auxiliary'])
