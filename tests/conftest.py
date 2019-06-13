@@ -47,3 +47,8 @@ def pytest_generate_tests(metafunc):
     if not len(vals):
         vals = sorted(allpaths.values())
     metafunc.parametrize("langid", vals, indirect=True)
+
+def pytest_configure(config):
+    config.option.verbose -= 1              # equivalent to one -q, so can be overridden
+    if config.option.tbstyle == "auto":     # equivalent to --tb=short. Use --tb=long to override
+        config.option.tbstyle = "short"
