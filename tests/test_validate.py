@@ -33,6 +33,7 @@ def test_validate(ldml, validator):
 def test_exemplars(ldml):
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     exemplars = {}
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'):
         t = e.get('type', None)
@@ -48,7 +49,7 @@ def test_exemplars(ldml):
         if k in (None, "index", "numbers"):
             continue
         diff = main & v
-        assert not len(diff), "Overlap found between main and %s" % (k)
+        assert not len(diff), filename + " Overlap found between main and %s" % (k)
     if 'index' in exemplars:
         if 'auxiliary' in exemplars:
             test = main.union(exemplars['auxiliary'])
@@ -56,4 +57,4 @@ def test_exemplars(ldml):
             test = main
         m = set([x.lower() for x in exemplars['index']])
         diff = m - test
-        assert not len(diff), "Not all index entries found in main or auxiliary"
+        assert not len(diff), filename + " Not all index entries found in main or auxiliary"
