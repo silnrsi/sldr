@@ -70,17 +70,25 @@ if args.reverse :
     action = 'r'
 elif args.copy :
     action = 'c'
+
+#if not args.single:
+#    rootldml = flattenlocale('root', dirs=args.indir, rev='c')
+#    if args.antialias:
+#        rootldml.resolve_aliases()
     
 def doit(l) :
     if args.single :
-        try:
-            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs, flattencollation=True)
-        except Exception as e:
-            print("Failed in " + l)
-            raise e
+#        try:
+            curr = flattenlocale(l, dirs=args.indir, rev=action,
+                                 skipstubs=args.skipstubs, flattencollation=True,
+                                 resolveAlias=args.antialias)
+#        except Exception as e:
+#            print("Failed in " + l)
+#            raise e
     else :
         try :
-            curr = flattenlocale(l, dirs=args.indir, rev=action, skipstubs=args.skipstubs)
+            curr = flattenlocale(l, dirs=args.indir, rev=action,
+                                 skipstubs=args.skipstubs, resolveAlias=args.antialias)
         except Exception as e :
             raise e
     if args.debug & 4:
@@ -93,8 +101,6 @@ def doit(l) :
             curr.add_silidentity(revid = args.revid)
         elif args.git :
             curr.add_silidentity(revid = dogit(curr))
-        if args.antialias :
-            curr.resolve_aliases()
         if args.alphadir :
             outf = os.path.join(args.outdir, l[0].lower(), l + '.xml')
         else :
