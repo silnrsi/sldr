@@ -97,11 +97,13 @@ def locale_stats(loc, lt):
         'Target-Plurals': ''
     }
     l = getldml(loc, args.indir)
+    s = l.find('.//sil:identity')
+    iscldr = s.get('source', '') if s is not None else ""
     if len(l.root) < 2:
-        return {}
+        return ({}, iscldr)
     xpaths = set(getxpaths(l))
     res = getstats(lt, xpaths, levels, vars, info)
-    return res
+    return (res, iscldr)
 
 def getstats(lt, xpaths, levels, vars, info, skip=False):
     res = {}
@@ -149,7 +151,7 @@ if args.supplemental:
             currencies[r] = c.get('iso4217')
             break
 
-reseng = locale_stats('en', lts['en'])
+reseng = locale_stats('en', lts['en'])[0]
 
 def doit(loc):
     if loc == 'qaz':
@@ -157,24 +159,25 @@ def doit(loc):
     else:
         lt = lts.get(loc.replace("_", "-"), None)
     if lt is None:
-        return (loc, {})
-    res = locale_stats(loc, lt)
-    return (loc, res)
+        return (loc, {}, False)
+    (res, iscldr) = locale_stats(loc, lt)
+    return (loc, res, iscldr)
 
 if not args.single:
     pool = Pool()
     results = pool.map_async(doit, args.locale).get()
 else:
+    results = []
     for l in args.locale:
         results.append(doit(l))
 
 outfile = open(args.outfile, "w") if args.outfile else sys.stdout
 outcsv = csv.writer(outfile)
-outcsv.writerow(['langtag'] + levelnames)
+outcsv.writerow(['langtag', 'source'] + levelnames)
 
 for r in sorted(results, key=lambda x:(-sum(100. * x[1].get(k, 0)/reseng.get(k) for k in levelnames), x[0])):
     if len(r[1]):
-        outcsv.writerow([r[0]] + ["{:.2f}".format(100. * r[1].get(k, 0) / reseng.get(k)) for k in levelnames])
+        outcsv.writerow([r[0], r[2]] + ["{:.2f}".format(100. * r[1].get(k, 0) / reseng.get(k)) for k in levelnames])
 
 if args.outfile:
     outfile.close()
