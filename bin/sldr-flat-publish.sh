@@ -12,18 +12,20 @@ $(basename $0) [-h | [-d] [-p] [-s]] TARGET
 	   the server.
 	-s Skip flattening phase.
 	-p Disable default sysops prefix to hostname.
+	-t Time the flatten and unflatten commands
 EOT
 }
 
 PREFIX=sysops.
-RSYNC_OPTS="-aP --no-p --no-g"
+RSYNC_OPTS="-aP --no-p --no-g --no-t"
 
-while getopts dhps f
+while getopts dhpst f
 do
   case $f in
     s)		SKIPFLAT=1;;
     d)		DRYRUN="--dry-run -i";;
     p)		PREFIX=;;
+    t)      TIMECMD="/usr/bin/time -v";;
     \?|h)	help; exit 1;;
   esac
 done
@@ -55,11 +57,13 @@ shift 1
 if [ -z "$SKIPFLAT" ]
 then
   echo "Make flattened sldr"
-  /usr/bin/time -v python3 bin/ldmlflatten -o flat -i sldr -a -A -g
+  rm -fr flat
+  ${TIMECMD} python3 bin/ldmlflatten -o flat -i sldr -a -A -g
   echo "Completed flattened sldr"
 
   echo "Make unflattened sldr"
-  /usr/bin/time -v python3 bin/ldmlflatten -o unflat -i sldr -a -c -g
+  rm -fr unflat
+  ${TIMECMD} python3 bin/ldmlflatten -o unflat -i sldr -a -c -g
   echo "Completed unflatened sldr"
 fi
 
