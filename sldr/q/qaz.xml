@@ -9,7 +9,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<version number="$Revision: 12879 $"/>
 		<language type="qaz"/>
 		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr" draft="approved"/>
+			<sil:identity defaultRegion="001" draft="approved" script="Latn" source="cldr"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
@@ -19,8 +19,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<languages>
 			<language type="aa">afar</language>
 			<language type="en">anglais</language>
-			<language type="en_GB" alt="short">anglais (R.-U.)</language>
 			<language type="en_GB">anglais britannique</language>
+			<language type="en_GB" alt="short">anglais (R.-U.)</language>
 		</languages>
 		<scripts>
 			<script type="Afak" draft="unconfirmed">afaka</script>
@@ -33,8 +33,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<territories>
 			<territory type="001">Monde</territory>
 			<territory type="002">Afrique</territory>
-			<territory type="GB" alt="short">R.-U.</territory>
 			<territory type="GB">Royaume-Uni</territory>
+			<territory type="GB" alt="short">R.-U.</territory>
 			<territory type="ZZ">région indéterminée</territory>
 		</territories>
 		<variants>
@@ -63,12 +63,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<key type="x">Usage privé</key>
 		</keys>
 		<types>
-			<type type="account" key="cf">format de devise comptable</type>
-			<type type="ahom" key="numbers" draft="unconfirmed">chiffres ahoms</type>
-			<type type="arab" key="numbers">chiffres arabes</type>
-			<type type="arabext" key="numbers">chiffres arabes étendus</type>
-			<type type="gregorian" key="calendar">calendrier grégorien</type>
-			<type type="metric" key="ms">système métrique</type>
+			<type key="calendar" type="gregorian">calendrier grégorien</type>
+			<type key="cf" type="account">format de devise comptable</type>
+			<type key="ms" type="metric">système métrique</type>
+			<type key="numbers" type="ahom" draft="unconfirmed">chiffres ahoms</type>
+			<type key="numbers" type="arab">chiffres arabes</type>
+			<type key="numbers" type="arabext">chiffres arabes étendus</type>
 		</types>
 		<measurementSystemNames>
 			<measurementSystemName type="UK">impérial</measurementSystemName>
@@ -99,10 +99,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</contextTransformUsage>
 	</contextTransforms>
 	<characters>
+		<exemplarCharacters>[a à â æ b c ç d e é è ê ë f g h i î ï j k l m n o ô œ p q r s t u ù û ü v w x y ÿ z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á å ä ã ā ē í ì ī ñ ó ò ö ø ú ǔ]</exemplarCharacters>
 		<exemplarCharacters type="index" draft="contributed">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- ‐ – — , ; \: ! ? . … ’ " “ ” « » ( ) \[ \] § @ * / \&amp; # † ‡]</exemplarCharacters>
-		<exemplarCharacters>[a à â æ b c ç d e é è ê ë f g h i î ï j k l m n o ô œ p q r s t u ù û ü v w x y ÿ z]</exemplarCharacters>
 		<ellipsis type="initial">… {0}</ellipsis>
 		<ellipsis type="medial">{0}… {1}</ellipsis>
 		<ellipsis type="word-final">{0}…</ellipsis>
@@ -116,8 +116,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</delimiters>
 	<dates>
 		<calendars>
-			<calendar type="generic">
-			</calendar>
+			<calendar type="generic"/>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
@@ -315,22 +314,22 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dayPeriods>
 				<eras>
 					<eraNames>
-						<era type="0" alt="variant">avant l’ère commune</era>
 						<era type="0">avant Jésus-Christ</era>
-						<era type="1" alt="variant">de l’ère commune</era>
+						<era type="0" alt="variant">avant l’ère commune</era>
 						<era type="1">après Jésus-Christ</era>
+						<era type="1" alt="variant">de l’ère commune</era>
 					</eraNames>
 					<eraAbbr>
-						<era type="0" alt="variant">AEC</era>
 						<era type="0">av. J.-C.</era>
-						<era type="1" alt="variant">EC</era>
+						<era type="0" alt="variant">AEC</era>
 						<era type="1">ap. J.-C.</era>
+						<era type="1" alt="variant">EC</era>
 					</eraAbbr>
 					<eraNarrow>
-						<era type="0" alt="variant">AEC</era>
 						<era type="0">av. J.-C.</era>
-						<era type="1" alt="variant">EC</era>
+						<era type="0" alt="variant">AEC</era>
 						<era type="1">ap. J.-C.</era>
+						<era type="1" alt="variant">EC</era>
 					</eraNarrow>
 				</eras>
 				<dateFormats>
@@ -649,9 +648,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<hourFormat>+HH:mm;−HH:mm</hourFormat>
 			<gmtFormat>UTC{0}</gmtFormat>
 			<gmtZeroFormat>UTC</gmtZeroFormat>
+			<regionFormat>heure : {0}</regionFormat>
 			<regionFormat type="daylight">{0} (heure d’été)</regionFormat>
 			<regionFormat type="standard">{0} (heure standard)</regionFormat>
-			<regionFormat>heure : {0}</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Abidjan</exemplarCity>
 			</zone>
@@ -716,11 +715,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</percentFormatLength>
 		</percentFormats>
 		<currencyFormats numberSystem="latn">
-			<currencyFormatLength type="short">
-				<currencyFormat type="standard">
-					<pattern type="1000" count="one">0 k ¤</pattern>
-				</currencyFormat>
-			</currencyFormatLength>
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
 					<pattern>#,##0.00 ¤;(#,##0.00 ¤)</pattern>
@@ -729,24 +723,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<currencyFormatLength type="short">
+				<currencyFormat type="standard">
+					<pattern type="1000" count="one">0 k ¤</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
 			<unitPattern count="one">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="ADP">
+				<displayName>peseta andorrane</displayName>
 				<displayName count="one">peseta andorrane</displayName>
 				<displayName count="other">pesetas andorranes</displayName>
-				<displayName>peseta andorrane</displayName>
 			</currency>
 			<currency type="GBP">
+				<displayName>livre sterling</displayName>
 				<displayName count="one">livre sterling</displayName>
 				<displayName count="other">livres sterling</displayName>
-				<displayName>livre sterling</displayName>
 				<symbol>£GB</symbol>
 			</currency>
 			<currency type="ZWR">
-				<displayName draft="contributed">dollar zimbabwéen (2008)</displayName>
 				<displayName count="one" draft="contributed">dollar zimbabwéen (2008)</displayName>
 				<displayName count="other" draft="contributed">dollars zimbabwéens (2008)</displayName>
+				<displayName draft="contributed">dollar zimbabwéen (2008)</displayName>
 				<symbol draft="unconfirmed">ZWR</symbol>
 			</currency>
 		</currencies>
@@ -829,6 +828,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</durationUnit>
 	</units>
 	<listPatterns>
+		<listPattern>
+			<listPatternPart type="2">{0} et {1}</listPatternPart>
+			<listPatternPart type="end">{0} et {1}</listPatternPart>
+		</listPattern>
 		<listPattern type="standard-short">
 			<listPatternPart type="2">{0} et {1}</listPatternPart>
 			<listPatternPart type="end">{0} et {1}</listPatternPart>
@@ -853,10 +856,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
 		</listPattern>
-		<listPattern>
-			<listPatternPart type="2">{0} et {1}</listPatternPart>
-			<listPatternPart type="end">{0} et {1}</listPatternPart>
-		</listPattern>
 	</listPatterns>
 	<posix>
 		<messages>
@@ -864,6 +863,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<nostr>non:n</nostr>
 		</messages>
 	</posix>
+	<characterLabels>
+		<characterLabelPattern type="all">{0} — tout</characterLabelPattern>
+		<characterLabel type="activities">activités</characterLabel>
+		<characterLabel type="african_scripts">écritures africaines</characterLabel>
+		<characterLabel type="american_scripts">écritures américaines</characterLabel>
+		<characterLabel type="whitespace">espacement</characterLabel>
+	</characterLabels>
 	<segmentations>
 		<segmentation type="SentenceBreak">
 			<!--From ULI data, http://uli.unicode.org-->
@@ -891,12 +897,4 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<casingItem type="zone_long">lowercase</casingItem>
 		</casingData>
 	</metadata>
-	<characterLabels>
-		<characterLabel type="activities">activités</characterLabel>
-		<characterLabel type="african_scripts">écritures africaines</characterLabel>
-		<characterLabelPattern type="all">{0} — tout</characterLabelPattern>
-		<characterLabel type="american_scripts">écritures américaines</characterLabel>
-		<characterLabel type="whitespace">espacement</characterLabel>
-	</characterLabels>
 </ldml>
-
