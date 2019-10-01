@@ -21,7 +21,11 @@ def ldml(langid):
     ldml = LdmlFile(langid)
     yield ldml
     if ldml.dirty:
-        ldml.ldml.save_as(ldml.path)
+        ldml.ldml.save_as(ldml.path, topns=False)
+
+@pytest.fixture(scope="session")
+def fixdata(request):
+    return request.config.getoption("--fix")
 
 def getallpaths():
     res = {}
@@ -37,6 +41,7 @@ def getallpaths():
 
 def pytest_addoption(parser):
     parser.addoption("-L","--locale", action="append", default=[])
+    parser.addoption("-F","--fix", action="store_true", default=[])
 
 def pytest_generate_tests(metafunc):
     if 'langid' not in metafunc.fixturenames:
