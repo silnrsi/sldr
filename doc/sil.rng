@@ -71,6 +71,9 @@
             <optional>
               <ref name="ldml.special"/>
             </optional>
+            <zeroOrMore>
+              <ref name="special"/>
+            </zeroOrMore>
           </group>
         </choice>
       </element>
@@ -342,6 +345,11 @@
       <attribute name="secondaryonly"/>
     </optional>
   </define>
+  <define name="attlist.sil.simple" combine="interleave">
+    <attribute name="xml:space">
+      <value>preserve</value>
+    </attribute>
+  </define>
   <define name="ldml.special">
     <element name="special">
       <optional>
@@ -367,6 +375,7 @@
   </define>
   <define name="sil.url">
     <element name="sil:url">
+      <ref name="attlist.sil.global"/>
       <data type="anyURI"/>
     </element>
   </define>

@@ -175,6 +175,7 @@ sil.simple = element sil:simple {
 }
 
 attlist.sil.simple &= attribute secondaryonly { text }?
+attlist.sil.simple &= attribute xml:space { "preserve" }
 ```
 
 Preprocessed collation adds a single element type to the default LDML collation language. The `sil:reorder` element describes a preprocessing step that matches on a regular expression, and using components of that regular expression, generates an output string that will be used for the actual collation. Multiple reorder elements may exist. The only requirement is that the input regular expressions be non-overlapping; that is, two reorder match expressions may not match the same string.
@@ -202,6 +203,7 @@ sil.resources = element sil:external-resources {
      sil.transform*)
 }
 sil.url = element sil:url {
+    attlist.sil.global,
     (xsd:anyURI)
 }
 ```
