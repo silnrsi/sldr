@@ -1,0 +1,83 @@
+#!/usr/bin/python3
+
+import argparse, os
+import json, csv
+from palaso.sldr.ldml import Ldml
+from langtag import lookup
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-i","--indir",action="append",help="A root directory to search")
+parser.add_argument("-o","--output",help="Generate report here")
+parser.add_argument("-q","--quiet",action="store_true",help="Reduced screen output")
+parser.add_argument("-s","--sldr",help="root of SLDR tree to write into")
+parser.add_argument("-n","--dryrun",action="store_true",help="Don't write to any sldr files")
+args = parser.parse_args()
+
+results = {}
+for root in args.indir:
+    for dp, dn, fn in os.walk(root):
+        if dp.endswith("source"):
+            continue
+        for f in (x for x in fn if x.endswith(".keyboard_info")):
+            fbase = f[:f.rfind(".")]
+            if not args.quiet:
+                print(dp, f)
+            with open(os.path.join(dp, f)) as inf:
+                temp = inf.read(1)
+                if temp != "\uFEFF":
+                    inf.seek(0)
+                dat = json.load(inf)
+                if isinstance(dat['languages'], list):
+                    for k in dat['languages']:
+                        entry = {'langtag': k, 'path': dp, 'id': fbase, 'file': f}
+                        results.setdefault(k, []).append(entry)
+                else:
+                    for k, v in dat['languages'].items():
+                        entry = {'langtag': k, 'path': dp, 'id': fbase, 'file': f}
+                        results.setdefault(k, []).append(entry)
+                        for s in ('font', 'oskfont'):
+                            if s in v:
+                                entry[s+'family'] = v[s]['family']
+                                entry[s+'source'] = v[s]['source'][0]
+if args.output:
+    with open(args.output, "w") as outf:
+        fieldnames = ['langtag', 'path', 'file', 'fontfamily', 'fontsource',
+                      'oskfamily', 'osksource']
+        writer = csv.DictWriter(outf, fieldnames = fieldnames)
+        writer.writeheader()
+        for k, v in sorted(results.items()):
+            writer.writerows(v)
+if args.sldr:
+    for lang, info in sorted(results.items()):
+        try:
+            lt = lookup(lang)
+        except KeyError:
+            print("Can't find {} with {}".format(lang, info[0]['id']))
+            continue
+        fname = lt.asSldr()
+        fpath = os.path.join(args.sldr, fname)
+        if not os.path.exists(fpath):
+            fpath = os.path.join(args.sldr, fname[0].lower(), fname)
+            if not os.path.exists(fpath):
+                if not args.quiet:
+                    print("Failed: {}".format(fname))
+                continue
+        if args.dryrun:
+            continue
+        try:
+            l = Ldml(fpath)
+        except BaseException as e:
+            print("Error in {}".format(fpath))
+            raise e
+        if not args.quiet:
+            print(fpath)
+        for v in info:
+            basename = v['id']
+            res = l.ensure_path('special/sil:external-resources/sil:kbd[@id="{}"][@type="kmp"]/sil:url'\
+                                .format(basename), draft="generated")[0]
+            res.text = "https://keyman.com/go/keyboard/{}/download/kmp".format(basename)
+        l.save_as(fpath)
+        
+            
+        
+
