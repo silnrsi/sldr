@@ -30,7 +30,7 @@ revision information, ready for integrating into the SLDR.'''
 
 import os, sys, codecs, subprocess
 from argparse import ArgumentParser
-from palaso.sldr.ldml import Ldml
+from palaso.sldr.ldml_merge import LdmlMerge
 
 from multiprocessing import Pool
 
@@ -60,7 +60,7 @@ def doit(a) :
         f = os.path.join(args.indir, s, a + '.xml')
         if os.path.exists(f) :
             allfiles.append(f)
-            l = Ldml(f)
+            l = LdmlMerge(f)
             if curr is not None :
                 curr.overlay(l)
             else :

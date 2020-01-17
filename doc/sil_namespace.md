@@ -98,7 +98,9 @@ attlist.sil.collation &= attribute sil:preto { text }?
 attlist.sil.collation &= attribute sil:needscompiling { xsd:boolean }?
 ```
 
-For collations that are described in languages other than ICU tailoring rules, the LDML needs to store both the source collation description in its language and also an ICU tailoring form. Thus a collation would contain its ICU tailoring form and then a special containing the source form. There is no intention that there be more than one source form for a collation, although it is technically possible. For example (from the Akoose language):
+For collations that are described in languages other than ICU tailoring rules, the LDML needs to store both the source collation description in its language and also an ICU tailoring form. Thus a collation would contain its ICU tailoring form and then a special containing the source form. There is no intention that there be more than one source form for a collation, although it is technically possible. 
+The `modified` attribute is used in a flat LDML file to indicate that this collation differs from that in the root. It is not needed in normal LDML files.
+For example (from the Akoose language):
 
 ```xml
 <collation type="standard">

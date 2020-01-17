@@ -26,7 +26,7 @@
 
 import os, sys, codecs, subprocess
 
-from palaso.sldr.ldml import Ldml, flattenlocale, etwrite
+from palaso.sldr.ldml_merge import LdmlMerge, flattenlocale
 from argparse import ArgumentParser
 from multiprocessing import Pool
 from xml.etree.ElementTree import ElementTree, Element, SubElement
@@ -40,7 +40,6 @@ parser.add_argument('-r','--reverse',action='store_true', help='Unflatten rather
 parser.add_argument('-c','--copy',action='store_true', help='Unflatten rather than flatten')
 parser.add_argument('-s','--single',action='store_true', help='Turn off multiprocessing')
 parser.add_argument('-A','--antialias',action='store_true', help='Remove aliases')
-parser.add_argument('-p','--private',help='Remove private information (contacts, comments) to a separate file')
 parser.add_argument('-t','--topns',action='store_true',help='Outputs namespace declarations at top of file instead of as low as possible')
 parser.add_argument('--revid',help='Insert revid into identity of each output file')
 parser.add_argument('-g','--git',action='store_true',help='get revid from last change to file')
@@ -59,11 +58,6 @@ if not args.locale or not len(args.locale) :
                     if t.endswith('.xml') :
                         alllocales.add(t[:-4])
     args.locale = sorted(alllocales)
-
-if args.private :
-    private = Element("private")
-else :
-    private = None
 
 action = 'f'
 if args.reverse :
@@ -90,8 +84,6 @@ def doit(l) :
         print(l + (" Failed" if curr is None else ""))
     if curr is not None :
         #curr.normalise()
-        if private is not None :
-            res = curr.remove_private()
         if args.revid :
             curr.add_silidentity(revid = args.revid)
         elif args.git :
@@ -108,10 +100,6 @@ def doit(l) :
         outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write, topns = args.topns)
         outfh.close()
-        if private is not None :
-            return (l, res)
-    elif private is not None :
-        return (l, [])
 
 def dogit(l) :
     #b = os.path.commonprefix(os.path.abspath(ldml.file), os.path.abspaht(basedir)
@@ -127,27 +115,10 @@ if args.debug & 1:
 
 if not args.single :
     pool = Pool()
-    if private is not None :
-        res = pool.map(doit, args.locale)
-    else :
-        pool.map_async(doit, args.locale)
+    pool.map_async(doit, args.locale)
     pool.close()
     pool.join()
-elif private is not None:
-    res = []
-    for l in args.locale :
-        res.append(doit(l))
 else :
     for l in args.locale :
         doit(l)
-
-if private is not None :
-    for r in res :
-        if len(r[1]) :
-            s = SubElement(private, "locale", id=r[0])
-            s.extend(r[1])
-    f = codecs.open(args.private, "w", encoding="utf-8")
-    etwrite(private, f.write)
-    f.close()
-
 

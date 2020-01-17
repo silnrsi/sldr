@@ -30,7 +30,7 @@ from subprocess import check_output
 from StringIO import StringIO
 from xml.etree import ElementTree as et
 from datetime import datetime
-from palaso.sldr.ldml import Ldml, flattenlocale
+from palaso.sldr.ldml_merge import LdmlMerge, flattenlocale
 
 def find_ldml(fname, dirs) :
     for d in dirs :
@@ -73,9 +73,9 @@ if args.git :
             otherfh = StringIO(other_str)
             other = flattenlocale(otherfh, dirs=args.dirs, rev='f', fname=args.base)
 else :
-    base = Ldml(args.base)
+    base = LdmlMerge(args.base)
     if args.other :
-        other = Ldml(args.other)
+        other = LdmlMerge(args.other)
 
 if this.merge(other, base, default=args.default, copycomments=args.copycomments) :
     # update the date
