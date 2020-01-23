@@ -1,20 +1,28 @@
 #!/usr/bin/python3
 
+# from langtag import lookup
+from palaso.sldr.ldml import Ldml
+from palaso.sldr.langtags_full import *
 import csv
+import os
+import os.path
 import argparse
 
+langtags = dict()
 suggestions = dict()
 
 
 def main():
     parser = argparse.ArgumentParser(description='Populate font information to LDML files')
+    parser.add_argument("langtags", help="The file langtags.csv")
+    parser.add_argument("sldr", help="root of SLDR tree to write into")
     parser.add_argument('datafile', help='CSV file export from Google Sheet document Script2Font')
     parser.add_argument('--version', action='version', version='%(prog)s: 0.1')
     args = parser.parse_args()
 
     read_font_data(args.datafile)
-    for tag, font in suggestions.items():
-        print(f'{tag}: {font}')
+    read_langtag_data(args.langtags)
+    write_font_data(args.sldr)
 
 
 def read_font_data(data_file_name):
@@ -22,9 +30,7 @@ def read_font_data(data_file_name):
     font_sources = ('WSTech primary', 'NLCI', 'Microsoft', 'Other', 'Noto Sans', 'Noto Serif', 'WSTech secondary')
     with open(data_file_name, 'r', newline='') as data_file:
         reader = csv.DictReader(data_file)
-
         for row in reader:
-
             # Construct tag
             script = row['Code']
             tag = script
@@ -44,6 +50,35 @@ def read_font_data(data_file_name):
                             fonts.append(font)
                 if len(fonts) > 0:
                     suggestions[tag] = fonts
+
+
+def read_langtag_data(langtags_filename):
+    """Read data from the master langtag file"""
+    headers = ('Lang_Id', 'likely_subtag', 'regions')
+    with open(langtags_filename, 'r', newline='') as langtags_file:
+        reader = csv.DictReader(langtags_file)
+        for row in reader:
+            langtag = dict()
+            for header in headers:
+                langtag[header] = row[header]
+            langtags['Lang_Id'] = langtag
+
+
+def write_font_data(sldrtree):
+    """Write preferred font information to SLDR"""
+    for rootpath, dirnames, filenames in os.walk(sldrtree):
+        for filename in filenames:
+            if filename.endswith('.xml'):
+                # Find preferred font
+                locale, ext = os.path.splitext(filename)
+                langtag = LangTag(tag=locale)
+
+                # Write preferred  font to LDML file
+                filepath = os.path.join(sldrtree, rootpath, filename)
+                ldml = Ldml(filepath)
+                resource = ldml.ensure_path('special/sil:external-resources/sil:font')[0]
+                resource.text = 'https://wirl.api.sil.org/' + 'FontName'
+                ldml.save_as(filepath)
 
 
 if __name__ == '__main__':
