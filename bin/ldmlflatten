@@ -74,12 +74,14 @@ def doit(l) :
         except Exception as e:
             print("Failed in " + l)
             raise e
+            return (False, l)
     else :
         try :
             curr = flattenlocale(l, dirs=args.indir, rev=action,
                                  skipstubs=args.skipstubs, resolveAlias=args.antialias)
         except Exception as e :
-            raise e
+            print(e)
+            return (False, l)
     if args.debug & 4:
         print(l + (" Failed" if curr is None else ""))
     if curr is not None :
@@ -100,6 +102,8 @@ def doit(l) :
         outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write, topns = args.topns)
         outfh.close()
+        return (True, l)
+    return (False, l)
 
 def dogit(l) :
     #b = os.path.commonprefix(os.path.abspath(ldml.file), os.path.abspaht(basedir)
@@ -115,10 +119,11 @@ if args.debug & 1:
 
 if not args.single :
     pool = Pool()
-    pool.map_async(doit, args.locale)
+    results = list(pool.map_async(doit, args.locale))
     pool.close()
     pool.join()
 else :
-    for l in args.locale :
-        doit(l)
+    results = [doit(l) for l in args.locale]
+for r in [x for x in results if not x[0]]:
+    print("Error in "+r)
 
