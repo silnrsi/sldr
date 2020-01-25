@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -81,7 +81,7 @@ def doit(l) :
                                  skipstubs=args.skipstubs, resolveAlias=args.antialias)
         except Exception as e :
             print(e)
-            return (False, l)
+            return (False, l, str(e))
     if args.debug & 4:
         print(l + (" Failed" if curr is None else ""))
     if curr is not None :
@@ -102,8 +102,8 @@ def doit(l) :
         outfh = codecs.open(outf, "w", encoding="utf-8")
         curr.serialize_xml(outfh.write, topns = args.topns)
         outfh.close()
-        return (True, l)
-    return (False, l)
+        return (True, l, "")
+    return (False, l, "")
 
 def dogit(l) :
     #b = os.path.commonprefix(os.path.abspath(ldml.file), os.path.abspaht(basedir)
@@ -119,11 +119,11 @@ if args.debug & 1:
 
 if not args.single :
     pool = Pool()
-    results = list(pool.map_async(doit, args.locale))
+    results = list(pool.map_async(doit, args.locale).get())
     pool.close()
     pool.join()
 else :
     results = [doit(l) for l in args.locale]
 for r in [x for x in results if not x[0]]:
-    print("Error in "+r)
+    print("Error in "+r[1] + " problem: " + r[2])
 
