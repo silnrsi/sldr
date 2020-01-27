@@ -161,7 +161,7 @@ Various attributes have been added to the main collation, since it is shared by 
 
 ```rnc
 sil.reordered = element sil:reordered {
-    attlist.sil.global, attlist.sil.collation, 
+    (attlist.sil.global & attlist.sil.collation), 
     (sil.reorder*, cr)
 }
 
@@ -172,7 +172,7 @@ attlist.sil.reorder &= attribute match { text }
 attlist.sil.reorder &= attribute reorder { text }
 
 sil.simple = element sil:simple {
-    attlist.sil.simple, attlist.sil.global, attlist.sil.collation,
+    (attlist.sil.simple & attlist.sil.global & attlist.sil.collation),
     text
 }
 
@@ -234,7 +234,7 @@ For example:
 
 ```rnc
 sil.font = element sil:font {
-    attlist.sil.fontelement, attlist.sil.global,
+    (attlist.sil.fontelement & attlist.sil.global),
     (sil.url*)
 }
 attlist.sil.fontelement &= attribute types
@@ -291,7 +291,7 @@ For example:
 
 ```rnc
 sil.kbdrsrc = element sil:kbd {
-    attrlist.sil.kbdrsrc, attlist.sil.global,
+    (attrlist.sil.kbdrsrc & attlist.sil.global),
     (sil.url+)
 }
 attrlist.sil.kbdrsrc &= attribute id { text }
@@ -315,7 +315,7 @@ Keyboard elements are sorted alphabetically first by type and then by id. This f
 
 ```rnc
 sil.spellcheck = element sil:spell-checking {
-    attlist.sil.spellcheck, attlist.sil.global,
+    (attlist.sil.spellcheck & attlist.sil.global),
     (sil.url+)
 }
 
@@ -346,7 +346,7 @@ Example:
 
 ```rnc
 sil.transform = element sil:transform {
-    attlist.sil.transform, attlist.sil.global, 
+    (attlist.sil.transform & attlist.sil.global), 
     (sil.transform.caps?, sil.transform.dict?, sil.url+)
 }
 
@@ -357,7 +357,7 @@ attlist.sil.transform &= attribute direction { "both" | "forward" | "backward" }
 attlist.sil.transform &= attribute function { text }?
 
 sil.transform.dict = element sil:transform-dict {
-    attlist.sil.transform.dict, attlist.sil.global,
+    (attlist.sil.transform.dict & attlist.sil.global),
     (sil.url+)
 }
 
@@ -366,7 +366,7 @@ attlist.sil.transform.dict &= attribute outcol { "1" | text }
 attlist.sil.transform.dict &= attribute nf { "nfd" | "nfc" }?
 
 sil.transform.caps = element sil:transform-capitals {
-    attlist.sil.transform.caps, attlist.sil.global
+    (attlist.sil.transform.caps & attlist.sil.global)
 }
 
 attlist.sil.transform.caps &= attribute opengroup { '&quot;"\u{2018}\u{201C}\[{(<\u00AB' | text }?
@@ -396,7 +396,7 @@ identity.special = element special {
 }
 
 sil.identity = element sil:identity {
-    attlist.sil.identity, attlist.sil.global,
+    (attlist.sil.identity & attlist.sil.global),
     (sil.identity.committer?)
 }
 
@@ -412,7 +412,7 @@ attlist.sil.identity &= attribute toplevels { text }*
 attlist.sil.identity &= attribute script { text }?
 
 sil.identity.committer = element sil:committer {
-    attlist.sil.committer, attlist.sil.global,
+    (attlist.sil.committer & attlist.sil.global),
     (text)
 }
 
@@ -472,7 +472,7 @@ sil.names = element sil:names {
 }
 
 sil.name = element sil:name {
-    attlist.silname, attlist.sil.global,
+    (attlist.silname & attlist.sil.global),
     (text)
 }
 
@@ -492,7 +492,7 @@ delimiters.special = element special {
 }
 
 sil.quotation-marks = element sil:quotation-marks {
-    attlist.sil.quotation-marks, attlist.sil.global,
+    (attlist.sil.quotation-marks & attlist.sil.global),
     ( ( element sil:quotationContinue { text },
         element sil:alternateQuotationContinue { text }? )?,
       sil.quotation*)
@@ -501,7 +501,7 @@ sil.quotation-marks = element sil:quotation-marks {
 attlist.sil.quotation-marks &= attribute paraContinueType { "all" | "outer" | "inner" | "none" }?
 
 sil.quotation = element sil:quotation {
-    attlist.sil.quotation, attlist.sil.global
+    (attlist.sil.quotation & attlist.sil.global)
 }
 
 attlist.sil.quotation &= attribute open { text }
@@ -538,7 +538,7 @@ sil.punctuation.patterns = element sil:punctuation-patterns {
 }
 
 sil.punctuation.pattern = element sil:punctuation-pattern {
-    attlist.sil.punctuation-pattern, attlist.sil.global
+    (attlist.sil.punctuation-pattern & attlist.sil.global)
 }
 
 attlist.sil.punctuation-pattern &= attribute pattern { text }
@@ -563,7 +563,7 @@ sil.matchedpairs = element sil:matched-pairs {
 }
 
 sil.matchedpair = element sil:matched-pair {
-    attlist.sil.matched-pair, attlist.sil.global
+    attlist.sil.matched-pair & attlist.sil.global
 }
 
 attlist.sil.matched-pair &= attribute open { text }
@@ -586,7 +586,7 @@ The purpose of adding a special to the characters section of LDML is to add extr
 ```rnc
 characters.special = element special {
     element sil:exemplarCharacters {
-        attlist.sil.exemplarCharacters, attlist.sil.global,
+        (attlist.sil.exemplarCharacters & attlist.sil.global),
         text
     }*
 }
