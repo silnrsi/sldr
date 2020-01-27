@@ -13,6 +13,10 @@ class LdmlFile(object):
         self.dirty = False
 
 @pytest.fixture(scope="session")
+def fixdata(pytestconfig):
+    return pytestconfig.option.fix
+
+@pytest.fixture(scope="session")
 def langid(request):
     return request.param
 
@@ -23,10 +27,22 @@ def ldml(langid):
     if ldml.dirty:
         ldml.ldml.save_as(ldml.path, topns=False)
 
-@pytest.fixture(scope="session")
-def fixdata(request):
-    return request.config.getoption("--fix")
-
+@pytest.hookimpl(hookwrapper=True)
+def pytest_sessionfinish(session, exitstatus):
+    if session.config.option.tbstyle == "auto":
+        session.config.option.tbstyle = "no"
+    yield
+    tr = session.config.pluginmanager.get_plugin("terminalreporter")
+    reports = tr.getreports("failed")
+    summary = {}
+    for r in reports:
+        mod, f = r.location[2].split("[")
+        f = os.path.splitext(os.path.basename(f.rstrip("]")))[0]
+        summary.setdefault(mod, []).append(f)
+    tr.write_line("")
+    for k, v in sorted(summary.items()):
+        tr.write_line("{}: {}".format(k, ", ".join(v)))
+    
 def getallpaths():
     res = {}
     base = os.path.join(os.path.dirname(__file__), '..', 'sldr')
@@ -41,7 +57,7 @@ def getallpaths():
 
 def pytest_addoption(parser):
     parser.addoption("-L","--locale", action="append", default=[])
-    parser.addoption("-F","--fix", action="store_true", default=[])
+    parser.addoption("-F","--fix", action="store_true", dest="fix", default=[])
 
 def pytest_generate_tests(metafunc):
     if 'langid' not in metafunc.fixturenames:
@@ -55,5 +71,3 @@ def pytest_generate_tests(metafunc):
 
 def pytest_configure(config):
     config.option.verbose -= 1              # equivalent to one -q, so can be overridden
-    if config.option.tbstyle == "auto":     # equivalent to --tb=short. Use --tb=long to override
-        config.option.tbstyle = "short"
