@@ -30,7 +30,7 @@ def ldml(langid):
 @pytest.hookimpl(hookwrapper=True)
 def pytest_sessionfinish(session, exitstatus):
     if session.config.option.tbstyle == "auto":
-        session.config.option.tbstyle = "no"
+        session.config.option.tbstyle = "no" if len(session.config.option.locale) == 0 else "short"
     yield
     tr = session.config.pluginmanager.get_plugin("terminalreporter")
     reports = tr.getreports("failed")
