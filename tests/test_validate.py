@@ -15,13 +15,13 @@ def iscldr(ldml):
         return True
     return False
 
-def test_validate(ldml, validator):
+def test_validate(ldml, validator, fixdata):
     xml = parse(ldml.path)
     try:
         validator.assertValid(xml)
     except DocumentInvalid as e:
         # import pdb; pdb.set_trace()
-        if str(e).startswith("Did not expect element"):
+        if fixdata and str(e).startswith("Did not expect element"):
             tag = str(e)[23:]
             tag = tag[:tag.find(" ")]
             if tag in ("generation", "language"):
