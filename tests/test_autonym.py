@@ -50,5 +50,5 @@ def test_autonym(ldml):
         assert False, filename + " " + langid + ": Name of language in this language is empty"
         return
 #   The real test: is every character in lower case version of autonym in main exemplar?
-    nameset = usets.parse("[" + " ".join(set(autonym_text)) + "]", 'NFD')
+    nameset = usets.parse("[" + " ".join(set(autonym_text.replace(",",""))) + "]", 'NFD')
     assert nameset <= main, filename + " " + langid + ": Name of language (" + autonym_text + ") contains characters not in main exemplar " + main_exem
