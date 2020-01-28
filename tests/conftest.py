@@ -25,6 +25,7 @@ def ldml(langid):
     ldml = LdmlFile(langid)
     yield ldml
     if ldml.dirty:
+        ldml.ldml.normalise()
         ldml.ldml.save_as(ldml.path, topns=False)
 
 @pytest.hookimpl(hookwrapper=True)
@@ -41,7 +42,7 @@ def pytest_sessionfinish(session, exitstatus):
         summary.setdefault(mod, []).append(f)
     tr.write_line("")
     for k, v in sorted(summary.items()):
-        tr.write_line("{}: {}".format(k, ", ".join(v)))
+        tr.write_line("{} ({}): {}".format(k, len(v), ", ".join(v)))
     
 def getallpaths():
     res = {}
@@ -51,7 +52,7 @@ def getallpaths():
             res[l[:-4].lower()] = os.path.join(base, l)
         elif os.path.isdir(os.path.join(base, l)):
             for t in os.listdir(os.path.join(base, l)):
-                if t.endswith('.xml'):
+                if t.endswith('.xml') and t != "root.xml":
                     res[t[:-4].lower()] = os.path.join(base, l, t)
     return res
 
