@@ -22,6 +22,7 @@ idblocks = {
     'territory': 'region'
 }
 def test_identity(ldml, langid, fixdata):
+    """ Test and fix the identity block wrt language, script, territory, variant """
     lt = langtag(os.path.splitext(os.path.basename(langid))[0])
     if lt.lang is None:     # e.g. Root (ends up in script)
         return

@@ -16,6 +16,7 @@ def iscldr(ldml):
     return False
 
 def test_validate(ldml, validator, fixdata):
+    """ Test LDML file conforms to sil/ldml rng """
     xml = parse(ldml.path)
     try:
         validator.assertValid(xml)
@@ -31,6 +32,7 @@ def test_validate(ldml, validator, fixdata):
         assert False, str(e)
 
 def test_exemplars(ldml):
+    """ Test for overlaps between exemplars. Test that index chars are all in main exemplar """
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference

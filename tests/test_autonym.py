@@ -13,10 +13,10 @@ def iscldr(ldml):
     return False
 
 def test_autonym(ldml):
-    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-
+    """ Test that all characters in the autonym are in the main exemplar """
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
 
 #   get main exemplar
     main = None
