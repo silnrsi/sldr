@@ -1,5 +1,5 @@
 import os
-from langtag import langtag
+from langtag import langtag, lookup
 
 def notest_language(ldml, fixdata):
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
@@ -79,4 +79,24 @@ def test_identity(ldml, langid, fixdata):
             ldml.dirty = True
         else:
             assert False, "identity/variant type {} does not match tag in {}".format(inf.get("type"), langid)
-
+    # Now fill in the sil:identity from the langtag
+    if lt.script is None or lt.region is None:
+        tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
+        if fixdata:
+            assert tagset != "", "Unknown langtag {}".format(lt)
+        silid = ldml.ldml.find("identity/special/sil:identity")
+        if silid is None:
+            if fixdata:
+                silid = ldml.ldml.ensure_path("identity/special/sil:identity")
+                ldml.dirty = True
+        if tagset != "" and silid is not None:
+            for k, v in {"script": "script", "defaultRegion": "region"}.items():
+                if getattr(lt, v, None) is None:
+                    silval = getattr(tagset, v)
+                    silidval = silid.get(k, "")
+                    if silval != silidval:
+                        if fixdata:
+                            silid.set(k, silval)
+                            ldml.dirty = True
+                        else:
+                            assert silidval == "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)
