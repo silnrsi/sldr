@@ -34,6 +34,8 @@ def pytest_sessionfinish(session, exitstatus):
         session.config.option.tbstyle = "no" if len(session.config.option.locale) == 0 else "short"
     yield
     tr = session.config.pluginmanager.get_plugin("terminalreporter")
+    if tr is None:
+        return
     reports = tr.getreports("failed")
     summary = {}
     for r in reports:
