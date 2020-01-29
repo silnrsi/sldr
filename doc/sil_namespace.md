@@ -295,7 +295,7 @@ sil.kbdrsrc = element sil:kbd {
     (sil.url+)
 }
 attrlist.sil.kbdrsrc &= attribute id { text }
-attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "keylayout" | text }?
+attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "keylayout" | "kmp" | text }?
 ```
 
 |          |                                              |
@@ -304,6 +304,7 @@ attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "key
 | **type** | Specifies which language the keyboard is in: |
 |          | **kmn** - The url references a .kmn source file. |
 |          | **kmx** - The url references a .kmx compiled keyman file for use with Tavultesoft Keyman. |
+|          | **kmp** - The url references a cross platform Keyman distribution package. |
 |          | **msklc** - The url references a .klc source file. |
 |          | **ldml** - The url references a keyboard layout LDML .xml file. |
 |          | **keylayout** - Mac keyboard layout files. |

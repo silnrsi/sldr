@@ -2,7 +2,7 @@
 
 import argparse, os, re, datetime, sys, csv
 from palaso.sldr.ldml import Ldml, getldml
-from palaso.langtags import LangTags, LangTag
+from langtag import langtag, lookup
 from xml.etree import ElementTree as et
 from multiprocessing import Pool
 
@@ -97,6 +97,8 @@ def locale_stats(loc, lt):
         'Target-Plurals': ''
     }
     l = getldml(loc, args.indir)
+    if l is None:
+        return ({}, False)
     s = l.find('.//sil:identity')
     iscldr = s.get('source', '') if s is not None else ""
     if len(l.root) < 2:
@@ -122,7 +124,6 @@ def getstats(lt, xpaths, levels, vars, info, skip=False):
 
 levelnames = ['core', 'posix', 'minimal', 'basic', 'moderate', 'modern']
 vars = {}
-lts = LangTags()
 calendar_prefs = {}
 levels = {}
 currencies = {}
@@ -151,14 +152,16 @@ if args.supplemental:
             currencies[r] = c.get('iso4217')
             break
 
-reseng = locale_stats('en', lts['en'])[0]
+reseng = locale_stats('en', lookup('en'))[0]
 
 def doit(loc):
     if loc == 'qaz':
-        lt = LangTag("qaz-Latn-001")
+        lt = langtag("qaz-Latn-001")
+    elif loc != "":
+        lt = lookup(loc.replace("_", "-"), default="")
     else:
-        lt = lts.get(loc.replace("_", "-"), None)
-    if lt is None:
+        lt = ""
+    if lt == "":
         return (loc, {}, False)
     (res, iscldr) = locale_stats(loc, lt)
     return (loc, res, iscldr)
