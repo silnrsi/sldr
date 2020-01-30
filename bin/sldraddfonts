@@ -1,14 +1,12 @@
 #!/usr/bin/python3
 
-# from langtag import lookup
+from langtag import lookup, langtag
 from palaso.sldr.ldml import Ldml
-from palaso.sldr.langtags_full import *
 import csv
 import os
 import os.path
 import argparse
 
-langtags = dict()
 suggestions = dict()
 
 
@@ -21,7 +19,6 @@ def main():
     args = parser.parse_args()
 
     read_font_data(args.datafile)
-    read_langtag_data(args.langtags)
     write_font_data(args.sldr)
 
 
@@ -31,14 +28,14 @@ def read_font_data(data_file_name):
     with open(data_file_name, 'r', newline='') as data_file:
         reader = csv.DictReader(data_file)
         for row in reader:
-            # Construct tag
+            # Construct font tag
             script = row['Code']
-            tag = script
+            ft = script
             for region in row['Region'].split(', '):
                 if region != '':
-                    tag = script + '_' + region
+                    ft = script + '-' + region
 
-                # Assemble list of fonts for the tag
+                # Assemble list of fonts for the font tag
                 fonts = list()
                 for font_source in font_sources:
                     font = row[font_source]
@@ -49,24 +46,36 @@ def read_font_data(data_file_name):
                         else:
                             fonts.append(font)
                 if len(fonts) > 0:
-                    suggestions[tag] = fonts
-
-
-def read_langtag_data(langtags_filename):
-    """Read data from the master langtag file"""
-    headers = ('Lang_Id', 'likely_subtag', 'regions')
-    with open(langtags_filename, 'r', newline='') as langtags_file:
-        reader = csv.DictReader(langtags_file)
-        for row in reader:
-            langtag = dict()
-            for header in headers:
-                langtag[header] = row[header]
-            langtags['Lang_Id'] = langtag
+                    suggestions[ft] = fonts
 
 
 def find_fonts(locale):
     """Return a list of preferred fonts"""
-    return(['Charis SIL'])
+
+    # Find script and possibly region
+    region = None
+    try:
+        ts = lookup(locale)
+        script = ts.script
+        region = ts.region
+    except KeyError:
+        print(f'Cannot find locale {locale}, using fallback')
+        lt = langtag(locale)
+        script = lt.script
+        if not script:
+            return ['Charis SIL']
+        if lt.region:
+            region = lt.region
+
+    # Find font
+    ft = script
+    if region:
+        ft = script + '-' + region
+    if ft in suggestions:
+        return suggestions[ft]
+    elif script in suggestions:
+        return suggestions[script]
+    return ['Charis SIL']
 
 
 def write_font_data(sldrtree):
@@ -76,13 +85,13 @@ def write_font_data(sldrtree):
             if filename.endswith('.xml'):
                 # Find preferred font
                 locale, ext = os.path.splitext(filename)
-                langtag = LangTag(tag=locale)
+                preferred_fonts = find_fonts(locale)
 
                 # Write preferred  font to LDML file
                 filepath = os.path.join(sldrtree, rootpath, filename)
                 ldml = Ldml(filepath)
-                resource = ldml.ensure_path('special/sil:external-resources/sil:font')[0]
-                resource.text = 'https://wirl.api.sil.org/' + 'FontName'
+                resource = ldml.ensure_path('special/sil:external-resources/sil:font[@type="default"]')[0]
+                resource.text = 'https://wirl.api.sil.org/' + preferred_fonts[0].replace(' ', '')
                 ldml.save_as(filepath)
 
 
