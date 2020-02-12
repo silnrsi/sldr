@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from langtag import lookup, langtag
+from langtag import lookup #, langtag
 from palaso.sldr.ldml import Ldml
 import csv
 import os
@@ -12,7 +12,6 @@ suggestions = dict()
 
 def main():
     parser = argparse.ArgumentParser(description='Populate font information to LDML files')
-    parser.add_argument("langtags", help="The file langtags.csv")
     parser.add_argument("sldr", help="root of SLDR tree to write into")
     parser.add_argument('datafile', help='CSV file export from Google Sheet document Script2Font')
     parser.add_argument('--version', action='version', version='%(prog)s: 0.1')
@@ -55,17 +54,12 @@ def find_fonts(locale):
     # Find script and possibly region
     region = None
     try:
-        ts = lookup(locale)
+        ts = lookup(locale, matchRegions=True, use639=True)
         script = ts.script
         region = ts.region
     except KeyError:
         print(f'Cannot find locale {locale}, using fallback')
-        lt = langtag(locale)
-        script = lt.script
-        if not script:
-            return ['Charis SIL']
-        if lt.region:
-            region = lt.region
+        return ['Charis SIL']
 
     # Find font
     ft = script
@@ -85,14 +79,18 @@ def write_font_data(sldrtree):
             if filename.endswith('.xml'):
                 # Find preferred font
                 locale, ext = os.path.splitext(filename)
+                locale = locale.replace('_', '-')
                 preferred_fonts = find_fonts(locale)
 
                 # Write preferred  font to LDML file
-                filepath = os.path.join(sldrtree, rootpath, filename)
-                ldml = Ldml(filepath)
-                resource = ldml.ensure_path('special/sil:external-resources/sil:font[@type="default"]')[0]
-                resource.text = 'https://wirl.api.sil.org/' + preferred_fonts[0].replace(' ', '')
-                ldml.save_as(filepath)
+                default = '[@types="default"]'
+                for preferred_font in preferred_fonts:
+                    filepath = os.path.join(sldrtree, rootpath, filename)
+                    ldml = Ldml(filepath)
+                    resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{default}/sil:url')[0]
+                    resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
+                    ldml.save_as(filepath, topns=True)
+                    default = '' # only the first font is the default font
 
 
 if __name__ == '__main__':
