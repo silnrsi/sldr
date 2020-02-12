@@ -26,7 +26,7 @@ def ldml(langid):
     yield ldml
     if ldml.dirty:
         ldml.ldml.normalise()
-        ldml.ldml.save_as(ldml.path, topns=False)
+        ldml.ldml.save_as(ldml.path)
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_sessionfinish(session, exitstatus):
