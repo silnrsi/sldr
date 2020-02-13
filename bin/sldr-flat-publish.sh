@@ -2,7 +2,7 @@
 
 help () {
 cat << EOT
-$(basename $0) [-h | [-d] [-p] [-s]] TARGET
+$(basename $0) [-h | [-d] [-p] [-s] -S] TARGET
 	TARGET may be of the form:
 	  user@host -- for default document root based on hostname
 	  user@host:docroot -- for a custom docroot
@@ -13,9 +13,11 @@ $(basename $0) [-h | [-d] [-p] [-s]] TARGET
 	-s Skip flattening phase.
 	-p Disable default sysops prefix to hostname.
 	-t Time the flatten and unflatten commands
+  -S Upload to staging area.
 EOT
 }
 
+STAGE=sldr
 PREFIX=sysops.
 RSYNC_OPTS="-aP --no-p --no-g --no-t"
 
@@ -25,7 +27,8 @@ do
     s)		SKIPFLAT=1;;
     d)		DRYRUN="--dry-run -i";;
     p)		PREFIX=;;
-    t)      TIMECMD="/usr/bin/time -v";;
+    t)    TIMECMD="/usr/bin/time -v";;
+    S)    STAGE=sldr-staging
     \?|h)	help; exit 1;;
   esac
 done
@@ -67,7 +70,7 @@ then
   echo "Completed unflatened sldr"
 fi
 
-echo "Uploading SLDR to $TARGET/local/ldml/sldr/sldr/"
-rsync ${RSYNC_OPTS} ${DRYRUN} extras sldr $TARGET/local/ldml/sldr/
-echo "Uploading flattened SLDR to $TARGET/sites/s/ldml-api/data/sldr/"
-rsync ${RSYNC_OPTS} ${DRYRUN} --chmod=Dug=rwx flat unflat $TARGET/sites/s/ldml-api/data/sldr/
+echo "Uploading SLDR to $TARGET/local/ldml/$STAGE/sldr/"
+rsync ${RSYNC_OPTS} ${DRYRUN} extras sldr $TARGET/local/ldml/$STAGE/
+echo "Uploading flattened SLDR to $TARGET/sites/s/ldml-api/data/$STAGE/"
+rsync ${RSYNC_OPTS} ${DRYRUN} --chmod=Dug=rwx flat unflat $TARGET/sites/s/ldml-api/data/$STAGE/
