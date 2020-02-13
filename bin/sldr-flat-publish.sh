@@ -13,15 +13,17 @@ $(basename $0) [-h | [-d] [-p] [-s] -S] TARGET
 	-s Skip flattening phase.
 	-p Disable default sysops prefix to hostname.
 	-t Time the flatten and unflatten commands
-  -S Upload to staging area.
+    -S Upload to staging area.
+	-S copy to staging
 EOT
 }
 
 STAGE=sldr
 PREFIX=sysops.
 RSYNC_OPTS="-aP --no-p --no-g --no-t --compress"
+TARGET_SLDR="sldr"
 
-while getopts dhpst f
+while getopts dhpstS f
 do
   case $f in
     s)		SKIPFLAT=1;;
