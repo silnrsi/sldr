@@ -29,7 +29,7 @@ do
     d)		DRYRUN="--dry-run -i";;
     p)		PREFIX=;;
     t)    TIMECMD="/usr/bin/time -v";;
-    S)    STAGE=sldr-staging
+    S)    STAGE=sldr-staging;;
     \?|h)	help; exit 1;;
   esac
 done
