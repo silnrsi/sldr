@@ -13,8 +13,7 @@ $(basename $0) [-h | [-d] [-p] [-s] -S] TARGET
 	-s Skip flattening phase.
 	-p Disable default sysops prefix to hostname.
 	-t Time the flatten and unflatten commands
-    -S Upload to staging area.
-	-S copy to staging
+	-S Upload to staging area.
 EOT
 }
 
