@@ -14,6 +14,8 @@ $(basename $0) [-h | [-d] [-p] [-s] -S] TARGET
 	-p Disable default sysops prefix to hostname.
 	-t Time the flatten and unflatten commands
 	-S Upload to staging area.
+	-I Iana file to upload
+	-L langtags.txt to upload
 EOT
 }
 
@@ -22,7 +24,7 @@ PREFIX=sysops.
 RSYNC_OPTS="-aP --no-p --no-g --no-t --compress"
 TARGET_SLDR="sldr"
 
-while getopts dhpstS f
+while getopts "dhpstSI:L:" f
 do
   case $f in
     s)		SKIPFLAT=1;;
@@ -30,6 +32,8 @@ do
     p)		PREFIX=;;
     t)    TIMECMD="/usr/bin/time -v";;
     S)    STAGE=sldr-staging;;
+    I)    IANA=${OPTARG};;
+    L)    LANGTAGS=${OPTARG};;
     \?|h)	help; exit 1;;
   esac
 done
@@ -75,3 +79,13 @@ echo "Uploading SLDR to $TARGET/local/ldml/$STAGE/sldr/"
 rsync ${RSYNC_OPTS} ${DRYRUN} extras sldr $TARGET/local/ldml/$STAGE/
 echo "Uploading flattened SLDR to $TARGET/sites/s/ldml-api/data/$STAGE/"
 rsync ${RSYNC_OPTS} ${DRYRUN} --chmod=Dug=rwx flat unflat $TARGET/sites/s/ldml-api/data/$STAGE/
+if [ -n "$IANA" ]
+then
+  rsync ${RSYNC_OPTS} ${DRYRUN} $IANA $TARGET/sites/s/ldml-api/data/IanaRegistry.txt
+fi
+if [ -n "$LANGTAGS" ]
+then
+  rsync ${RSYNC_OPTS} ${DRYRUN} $LANGTAGS $TARGET/sites/s/ldml-api/data/langtags.txt
+fi
+
+
