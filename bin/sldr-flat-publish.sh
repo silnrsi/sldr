@@ -19,7 +19,7 @@ EOT
 
 STAGE=sldr
 PREFIX=sysops.
-RSYNC_OPTS="-aP --no-p --no-g --no-t"
+RSYNC_OPTS="-aP --no-p --no-g --no-t --compress"
 
 while getopts dhpst f
 do
