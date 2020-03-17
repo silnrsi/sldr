@@ -320,7 +320,7 @@ sil.spellcheck = element sil:spell-checking {
     (sil.url+)
 }
 
-attlist.sil.spellcheck &= attribute type { text }
+attlist.sil.spellcheck &= attribute type { "hunspell", "wordlist", text }
 ```
 
 Spell checking is more than a reference to a dictionary given that some spell checking engines handle morphology as well.
@@ -328,6 +328,8 @@ Spell checking is more than a reference to a dictionary given that some spell ch
 |          |                                                                          |
 |----------|--------------------------------------------------------------------------|
 | **type** | This specifies the type of information the URL(s) reference. Values are: |
+|          | **hunspell** - The URL references the stem of the .aff and .dic files.   |
+|          | **wordlist** - The URL references a text file with tab/space/comma delimited fields, one per line. The first field is the word. If present, the second field is a frequency count of word occurrences. Other fields are ignored and undefined. |
 
 The type attribute is a distinguishing attribute between different spell-checking elements. Spellcheck elements are sorted alphabetically by their url content.
 
@@ -337,7 +339,7 @@ Example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:spell-checking type="hunspell">
-            <sil:url>https://wirl.api.sil.org/af\_ZA-DictList</sil:url>
+            <sil:url>https://wirl.api.sil.org/af_ZA-DictList</sil:url>
         </sil:spell-checking>
     </sil:external-resources>
 </special>
