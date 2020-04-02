@@ -10,6 +10,7 @@ This document describes the grammar extensions that the sil namespace adds using
 
 ```rnc
 namespace sil = "urn://www.sil.org/ldml/0.1"
+namespace cldr = "urn://www.unicode.org/cldr/types/0.1"
 ```
 
 The namespace URL.
@@ -25,58 +26,36 @@ The grammar starts by including the standard LDML grammar and modifying it to ho
 
 ```rnc
 include "ldml.rnc" {
-ldml =
-  element ldml {
-    attlist.ldml,
-    identity,
-    (alias
-     | (fallback*, localeDisplayNames?, layout?, contextTransforms?, characters?, delimiters?,
-        measurement?, dates?, numbers?, units?, listPatterns?, collations?, posix?, characterLabels?,
-        segmentations?, rbnf?, typographicNames?, annotations?, metadata?, references?,
-        ldml.special?, special*))
-  }
-identity =
-  element identity {
-    attlist.identity,
-    (alias
-     | (version, generation?, language, script?, territory?, variant?,
-        identity.special?, special*))
-  }
-localeDisplayNames =
-  element localeDisplayNames {
-    attlist.localeDisplayNames,
-    (alias
-     | (localeDisplayPattern?, languages?, scripts?, territories?, subdivisions?, variants?,
-        keys?, types?, transformNames?, measurementSystemNames?, codePatterns?,
-        localeDisplayNames.special?, special*))
-  }
-characters =
-  element characters {
-    attlist.characters,
-    (alias
-     | (exemplarCharacters*, ellipsis*, moreInformation*, stopwords*, indexLabels*,
-        mapping*, parseLenients*,
-        characters.special?, special*))
-  }
-collation =
-  element collation {
-    attlist.collation,
-    (alias | (cr*, collation.special?, special*))
-  }
-delimiters =
-  element delimiters {
-    attlist.delimiters,
-    (alias
-     | (quotationStart*, quotationEnd*, alternateQuotationStart*, alternateQuotationEnd*,
-        delimiters.special?, special*))
-  }
+special = 
+    element special {
+        (sil.resources | sil.identity | sil.reordered | sil.simple | sil.names
+         | (sil.matchedpairs?, sil.punctuation.patterns?, sil.quotation-marks?) | sil.exemplarCharacters)
+    }
 }
 
 attlist.sil.global &= attribute draft { "approved" | "contributed" | "provisional" |
-                                        "unconfirmed" | "tentative" |
+                                        "unconfirmed" | "proposed" | "tentative" |
                                         "generated" | "suspect" }?
 attlist.sil.global &= attribute alt { text }?
 attlist.sil.global &= attribute references { text }*
+```
+
+```dtd
+<!ENTITY % ldml-dtd
+    SYSTEM "ldml.dtd">
+%ldml-dtd;
+
+<!ATTLIST ldml xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
+<!ELEMENT special (sil:external-resources | sil:identity | sil:reordered | sil:simple | sil:names
+                   | (sil:matched-pairs?, sil:punctuation-patterns?, sil:quotation-marks?) | sil:exemplarCharacters+)>
+<!ATTLIST special xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
+
+<?ATTDEF global draft (approved | contributed | provisional | unconfirmed | proposed | tentative | generated | suspect) "approved"?>
+<!--@METADATA-->
+<!--@DEPRECATED: proposed-->
+<?ATTDEF global alt           NMTOKEN     #IMPLIED?>
+<?ATTDEF global references    CDATA       #IMPLIED?>
+<!--@METADATA-->
 ```
 
 ## Collation
@@ -86,16 +65,25 @@ LDML currently has only one descriptive language for collations. But collations 
 ### Simple Collations
 
 ```rnc
-collation.special = element special {
-    (sil.reordered | sil.simple)?
-}
+# collation.special = element special {
+#     (sil.reordered | sil.simple)?
+# }
 
 attlist.collation &= attribute sil:modified { "true" | "false" }?
-
 attlist.sil.collation &= attribute sil:secondary { text }?
 attlist.sil.collation &= attribute sil:prefrom { text }?
 attlist.sil.collation &= attribute sil:preto { text }?
 attlist.sil.collation &= attribute sil:needscompiling { xsd:boolean }?
+```
+
+```dtd
+<!ATTLIST collation sil:modified          (true | false) "false">
+<!--@METADATA-->
+<?ATTDEF collation sil:secondary         CDATA #IMPLIED?>
+<?ATTDEF collation sil:prefrom           CDATA #IMPLIED?>
+<?ATTDEF collation sil:preto             CDATA #IMPLIED?>
+<?ATTDEF collation sil:needscompiling    (true | 1 | false | 0) "false"?>
+<!--@METADATA-->
 ```
 
 For collations that are described in languages other than ICU tailoring rules, the LDML needs to store both the source collation description in its language and also an ICU tailoring form. Thus a collation would contain its ICU tailoring form and then a special containing the source form. There is no intention that there be more than one source form for a collation, although it is technically possible. 
@@ -177,7 +165,22 @@ sil.simple = element sil:simple {
 }
 
 attlist.sil.simple &= attribute secondaryonly { text }?
-attlist.sil.simple &= attribute xml:space { "preserve" }
+[cldr:value="true"]
+attlist.sil.simple &= attribute xml:space { "preserve" }?
+```
+
+```dtd
+<!ELEMENT sil:reordered (sil:reorder*, cr)>
+<!ATTLIST sil:reordered match     CDATA #REQUIRED>
+<!ATTLIST sil:reordered reorder   CDATA #REQUIRED>
+<?ATTREF sil:reordered collation?>
+<?ATTREF sil:reordered global?>
+
+<!ELEMENT sil:simple (#PCDATA)>
+<!ATTLIST sil:simple secondaryonly CDATA #IMPLIED>
+<!ATTLIST sil:simple xml:space (preserve) #FIXED "preserve">
+<?ATTREF sil:simple collation?>
+<?ATTREF sil:simple global?>
 ```
 
 Preprocessed collation adds a single element type to the default LDML collation language. The `sil:reorder` element describes a preprocessing step that matches on a regular expression, and using components of that regular expression, generates an output string that will be used for the actual collation. Multiple reorder elements may exist. The only requirement is that the input regular expressions be non-overlapping; that is, two reorder match expressions may not match the same string.
@@ -194,9 +197,9 @@ For simple sort specifications, the text of the `sil:simple` element is a list o
 LDML files in the SLDR are version controlled. To aid in their management we include version information so that uploaded changes can be appropriately merged into the SLDR. An LDML file may also reference external resources that an application may need.
 
 ```rnc
-ldml.special = element special {
-    (sil.resources?)
-}
+# ldml.special = element special {
+#    (sil.resources?)
+#}
 
 sil.resources = element sil:external-resources {
     (sil.font*,
@@ -208,6 +211,12 @@ sil.url = element sil:url {
     attlist.sil.global,
     (xsd:anyURI)
 }
+```
+
+```dtd
+<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform)*>
+<!ELEMENT sil:url (#PCDATA)>
+<?ATTREF sil:url global?>
 ```
 
 External resources are writing system level information that describe system resources that are useful for processing data in this writing system. The particular resource is referenced via a URL. What the URL actually references is context and type specific and is described where this element is used.
@@ -237,16 +246,47 @@ sil.font = element sil:font {
     (attlist.sil.fontelement & attlist.sil.global),
     (sil.url*)
 }
-attlist.sil.fontelement &= attribute types
-                                     { "default" | "heading" | "emphasis" | text }*
 attlist.sil.fontelement &= attribute name { text }
+[cldr:value="true"]
+attlist.sil.fontelement &= attribute types { text }
+# attlist.sil.fontelement &= attribute types
+#                                     { "default" | "heading" | "emphasis" | text }*
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute size { xsd:decimal }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute minversion { xsd:decimal }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute features { text }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute lang { text }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute otlang { text }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute engines { list { ("gr" | "ot")+ } }?
+[cldr:value="true"]
 attlist.sil.fontelement &= attribute subset { text }?
+```
+
+```dtd
+<!ELEMENT sil:font (sil:url*)>
+<!ATTLIST sil:font name CDATA #REQUIRED>
+<!ATTLIST sil:font types NMTOKENS #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font size CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font minversion CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font features CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font lang NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font otlang NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font engines NMTOKENS #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font subset CDATA #IMPLIED>
+<!--@VALUE-->
+<?ATTREF sil:font global?>
 ```
 
 Font resources are associated with their application role. There may be more than one font that may be used in a particular role within an application, and a font may be used for more than one role. The **types** attribute may take any value, but for consistency across applications, some type are listed here:
@@ -295,7 +335,14 @@ sil.kbdrsrc = element sil:kbd {
     (sil.url+)
 }
 attrlist.sil.kbdrsrc &= attribute id { text }
-attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "keylayout" | "kmp" | text }?
+attrlist.sil.kbdrsrc &= attribute type { text }?
+# attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "keylayout" | "kmp" | text }?
+```
+```dtd
+<!ELEMENT sil:kbd (sil:url)+>
+<?ATTREF sil:kbd global?>
+<!ATTLIST sil:kbd id NMTOKEN #REQUIRED>
+<!ATTLIST sil:kbd type NMTOKEN #IMPLIED>
 ```
 
 |          |                                              |
@@ -320,7 +367,13 @@ sil.spellcheck = element sil:spell-checking {
     (sil.url+)
 }
 
-attlist.sil.spellcheck &= attribute type { "hunspell", "wordlist", text }
+attlist.sil.spellcheck &= attribute type { text }
+# attlist.sil.spellcheck &= attribute type { "hunspell", "wordlist", text }
+```
+```dtd
+<!ELEMENT sil:spell-checking (sil:url)+>
+<!ATTLIST sil:spell-checking type NMTOKEN #REQUIRED>
+<?ATTREF sil:spell-checking global?>
 ```
 
 Spell checking is more than a reference to a dictionary given that some spell checking engines handle morphology as well.
@@ -356,7 +409,9 @@ sil.transform = element sil:transform {
 attlist.sil.transform &= attribute from { text }
 attlist.sil.transform &= attribute to { text }
 attlist.sil.transform &= attribute type { "cct" | "perl" | "python" | "teckit" }
+[cldr:value="true"]
 attlist.sil.transform &= attribute direction { "both" | "forward" | "backward" }
+[cldr:value="true"]
 attlist.sil.transform &= attribute function { text }?
 
 sil.transform.dict = element sil:transform-dict {
@@ -364,18 +419,49 @@ sil.transform.dict = element sil:transform-dict {
     (sil.url+)
 }
 
-attlist.sil.transform.dict &= attribute incol { "0" | text }
-attlist.sil.transform.dict &= attribute outcol { "1" | text }
+attlist.sil.transform.dict &= attribute incol { text }
+# attlist.sil.transform.dict &= attribute incol { "0" | text }
+attlist.sil.transform.dict &= attribute outcol { text }
+# attlist.sil.transform.dict &= attribute outcol { "1" | text }
+[cldr:value="true"]
 attlist.sil.transform.dict &= attribute nf { "nfd" | "nfc" }?
 
 sil.transform.caps = element sil:transform-capitals {
     (attlist.sil.transform.caps & attlist.sil.global)
 }
 
-attlist.sil.transform.caps &= attribute opengroup { '&quot;"\u{2018}\u{201C}\[{(<\u00AB' | text }?
-attlist.sil.transform.caps &= attribute closegroup { '&quot;"\u{2019}\u{201D}\]})>\u00BB' | text }?
-attlist.sil.transform.caps &= attribute sentencefinal { ".!?" | text }?
+attlist.sil.transform.caps &= attribute opengroup { text }?
+# attlist.sil.transform.caps &= attribute opengroup { '&quot;"\u{2018}\u{201C}\[{(<\u00AB' | text }?
+attlist.sil.transform.caps &= attribute closegroup { text }?
+# attlist.sil.transform.caps &= attribute closegroup { '&quot;"\u{2019}\u{201D}\]})>\u00BB' | text }?
+attlist.sil.transform.caps &= attribute sentencefinal { text }?
+# attlist.sil.transform.caps &= attribute sentencefinal { ".!?" | text }?
 attlist.sil.transform.caps &= attribute startcaps { text }?
+```
+```dtd
+<!ELEMENT sil:transform (sil:transform-capitals?, sil:transform-dict?, sil:url+)>
+<!ATTLIST sil:transform from NMTOKEN #REQUIRED>
+<!ATTLIST sil:transform to NMTOKEN #REQUIRED>
+<!ATTLIST sil:transform type (cct | perl | python | teckit) #REQUIRED>
+<!ATTLIST sil:transform direction (both | forward | backward) #REQUIRED>
+<!--@VALUE-->
+<!ATTLIST sil:transform function NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<?ATTREF sil:transform global?>
+
+<!ELEMENT sil:transform-dict (sil:url)+>
+<!ATTLIST sil:transform-dict incol CDATA #REQUIRED>
+<!ATTLIST sil:transform-dict outcol CDATA #REQUIRED>
+<!ATTLIST sil:transform-dict nf (nfd | nfc) "nfc">
+<!--@VALUE-->
+<?ATTREF sil:transform-dict global?>
+
+<!ELEMENT sil:transform-capitals EMPTY>
+<!ATTLIST sil:transform-capitals opengroup CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals closegroup CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals sentencefinal CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals startcaps CDATA #IMPLIED>
+<?ATTREF sil:transform-capitals global?>
 ```
 
 Issue: In LDML, transform is now part of supplemental data. Do we need to have a special supplemental data for the SIL namespace? Given this is really a reference to an external resource (which is the supplemental data in effect), we can keep it here. But it is a kind of global information.
@@ -393,10 +479,10 @@ The second consideration is conversion from a script with no case to one with ca
 One part of the housekeeping of the SLDR is the ability for applications to submit revised LDML specifications back to the SLDR. To enable this without the SLDR having to keep a record of every LDML file downloaded by every application, the SLDR inserts an identifying attribute into the LDML it sends out, so that if an application submits LDML data it knows against which version of the LDML data that submission is made. Applications must keep this information and must not change it.
 
 ```rnc
-identity.special = element special {
-    attlist.identity,
-    (sil.identity)
-}
+# identity.special = element special {
+#     attlist.identity,
+#     (sil.identity)
+# }
 
 sil.identity = element sil:identity {
     (attlist.sil.identity & attlist.sil.global),
@@ -406,7 +492,8 @@ sil.identity = element sil:identity {
 attlist.sil.identity &= attribute revid { text }?
 attlist.sil.identity &= attribute uid { text }?
 attlist.sil.identity &= attribute fallbacks { text }*
-attlist.sil.identity &= attribute source { "cldr" | "cldrseed" | text }?
+attlist.sil.identity &= attribute source { text }?
+# attlist.sil.identity &= attribute source { "cldr" | "cldrseed" | text }?
 attlist.sil.identity &= attribute windowsLCID { text }?
 attlist.sil.identity &= attribute defaultRegion { text }?
 attlist.sil.identity &= attribute variantName { text }?
@@ -420,6 +507,24 @@ sil.identity.committer = element sil:committer {
 }
 
 attlist.sil.committer &= attribute machid { text }?
+```
+```dtd
+<!ELEMENT sil:identity (sil:committer)?>
+<!ATTLIST sil:identity revid CDATA #IMPLIED>
+<!ATTLIST sil:identity uid CDATA #IMPLIED>
+<!ATTLIST sil:identity fallbacks NMTOKENS #IMPLIED>
+<!ATTLIST sil:identity source CDATA #IMPLIED>
+<!ATTLIST sil:identity windowsLCID CDATA #IMPLIED>
+<!ATTLIST sil:identity defaultRegion NMTOKEN #IMPLIED>
+<!ATTLIST sil:identity variantName CDATA #IMPLIED>
+<!ATTLIST sil:identity usage (unused | developing) #IMPLIED>
+<!ATTLIST sil:identity toplevels NMTOKENS #IMPLIED>
+<!ATTLIST sil:identity script NMTOKEN #IMPLIED>
+<?ATTREF sil:identity global?>
+
+<!ELEMENT sil:committer (#PCDATA)>
+<!ATTLIST sil:committer machid CDATA #IMPLIED>
+<?ATTREF sil:committer global?>
 ```
 
 As of namespace version 0.2 the attributes @defaultRegion, @variantName and @script will be removed since such information, may be found in alltags.txt. *Discuss before then!*
@@ -466,9 +571,9 @@ For example:
 The primary use of localeDisplayNames is to hold various key names as expressed in the orthography the LDML is describing. But this can become problematic when adding a new writing system. The addition of a file to the repository means editing some of the core writing system files like en.xml. This means that a single edit is spread across multiple files. It would be easier if some of that information was kept in the LDML of the orthography itself. So we extend the localeDisplayNames to allow the orthography name to be kept in the file. Then tools can be used to synchronise the other orthography ldml files to update their localeDisplayNames.
 
 ```rnc
-localeDisplayNames.special = element special { 
-    (sil.names?)
-}
+# localeDisplayNames.special = element special { 
+#     (sil.names?)
+# }
 
 sil.names = element sil:names {
     (sil.name+)
@@ -481,24 +586,31 @@ sil.name = element sil:name {
 
 attlist.silname &= attribute xml:lang { text }
 ```
+```dtd
+<!ELEMENT sil:names (sil:name)+>
+
+<!ELEMENT sil:name (#PCDATA)>
+<!ATTLIST sil:name xml:lang NMTOKEN #IMPLIED>
+<?ATTREF sil:name global?>
+```
 
 ## Delimiters
 
 This section includes such issues as punctuation patterns, quotation marks and matching pairs. LDML as it stands has limited quotation mark support, we embrace and extend this using a special and also add punctuation patterns and matching pairs.
 
 ```rnc
-delimiters.special = element special {
-    attlist.delimiters,
-    (sil.matchedpairs?,
-     sil.punctuation.patterns?,
-     sil.quotation-marks?)
-}
+# delimiters.special = element special {
+#     attlist.delimiters,
+#     (sil.matchedpairs?,
+#      sil.punctuation.patterns?,
+#      sil.quotation-marks?)
+# }
 
 sil.quotation-marks = element sil:quotation-marks {
     (attlist.sil.quotation-marks & attlist.sil.global),
-    ( ( element sil:quotationContinue { text },
-        element sil:alternateQuotationContinue { text }? )?,
-      sil.quotation*)
+    ( (element sil:quotationContinue { text } |
+        element sil:alternateQuotationContinue { text } |
+      sil.quotation*)*)
 }
 
 attlist.sil.quotation-marks &= attribute paraContinueType { "all" | "outer" | "inner" | "none" }?
@@ -511,7 +623,24 @@ attlist.sil.quotation &= attribute open { text }
 attlist.sil.quotation &= attribute close { text }?
 attlist.sil.quotation &= attribute continue { text }?
 attlist.sil.quotation &= attribute level { text }
-attlist.sil.quotation &= attribute type { "narrative" | text }?
+attlist.sil.quotation &= attribute type { text }?
+# attlist.sil.quotation &= attribute type { "narrative" | text }?
+```
+```dtd
+<!ELEMENT sil:quotation-marks (sil:quotationContinue | sil:alternateQuotationContinue | sil:quotation)+>
+<!ATTLIST sil:quotation-marks paraContinueType (all | outer | inner | none) #IMPLIED>
+<?ATTREF sil:quotation-marks global?>
+
+<!ELEMENT sil:quotationContinue (#PCDATA)>
+<!ELEMENT sil:alternateQuotationContinue (#PCDATA)>
+
+<!ELEMENT sil:quotation EMPTY>
+<!ATTLIST sil:quotation open CDATA #REQUIRED>
+<!ATTLIST sil:quotation close CDATA #IMPLIED>
+<!ATTLIST sil:quotation continue CDATA #IMPLIED>
+<!ATTLIST sil:quotation level CDATA #REQUIRED>
+<!ATTLIST sil:quotation type NMTOKEN #IMPLIED>
+<?ATTREF sil:quotation global?>
 ```
 
 **paraContinueType** specifies how quotations are handled at the start of a continuation paragraph. If the attribute is not present then it is assumed there are no quotation marks at the start of a paragraph. In the situation where two quotation marking systems are in use, the **type** attribute is used to distinguish them. The **level** attribute is a number from 1 indicating the quotation level. For example:
@@ -547,6 +676,13 @@ sil.punctuation.pattern = element sil:punctuation-pattern {
 attlist.sil.punctuation-pattern &= attribute pattern { text }
 attlist.sil.punctuation-pattern &= attribute context { "init" | "medial" | "final" | "break" | "isolate" }?
 ```
+```dtd
+<!ELEMENT sil:punctuation-patterns (sil:punctuation-pattern)+>
+<!ELEMENT sil:punctuation-pattern EMPTY>
+<!ATTLIST sil:punctuation-pattern pattern CDATA #REQUIRED>
+<!ATTLIST sil:punctuation-pattern context (init | medial | final | break | isolate) #IMPLIED>
+<?ATTREF sil:punctuation-pattern global?>
+```
 
 Punctuation patterns give valid punctuation sequences in a text. The sequence is specified as a string with “\_” indicating whitespace. The **context** attribute specifies where the punctuation may occur. The values have the following meanings:
 
@@ -571,7 +707,17 @@ sil.matchedpair = element sil:matched-pair {
 
 attlist.sil.matched-pair &= attribute open { text }
 attlist.sil.matched-pair &= attribute close { text }
+[cldr:value="true"]
 attlist.sil.matched-pair &= attribute paraClose { xsd:boolean }?
+```
+```dtd
+<!ELEMENT sil:matched-pairs (sil:matched-pair)+>
+<!ELEMENT sil:matched-pair EMPTY>
+<!ATTLIST sil:matched-pair open CDATA #REQUIRED>
+<!ATTLIST sil:matched-pair close CDATA #REQUIRED>
+<!ATTLIST sil:matched-pair paraClose (true | false | 0 | 1) "false">
+<!--@VALUE-->
+<?ATTREF sil:matched-pair global?>
 ```
 
 Matched pairs are simply pairs of characters that are required to be balanced in normal text usage. Thus for each **open** string there should be a corresponding **close** string. The **paraClose** attribute if set indicates whether the end of a paragraph may be used as an alternative to the occurrence of the **close** string. If the close string is empty then it assumed that the open string is no longer in a pair, and the corresponding close string of the original pair will also be considered unpaired. The root.xml contains pairings, with **paraClose** false, for:
@@ -587,14 +733,19 @@ Matched pair elements are ordered by the close attribute then the open attribute
 The purpose of adding a special to the characters section of LDML is to add extra exemplar sets that are not currently supported by LDML. See [*Character Examplars*](https://docs.google.com/document/d/1DxI9kzPRgA-30U-C-PbF8wr2jVNE_rzQetexMvRX0H8/edit#heading=h.villpww8wak8).
 
 ```rnc
-characters.special = element special {
-    element sil:exemplarCharacters {
+# characters.special = element special {
+# }
+
+sil.exemplarCharacters = element sil:exemplarCharacters {
         (attlist.sil.exemplarCharacters & attlist.sil.global),
         text
     }*
-}
-
 attlist.sil.exemplarCharacters &= attribute type { text }
+```
+```dtd
+<!ELEMENT sil:exemplarCharacters (#PCDATA)>
+<?ATTREF sil:exemplarCharacters global?>
+<!ATTLIST sil:exemplarCharacters type NMTOKEN #REQUIRED>
 ```
 
 The `sil:exemplarCharacters` element follows the LDML `exemplarCharacters` element in every way except that the type is unlimited. Some expected values for type include:

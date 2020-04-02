@@ -1,0 +1,204 @@
+#!/usr/bin/python3
+
+from collections import namedtuple
+from enum import Enum
+import argparse
+import xml.parsers.expat
+
+Model = namedtuple("Model", ["type", "quant", "name", "children"])
+class ModelType(Enum):
+    EMPTY = 1
+    ANY = 2
+    MIXED = 3
+    NAME = 4
+    CHOICE = 5
+    SEQ = 6
+class ModelQuant(Enum):
+    NONE = 0
+    OPT = 1
+    REP = 2
+    PLUS = 3
+
+    def __str__(self):
+        if self == ModelQuant.OPT:
+            return "?"
+        elif self == ModelQuant.REP:
+            return "*"
+        elif self == ModelQuant.PLUS:
+            return "+"
+        else:
+            return ""
+
+class ElementDecl:
+    def __init__(self, model, name):
+        self.name = name
+        self.model = self.asModel(model)
+        self.attributes = {}
+        self.annotations = []
+
+    def asModel(self, model):
+        return Model(ModelType(model[0]), ModelQuant(model[1]), model[2], [self.asModel(c) for c in model[3]])
+
+    def asStr(self):
+        res = ["<!ELEMENT {} ".format(self.name)]
+        if self.model.type == ModelType.EMPTY:
+            res += ["EMPTY"]
+        elif self.model.type == ModelType.ANY:
+            res += ["ANY"]
+        elif self.model.type == ModelType.MIXED:
+            res += ["(" + " | ".join(["#PCDATA"] + [x.name for x in self.model.children]) + ")" + str(self.model.quant)]
+        else:
+            res += [self.modelAsStr(self.model)]
+        res += [">"]
+        for a in self.annotations:
+            res += ["\n    <!--"+a+"-->"]
+        for a in self.attributes.values():       # relies on being ordered
+            res += "\n" + a.asStr()
+        return "".join(res) + "\n"
+    
+    def modelAsStr(self, model):
+        if model.type == ModelType.NAME:
+            return model.name + str(model.quant)
+        elif model.type == ModelType.CHOICE:
+            sep = " | "
+        elif model.type == ModelType.SEQ:
+            sep = ", "
+        else:
+            return ""
+        return "(" + sep.join(self.modelAsStr(x) for x in model.children) +")" + str(model.quant)
+
+
+class AttributeDecl:
+    def __init__(self, elname, attname, xmltype, default, required):
+        self.element = elname
+        self.attrib = attname
+        self.type = xmltype
+        self.default = default
+        self.required = required
+        self.annotations = []
+
+    def copy(self, elname):
+        res = AttributeDecl(elname, self.attrib, self.type, self.default, self.required)
+        res.annotations = self.annotations[:]
+        return res
+
+    def asStr(self):
+        res = ["<!ATTLIST {0.element} {0.attrib} {0.type}".format(self)]
+        if self.default is not None:
+            if self.required:
+                res.append("#FIXED")
+            res.append('"' + self.default + '"')
+        elif self.required:
+            res.append("#REQUIRED")
+        else:
+            res.append("#IMPLIED")
+        res.append(">")
+        allres = [" ".join(res)]
+        for a in self.annotations:
+            allres.append("    <!--"+a+"-->")
+        return "\n".join(allres)
+
+class DTDParser:
+    def __init__(self, fname):
+        self.currEl = None
+        self.currAttrib = None
+        self.elements = {}
+        self.allElements = []
+        self.globalAttrs = {}
+        self.readDTD(fname)
+
+    def elementDecl(self, name, model):
+        self.currEl = ElementDecl(model, name)
+        self.elements[name] = self.currEl
+        if name not in self.allElements:
+            self.allElements.append(name)
+        self.currAttrib = None
+        # print("Element ", name, self.currEl.model)
+
+    def attlistDecl(self, elname, attname, xmltype, default, required, *a):
+        self.currAttrib = AttributeDecl(elname, attname, xmltype, default, required)
+        self.elements[elname].attributes[attname] = self.currAttrib
+        self.currEl = None
+
+    def comment(self, txt):
+        if not txt.startswith("@"):
+            return
+        if self.currAttrib is not None:
+            self.currAttrib.annotations.append(txt)
+        elif self.currEl is not None:
+            self.currEl.annotations.append(txt)
+
+    def entityRef(self, context, base, systemId, publicId):
+        newparser = self.parser.ExternalEntityParserCreate(context)
+        try:
+            with open(systemId) as inf:
+                entityText = "".join(inf.readlines())
+        except FileNotFoundError:
+            return 0
+        newparser.Parse(entityText)
+        return 1
+
+    def processingInstruction(self, tag, data):
+        if tag == "ATTDEF":
+            words = data.split(' ')
+            elname = words.pop(0)
+            attname = words.pop(0)
+            xmltype = " ".join(words[:-1])
+            default = None
+            required = False
+            if words[-1] == "#REQUIRED":
+                required = True
+            elif words[-1] == "#IMPLIED":
+                pass
+            elif words[-2] == "#FIXED":
+                xmltype = " ".join(words[:-2])
+                default = words[-1].strip("'\"")
+                required = True
+            else:
+                xmltype = xmltype
+                default = words[-1].strip("'\"")
+            self.currAttrib = AttributeDecl(elname, attname, xmltype, default, required)
+            self.globalAttrs.setdefault(elname, {})[attname] = self.currAttrib
+            self.currEl = None
+        elif tag == "ATTREF":
+            elname, grpname = data.split(' ')
+            self.currEl = None
+            if grpname in self.globalAttrs:
+                p = self.elements[elname]
+                for v in self.globalAttrs[grpname].values():
+                    self.currAttrib = v.copy(elname)
+                    p.attributes[v.attrib] = self.currAttrib
+        return True
+
+    def readDTD(self, fname = None):
+        """ Reads LDML DTD to get element and attribute orders"""
+        if fname is None:
+            fname = os.path.join(os.path.dirname(__file__), 'ldml.dtd')
+        self.parser = xml.parsers.expat.ParserCreate()
+        self.parser.SetParamEntityParsing(xml.parsers.expat.XML_PARAM_ENTITY_PARSING_ALWAYS)
+        self.parser.AttlistDeclHandler = self.attlistDecl
+        self.parser.ElementDeclHandler = self.elementDecl
+        self.parser.ProcessingInstructionHandler = self.processingInstruction
+        self.parser.CommentHandler = self.comment
+        self.parser.ExternalEntityRefHandler = self.entityRef
+        with open(fname) as f :
+            ldmltext = "".join(f.readlines())
+        parsetext = "<?xml version='1.0'?>\n<!DOCTYPE ldml [\n" + ldmltext + "]>\n"
+        self.parser.Parse(parsetext)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("infile",help="Input DTD")
+parser.add_argument("outfile",help="Output DTD")
+args = parser.parse_args()
+
+dtd = DTDParser(args.infile)
+gs = dtd.globalAttrs['global']
+for en, e in dtd.elements.items():
+    for a, v in gs.items():
+        if a in e.attributes:
+            e.attributes[a] = v.copy(en)
+with open(args.outfile, "w") as outf:
+    for e in dtd.allElements:
+        outf.write(dtd.elements[e].asStr() + "\n")
+
+
