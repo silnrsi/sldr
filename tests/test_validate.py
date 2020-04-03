@@ -1,13 +1,14 @@
 import unittest
 import pytest
 import logging, os
-from lxml.etree import RelaxNG, parse, DocumentInvalid
+from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
 import palaso.sldr.UnicodeSets as usets
 from unicodedata import normalize
 
 @pytest.fixture(scope="session")
 def validator(request):
-    return RelaxNG(file=os.path.join(os.path.dirname(__file__), '..', 'doc', 'sil.rng'))
+    # return RelaxNG(file=os.path.join(os.path.dirname(__file__), '..', 'doc', 'sil.rng'))
+    return DTD(file=os.path.join(os.path.dirname(__file__), '..', 'doc', 'sil.dtd'))
 
 def iscldr(ldml):
     i = ldml.ldml.find(".//identity/special/sil:identity")
@@ -60,3 +61,28 @@ def test_exemplars(ldml):
         m = set([x.lower() for x in exemplars['index']])
         diff = m - test
         assert not len(diff), filename + " Not all index entries found in main or auxiliary"
+
+def _duplicate_test(base, ldml, path=""):
+    filename = os.path.basename(ldml.fname)    # get filename for reference
+    idents = set()
+    for c in base.getchildren():
+        if c.tag in ("variable",):
+            continue
+        ident = [c.tag]
+        ident.extend(["{}={}".format(k, v) for k, v in sorted(c.attrib.items())])
+        #for n in list(ldml.keyContexts.get(c.tag, ldml.keys)) + ['draft']:
+        #    v = c.get(n, None)
+        #    if v is not None:
+        #        ident.append("{}={}".format(n, v))
+        i = ":".join(ident)
+        if len(ident) > 1:
+            assert i not in idents, filename + " Found overlapping elements for " + path + "/" + i
+        idents.add(i)
+        if len(c.getchildren()) and _duplicate_test(c, ldml, path=path + "/" + i):
+            return True
+    return False
+
+def test_duplicates(ldml):
+    """ Test that no two elements have the same identifying feature values """
+    _duplicate_test(ldml.ldml.root, ldml.ldml)
+

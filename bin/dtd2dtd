@@ -2,7 +2,7 @@
 
 from collections import namedtuple
 from enum import Enum
-import argparse
+import argparse, os
 import xml.parsers.expat
 
 Model = namedtuple("Model", ["type", "quant", "name", "children"])
@@ -37,7 +37,8 @@ class ElementDecl:
         self.annotations = []
 
     def asModel(self, model):
-        return Model(ModelType(model[0]), ModelQuant(model[1]), model[2], [self.asModel(c) for c in model[3]])
+        return Model(ModelType(model[0]), ModelQuant(model[1]), model[2],
+                                            [self.asModel(c) for c in model[3]])
 
     def asStr(self):
         res = ["<!ELEMENT {} ".format(self.name)]
@@ -46,7 +47,8 @@ class ElementDecl:
         elif self.model.type == ModelType.ANY:
             res += ["ANY"]
         elif self.model.type == ModelType.MIXED:
-            res += ["(" + " | ".join(["#PCDATA"] + [x.name for x in self.model.children]) + ")" + str(self.model.quant)]
+            res += ["(" + " | ".join(["#PCDATA"] + [x.name for x in self.model.children]) + ")" \
+                    + str(self.model.quant)]
         else:
             res += [self.modelAsStr(self.model)]
         res += [">"]
@@ -99,7 +101,8 @@ class AttributeDecl:
         return "\n".join(allres)
 
 class DTDParser:
-    def __init__(self, fname):
+    def __init__(self, fname, includes):
+        self.includes = includes
         self.currEl = None
         self.currAttrib = None
         self.elements = {}
@@ -130,8 +133,14 @@ class DTDParser:
 
     def entityRef(self, context, base, systemId, publicId):
         newparser = self.parser.ExternalEntityParserCreate(context)
+        for i in ["."] + self.includes:
+            fname = os.path.join(i, systemId)
+            if os.path.exists(fname):
+                break
+        else:
+            return 0
         try:
-            with open(systemId) as inf:
+            with open(fname) as inf:
                 entityText = "".join(inf.readlines())
         except FileNotFoundError:
             return 0
@@ -189,9 +198,10 @@ class DTDParser:
 parser = argparse.ArgumentParser()
 parser.add_argument("infile",help="Input DTD")
 parser.add_argument("outfile",help="Output DTD")
+parser.add_argument("-I","--include",action="append",help="Include search directories")
 args = parser.parse_args()
 
-dtd = DTDParser(args.infile)
+dtd = DTDParser(args.infile, args.include)
 gs = dtd.globalAttrs['global']
 for en, e in dtd.elements.items():
     for a, v in gs.items():

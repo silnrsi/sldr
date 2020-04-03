@@ -1,248 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar xmlns:sil="urn://www.sil.org/ldml/0.1" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar xmlns:sil="urn://www.sil.org/ldml/0.1" xmlns:cldr="urn://www.unicode.org/cldr/types/0.1" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <include href="ldml.rng">
-    <define name="ldml">
-      <element name="ldml">
-        <ref name="attlist.ldml"/>
-        <ref name="identity"/>
+    <define name="special">
+      <element name="special">
         <choice>
-          <ref name="alias"/>
-          <group>
-            <zeroOrMore>
-              <ref name="fallback"/>
-            </zeroOrMore>
-            <optional>
-              <ref name="localeDisplayNames"/>
-            </optional>
-            <optional>
-              <ref name="layout"/>
-            </optional>
-            <optional>
-              <ref name="contextTransforms"/>
-            </optional>
-            <optional>
-              <ref name="characters"/>
-            </optional>
-            <optional>
-              <ref name="delimiters"/>
-            </optional>
-            <optional>
-              <ref name="measurement"/>
-            </optional>
-            <optional>
-              <ref name="dates"/>
-            </optional>
-            <optional>
-              <ref name="numbers"/>
-            </optional>
-            <optional>
-              <ref name="units"/>
-            </optional>
-            <optional>
-              <ref name="listPatterns"/>
-            </optional>
-            <optional>
-              <ref name="collations"/>
-            </optional>
-            <optional>
-              <ref name="posix"/>
-            </optional>
-            <optional>
-              <ref name="characterLabels"/>
-            </optional>
-            <optional>
-              <ref name="segmentations"/>
-            </optional>
-            <optional>
-              <ref name="rbnf"/>
-            </optional>
-            <optional>
-              <ref name="typographicNames"/>
-            </optional>
-            <optional>
-              <ref name="annotations"/>
-            </optional>
-            <optional>
-              <ref name="metadata"/>
-            </optional>
-            <optional>
-              <ref name="references"/>
-            </optional>
-            <optional>
-              <ref name="ldml.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
-          </group>
-        </choice>
-      </element>
-    </define>
-    <define name="identity">
-      <element name="identity">
-        <ref name="attlist.identity"/>
-        <choice>
-          <ref name="alias"/>
-          <group>
-            <ref name="version"/>
-            <optional>
-              <ref name="generation"/>
-            </optional>
-            <ref name="language"/>
-            <optional>
-              <ref name="script"/>
-            </optional>
-            <optional>
-              <ref name="territory"/>
-            </optional>
-            <optional>
-              <ref name="variant"/>
-            </optional>
-            <optional>
-              <ref name="identity.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
-          </group>
-        </choice>
-      </element>
-    </define>
-    <define name="localeDisplayNames">
-      <element name="localeDisplayNames">
-        <ref name="attlist.localeDisplayNames"/>
-        <choice>
-          <ref name="alias"/>
+          <ref name="sil.resources"/>
+          <ref name="sil.identity"/>
+          <ref name="sil.reordered"/>
+          <ref name="sil.simple"/>
+          <ref name="sil.names"/>
           <group>
             <optional>
-              <ref name="localeDisplayPattern"/>
+              <ref name="sil.matchedpairs"/>
             </optional>
             <optional>
-              <ref name="languages"/>
+              <ref name="sil.punctuation.patterns"/>
             </optional>
             <optional>
-              <ref name="scripts"/>
+              <ref name="sil.quotation-marks"/>
             </optional>
-            <optional>
-              <ref name="territories"/>
-            </optional>
-            <optional>
-              <ref name="subdivisions"/>
-            </optional>
-            <optional>
-              <ref name="variants"/>
-            </optional>
-            <optional>
-              <ref name="keys"/>
-            </optional>
-            <optional>
-              <ref name="types"/>
-            </optional>
-            <optional>
-              <ref name="transformNames"/>
-            </optional>
-            <optional>
-              <ref name="measurementSystemNames"/>
-            </optional>
-            <optional>
-              <ref name="codePatterns"/>
-            </optional>
-            <optional>
-              <ref name="localeDisplayNames.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
           </group>
-        </choice>
-      </element>
-    </define>
-    <define name="characters">
-      <element name="characters">
-        <ref name="attlist.characters"/>
-        <choice>
-          <ref name="alias"/>
-          <group>
-            <zeroOrMore>
-              <ref name="exemplarCharacters"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="ellipsis"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="moreInformation"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="stopwords"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="indexLabels"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="mapping"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="parseLenients"/>
-            </zeroOrMore>
-            <optional>
-              <ref name="characters.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
-          </group>
-        </choice>
-      </element>
-    </define>
-    <define name="collation">
-      <element name="collation">
-        <ref name="attlist.collation"/>
-        <choice>
-          <ref name="alias"/>
-          <group>
-            <zeroOrMore>
-              <ref name="cr"/>
-            </zeroOrMore>
-            <optional>
-              <ref name="collation.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
-          </group>
-        </choice>
-      </element>
-    </define>
-    <define name="delimiters">
-      <element name="delimiters">
-        <ref name="attlist.delimiters"/>
-        <choice>
-          <ref name="alias"/>
-          <group>
-            <zeroOrMore>
-              <ref name="quotationStart"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="quotationEnd"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="alternateQuotationStart"/>
-            </zeroOrMore>
-            <zeroOrMore>
-              <ref name="alternateQuotationEnd"/>
-            </zeroOrMore>
-            <optional>
-              <ref name="delimiters.special"/>
-            </optional>
-            <zeroOrMore>
-              <ref name="special"/>
-            </zeroOrMore>
-          </group>
+          <ref name="sil.exemplarCharacters"/>
         </choice>
       </element>
     </define>
   </include>
-  <define name="attlist.sil.global" combine="interleave">
+  <define name="attlist.sil.global" combine="interleave" cldr:metadata="true">
     <optional>
       <attribute name="draft">
         <choice>
@@ -262,22 +45,17 @@
       <attribute name="alt"/>
     </optional>
   </define>
-  <define name="attlist.sil.global" combine="interleave">
+  <define name="attlist.sil.global" combine="interleave" cldr:metadata="true">
     <zeroOrMore>
       <attribute name="references"/>
     </zeroOrMore>
   </define>
-  <define name="collation.special">
-    <element name="special">
-      <optional>
-        <choice>
-          <ref name="sil.reordered"/>
-          <ref name="sil.simple"/>
-        </choice>
-      </optional>
-    </element>
-  </define>
-  <define name="attlist.collation" combine="interleave">
+  <!--
+    collation.special = element special {
+        (sil.reordered | sil.simple)?
+    }
+  -->
+  <define name="attlist.collation" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="sil:modified">
         <choice>
@@ -302,7 +80,7 @@
       <attribute name="sil:preto"/>
     </optional>
   </define>
-  <define name="attlist.sil.collation" combine="interleave">
+  <define name="attlist.sil.collation" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="sil:needscompiling">
         <data type="boolean"/>
@@ -349,18 +127,18 @@
       <attribute name="secondaryonly"/>
     </optional>
   </define>
-  <define name="attlist.sil.simple" combine="interleave">
-    <attribute name="xml:space">
-      <value>preserve</value>
-    </attribute>
+  <define name="attlist.sil.simple" combine="interleave" cldr:value="true">
+    <optional>
+      <attribute name="xml:space">
+        <value>preserve</value>
+      </attribute>
+    </optional>
   </define>
-  <define name="ldml.special">
-    <element name="special">
-      <optional>
-        <ref name="sil.resources"/>
-      </optional>
-    </element>
-  </define>
+  <!--
+    ldml.special = element special {
+       (sil.resources?)
+    }
+  -->
   <define name="sil.resources">
     <element name="sil:external-resources">
       <zeroOrMore>
@@ -395,50 +173,45 @@
     </element>
   </define>
   <define name="attlist.sil.fontelement" combine="interleave">
-    <zeroOrMore>
-      <attribute name="types">
-        <choice>
-          <value>default</value>
-          <value>heading</value>
-          <value>emphasis</value>
-          <text/>
-        </choice>
-      </attribute>
-    </zeroOrMore>
-  </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
     <attribute name="name"/>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
+    <attribute name="types"/>
+  </define>
+  <!--
+    attlist.sil.fontelement &= attribute types
+                                        { "default" | "heading" | "emphasis" | text }*
+  -->
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="size">
         <data type="decimal"/>
       </attribute>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="minversion">
         <data type="decimal"/>
       </attribute>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="features"/>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="lang"/>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="otlang"/>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="engines">
         <list>
@@ -452,7 +225,7 @@
       </attribute>
     </optional>
   </define>
-  <define name="attlist.sil.fontelement" combine="interleave">
+  <define name="attlist.sil.fontelement" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="subset"/>
     </optional>
@@ -473,18 +246,10 @@
   </define>
   <define name="attrlist.sil.kbdrsrc" combine="interleave">
     <optional>
-      <attribute name="type">
-        <choice>
-          <value>kmn</value>
-          <value>kmx</value>
-          <value>msklc</value>
-          <value>ldml</value>
-          <value>keylayout</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="type"/>
     </optional>
   </define>
+  <!-- attrlist.sil.kbdrsrc &= attribute type { "kmn" | "kmx" | "msklc" | "ldml" | "keylayout" | "kmp" | text }? -->
   <define name="sil.spellcheck">
     <element name="sil:spell-checking">
       <interleave>
@@ -499,6 +264,7 @@
   <define name="attlist.sil.spellcheck" combine="interleave">
     <attribute name="type"/>
   </define>
+  <!-- attlist.sil.spellcheck &= attribute type { "hunspell", "wordlist", text } -->
   <define name="sil.transform">
     <element name="sil:transform">
       <interleave>
@@ -534,7 +300,7 @@
       </choice>
     </attribute>
   </define>
-  <define name="attlist.sil.transform" combine="interleave">
+  <define name="attlist.sil.transform" combine="interleave" cldr:value="true">
     <attribute name="direction">
       <choice>
         <value>both</value>
@@ -543,7 +309,7 @@
       </choice>
     </attribute>
   </define>
-  <define name="attlist.sil.transform" combine="interleave">
+  <define name="attlist.sil.transform" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="function"/>
     </optional>
@@ -560,22 +326,14 @@
     </element>
   </define>
   <define name="attlist.sil.transform.dict" combine="interleave">
-    <attribute name="incol">
-      <choice>
-        <value>0</value>
-        <text/>
-      </choice>
-    </attribute>
+    <attribute name="incol"/>
   </define>
+  <!-- attlist.sil.transform.dict &= attribute incol { "0" | text } -->
   <define name="attlist.sil.transform.dict" combine="interleave">
-    <attribute name="outcol">
-      <choice>
-        <value>1</value>
-        <text/>
-      </choice>
-    </attribute>
+    <attribute name="outcol"/>
   </define>
-  <define name="attlist.sil.transform.dict" combine="interleave">
+  <!-- attlist.sil.transform.dict &= attribute outcol { "1" | text } -->
+  <define name="attlist.sil.transform.dict" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="nf">
         <choice>
@@ -595,45 +353,33 @@
   </define>
   <define name="attlist.sil.transform.caps" combine="interleave">
     <optional>
-      <attribute name="opengroup">
-        <choice>
-          <value>&amp;quot;"\u{2018}\u{201C}\[{(&lt;\u00AB</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="opengroup"/>
     </optional>
   </define>
+  <!-- attlist.sil.transform.caps &= attribute opengroup { '&quot;"\u{2018}\u{201C}\[{(<\u00AB' | text }? -->
   <define name="attlist.sil.transform.caps" combine="interleave">
     <optional>
-      <attribute name="closegroup">
-        <choice>
-          <value>&amp;quot;"\u{2019}\u{201D}\]})&gt;\u00BB</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="closegroup"/>
     </optional>
   </define>
+  <!-- attlist.sil.transform.caps &= attribute closegroup { '&quot;"\u{2019}\u{201D}\]})>\u00BB' | text }? -->
   <define name="attlist.sil.transform.caps" combine="interleave">
     <optional>
-      <attribute name="sentencefinal">
-        <choice>
-          <value>.!?</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="sentencefinal"/>
     </optional>
   </define>
+  <!-- attlist.sil.transform.caps &= attribute sentencefinal { ".!?" | text }? -->
   <define name="attlist.sil.transform.caps" combine="interleave">
     <optional>
       <attribute name="startcaps"/>
     </optional>
   </define>
-  <define name="identity.special">
-    <element name="special">
-      <ref name="attlist.identity"/>
-      <ref name="sil.identity"/>
-    </element>
-  </define>
+  <!--
+    identity.special = element special {
+        attlist.identity,
+        (sil.identity)
+    }
+  -->
   <define name="sil.identity">
     <element name="sil:identity">
       <interleave>
@@ -662,15 +408,10 @@
   </define>
   <define name="attlist.sil.identity" combine="interleave">
     <optional>
-      <attribute name="source">
-        <choice>
-          <value>cldr</value>
-          <value>cldrseed</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="source"/>
     </optional>
   </define>
+  <!-- attlist.sil.identity &= attribute source { "cldr" | "cldrseed" | text }? -->
   <define name="attlist.sil.identity" combine="interleave">
     <optional>
       <attribute name="windowsLCID"/>
@@ -720,13 +461,11 @@
       <attribute name="machid"/>
     </optional>
   </define>
-  <define name="localeDisplayNames.special">
-    <element name="special">
-      <optional>
-        <ref name="sil.names"/>
-      </optional>
-    </element>
-  </define>
+  <!--
+    localeDisplayNames.special = element special { 
+        (sil.names?)
+    }
+  -->
   <define name="sil.names">
     <element name="sil:names">
       <oneOrMore>
@@ -746,43 +485,33 @@
   <define name="attlist.silname" combine="interleave">
     <attribute name="xml:lang"/>
   </define>
-  <define name="delimiters.special">
-    <element name="special">
-      <ref name="attlist.delimiters"/>
-      <group>
-        <optional>
-          <ref name="sil.matchedpairs"/>
-        </optional>
-        <optional>
-          <ref name="sil.punctuation.patterns"/>
-        </optional>
-        <optional>
-          <ref name="sil.quotation-marks"/>
-        </optional>
-      </group>
-    </element>
-  </define>
+  <!--
+    delimiters.special = element special {
+        attlist.delimiters,
+        (sil.matchedpairs?,
+         sil.punctuation.patterns?,
+         sil.quotation-marks?)
+    }
+  -->
   <define name="sil.quotation-marks">
     <element name="sil:quotation-marks">
       <interleave>
         <ref name="attlist.sil.quotation-marks"/>
         <ref name="attlist.sil.global"/>
       </interleave>
-      <group>
-        <optional>
+      <zeroOrMore>
+        <choice>
           <element name="sil:quotationContinue">
             <text/>
           </element>
-          <optional>
-            <element name="sil:alternateQuotationContinue">
-              <text/>
-            </element>
-          </optional>
-        </optional>
-        <zeroOrMore>
-          <ref name="sil.quotation"/>
-        </zeroOrMore>
-      </group>
+          <element name="sil:alternateQuotationContinue">
+            <text/>
+          </element>
+          <zeroOrMore>
+            <ref name="sil.quotation"/>
+          </zeroOrMore>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <define name="attlist.sil.quotation-marks" combine="interleave">
@@ -823,14 +552,10 @@
   </define>
   <define name="attlist.sil.quotation" combine="interleave">
     <optional>
-      <attribute name="type">
-        <choice>
-          <value>narrative</value>
-          <text/>
-        </choice>
-      </attribute>
+      <attribute name="type"/>
     </optional>
   </define>
+  <!-- attlist.sil.quotation &= attribute type { "narrative" | text }? -->
   <define name="sil.punctuation.patterns">
     <element name="sil:punctuation-patterns">
       <oneOrMore>
@@ -883,25 +608,27 @@
   <define name="attlist.sil.matched-pair" combine="interleave">
     <attribute name="close"/>
   </define>
-  <define name="attlist.sil.matched-pair" combine="interleave">
+  <define name="attlist.sil.matched-pair" combine="interleave" cldr:value="true">
     <optional>
       <attribute name="paraClose">
         <data type="boolean"/>
       </attribute>
     </optional>
   </define>
-  <define name="characters.special">
-    <element name="special">
-      <zeroOrMore>
-        <element name="sil:exemplarCharacters">
-          <interleave>
-            <ref name="attlist.sil.exemplarCharacters"/>
-            <ref name="attlist.sil.global"/>
-          </interleave>
-          <text/>
-        </element>
-      </zeroOrMore>
-    </element>
+  <!--
+    characters.special = element special {
+    }
+  -->
+  <define name="sil.exemplarCharacters">
+    <zeroOrMore>
+      <element name="sil:exemplarCharacters">
+        <interleave>
+          <ref name="attlist.sil.exemplarCharacters"/>
+          <ref name="attlist.sil.global"/>
+        </interleave>
+        <text/>
+      </element>
+    </zeroOrMore>
   </define>
   <define name="attlist.sil.exemplarCharacters" combine="interleave">
     <attribute name="type"/>

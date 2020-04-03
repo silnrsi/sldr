@@ -5,18 +5,19 @@ import argparse, re
 parser = argparse.ArgumentParser()
 parser.add_argument("infile",help="Input md file")
 parser.add_argument("outfile",help="Output rnc file")
+parser.add_argument("-t","--type",default="rnc",help="Example type to extract [rnc]")
 args = parser.parse_args()
 
 outf = open(args.outfile, "w")
 inf = open(args.infile, "r")
 state = "text"
 for r in inf.readlines():
-    if state == "rnc" and r.startswith("```"):
+    if state == "found" and r.startswith("```"):
         state = "text"
-    elif r.startswith("```rnc"):
-        state = "rnc"
+    elif r.startswith("```"+args.type):
+        state = "found"
         outf.write("\n")
-    elif state == "rnc":
+    elif state == "found":
         outf.write(r)
 inf.close()
 outf.close()
