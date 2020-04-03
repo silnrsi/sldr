@@ -18,6 +18,7 @@ def fixdata(pytestconfig):
 
 @pytest.fixture(scope="session")
 def langid(request):
+    """ Returns language tag of file but with _ not - """
     return request.param
 
 @pytest.fixture(scope="session")

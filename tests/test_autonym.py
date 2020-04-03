@@ -2,7 +2,7 @@
 ### not sure all these imports are needed
 import unittest
 import pytest
-import logging, os
+import logging, os, re, unicodedata
 from lxml.etree import RelaxNG, parse, DocumentInvalid
 import palaso.sldr.UnicodeSets as usets
 
@@ -24,14 +24,15 @@ def test_autonym(ldml):
         t = e.get('type', None)
         if t: continue
         main_exem = e.text
-        main = usets.parse(main_exem, 'NFD')
+        main = usets.parse(main_exem, 'NFD')[0].asSet()
         break
     if not main:
 #        assert False, filename + " has no main exemplar" ### should be target of another test
         return
 
 #   get language id
-    langid = ldml.ldml.root.find("identity/language").get("type")
+    lid = filename[:-4].replace("_", "-")
+    #langid = ldml.ldml.root.find("identity/language").get("type")
     ### should be target of another test:
     ### could check that filename.split('_')[0] == langid
     #assert filename.split('_')[0] == langid, filename + " " + langid + " don't correspond" 
@@ -41,14 +42,17 @@ def test_autonym(ldml):
     if names is None:
 #        assert False, filename + " has no localeDisplayNames"
         return
-    autonym = names.findall('language[@type="{0}"]'.format(langid))
-    if autonym is None: 
-        assert False, filename + " " + langid + ": Name of language in this language is missing"
+    autonym = names.findall('language[@type="{0}"]'.format(lid))
+    if autonym is None or len(autonym) < 1: 
+        assert False, filename + " " + lid + ": Name of language in this language is missing"
         return 
-    autonym_text = autonym[0].text.lower()
+    autonym_text = unicodedata.normalize("NFD", autonym[0].text.lower())
     if len(autonym_text) < 1:
-        assert False, filename + " " + langid + ": Name of language in this language is empty"
+        assert False, filename + " " + lid + ": Name of language in this language is empty"
         return
 #   The real test: is every character in lower case version of autonym in main exemplar?
-    nameset = usets.parse("[" + " ".join(set(autonym_text.replace(",",""))) + "]", 'NFD')
-    assert nameset <= main, filename + " " + langid + ": Name of language (" + autonym_text + ") contains characters not in main exemplar " + main_exem
+    mainre = "^(" + "|".join(sorted(main, key=lambda x: (-len(x), x)) + ["\\s", ",", "-"]) + ")*$"
+    assert re.match(mainre, autonym_text) is not None, \
+                filename + " " + lid + ": Name of language (" + autonym_text \
+                + ") contains characters not in main exemplar " + main_exem
+

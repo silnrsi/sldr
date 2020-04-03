@@ -3,6 +3,7 @@
 from langtag import lookup
 from palaso.sldr.ldml import Ldml, iterate_files
 import argparse, os
+import palaso.sldr.UnicodeSets as usets
 
 parser = argparse.ArgumentParser()
 parser.add_argument("indir",help="Root of SLDR file tree")
@@ -31,14 +32,26 @@ for f in allfiles:
         nameel = l.ensure_path('localeDisplayNames/special/sil:names/sil:name[@xml:lang="en"]')[0]
         if nameel.text is None:
             nameel.text = ename
-    lnames = getattr(tagset, "localnames", [None])
-    lname = getattr(tagset, "localname", lnames[0])
+    lnames = getattr(tagset, "localnames", [getattr(tagset, 'localname', None)])
+    if lnames != [None]:
+        main = ""
+        for e in l.findall('.//characters/exemplarCharacters'):
+            t = e.get('type', None)
+            if t or not e.text: continue
+            main = usets.parse(e.text, 'NFD')[0].asSet()
+            break
+        for c in ("\uA78C", "\u02BC"):
+            if c in main:
+                lnames = [s.replace("'", c) for s in lnames]
+                break
+    lname = lnames[0]
     if lname is not None:
         nameel = l.ensure_path('localeDisplayNames/languages/language[@type="{}"]'.format(name))[0]
         if nameel.text is None:
             nameel.text = lname
         elif nameel.text != lname and nameel.text not in lnames:
             print("Name difference for {} has {}, want to add {}".format(name, nameel.text, lname))
+            nameel.text = lname
     l.normalise()
     l.save_as(f)
 
