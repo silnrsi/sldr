@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-from langtag import lookup #, langtag
+from langtag import lookup  # , langtag
 from palaso.sldr.ldml import Ldml, iterate_files
+import cssutils
 import csv
 import os
 import os.path
@@ -14,10 +15,13 @@ def main():
     parser = argparse.ArgumentParser(description='Populate font information to LDML files')
     parser.add_argument("sldr", help="root of SLDR tree to write into")
     parser.add_argument('datafile', help='CSV file export from Google Sheet document Script2Font')
+    parser.add_argument('--stylesheet', help='CSS stylesheet with user settable font features')
     parser.add_argument('--version', action='version', version='%(prog)s: 0.1')
     args = parser.parse_args()
 
     read_font_data(args.datafile)
+    if args.stylesheet:
+        read_feature_data(args.stylesheet)
     write_font_data(args.sldr)
 
 
@@ -46,6 +50,18 @@ def read_font_data(data_file_name):
                             fonts.append(font)
                 if len(fonts) > 0:
                     suggestions[ft] = fonts
+
+
+def read_feature_data(stylesheet_file_name):
+    """Read CSS stylesheet for user font features"""
+    sheet = cssutils.parseFile(stylesheet_file_name)
+    for rule in sheet:
+        if rule.type == rule.STYLE_RULE:
+            lang = rule.selectorText[len(':lang('):-1]
+            print(lang)
+            for prop in rule.style:
+                print(prop.name)
+                print(prop.value + '\n')
 
 
 def find_fonts(locale):
@@ -86,7 +102,7 @@ def write_font_data(sldrtree):
             resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{default}/sil:url')[0]
             resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
             ldml.save_as(filepath, topns=True)
-            default = '' # only the first font is the default font
+            default = ''  # only the first font is the default font
 
 
 if __name__ == '__main__':
