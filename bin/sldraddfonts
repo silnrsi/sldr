@@ -8,14 +8,16 @@ import os
 import os.path
 import argparse
 
-suggestions = dict()
+script2suggestions = dict()
+css2suggestions = dict()
+css2features = dict()
 
 
 def main():
     parser = argparse.ArgumentParser(description='Populate font information to LDML files')
     parser.add_argument("sldr", help="root of SLDR tree to write into")
     parser.add_argument('datafile', help='CSV file export from Google Sheet document Script2Font')
-    parser.add_argument('--stylesheet', help='CSS stylesheet with user settable font features')
+    parser.add_argument('stylesheet', help='CSS stylesheet with user settable font features')
     parser.add_argument('--version', action='version', version='%(prog)s: 0.1')
     args = parser.parse_args()
 
@@ -23,6 +25,31 @@ def main():
     if args.stylesheet:
         read_feature_data(args.stylesheet)
     write_font_data(args.sldr)
+
+    # Find locales specified in CSS that are not in the SLDR
+    xml_locales = set()
+    for filepath in iterate_files(args.sldr):
+        locale = os.path.splitext(os.path.basename(filepath))[0].replace('_', '-')
+        try:
+            ts = lookup(locale, matchRegions=True, use639=True)
+            xml_locales.add(str(ts.tag))
+        except KeyError:
+            pass
+
+    css_locales = set()
+    sheet = cssutils.parseFile(args.stylesheet)
+    for rule in sheet:
+        if rule.type == rule.STYLE_RULE:
+            locale = rule.selectorText[len(':lang('):-1]
+            try:
+                ts = lookup(locale, matchRegions=True, use639=True)
+                css_locales.add(str(ts.tag))
+            except KeyError:
+                pass
+
+    for locale in css_locales - xml_locales:
+        # pass
+        print(f'{locale}: only in css')
 
 
 def read_font_data(data_file_name):
@@ -41,15 +68,12 @@ def read_font_data(data_file_name):
                 # Assemble list of fonts for the font tag
                 fonts = list()
                 for font_source in font_sources:
-                    font = row[font_source]
-                    if font:
-                        if ',' in font:
-                            for multiple_font in font.split(', '):
-                                fonts.append(multiple_font)
-                        else:
-                            fonts.append(font)
+                    preferred_fonts = row[font_source]
+                    if preferred_fonts:
+                        for preferred_font in preferred_fonts.split(', '):
+                            fonts.append(preferred_font)
                 if len(fonts) > 0:
-                    suggestions[ft] = fonts
+                    script2suggestions[ft] = fonts
 
 
 def read_feature_data(stylesheet_file_name):
@@ -57,16 +81,32 @@ def read_feature_data(stylesheet_file_name):
     sheet = cssutils.parseFile(stylesheet_file_name)
     for rule in sheet:
         if rule.type == rule.STYLE_RULE:
-            lang = rule.selectorText[len(':lang('):-1]
-            print(lang)
+            locale = rule.selectorText[len(':lang('):-1]
+            message = locale + ': '
             for prop in rule.style:
-                print(prop.name)
-                print(prop.value + '\n')
+                if prop.name == 'font-family':
+                    message += prop.name + prop.value
+                    fonts = list()
+                    preferred_fonts = prop.value.replace('"', '')
+                    for preferred_font in preferred_fonts.split(', '):
+                        if preferred_font == 'serif':
+                            continue
+                        fonts.append(preferred_font)
+                    if len(fonts) > 0:
+                        css2suggestions[locale] = fonts
+                if prop.name == 'font-feature-settings':
+                    message += prop.name + prop.value
+                    features = list()
+                    specified_features = prop.value
+                    for specified_feature in specified_features.split(', '):
+                        features.append(specified_feature)
+                    if len(features) > 0:
+                        css2features[locale] = features
+            print(message)
 
 
-def find_fonts(locale):
-    """Return a list of preferred fonts"""
-
+def find_fonts_from_csv(locale):
+    """Return a list of preferred fonts from the CSV file"""
     # Find script and possibly region
     region = None
     try:
@@ -77,15 +117,23 @@ def find_fonts(locale):
         print(f'Cannot find locale {locale}, using fallback')
         return ['Charis SIL']
 
-    # Find font
+    # Find font from table
     ft = script
     if region:
         ft = script + '-' + region
-    if ft in suggestions:
-        return suggestions[ft]
-    elif script in suggestions:
-        return suggestions[script]
+    if ft in script2suggestions:
+        return script2suggestions[ft]
+    elif script in script2suggestions:
+        return script2suggestions[script]
     return ['Charis SIL']
+
+
+def find_fonts_from_css(locale):
+    """Return a list of preferred fonts from the CSS file"""
+    if locale in css2suggestions:
+        return css2suggestions[locale]
+    else:
+        return []
 
 
 def write_font_data(sldrtree):
@@ -93,11 +141,25 @@ def write_font_data(sldrtree):
     for filepath in iterate_files(sldrtree):
         # Find preferred font
         locale = os.path.splitext(os.path.basename(filepath))[0].replace('_', '-')
-        preferred_fonts = find_fonts(locale)
+        preferred_fonts_from_csv = find_fonts_from_csv(locale)
+        preferred_fonts_from_css = find_fonts_from_css(locale)
+
+        only_csv = set(preferred_fonts_from_csv) - set(preferred_fonts_from_css)
+        only_css = set(preferred_fonts_from_css) - set(preferred_fonts_from_csv)
+        if len(only_css) > 0:
+            message = ''
+            if len(only_csv) > 0:
+                message += ' only in csv:'
+                for preferred_font in only_csv:
+                    message += '-' + preferred_font
+            message += ' only in css:'
+            for preferred_font in only_css:
+                message += '-' + preferred_font
+            print(f'{locale}::{message}')
 
         # Write preferred  font to LDML file
         default = '[@types="default"]'
-        for preferred_font in preferred_fonts:
+        for preferred_font in preferred_fonts_from_csv:
             ldml = Ldml(filepath)
             resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{default}/sil:url')[0]
             resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
