@@ -250,7 +250,7 @@ attlist.sil.fontelement &= attribute name { text }
 [cldr:value="true"]
 attlist.sil.fontelement &= attribute types { text }
 # attlist.sil.fontelement &= attribute types
-#                                     { "default" | "heading" | "emphasis" | text }*
+#     { "default" | "heading" | "emphasis" | "ui" | text }*
 [cldr:value="true"]
 attlist.sil.fontelement &= attribute size { xsd:decimal }?
 [cldr:value="true"]
@@ -296,6 +296,7 @@ Font resources are associated with their application role. There may be more tha
 | **default**  | Use this font when unsure which to use or for body text or the particular type required is missing \[default\]. |
 | **heading**  | This font is for use with headings |
 | **emphasis** | This font is for use when text is to be emphasised |
+| **ui**       | This font is used for User Interface elements like menus |
 
 Fallback between fonts is a little complicated. If a description includes a font for a particular type, e.g. heading, then all heading fonts from the parent are ignored. Thus a local font disables all inheritance of fonts of the same type. In addition, for the particular case of the default type, if a description includes a font for type default, all fonts from the parent for all types, are ignores. Thus a local default font disables inheritance of all fonts.
 
