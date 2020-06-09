@@ -29,7 +29,7 @@ def main():
 
 def read_font_data(data_file_name):
     """Read CSV data file"""
-    font_sources = ('WSTech primary', 'NLCI', 'Microsoft', 'Other', 'Noto Sans', 'Noto Serif', 'WSTech secondary')
+    font_sources = ('WSTech primary', 'NLCI', 'Other', 'Noto Sans', 'Noto Serif', 'WSTech secondary')
     with open(data_file_name, 'r', newline='') as data_file:
         reader = csv.DictReader(data_file)
         for row in reader:
@@ -53,6 +53,14 @@ def read_font_data(data_file_name):
 
 def read_feature_data(stylesheet_file_name):
     """Read CSS stylesheet for user font features"""
+
+    # Microsoft fonts are not OFL so are not added to the SLDR
+    ignore_fonts = ['Times New Roman', 'Arial', 'Arial Black', 'Calibri', 'Cambria',
+                    'Tahoma', 'Verdana', 'Microsoft Himalaya', 'Angsana New']
+
+    # Other fonts are virtual fonts and also do not need to be in the SLDR
+    ignore_fonts.append('serif')
+
     sheet = cssutils.parseFile(stylesheet_file_name)
     for rule in sheet:
         if rule.type == rule.STYLE_RULE:
@@ -72,7 +80,7 @@ def read_feature_data(stylesheet_file_name):
                     fonts = list()
                     preferred_fonts = prop.value.replace('"', '')
                     for preferred_font in preferred_fonts.split(', '):
-                        if preferred_font == 'serif':
+                        if preferred_font in ignore_fonts:
                             continue
                         fonts.append(preferred_font)
                     if len(fonts) > 0:
@@ -81,8 +89,9 @@ def read_feature_data(stylesheet_file_name):
                     message += prop.name + prop.value
                     features = list()
                     specified_features = prop.value
-                    for specified_feature in specified_features.split(', '):
-                        features.append(specified_feature)
+                    for css_specified_feature in specified_features.split(', '):
+                        ldml_specified_feature = css_specified_feature.replace(' ', '=').replace('"', '')
+                        features.append(ldml_specified_feature)
                     if len(features) > 0:
                         css2features[locale] = features
             # print(message)
@@ -140,19 +149,41 @@ def write_font_data(sldrtree):
             pass
 
     for locale in css_locales - xml_locales:
-        # pass
-        print(f'{locale}: only in css')
+        pass
+        # print(f'{locale}: only in css')
+    # No need to add the three locales found that are only in the CSS file
+    # to LDML files (with just font info)
+    # since their font is the same as the fallback script font.
+
+    # Find locales specified in CSS that have font features
+    for locale in css2features:
+        message = ''
+        for feature in css2features[locale]:
+            message += '-' + feature + ': '
+        if locale in css2suggestions:
+            for preferred_font in css2suggestions[locale]:
+                message += '-' + preferred_font
+        else:
+            message += '-no font'
+        print(f'{locale}::: {message}')
 
     # Update SLDR with better font information
     for xml_locale, filepath in find_ldml_files(sldrtree):
-        # Find preferred font
+        # Find preferred fonts (which might be specified in the CSS file)
         preferred_fonts_from_csv = find_fonts_from_csv(xml_locale)
         preferred_fonts_from_css = find_fonts_from_css(xml_locale)
 
         only_csv = set(preferred_fonts_from_csv) - set(preferred_fonts_from_css)
         only_css = set(preferred_fonts_from_css) - set(preferred_fonts_from_csv)
+
+        only_csv = sorted(only_csv)
+        only_css = sorted(only_css)
+
+        message = 'common: '
+        common_preferred_fonts = set(preferred_fonts_from_csv) & set(preferred_fonts_from_css)
+        for preferred_font in common_preferred_fonts:
+            message += '-' + preferred_font
         if len(only_css) > 0:
-            message = ''
             if len(only_csv) > 0:
                 message += ' only in csv:'
                 for preferred_font in only_csv:
@@ -160,9 +191,13 @@ def write_font_data(sldrtree):
             message += ' only in css:'
             for preferred_font in only_css:
                 message += '-' + preferred_font
-            print(f'{xml_locale}::{message}')
+        message += ' feat(s):'
+        if xml_locale in css2features:
+            for feature in css2features[xml_locale]:
+                message += '-' + feature
+        print(f'{xml_locale}::{message}')
 
-        # Write preferred  font to LDML file
+        # Write preferred font to LDML file
         default = '[@types="default"]'
         for preferred_font in preferred_fonts_from_csv:
             ldml = Ldml(filepath)
