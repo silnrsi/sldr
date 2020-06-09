@@ -11,6 +11,7 @@ import argparse
 script2suggestions = dict()
 css2suggestions = dict()
 css2features = dict()
+css_locales = set()
 
 
 def main():
@@ -22,34 +23,8 @@ def main():
     args = parser.parse_args()
 
     read_font_data(args.datafile)
-    if args.stylesheet:
-        read_feature_data(args.stylesheet)
+    read_feature_data(args.stylesheet)
     write_font_data(args.sldr)
-
-    # Find locales specified in CSS that are not in the SLDR
-    xml_locales = set()
-    for filepath in iterate_files(args.sldr):
-        locale = os.path.splitext(os.path.basename(filepath))[0].replace('_', '-')
-        try:
-            ts = lookup(locale, matchRegions=True, use639=True)
-            xml_locales.add(str(ts.tag))
-        except KeyError:
-            pass
-
-    css_locales = set()
-    sheet = cssutils.parseFile(args.stylesheet)
-    for rule in sheet:
-        if rule.type == rule.STYLE_RULE:
-            locale = rule.selectorText[len(':lang('):-1]
-            try:
-                ts = lookup(locale, matchRegions=True, use639=True)
-                css_locales.add(str(ts.tag))
-            except KeyError:
-                pass
-
-    for locale in css_locales - xml_locales:
-        # pass
-        print(f'{locale}: only in css')
 
 
 def read_font_data(data_file_name):
@@ -81,7 +56,15 @@ def read_feature_data(stylesheet_file_name):
     sheet = cssutils.parseFile(stylesheet_file_name)
     for rule in sheet:
         if rule.type == rule.STYLE_RULE:
+            # find full locale
             locale = rule.selectorText[len(':lang('):-1]
+            try:
+                ts = lookup(locale, matchRegions=True, use639=True)
+                css_locales.add(str(ts.tag))
+            except KeyError:
+                pass
+
+            # find fonts and maybe features
             message = locale + ': '
             for prop in rule.style:
                 if prop.name == 'font-family':
@@ -102,7 +85,7 @@ def read_feature_data(stylesheet_file_name):
                         features.append(specified_feature)
                     if len(features) > 0:
                         css2features[locale] = features
-            print(message)
+            # print(message)
 
 
 def find_fonts_from_csv(locale):
@@ -136,13 +119,35 @@ def find_fonts_from_css(locale):
         return []
 
 
-def write_font_data(sldrtree):
-    """Write preferred font information to SLDR"""
+def find_ldml_files(sldrtree):
+    """Find LDML files in the SLDR"""
     for filepath in iterate_files(sldrtree):
         # Find preferred font
-        locale = os.path.splitext(os.path.basename(filepath))[0].replace('_', '-')
-        preferred_fonts_from_csv = find_fonts_from_csv(locale)
-        preferred_fonts_from_css = find_fonts_from_css(locale)
+        xml_locale = os.path.splitext(os.path.basename(filepath))[0].replace('_', '-')
+        yield xml_locale, filepath
+
+
+def write_font_data(sldrtree):
+    """Write preferred font information to SLDR"""
+
+    # Find locales specified in CSS that are not in the SLDR
+    xml_locales = set()
+    for xml_locale, filepath in find_ldml_files(sldrtree):
+        try:
+            ts = lookup(xml_locale, matchRegions=True, use639=True)
+            xml_locales.add(str(ts.tag))
+        except KeyError:
+            pass
+
+    for locale in css_locales - xml_locales:
+        # pass
+        print(f'{locale}: only in css')
+
+    # Update SLDR with better font information
+    for xml_locale, filepath in find_ldml_files(sldrtree):
+        # Find preferred font
+        preferred_fonts_from_csv = find_fonts_from_csv(xml_locale)
+        preferred_fonts_from_css = find_fonts_from_css(xml_locale)
 
         only_csv = set(preferred_fonts_from_csv) - set(preferred_fonts_from_css)
         only_css = set(preferred_fonts_from_css) - set(preferred_fonts_from_csv)
@@ -155,7 +160,7 @@ def write_font_data(sldrtree):
             message += ' only in css:'
             for preferred_font in only_css:
                 message += '-' + preferred_font
-            print(f'{locale}::{message}')
+            print(f'{xml_locale}::{message}')
 
         # Write preferred  font to LDML file
         default = '[@types="default"]'
