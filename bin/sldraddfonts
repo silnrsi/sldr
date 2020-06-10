@@ -136,6 +136,17 @@ def find_ldml_files(sldrtree):
         yield xml_locale, filepath
 
 
+def process_font(fonts, all_fonts, label=''):
+    """Add preferred fonts to a list to add to the SLDR"""
+    message = ''
+    if len(fonts) > 0:
+        message += f' {label}: '
+        for font in fonts:
+            message += '-' + font
+            all_fonts.append(font)
+    return message
+
+
 def write_font_data(sldrtree):
     """Write preferred font information to SLDR"""
 
@@ -165,32 +176,40 @@ def write_font_data(sldrtree):
                 message += '-' + preferred_font
         else:
             message += '-no font'
-        print(f'{locale}::: {message}')
+        # print(f'{locale}::: {message}')
 
     # Update SLDR with better font information
     for xml_locale, filepath in find_ldml_files(sldrtree):
+        all_preferred_fonts = list()
+
         # Find preferred fonts (which might be specified in the CSS file)
         preferred_fonts_from_csv = find_fonts_from_csv(xml_locale)
         preferred_fonts_from_css = find_fonts_from_css(xml_locale)
 
-        only_csv = set(preferred_fonts_from_csv) - set(preferred_fonts_from_css)
-        only_css = set(preferred_fonts_from_css) - set(preferred_fonts_from_csv)
+        only_csv = sorted(set(preferred_fonts_from_csv) - set(preferred_fonts_from_css))
+        only_css = sorted(set(preferred_fonts_from_css) - set(preferred_fonts_from_csv))
 
-        only_csv = sorted(only_csv)
-        only_css = sorted(only_css)
-
-        message = 'common: '
         common_preferred_fonts = set(preferred_fonts_from_csv) & set(preferred_fonts_from_css)
-        for preferred_font in common_preferred_fonts:
-            message += '-' + preferred_font
-        if len(only_css) > 0:
-            if len(only_csv) > 0:
-                message += ' only in csv:'
-                for preferred_font in only_csv:
-                    message += '-' + preferred_font
-            message += ' only in css:'
-            for preferred_font in only_css:
-                message += '-' + preferred_font
+
+        message = ''
+        message += process_font(common_preferred_fonts, all_preferred_fonts, 'common')
+        message += process_font(only_csv, all_preferred_fonts, 'only in csv')
+        message += process_font(only_css, all_preferred_fonts, 'only in css')
+        # if len(common_preferred_fonts) > 0:
+        #     message += ' common: '
+        #     for preferred_font in common_preferred_fonts:
+        #         message += '-' + preferred_font
+        #         all_preferred_fonts.append(preferred_font)
+        # if len(only_csv) > 0:
+        #     message += ' only in csv:'
+        #     for preferred_font in only_csv:
+        #         message += '-' + preferred_font
+        #         all_preferred_fonts.append(preferred_font)
+        # if len(only_css) > 0:
+        #     message += ' only in css:'
+        #     for preferred_font in only_css:
+        #         message += '-' + preferred_font
+        #         all_preferred_fonts.append(preferred_font)
         message += ' feat(s):'
         if xml_locale in css2features:
             for feature in css2features[xml_locale]:
@@ -199,7 +218,7 @@ def write_font_data(sldrtree):
 
         # Write preferred font to LDML file
         default = '[@types="default"]'
-        for preferred_font in preferred_fonts_from_csv:
+        for preferred_font in all_preferred_fonts:
             ldml = Ldml(filepath)
             resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{default}/sil:url')[0]
             resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
