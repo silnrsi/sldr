@@ -3,12 +3,14 @@
 from langtag import lookup  # , langtag
 from palaso.sldr.ldml import Ldml, iterate_files
 import cssutils
+import json
 import csv
 import os
 import os.path
 import argparse
 
 script2suggestions = dict()
+css_scripts = dict()
 css2suggestions = dict()
 css2features = dict()
 css_locales = set()
@@ -64,13 +66,25 @@ def read_feature_data(stylesheet_file_name):
     sheet = cssutils.parseFile(stylesheet_file_name)
     for rule in sheet:
         if rule.type == rule.STYLE_RULE:
-            # find full locale
+            # fixes for some locales
+            fix_locale_file = open('fix_locale.json')
+            fix_locale = json.load(fix_locale_file)
+
+            # get locale and possibly correct it
             locale = rule.selectorText[len(':lang('):-1]
+            locale = fix_locale.get(locale, locale)
+            script = ''
+
+            # find full locale
             try:
                 ts = lookup(locale, matchRegions=True, use639=True)
+                script = ts.script
                 css_locales.add(str(ts.tag))
             except KeyError:
                 pass
+
+            # record the script for each locale
+            css_scripts[locale] = script
 
             # find fonts and maybe features
             message = locale + ': '
@@ -165,18 +179,28 @@ def write_font_data(sldrtree):
     # No need to add the three locales found that are only in the CSS file
     # to LDML files (with just font info)
     # since their font is the same as the fallback script font.
+    # Except that two of the languages (in a different script than the default)
+    # have features specified, with a font for a different script than the default.
+    # These two additional locales are already in the SLDR.
 
     # Find locales specified in CSS that have font features
     for locale in css2features:
         message = ''
         for feature in css2features[locale]:
             message += '-' + feature + ': '
+        preferred_font_count = 0
         if locale in css2suggestions:
             for preferred_font in css2suggestions[locale]:
                 message += '-' + preferred_font
+                preferred_font_count += 1
         else:
             message += '-no font'
-        # print(f'{locale}::: {message}')
+        script = css_scripts[locale]
+        if script == 'Latn' and preferred_font_count == 1 and 'Charis SIL' in css2suggestions[locale]:
+            pass
+        else:
+            message += '-review'
+        # print(f'{locale} in {script}::: {message}')
 
     # Update SLDR with better font information
     for xml_locale, filepath in find_ldml_files(sldrtree):
