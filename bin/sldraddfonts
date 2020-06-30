@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from langtag import lookup  # , langtag
-from palaso.sldr.ldml import Ldml, iterate_files
+from sldr.ldml import Ldml, iterate_files
 import cssutils
 import json
 import csv
@@ -219,35 +219,27 @@ def write_font_data(sldrtree):
         message += process_font(common_preferred_fonts, all_preferred_fonts, 'common')
         message += process_font(only_csv, all_preferred_fonts, 'only in csv')
         message += process_font(only_css, all_preferred_fonts, 'only in css')
-        # if len(common_preferred_fonts) > 0:
-        #     message += ' common: '
-        #     for preferred_font in common_preferred_fonts:
-        #         message += '-' + preferred_font
-        #         all_preferred_fonts.append(preferred_font)
-        # if len(only_csv) > 0:
-        #     message += ' only in csv:'
-        #     for preferred_font in only_csv:
-        #         message += '-' + preferred_font
-        #         all_preferred_fonts.append(preferred_font)
-        # if len(only_css) > 0:
-        #     message += ' only in css:'
-        #     for preferred_font in only_css:
-        #         message += '-' + preferred_font
-        #         all_preferred_fonts.append(preferred_font)
-        message += ' feat(s):'
+        features = ''
         if xml_locale in css2features:
-            for feature in css2features[xml_locale]:
-                message += '-' + feature
+            features_list = css2features[xml_locale]
+            features_str = ' '.join(features_list)
+            features = f'[@features="{features_str}"]'
+            message += ' ' + features
         print(f'{xml_locale}::{message}')
 
         # Write preferred font to LDML file
         default = '[@types="default"]'
         for preferred_font in all_preferred_fonts:
             ldml = Ldml(filepath)
-            resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{default}/sil:url')[0]
+            resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{features}{default}/sil:url')[0]
             resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
             ldml.save_as(filepath, topns=True)
-            default = ''  # only the first font is the default font
+
+            # only the first font is the default font...
+            default = ''
+
+            # ...and has features from the CSS file
+            features = ''
 
 
 if __name__ == '__main__':
