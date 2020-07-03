@@ -63,12 +63,18 @@ def read_feature_data(stylesheet_file_name):
     # Other fonts are virtual fonts and also do not need to be in the SLDR
     ignore_fonts.append('serif')
 
+    # Some fonts are specified for a script they are not designed to support
+    ignore_fonts.append('Tai Heritage Pro')
+    ignore_fonts.append('Khmer Dakdam')
+    ignore_fonts.append('Abyssinica SIL')
+
+    fix_locale = json.load(open('fix_locale.json'))
+    replace_font = json.load(open('replace_font.json'))
+
     sheet = cssutils.parseFile(stylesheet_file_name)
     for rule in sheet:
         if rule.type == rule.STYLE_RULE:
             # fixes for some locales
-            fix_locale_file = open('fix_locale.json')
-            fix_locale = json.load(fix_locale_file)
 
             # get locale and possibly correct it
             locale = rule.selectorText[len(':lang('):-1]
@@ -96,7 +102,9 @@ def read_feature_data(stylesheet_file_name):
                     for preferred_font in preferred_fonts.split(', '):
                         if preferred_font in ignore_fonts:
                             continue
-                        fonts.append(preferred_font)
+                        # some fonts have been superseded by new (upgraded) fonts
+                        upgraded_font = replace_font.get(preferred_font, preferred_font)
+                        fonts.append(upgraded_font)
                     if len(fonts) > 0:
                         css2suggestions[locale] = fonts
                 if prop.name == 'font-feature-settings':
@@ -200,7 +208,7 @@ def write_font_data(sldrtree):
             pass
         else:
             message += '-review'
-        # print(f'{locale} in {script}::: {message}')
+        print(f'{locale} in {script}::: {message}')
 
     # Update SLDR with better font information
     for xml_locale, filepath in find_ldml_files(sldrtree):
