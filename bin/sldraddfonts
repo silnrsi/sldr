@@ -67,6 +67,9 @@ def read_feature_data(stylesheet_file_name):
     ignore_fonts.append('Tai Heritage Pro')
     ignore_fonts.append('Khmer Dakdam')
     ignore_fonts.append('Abyssinica SIL')
+    ignore_fonts.append('Tagmukay')
+    ignore_fonts.append('Noto Sans Mongolian')
+    ignore_fonts.append('SILVai')
 
     fix_locale = json.load(open('fix_locale.json'))
     replace_font = json.load(open('replace_font.json'))
@@ -139,7 +142,8 @@ def find_fonts_from_csv(locale):
         return script2suggestions[ft]
     elif script in script2suggestions:
         return script2suggestions[script]
-    return ['Charis SIL']
+    # used to be Charis SIL if no match was found, but an empty list gives better results
+    return ['']
 
 
 def find_fonts_from_css(locale):
