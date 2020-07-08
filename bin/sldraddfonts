@@ -14,6 +14,7 @@ css_scripts = dict()
 css2suggestions = dict()
 css2features = dict()
 css_locales = set()
+font2urls = dict()
 
 
 def main():
@@ -26,6 +27,7 @@ def main():
 
     read_font_data(args.datafile)
     read_feature_data(args.stylesheet)
+    read_url_data()
     write_font_data(args.sldr)
 
 
@@ -58,7 +60,8 @@ def read_feature_data(stylesheet_file_name):
 
     # Microsoft fonts are not OFL so are not added to the SLDR
     ignore_fonts = ['Times New Roman', 'Arial', 'Arial Black', 'Calibri', 'Cambria',
-                    'Tahoma', 'Verdana', 'Microsoft Himalaya', 'Angsana New']
+                    'Tahoma', 'Verdana', 'Microsoft Himalaya', 'Angsana New',
+                    'Arial Unicode MS']
 
     # Other fonts are virtual fonts and also do not need to be in the SLDR
     ignore_fonts.append('serif')
@@ -154,6 +157,30 @@ def find_fonts_from_css(locale):
         return []
 
 
+def read_url_data():
+    """Read config file for some fontname to URL mappings."""
+    font_urls = json.load(open('font_urls.json'))
+    font2urls.update(font_urls)
+
+
+def find_url_from_fontname(fontname):
+    """Construct URL where the font can be found."""
+    noto_repo = 'https://github.com/googlefonts/noto-fonts/tree/master/'
+
+    pathname = font2urls.get(fontname, fontname)
+    pathname = pathname.replace(' ', '')
+    if pathname == '':
+        return ''
+
+    # Noto fonts
+    if pathname.startswith('Noto'):
+        url = f'{noto_repo}phaseIII_only/hinted/ttf/{pathname}/{pathname}-Regular.ttf'
+        return url
+
+    # Default to WIRL records
+    return 'https://wirl.api.sil.org/' + pathname
+
+
 def find_ldml_files(sldrtree):
     """Find LDML files in the SLDR"""
     for filepath in iterate_files(sldrtree):
@@ -214,9 +241,12 @@ def write_font_data(sldrtree):
             message += '-review'
         print(f'{locale} in {script}::: {message}')
 
+    # Determine what URLs are needed for fonts
+    all_preferred_fonts = set()
+
     # Update SLDR with better font information
     for xml_locale, filepath in find_ldml_files(sldrtree):
-        all_preferred_fonts = list()
+        preferred_fonts = list()
 
         # Find preferred fonts (which might be specified in the CSS file)
         preferred_fonts_from_csv = find_fonts_from_csv(xml_locale)
@@ -225,26 +255,35 @@ def write_font_data(sldrtree):
         only_csv = sorted(set(preferred_fonts_from_csv) - set(preferred_fonts_from_css))
         only_css = sorted(set(preferred_fonts_from_css) - set(preferred_fonts_from_csv))
 
-        common_preferred_fonts = set(preferred_fonts_from_csv) & set(preferred_fonts_from_css)
+        common = set(preferred_fonts_from_csv) & set(preferred_fonts_from_css)
 
         message = ''
-        message += process_font(common_preferred_fonts, all_preferred_fonts, 'common')
-        message += process_font(only_csv, all_preferred_fonts, 'only in csv')
-        message += process_font(only_css, all_preferred_fonts, 'only in css')
+        # fonts
+        message += process_font(common, preferred_fonts, 'common')
+        message += process_font(only_csv, preferred_fonts, 'only in csv')
+        message += process_font(only_css, preferred_fonts, 'only in css')
+        all_preferred_fonts.update(preferred_fonts)
+
+        # features
         features = ''
         if xml_locale in css2features:
             features_list = css2features[xml_locale]
             features_str = ' '.join(features_list)
             features = f'[@features="{features_str}"]'
             message += ' ' + features
-        print(f'{xml_locale}::{message}')
+        print(f'{xml_locale}:{filepath}:{message}')
 
         # Write preferred font to LDML file
         default = '[@types="default"]'
-        for preferred_font in all_preferred_fonts:
+        for preferred_font in preferred_fonts:
             ldml = Ldml(filepath)
-            resource = ldml.ensure_path(f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{features}{default}/sil:url')[0]
-            resource.text = 'https://wirl.api.sil.org/' + preferred_font.replace(' ', '')
+            resource_path = f'special/sil:external-resources/sil:font[@name="{preferred_font}"]{features}{default}'
+            url = find_url_from_fontname(preferred_font)
+            if url != '':
+                resource_path += '/sil:url'
+            resource = ldml.ensure_path(resource_path)[0]
+            if url != '':
+                resource.text = url
             ldml.save_as(filepath, topns=True)
 
             # only the first font is the default font...
@@ -252,6 +291,11 @@ def write_font_data(sldrtree):
 
             # ...and has features from the CSS file
             features = ''
+
+    # Display all fonts, each of which needs a URL (ideally)
+    for preferred_font in sorted(all_preferred_fonts):
+        url = find_url_from_fontname(preferred_font)
+        print(f'font: {preferred_font} url+ {url}')
 
 
 if __name__ == '__main__':
