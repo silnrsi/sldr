@@ -7,6 +7,7 @@ import json
 import csv
 import os
 import os.path
+import urllib.request
 import argparse
 
 script2suggestions = dict()
@@ -165,7 +166,7 @@ def read_url_data():
 
 def find_url_from_fontname(fontname):
     """Construct URL where the font can be found."""
-    noto_repo = 'https://github.com/googlefonts/noto-fonts/tree/master/'
+    noto_repo = 'https://github.com/googlefonts/noto-fonts/raw/master/'
 
     pathname = font2urls.get(fontname, fontname)
     pathname = pathname.replace(' ', '')
@@ -295,7 +296,14 @@ def write_font_data(sldrtree):
     # Display all fonts, each of which needs a URL (ideally)
     for preferred_font in sorted(all_preferred_fonts):
         url = find_url_from_fontname(preferred_font)
-        print(f'font: {preferred_font} url+ {url}')
+        if url == '':
+            continue
+        message = ''
+        try:
+            urllib.request.urlopen(url)
+        except urllib.error.HTTPError:
+            message = 'NOT'
+        print(f'font: {preferred_font} url+ {message}at {url}')
 
 
 if __name__ == '__main__':
