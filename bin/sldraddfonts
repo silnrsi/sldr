@@ -300,7 +300,8 @@ def write_font_data(sldrtree):
             continue
         message = ''
         try:
-            urllib.request.urlopen(url)
+            request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            urllib.request.urlopen(request)
         except urllib.error.HTTPError:
             message = 'NOT'
         print(f'font: {preferred_font} url+ {message}at {url}')
