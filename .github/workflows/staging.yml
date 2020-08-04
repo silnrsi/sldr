@@ -48,12 +48,12 @@ jobs:
       run: pip install .
       
     # Flatten SLDR
-    - name: Generate flattened sldr
-      run: python3 tools/scripts/ldmlflatten -o flat -i sldr -a -A -g
-      
     - name: Generate unflattened sldr
       run: python3 tools/scripts/ldmlflatten -o unflat -i sldr -a -c -g
     
+    - name: Generate flattened sldr
+      run: python3 tools/scripts/ldmlflatten -o flat -i sldr -a -A -g
+      
     # Upload results
     - name: Upload SLDR to /ldml/${{env.STAGE}}
       run: rsync ${{env.RSYNC_OPTS}} extras sldr ${{env.TARGET}}/local/ldml/${{env.STAGE}}/
