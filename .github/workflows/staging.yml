@@ -16,7 +16,10 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
+      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Install our private key for uploading deliverable
@@ -24,6 +27,7 @@ jobs:
       with:
         ssh-private-key: |
           ${{secrets.UPLOADER_SSH_KEY}}
+    - uses: actions/setup-python@v2    
     
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
@@ -37,7 +41,7 @@ jobs:
     # Install SLDR tools
     - name: Setup sldrtools
       working-directory: tools
-      run: pip3 install .
+      run: pip install .
       
     # Flatten SLDR
     - name: Generate flattened sldr
