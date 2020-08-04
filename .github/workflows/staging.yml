@@ -19,14 +19,25 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
+    # Install our private key for uploading deliverable
     - uses: webfactory/ssh-agent@v0.4.0
       with:
         ssh-private-key: |
           ${{secrets.UPLOADER_SSH_KEY}}
-        
+    
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    # Check-out the tooling
+    - uses: actions/checkout@v2
+      with:
+        repository: silnrsi/sldrtools
+        path: tools
+    
+    # Install SLDR tools
+    - name: Setup sldrtools
+      run: pip install tools
+      
     # Runs a single command using the runners shell
-    - name: sldr-flat-publish
-      run: bin/sldr-flat-publish.sh -t -S scriptsource.org
+    #- name: sldr-flat-publish
+    #  run: /sldr-flat-publish.sh -t -S scriptsource.org
