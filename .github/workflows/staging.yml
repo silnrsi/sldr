@@ -14,11 +14,12 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    env:
+      STAGE: sldr-staging
+      TARGET: ${{secrets.UPLOAD_TARGET}}
+      RSYNC_OPTS: "-aP --no-p --no-g --no-t --compress --del"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -27,7 +28,12 @@ jobs:
       with:
         ssh-private-key: |
           ${{secrets.UPLOADER_SSH_KEY}}
-    - uses: actions/setup-python@v2    
+    
+    # Install our target's 
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
@@ -51,4 +57,9 @@ jobs:
       run: python3 tools/scripts/ldmlflatten -o unflat -i sldr -a -c -g
     
     # Upload results
+    - name: Upload SLDR to /ldml/$STAGE
+      run: rsync ${RSYNC_OPTS} extras sldr $TARGET/local/ldml/$STAGE/
     
+    - name: Upload flattened SLDR to /ldml-api/data/$STAGE
+      run: rsync ${RSYNC_OPTS} --chmod=Dug=rwx flat unflat $TARGET/sites/s/ldml-api/data/$STAGE/
+  
