@@ -55,9 +55,9 @@ jobs:
 #      run: python3 tools/scripts/ldmlflatten -o unflat -i sldr -a -c -g
     
     # Upload results
-    - name: Upload SLDR to /ldml/$STAGE
-      run: rsync ${RSYNC_OPTS} extras sldr $TARGET/local/ldml/$STAGE/
+    - name: Upload SLDR to /ldml/${{env.STAGE}}
+      run: rsync ${{env.RSYNC_OPTS}} extras sldr ${{env.TARGET}}/local/ldml/${{env.STAGE}}/
     
-    - name: Upload flattened SLDR to /ldml-api/data/$STAGE
-      run: rsync ${RSYNC_OPTS} --chmod=Dug=rwx flat unflat $TARGET/sites/s/ldml-api/data/$STAGE/
+    - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{env.TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
   
