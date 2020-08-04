@@ -17,7 +17,7 @@ jobs:
     env:
       STAGE: sldr-staging
       TARGET: ${{secrets.UPLOAD_TARGET}}
-      RSYNC_OPTS: "-aP --no-p --no-g --no-t --compress --del"
+      RSYNC_OPTS: "-aP --no-p --no-g --no-t --compress --del -e 'ssh -o StrictHostKeyChecking=no'"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
       
@@ -28,8 +28,6 @@ jobs:
       with:
         ssh-private-key: |
           ${{secrets.UPLOADER_SSH_KEY}}
-    
-    # Install our target's 
 
     - uses: actions/setup-python@v2
       with:
