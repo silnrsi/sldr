@@ -39,6 +39,12 @@ jobs:
       working-directory: tools
       run: pip install .
       
-    # Runs a single command using the runners shell
-    #- name: sldr-flat-publish
-    #  run: /sldr-flat-publish.sh -t -S scriptsource.org
+    # Flatten SLDR
+    - name: Generate flattened sldr
+      run: python3 tools/scripts/ldmlflatten -o flat -i sldr -a -A -g
+      
+    - name: Generate unflattened sldr
+      run: python3 tools/scripts/ldmlflatten -o unflat -i sldr -a -c -g
+    
+    # Upload results
+    
