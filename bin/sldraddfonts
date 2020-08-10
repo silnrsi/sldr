@@ -16,6 +16,7 @@ css2suggestions = dict()
 css2features = dict()
 css_locales = set()
 font2urls = dict()
+url_cache = dict()
 
 
 def main():
@@ -165,21 +166,59 @@ def read_url_data():
 
 
 def find_url_from_fontname(fontname):
-    """Construct URL where the font can be found."""
-    noto_repo = 'https://github.com/googlefonts/noto-fonts/raw/master/'
+    """Return tested URL where the font can be found."""
+    # If a font already has a valid URL determined,
+    # return that so the URL does not need to be tested again.
+    if fontname in url_cache:
+        print(f'font: {fontname} is cached as URL: {url_cache[fontname]}')
+        return url_cache[fontname]
 
+    # Otherwise, test constructed URLs to see if they are valid.
+    urls = build_url_from_fontname(fontname)
+    for url in urls:
+        valid = True
+        try:
+            print(f'trying URL: {url}')
+            request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            urllib.request.urlopen(request)
+        except urllib.error.HTTPError:
+            valid = False
+
+        message = 'NOT'
+        if valid:
+            message = ''
+            print(f'font: {fontname} URL+ {message}at {url}')
+            url_cache[fontname] = url
+            return url
+        print(f'font: {fontname} URL+ {message}at {url}')
+    return ''
+
+
+def build_url_from_fontname(fontname):
+    """Construct URL(s) where the font might be found."""
     pathname = font2urls.get(fontname, fontname)
     pathname = pathname.replace(' ', '')
     if pathname == '':
-        return ''
+        return list()
 
     # Noto fonts
+    googlefonts = 'https://github.com/googlefonts/'
+    noto_repo = f'{googlefonts}noto-fonts/raw/master/'
+    noto_cjk_repo = f'{googlefonts}noto-cjk/raw/master/'
     if pathname.startswith('Noto'):
         url = f'{noto_repo}phaseIII_only/hinted/ttf/{pathname}/{pathname}-Regular.ttf'
-        return url
+        if pathname.endswith(('JP', 'KR', 'SC', 'TC')):
+            url = f'{noto_cjk_repo}{pathname}-Regular.otf'
+        elif pathname == 'NotoSansTibetan':
+            url = f'{noto_repo}hinted/{pathname}/{pathname}-Regular.ttf'
+        return [url]
 
     # Default to WIRL records
-    return 'https://wirl.api.sil.org/' + pathname
+    urls = list()
+    for style in ('Reg', ''):
+        url = f'https://wirl.api.sil.org/{pathname}{style}&type=ttf'
+        urls.append(url)
+    return urls
 
 
 def find_ldml_files(sldrtree):
@@ -292,19 +331,6 @@ def write_font_data(sldrtree):
 
             # ...and has features from the CSS file
             features = ''
-
-    # Display all fonts, each of which needs a URL (ideally)
-    for preferred_font in sorted(all_preferred_fonts):
-        url = find_url_from_fontname(preferred_font)
-        if url == '':
-            continue
-        message = ''
-        try:
-            request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            urllib.request.urlopen(request)
-        except urllib.error.HTTPError:
-            message = 'NOT'
-        print(f'font: {preferred_font} url+ {message}at {url}')
 
 
 if __name__ == '__main__':
