@@ -191,6 +191,7 @@ def find_url_from_fontname(fontname):
             url_cache[fontname] = url
             return url
         print(f'font: {fontname} URL+ {message}at {url}')
+    print(f'font: {fontname} URL+ INVALID')
     return ''
 
 
@@ -215,9 +216,10 @@ def build_url_from_fontname(fontname):
 
     # Default to WIRL records
     urls = list()
-    for style in ('Reg', ''):
-        url = f'https://wirl.api.sil.org/{pathname}{style}&type=ttf'
-        urls.append(url)
+    for file_type in ('&type=ttf', ''):
+        for style in ('Reg', ''):
+            url = f'https://wirl.api.sil.org/{pathname}{style}{file_type}'
+            urls.append(url)
     return urls
 
 
