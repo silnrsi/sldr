@@ -173,8 +173,19 @@ def find_url_from_fontname(fontname):
         print(f'font: {fontname} is cached as URL: {url_cache[fontname]}')
         return url_cache[fontname]
 
+    # This script does not find all valid URLs, so if a URL is listed
+    # in the font name to URL mapping, consider it correct.
+    if fontname in font2urls:
+        url = font2urls[fontname]
+        if url.startswith('http'):
+            print(f'font: {fontname} URL+ given {url}')
+            url_cache[fontname] = url
+            return url
+
     # Otherwise, test constructed URLs to see if they are valid.
     urls = build_url_from_fontname(fontname)
+    if len(urls) == 0:
+        return ''
     for url in urls:
         valid = True
         try:
@@ -191,6 +202,7 @@ def find_url_from_fontname(fontname):
             url_cache[fontname] = url
             return url
         print(f'font: {fontname} URL+ {message}at {url}')
+
     print(f'font: {fontname} URL+ INVALID')
     return ''
 
