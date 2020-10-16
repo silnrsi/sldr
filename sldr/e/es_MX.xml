@@ -10,7 +10,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<language type="es"/>
 		<territory type="MX"/>
 		<special>
-			<sil:identity defaultRegion="MX" script="Latn" source="cldr"/>
+			<sil:identity source="cldr" defaultRegion="MX" script="Latn"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
@@ -199,13 +199,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<days>
 					<dayContext type="format">
 						<dayWidth type="narrow">
-							<day type="fri">V</day>
-							<day type="mon">L</day>
-							<day type="sat">S</day>
 							<day type="sun">D</day>
-							<day type="thu">J</day>
+							<day type="mon">L</day>
 							<day type="tue">M</day>
 							<day type="wed">M</day>
+							<day type="thu">J</day>
+							<day type="fri">V</day>
+							<day type="sat">S</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -258,11 +258,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<dayPeriod type="pm">p. m.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="evening1">de la tarde</dayPeriod>
-							<dayPeriod type="morning1">de la madrugada</dayPeriod>
-							<dayPeriod type="morning2">mañana</dayPeriod>
-							<dayPeriod type="night1">de la noche</dayPeriod>
 							<dayPeriod type="noon">del mediodía</dayPeriod>
+							<dayPeriod type="morning1">de la madrugada</dayPeriod>
+							<dayPeriod type="evening1">de la tarde</dayPeriod>
+							<dayPeriod type="night1">de la noche</dayPeriod>
+							<dayPeriod type="morning2">mañana</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
 							<dayPeriod type="am">a. m.</dayPeriod>
@@ -431,6 +431,51 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="sun">
+				<relative type="1">el domingo próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} domingo</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} domingos</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="1">el lunes próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} lunes</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} lunes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="1">el martes próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">dentro de {0} martes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="1">el miércoles próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} miércoles</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="1">el jueves próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} jueves</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="1">el viernes próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">dentro de {0} viernes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="1">el sábado próximo</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="day">
 				<relative type="-2">anteayer</relative>
 			</field>
@@ -460,12 +505,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 			<field type="dayperiod-short">
 				<displayName>a. m./p. m.</displayName>
-			</field>
-			<field type="fri">
-				<relative type="1">el viernes próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">dentro de {0} viernes</relativeTimePattern>
-				</relativeTime>
 			</field>
 			<field type="fri-narrow">
 				<relativeTime type="past">
@@ -505,13 +544,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relativeTime type="future">
 					<relativeTimePattern count="one" draft="contributed">en {0} min</relativeTimePattern>
 					<relativeTimePattern count="other" draft="contributed">en {0} min</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="1">el lunes próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} lunes</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} lunes</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="mon-narrow">
@@ -578,13 +610,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">en {0} trim</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="1">el sábado próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sat-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} SA</relativeTimePattern>
@@ -606,13 +631,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">en {0} s</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun">
-				<relative type="1">el domingo próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} domingo</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} domingos</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sun-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="other">dentro de {0} DO</relativeTimePattern>
@@ -622,27 +640,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">hace {0} DO</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="1">el jueves próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} jueves</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="thu-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="other">dentro de {0} JU</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="1">el martes próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">dentro de {0} martes</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="1">el miércoles próximo</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} miércoles</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="wed-narrow">
@@ -1325,6 +1325,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characterLabels>
 		<characterLabelPattern type="historic">{0} — Históricos</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — Varios</characterLabelPattern>
+		<characterLabel type="other">Otros</characterLabel>
 		<characterLabel type="female">mujer</characterLabel>
 		<characterLabel type="format_whitespace">Formato y espacio duro</characterLabel>
 		<characterLabel type="keycap">tecla</characterLabel>
@@ -1332,7 +1333,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="limited_use">Uso limitado</characterLabel>
 		<characterLabel type="male">hombre</characterLabel>
 		<characterLabel type="modern_scripts">Sistemas de escritura modernos</characterLabel>
-		<characterLabel type="other">Otros</characterLabel>
 		<characterLabel type="phonetic_alphabet">Alfabeto fonético</characterLabel>
 		<characterLabel type="sign_standard_symbols">Símbolos de señales/estándar</characterLabel>
 		<characterLabel type="smiley">cara sonriente</characterLabel>

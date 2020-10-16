@@ -12,7 +12,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<language type="pt"/>
 		<territory type="PT"/>
 		<special>
-			<sil:identity defaultRegion="PT" script="Latn" source="cldr"/>
+			<sil:identity source="cldr" defaultRegion="PT" script="Latn"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
@@ -369,9 +369,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1">M1</month>
-							<month type="10">M10</month>
-							<month type="11">M11</month>
-							<month type="12">M12</month>
 							<month type="2">M2</month>
 							<month type="3">M3</month>
 							<month type="4">M4</month>
@@ -380,14 +377,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">M7</month>
 							<month type="8">M8</month>
 							<month type="9">M9</month>
+							<month type="10">M10</month>
+							<month type="11">M11</month>
+							<month type="12">M12</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1">M1</month>
-							<month type="10">M10</month>
-							<month type="11">M11</month>
-							<month type="12">M12</month>
 							<month type="2">M2</month>
 							<month type="3">M3</month>
 							<month type="4">M4</month>
@@ -396,6 +393,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">M7</month>
 							<month type="8">M8</month>
 							<month type="9">M9</month>
+							<month type="10">M10</month>
+							<month type="11">M11</month>
+							<month type="12">M12</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -487,32 +487,32 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<days>
 					<dayContext type="format">
 						<dayWidth type="abbreviated">
-							<day type="fri" draft="contributed">sexta</day>
-							<day type="mon" draft="contributed">segunda</day>
-							<day type="sat" draft="contributed">sábado</day>
 							<day type="sun" draft="contributed">domingo</day>
-							<day type="thu" draft="contributed">quinta</day>
+							<day type="mon" draft="contributed">segunda</day>
 							<day type="tue" draft="contributed">terça</day>
 							<day type="wed" draft="contributed">quarta</day>
+							<day type="thu" draft="contributed">quinta</day>
+							<day type="fri" draft="contributed">sexta</day>
+							<day type="sat" draft="contributed">sábado</day>
 						</dayWidth>
 						<dayWidth type="narrow">
-							<day type="sat" draft="contributed">S</day>
 							<day type="tue" draft="contributed">T</day>
+							<day type="sat" draft="contributed">S</day>
 						</dayWidth>
 					</dayContext>
 					<dayContext type="stand-alone">
 						<dayWidth type="abbreviated">
-							<day type="fri" draft="contributed">sexta</day>
-							<day type="mon" draft="contributed">segunda</day>
-							<day type="sat" draft="contributed">sábado</day>
 							<day type="sun" draft="contributed">domingo</day>
-							<day type="thu" draft="contributed">quinta</day>
+							<day type="mon" draft="contributed">segunda</day>
 							<day type="tue" draft="contributed">terça</day>
 							<day type="wed" draft="contributed">quarta</day>
+							<day type="thu" draft="contributed">quinta</day>
+							<day type="fri" draft="contributed">sexta</day>
+							<day type="sat" draft="contributed">sábado</day>
 						</dayWidth>
 						<dayWidth type="narrow">
-							<day type="sat" draft="contributed">S</day>
 							<day type="tue" draft="contributed">T</day>
+							<day type="sat" draft="contributed">S</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -541,12 +541,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<dayPeriod type="pm">p.m.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="afternoon1">tarde</dayPeriod>
 							<dayPeriod type="am">a.m.</dayPeriod>
-							<dayPeriod type="evening1">noite</dayPeriod>
-							<dayPeriod type="morning1">manhã</dayPeriod>
-							<dayPeriod type="night1">madrugada</dayPeriod>
 							<dayPeriod type="pm">p.m.</dayPeriod>
+							<dayPeriod type="morning1">manhã</dayPeriod>
+							<dayPeriod type="afternoon1">tarde</dayPeriod>
+							<dayPeriod type="evening1">noite</dayPeriod>
+							<dayPeriod type="night1">madrugada</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
 							<dayPeriod type="am">da manhã</dayPeriod>
@@ -720,6 +720,55 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="sun">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} domingo</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} domingos</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">há {0} domingo</relativeTimePattern>
+					<relativeTimePattern count="other">há {0} domingos</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} segunda-feira</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} segundas-feiras</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} terça-feira</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} terças-feiras</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} quarta-feira</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} quartas-feiras</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">há {0} quarta-feira</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} quinta-feira</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} quintas-feiras</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} sexta-feira</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} sextas-feiras</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="day">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} dia</relativeTimePattern>
@@ -751,12 +800,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</field>
 			<field type="dayperiod-short">
 				<displayName>am/pm</displayName>
-			</field>
-			<field type="fri">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} sexta-feira</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} sextas-feiras</relativeTimePattern>
-				</relativeTime>
 			</field>
 			<field type="fri-narrow">
 				<relativeTime type="future">
@@ -825,12 +868,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="past">
 					<relativeTimePattern count="one">há {0} min</relativeTimePattern>
 					<relativeTimePattern count="other">há {0} min</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} segunda-feira</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} segundas-feiras</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="mon-narrow">
@@ -906,12 +943,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">há {0} trim.</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sat-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} sáb.</relativeTimePattern>
@@ -959,16 +990,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">há {0} s</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} domingo</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} domingos</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">há {0} domingo</relativeTimePattern>
-					<relativeTimePattern count="other">há {0} domingos</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sun-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} dom.</relativeTimePattern>
@@ -982,12 +1003,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} domingo</relativeTimePattern>
 					<relativeTimePattern count="other">dentro de {0} domingos</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} quinta-feira</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} quintas-feiras</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="thu-narrow">
@@ -1009,12 +1024,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">há {0} quintas</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} terça-feira</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} terças-feiras</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="tue-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} ter.</relativeTimePattern>
@@ -1032,15 +1041,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="past">
 					<relativeTimePattern count="one">há {0} terça</relativeTimePattern>
 					<relativeTimePattern count="other">há {0} terças</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} quarta-feira</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} quartas-feiras</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">há {0} quarta-feira</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="wed-narrow">
@@ -4266,27 +4266,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</units>
 	<listPatterns>
 		<listPattern type="unit">
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit-narrow">
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit-short">
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
 	<characterLabels>
+		<characterLabelPattern type="other">{0} – outro</characterLabelPattern>
 		<characterLabelPattern type="all">{0} – tudo</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} – compatibilidade</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} – incluso</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} – estendido</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} – histórico</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} – diversos</characterLabelPattern>
-		<characterLabelPattern type="other">{0} – outro</characterLabelPattern>
 		<characterLabelPattern type="scripts">{0} – escritas</characterLabelPattern>
+		<characterLabel type="other">outro</characterLabel>
 		<characterLabel type="box_drawing">desenho enquadrado</characterLabel>
 		<characterLabel type="bullets_stars">ponto ou estrela</characterLabel>
 		<characterLabel type="consonantal_jamo">jamo consoante</characterLabel>
@@ -4301,7 +4302,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="letterlike_symbols">símbolo parecido com uma letra</characterLabel>
 		<characterLabel type="limited_use">de uso limitado</characterLabel>
 		<characterLabel type="middle_eastern_scripts">escrita médio-oriental</characterLabel>
-		<characterLabel type="other">outro</characterLabel>
 		<characterLabel type="south_asian_scripts">escrita sul-asiática</characterLabel>
 		<characterLabel type="southeast_asian_scripts">escrita sudeste-asiática</characterLabel>
 		<characterLabel type="sport">desporto</characterLabel>

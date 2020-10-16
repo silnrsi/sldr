@@ -10,7 +10,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<language type="es"/>
 		<territory type="US"/>
 		<special>
-			<sil:identity defaultRegion="US" script="Latn" source="cldr"/>
+			<sil:identity source="cldr" defaultRegion="US" script="Latn"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
@@ -158,13 +158,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<days>
 					<dayContext type="format">
 						<dayWidth type="narrow">
-							<day type="fri" draft="contributed">V</day>
-							<day type="mon" draft="contributed">L</day>
-							<day type="sat" draft="contributed">S</day>
 							<day type="sun" draft="contributed">D</day>
-							<day type="thu" draft="contributed">J</day>
+							<day type="mon" draft="contributed">L</day>
 							<day type="tue" draft="contributed">M</day>
 							<day type="wed" draft="contributed">M</day>
+							<day type="thu" draft="contributed">J</day>
+							<day type="fri" draft="contributed">V</day>
+							<day type="sat" draft="contributed">S</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -317,6 +317,44 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="sun">
+				<relativeTime type="future">
+					<relativeTimePattern count="one" draft="contributed">dentro de {0} domingo</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">dentro de {0} domingos</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} lunes</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} lunes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">dentro de {0} martes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} miércoles</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} jueves</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relativeTime type="future">
+					<relativeTimePattern count="other">dentro de {0} viernes</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relativeTime type="future">
+					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
+					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="dayOfYear-narrow">
 				<displayName>día del a</displayName>
 			</field>
@@ -332,11 +370,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="dayperiod-short">
 				<displayName>a. m./p. m.</displayName>
 			</field>
-			<field type="fri">
-				<relativeTime type="future">
-					<relativeTimePattern count="other">dentro de {0} viernes</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="fri-narrow">
 				<relativeTime type="past">
 					<relativeTimePattern count="one" draft="contributed">hace {0} VI</relativeTimePattern>
@@ -346,12 +379,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="fri-short">
 				<relativeTime type="future">
 					<relativeTimePattern count="other">dentro de {0} vie.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} lunes</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} lunes</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="mon-narrow">
@@ -376,12 +403,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="month">
 				<relative type="1">el mes próximo</relative>
 			</field>
-			<field type="sat">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} sábado</relativeTimePattern>
-					<relativeTimePattern count="other">dentro de {0} sábados</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sat-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="one">dentro de {0} SA</relativeTimePattern>
@@ -389,12 +410,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relativeTime type="past">
 					<relativeTimePattern count="one" draft="contributed">hace {0} SA</relativeTimePattern>
 					<relativeTimePattern count="other" draft="contributed">hace {0} SA</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun">
-				<relativeTime type="future">
-					<relativeTimePattern count="one" draft="contributed">dentro de {0} domingo</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">dentro de {0} domingos</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="sun-narrow">
@@ -406,24 +421,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">hace {0} DO</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} jueves</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="thu-narrow">
 				<relativeTime type="future">
 					<relativeTimePattern count="other">dentro de {0} JU</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relativeTime type="future">
-					<relativeTimePattern count="other">dentro de {0} martes</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relativeTime type="future">
-					<relativeTimePattern count="one">dentro de {0} miércoles</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="wed-narrow">
@@ -955,6 +955,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characterLabels>
 		<characterLabelPattern type="historic" draft="contributed">{0} — Históricos</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous" draft="contributed">{0} — Varios</characterLabelPattern>
+		<characterLabel type="other" draft="contributed">Otros</characterLabel>
 		<characterLabel type="arrows" draft="contributed">Flechas</characterLabel>
 		<characterLabel type="female" draft="contributed">mujer</characterLabel>
 		<characterLabel type="format_whitespace" draft="contributed">Formato y espacio duro</characterLabel>
@@ -964,7 +965,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="male" draft="contributed">hombre</characterLabel>
 		<characterLabel type="modern_scripts" draft="contributed">Sistemas de escritura modernos</characterLabel>
 		<characterLabel type="nonspacing" draft="contributed">Sin espaciado</characterLabel>
-		<characterLabel type="other" draft="contributed">Otros</characterLabel>
 		<characterLabel type="phonetic_alphabet" draft="contributed">Alfabeto fonético</characterLabel>
 		<characterLabel type="sign_standard_symbols" draft="contributed">Símbolos de señales/estándar</characterLabel>
 		<characterLabel type="smiley" draft="contributed">cara sonriente</characterLabel>
