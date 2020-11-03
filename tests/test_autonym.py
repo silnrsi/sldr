@@ -4,7 +4,7 @@ import unittest
 import pytest
 import logging, os, re, unicodedata
 from lxml.etree import RelaxNG, parse, DocumentInvalid
-import palaso.sldr.UnicodeSets as usets
+import sldr.UnicodeSets as usets
 
 def iscldr(ldml):
     i = ldml.ldml.find(".//identity/special/sil:identity")

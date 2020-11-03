@@ -1,7 +1,7 @@
 import pytest
 import logging
 import sys, os
-from palaso.sldr.ldml import Ldml
+from sldr.ldml import Ldml
 
 class LdmlFile(object):
     def __init__(self, path, **kw):

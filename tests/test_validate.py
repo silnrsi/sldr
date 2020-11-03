@@ -2,7 +2,7 @@ import unittest
 import pytest
 import logging, os
 from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
-import palaso.sldr.UnicodeSets as usets
+import sldr.UnicodeSets as usets
 from unicodedata import normalize
 
 @pytest.fixture(scope="session")
