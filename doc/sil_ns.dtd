@@ -1,0 +1,149 @@
+
+<!ENTITY % ldml-dtd
+    SYSTEM "ldml.dtd">
+%ldml-dtd;
+
+<!ATTLIST ldml xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
+<!ELEMENT special (sil:external-resources | sil:identity | sil:reordered | sil:simple | sil:names
+                   | (sil:matched-pairs?, sil:punctuation-patterns?, sil:quotation-marks?) | sil:exemplarCharacters+)>
+<!ATTLIST special xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
+
+<?ATTDEF global draft (approved | contributed | provisional | unconfirmed | proposed | tentative | generated | suspect) "approved"?>
+<!--@METADATA-->
+<!--@DEPRECATED: proposed-->
+<?ATTDEF global alt           NMTOKEN     #IMPLIED?>
+<?ATTDEF global references    CDATA       #IMPLIED?>
+<!--@METADATA-->
+
+<!ATTLIST collation sil:modified          (true | false) "false">
+<!--@METADATA-->
+<?ATTDEF collation sil:secondary         CDATA #IMPLIED?>
+<?ATTDEF collation sil:prefrom           CDATA #IMPLIED?>
+<?ATTDEF collation sil:preto             CDATA #IMPLIED?>
+<?ATTDEF collation sil:needscompiling    (true | 1 | false | 0) "false"?>
+<!--@METADATA-->
+
+<!ELEMENT sil:reordered (sil:reorder*, cr)>
+<!ATTLIST sil:reordered match     CDATA #REQUIRED>
+<!ATTLIST sil:reordered reorder   CDATA #REQUIRED>
+<?ATTREF sil:reordered collation?>
+<?ATTREF sil:reordered global?>
+
+<!ELEMENT sil:simple (#PCDATA)>
+<!ATTLIST sil:simple secondaryonly CDATA #IMPLIED>
+<!ATTLIST sil:simple xml:space (preserve) #FIXED "preserve">
+<?ATTREF sil:simple collation?>
+<?ATTREF sil:simple global?>
+
+<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform)*>
+<!ELEMENT sil:url (#PCDATA)>
+<?ATTREF sil:url global?>
+
+<!ELEMENT sil:font (sil:url*)>
+<!ATTLIST sil:font name CDATA #REQUIRED>
+<!ATTLIST sil:font types NMTOKENS #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font size CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font minversion CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font features CDATA #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font lang NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font otlang NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font engines NMTOKENS #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:font subset CDATA #IMPLIED>
+<!--@VALUE-->
+<?ATTREF sil:font global?>
+
+<!ELEMENT sil:kbd (sil:url)+>
+<?ATTREF sil:kbd global?>
+<!ATTLIST sil:kbd id NMTOKEN #REQUIRED>
+<!ATTLIST sil:kbd type NMTOKEN #IMPLIED>
+
+<!ELEMENT sil:spell-checking (sil:url)+>
+<!ATTLIST sil:spell-checking type NMTOKEN #REQUIRED>
+<?ATTREF sil:spell-checking global?>
+
+<!ELEMENT sil:transform (sil:transform-capitals?, sil:transform-dict?, sil:url+)>
+<!ATTLIST sil:transform from NMTOKEN #REQUIRED>
+<!ATTLIST sil:transform to NMTOKEN #REQUIRED>
+<!ATTLIST sil:transform type (cct | perl | python | teckit) #REQUIRED>
+<!ATTLIST sil:transform direction (both | forward | backward) #REQUIRED>
+<!--@VALUE-->
+<!ATTLIST sil:transform function NMTOKEN #IMPLIED>
+<!--@VALUE-->
+<?ATTREF sil:transform global?>
+
+<!ELEMENT sil:transform-dict (sil:url)+>
+<!ATTLIST sil:transform-dict incol CDATA #REQUIRED>
+<!ATTLIST sil:transform-dict outcol CDATA #REQUIRED>
+<!ATTLIST sil:transform-dict nf (nfd | nfc) "nfc">
+<!--@VALUE-->
+<?ATTREF sil:transform-dict global?>
+
+<!ELEMENT sil:transform-capitals EMPTY>
+<!ATTLIST sil:transform-capitals opengroup CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals closegroup CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals sentencefinal CDATA #IMPLIED>
+<!ATTLIST sil:transform-capitals startcaps CDATA #IMPLIED>
+<?ATTREF sil:transform-capitals global?>
+
+<!ELEMENT sil:identity (sil:committer)?>
+<!ATTLIST sil:identity revid CDATA #IMPLIED>
+<!ATTLIST sil:identity uid CDATA #IMPLIED>
+<!ATTLIST sil:identity fallbacks NMTOKENS #IMPLIED>
+<!ATTLIST sil:identity source CDATA #IMPLIED>
+<!ATTLIST sil:identity windowsLCID CDATA #IMPLIED>
+<!ATTLIST sil:identity defaultRegion NMTOKEN #IMPLIED>
+<!ATTLIST sil:identity variantName CDATA #IMPLIED>
+<!ATTLIST sil:identity usage (unused | developing) #IMPLIED>
+<!ATTLIST sil:identity toplevels NMTOKENS #IMPLIED>
+<!ATTLIST sil:identity script NMTOKEN #IMPLIED>
+<?ATTREF sil:identity global?>
+
+<!ELEMENT sil:committer (#PCDATA)>
+<!ATTLIST sil:committer machid CDATA #IMPLIED>
+<?ATTREF sil:committer global?>
+
+<!ELEMENT sil:names (sil:name)+>
+
+<!ELEMENT sil:name (#PCDATA)>
+<!ATTLIST sil:name xml:lang NMTOKEN #IMPLIED>
+<?ATTREF sil:name global?>
+
+<!ELEMENT sil:quotation-marks (sil:quotationContinue | sil:alternateQuotationContinue | sil:quotation)+>
+<!ATTLIST sil:quotation-marks paraContinueType (all | outer | inner | none) #IMPLIED>
+<?ATTREF sil:quotation-marks global?>
+
+<!ELEMENT sil:quotationContinue (#PCDATA)>
+<!ELEMENT sil:alternateQuotationContinue (#PCDATA)>
+
+<!ELEMENT sil:quotation EMPTY>
+<!ATTLIST sil:quotation open CDATA #REQUIRED>
+<!ATTLIST sil:quotation close CDATA #IMPLIED>
+<!ATTLIST sil:quotation continue CDATA #IMPLIED>
+<!ATTLIST sil:quotation level CDATA #REQUIRED>
+<!ATTLIST sil:quotation type NMTOKEN #IMPLIED>
+<?ATTREF sil:quotation global?>
+
+<!ELEMENT sil:punctuation-patterns (sil:punctuation-pattern)+>
+<!ELEMENT sil:punctuation-pattern EMPTY>
+<!ATTLIST sil:punctuation-pattern pattern CDATA #REQUIRED>
+<!ATTLIST sil:punctuation-pattern context (init | medial | final | break | isolate) #IMPLIED>
+<?ATTREF sil:punctuation-pattern global?>
+
+<!ELEMENT sil:matched-pairs (sil:matched-pair)+>
+<!ELEMENT sil:matched-pair EMPTY>
+<!ATTLIST sil:matched-pair open CDATA #REQUIRED>
+<!ATTLIST sil:matched-pair close CDATA #REQUIRED>
+<!ATTLIST sil:matched-pair paraClose (true | false | 0 | 1) "false">
+<!--@VALUE-->
+<?ATTREF sil:matched-pair global?>
+
+<!ELEMENT sil:exemplarCharacters (#PCDATA)>
+<?ATTREF sil:exemplarCharacters global?>
+<!ATTLIST sil:exemplarCharacters type NMTOKEN #REQUIRED>
