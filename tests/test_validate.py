@@ -65,7 +65,7 @@ def test_exemplars(ldml):
 def _duplicate_test(base, ldml, path=""):
     filename = os.path.basename(ldml.fname)    # get filename for reference
     idents = set()
-    for c in base.getchildren():
+    for c in base:
         if c.tag in ("variable",):
             continue
         ident = [c.tag]
@@ -78,7 +78,7 @@ def _duplicate_test(base, ldml, path=""):
         if len(ident) > 1:
             assert i not in idents, filename + " Found overlapping elements for " + path + "/" + i
         idents.add(i)
-        if len(c.getchildren()) and _duplicate_test(c, ldml, path=path + "/" + i):
+        if len(c) and _duplicate_test(c, ldml, path=path + "/" + i):
             return True
     return False
 

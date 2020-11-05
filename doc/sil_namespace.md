@@ -548,6 +548,7 @@ The **toplevels** is a space separated list of top level elements that are inclu
 |            |  In implementation terms the UID is calculated as the 32-bit timestamp of the file request from the server, with another 16-bit collision counter appended and represented in MIME64 as 8 characters. This attribute is stripped from files before inclusion in the SLDR.|
 | **draft**  | This specifies the default draft level for the whole file. The SLDR uses these draft values, in addition to those used by the CLDR (approved, contributed, provisional, unconfirmed): |
 |            | **unconfirmed** - This is the basic level of new information that is considered to be provided by the community |
+|            | **proposed** - The data is considered checked by either the user community or a consultant but not both. |
 |            | **tentative** - This is for data a user is unsure about. |
 |            | **generated** - This is for auto-generated information. |
 |            | **suspect** - For retaining data that is considered wrong. |
