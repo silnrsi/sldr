@@ -22,14 +22,13 @@ def test_collation(ldml):
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
 
-#   is there a collation?
+#   is there a collation? If not, "" will use default.
     defcol = ldml.ldml.root.find(".//collations/defaultCollation")
     defcollation = defcol.text if defcol is not None else "standard"
     col_el = ldml.ldml.root.find(".//collations/collation[@type='" + defcollation + "']/cr")
-    if col_el == None:
-        return
+    col = col_el.text if col_el is not None else ""
     try:
-        rbc = icu.RuleBasedCollator(col_el.text)
+        rbc = icu.RuleBasedCollator(col)
     except icu.ICUError:
         assert False, filename + " has invalid ICU collation"
         return
