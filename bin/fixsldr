@@ -48,7 +48,7 @@ if not args.locale or not len(args.locale) :
                 alllocales.add(os.path.join(d, l))
     args.locale = list(alllocales)
     args.locale.sort()
-if args.debug : print args.locale
+if args.debug : print(args.locale)
 
 silns = '{urn://www.sil.org/ldml/0.1}'
 
@@ -116,14 +116,14 @@ def add_silidentity(ldml) :
 def doit(l) :
     try :
         curr = Ldml(l)
-    except Exception, e :
-        print "Failed in " + l.encode('utf-8')
+    except Exception as e :
+        print("Failed in " + l.encode('utf-8'))
         raise e
     if curr is None : 
-        print "Reading resulted in nothing for " + l.encode('utf-8')
+        print("Reading resulted in nothing for " + l.encode('utf-8'))
         return
     elif args.debug :
-        print "Processing " + l.encode('utf-8')
+        print("Processing " + l.encode('utf-8'))
 
     # handle demoting orientation too layout/orientation
     orient = curr.root.find('orientation')

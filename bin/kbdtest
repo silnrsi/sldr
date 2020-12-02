@@ -89,9 +89,9 @@ for i, e in enumerate(doc.findall('.//event')):
     test = t.text
     res = kbd.process(key, modifiers)
     if unicode(res) != test:
-        print u"Failed test {}: {} should be {}".format(i+1, res, test)
+        print(u"Failed test {}: {} should be {}".format(i+1, res, test))
         if args.usvs:
-            print " ".join("U+{:04X}".format(ord(x)) for x in unicode(res)) + " should be " + \
-                  " ".join("U+{:04X}".format(ord(x)) for x in test)
+            print(" ".join("U+{:04X}".format(ord(x)) for x in unicode(res)) + " should be " + \
+                  " ".join("U+{:04X}".format(ord(x)) for x in test))
         errors += 1
 sys.exit(errors)
