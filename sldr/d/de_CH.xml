@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr"/>
-		</special>
-		<version number="$Revision: 14450 $"/>
+		<version number="$Revision$"/>
 		<language type="de"/>
 		<territory type="CH"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity draft="approved" source="cldr"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -19,7 +19,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ach">Acholi-Sprache</language>
 			<language type="ars">Nadschd-Arabisch</language>
 			<language type="bas">Basaa-Sprache</language>
-			<language type="be">Weissrussisch</language>
 			<language type="bik">Bikol-Sprache</language>
 			<language type="bin">Bini-Sprache</language>
 			<language type="chb">Chibcha-Sprache</language>
@@ -29,11 +28,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="kmb">Kimbundu-Sprache</language>
 			<language type="mus">Muskogee-Sprache</language>
 			<language type="prg">Altpreussisch</language>
+			<language type="zh_Hans" alt="long">Hochchinesisch (vereinfacht)</language>
+			<language type="zh_Hant" alt="long">Hochchinesisch (traditionell)</language>
 		</languages>
 		<territories>
 			<territory type="BN">Brunei</territory>
 			<territory type="BW">Botswana</territory>
-			<territory type="BY">Weissrussland</territory>
 			<territory type="CV">Kapverden</territory>
 			<territory type="GB">Grossbritannien</territory>
 			<territory type="QO">Äusseres Ozeanien</territory>
@@ -42,8 +42,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="ZW">Zimbabwe</territory>
 		</territories>
 		<keys>
-			<key type="colCaseFirst" draft="contributed">Sortierung nach Gross- bzw. Kleinbuchstaben</key>
-			<key type="colCaseLevel" draft="contributed">Sortierung nach Gross- oder Kleinschreibung</key>
+			<key type="colCaseFirst">Sortierung nach Gross- bzw. Kleinbuchstaben</key>
+			<key type="colCaseLevel">Sortierung nach Gross- oder Kleinschreibung</key>
 			<key type="ms">Mass-System</key>
 		</keys>
 		<types>
@@ -56,7 +56,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a ä b c d e f g h i j k l m n o ö p q r s t u ü v w x y z]</exemplarCharacters>
-		<exemplarCharacters type="numbers">[\- . ’ % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ . ’ % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<parseLenients scope="general" level="lenient">
+			<parseLenient sample="’" draft="contributed">['ʼ՚᾽᾿’＇]</parseLenient>
+		</parseLenients>
 	</characters>
 	<dates>
 		<calendars>
@@ -158,32 +161,52 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="other">Weissrussische Rubel (2000–2016)</displayName>
 			</currency>
 			<currency type="EUR">
-				<symbol>EUR</symbol>
 				<symbol alt="narrow" draft="contributed">EUR</symbol>
+				<symbol draft="contributed">EUR</symbol>
 			</currency>
 			<currency type="STN">
 				<displayName>São-toméischer Dobra (2018)</displayName>
 				<displayName count="one">São-toméischer Dobra (2018)</displayName>
 				<displayName count="other">São-toméischer Dobra (2018)</displayName>
 			</currency>
-			<currency type="VEF">
-				<displayName>Venezolanischer Bolívar</displayName>
-				<displayName count="one">Venezolanischer Bolívar</displayName>
-				<displayName count="other">Venezolanische Bolívares</displayName>
-			</currency>
-			<currency type="VES">
-				<displayName>VES</displayName>
-				<displayName count="one">VES</displayName>
-				<displayName count="other">VES</displayName>
-			</currency>
 		</currencies>
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>kibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>mebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>gibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>tebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>pebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>exbi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>zebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>yobe{0}</unitPrefixPattern>
+			</compoundUnit>
 			<unit type="area-square-foot">
 				<displayName>Quadratfuss</displayName>
 				<unitPattern count="one">{0} Quadratfuss</unitPattern>
+				<unitPattern count="one" case="accusative">{0} Quadratfuss</unitPattern>
+				<unitPattern count="one" case="dative">{0} Quadratfuss</unitPattern>
+				<unitPattern count="one" case="genitive">{0} Quadratfusses</unitPattern>
 				<unitPattern count="other">{0} Quadratfuss</unitPattern>
+				<unitPattern count="other" case="accusative">{0} Quadratfuss</unitPattern>
+				<unitPattern count="other" case="dative">{0} Quadratfuss</unitPattern>
+				<unitPattern count="other" case="genitive">{0} Quadratfuss</unitPattern>
 			</unit>
 			<unit type="concentr-milligram-per-deciliter">
 				<displayName>mg/dL</displayName>
@@ -191,41 +214,74 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="length-foot">
 				<displayName>Fuss</displayName>
 				<unitPattern count="one">{0} Fuss</unitPattern>
+				<unitPattern count="one" case="accusative">{0} Fuss</unitPattern>
+				<unitPattern count="one" case="dative">{0} Fuss</unitPattern>
+				<unitPattern count="one" case="genitive">{0} Fusses</unitPattern>
 				<unitPattern count="other">{0} Fuss</unitPattern>
+				<unitPattern count="other" case="accusative">{0} Fuss</unitPattern>
+				<unitPattern count="other" case="dative">{0} Fuss</unitPattern>
+				<unitPattern count="other" case="genitive">{0} Fuss</unitPattern>
 				<perUnitPattern>{0} pro Fuss</perUnitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>Messerspitze</displayName>
 			</unit>
 			<unit type="volume-cubic-foot">
 				<displayName>Kubikfuss</displayName>
 				<unitPattern count="one">{0} Kubikfuss</unitPattern>
+				<unitPattern count="one" case="accusative">{0} Kubikfuss</unitPattern>
+				<unitPattern count="one" case="dative">{0} Kubikfuss</unitPattern>
+				<unitPattern count="one" case="genitive">{0} Kubikfusses</unitPattern>
 				<unitPattern count="other">{0} Kubikfuss</unitPattern>
+				<unitPattern count="other" case="accusative">{0} Kubikfuss</unitPattern>
+				<unitPattern count="other" case="dative">{0} Kubikfuss</unitPattern>
+				<unitPattern count="other" case="genitive">{0} Kubikfuss</unitPattern>
 			</unit>
 			<unit type="volume-gallon-imperial">
 				<unitPattern count="one">{0} gal Imp.</unitPattern>
 				<unitPattern count="other">{0} gal Imp.</unitPattern>
 				<perUnitPattern>{0}/gal Imp.</perUnitPattern>
+			</unit>
+			<unit type="volume-jigger">
+				<displayName>Schuss</displayName>
 			</unit>
 		</unitLength>
 		<unitLength type="short">
 			<unit type="length-foot">
 				<displayName>Fuss</displayName>
 			</unit>
+			<unit type="mass-grain">
+				<displayName>Messerspitze</displayName>
+				<unitPattern count="other">{0} Msp.</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>Dram</displayName>
+				<unitPattern count="one">{0} dr.</unitPattern>
+				<unitPattern count="other">{0} dr.</unitPattern>
+			</unit>
 			<unit type="volume-gallon-imperial">
 				<unitPattern count="one">{0} gal Imp.</unitPattern>
 				<unitPattern count="other">{0} gal Imp.</unitPattern>
 				<perUnitPattern>{0}/gal Imp.</perUnitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>Schuss</displayName>
+				<unitPattern count="one">Schuss</unitPattern>
+				<unitPattern count="other">{0} Schuss</unitPattern>
+			</unit>
+			<unit type="volume-pinch">
+				<unitPattern count="one">{0} Prise</unitPattern>
+				<unitPattern count="other">{0} Prise</unitPattern>
+			</unit>
 		</unitLength>
 	</units>
 	<typographicNames>
 		<axisName type="opsz">optische Grösse</axisName>
-		<styleName alt="demi" subtype="600" type="wght">demibold</styleName>
-		<styleName alt="heavy" subtype="900" type="wght">heavy</styleName>
-		<styleName alt="ultra" subtype="200" type="wght">ultralight</styleName>
-		<styleName subtype="12" type="opsz">Lesegrösse</styleName>
-		<styleName subtype="144" type="opsz">Ferngrösse</styleName>
-		<styleName subtype="18" type="opsz">Schaugrösse</styleName>
-		<styleName subtype="500" type="wght">medium</styleName>
-		<styleName subtype="72" type="opsz">Plakatgrösse</styleName>
-		<styleName subtype="8" type="opsz">Konsultationsgrösse</styleName>
+		<styleName type="opsz" subtype="12">Lesegrösse</styleName>
+		<styleName type="opsz" subtype="144">Ferngrösse</styleName>
+		<styleName type="opsz" subtype="18">Schaugrösse</styleName>
+		<styleName type="opsz" subtype="72">Plakatgrösse</styleName>
+		<styleName type="opsz" subtype="8">Konsultationsgrösse</styleName>
+		<styleName type="wght" subtype="500">medium</styleName>
 	</typographicNames>
 </ldml>

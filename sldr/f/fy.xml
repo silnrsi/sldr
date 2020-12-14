@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr"/>
-		</special>
-		<version number="$Revision: 14134 $"/>
+		<version number="$Revision$"/>
 		<language type="fy"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity draft="approved" source="cldr"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -878,8 +878,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="MF" draft="contributed">Saint-Martin</territory>
 			<territory type="MG" draft="contributed">Madeiaskar</territory>
 			<territory type="MH" draft="contributed">Marshalleilannen</territory>
-			<territory type="MK" alt="variant" draft="contributed">Macedonië (FYROM)</territory>
-			<territory type="MK" draft="contributed">Macedonië</territory>
 			<territory type="ML" draft="contributed">Mali</territory>
 			<territory type="MM" draft="contributed">Myanmar (Birma)</territory>
 			<territory type="MN" draft="contributed">Mongolië</territory>
@@ -1203,7 +1201,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters>[a á à â ä b c d e é è ê ë f g h i í ï {ij} {íj\u0301} j k l m n o ó ô ö p r s t u ú û ü v w y ý z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[æ ò ù]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P R S T U V W X Z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -2085,8 +2083,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="MEd">E d-M</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="one">'wike' W 'fan' MMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">'wike' W 'fan' MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">'wike' W 'fan' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">'wike' W 'fan' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="Md">d-M</dateFormatItem>
@@ -2459,9 +2457,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="japanese">
-				<!-- need some non-empty element here to make inheritance work,
-					 this copy of generic dateFormats above is smaller than root japanese eras
-				-->
 				<dateFormats>
 					<dateFormatLength type="full">
 						<dateFormat>
@@ -3810,7 +3805,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</metazone>
 			<metazone type="Norfolk">
 				<long>
-					<standard draft="contributed">Norfolkeilânske tiid</standard>
+					<generic draft="contributed">Norfolkeilânske tiid</generic>
+					<standard draft="contributed">Norfolkeilânske standerttiid</standard>
+					<daylight draft="contributed">Norfolkeilânske simmertiid</daylight>
 				</long>
 			</metazone>
 			<metazone type="Noronha">
@@ -5686,6 +5683,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern draft="contributed">{0} per {1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName draft="contributed">G-krachten</displayName>
 				<unitPattern count="one" draft="contributed">{0} G-kracht</unitPattern>
@@ -5866,7 +5866,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one" draft="contributed">{0} hektopaskal</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} hektopaskal</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName draft="contributed">inHg</displayName>
 				<unitPattern count="one" draft="contributed">{0} inHg</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} inHg</unitPattern>
@@ -5916,11 +5916,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one" draft="contributed">{0} liter</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} liter</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern draft="contributed">{0} per {1}</compoundUnitPattern>
-			</compoundUnit>
 		</unitLength>
 		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern draft="contributed">{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<unitPattern count="one" draft="contributed">{0} G</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} G</unitPattern>
@@ -6065,7 +6065,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one" draft="contributed">{0} hPa</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one" draft="contributed">{0} inHg</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} inHg</unitPattern>
 			</unit>
@@ -6105,9 +6105,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one" draft="contributed">{0} l</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} l</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern draft="contributed">{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 		</unitLength>
 		<unitLength type="short">
 			<unit type="acceleration-g-force">
@@ -6260,7 +6257,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName draft="contributed">hektopaskal</displayName>
 				<unitPattern count="one" draft="contributed">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one" draft="contributed">{0} inHg</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 
-Proper interpretation of these files requires synthesis of missing items, as per
-​http://unicode.org/repos/cldr/trunk/specs/ldml/tr35-general.html#Annotations
-Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/ for derived annotations.
+the U.S. and other countries. CLDR data files are interpreted according to
+the LDML specification (http://unicode.org/reports/tr35/) Proper interpretation
+of these files requires synthesis of missing items, as per ​http://unicode.org/repos/cldr/trunk/specs/ldml/tr35-general.html#Annotations
+Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
+for derived annotations.
 -->
 <ldml>
 	<identity>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr"/>
-		</special>
-		<version number="$Revision: 14491 $"/>
+		<version number="$Revision$"/>
 		<language type="root"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity draft="approved" source="cldr"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<localeDisplayPattern>
@@ -42,8 +44,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	<characters>
 		<exemplarCharacters>[]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[]</exemplarCharacters>
-		<exemplarCharacters type="numbers">[\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- , ; \: ! ? . ( ) \[ \] \{ \}]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‑ , ; \: ! ? . ( ) \[ \] \{ \}]</exemplarCharacters>
 		<ellipsis type="final">{0}…</ellipsis>
 		<ellipsis type="initial">…{0}</ellipsis>
 		<ellipsis type="medial">{0}…{1}</ellipsis>
@@ -68,11 +70,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="+">[+⁺₊➕﬩﹢＋]</parseLenient>
-			<parseLenient sample=",">[,،٫、︐︑﹐﹑，､]</parseLenient>
+			<parseLenient sample=",">[,،٫⹁、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-">[\-‐‒–⁻₋−➖﹣－]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="stricter">
-			<parseLenient sample=",">[,٫︐﹐，]</parseLenient>
+			<parseLenient sample=",">[,٫⹁︐﹐，]</parseLenient>
 			<parseLenient sample=".">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
@@ -103,7 +105,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</eraNames>
 					<eraAbbr>
 						<era type="0">BE</era>
-						<!-- = 544 BC gregorian. -->
 					</eraAbbr>
 					<eraNarrow>
 						<alias source="locale" path="../eraAbbr"/>
@@ -204,7 +205,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<dayPeriods>
 					<alias source="locale" path="../../calendar[@type='gregorian']/dayPeriods"/>
 				</dayPeriods>
-				<!-- chinese eras are computed, and don't fall back to gregorian -->
 				<cyclicNameSets>
 					<cyclicNameSet type="dayParts">
 						<cyclicNameContext type="format">
@@ -376,7 +376,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
-							<!-- using y here to be short in locales that may not understand U anyway -->
 							<pattern>r-MM-dd</pattern>
 						</dateFormat>
 					</dateFormatLength>
@@ -464,6 +463,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
+							<greatestDifference id="h">h–h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm B</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH–HH</greatestDifference>
 						</intervalFormatItem>
@@ -954,6 +962,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
+							<greatestDifference id="h">h–h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm B</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Gy">
 							<greatestDifference id="G">G y – G y</greatestDifference>
 							<greatestDifference id="y">G y–y</greatestDifference>
@@ -1371,6 +1388,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</appendItems>
 					<intervalFormats>
 						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
+							<greatestDifference id="h">h–h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm B</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Gy">
 							<greatestDifference id="G">G y – G y</greatestDifference>
 							<greatestDifference id="y">G y–y</greatestDifference>
@@ -1570,7 +1596,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</eraNames>
 					<eraAbbr>
 						<era type="0">AM</era>
-						<!-- HY = Anno Mundi = -180799862400000 milliseconds since 1/1/1970 AD -->
 					</eraAbbr>
 					<eraNarrow>
 						<alias source="locale" path="../eraAbbr"/>
@@ -1736,7 +1761,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</eraNames>
 					<eraAbbr>
 						<era type="0">AH</era>
-						<!-- Anno Hijri, = 7/16/622 AD = -42521587200000.0 millis since 1/1/1970 -->
 					</eraAbbr>
 					<eraNarrow>
 						<alias source="locale" path="../eraAbbr"/>
@@ -1874,9 +1898,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNames>
 					<eraAbbr>
-						<!-- These eras are numbered according to the data used by the ICU Japanese Calendar. search for
-							 'ERAS ='
-						-->
 						<era type="0">Taika (645–650)</era>
 						<era type="1">Hakuchi (650–671)</era>
 						<era type="10">Tenpyō (729–749)</era>
@@ -2030,7 +2051,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<era type="233">Taishō</era>
 						<era type="234">Shōwa</era>
 						<era type="235">Heisei</era>
-						<era type="236">Qqqq</era>
+						<era type="236">Reiwa</era>
 						<era type="24">Ninju (851–854)</era>
 						<era type="25">Saikō (854–857)</era>
 						<era type="26">Ten-an (857–859)</era>
@@ -2269,7 +2290,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<era type="233">T</era>
 						<era type="234">S</era>
 						<era type="235">H</era>
-						<era type="236">Q</era>
+						<era type="236">R</era>
 						<era type="24">Ninju (851–854)</era>
 						<era type="25">Saikō (854–857)</era>
 						<era type="26">Ten-an (857–859)</era>
@@ -2459,7 +2480,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<eraNames>
 						<alias source="locale" path="../eraAbbr"/>
 					</eraNames>
-					<!-- = 1912 AD gregorian. See: http://en.wikipedia.org/wiki/Minguo_calendar -->
 					<eraAbbr>
 						<era type="0">Before R.O.C.</era>
 						<era type="1">R.O.C.</era>
@@ -2740,7 +2760,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">-{0} w</relativeTimePattern>
 				</relativeTime>
 				<relativePeriod>the week of {0}</relativePeriod>
-				<!-- for example, “the week of April 1” -->
 			</field>
 			<field type="week-narrow">
 				<alias source="locale" path="../field[@type='week-short']"/>
@@ -2886,6 +2905,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<zone type="Asia/Katmandu">
 				<exemplarCity>Kathmandu</exemplarCity>
 			</zone>
+			<zone type="Asia/Macau">
+				<exemplarCity>Macao</exemplarCity>
+			</zone>
 			<zone type="Asia/Rangoon">
 				<exemplarCity>Yangon</exemplarCity>
 			</zone>
@@ -2931,17 +2953,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<group>٬</group>
 			<list>؛</list>
 			<percentSign>٪؜</percentSign>
-			<!-- includes ALM after sign -->
 			<plusSign>؜+</plusSign>
-			<!-- includes ALM before sign -->
 			<minusSign>؜-</minusSign>
-			<!-- includes ALM before sign (002D) -->
 			<exponential>اس</exponential>
 			<superscriptingExponent>×</superscriptingExponent>
 			<perMille>؉</perMille>
 			<infinity>∞</infinity>
 			<nan>NaN</nan>
 			<timeSeparator>:</timeSeparator>
+			<approximatelySign>~</approximatelySign>
 		</symbols>
 		<symbols numberSystem="arabext">
 			<decimal>٫</decimal>
@@ -2949,15 +2969,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<list>؛</list>
 			<percentSign>٪</percentSign>
 			<plusSign>‎+‎</plusSign>
-			<!-- includes LRM before and after sign -->
 			<minusSign>‎-‎</minusSign>
-			<!-- includes LRM before and after sign (002D) -->
 			<exponential>×۱۰^</exponential>
 			<superscriptingExponent>×</superscriptingExponent>
 			<perMille>؉</perMille>
 			<infinity>∞</infinity>
 			<nan>NaN</nan>
 			<timeSeparator>٫</timeSeparator>
+			<approximatelySign>~</approximatelySign>
 		</symbols>
 		<symbols numberSystem="bali">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
@@ -3029,6 +3048,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<infinity>∞</infinity>
 			<nan>NaN</nan>
 			<timeSeparator>:</timeSeparator>
+			<approximatelySign>~</approximatelySign>
 		</symbols>
 		<symbols numberSystem="lepc">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
@@ -3639,12 +3659,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<currencyFormats numberSystem="latn">
 			<currencySpacing>
 				<beforeCurrency>
-					<currencyMatch>[:^S:]</currencyMatch>
+					<currencyMatch>[[:^S:]&amp;[:^Z:]]</currencyMatch>
 					<surroundingMatch>[:digit:]</surroundingMatch>
 					<insertBetween/>
 				</beforeCurrency>
 				<afterCurrency>
-					<currencyMatch>[:^S:]</currencyMatch>
+					<currencyMatch>[[:^S:]&amp;[:^Z:]]</currencyMatch>
 					<surroundingMatch>[:digit:]</surroundingMatch>
 					<insertBetween/>
 				</afterCurrency>
@@ -3745,6 +3765,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../currencyFormats[@numberSystem='latn']"/>
 		</currencyFormats>
 		<currencies>
+			<currency type="AFN">
+				<symbol alt="narrow">؋</symbol>
+			</currency>
+			<currency type="AMD">
+				<symbol alt="narrow">֏</symbol>
+			</currency>
 			<currency type="AOA">
 				<symbol alt="narrow">Kz</symbol>
 			</currency>
@@ -3754,6 +3780,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<currency type="AUD">
 				<symbol>A$</symbol>
 				<symbol alt="narrow">$</symbol>
+			</currency>
+			<currency type="AZN">
+				<symbol alt="narrow">₼</symbol>
 			</currency>
 			<currency type="BAM">
 				<symbol alt="narrow">KM</symbol>
@@ -3843,6 +3872,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</currency>
 			<currency type="GEL">
 				<symbol alt="narrow">₾</symbol>
+			</currency>
+			<currency type="GHS">
+				<symbol alt="narrow">GH₵</symbol>
 			</currency>
 			<currency type="GIP">
 				<symbol alt="narrow">£</symbol>
@@ -4224,11 +4256,109 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<alias source="locale" path="../unitLength[@type='short']"/>
 		</unitLength>
 		<unitLength type="short">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>Ki{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>Mi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>Gi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>Ti{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>Pi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>Ei{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>Zi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>Yi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>d{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>p{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>f{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>a{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>c{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>z{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>y{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>m{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>µ{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>n{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>da{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>T{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>P{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>E{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>h{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>Z{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>Y{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>k{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>M{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>G{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1>{0}²</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}²</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1>{0}³</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}³</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="times">
+				<compoundUnitPattern>{0}⋅{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>g-force</displayName>
 				<unitPattern count="other">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>m/s²</displayName>
 				<unitPattern count="other">{0} m/s²</unitPattern>
 			</unit>
@@ -4255,6 +4385,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="area-acre">
 				<displayName>acre</displayName>
 				<unitPattern count="other">{0} ac</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>dunam</displayName>
+				<unitPattern count="other">{0} dunam</unitPattern>
 			</unit>
 			<unit type="area-hectare">
 				<displayName>hectare</displayName>
@@ -4305,9 +4439,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>mmol/L</displayName>
 				<unitPattern count="other">{0} mmol/L</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>ppm</displayName>
-				<unitPattern count="other">{0} ppm</unitPattern>
+			<unit type="concentr-mole">
+				<displayName>mol</displayName>
+				<unitPattern count="other">{0} mol</unitPattern>
 			</unit>
 			<unit type="concentr-percent">
 				<displayName>%</displayName>
@@ -4317,7 +4451,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>‰</displayName>
 				<unitPattern count="other">{0}‰</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="concentr-permillion">
+				<displayName>ppm</displayName>
+				<unitPattern count="other">{0} ppm</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>‱</displayName>
+				<unitPattern count="other">{0}‱</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>L/100km</displayName>
 				<unitPattern count="other">{0} L/100km</unitPattern>
 			</unit>
@@ -4389,14 +4531,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="duration-day-person">
 				<alias source="locale" path="../unit[@type='duration-day']"/>
 			</unit>
+			<unit type="duration-decade">
+				<displayName>dec</displayName>
+				<unitPattern count="other">{0} dec</unitPattern>
+			</unit>
 			<unit type="duration-hour">
 				<displayName>hr</displayName>
 				<unitPattern count="other">{0} h</unitPattern>
 				<perUnitPattern>{0}/h</perUnitPattern>
 			</unit>
 			<unit type="duration-microsecond">
-				<displayName>μs</displayName>
-				<unitPattern count="other">{0} μs</unitPattern>
+				<displayName>µs</displayName>
+				<unitPattern count="other">{0} µs</unitPattern>
 			</unit>
 			<unit type="duration-millisecond">
 				<displayName>ms</displayName>
@@ -4456,9 +4602,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>volt</displayName>
 				<unitPattern count="other">{0} V</unitPattern>
 			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>Btu</displayName>
+				<unitPattern count="other">{0} Btu</unitPattern>
+			</unit>
 			<unit type="energy-calorie">
 				<displayName>cal</displayName>
 				<unitPattern count="other">{0} cal</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>eV</displayName>
+				<unitPattern count="other">{0} eV</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>Cal</displayName>
@@ -4480,6 +4634,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>kWh</displayName>
 				<unitPattern count="other">{0} kWh</unitPattern>
 			</unit>
+			<unit type="energy-therm-us">
+				<displayName>US therm</displayName>
+				<unitPattern count="other">{0} US therm</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>N</displayName>
+				<unitPattern count="other">{0} N</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>lbf</displayName>
+				<unitPattern count="other">{0} lbf</unitPattern>
+			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>GHz</displayName>
 				<unitPattern count="other">{0} GHz</unitPattern>
@@ -4496,6 +4662,38 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>MHz</displayName>
 				<unitPattern count="other">{0} MHz</unitPattern>
 			</unit>
+			<unit type="graphics-dot">
+				<displayName>dot</displayName>
+				<unitPattern count="other">{0} dot</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>dpcm</displayName>
+				<unitPattern count="other">{0} dpcm</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>dpi</displayName>
+				<unitPattern count="other">{0} dpi</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>em</displayName>
+				<unitPattern count="other">{0} em</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>MP</displayName>
+				<unitPattern count="other">{0} MP</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>px</displayName>
+				<unitPattern count="other">{0} px</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>ppcm</displayName>
+				<unitPattern count="other">{0} ppcm</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>ppi</displayName>
+				<unitPattern count="other">{0} ppi</unitPattern>
+			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>au</displayName>
 				<unitPattern count="other">{0} au</unitPattern>
@@ -4508,6 +4706,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="length-decimeter">
 				<displayName>dm</displayName>
 				<unitPattern count="other">{0} dm</unitPattern>
+			</unit>
+			<unit type="length-earth-radius">
+				<displayName>R⊕</displayName>
+				<unitPattern count="other">{0} R⊕</unitPattern>
 			</unit>
 			<unit type="length-fathom">
 				<displayName>fm</displayName>
@@ -4577,17 +4779,45 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>pt</displayName>
 				<unitPattern count="other">{0} pt</unitPattern>
 			</unit>
+			<unit type="length-solar-radius">
+				<displayName>R☉</displayName>
+				<unitPattern count="other">{0} R☉</unitPattern>
+			</unit>
 			<unit type="length-yard">
 				<displayName>yd</displayName>
 				<unitPattern count="other">{0} yd</unitPattern>
+			</unit>
+			<unit type="light-candela">
+				<displayName>cd</displayName>
+				<unitPattern count="other">{0} cd</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lm</displayName>
+				<unitPattern count="other">{0} lm</unitPattern>
 			</unit>
 			<unit type="light-lux">
 				<displayName>lx</displayName>
 				<unitPattern count="other">{0} lx</unitPattern>
 			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>L☉</displayName>
+				<unitPattern count="other">{0} L☉</unitPattern>
+			</unit>
 			<unit type="mass-carat">
 				<displayName>CD</displayName>
 				<unitPattern count="other">{0} CD</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>Da</displayName>
+				<unitPattern count="other">{0} Da</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>M⊕</displayName>
+				<unitPattern count="other">{0} M⊕</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>grain</displayName>
+				<unitPattern count="other">{0} grain</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>gram</displayName>
@@ -4625,6 +4855,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="other">{0} lb</unitPattern>
 				<perUnitPattern>{0}/lb</perUnitPattern>
 			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>M☉</displayName>
+				<unitPattern count="other">{0} M☉</unitPattern>
+			</unit>
 			<unit type="mass-stone">
 				<displayName>st</displayName>
 				<unitPattern count="other">{0} st</unitPattern>
@@ -4661,23 +4895,39 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>atm</displayName>
 				<unitPattern count="other">{0} atm</unitPattern>
 			</unit>
+			<unit type="pressure-bar">
+				<displayName>bar</displayName>
+				<unitPattern count="other">{0} bar</unitPattern>
+			</unit>
 			<unit type="pressure-hectopascal">
 				<displayName>hPa</displayName>
 				<unitPattern count="other">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>inHg</displayName>
 				<unitPattern count="other">{0} inHg</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>kPa</displayName>
+				<unitPattern count="other">{0} kPa</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>MPa</displayName>
+				<unitPattern count="other">{0} MPa</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<displayName>mbar</displayName>
 				<unitPattern count="other">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>mm Hg</displayName>
 				<unitPattern count="other">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pascal">
+				<displayName>Pa</displayName>
+				<unitPattern count="other">{0} Pa</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
 				<displayName>psi</displayName>
 				<unitPattern count="other">{0} psi</unitPattern>
 			</unit>
@@ -4713,9 +4963,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>K</displayName>
 				<unitPattern count="other">{0} K</unitPattern>
 			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>N⋅m</displayName>
+				<unitPattern count="other">{0} N⋅m</unitPattern>
+			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>lbf⋅ft</displayName>
+				<unitPattern count="other">{0} lbf⋅ft</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ac ft</displayName>
 				<unitPattern count="other">{0} ac ft</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>bbl</displayName>
+				<unitPattern count="other">{0} bbl</unitPattern>
 			</unit>
 			<unit type="volume-bushel">
 				<displayName>bu</displayName>
@@ -4767,9 +5029,29 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>dL</displayName>
 				<unitPattern count="other">{0} dL</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>dstspn</displayName>
+				<unitPattern count="other">{0} dstspn</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>dstspn Imp</displayName>
+				<unitPattern count="other">{0} dstspn Imp</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>dram fluid</displayName>
+				<unitPattern count="other">{0} dram fl</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>drop</displayName>
+				<unitPattern count="other">{0} drop</unitPattern>
+			</unit>
 			<unit type="volume-fluid-ounce">
-				<displayName>fl oz</displayName>
-				<unitPattern count="other">{0} fl oz</unitPattern>
+				<displayName>US fl oz</displayName>
+				<unitPattern count="other">{0} fl oz US</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>Imp. fl oz</displayName>
+				<unitPattern count="other">{0} fl oz Imp.</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>US gal</displayName>
@@ -4785,6 +5067,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>hL</displayName>
 				<unitPattern count="other">{0} hL</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>jigger</displayName>
+				<unitPattern count="other">{0} jigger</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>liter</displayName>
 				<unitPattern count="other">{0} l</unitPattern>
@@ -4798,6 +5084,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>mL</displayName>
 				<unitPattern count="other">{0} mL</unitPattern>
 			</unit>
+			<unit type="volume-pinch">
+				<displayName>pinch</displayName>
+				<unitPattern count="other">{0} pinch</unitPattern>
+			</unit>
 			<unit type="volume-pint">
 				<displayName>pt</displayName>
 				<unitPattern count="other">{0} pt</unitPattern>
@@ -4810,6 +5100,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>qt</displayName>
 				<unitPattern count="other">{0} qt</unitPattern>
 			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>qt Imp</displayName>
+				<unitPattern count="other">{0} qt Imp.</unitPattern>
+			</unit>
 			<unit type="volume-tablespoon">
 				<displayName>tbsp</displayName>
 				<unitPattern count="other">{0} tbsp</unitPattern>
@@ -4818,9 +5112,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>tsp</displayName>
 				<unitPattern count="other">{0} tsp</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<displayName>direction</displayName>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
@@ -4831,15 +5122,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</unitLength>
 		<durationUnit type="hm">
 			<durationUnitPattern>h:mm</durationUnitPattern>
-			<!-- 33:59 -->
 		</durationUnit>
 		<durationUnit type="hms">
 			<durationUnitPattern>h:mm:ss</durationUnitPattern>
-			<!-- 33:04:59 -->
 		</durationUnit>
 		<durationUnit type="ms">
 			<durationUnitPattern>m:ss</durationUnitPattern>
-			<!-- 33:59 -->
 		</durationUnit>
 	</units>
 	<listPatterns>
@@ -4879,41 +5167,51 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</listPatterns>
 	<collations>
 		<defaultCollation>standard</defaultCollation>
+		<!-- Machine-readable version of the emoji ordering rules for v13.1β (corresponding to CLDR). -->
 		<collation type="emoji">
 			<cr><![CDATA[
-				# Generating for repertoire of E11.0, based on ordering for E12.0
 				# START AUTOGENERATED EMOJI ORDER
 				& [last primary ignorable]<<*🦰🦱🦳🦲🏻🏼🏽🏾🏿
 				& [before 1]﷑€
 				<*😀😃😄😁😆😅🤣😂🙂🙃😉😊😇
-				<*🥰😍🤩😘😗☺😚😙
+				<*🥰😍🤩😘😗☺😚😙🥲
 				<*😋😛😜🤪😝🤑
 				<*🤗🤭🤫🤔
-				<*🤐🤨😐😑😶😏😒🙄😬🤥
+				<*🤐🤨😐😑😶
+				< 😶‍🌫
+				<*😏😒🙄😬
+				< 😮‍💨
+				<*🤥
 				<*😌😔😪🤤😴
-				<*😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯
-				<*🤠🥳
+				<*😷🤒🤕🤢🤮🤧🥵🥶🥴😵
+				< 😵‍💫
+				<*🤯
+				<*🤠🥳🥸
 				<*😎🤓🧐
-				<*😕😟🙁☹😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫
+				<*😕😟🙁☹😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱
 				<*😤😡😠🤬😈👿💀☠
 				<*💩🤡👹👺👻👽👾🤖
 				<*😺😸😹😻😼😽🙀😿😾
 				<*🙈🙉🙊
-				<*💋💌💘💝💖💗💓💞💕💟❣💔❤🧡💛💚💙💜🖤💯💢💥💫💦💨🕳💣💬
+				<*💋💌💘💝💖💗💓💞💕💟❣💔
+				< ❤‍🔥 = ❤️‍🔥
+				< ❤‍🩹 = ❤️‍🩹
+				<*❤🧡💛💚💙💜🤎🖤🤍💯💢💥💫💦💨🕳💣💬
 				< 👁‍🗨 = 👁️‍🗨
 				<*🗨🗯💭💤
 				<*👋🤚🖐✋🖖
-				<*👌✌🤞🤟🤘🤙
+				<*👌🤌🤏✌🤞🤟🤘🤙
 				<*👈👉👆🖕👇☝
 				<*👍👎✊👊🤛🤜
 				<*👏🙌👐🤲🤝🙏
 				<*✍💅🤳
-				<*💪🦵🦶👂👃🧠🦷🦴👀👁👅👄
-				<*👶🧒👦👧🧑 <<👱
-				<*👨
-				< 👱‍♂ << 👱🏻‍♂ << 👱🏼‍♂ << 👱🏽‍♂ << 👱🏾‍♂ << 👱🏿‍♂ <<🧔
+				<*💪🦾🦿🦵🦶👂🦻👃🧠🫀🫁🦷🦴👀👁👅👄
+				<*👶🧒👦👧🧑👱👨🧔
+				< 🧔‍♂ << 🧔🏻‍♂ << 🧔🏼‍♂ << 🧔🏽‍♂ << 🧔🏾‍♂ << 🧔🏿‍♂
+				< 🧔‍♀ << 🧔🏻‍♀ << 🧔🏼‍♀ << 🧔🏽‍♀ << 🧔🏾‍♀ << 🧔🏿‍♀
 				<*👩
 				< 👱‍♀ << 👱🏻‍♀ << 👱🏼‍♀ << 👱🏽‍♀ << 👱🏾‍♀ << 👱🏿‍♀
+				< 👱‍♂ << 👱🏻‍♂ << 👱🏼‍♂ << 👱🏽‍♂ << 👱🏾‍♂ << 👱🏿‍♂
 				<*🧓👴👵
 				<*🙍
 				< 🙍‍♂ << 🙍🏻‍♂ << 🙍🏼‍♂ << 🙍🏽‍♂ << 🙍🏾‍♂ << 🙍🏿‍♂
@@ -4933,6 +5231,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🙋
 				< 🙋‍♂ << 🙋🏻‍♂ << 🙋🏼‍♂ << 🙋🏽‍♂ << 🙋🏾‍♂ << 🙋🏿‍♂
 				< 🙋‍♀ << 🙋🏻‍♀ << 🙋🏼‍♀ << 🙋🏽‍♀ << 🙋🏾‍♀ << 🙋🏿‍♀
+				<*🧏
+				< 🧏‍♂ << 🧏🏻‍♂ << 🧏🏼‍♂ << 🧏🏽‍♂ << 🧏🏾‍♂ << 🧏🏿‍♂
+				< 🧏‍♀ << 🧏🏻‍♀ << 🧏🏼‍♀ << 🧏🏽‍♀ << 🧏🏾‍♀ << 🧏🏿‍♀
 				<*🙇
 				< 🙇‍♂ << 🙇🏻‍♂ << 🙇🏼‍♂ << 🙇🏽‍♂ << 🙇🏾‍♂ << 🙇🏿‍♂
 				< 🙇‍♀ << 🙇🏻‍♀ << 🙇🏼‍♀ << 🙇🏽‍♀ << 🙇🏾‍♀ << 🙇🏿‍♀
@@ -4999,14 +5300,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*💂
 				< 💂‍♂ << 💂🏻‍♂ << 💂🏼‍♂ << 💂🏽‍♂ << 💂🏾‍♂ << 💂🏿‍♂
 				< 💂‍♀ << 💂🏻‍♀ << 💂🏼‍♀ << 💂🏽‍♀ << 💂🏾‍♀ << 💂🏿‍♀
-				<*👷
+				<*🥷👷
 				< 👷‍♂ << 👷🏻‍♂ << 👷🏼‍♂ << 👷🏽‍♂ << 👷🏾‍♂ << 👷🏿‍♂
 				< 👷‍♀ << 👷🏻‍♀ << 👷🏼‍♀ << 👷🏽‍♀ << 👷🏾‍♀ << 👷🏿‍♀
 				<*🤴👸👳
 				< 👳‍♂ << 👳🏻‍♂ << 👳🏼‍♂ << 👳🏽‍♂ << 👳🏾‍♂ << 👳🏿‍♂
 				< 👳‍♀ << 👳🏻‍♀ << 👳🏼‍♀ << 👳🏽‍♀ << 👳🏾‍♀ << 👳🏿‍♀
-				<*👲🧕🤵👰🤰🤱
-				<*👼🎅🤶🦸
+				<*👲🧕🤵
+				< 🤵‍♂ << 🤵🏻‍♂ << 🤵🏼‍♂ << 🤵🏽‍♂ << 🤵🏾‍♂ << 🤵🏿‍♂
+				< 🤵‍♀ << 🤵🏻‍♀ << 🤵🏼‍♀ << 🤵🏽‍♀ << 🤵🏾‍♀ << 🤵🏿‍♀
+				<*👰
+				< 👰‍♂ << 👰🏻‍♂ << 👰🏼‍♂ << 👰🏽‍♂ << 👰🏾‍♂ << 👰🏿‍♂
+				< 👰‍♀ << 👰🏻‍♀ << 👰🏼‍♀ << 👰🏽‍♀ << 👰🏾‍♀ << 👰🏿‍♀
+				<*🤰🤱
+				< 👩‍🍼 << 👩🏻‍🍼 << 👩🏼‍🍼 << 👩🏽‍🍼 << 👩🏾‍🍼 << 👩🏿‍🍼
+				< 👨‍🍼 << 👨🏻‍🍼 << 👨🏼‍🍼 << 👨🏽‍🍼 << 👨🏾‍🍼 << 👨🏿‍🍼
+				< 🧑‍🍼 << 🧑🏻‍🍼 << 🧑🏼‍🍼 << 🧑🏽‍🍼 << 🧑🏾‍🍼 << 🧑🏿‍🍼
+				<*👼🎅🤶
+				< 🧑‍🎄 << 🧑🏻‍🎄 << 🧑🏼‍🎄 << 🧑🏽‍🎄 << 🧑🏾‍🎄 << 🧑🏿‍🎄
+				<*🦸
 				< 🦸‍♂ << 🦸🏻‍♂ << 🦸🏼‍♂ << 🦸🏽‍♂ << 🦸🏾‍♂ << 🦸🏿‍♂
 				< 🦸‍♀ << 🦸🏻‍♀ << 🦸🏼‍♀ << 🦸🏽‍♀ << 🦸🏾‍♀ << 🦸🏿‍♀
 				<*🦹
@@ -5042,6 +5354,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<*🚶
 				< 🚶‍♂ << 🚶🏻‍♂ << 🚶🏼‍♂ << 🚶🏽‍♂ << 🚶🏾‍♂ << 🚶🏿‍♂
 				< 🚶‍♀ << 🚶🏻‍♀ << 🚶🏼‍♀ << 🚶🏽‍♀ << 🚶🏾‍♀ << 🚶🏿‍♀
+				<*🧍
+				< 🧍‍♂ << 🧍🏻‍♂ << 🧍🏼‍♂ << 🧍🏽‍♂ << 🧍🏾‍♂ << 🧍🏿‍♂
+				< 🧍‍♀ << 🧍🏻‍♀ << 🧍🏼‍♀ << 🧍🏽‍♀ << 🧍🏾‍♀ << 🧍🏿‍♀
+				<*🧎
+				< 🧎‍♂ << 🧎🏻‍♂ << 🧎🏼‍♂ << 🧎🏽‍♂ << 🧎🏾‍♂ << 🧎🏿‍♂
+				< 🧎‍♀ << 🧎🏻‍♀ << 🧎🏼‍♀ << 🧎🏽‍♀ << 🧎🏾‍♀ << 🧎🏿‍♀
+				< 🧑‍🦯 << 🧑🏻‍🦯 << 🧑🏼‍🦯 << 🧑🏽‍🦯 << 🧑🏾‍🦯 << 🧑🏿‍🦯
+				< 👨‍🦯 << 👨🏻‍🦯 << 👨🏼‍🦯 << 👨🏽‍🦯 << 👨🏾‍🦯 << 👨🏿‍🦯
+				< 👩‍🦯 << 👩🏻‍🦯 << 👩🏼‍🦯 << 👩🏽‍🦯 << 👩🏾‍🦯 << 👩🏿‍🦯
+				< 🧑‍🦼 << 🧑🏻‍🦼 << 🧑🏼‍🦼 << 🧑🏽‍🦼 << 🧑🏾‍🦼 << 🧑🏿‍🦼
+				< 👨‍🦼 << 👨🏻‍🦼 << 👨🏼‍🦼 << 👨🏽‍🦼 << 👨🏾‍🦼 << 👨🏿‍🦼
+				< 👩‍🦼 << 👩🏻‍🦼 << 👩🏼‍🦼 << 👩🏽‍🦼 << 👩🏾‍🦼 << 👩🏿‍🦼
+				< 🧑‍🦽 << 🧑🏻‍🦽 << 🧑🏼‍🦽 << 🧑🏽‍🦽 << 🧑🏾‍🦽 << 🧑🏿‍🦽
+				< 👨‍🦽 << 👨🏻‍🦽 << 👨🏼‍🦽 << 👨🏽‍🦽 << 👨🏾‍🦽 << 👨🏿‍🦽
+				< 👩‍🦽 << 👩🏻‍🦽 << 👩🏼‍🦽 << 👩🏽‍🦽 << 👩🏾‍🦽 << 👩🏿‍🦽
 				<*🏃
 				< 🏃‍♂ << 🏃🏻‍♂ << 🏃🏼‍♂ << 🏃🏽‍♂ << 🏃🏾‍♂ << 🏃🏿‍♂
 				< 🏃‍♀ << 🏃🏻‍♀ << 🏃🏼‍♀ << 🏃🏽‍♀ << 🏃🏾‍♀ << 🏃🏿‍♀
@@ -5097,7 +5424,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				< 🧘‍♂ << 🧘🏻‍♂ << 🧘🏼‍♂ << 🧘🏽‍♂ << 🧘🏾‍♂ << 🧘🏿‍♂
 				< 🧘‍♀ << 🧘🏻‍♀ << 🧘🏼‍♀ << 🧘🏽‍♀ << 🧘🏾‍♀ << 🧘🏿‍♀
 				<*🛀🛌
-				<*👫👬👭💏
+				< 🧑‍🤝‍🧑 << 🧑🏻‍🤝‍🧑 << 🧑🏼‍🤝‍🧑 << 🧑🏽‍🤝‍🧑 << 🧑🏾‍🤝‍🧑 << 🧑🏿‍🤝‍🧑
+				< 👭 << 👩🏻‍🤝‍👩 << 👩🏼‍🤝‍👩 << 👩🏽‍🤝‍👩 << 👩🏾‍🤝‍👩 << 👩🏿‍🤝‍👩
+				< 👫 << 👩🏻‍🤝‍👨 << 👩🏼‍🤝‍👨 << 👩🏽‍🤝‍👨 << 👩🏾‍🤝‍👨 << 👩🏿‍🤝‍👨
+				< 👬 << 👨🏻‍🤝‍👨 << 👨🏼‍🤝‍👨 << 👨🏽‍🤝‍👨 << 👨🏾‍🤝‍👨 << 👨🏿‍🤝‍👨
+				& 👩🏻‍🤝‍👩🏻=👭🏻
+				& 👩🏼‍🤝‍👩🏼=👭🏼
+				& 👩🏽‍🤝‍👩🏽=👭🏽
+				& 👩🏾‍🤝‍👩🏾=👭🏾
+				& 👩🏿‍🤝‍👩🏿=👭🏿
+				& 👩🏻‍🤝‍👨🏻=👫🏻
+				& 👩🏼‍🤝‍👨🏼=👫🏼
+				& 👩🏽‍🤝‍👨🏽=👫🏽
+				& 👩🏾‍🤝‍👨🏾=👫🏾
+				& 👩🏿‍🤝‍👨🏿=👫🏿
+				& 👨🏻‍🤝‍👨🏻=👬🏻
+				& 👨🏼‍🤝‍👨🏼=👬🏼
+				& 👨🏽‍🤝‍👨🏽=👬🏽
+				& 👨🏾‍🤝‍👨🏾=👬🏾
+				& 👨🏿‍🤝‍👨🏿=👬🏿
+				<*💏
 				< 👩‍❤‍💋‍👨 = 👩‍❤️‍💋‍👨
 				< 👨‍❤‍💋‍👨 = 👨‍❤️‍💋‍👨
 				< 👩‍❤‍💋‍👩 = 👩‍❤️‍💋‍👩
@@ -5131,66 +5477,75 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				< 👩‍👧
 				< 👩‍👧‍👦
 				< 👩‍👧‍👧
-				<*🗣👤👥👣
+				<*🗣👤👥🫂👣
 				<*🦰🦱🦳🦲
-				<*♀♂
-				<*🐵🐒🦍🐶🐕🐩🐺🦊🦝🐱🐈🦁🐯🐅🐆🐴🐎🦄🦓🦌🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🦙🦒🐘🦏🦛🐭🐁🐀🐹🐰🐇🐿🦔🦇🐻🐨🐼🦘🦡
-				<*🦃🐔🐓🐣🐤🐥🐦🐧🕊🦅🦆🦢🦉🦚🦜
+				<*🐵🐒🦍🦧🐶🐕🦮
+				< 🐕‍🦺
+				<*🐩🐺🦊🦝🐱🐈
+				< 🐈‍⬛
+				<*🦁🐯🐅🐆🐴🐎🦄🦓🦌🦬🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🦙🦒🐘🦣🦏🦛🐭🐁🐀🐹🐰🐇🐿🦫🦔🦇🐻
+				< 🐻‍❄
+				<*🐨🐼🦥🦦🦨🦘🦡🐾
+				<*🦃🐔🐓🐣🐤🐥🐦🐧🕊🦅🦆🦢🦉🦤🪶🦩🦚🦜
 				<*🐸
 				<*🐊🐢🦎🐍🐲🐉🦕🦖
-				<*🐳🐋🐬🐟🐠🐡🦈🐙🐚
-				<*🐌🦋🐛🐜🐝🐞🦗🕷🕸🦂🦟🦠
+				<*🐳🐋🐬🦭🐟🐠🐡🦈🐙🐚
+				<*🐌🦋🐛🐜🐝🪲🐞🦗🪳🕷🕸🦂🦟🪰🪱🦠
 				<*💐🌸💮🏵🌹🥀🌺🌻🌼🌷
-				<*🌱🌲🌳🌴🌵🌾🌿☘🍀🍁🍂🍃
-				<*🍇🍈🍉🍊🍋🍌🍍🥭🍎🍏🍐🍑🍒🍓🥝🍅🥥
-				<*🥑🍆🥔🥕🌽🌶🥒🥬🥦🍄🥜🌰
-				<*🍞🥐🥖🥨🥯🥞🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🥙🥚🍳🥘🍲🥣🥗🍿🧂🥫
+				<*🌱🪴🌲🌳🌴🌵🌾🌿☘🍀🍁🍂🍃
+				<*🍇🍈🍉🍊🍋🍌🍍🥭🍎🍏🍐🍑🍒🍓🫐🥝🍅🫒🥥
+				<*🥑🍆🥔🥕🌽🌶🫑🥒🥬🥦🧄🧅🍄🥜🌰
+				<*🍞🥐🥖🫓🥨🥯🥞🧇🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🫔🥙🧆🥚🍳🥘🍲🫕🥣🥗🍿🧈🧂🥫
 				<*🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🥮🍡🥟🥠🥡
-				<*🦀🦞🦐🦑
+				<*🦀🦞🦐🦑🦪
 				<*🍦🍧🍨🍩🍪🎂🍰🧁🥧🍫🍬🍭🍮🍯
-				<*🍼🥛☕🍵🍶🍾🍷🍸🍹🍺🍻🥂🥃🥤
+				<*🍼🥛☕🫖🍵🍶🍾🍷🍸🍹🍺🍻🥂🥃🥤🧋🧃🧉🧊
 				<*🥢🍽🍴🥄🔪🏺
 				<*🌍🌎🌏🌐🗺🗾🧭
 				<*🏔⛰🌋🗻🏕🏖🏜🏝🏞
-				<*🏟🏛🏗🧱🏘🏚🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽
-				<*⛪🕌🕍⛩🕋
-				<*⛲⛺🌁🌃🏙🌄🌅🌆🌇🌉♨🌌🎠🎡🎢💈🎪
-				<*🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🚚🚛🚜🏎🏍🛵🚲🛴🛹🚏🛣🛤🛢⛽🚨🚥🚦🛑🚧
+				<*🏟🏛🏗🧱🪨🪵🛖🏘🏚🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽
+				<*⛪🕌🛕🕍⛩🕋
+				<*⛲⛺🌁🌃🏙🌄🌅🌆🌇🌉♨🎠🎡🎢💈🎪
+				<*🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎🏍🛵🦽🦼🛺🚲🛴🛹🛼🚏🛣🛤🛢⛽🚨🚥🚦🛑🚧
 				<*⚓⛵🛶🚤🛳⛴🛥🚢
-				<*✈🛩🛫🛬💺🚁🚟🚠🚡🛰🚀🛸
+				<*✈🛩🛫🛬🪂💺🚁🚟🚠🚡🛰🚀🛸
 				<*🛎🧳
 				<*⌛⏳⌚⏰⏱⏲🕰🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦
-				<*🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌛🌜🌡☀🌝🌞⭐🌟🌠☁⛅⛈🌤🌥🌦🌧🌨🌩🌪🌫🌬🌀🌈🌂☂☔⛱⚡❄☃⛄☄🔥💧🌊
+				<*🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌛🌜🌡☀🌝🌞🪐⭐🌟🌠🌌☁⛅⛈🌤🌥🌦🌧🌨🌩🌪🌫🌬🌀🌈🌂☂☔⛱⚡❄☃⛄☄🔥💧🌊
 				<*🎃🎄🎆🎇🧨✨🎈🎉🎊🎋🎍🎎🎏🎐🎑🧧🎀🎁🎗🎟🎫
 				<*🎖🏆🏅🥇🥈🥉
-				<*⚽⚾🥎🏀🏐🏈🏉🎾🥏🎳🏏🏑🏒🥍🏓🏸🥊🥋🥅⛳⛸🎣🎽🎿🛷🥌
-				<*🎯🎱🔮🧿🎮🕹🎰🎲🧩🧸♠♥♦♣♟🃏🀄🎴
-				<*🎭🖼🎨🧵🧶
-				<*👓🕶🥽🥼👔👕👖🧣🧤🧥🧦👗👘👙👚👛👜👝🛍🎒👞👟🥾🥿👠👡👢👑👒🎩🎓🧢⛑📿💄💍💎
+				<*⚽⚾🥎🏀🏐🏈🏉🎾🥏🎳🏏🏑🏒🥍🏓🏸🥊🥋🥅⛳⛸🎣🤿🎽🎿🛷🥌
+				<*🎯🪀🪁🎱🔮🪄🧿🎮🕹🎰🎲🧩🧸🪅🪆♠♥♦♣♟🃏🀄🎴
+				<*🎭🖼🎨🧵🪡🧶🪢
+				<*👓🕶🥽🥼🦺👔👕👖🧣🧤🧥🧦👗👘🥻🩱🩲🩳👙👚👛👜👝🛍🎒🩴👞👟🥾🥿👠👡🩰👢👑👒🎩🎓🧢🪖⛑📿💄💍💎
 				<*🔇🔈🔉🔊📢📣📯🔔🔕
 				<*🎼🎵🎶🎙🎚🎛🎤🎧📻
-				<*🎷🎸🎹🎺🎻🥁
+				<*🎷🪗🎸🎹🎺🎻🪕🥁🪘
 				<*📱📲☎📞📟📠
 				<*🔋🔌💻🖥🖨⌨🖱🖲💽💾💿📀🧮
-				<*🎥🎞📽🎬📺📷📸📹📼🔍🔎🕯💡🔦🏮
+				<*🎥🎞📽🎬📺📷📸📹📼🔍🔎🕯💡🔦🏮🪔
 				<*📔📕📖📗📘📙📚📓📒📃📜📄📰🗞📑🔖🏷
-				<*💰💴💵💶💷💸💳🧾💹💱💲
+				<*💰🪙💴💵💶💷💸💳🧾💹
 				<*✉📧📨📩📤📥📦📫📪📬📭📮🗳
 				<*✏✒🖋🖊🖌🖍📝
 				<*💼📁📂🗂📅📆🗒🗓📇📈📉📊📋📌📍📎🖇📏📐✂🗃🗄🗑
 				<*🔒🔓🔏🔐🔑🗝
-				<*🔨⛏⚒🛠🗡⚔🔫🏹🛡🔧🔩⚙🗜⚖🔗⛓🧰🧲
+				<*🔨🪓⛏⚒🛠🗡⚔🔫🪃🏹🛡🪚🔧🪛🔩⚙🗜⚖🦯🔗⛓🪝🧰🧲🪜
 				<*⚗🧪🧫🧬🔬🔭📡
-				<*💉💊
-				<*🚪🛏🛋🚽🚿🛁🧴🧷🧹🧺🧻🧼🧽🧯🛒
-				<*🚬⚰⚱🗿
+				<*💉🩸💊🩹🩺
+				<*🚪🛗🪞🪟🛏🛋🪑🚽🪠🚿🛁🪤🪒🧴🧷🧹🧺🧻🪣🧼🪥🧽🧯🛒
+				<*🚬⚰🪦⚱🗿🪧
 				<*🏧🚮🚰♿🚹🚺🚻🚼🚾🛂🛃🛄🛅
 				<*⚠🚸⛔🚫🚳🚭🚯🚱🚷📵🔞☢☣
 				<*⬆↗➡↘⬇↙⬅↖↕↔↩↪⤴⤵🔃🔄🔙🔚🔛🔜🔝
 				<*🛐⚛🕉✡☸☯✝☦☪☮🕎🔯
 				<*♈♉♊♋♌♍♎♏♐♑♒♓⛎
 				<*🔀🔁🔂▶⏩⏭⏯◀⏪⏮🔼⏫🔽⏬⏸⏹⏺⏏🎦🔅🔆📶📳📴
-				<*⚕♾♻⚜🔱📛🔰⭕✅☑✔✖❌❎➕➖➗➰➿〽✳✴❇‼⁉❓❔❕❗〰©®™
+				<*♀♂⚧
+				<*✖➕➖➗♾
+				<*‼⁉❓❔❕❗〰
+				<*💱💲
+				<*⚕♻⚜🔱📛🔰⭕✅☑✔❌❎➰➿〽✳✴❇©®™
 				< '#⃣' = '#️⃣'
 				< '*⃣' = '*️⃣'
 				< 0⃣ = 0️⃣
@@ -5205,15 +5560,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				< 9⃣ = 9️⃣
 				<*🔟
 				<*🔠🔡🔢🔣🔤🅰🆎🅱🆑🆒🆓ℹ🆔Ⓜ🆕🆖🅾🆗🅿🆘🆙🆚🈁🈂🈷🈶🈯🉐🈹🈚🈲🉑🈸🈴🈳㊗㊙🈺🈵
-				<*🔴🔵⚪⚫⬜⬛◼◻◽◾▫▪🔶🔷🔸🔹🔺🔻💠🔘🔲🔳
+				<*🔴🟠🟡🟢🔵🟣🟤⚫⚪🟥🟧🟨🟩🟦🟪🟫⬛⬜◼◻◾◽▪▫🔶🔷🔸🔹🔺🔻💠🔘🔳🔲
 				<*🏁🚩🎌🏴🏳
 				< 🏳‍🌈 = 🏳️‍🌈
+				< 🏳‍⚧ = 🏳️‍⚧
 				< 🏴‍☠
 				<*🇦🇧🇨🇩🇪🇫🇬🇭🇮🇯🇰🇱🇲🇳🇴🇵🇶🇷🇸🇹🇺🇻🇼🇽🇾🇿
 				< 🏴󠁧󠁢󠁥󠁮󠁧󠁿
 				< 🏴󠁧󠁢󠁳󠁣󠁴󠁿
 				< 🏴󠁧󠁢󠁷󠁬󠁳󠁿
-				# END AUTOGENERATED EMOJI ORDER
+				& 🧑 << 👱
+				& 👨 << 🧔 <<🧔‍♂ <<🧔🏻‍♂ <<🧔🏼‍♂ <<🧔🏽‍♂ <<🧔🏾‍♂ <<🧔🏿‍♂ <<👱‍♂ <<👱🏻‍♂ <<👱🏼‍♂ <<👱🏽‍♂ <<👱🏾‍♂ <<👱🏿‍♂
+				& 👩 << 🧔‍♀ << 🧔🏻‍♀ << 🧔🏼‍♀ << 🧔🏽‍♀ << 🧔🏾‍♀ << 🧔🏿‍♀ << 👱‍♀ << 👱🏻‍♀ << 👱🏼‍♀ << 👱🏽‍♀ << 👱🏾‍♀ << 👱🏿‍♀
 			]]></cr>
 		</collation>
 		<collation type="eor" references="European Standard EN13710:2011-06 - European Ordering Rules - Ordering of characters from Latin, Greek, Cyrillic, Georgian, and Armenian scripts">
@@ -5776,7 +6134,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				# Index characters for the unihan sort order in root.
 				# Each index character is an ideograph representing a radical,
 				# and sorts like the first ideograph in the radical-stroke order.
-				# Unicode 10.0.0
+				# Unicode 13.0.0
 				&一=\uFDD0一 # radical 1
 				&丨=\uFDD0丨 # radical 2
 				&丶=\uFDD0丶 # radical 3
@@ -5867,7 +6225,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				&父=\uFDD0父 # radical 88
 				&爻=\uFDD0爻 # radical 89
 				&丬=\uFDD0爿 # radical 90
-				&𬌒=\uFDD0丬 # radical 90'
+				&𰠗=\uFDD0丬 # radical 90'
 				&片=\uFDD0片 # radical 91
 				&牙=\uFDD0牙 # radical 92
 				&牛=\uFDD0牛 # radical 93
@@ -5991,7 +6349,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				&鳥=\uFDD0鳥 # radical 196
 				&鸟=\uFDD0鸟 # radical 196'
 				&鹵=\uFDD0鹵 # radical 197
-				&𮭰=\uFDD0卤 # radical 197'
+				&𱊺=\uFDD0卤 # radical 197'
 				&鹿=\uFDD0鹿 # radical 198
 				&麥=\uFDD0麥 # radical 199
 				&麦=\uFDD0麦 # radical 199'
@@ -6166,7 +6524,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabelPattern type="other">{0} — other</characterLabelPattern>
 		<characterLabelPattern type="scripts">scripts — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} strokes</characterLabelPattern>
-		<!-- regular -->
+		<characterLabelPattern type="subscript">subscript {0}</characterLabelPattern>
+		<characterLabelPattern type="superscript">superscript {0}</characterLabelPattern>
 		<characterLabel type="activities">activity</characterLabel>
 		<characterLabel type="african_scripts">African script</characterLabel>
 		<characterLabel type="american_scripts">American script</characterLabel>
@@ -6257,6 +6616,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	<segmentations>
 		<segmentation type="GraphemeClusterBreak">
 			<variables>
+				<!-- VARIABLES -->
 				<variable id="$CR">\p{Grapheme_Cluster_Break=CR}</variable>
 				<variable id="$Control">\p{Grapheme_Cluster_Break=Control}</variable>
 				<variable id="$ExtCccZwj">[[$Extend-\p{ccc=0}] $ZWJ]</variable>
@@ -6266,17 +6626,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$LF">\p{Grapheme_Cluster_Break=LF}</variable>
 				<variable id="$LV">\p{Grapheme_Cluster_Break=LV}</variable>
 				<variable id="$LVT">\p{Grapheme_Cluster_Break=LVT}</variable>
+				<variable id="$LinkingConsonant">[\p{Gujr}\p{sc=Telu}\p{sc=Mlym}\p{sc=Orya}\p{sc=Beng}\p{sc=Deva}&amp;\p{Indic_Syllabic_Category=Consonant}]</variable>
 				<variable id="$Prepend">\p{Grapheme_Cluster_Break=Prepend}</variable>
 				<variable id="$RI">\p{Grapheme_Cluster_Break=Regional_Indicator}</variable>
 				<variable id="$SpacingMark">\p{Grapheme_Cluster_Break=SpacingMark}</variable>
 				<variable id="$T">\p{Grapheme_Cluster_Break=T}</variable>
 				<variable id="$V">\p{Grapheme_Cluster_Break=V}</variable>
+				<!-- Note: The following may overlap with the above -->
+				<variable id="$Virama">[\p{Gujr}\p{sc=Telu}\p{sc=Mlym}\p{sc=Orya}\p{sc=Beng}\p{sc=Deva}&amp;\p{Indic_Syllabic_Category=Virama}]</variable>
 				<variable id="$ZWJ">\p{Grapheme_Cluster_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<!-- Rules -->
-				<!-- Break at the start and end of text, unless the text is empty. -->
-				<!-- Do not break between a CR and LF. Otherwise, break before and after controls. -->
+				<!-- RULES
+					 Break at the start and end of text, unless the text is empty.
+					 Do not break between a CR and LF. Otherwise, break before and after controls.
+				-->
 				<rule id="3">$CR × $LF</rule>
 				<rule id="4">( $Control | $CR | $LF ) ÷</rule>
 				<rule id="5">÷ ( $Control | $CR | $LF )</rule>
@@ -6284,32 +6648,34 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="6">$L × ( $L | $V | $LV | $LVT )</rule>
 				<rule id="7">( $LV | $V ) × ( $V | $T )</rule>
 				<rule id="8">( $LVT | $T) × $T</rule>
-				<!-- Do not break before extending characters or ZWJ. -->
 				<rule id="9">× ($Extend | $ZWJ)</rule>
 				<!-- Only for extended grapheme clusters: Do not break before SpacingMarks, or after Prepend characters. -->
 				<rule id="9.1">× $SpacingMark</rule>
 				<rule id="9.2">$Prepend ×</rule>
-				<!-- Do not break within emoji modifier sequences or emoji zwj sequences. -->
+				<rule id="9.3">$LinkingConsonant $ExtCccZwj* $Virama $ExtCccZwj* × $LinkingConsonant</rule>
+				<!-- Do not break within emoji zwj sequences. -->
 				<rule id="11">$ExtPict $Extend* $ZWJ × $ExtPict</rule>
 				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
 				<rule id="12">^ ($RI $RI)* $RI × $RI</rule>
 				<rule id="13">[^$RI] ($RI $RI)* $RI × $RI</rule>
+				<!-- Otherwise, break everywhere. -->
 			</segmentRules>
-			<!-- Otherwise, break everywhere. -->
 		</segmentation>
 		<segmentation type="LineBreak">
 			<variables>
-				<!-- Variables -->
+				<!-- VARIABLES -->
 				<variable id="$AI">\p{Line_Break=Ambiguous}</variable>
 				<variable id="$AI">($AI $X)</variable>
 				<variable id="$AL">\p{Line_Break=Alphabetic}</variable>
-				<!-- LB 1  Assign a line breaking class to each code point of the input. -->
-				<!-- Resolve AI, CB, SA, SG, and XX into other line breaking classes depending on criteria outside the scope of this algorithm. -->
-				<!-- NOTE: CB is ok to fall through, but must handle others here. -->
+				<!-- LB 1  Assign a line breaking class to each code point of the input.
+					 Resolve AI, CB, SA, SG, and XX into other line breaking classes depending on criteria outside the scope of this algorithm.
+					 NOTE: CB is ok to fall through, but must handle others here.
+				-->
 				<variable id="$AL">[$AI $AL $SG $XX $SA]</variable>
 				<variable id="$AL">($AL $X)</variable>
-				<!-- OUT OF ORDER ON PURPOSE -->
-				<!-- LB 10  Treat any remaining combining mark as AL. -->
+				<!-- OUT OF ORDER ON PURPOSE
+					 LB 10  Treat any remaining combining mark as AL.
+				-->
 				<variable id="$AL">($AL | ^ $CM | (?&lt;=$Spec1_) $CM)</variable>
 				<variable id="$B2">\p{Line_Break=Break_Both}</variable>
 				<variable id="$B2">($B2 $X)</variable>
@@ -6323,12 +6689,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$CJ">\p{Line_Break=Conditional_Japanese_Starter}</variable>
 				<variable id="$CL">\p{Line_Break=Close_Punctuation}</variable>
 				<variable id="$CL">($CL $X)</variable>
-				<!-- Macros -->
+				<!-- SPECIAL EXTENSIONS -->
 				<variable id="$CM">[$CM1 $ZWJ]</variable>
 				<variable id="$CM">($CM $X)</variable>
 				<variable id="$CM1">\p{Line_Break=Combining_Mark}</variable>
 				<variable id="$CP">\p{Line_Break=CP}</variable>
 				<variable id="$CP">($CP $X)</variable>
+				<variable id="$CP30">[$CP - [\p{ea=F}\p{ea=W}\p{ea=H}]]</variable>
+				<variable id="$CP30">($CP30 $X)</variable>
 				<variable id="$CR">\p{Line_Break=Carriage_Return}</variable>
 				<variable id="$EB">\p{Line_Break=E_Base}</variable>
 				<variable id="$EB">($EB $X)</variable>
@@ -6367,6 +6735,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$NU">($NU $X)</variable>
 				<variable id="$OP">\p{Line_Break=Open_Punctuation}</variable>
 				<variable id="$OP">($OP $X)</variable>
+				<variable id="$OP30">[$OP - [\p{ea=F}\p{ea=W}\p{ea=H}]]</variable>
+				<variable id="$OP30">($OP30 $X)</variable>
 				<variable id="$PO">\p{Line_Break=Postfix_Numeric}</variable>
 				<variable id="$PO">($PO $X)</variable>
 				<variable id="$PR">\p{Line_Break=Prefix_Numeric}</variable>
@@ -6382,7 +6752,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$SP">\p{Line_Break=Space}</variable>
 				<variable id="$SY">\p{Line_Break=Break_Symbols}</variable>
 				<variable id="$SY">($SY $X)</variable>
-				<!-- Macros -->
+				<!-- MACROS -->
 				<variable id="$Spec1_">[$SP $BK $CR $LF $NL $ZW]</variable>
 				<variable id="$Spec2_">[^ $SP $BK $CR $LF $NL $ZW]</variable>
 				<variable id="$Spec3a_">[^ $SP $BA $HY $CM]</variable>
@@ -6391,9 +6761,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$Spec5_">[$BK $CB $CR $LF $NL $SP $ZW]</variable>
 				<variable id="$WJ">\p{Line_Break=Word_Joiner}</variable>
 				<variable id="$WJ">($WJ $X)</variable>
-				<!-- WARNING: Fixes for Rule 9 -->
-				<!-- Treat X (CM|ZWJ* as if it were X. -->
-				<!-- Where X is any line break class except SP, BK, CR, LF, NL or ZW. -->
+				<!-- WARNING: Fixes for Rule 9
+					 Treat X (CM|ZWJ* as if it were X.
+					 Where X is any line break class except SP, BK, CR, LF, NL or ZW.
+				-->
 				<variable id="$X">$CM*</variable>
 				<variable id="$XX">\p{Line_Break=Unknown}</variable>
 				<variable id="$XX">($XX $X)</variable>
@@ -6403,8 +6774,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$ZWJ_O">\p{Line_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<!-- Rules -->
-				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
+				<!-- RULES
+					 LB 4  Always break after hard line breaks (but never between CR and LF).
+				-->
 				<rule id="4">$BK ÷</rule>
 				<!-- LB 5  Treat CR followed by LF, as well as CR, LF and NL as hard line breaks. -->
 				<rule id="5.01">$CR × $LF</rule>
@@ -6420,10 +6792,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="8">$ZW $SP* ÷</rule>
 				<!-- LB 8a  Don't break between ZWJ and IDs (for use in Emoji ZWJ sequences) -->
 				<rule id="8.1">$ZWJ_O ×</rule>
-				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character -->
-				<!-- in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.) -->
+				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character
+					 in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.)
+				-->
 				<rule id="9">$Spec2_ × $CM</rule>
-				<!-- WARNING: this is done by modifying the variable values for all but SP.... That is, $AL is really ($AI $CM*)! -->
 				<!-- LB 11  Do not break before or after WORD JOINER and related characters. -->
 				<rule id="11.01">× $WJ</rule>
 				<rule id="11.02">$WJ ×</rule>
@@ -6432,33 +6804,35 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="12.1">$Spec3a_ × $GL</rule>
 				<rule id="12.2">$Spec3b_ $CM+ × $GL</rule>
 				<rule id="12.3">^ $CM+ × $GL</rule>
-				<!-- LB 13  Do not break before ‘]’ or ‘!’ or ‘;’ or ‘/’, even after spaces. -->
-				<!-- Using customization 7. -->
+				<!-- LB 13  Do not break before \u2018]\u2019 or \u2018!\u2019 or \u2018;\u2019 or \u2018/\u2019, even after spaces.
+					 Using customization 7.
+				-->
 				<rule id="13.01">× $EX</rule>
 				<rule id="13.02">$Spec4_ × ($CL | $CP | $IS | $SY)</rule>
 				<rule id="13.03">$Spec4_ $CM+ × ($CL | $CP | $IS | $SY)</rule>
 				<rule id="13.04">^ $CM+ × ($CL | $CP | $IS | $SY)</rule>
-				<!-- LB 14  Do not break after ‘[’, even after spaces. -->
+				<!-- LB 14  Do not break after \u2018[\u2019, even after spaces. -->
 				<rule id="14">$OP $SP* ×</rule>
-				<!-- LB 15  Do not break within ‘"[’, even with intervening spaces. -->
+				<!-- LB 15  Do not break within \u2018\"[\u2019, even with intervening spaces. -->
 				<rule id="15">$QU $SP* × $OP</rule>
 				<!-- LB 16  Do not break between closing punctuation and a nonstarter (lb=NS), even with intervening spaces. -->
 				<rule id="16">($CL | $CP) $SP* × $NS</rule>
-				<!-- LB 17  Do not break within ‘——’, even with intervening spaces. -->
+				<!-- LB 17  Do not break within \u2018\u2014\u2014\u2019, even with intervening spaces. -->
 				<rule id="17">$B2 $SP* × $B2</rule>
 				<!-- LB 18  Break after spaces. -->
 				<rule id="18">$SP ÷</rule>
-				<!-- LB 19  Do not break before or after ‘"’. -->
+				<!-- LB 19  Do not break before or after \u2018\"\u2019. -->
 				<rule id="19.01">× $QU</rule>
 				<rule id="19.02">$QU ×</rule>
 				<!-- LB 20  Break before and after unresolved CB. -->
 				<rule id="20.01">÷ $CB</rule>
 				<rule id="20.02">$CB ÷</rule>
-				<!-- LB 20.9  Don't break between Hyphens and Letters when there is a break preceding the hyphen. -->
-				<!-- Originally added as a Finnish tailoring, now promoted to default CLDR/ICU behavior. -->
-				<!-- Must be before LB 21. Note: this is not default UAX-14 behaviour. See ICU issue ICU-8151. -->
-				<!-- (Unlike in ICU, here we just check a limited set of known breaks, ignoring some cases like LB 14). -->
-				<rule id="20.09">$Spec5_ ($HY | $HH) × $AL</rule>
+				<!-- LB 20.9  Don't break between Hyphens and Letters when there is a break preceding the hyphen.
+					 Originally added as a Finnish tailoring, now promoted to default CLDR behavior.
+					 Must be before LB 21. Note: this is not default UAX-14 behaviour. See ICU issue ICU-8151.
+					 (Unlike in ICU, here we just check a limited set of known breaks, ignoring some cases like LB 14).
+				-->
+				<rule id="20.09">$Spec5_ $HY × $AL</rule>
 				<!-- LB 21  Do not break before hyphen-minus, other hyphens, fixed-width spaces, small kana and other non-starters, or after acute accents. -->
 				<rule id="21.01">× $BA</rule>
 				<rule id="21.02">× $HY</rule>
@@ -6468,12 +6842,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="21.1">$HL ($HY | $BA) ×</rule>
 				<!-- LB 21b Don’t break between Solidus and Hebrew letters. -->
 				<rule id="21.2">$SY × $HL</rule>
-				<!-- LB 22  Do not break between two ellipses, or between letters, numbers or exclamations and ellipsis. -->
-				<rule id="22.01">($AL | $HL) × $IN</rule>
-				<rule id="22.02">$EX × $IN</rule>
-				<rule id="22.03">($ID | $EB | $EM) × $IN</rule>
-				<rule id="22.04">$IN × $IN</rule>
-				<rule id="22.05">$NU × $IN</rule>
+				<!-- LB 22  Do not break before ellipsis. -->
+				<rule id="22.01">× $IN</rule>
 				<!-- LB 23  Do not break between digits and letters. -->
 				<rule id="23.02">($AL | $HL) × $NU</rule>
 				<rule id="23.03">$NU × ($AL | $HL)</rule>
@@ -6483,9 +6853,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- LB24 Do not break between numeric prefix/postfix and letters, or between letters and prefix/postfix. -->
 				<rule id="24.02">($PR | $PO) × ($AL | $HL)</rule>
 				<rule id="24.03">($AL | $HL) × ($PR | $PO)</rule>
-				<!-- Using customization 7 -->
-				<!-- LB Alternative: ( PR | PO) ? ( OP | HY ) ? NU (NU | SY | IS) * (CL | CP) ? ( PR | PO) ? -->
-				<!-- Insert × every place it could go. However, make sure that at least one thing is concrete, otherwise would cause $NU to not break before or after -->
+				<!-- Using customization 7
+					 LB Alternative: ( PR | PO) ? ( OP | HY ) ? NU (NU | SY | IS) * (CL | CP) ? ( PR | PO) ?
+					 Insert × every place it could go. However, make sure that at least one thing is concrete, otherwise would cause $NU to not break before or after
+				-->
 				<rule id="25.01">($PR | $PO) × ( $OP | $HY )? $NU</rule>
 				<rule id="25.02">( $OP | $HY ) × $NU</rule>
 				<rule id="25.03">$NU × ($NU | $SY | $IS)</rule>
@@ -6499,13 +6870,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<rule id="27.01">$JL | $JV | $JT | $H2 | $H3 × $IN</rule>
 				<rule id="27.02">$JL | $JV | $JT | $H2 | $H3 × $PO</rule>
 				<rule id="27.03">$PR × $JL | $JV | $JT | $H2 | $H3</rule>
-				<!-- LB 28  Do not break between alphabetics ("at"). -->
+				<!-- LB 28  Do not break between alphabetics (\"at\"). -->
 				<rule id="28">($AL | $HL) × ($AL | $HL)</rule>
-				<!-- LB 29  Do not break between numeric punctuation and alphabetics ("e.g."). -->
+				<!-- LB 29  Do not break between numeric punctuation and alphabetics (\"e.g.\"). -->
 				<rule id="29">$IS × ($AL | $HL)</rule>
-				<!-- LB 30  Do not break between letters, numbers or ordinary symbols and opening or closing punctuation. -->
-				<rule id="30.01">($AL | $HL | $NU) × $OP</rule>
-				<rule id="30.02">$CP × ($AL | $HL | $NU)</rule>
+				<!-- LB 30  Do not break between letters, numbers or ordinary symbols and non-East-Asian opening or closing punctuation. -->
+				<rule id="30.01">($AL | $HL | $NU) × $OP30</rule>
+				<rule id="30.02">$CP30 × ($AL | $HL | $NU)</rule>
 				<!-- LB 30a  Break between two Regional Indicators if and only if there is an even number of them before the point being considered. -->
 				<rule id="30.11">^ ($RI $RI)* $RI × $RI</rule>
 				<rule id="30.12">[^$RI] ($RI $RI)* $RI × $RI</rule>
@@ -6518,24 +6889,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$ATerm">\p{Sentence_Break=ATerm}</variable>
 				<variable id="$ATerm">($ATerm $FE*)</variable>
 				<variable id="$Any">.</variable>
+				<!-- VARIABLES -->
 				<variable id="$CR">\p{Sentence_Break=CR}</variable>
 				<variable id="$Close">\p{Sentence_Break=Close}</variable>
 				<variable id="$Close">($Close $FE*)</variable>
 				<variable id="$Extend">\p{Sentence_Break=Extend}</variable>
-				<!-- Expresses the negation in rule 8; can't do this with normal regex, but works with UnicodeSet, which is all we need. -->
-				<!-- WARNING: For Rule 5, now add format and extend to everything but Sep, Format, and Extend -->
+				<!-- SPECIAL EXTENSIONS
+					 WARNING: For Rule 5, now add format and extend to everything but Sep, Format, and Extend
+				-->
 				<variable id="$FE">[$Format $Extend]</variable>
 				<variable id="$Format">\p{Sentence_Break=Format}</variable>
 				<variable id="$LF">\p{Sentence_Break=LF}</variable>
 				<variable id="$Lower">\p{Sentence_Break=Lower}</variable>
 				<variable id="$Lower">($Lower $FE*)</variable>
-				<!-- Special rules -->
 				<variable id="$NotPreLower_">[^ $OLetter $Upper $Lower $Sep $CR $LF $STerm $ATerm]</variable>
 				<variable id="$Numeric">\p{Sentence_Break=Numeric}</variable>
 				<variable id="$Numeric">($Numeric $FE*)</variable>
 				<variable id="$OLetter">\p{Sentence_Break=OLetter}</variable>
 				<variable id="$OLetter">($OLetter $FE*)</variable>
-				<!-- Macros -->
+				<!-- MACROS -->
 				<variable id="$ParaSep">($Sep | $CR | $LF)</variable>
 				<variable id="$SATerm">($STerm | $ATerm)</variable>
 				<variable id="$SContinue">\p{Sentence_Break=SContinue}</variable>
@@ -6549,20 +6921,23 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$Upper">($Upper $FE*)</variable>
 			</variables>
 			<segmentRules>
-				<!-- Rules -->
-				<!-- Break at the start and end of text, unless the text is empty. -->
-				<!-- Do not break within CRLF. -->
+				<!-- RULES
+					 Break at the start and end of text, unless the text is empty.
+					 Do not break within CRLF.
+				-->
 				<rule id="3">$CR × $LF</rule>
 				<!-- Break after paragraph separators. -->
 				<rule id="4">$ParaSep ÷</rule>
-				<!-- Ignore Format and Extend characters, except after sot, ParaSep, and within CRLF. (See Section 6.2, Replacing Ignore Rules.) This also has the effect of: Any × (Format | Extend) -->
-				<!-- WARNING: Implemented as don't break before format (except after linebreaks), -->
-				<!-- AND add format and extend in all variables definitions that appear after this point! -->
+				<!-- Ignore Format and Extend characters, except after sot, ParaSep, and within CRLF. (See Section 6.2, Replacing Ignore Rules.) This also has the effect of: Any × (Format | Extend)
+					 WARNING: Implemented as don't break before format (except after linebreaks),
+					 AND add format and extend in all variables definitions that appear after this point!
+				-->
 				<rule id="5">× [$Format $Extend]</rule>
-				<!-- Do not break after full stop in certain contexts. [See note below.] -->
-				<!-- Do not break after ambiguous terminators like period, if immediately followed by a number or lowercase letter, -->
-				<!-- is between uppercase letters, or if the first following letter (optionally after certain punctuation) is lowercase. -->
-				<!-- For example, a period may be an abbreviation or numeric period, and not mark the end of a sentence. -->
+				<!-- Do not break after full stop in certain contexts. [See note below.]
+					 Do not break after ambiguous terminators like period, if immediately followed by a number or lowercase letter,
+					 is between uppercase letters, or if the first following letter (optionally after certain punctuation) is lowercase.
+					 For example, a period may be an abbreviation or numeric period, and not mark the end of a sentence.
+				-->
 				<rule id="6">$ATerm × $Numeric</rule>
 				<rule id="7">($Upper | $Lower) $ATerm × $Upper</rule>
 				<rule id="8">$ATerm $Close* $Sp* × $NotPreLower_* $Lower</rule>
@@ -6575,25 +6950,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- Otherwise, do not break -->
 				<rule id="998">× $Any</rule>
 			</segmentRules>
-			<suppressions type="standard"/>
-			<!-- root suppression is empty. -->
 		</segmentation>
 		<segmentation type="WordBreak">
 			<variables>
-				<!-- Macros -->
+				<!-- MACROS -->
 				<variable id="$AHLetter">($ALetter | $Hebrew_Letter)</variable>
 				<variable id="$AHLetter">($AHLetter $FE*)</variable>
 				<variable id="$ALetter">\p{Word_Break=ALetter}</variable>
 				<variable id="$ALetter">($ALetter $FE*)</variable>
+				<!-- VARIABLES -->
 				<variable id="$CR">\p{Word_Break=CR}</variable>
 				<variable id="$Double_Quote">\p{Word_Break=Double_Quote}</variable>
 				<variable id="$Double_Quote">($Double_Quote $FE*)</variable>
+				<!-- Note: The following may overlap with the above -->
 				<variable id="$ExtPict">\p{Extended_Pictographic}</variable>
 				<variable id="$Extend">\p{Word_Break=Extend}</variable>
 				<variable id="$ExtendNumLet">\p{Word_Break=ExtendNumLet}</variable>
 				<variable id="$ExtendNumLet">($ExtendNumLet $FE*)</variable>
-				<!-- WARNING: For Rule 4: Fixes for GC, Format -->
-				<!-- Add format and extend to everything -->
+				<!-- SPECIAL EXTENSIONS
+					 Add format and extend to everything
+				-->
 				<variable id="$FE">[$Format $Extend $ZWJ]</variable>
 				<!-- Now normal variables -->
 				<variable id="$Format">\p{Word_Break=Format}</variable>
@@ -6611,7 +6987,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$MidNumLetQ">($MidNumLet | $Single_Quote)</variable>
 				<variable id="$MidNumLetQ">($MidNumLetQ $FE*)</variable>
 				<variable id="$Newline">\p{Word_Break=Newline}</variable>
-				<!-- Special rules -->
 				<variable id="$NotBreak_">[^ $Newline $CR $LF ]</variable>
 				<variable id="$Numeric">\p{Word_Break=Numeric}</variable>
 				<variable id="$Numeric">($Numeric $FE*)</variable>
@@ -6623,9 +6998,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<variable id="$ZWJ">\p{Word_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<!-- Rules -->
-				<!-- Break at the start and end of text, unless the text is empty. -->
-				<!-- Do not break within CRLF. -->
+				<!-- RULES
+					 Break at the start and end of text, unless the text is empty.
+					 Do not break within CRLF.
+				-->
 				<rule id="3">$CR × $LF</rule>
 				<!-- Otherwise break before and after Newlines (including CR and LF) -->
 				<rule id="3.1">($Newline | $CR | $LF) ÷</rule>
@@ -6633,12 +7009,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- Do not break within emoji zwj sequences. -->
 				<rule id="3.3">$ZWJ × $ExtPict</rule>
 				<rule id="3.4">$WSegSpace × $WSegSpace</rule>
-				<!-- Ignore Format and Extend characters, except after sot, CR, LF, and Newline. (See Section 6.2, Replacing Ignore Rules.) This also has the effect of: Any × (Format | Extend) -->
-				<!-- WARNING: Implemented as don't break before format (except after linebreaks), -->
-				<!-- AND add format and extend in all variables definitions that appear after this point! -->
+				<!-- Ignore Format and Extend characters, except after sot, CR, LF, and Newline. (See Section 6.2, Replacing Ignore Rules.) This also has the effect of: Any × (Format | Extend)
+					 WARNING: Implemented as don't break before format (except after linebreaks),
+					 AND add format and extend in all variables definitions that appear after this point!
+				-->
 				<rule id="4">$NotBreak_ × [$Format $Extend $ZWJ]</rule>
-				<!-- Vanilla rules -->
-				<!-- Do not break between most letters. -->
+				<!-- VANILLA RULES
+					 Do not break between most letters.
+				-->
 				<rule id="5">$AHLetter × $AHLetter</rule>
 				<!-- Do not break letters across certain punctuation. -->
 				<rule id="6">$AHLetter × ($MidLetter | $MidNumLetQ) $AHLetter</rule>
@@ -6661,10 +7039,80 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
 				<rule id="15">^ ($RI $RI)* $RI × $RI</rule>
 				<rule id="16">[^$RI] ($RI $RI)* $RI × $RI</rule>
+				<!-- Otherwise, break everywhere (including around ideographs). -->
 			</segmentRules>
-			<!-- Otherwise, break everywhere (including around ideographs). -->
 		</segmentation>
 	</segmentations>
+	<typographicNames>
+		<axisName type="ital">italic</axisName>
+		<axisName type="opsz">optical size</axisName>
+		<axisName type="slnt">slant</axisName>
+		<axisName type="wdth">width</axisName>
+		<axisName type="wght">weight</axisName>
+		<styleName type="ital" subtype="1">cursive</styleName>
+		<styleName type="opsz" subtype="12">text</styleName>
+		<styleName type="opsz" subtype="144">poster</styleName>
+		<styleName type="opsz" subtype="18">titling</styleName>
+		<styleName type="opsz" subtype="72">display</styleName>
+		<styleName type="opsz" subtype="8">caption</styleName>
+		<styleName type="slnt" subtype="-12">backslanted</styleName>
+		<styleName type="slnt" subtype="0">upright</styleName>
+		<styleName type="slnt" subtype="12">slanted</styleName>
+		<styleName type="slnt" subtype="24">extra-slanted</styleName>
+		<styleName type="wdth" subtype="100">normal</styleName>
+		<styleName type="wdth" subtype="112.5">semiexpanded</styleName>
+		<styleName type="wdth" subtype="112.5" alt="extended">semiextended</styleName>
+		<styleName type="wdth" subtype="112.5" alt="wide">semiwide</styleName>
+		<styleName type="wdth" subtype="125">expanded</styleName>
+		<styleName type="wdth" subtype="125" alt="extended">extended</styleName>
+		<styleName type="wdth" subtype="125" alt="wide">wide</styleName>
+		<styleName type="wdth" subtype="150">extra-expanded</styleName>
+		<styleName type="wdth" subtype="150" alt="extended">extra-extended</styleName>
+		<styleName type="wdth" subtype="150" alt="wide">extra-wide</styleName>
+		<styleName type="wdth" subtype="200">ultraexpanded</styleName>
+		<styleName type="wdth" subtype="200" alt="extended">ultraextended</styleName>
+		<styleName type="wdth" subtype="200" alt="wide">ultrawide</styleName>
+		<styleName type="wdth" subtype="50">ultracondensed</styleName>
+		<styleName type="wdth" subtype="50" alt="compressed">ultracompressed</styleName>
+		<styleName type="wdth" subtype="50" alt="narrow">ultranarrow</styleName>
+		<styleName type="wdth" subtype="62.5">extra-condensed</styleName>
+		<styleName type="wdth" subtype="62.5" alt="compressed">extra-compressed</styleName>
+		<styleName type="wdth" subtype="62.5" alt="narrow">extra-narrow</styleName>
+		<styleName type="wdth" subtype="75">condensed</styleName>
+		<styleName type="wdth" subtype="75" alt="compressed">compressed</styleName>
+		<styleName type="wdth" subtype="75" alt="narrow">compressed</styleName>
+		<styleName type="wdth" subtype="87.5">semicondensed</styleName>
+		<styleName type="wdth" subtype="87.5" alt="compressed">semicompressed</styleName>
+		<styleName type="wdth" subtype="87.5" alt="narrow">seminarrow</styleName>
+		<styleName type="wght" subtype="100">thin</styleName>
+		<styleName type="wght" subtype="200">extra-light</styleName>
+		<styleName type="wght" subtype="200" alt="ultra">ultralight</styleName>
+		<styleName type="wght" subtype="300">light</styleName>
+		<styleName type="wght" subtype="350">semilight</styleName>
+		<styleName type="wght" subtype="380">book</styleName>
+		<styleName type="wght" subtype="400">regular</styleName>
+		<styleName type="wght" subtype="500">medium</styleName>
+		<styleName type="wght" subtype="600">semibold</styleName>
+		<styleName type="wght" subtype="600" alt="demi">demibold</styleName>
+		<styleName type="wght" subtype="700">bold</styleName>
+		<styleName type="wght" subtype="800">extra-bold</styleName>
+		<styleName type="wght" subtype="900">black</styleName>
+		<styleName type="wght" subtype="900" alt="heavy">heavy</styleName>
+		<styleName type="wght" subtype="950">extra-black</styleName>
+		<styleName type="wght" subtype="950" alt="ultrablack">ultrablack</styleName>
+		<styleName type="wght" subtype="950" alt="ultraheavy">ultraheavy</styleName>
+		<featureName type="afrc">vertical fractions</featureName>
+		<featureName type="cpsp">capital spacing</featureName>
+		<featureName type="dlig">optional ligatures</featureName>
+		<featureName type="frac">diagonal fractions</featureName>
+		<featureName type="lnum">lining numbers</featureName>
+		<featureName type="onum">old-style figures</featureName>
+		<featureName type="ordn">ordinals</featureName>
+		<featureName type="pnum">proportional numbers</featureName>
+		<featureName type="smcp">small capitals</featureName>
+		<featureName type="tnum">tabular numbers</featureName>
+		<featureName type="zero">slashed zero</featureName>
+	</typographicNames>
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">titlecase</casingItem>
@@ -6690,74 +7138,4 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<casingItem type="zone_exemplarCity">titlecase</casingItem>
 		</casingData>
 	</metadata>
-	<typographicNames>
-		<axisName type="ital">italic</axisName>
-		<axisName type="opsz">optical size</axisName>
-		<axisName type="slnt">slant</axisName>
-		<axisName type="wdth">width</axisName>
-		<axisName type="wght">weight</axisName>
-		<featureName type="afrc">vertical fractions</featureName>
-		<featureName type="cpsp">capital spacing</featureName>
-		<featureName type="dlig">optional ligatures</featureName>
-		<featureName type="frac">diagonal fractions</featureName>
-		<featureName type="lnum">lining numbers</featureName>
-		<featureName type="onum">old-style figures</featureName>
-		<featureName type="ordn">ordinals</featureName>
-		<featureName type="pnum">proportional numbers</featureName>
-		<featureName type="smcp">small capitals</featureName>
-		<featureName type="tnum">tabular numbers</featureName>
-		<featureName type="zero">slashed zero</featureName>
-		<styleName alt="compressed" subtype="50" type="wdth">ultracompressed</styleName>
-		<styleName alt="compressed" subtype="62.5" type="wdth">extra-compressed</styleName>
-		<styleName alt="compressed" subtype="75" type="wdth">compressed</styleName>
-		<styleName alt="compressed" subtype="87.5" type="wdth">semicompressed</styleName>
-		<styleName alt="demi" subtype="600" type="wght">demibold</styleName>
-		<styleName alt="extended" subtype="112.5" type="wdth">semiextended</styleName>
-		<styleName alt="extended" subtype="125" type="wdth">extended</styleName>
-		<styleName alt="extended" subtype="150" type="wdth">extra-extended</styleName>
-		<styleName alt="extended" subtype="200" type="wdth">ultraextended</styleName>
-		<styleName alt="heavy" subtype="900" type="wght">heavy</styleName>
-		<styleName alt="narrow" subtype="50" type="wdth">ultranarrow</styleName>
-		<styleName alt="narrow" subtype="62.5" type="wdth">extra-narrow</styleName>
-		<styleName alt="narrow" subtype="75" type="wdth">compressed</styleName>
-		<styleName alt="narrow" subtype="87.5" type="wdth">seminarrow</styleName>
-		<styleName alt="ultra" subtype="200" type="wght">ultralight</styleName>
-		<styleName alt="ultrablack" subtype="950" type="wght">ultrablack</styleName>
-		<styleName alt="ultraheavy" subtype="950" type="wght">ultraheavy</styleName>
-		<styleName alt="wide" subtype="112.5" type="wdth">semiwide</styleName>
-		<styleName alt="wide" subtype="125" type="wdth">wide</styleName>
-		<styleName alt="wide" subtype="150" type="wdth">extra-wide</styleName>
-		<styleName alt="wide" subtype="200" type="wdth">ultrawide</styleName>
-		<styleName subtype="-12" type="slnt">backslanted</styleName>
-		<styleName subtype="0" type="slnt">upright</styleName>
-		<styleName subtype="1" type="ital">cursive</styleName>
-		<styleName subtype="100" type="wdth">normal</styleName>
-		<styleName subtype="100" type="wght">thin</styleName>
-		<styleName subtype="112.5" type="wdth">semiexpanded</styleName>
-		<styleName subtype="12" type="opsz">text</styleName>
-		<styleName subtype="12" type="slnt">slanted</styleName>
-		<styleName subtype="125" type="wdth">expanded</styleName>
-		<styleName subtype="144" type="opsz">poster</styleName>
-		<styleName subtype="150" type="wdth">extra-expanded</styleName>
-		<styleName subtype="18" type="opsz">titling</styleName>
-		<styleName subtype="200" type="wdth">ultraexpanded</styleName>
-		<styleName subtype="200" type="wght">extra-light</styleName>
-		<styleName subtype="24" type="slnt">extra-slanted</styleName>
-		<styleName subtype="300" type="wght">light</styleName>
-		<styleName subtype="350" type="wght">semilight</styleName>
-		<styleName subtype="380" type="wght">book</styleName>
-		<styleName subtype="400" type="wght">regular</styleName>
-		<styleName subtype="50" type="wdth">ultracondensed</styleName>
-		<styleName subtype="500" type="wght">medium</styleName>
-		<styleName subtype="600" type="wght">semibold</styleName>
-		<styleName subtype="62.5" type="wdth">extra-condensed</styleName>
-		<styleName subtype="700" type="wght">bold</styleName>
-		<styleName subtype="72" type="opsz">display</styleName>
-		<styleName subtype="75" type="wdth">condensed</styleName>
-		<styleName subtype="8" type="opsz">caption</styleName>
-		<styleName subtype="800" type="wght">extra-bold</styleName>
-		<styleName subtype="87.5" type="wdth">semicondensed</styleName>
-		<styleName subtype="900" type="wght">black</styleName>
-		<styleName subtype="950" type="wght">extra-black</styleName>
-	</typographicNames>
 </ldml>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr"/>
-		</special>
-		<version number="$Revision: 14394 $"/>
+		<version number="$Revision$"/>
 		<language type="sah"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity draft="approved" source="cldr"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -142,7 +142,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters>[а б г ҕ д {дь} и й к л м н {нь} ҥ о ө п р с т у ү х һ ч ы э]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[в е ё ж з ф ц ш щ ъ ь ю я]</exemplarCharacters>
 		<exemplarCharacters type="index">[А Б Г Ҕ Д {Дь} И Й К Л М Н {Нь} Ҥ О Ө П Р С Т У Ү Х Һ Ч Ы Э]</exemplarCharacters>
-		<exemplarCharacters type="numbers">[  \- , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[  \- ‑ , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\:]</exemplarCharacters>
 	</characters>
 	<delimiters>
@@ -473,7 +473,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="Gy">y 'с'. G</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">MMM W 'нэдиэлэтэ'</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">MMMM W 'нэдиэлэтэ'</dateFormatItem>
 						<dateFormatItem id="yw" count="other">Y 'сыл' w 'нэдиэлэтэ'</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
@@ -1256,6 +1256,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="angle-degree">
 				<displayName>кыраадыс</displayName>
 				<unitPattern count="other">{0} кыраадыс</unitPattern>
@@ -1263,6 +1266,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="area-hectare">
 				<displayName>гектаар</displayName>
 				<unitPattern count="other">{0} гектаар</unitPattern>
+			</unit>
+			<unit type="area-square-centimeter">
+				<displayName>кыбатыраатынай сэнтимиэтир</displayName>
+				<unitPattern count="other">{0} кыбатыраатынай сэнтимиэтир</unitPattern>
 			</unit>
 			<unit type="concentr-karat">
 				<displayName>караат</displayName>
@@ -1402,7 +1409,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="length-meter">
 				<displayName>миэтэрэ</displayName>
 				<unitPattern count="other">{0} миэтэрэ</unitPattern>
-				<perUnitPattern>миэтэргэ {0}</perUnitPattern>
+				<perUnitPattern>миэтиргэ {0}</perUnitPattern>
 			</unit>
 			<unit type="length-mile">
 				<displayName>миилэ</displayName>
@@ -1447,11 +1454,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>лиитирэ</displayName>
 				<unitPattern count="other">{0} лиитирэ</unitPattern>
 			</unit>
+		</unitLength>
+		<unitLength type="narrow">
 			<compoundUnit type="per">
 				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
 			</compoundUnit>
-		</unitLength>
-		<unitLength type="narrow">
 			<unit type="duration-day">
 				<unitPattern count="other">{0} к.</unitPattern>
 			</unit>
@@ -1508,9 +1515,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>лиитирэ</displayName>
 				<unitPattern count="other">{0}л</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 		</unitLength>
 		<unitLength type="short">
 			<unit type="angle-degree">

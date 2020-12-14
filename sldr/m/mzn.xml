@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2018 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml>
 	<identity>
-		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
-			<sil:identity source="cldr"/>
-		</special>
-		<version number="$Revision: 14134 $"/>
+		<version number="$Revision$"/>
 		<language type="mzn"/>
+		<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+			<sil:identity draft="approved" source="cldr"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -265,7 +265,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<script type="Hang">هانگول</script>
 			<script type="Hani">هان</script>
 			<script type="Hans">ساده‌بَیی هان</script>
-			<script type="Hans" alt="stand-alone">ساده‌بَیی هان</script>
 			<script type="Hant">سنتی هانت</script>
 			<script type="Hant" alt="stand-alone">استاندارد ِسنتی هانت</script>
 			<script type="Hebr">عبری</script>
@@ -390,7 +389,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="FR">فرانسه</territory>
 			<territory type="GA">گابون</territory>
 			<territory type="GB">بریتانیا</territory>
-			<territory type="GB" alt="short">بریتانیا</territory>
 			<territory type="GD">گرانادا</territory>
 			<territory type="GE">گرجستون</territory>
 			<territory type="GF">فرانسه‌ی ِگویان</territory>
@@ -459,8 +457,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="MF">سنت مارتین</territory>
 			<territory type="MG">ماداگاسکار</territory>
 			<territory type="MH">مارشال جزایر</territory>
-			<territory type="MK">مقدونیه</territory>
-			<territory type="MK" alt="variant">مقدونیه جمهوری</territory>
 			<territory type="ML">مالی</territory>
 			<territory type="MM">میانمار</territory>
 			<territory type="MN">مغولستون</territory>
@@ -595,7 +591,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters>[\u064B \u064C \u064D \u0651 \u0654 ء آ أ ؤ ئ ا ب پ ة ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ه و ی]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C\u200D\u200E\u200F \u064E \u064F \u0650 \u0652 \u0656 \u0670 إ ك ى ي]</exemplarCharacters>
 		<exemplarCharacters type="index">[آ ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ه و ی]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ ، ٫ ٬ ؛ \: ! ؟ . … ‹ › « » ( ) \[ \] * / \\]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ ، ٫ ٬ ؛ \: ! ؟ . … ‹ › « » ( ) \[ \] * / \\]</exemplarCharacters>
 		<moreInformation>؟</moreInformation>
 	</characters>
 	<delimiters>
@@ -1038,6 +1034,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<otherNumberingSystems>
 			<native draft="contributed">arabext</native>
 		</otherNumberingSystems>
+		<symbols numberSystem="arabext">
+			<timeSeparator>:</timeSeparator>
+		</symbols>
 		<currencies>
 			<currency type="AED">
 				<displayName>متحده عربی امارات ِدرهم</displayName>
@@ -1770,11 +1769,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>g-force</displayName>
 				<unitPattern count="other">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>m/s²</displayName>
 				<unitPattern count="other">{0} m/s²</unitPattern>
 			</unit>
@@ -1802,7 +1804,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>kt</displayName>
 				<unitPattern count="other">{0} kt</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>L/100km</displayName>
 				<unitPattern count="other">{0} L/100km</unitPattern>
 			</unit>
@@ -2160,9 +2162,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>چایی‌خاری کچه</displayName>
 				<unitPattern count="other">{0} چایی‌خاری کچه</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
@@ -2171,7 +2170,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
-			<unit type="consumption-liter-per-100kilometers">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>L/100km</displayName>
 				<unitPattern count="other">{0} L/100km</unitPattern>
 			</unit>
@@ -2227,9 +2229,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>لیتر</displayName>
 				<unitPattern count="other">{0} l</unitPattern>
 			</unit>
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
 			<coordinateUnit>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
@@ -2446,6 +2445,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>فلوید اونس</displayName>
+				<unitPattern count="other">{0} fl oz</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>گالون</displayName>
