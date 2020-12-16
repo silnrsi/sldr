@@ -125,14 +125,28 @@ Now we unflatten the files to their sldr form and merge them into the sldr
 
     python bin/ldmlflatten -s -i flat -o sldr -r -a
 
-We also need to overwrite Supplemental data & Metadata and Likely subtags in python dir
-Rename existing files in sldr/python/lib/sldr with suffix _old
-
-Update those three files from /common/supplemental
-
-Now we are ready to commit our changes. First we stage all the additions, changes and removals and then we commit and merge into master
+We now have a pristine CLDR data set for the cldr branch. So commit it.
 
     git add -A sldr
     git commit -m "CLDR import from svn revision xxxxx"
+    git push
+
+In order to tidy up and integrate, we use a separate cldr\_merge in which we do the merging of master and cldr. This keeps cldr clean and allows review and editing before merging with master.
+
+    git checkout cldr_merge
+    git merge master
     git merge cldr
+
+Resolve any conflicts. There shouldn't be any, but who knows.
+
+    git status
+
+If there are files to commit, commit them now.
+
+Edit and tidy up
+
+    git commit -a -m "Integrate cldr"
+    git push
+    git checkout master
+    git merge cldr_master
     git push
