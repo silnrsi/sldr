@@ -34,7 +34,7 @@ def test_collation(ldml):
         return
 
 #   get index exemplar
-    index_el = ldml.ldml.root.find('.//characters/exemplarCharacters[type="index"]')
+    index_el = ldml.ldml.root.find('.//characters/exemplarCharacters[@type="index"]')
     if index_el == None:
 #        assert False, filename + " has no index exemplar" ### could be target of another test
         return
