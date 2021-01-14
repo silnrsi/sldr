@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import argparse, re
 
@@ -8,8 +8,8 @@ parser.add_argument("outfile",help="Output rnc file")
 parser.add_argument("-t","--type",default="rnc",help="Example type to extract [rnc]")
 args = parser.parse_args()
 
-outf = open(args.outfile, "w", encoding="utf-8")
-inf = open(args.infile, "r", encoding="utf-8")
+outf = open(args.outfile, "w") #, encoding="utf-8")
+inf = open(args.infile, "r") #, encoding="utf-8")
 state = "text"
 for r in inf.readlines():
     if state == "found" and r.startswith("```"):

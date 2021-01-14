@@ -140,7 +140,8 @@ class DTDParser:
         else:
             return 0
         try:
-            with open(fname, encoding="utf-8") as inf:
+            #with open(fname, encoding="utf-8") as inf:
+            with open(fname) as inf:
                 entityText = "".join(inf.readlines())
         except FileNotFoundError:
             return 0
@@ -190,7 +191,8 @@ class DTDParser:
         self.parser.ProcessingInstructionHandler = self.processingInstruction
         self.parser.CommentHandler = self.comment
         self.parser.ExternalEntityRefHandler = self.entityRef
-        with open(fname, encoding="utf-8") as f :
+        # with open(fname, encoding="utf-8") as f :
+        with open(fname) as f :
             ldmltext = "".join(f.readlines())
         parsetext = "<?xml version='1.0'?>\n<!DOCTYPE ldml [\n" + ldmltext + "]>\n"
         self.parser.Parse(parsetext)
@@ -207,7 +209,8 @@ for en, e in dtd.elements.items():
     for a, v in gs.items():
         if a in e.attributes:
             e.attributes[a] = v.copy(en)
-with open(args.outfile, "w", encoding="utf-8") as outf:
+# with open(args.outfile, "w", encoding="utf-8") as outf:
+with open(args.outfile, "w") as outf:
     for e in dtd.allElements:
         outf.write(dtd.elements[e].asStr() + "\n")
 

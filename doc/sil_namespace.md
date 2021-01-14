@@ -29,7 +29,8 @@ include "ldml.rnc" {
 special = 
     element special {
         (sil.resources | sil.identity | sil.reordered | sil.simple | sil.names
-         | (sil.matchedpairs?, sil.punctuation.patterns?, sil.quotation-marks?) | sil.exemplarCharacters)
+         | (sil.matchedpairs?, sil.punctuation.patterns?, sil.quotation-marks?) | sil.exemplarCharacters
+         | sil:note)
     }
 }
 
@@ -47,7 +48,8 @@ attlist.sil.global &= attribute references { text }*
 
 <!ATTLIST ldml xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
 <!ELEMENT special (sil:external-resources | sil:identity | sil:reordered | sil:simple | sil:names
-                   | (sil:matched-pairs?, sil:punctuation-patterns?, sil:quotation-marks?) | sil:exemplarCharacters+)>
+                   | (sil:matched-pairs?, sil:punctuation-patterns?, sil:quotation-marks?) | sil:exemplarCharacters+
+                   | sil:note)>
 <!ATTLIST special xmlns:sil CDATA #FIXED "urn://www.sil.org/ldml/0.1">
 
 <?ATTDEF global draft (approved | contributed | provisional | unconfirmed | proposed | tentative | generated | suspect) "approved"?>
@@ -775,6 +777,21 @@ For example:
     <exemplarCharacters type="punct">[. ; : ! ? -]</exemplarCharacters>
 </characters>
 ```
+
+## Notes
+
+The `sil:note` element is a general textual note storing markdown text for notes on the LDML, for example addressing issues in the LDML. While ethnographic information may be stored in a note, the note should not be presumed to contain it or any particular information.
+
+```rnc
+
+sil.note = element sil:note {
+        text
+    }
+```
+```dtd
+<!ELEMENT sil:note (#PCDATA)>
+```
+
 
 ## Miscellaneous
 
