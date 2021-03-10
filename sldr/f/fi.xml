@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2020 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -11,11 +11,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<version number="$Revision$"/>
 		<language type="fi"/>
 		<special>
-			<sil:identity draft="approved" source="cldr"/>
+			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
+			<language type="am">amhara</language>
+			<language type="sat">santali</language>
 			<language type="aa">afar</language>
 			<language type="ab">abhaasi</language>
 			<language type="ace">atšeh</language>
@@ -34,7 +36,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ale">aleutti</language>
 			<language type="aln">gegi</language>
 			<language type="alt">altai</language>
-			<language type="am">amhara</language>
 			<language type="an">aragonia</language>
 			<language type="ang">muinaisenglanti</language>
 			<language type="anp">angika</language>
@@ -58,6 +59,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="awa">awadhi</language>
 			<language type="ay">aimara</language>
 			<language type="az">azeri</language>
+			<language type="az" alt="short">azeri</language>
 			<language type="ba">baškiiri</language>
 			<language type="bal">belutši</language>
 			<language type="ban">bali</language>
@@ -165,7 +167,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="en_AU">australianenglanti</language>
 			<language type="en_CA">kanadanenglanti</language>
 			<language type="en_GB">britannianenglanti</language>
+			<language type="en_GB" alt="short">englanti (Britannia)</language>
 			<language type="en_US">amerikanenglanti</language>
+			<language type="en_US" alt="short">englanti (USA)</language>
 			<language type="enm">keskienglanti</language>
 			<language type="eo">esperanto</language>
 			<language type="es">espanja</language>
@@ -178,6 +182,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ewo">ewondo</language>
 			<language type="ext">extremadura</language>
 			<language type="fa">persia</language>
+			<language type="fa" alt="secondary">persia</language>
 			<language type="fa_AF">dari</language>
 			<language type="fan">fang</language>
 			<language type="fat">fanti</language>
@@ -476,7 +481,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ro_MD">moldova</language>
 			<language type="rof">rombo</language>
 			<language type="rom">romani</language>
-			<language type="root">juuri</language>
 			<language type="rtm">rotuma</language>
 			<language type="ru">venäjä</language>
 			<language type="rue">ruteeni</language>
@@ -490,7 +494,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="sam">samarianaramea</language>
 			<language type="saq">samburu</language>
 			<language type="sas">sasak</language>
-			<language type="sat">santali</language>
 			<language type="saz">sauraštri</language>
 			<language type="sba">ngambay</language>
 			<language type="sbp">sangu</language>
@@ -1155,6 +1158,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="ZW">Zimbabwe</territory>
 			<territory type="ZZ">tuntematon alue</territory>
 		</territories>
+		<subdivisions>
+			<subdivision type="gbeng">Englanti</subdivision>
+			<subdivision type="gbsct">Skotlanti</subdivision>
+			<subdivision type="gbwls">Wales</subdivision>
+		</subdivisions>
 		<variants>
 			<variant type="1606NICT">myöhäiskeskiranska</variant>
 			<variant type="1694ACAD">varhaisnykyranska</variant>
@@ -1473,18 +1481,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
-			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
-			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
 			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="stricter">
 			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
-			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -1522,48 +1526,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
-					<dateTimeFormatLength type="full">
-						<dateTimeFormat>
-							<pattern draft="contributed">{1} 'klo' {0}</pattern>
-						</dateTimeFormat>
-					</dateTimeFormatLength>
-					<dateTimeFormatLength type="long">
-						<dateTimeFormat>
-							<pattern draft="contributed">{1} 'klo' {0}</pattern>
-						</dateTimeFormat>
-					</dateTimeFormatLength>
-					<dateTimeFormatLength type="medium">
-						<dateTimeFormat>
-							<pattern draft="contributed">{1} 'klo' {0}</pattern>
-						</dateTimeFormat>
-					</dateTimeFormatLength>
-					<dateTimeFormatLength type="short">
-						<dateTimeFormat>
-							<pattern draft="contributed">{1} {0}</pattern>
-						</dateTimeFormat>
-					</dateTimeFormatLength>
 					<availableFormats>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">LLL y G</dateFormatItem>
-						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d. MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
+						<dateFormatItem id="Md">d.M.</dateFormatItem>
 						<dateFormatItem id="MEd">E d.M.</dateFormatItem>
+						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">ccc d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd" draft="contributed">d. MMMM</dateFormatItem>
-						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
-						<dateFormatItem id="Md">d.M.</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yyyy">y G</dateFormatItem>
 						<dateFormatItem id="yyyyM">L.y G</dateFormatItem>
+						<dateFormatItem id="yyyyMd">d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMEd">E d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMM" draft="contributed">M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMM">LLL y G</dateFormatItem>
+						<dateFormatItem id="yyyyMMMd">d. MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E d. MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">LLLL y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMMccccd" draft="contributed">cccc d. MMMM y G</dateFormatItem>
-						<dateFormatItem id="yyyyMMMd">d. MMM y G</dateFormatItem>
-						<dateFormatItem id="yyyyMd">d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQ">QQQ y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQQ">QQQQ y G</dateFormatItem>
 					</availableFormats>
@@ -1595,21 +1579,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="H">H</dateFormatItem>
-						<dateFormatItem id="Hm">H.mm</dateFormatItem>
-						<dateFormatItem id="Hms">H.mm.ss</dateFormatItem>
-						<dateFormatItem id="MEd">E d.M.</dateFormatItem>
-						<dateFormatItem id="MMMEd">E d.M.</dateFormatItem>
-						<dateFormatItem id="MMMd">d.M.</dateFormatItem>
-						<dateFormatItem id="Md">d.M.</dateFormatItem>
 						<dateFormatItem id="hm">h.mm a</dateFormatItem>
+						<dateFormatItem id="Hm">H.mm</dateFormatItem>
 						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
+						<dateFormatItem id="Hms">H.mm.ss</dateFormatItem>
+						<dateFormatItem id="Md">d.M.</dateFormatItem>
+						<dateFormatItem id="MEd">E d.M.</dateFormatItem>
+						<dateFormatItem id="MMMd">d.M.</dateFormatItem>
+						<dateFormatItem id="MMMEd">E d.M.</dateFormatItem>
 						<dateFormatItem id="ms">mm.ss</dateFormatItem>
 						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yyyy">y</dateFormatItem>
-						<dateFormatItem id="yyyyMEd">E d.M.y</dateFormatItem>
-						<dateFormatItem id="yyyyMMMEd">E d.M.y</dateFormatItem>
-						<dateFormatItem id="yyyyMMMd">d.M.y</dateFormatItem>
 						<dateFormatItem id="yyyyMd">d.M.y</dateFormatItem>
+						<dateFormatItem id="yyyyMEd">E d.M.y</dateFormatItem>
+						<dateFormatItem id="yyyyMMMd">d.M.y</dateFormatItem>
+						<dateFormatItem id="yyyyMMMEd">E d.M.y</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
 			</calendar>
@@ -1618,10 +1602,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">thoutkuuta</month>
-							<month type="10" draft="contributed">paonikuuta</month>
-							<month type="11" draft="contributed">epipkuuta</month>
-							<month type="12" draft="contributed">mesorikuuta</month>
-							<month type="13" draft="contributed">pi-kogi-enavotkuuta</month>
 							<month type="2" draft="contributed">paopikuuta</month>
 							<month type="3" draft="contributed">hathorkuuta</month>
 							<month type="4" draft="contributed">koiakkuuta</month>
@@ -1630,13 +1610,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">paremhatkuuta</month>
 							<month type="8" draft="contributed">paremoudekuuta</month>
 							<month type="9" draft="contributed">pashonskuuta</month>
+							<month type="10" draft="contributed">paonikuuta</month>
+							<month type="11" draft="contributed">epipkuuta</month>
+							<month type="12" draft="contributed">mesorikuuta</month>
+							<month type="13" draft="contributed">pi-kogi-enavotkuuta</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">thoutkuuta</month>
-							<month type="10" draft="contributed">paonikuuta</month>
-							<month type="11" draft="contributed">epipkuuta</month>
-							<month type="12" draft="contributed">mesorikuuta</month>
-							<month type="13" draft="contributed">pi-kogi-enavotkuuta</month>
 							<month type="2" draft="contributed">paopikuuta</month>
 							<month type="3" draft="contributed">hathorkuuta</month>
 							<month type="4" draft="contributed">koiakkuuta</month>
@@ -1645,15 +1625,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">paremhatkuuta</month>
 							<month type="8" draft="contributed">paremoudekuuta</month>
 							<month type="9" draft="contributed">pashonskuuta</month>
+							<month type="10" draft="contributed">paonikuuta</month>
+							<month type="11" draft="contributed">epipkuuta</month>
+							<month type="12" draft="contributed">mesorikuuta</month>
+							<month type="13" draft="contributed">pi-kogi-enavotkuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">thout</month>
-							<month type="10" draft="contributed">paoni</month>
-							<month type="11" draft="contributed">epip</month>
-							<month type="12" draft="contributed">mesori</month>
-							<month type="13" draft="contributed">pi kogi enavot</month>
 							<month type="2" draft="contributed">paopi</month>
 							<month type="3" draft="contributed">hathor</month>
 							<month type="4" draft="contributed">koiak</month>
@@ -1662,13 +1642,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">paremhat</month>
 							<month type="8" draft="contributed">paremoude</month>
 							<month type="9" draft="contributed">pashons</month>
+							<month type="10" draft="contributed">paoni</month>
+							<month type="11" draft="contributed">epip</month>
+							<month type="12" draft="contributed">mesori</month>
+							<month type="13" draft="contributed">pi kogi enavot</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">thoutkuu</month>
-							<month type="10" draft="contributed">paonikuu</month>
-							<month type="11" draft="contributed">epipkuu</month>
-							<month type="12" draft="contributed">mesorikuu</month>
-							<month type="13" draft="contributed">pi-kogi-enavotkuu</month>
 							<month type="2" draft="contributed">paopikuu</month>
 							<month type="3" draft="contributed">hathorkuu</month>
 							<month type="4" draft="contributed">koiakkuu</month>
@@ -1677,6 +1657,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">paremhatkuu</month>
 							<month type="8" draft="contributed">paremoudekuu</month>
 							<month type="9" draft="contributed">pashonskuu</month>
+							<month type="10" draft="contributed">paonikuu</month>
+							<month type="11" draft="contributed">epipkuu</month>
+							<month type="12" draft="contributed">mesorikuu</month>
+							<month type="13" draft="contributed">pi-kogi-enavotkuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -1686,10 +1670,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">mäskärämkuuta</month>
-							<month type="10" draft="contributed">sänekuuta</month>
-							<month type="11" draft="contributed">ḥamlekuuta</month>
-							<month type="12" draft="contributed">nähasekuuta</month>
-							<month type="13" draft="contributed">ṗagumenkuuta</month>
 							<month type="2" draft="contributed">ṭəqəmtkuuta</month>
 							<month type="3" draft="contributed">ḫədarkuuta</month>
 							<month type="4" draft="contributed">taḫśaśkuuta</month>
@@ -1698,13 +1678,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mägabitkuuta</month>
 							<month type="8" draft="contributed">miyazyakuuta</month>
 							<month type="9" draft="contributed">gənbotkuuta</month>
+							<month type="10" draft="contributed">sänekuuta</month>
+							<month type="11" draft="contributed">ḥamlekuuta</month>
+							<month type="12" draft="contributed">nähasekuuta</month>
+							<month type="13" draft="contributed">ṗagumenkuuta</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">mäskärämkuuta</month>
-							<month type="10" draft="contributed">sänekuuta</month>
-							<month type="11" draft="contributed">ḥamlekuuta</month>
-							<month type="12" draft="contributed">nähasekuuta</month>
-							<month type="13" draft="contributed">ṗagumenkuuta</month>
 							<month type="2" draft="contributed">ṭəqəmtkuuta</month>
 							<month type="3" draft="contributed">ḫədarkuuta</month>
 							<month type="4" draft="contributed">taḫśaśkuuta</month>
@@ -1713,15 +1693,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mägabitkuuta</month>
 							<month type="8" draft="contributed">miyazyakuuta</month>
 							<month type="9" draft="contributed">gənbotkuuta</month>
+							<month type="10" draft="contributed">sänekuuta</month>
+							<month type="11" draft="contributed">ḥamlekuuta</month>
+							<month type="12" draft="contributed">nähasekuuta</month>
+							<month type="13" draft="contributed">ṗagumenkuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1">mäskärämkuu</month>
-							<month type="10">sänekuu</month>
-							<month type="11">ḥamlekuu</month>
-							<month type="12">nähasekuu</month>
-							<month type="13">ṗagumenkuu</month>
 							<month type="2">ṭəqəmtkuu</month>
 							<month type="3">ḫədarkuu</month>
 							<month type="4">taḫśaśkuu</month>
@@ -1730,13 +1710,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">mägabitkuu</month>
 							<month type="8">miyazyakuu</month>
 							<month type="9">gənbotkuu</month>
+							<month type="10">sänekuu</month>
+							<month type="11">ḥamlekuu</month>
+							<month type="12">nähasekuu</month>
+							<month type="13">ṗagumenkuu</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">mäskärämkuu</month>
-							<month type="10" draft="contributed">sänekuu</month>
-							<month type="11" draft="contributed">ḥamlekuu</month>
-							<month type="12" draft="contributed">nähasekuu</month>
-							<month type="13" draft="contributed">ṗagumenkuu</month>
 							<month type="2" draft="contributed">ṭəqəmtkuu</month>
 							<month type="3" draft="contributed">ḫədarkuu</month>
 							<month type="4" draft="contributed">taḫśaśkuu</month>
@@ -1745,6 +1725,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mägabitkuu</month>
 							<month type="8" draft="contributed">miyazyakuu</month>
 							<month type="9" draft="contributed">gənbotkuu</month>
+							<month type="10" draft="contributed">sänekuu</month>
+							<month type="11" draft="contributed">ḥamlekuu</month>
+							<month type="12" draft="contributed">nähasekuu</month>
+							<month type="13" draft="contributed">ṗagumenkuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -1793,37 +1777,37 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="Bhms">h.mm.ss B</dateFormatItem>
 						<dateFormatItem id="EBhm">E h.mm B</dateFormatItem>
 						<dateFormatItem id="EBhms">E h.mm.ss B</dateFormatItem>
-						<dateFormatItem id="EHm">E HH.mm</dateFormatItem>
-						<dateFormatItem id="EHms">E HH.mm.ss</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="Ehm">E h.mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH.mm</dateFormatItem>
 						<dateFormatItem id="Ehms">E h.mm.ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH.mm.ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">LLL y G</dateFormatItem>
-						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d. MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
 						<dateFormatItem id="H">H</dateFormatItem>
+						<dateFormatItem id="hm">h.mm a</dateFormatItem>
 						<dateFormatItem id="Hm">H.mm</dateFormatItem>
+						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
 						<dateFormatItem id="Hms">H.mm.ss</dateFormatItem>
+						<dateFormatItem id="Md">d.M.</dateFormatItem>
 						<dateFormatItem id="MEd">E d.M.</dateFormatItem>
+						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">ccc d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
-						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
-						<dateFormatItem id="Md">d.M.</dateFormatItem>
-						<dateFormatItem id="hm">h.mm a</dateFormatItem>
-						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
 						<dateFormatItem id="ms">mm.ss</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yyyy">y G</dateFormatItem>
 						<dateFormatItem id="yyyyM">L.y G</dateFormatItem>
+						<dateFormatItem id="yyyyMd">d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMEd">E d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMM">M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMM">LLL y G</dateFormatItem>
+						<dateFormatItem id="yyyyMMMd">d. MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E d. MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMM">LLLL y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMMccccd">cccc d. MMMM y G</dateFormatItem>
-						<dateFormatItem id="yyyyMMMd">d. MMM y G</dateFormatItem>
-						<dateFormatItem id="yyyyMd">d.M.y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQ">QQQ y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQQ">QQQQ y G</dateFormatItem>
 					</availableFormats>
@@ -1834,6 +1818,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="h">h.mm–h.mm B</greatestDifference>
 							<greatestDifference id="m">h.mm–h.mm B</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d.–d.</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Gy">
 							<greatestDifference id="G">y G – y G</greatestDifference>
 							<greatestDifference id="y">y–y G</greatestDifference>
@@ -1843,10 +1830,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">M/y–M/y GGGGG</greatestDifference>
 							<greatestDifference id="y">M/y–M/y GGGGG</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="d">d.M.y–d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">d.M.y–d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">d.M.y–d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="d">E d.M.y – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="G">E d.M.y GGGGG – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="M">E d.M.y – E d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="d">E d.M.y – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y GGGGG</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMM">
@@ -1854,10 +1847,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">M.–M.y G</greatestDifference>
 							<greatestDifference id="y">M.y–M.y G</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
+							<greatestDifference id="G">d.M.y G – d.M.y G</greatestDifference>
+							<greatestDifference id="M">d.M.–d.M.y G</greatestDifference>
+							<greatestDifference id="y">d.M.y – d.M.y G</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="d">E d.M. – E d.M.y G</greatestDifference>
 							<greatestDifference id="G">E d.M.y – E d.M.y G</greatestDifference>
 							<greatestDifference id="M">E d.M. – E d.M.y G</greatestDifference>
-							<greatestDifference id="d">E d.M. – E d.M.y G</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMM">
@@ -1865,36 +1864,34 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">LLLL–LLLL y G</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y G</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="GyMMMMEd">
-							<greatestDifference id="G">E d. MMMM y G – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="d">E d. – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="y">E d. MMMM y – E d. MMMM y G</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMMd">
+							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
 							<greatestDifference id="G">d. MMMM y G – d. MMMM y G</greatestDifference>
 							<greatestDifference id="M">d. MMMM – d. MMMM y G</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
 							<greatestDifference id="y">d. MMMM y – d. MMMM y G</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="GyMMMd">
-							<greatestDifference id="G">d.M.y G – d.M.y G</greatestDifference>
-							<greatestDifference id="M">d.M.–d.M.y G</greatestDifference>
-							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
-							<greatestDifference id="y">d.M.y – d.M.y G</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="GyMd">
-							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="M">d.M.y–d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="d">d.M.y–d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="y">d.M.y–d.M.y GGGGG</greatestDifference>
+						<intervalFormatItem id="GyMMMMEd">
+							<greatestDifference id="d">E d. – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="G">E d. MMMM y G – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="y">E d. MMMM y – E d. MMMM y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">H–H</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h.mm a – h.mm a</greatestDifference>
+							<greatestDifference id="h">h.mm–h.mm a</greatestDifference>
+							<greatestDifference id="m">h.mm–h.mm a</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Hm">
 							<greatestDifference id="H">H.mm–H.mm</greatestDifference>
 							<greatestDifference id="m">H.mm–H.mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h.mm a – h.mm a v</greatestDifference>
+							<greatestDifference id="h">h.mm–h.mm a v</greatestDifference>
+							<greatestDifference id="m">h.mm–h.mm a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hmv">
 							<greatestDifference id="H">H.mm–H.mm v</greatestDifference>
@@ -1906,40 +1903,27 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">L.–L.</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="d">d.–d.M.</greatestDifference>
+							<greatestDifference id="M">d.M.–d.M.</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MEd">
-							<greatestDifference id="M">E d.M. – E d.M.</greatestDifference>
 							<greatestDifference id="d">E d. – E d.M.</greatestDifference>
+							<greatestDifference id="M">E d.M. – E d.M.</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMM">
 							<greatestDifference id="M">LLL–LLLL</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="d">d.–d. MMMM</greatestDifference>
+							<greatestDifference id="M">d. MMMM – d. MMMM</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
 							<greatestDifference id="d">E d. – E d. MMMM</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMM">
 							<greatestDifference id="M">LLL–LLLL</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="MMMd">
-							<greatestDifference id="M">d. MMMM – d. MMMM</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="Md">
-							<greatestDifference id="M">d.M.–d.M.</greatestDifference>
-							<greatestDifference id="d">d.–d.M.</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="d">
-							<greatestDifference id="d">d.–d.</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hm">
-							<greatestDifference id="a">h.mm a – h.mm a</greatestDifference>
-							<greatestDifference id="h">h.mm–h.mm a</greatestDifference>
-							<greatestDifference id="m">h.mm–h.mm a</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hmv">
-							<greatestDifference id="a">h.mm a – h.mm a v</greatestDifference>
-							<greatestDifference id="h">h.mm–h.mm a v</greatestDifference>
-							<greatestDifference id="m">h.mm–h.mm a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="y">
 							<greatestDifference id="y">y–y G</greatestDifference>
@@ -1948,33 +1932,33 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">LLL–LLLL y G</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y G</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
+							<greatestDifference id="M">d.M.–d.M.y G</greatestDifference>
+							<greatestDifference id="y">d.M.y–d.M.y G</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="yMEd">
-							<greatestDifference id="M">E d.M.y – E d.M.y G</greatestDifference>
 							<greatestDifference id="d">E d.M.y – E d.M.y G</greatestDifference>
+							<greatestDifference id="M">E d.M.y – E d.M.y G</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMM">
 							<greatestDifference id="M">LLL–LLLL y G</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y G</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
+							<greatestDifference id="M">d. MMMM – d. MMMM y G</greatestDifference>
+							<greatestDifference id="y">d. MMMM y – d. MMMM y G</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="yMMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
 							<greatestDifference id="d">E d. – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
 							<greatestDifference id="y">E d. MMMM y – E d. MMMM y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMM">
 							<greatestDifference id="M">LLL–LLLL y G</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y G</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="yMMMd">
-							<greatestDifference id="M">d. MMMM – d. MMMM y G</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
-							<greatestDifference id="y">d. MMMM y – d. MMMM y G</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="yMd">
-							<greatestDifference id="M">d.M.–d.M.y G</greatestDifference>
-							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
-							<greatestDifference id="y">d.M.y–d.M.y G</greatestDifference>
 						</intervalFormatItem>
 					</intervalFormats>
 				</dateTimeFormats>
@@ -1984,9 +1968,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1">tammik.</month>
-							<month type="10">lokak.</month>
-							<month type="11">marrask.</month>
-							<month type="12">jouluk.</month>
 							<month type="2">helmik.</month>
 							<month type="3">maalisk.</month>
 							<month type="4">huhtik.</month>
@@ -1995,12 +1976,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">heinäk.</month>
 							<month type="8">elok.</month>
 							<month type="9">syysk.</month>
+							<month type="10">lokak.</month>
+							<month type="11">marrask.</month>
+							<month type="12">jouluk.</month>
 						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">T</month>
-							<month type="10">L</month>
-							<month type="11">M</month>
-							<month type="12">J</month>
 							<month type="2">H</month>
 							<month type="3">M</month>
 							<month type="4">H</month>
@@ -2009,12 +1990,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">H</month>
 							<month type="8">E</month>
 							<month type="9">S</month>
+							<month type="10">L</month>
+							<month type="11">M</month>
+							<month type="12">J</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">tammikuuta</month>
-							<month type="10">lokakuuta</month>
-							<month type="11">marraskuuta</month>
-							<month type="12">joulukuuta</month>
 							<month type="2">helmikuuta</month>
 							<month type="3">maaliskuuta</month>
 							<month type="4">huhtikuuta</month>
@@ -2023,14 +2004,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">heinäkuuta</month>
 							<month type="8">elokuuta</month>
 							<month type="9">syyskuuta</month>
+							<month type="10">lokakuuta</month>
+							<month type="11">marraskuuta</month>
+							<month type="12">joulukuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1">tammi</month>
-							<month type="10">loka</month>
-							<month type="11">marras</month>
-							<month type="12">joulu</month>
 							<month type="2">helmi</month>
 							<month type="3">maalis</month>
 							<month type="4">huhti</month>
@@ -2039,12 +2020,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">heinä</month>
 							<month type="8">elo</month>
 							<month type="9">syys</month>
+							<month type="10">loka</month>
+							<month type="11">marras</month>
+							<month type="12">joulu</month>
 						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">T</month>
-							<month type="10">L</month>
-							<month type="11">M</month>
-							<month type="12">J</month>
 							<month type="2">H</month>
 							<month type="3">M</month>
 							<month type="4">H</month>
@@ -2053,12 +2034,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">H</month>
 							<month type="8">E</month>
 							<month type="9">S</month>
+							<month type="10">L</month>
+							<month type="11">M</month>
+							<month type="12">J</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">tammikuu</month>
-							<month type="10">lokakuu</month>
-							<month type="11">marraskuu</month>
-							<month type="12">joulukuu</month>
 							<month type="2">helmikuu</month>
 							<month type="3">maaliskuu</month>
 							<month type="4">huhtikuu</month>
@@ -2067,80 +2048,79 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">heinäkuu</month>
 							<month type="8">elokuu</month>
 							<month type="9">syyskuu</month>
+							<month type="10">lokakuu</month>
+							<month type="11">marraskuu</month>
+							<month type="12">joulukuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
 				<days>
 					<dayContext type="format">
 						<dayWidth type="abbreviated">
-							<day type="fri">pe</day>
-							<day type="mon">ma</day>
-							<day type="sat">la</day>
 							<day type="sun">su</day>
-							<day type="thu">to</day>
+							<day type="mon">ma</day>
 							<day type="tue">ti</day>
 							<day type="wed">ke</day>
+							<day type="thu">to</day>
+							<day type="fri">pe</day>
+							<day type="sat">la</day>
 						</dayWidth>
 						<dayWidth type="narrow">
-							<day type="fri">P</day>
-							<day type="mon">M</day>
-							<day type="sat">L</day>
-							<day type="sun">S</day>
-							<day type="thu">T</day>
-							<day type="tue">T</day>
 							<day type="wed">K</day>
+							<day type="fri">P</day>
+							<day type="sat">L</day>
 						</dayWidth>
 						<dayWidth type="short">
-							<day type="fri">pe</day>
-							<day type="mon">ma</day>
-							<day type="sat">la</day>
 							<day type="sun">su</day>
-							<day type="thu">to</day>
+							<day type="mon">ma</day>
 							<day type="tue">ti</day>
 							<day type="wed">ke</day>
+							<day type="thu">to</day>
+							<day type="fri">pe</day>
+							<day type="sat">la</day>
 						</dayWidth>
 						<dayWidth type="wide">
-							<day type="fri">perjantaina</day>
-							<day type="mon">maanantaina</day>
-							<day type="sat">lauantaina</day>
 							<day type="sun">sunnuntaina</day>
-							<day type="thu">torstaina</day>
+							<day type="mon">maanantaina</day>
 							<day type="tue">tiistaina</day>
 							<day type="wed">keskiviikkona</day>
+							<day type="thu">torstaina</day>
+							<day type="fri">perjantaina</day>
+							<day type="sat">lauantaina</day>
 						</dayWidth>
 					</dayContext>
 					<dayContext type="stand-alone">
 						<dayWidth type="abbreviated">
-							<day type="fri">pe</day>
-							<day type="mon">ma</day>
-							<day type="sat">la</day>
 							<day type="sun">su</day>
-							<day type="thu">to</day>
+							<day type="mon">ma</day>
 							<day type="tue">ti</day>
 							<day type="wed">ke</day>
+							<day type="thu">to</day>
+							<day type="fri">pe</day>
+							<day type="sat">la</day>
 						</dayWidth>
 						<dayWidth type="narrow">
+							<day type="wed">K</day>
 							<day type="fri">P</day>
 							<day type="sat">L</day>
-							<day type="wed">K</day>
 						</dayWidth>
 						<dayWidth type="short">
-							<day type="fri">pe</day>
-							<day type="mon">ma</day>
-							<day type="sat">la</day>
 							<day type="sun">su</day>
-							<day type="thu">to</day>
+							<day type="mon">ma</day>
 							<day type="tue">ti</day>
 							<day type="wed">ke</day>
+							<day type="thu">to</day>
+							<day type="fri">pe</day>
+							<day type="sat">la</day>
 						</dayWidth>
 						<dayWidth type="wide">
-							<day type="fri">perjantai</day>
-							<day type="mon">maanantai</day>
-							<day type="sat">lauantai</day>
 							<day type="sun">sunnuntai</day>
-							<day type="thu">torstai</day>
+							<day type="mon">maanantai</day>
 							<day type="tue">tiistai</day>
 							<day type="wed">keskiviikko</day>
+							<day type="thu">torstai</day>
+							<day type="fri">perjantai</day>
+							<day type="sat">lauantai</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -2183,72 +2163,72 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<dayPeriods>
 					<dayPeriodContext type="format">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="afternoon1">iltap.</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">illalla</dayPeriod>
 							<dayPeriod type="midnight">keskiyöllä</dayPeriod>
-							<dayPeriod type="morning1">aamulla</dayPeriod>
-							<dayPeriod type="morning2">aamup.</dayPeriod>
-							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">keskip.</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamulla</dayPeriod>
+							<dayPeriod type="afternoon1">iltap.</dayPeriod>
+							<dayPeriod type="evening1">illalla</dayPeriod>
+							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="morning2">aamup.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="afternoon1">ip.</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">illalla</dayPeriod>
 							<dayPeriod type="midnight">ky.</dayPeriod>
-							<dayPeriod type="morning1">aamulla</dayPeriod>
-							<dayPeriod type="morning2">ap.</dayPeriod>
-							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">kp.</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamulla</dayPeriod>
+							<dayPeriod type="afternoon1">ip.</dayPeriod>
+							<dayPeriod type="evening1">illalla</dayPeriod>
+							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="morning2">ap.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="afternoon1">iltapäivällä</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">illalla</dayPeriod>
 							<dayPeriod type="midnight">keskiyöllä</dayPeriod>
-							<dayPeriod type="morning1">aamulla</dayPeriod>
-							<dayPeriod type="morning2">aamupäivällä</dayPeriod>
-							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">keskipäivällä</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamulla</dayPeriod>
+							<dayPeriod type="afternoon1">iltapäivällä</dayPeriod>
+							<dayPeriod type="evening1">illalla</dayPeriod>
+							<dayPeriod type="night1">yöllä</dayPeriod>
+							<dayPeriod type="morning2">aamupäivällä</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 					<dayPeriodContext type="stand-alone">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="afternoon1">iltap.</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">ilta</dayPeriod>
 							<dayPeriod type="midnight">keskiyö</dayPeriod>
-							<dayPeriod type="morning1">aamu</dayPeriod>
-							<dayPeriod type="morning2">aamup.</dayPeriod>
-							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">keskip.</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamu</dayPeriod>
+							<dayPeriod type="afternoon1">iltap.</dayPeriod>
+							<dayPeriod type="evening1">ilta</dayPeriod>
+							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="morning2">aamup.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="afternoon1">ip.</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">ilta</dayPeriod>
 							<dayPeriod type="midnight">ky.</dayPeriod>
-							<dayPeriod type="morning1">aamu</dayPeriod>
-							<dayPeriod type="morning2">ap.</dayPeriod>
-							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">kp.</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamu</dayPeriod>
+							<dayPeriod type="afternoon1">ip.</dayPeriod>
+							<dayPeriod type="evening1">ilta</dayPeriod>
+							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="morning2">ap.</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="afternoon1">iltapäivä</dayPeriod>
-							<dayPeriod type="am">ap.</dayPeriod>
-							<dayPeriod type="evening1">ilta</dayPeriod>
 							<dayPeriod type="midnight">keskiyö</dayPeriod>
-							<dayPeriod type="morning1">aamu</dayPeriod>
-							<dayPeriod type="morning2">aamupäivä</dayPeriod>
-							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="am">ap.</dayPeriod>
 							<dayPeriod type="noon">keskipäivä</dayPeriod>
 							<dayPeriod type="pm">ip.</dayPeriod>
+							<dayPeriod type="morning1">aamu</dayPeriod>
+							<dayPeriod type="afternoon1">iltapäivä</dayPeriod>
+							<dayPeriod type="evening1">ilta</dayPeriod>
+							<dayPeriod type="night1">yö</dayPeriod>
+							<dayPeriod type="morning2">aamupäivä</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 				</dayPeriods>
@@ -2337,46 +2317,46 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="Bhms">h.mm.ss B</dateFormatItem>
 						<dateFormatItem id="EBhm">E h.mm B</dateFormatItem>
 						<dateFormatItem id="EBhms">E h.mm.ss B</dateFormatItem>
-						<dateFormatItem id="EHm">E H.mm</dateFormatItem>
-						<dateFormatItem id="EHms">E H.mm.ss</dateFormatItem>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="Ehm">E h.mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E H.mm</dateFormatItem>
 						<dateFormatItem id="Ehms">E h.mm.ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E H.mm.ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">LLL y G</dateFormatItem>
-						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
-						<dateFormatItem id="GyMMMMEd">E d. MMMM y G</dateFormatItem>
-						<dateFormatItem id="GyMMMMd">d. MMMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d. MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">E d. MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMMd">d. MMMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMMEd">E d. MMMM y G</dateFormatItem>
 						<dateFormatItem id="H">H</dateFormatItem>
+						<dateFormatItem id="hm">h.mm a</dateFormatItem>
 						<dateFormatItem id="Hm">H.mm</dateFormatItem>
+						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
 						<dateFormatItem id="Hms">H.mm.ss</dateFormatItem>
+						<dateFormatItem id="hmsv">h.mm.ss a v</dateFormatItem>
 						<dateFormatItem id="Hmsv">H.mm.ss v</dateFormatItem>
+						<dateFormatItem id="hmv">h.mm a v</dateFormatItem>
 						<dateFormatItem id="Hmv">H.mm v</dateFormatItem>
+						<dateFormatItem id="Md">d.M.</dateFormatItem>
 						<dateFormatItem id="MEd">E d.M.</dateFormatItem>
+						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">ccc d. MMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">ccc d. MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">LLLL'n' W. 'viikko'</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">LLLL'n' W. 'viikko'</dateFormatItem>
-						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
-						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
-						<dateFormatItem id="Md">d.M.</dateFormatItem>
-						<dateFormatItem id="hm">h.mm a</dateFormatItem>
-						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
-						<dateFormatItem id="hmsv">h.mm.ss a v</dateFormatItem>
-						<dateFormatItem id="hmv">h.mm a v</dateFormatItem>
 						<dateFormatItem id="ms">m.ss</dateFormatItem>
 						<dateFormatItem id="yM">L.y</dateFormatItem>
+						<dateFormatItem id="yMd">d.M.y</dateFormatItem>
 						<dateFormatItem id="yMEd">E d.M.y</dateFormatItem>
 						<dateFormatItem id="yMM">M.y</dateFormatItem>
 						<dateFormatItem id="yMMM">LLL y</dateFormatItem>
+						<dateFormatItem id="yMMMd">d. MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">E d. MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMM">LLLL y</dateFormatItem>
-						<dateFormatItem id="yMMMMEd">E d. MMMM y</dateFormatItem>
 						<dateFormatItem id="yMMMMccccd">cccc d. MMMM y</dateFormatItem>
 						<dateFormatItem id="yMMMMd">d. MMMM y</dateFormatItem>
-						<dateFormatItem id="yMMMd">d. MMM y</dateFormatItem>
-						<dateFormatItem id="yMd">d.M.y</dateFormatItem>
+						<dateFormatItem id="yMMMMEd">E d. MMMM y</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 						<dateFormatItem id="yw" count="one">'vuoden' Y 'viikko' w</dateFormatItem>
@@ -2389,6 +2369,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="h">h.mm–h.mm B</greatestDifference>
 							<greatestDifference id="m">h.mm–h.mm B</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d.–d.</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Gy">
 							<greatestDifference id="G">y G – y G</greatestDifference>
 							<greatestDifference id="y">y–y G</greatestDifference>
@@ -2398,10 +2381,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">M/y–M/y GGGGG</greatestDifference>
 							<greatestDifference id="y">M/y–M/y GGGGG</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="d">d.M.y–d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="M">d.M.y–d.M.y GGGGG</greatestDifference>
+							<greatestDifference id="y">d.M.y–d.M.y GGGGG</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="d">E d.M.y – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="G">E d.M.y GGGGG – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="M">E d.M.y – E d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="d">E d.M.y – E d.M.y GGGGG</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y GGGGG</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMM">
@@ -2409,10 +2398,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">M.–M.y G</greatestDifference>
 							<greatestDifference id="y">M.y–M.y G</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
+							<greatestDifference id="G">d.M.y. G – d.M.y G</greatestDifference>
+							<greatestDifference id="M">d.M–d.M.y G</greatestDifference>
+							<greatestDifference id="y">d.M.y–d.M.y G</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="d">E d.M – E d.M.y G</greatestDifference>
 							<greatestDifference id="G">E d.M.y – E d.M.y G</greatestDifference>
 							<greatestDifference id="M">E d.M. – E d.M.y G</greatestDifference>
-							<greatestDifference id="d">E d.M – E d.M.y G</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMM">
@@ -2420,36 +2415,34 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="M">LLLL–LLLL y G</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y G</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="GyMMMMEd">
-							<greatestDifference id="G">E d. MMMM y G – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="d">E d. – E d. MMMM y G</greatestDifference>
-							<greatestDifference id="y">E d. MMMM y – E d. MMMM y G</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMMd">
+							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
 							<greatestDifference id="G">d. MMMM y G – d. MMMM y G</greatestDifference>
 							<greatestDifference id="M">d. MMMM – d. MMMM y G</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM y G</greatestDifference>
 							<greatestDifference id="y">d. MMMM y – d. MMMM y G</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="GyMMMd">
-							<greatestDifference id="G">d.M.y. G – d.M.y G</greatestDifference>
-							<greatestDifference id="M">d.M–d.M.y G</greatestDifference>
-							<greatestDifference id="d">d.–d.M.y G</greatestDifference>
-							<greatestDifference id="y">d.M.y–d.M.y G</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="GyMd">
-							<greatestDifference id="G">d.M.y GGGGG – d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="M">d.M.y–d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="d">d.M.y–d.M.y GGGGG</greatestDifference>
-							<greatestDifference id="y">d.M.y–d.M.y GGGGG</greatestDifference>
+						<intervalFormatItem id="GyMMMMEd">
+							<greatestDifference id="d">E d. – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="G">E d. MMMM y G – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM y G</greatestDifference>
+							<greatestDifference id="y">E d. MMMM y – E d. MMMM y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">H–H</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h.mm a – h.mm a</greatestDifference>
+							<greatestDifference id="h">h.mm–h.mm a</greatestDifference>
+							<greatestDifference id="m">h.mm–h.mm a</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Hm">
 							<greatestDifference id="H">H.mm–H.mm</greatestDifference>
 							<greatestDifference id="m">H.mm–H.mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h.mm a – h.mm a v</greatestDifference>
+							<greatestDifference id="h">h.mm–h.mm a v</greatestDifference>
+							<greatestDifference id="m">h.mm–h.mm a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hmv">
 							<greatestDifference id="H">H.mm–H.mm v</greatestDifference>
@@ -2461,90 +2454,77 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<intervalFormatItem id="M">
 							<greatestDifference id="M">L.–L.</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="d">d.–d.M.</greatestDifference>
+							<greatestDifference id="M">d.M.–d.M.</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MEd">
-							<greatestDifference id="M">E d.M. – E d.M.</greatestDifference>
 							<greatestDifference id="d">E d. – E d.M.</greatestDifference>
+							<greatestDifference id="M">E d.M. – E d.M.</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMM">
 							<greatestDifference id="M">LLL–LLLL</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="d">d.–d. MMMM</greatestDifference>
+							<greatestDifference id="M">d. MMMM – d. MMMM</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
 							<greatestDifference id="d">E d. – E d. MMMM</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMM">
 							<greatestDifference id="M">LLL–LLLL</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="MMMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
-							<greatestDifference id="d">E d. – E d. MMMM</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="MMMMd">
-							<greatestDifference id="M">d. MMMM – d. MMMM</greatestDifference>
 							<greatestDifference id="d">d.–d. MMMM</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="MMMd">
 							<greatestDifference id="M">d. MMMM – d. MMMM</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="Md">
-							<greatestDifference id="M">d.M.–d.M.</greatestDifference>
-							<greatestDifference id="d">d.–d.M.</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="d">
-							<greatestDifference id="d">d.–d.</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hm">
-							<greatestDifference id="a">h.mm a – h.mm a</greatestDifference>
-							<greatestDifference id="h">h.mm–h.mm a</greatestDifference>
-							<greatestDifference id="m">h.mm–h.mm a</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="hmv">
-							<greatestDifference id="a">h.mm a – h.mm a v</greatestDifference>
-							<greatestDifference id="h">h.mm–h.mm a v</greatestDifference>
-							<greatestDifference id="m">h.mm–h.mm a v</greatestDifference>
+						<intervalFormatItem id="MMMMEd">
+							<greatestDifference id="d">E d. – E d. MMMM</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yM">
 							<greatestDifference id="M">LLL–LLLL y</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="d">d.–d.M.y</greatestDifference>
+							<greatestDifference id="M">d.M.–d.M.y</greatestDifference>
+							<greatestDifference id="y">d.M.y–d.M.y</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="yMEd">
-							<greatestDifference id="M">E d.M.y – E d.M.y</greatestDifference>
 							<greatestDifference id="d">E d.M.y – E d.M.y</greatestDifference>
+							<greatestDifference id="M">E d.M.y – E d.M.y</greatestDifference>
 							<greatestDifference id="y">E d.M.y – E d.M.y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMM">
 							<greatestDifference id="M">LLL–LLLL y</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="d">d.–d. MMMM y</greatestDifference>
+							<greatestDifference id="M">d. MMMM – d. MMMM y</greatestDifference>
+							<greatestDifference id="y">d. MMMM y – d. MMMM y</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="yMMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM y</greatestDifference>
 							<greatestDifference id="d">E d. – E d. MMMM y</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM y</greatestDifference>
 							<greatestDifference id="y">E d. MMMM y – E d. MMMM y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMMMM">
 							<greatestDifference id="M">LLL–LLLL y</greatestDifference>
 							<greatestDifference id="y">LLLL y – LLLL y</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="yMMMMEd">
-							<greatestDifference id="M">E d. MMMM – E d. MMMM y</greatestDifference>
-							<greatestDifference id="d">E d. – E d. MMMM y</greatestDifference>
-							<greatestDifference id="y">E d. MMMM y – E d. MMMM y</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="yMMMMd">
-							<greatestDifference id="M">d. MMMM – d. MMMM y</greatestDifference>
 							<greatestDifference id="d">d.–d. MMMM y</greatestDifference>
+							<greatestDifference id="M">d. MMMM – d. MMMM y</greatestDifference>
 							<greatestDifference id="y">d. MMMM y – d. MMMM y</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="yMMMd">
-							<greatestDifference id="M">d. MMMM – d. MMMM y</greatestDifference>
-							<greatestDifference id="d">d.–d. MMMM y</greatestDifference>
-							<greatestDifference id="y">d. MMMM y – d. MMMM y</greatestDifference>
-						</intervalFormatItem>
-						<intervalFormatItem id="yMd">
-							<greatestDifference id="M">d.M.–d.M.y</greatestDifference>
-							<greatestDifference id="d">d.–d.M.y</greatestDifference>
-							<greatestDifference id="y">d.M.y–d.M.y</greatestDifference>
+						<intervalFormatItem id="yMMMMEd">
+							<greatestDifference id="d">E d. – E d. MMMM y</greatestDifference>
+							<greatestDifference id="M">E d. MMMM – E d. MMMM y</greatestDifference>
+							<greatestDifference id="y">E d. MMMM y – E d. MMMM y</greatestDifference>
 						</intervalFormatItem>
 					</intervalFormats>
 				</dateTimeFormats>
@@ -2554,10 +2534,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">tišrí</month>
-							<month type="10" draft="contributed">siván</month>
-							<month type="11" draft="contributed">tammúz</month>
-							<month type="12" draft="contributed">ab</month>
-							<month type="13" draft="contributed">elúl</month>
 							<month type="2" draft="contributed">hešván</month>
 							<month type="3" draft="contributed">kislév</month>
 							<month type="4" draft="contributed">tevét</month>
@@ -2567,13 +2543,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" yeartype="leap" draft="contributed">adár II</month>
 							<month type="8" draft="contributed">nisán</month>
 							<month type="9" draft="contributed">ijjár</month>
+							<month type="10" draft="contributed">siván</month>
+							<month type="11" draft="contributed">tammúz</month>
+							<month type="12" draft="contributed">ab</month>
+							<month type="13" draft="contributed">elúl</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">tišríkuuta</month>
-							<month type="10">sivánkuuta</month>
-							<month type="11">tammúzkuuta</month>
-							<month type="12">abkuuta</month>
-							<month type="13">elúlkuuta</month>
 							<month type="2">hešvánkuuta</month>
 							<month type="3">kislévkuuta</month>
 							<month type="4">tevétkuuta</month>
@@ -2583,15 +2559,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" yeartype="leap">adárkuuta II</month>
 							<month type="8">nisánkuuta</month>
 							<month type="9">ijjárkuuta</month>
+							<month type="10">sivánkuuta</month>
+							<month type="11">tammúzkuuta</month>
+							<month type="12">abkuuta</month>
+							<month type="13">elúlkuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1">tišrí</month>
-							<month type="10">siván</month>
-							<month type="11">tammúz</month>
-							<month type="12">ab</month>
-							<month type="13">elúl</month>
 							<month type="2">hešván</month>
 							<month type="3">kislév</month>
 							<month type="4">tevét</month>
@@ -2601,13 +2577,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" yeartype="leap">adár II</month>
 							<month type="8">nisán</month>
 							<month type="9">ijjár</month>
+							<month type="10">siván</month>
+							<month type="11">tammúz</month>
+							<month type="12">ab</month>
+							<month type="13">elúl</month>
 						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">T</month>
-							<month type="10">S</month>
-							<month type="11">T</month>
-							<month type="12">A</month>
-							<month type="13">E</month>
 							<month type="2">H</month>
 							<month type="3">K</month>
 							<month type="4">T</month>
@@ -2617,13 +2593,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" yeartype="leap">A</month>
 							<month type="8">N</month>
 							<month type="9">I</month>
+							<month type="10">S</month>
+							<month type="11">T</month>
+							<month type="12">A</month>
+							<month type="13">E</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1">tišríkuu</month>
-							<month type="10">sivánkuu</month>
-							<month type="11">tammúzkuu</month>
-							<month type="12">abkuu</month>
-							<month type="13">elúlkuu</month>
 							<month type="2">hešvánkuu</month>
 							<month type="3">kislévkuu</month>
 							<month type="4">tevétkuu</month>
@@ -2633,6 +2609,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" yeartype="leap">adárkuu II</month>
 							<month type="8">nisánkuu</month>
 							<month type="9">ijjárkuu</month>
+							<month type="10">sivánkuu</month>
+							<month type="11">tammúzkuu</month>
+							<month type="12">abkuu</month>
+							<month type="13">elúlkuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -2647,9 +2627,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">chaitrakuuta</month>
-							<month type="10" draft="contributed">pausakuuta</month>
-							<month type="11" draft="contributed">maghakuuta</month>
-							<month type="12" draft="contributed">phalgunakuuta</month>
 							<month type="2" draft="contributed">vaisakhakuuta</month>
 							<month type="3" draft="contributed">jyaisthakuuta</month>
 							<month type="4" draft="contributed">asadhakuuta</month>
@@ -2658,12 +2635,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">asvinakuuta</month>
 							<month type="8" draft="contributed">kartikakuuta</month>
 							<month type="9" draft="contributed">agrahayanakuuta</month>
+							<month type="10" draft="contributed">pausakuuta</month>
+							<month type="11" draft="contributed">maghakuuta</month>
+							<month type="12" draft="contributed">phalgunakuuta</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">chaitrakuuta</month>
-							<month type="10" draft="contributed">pausakuuta</month>
-							<month type="11" draft="contributed">maghakuuta</month>
-							<month type="12" draft="contributed">phalgunakuuta</month>
 							<month type="2" draft="contributed">vaisakhakuuta</month>
 							<month type="3" draft="contributed">jyaisthakuuta</month>
 							<month type="4" draft="contributed">asadhakuuta</month>
@@ -2672,14 +2649,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">asvinakuuta</month>
 							<month type="8" draft="contributed">kartikakuuta</month>
 							<month type="9" draft="contributed">agrahayanakuuta</month>
+							<month type="10" draft="contributed">pausakuuta</month>
+							<month type="11" draft="contributed">maghakuuta</month>
+							<month type="12" draft="contributed">phalgunakuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">chaitra</month>
-							<month type="10" draft="contributed">pausa</month>
-							<month type="11" draft="contributed">magha</month>
-							<month type="12" draft="contributed">phalguna</month>
 							<month type="2" draft="contributed">vaisakha</month>
 							<month type="3" draft="contributed">jyaistha</month>
 							<month type="4" draft="contributed">asadha</month>
@@ -2688,12 +2665,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">asvina</month>
 							<month type="8" draft="contributed">kartika</month>
 							<month type="9" draft="contributed">agrahayana</month>
+							<month type="10" draft="contributed">pausa</month>
+							<month type="11" draft="contributed">magha</month>
+							<month type="12" draft="contributed">phalguna</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">chaitrakuu</month>
-							<month type="10" draft="contributed">pausakuu</month>
-							<month type="11" draft="contributed">maghakuu</month>
-							<month type="12" draft="contributed">phalgunakuu</month>
 							<month type="2" draft="contributed">vaisakhakuu</month>
 							<month type="3" draft="contributed">jyaisthakuu</month>
 							<month type="4" draft="contributed">asadhakuu</month>
@@ -2702,6 +2679,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">asvinakuu</month>
 							<month type="8" draft="contributed">kartikakuu</month>
 							<month type="9" draft="contributed">agrahayanakuu</month>
+							<month type="10" draft="contributed">pausakuu</month>
+							<month type="11" draft="contributed">maghakuu</month>
+							<month type="12" draft="contributed">phalgunakuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -2716,9 +2696,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="wide">
 							<month type="1">muharram</month>
-							<month type="10">šawwal</month>
-							<month type="11">dhu-l-qa’da</month>
-							<month type="12">dhu-l-hiddža</month>
 							<month type="2">safar</month>
 							<month type="3">rabi’ al-awwal</month>
 							<month type="4">rabi’ al-akhir</month>
@@ -2727,14 +2704,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">radžab</month>
 							<month type="8">ša’ban</month>
 							<month type="9">ramadan</month>
+							<month type="10">šawwal</month>
+							<month type="11">dhu-l-qa’da</month>
+							<month type="12">dhu-l-hiddža</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="wide">
 							<month type="1">muharram</month>
-							<month type="10">šawwal</month>
-							<month type="11">dhu-l-qa’da</month>
-							<month type="12">dhu-l-hiddža</month>
 							<month type="2">safar</month>
 							<month type="3">rabi’ al-awwal</month>
 							<month type="4">rabi’ al-akhir</month>
@@ -2743,6 +2720,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7">radžab</month>
 							<month type="8">ša’ban</month>
 							<month type="9">ramadan</month>
+							<month type="10">šawwal</month>
+							<month type="11">dhu-l-qa’da</month>
+							<month type="12">dhu-l-hiddža</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -2781,9 +2761,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">farvardinkuuta</month>
-							<month type="10" draft="contributed">deykuuta</month>
-							<month type="11" draft="contributed">bahmankuuta</month>
-							<month type="12" draft="contributed">esfandkuuta</month>
 							<month type="2" draft="contributed">ordibeheštkuuta</month>
 							<month type="3" draft="contributed">khordadkuuta</month>
 							<month type="4" draft="contributed">tirkuuta</month>
@@ -2792,12 +2769,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mehrkuuta</month>
 							<month type="8" draft="contributed">abankuuta</month>
 							<month type="9" draft="contributed">azarkuuta</month>
+							<month type="10" draft="contributed">deykuuta</month>
+							<month type="11" draft="contributed">bahmankuuta</month>
+							<month type="12" draft="contributed">esfandkuuta</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">farvardinkuuta</month>
-							<month type="10" draft="contributed">deykuuta</month>
-							<month type="11" draft="contributed">bahmankuuta</month>
-							<month type="12" draft="contributed">esfandkuuta</month>
 							<month type="2" draft="contributed">ordibeheštkuuta</month>
 							<month type="3" draft="contributed">khordadkuuta</month>
 							<month type="4" draft="contributed">tirkuuta</month>
@@ -2806,14 +2783,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mehrkuuta</month>
 							<month type="8" draft="contributed">abankuuta</month>
 							<month type="9" draft="contributed">azarkuuta</month>
+							<month type="10" draft="contributed">deykuuta</month>
+							<month type="11" draft="contributed">bahmankuuta</month>
+							<month type="12" draft="contributed">esfandkuuta</month>
 						</monthWidth>
 					</monthContext>
 					<monthContext type="stand-alone">
 						<monthWidth type="abbreviated">
 							<month type="1" draft="contributed">farvardin</month>
-							<month type="10" draft="contributed">dey</month>
-							<month type="11" draft="contributed">bahman</month>
-							<month type="12" draft="contributed">esfand</month>
 							<month type="2" draft="contributed">ordibehešt</month>
 							<month type="3" draft="contributed">khordad</month>
 							<month type="4" draft="contributed">tir</month>
@@ -2822,12 +2799,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mehr</month>
 							<month type="8" draft="contributed">aban</month>
 							<month type="9" draft="contributed">azar</month>
+							<month type="10" draft="contributed">dey</month>
+							<month type="11" draft="contributed">bahman</month>
+							<month type="12" draft="contributed">esfand</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="1" draft="contributed">farvardinkuu</month>
-							<month type="10" draft="contributed">deykuu</month>
-							<month type="11" draft="contributed">bahmankuu</month>
-							<month type="12" draft="contributed">esfandkuu</month>
 							<month type="2" draft="contributed">ordibeheštkuu</month>
 							<month type="3" draft="contributed">khordadkuu</month>
 							<month type="4" draft="contributed">tirkuu</month>
@@ -2836,6 +2813,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="7" draft="contributed">mehrkuu</month>
 							<month type="8" draft="contributed">abankuu</month>
 							<month type="9" draft="contributed">azarkuu</month>
+							<month type="10" draft="contributed">deykuu</month>
+							<month type="11" draft="contributed">bahmankuu</month>
+							<month type="12" draft="contributed">esfandkuu</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -2863,6 +2843,97 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="sun">
+				<relative type="-1">viime sunnuntaina</relative>
+				<relative type="0">tänä sunnuntaina</relative>
+				<relative type="1">ensi sunnuntaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} sunnuntain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sunnuntain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sunnuntai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sunnuntaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">viime maanantaina</relative>
+				<relative type="0">tänä maanantaina</relative>
+				<relative type="1">ensi maanantaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} maanantain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} maanantain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} maanantai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} maanantaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">viime tiistaina</relative>
+				<relative type="0">tänä tiistaina</relative>
+				<relative type="1">ensi tiistaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} tiistain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tiistain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} tiistai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tiistaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">viime keskiviikkona</relative>
+				<relative type="0">tänä keskiviikkona</relative>
+				<relative type="1">ensi keskiviikkona</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} keskiviikon päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} keskiviikon päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} keskiviikko sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} keskiviikkoa sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">viime torstaina</relative>
+				<relative type="0">tänä torstaina</relative>
+				<relative type="1">ensi torstaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} torstain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} torstain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} torstai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} torstaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">viime perjantaina</relative>
+				<relative type="0">tänä perjantaina</relative>
+				<relative type="1">ensi perjantaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} perjantain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} perjantain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} perjantai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} perjantaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">viime lauantaina</relative>
+				<relative type="0">tänä lauantaina</relative>
+				<relative type="1">ensi lauantaina</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} lauantain päästä</relativeTimePattern>
+					<relativeTimePattern count="other">{0} lauantain päästä</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} lauantai sitten</relativeTimePattern>
+					<relativeTimePattern count="other">{0} lauantaita sitten</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="day">
 				<displayName>päivä</displayName>
 				<relative type="-1">eilen</relative>
@@ -2937,19 +3008,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</field>
 			<field type="era-short">
 				<displayName>aikakausi</displayName>
-			</field>
-			<field type="fri">
-				<relative type="-1">viime perjantaina</relative>
-				<relative type="0">tänä perjantaina</relative>
-				<relative type="1">ensi perjantaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} perjantain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} perjantain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} perjantai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} perjantaita sitten</relativeTimePattern>
-				</relativeTime>
 			</field>
 			<field type="fri-narrow">
 				<relative type="-1">viime pe</relative>
@@ -3047,19 +3105,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="past">
 					<relativeTimePattern count="one">{0} min sitten</relativeTimePattern>
 					<relativeTimePattern count="other">{0} min sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">viime maanantaina</relative>
-				<relative type="0">tänä maanantaina</relative>
-				<relative type="1">ensi maanantaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} maanantain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} maanantain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} maanantai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} maanantaita sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="mon-narrow">
@@ -3172,19 +3217,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">{0} neljännestä sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="-1">viime lauantaina</relative>
-				<relative type="0">tänä lauantaina</relative>
-				<relative type="1">ensi lauantaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} lauantain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} lauantain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} lauantai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} lauantaita sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sat-narrow">
 				<relative type="-1">viime la</relative>
 				<relative type="0">tänä la</relative>
@@ -3247,19 +3279,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">{0} s sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun">
-				<relative type="-1">viime sunnuntaina</relative>
-				<relative type="0">tänä sunnuntaina</relative>
-				<relative type="1">ensi sunnuntaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} sunnuntain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sunnuntain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sunnuntai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sunnuntaita sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sun-narrow">
 				<relative type="-1">viime su</relative>
 				<relative type="0">tänä su</relative>
@@ -3284,19 +3303,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="past">
 					<relativeTimePattern count="one">{0} su sitten</relativeTimePattern>
 					<relativeTimePattern count="other">{0} su sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">viime torstaina</relative>
-				<relative type="0">tänä torstaina</relative>
-				<relative type="1">ensi torstaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} torstain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} torstain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} torstai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} torstaita sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="thu-narrow">
@@ -3325,19 +3331,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">{0} to sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="-1">viime tiistaina</relative>
-				<relative type="0">tänä tiistaina</relative>
-				<relative type="1">ensi tiistaina</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} tiistain päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tiistain päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} tiistai sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tiistaita sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="tue-narrow">
 				<relative type="-1">viime ti</relative>
 				<relative type="0">tänä ti</relative>
@@ -3362,19 +3355,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relativeTime type="past">
 					<relativeTimePattern count="one">{0} ti sitten</relativeTimePattern>
 					<relativeTimePattern count="other">{0} ti sitten</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">viime keskiviikkona</relative>
-				<relative type="0">tänä keskiviikkona</relative>
-				<relative type="1">ensi keskiviikkona</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} keskiviikon päästä</relativeTimePattern>
-					<relativeTimePattern count="other">{0} keskiviikon päästä</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} keskiviikko sitten</relativeTimePattern>
-					<relativeTimePattern count="other">{0} keskiviikkoa sitten</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="wed-narrow">
@@ -7910,7 +7890,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="area-dunam">
 				<displayName>dunamit</displayName>
-				<unitPattern count="one">{0} dunam</unitPattern>
 				<unitPattern count="other">{0} dunamia</unitPattern>
 			</unit>
 			<unit type="area-hectare">
@@ -7963,7 +7942,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} karaatti</unitPattern>
 				<unitPattern count="other">{0} karaattia</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>mg/dl</displayName>
 				<unitPattern count="one">{0} mg/dl</unitPattern>
 				<unitPattern count="other">{0} mg/dl</unitPattern>
@@ -8868,7 +8847,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0}ka</unitPattern>
 				<unitPattern count="other">{0}ka</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>mg/dl</displayName>
 				<unitPattern count="one">{0}mg/dl</unitPattern>
 				<unitPattern count="other">{0}mg/dl</unitPattern>
@@ -9211,9 +9190,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<perUnitPattern>{0}/m</perUnitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<displayName>µm</displayName>
-				<unitPattern count="one">{0}µm</unitPattern>
-				<unitPattern count="other">{0}µm</unitPattern>
+				<displayName>μm</displayName>
+				<unitPattern count="one">{0}μm</unitPattern>
+				<unitPattern count="other">{0}μm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<displayName>mi</displayName>
@@ -9307,7 +9286,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="other">{0}t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
-				<displayName>µg</displayName>
+				<displayName>μg</displayName>
 				<unitPattern count="one">{0}μg</unitPattern>
 				<unitPattern count="other">{0}μg</unitPattern>
 			</unit>
@@ -9685,7 +9664,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ka</unitPattern>
 				<unitPattern count="other">{0} ka</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>mg/dl</displayName>
 				<unitPattern count="one">{0} mg/dl</unitPattern>
 				<unitPattern count="other">{0} mg/dl</unitPattern>
@@ -9800,9 +9779,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<perUnitPattern>{0}/t</perUnitPattern>
 			</unit>
 			<unit type="duration-microsecond">
-				<displayName>μs</displayName>
 				<unitPattern count="one">{0} μs</unitPattern>
-				<unitPattern count="other">{0} μs</unitPattern>
 			</unit>
 			<unit type="duration-millisecond">
 				<unitPattern count="one">{0} ms</unitPattern>
@@ -9937,7 +9914,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} m</unitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<unitPattern count="one">{0} µm</unitPattern>
+				<unitPattern count="one">{0} μm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<unitPattern count="one">{0} mi</unitPattern>
@@ -10007,7 +9984,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
-				<unitPattern count="one">{0} µg</unitPattern>
+				<unitPattern count="one">{0} μg</unitPattern>
 			</unit>
 			<unit type="mass-milligram">
 				<unitPattern count="one">{0} mg</unitPattern>
@@ -10265,45 +10242,166 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</units>
 	<listPatterns>
 		<listPattern>
-			<listPatternPart type="2">{0} ja {1}</listPatternPart>
 			<listPatternPart type="end">{0} ja {1}</listPatternPart>
+			<listPatternPart type="2">{0} ja {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="or">
-			<listPatternPart type="2">{0} tai {1}</listPatternPart>
 			<listPatternPart type="end">{0} tai {1}</listPatternPart>
+			<listPatternPart type="2">{0} tai {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="standard-short">
-			<listPatternPart type="2">{0} ja {1}</listPatternPart>
-			<listPatternPart type="end">{0} ja {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0} ja {1}</listPatternPart>
+			<listPatternPart type="2">{0} ja {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit">
-			<listPatternPart type="2">{0} ja {1}</listPatternPart>
-			<listPatternPart type="end">{0} ja {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0} ja {1}</listPatternPart>
+			<listPatternPart type="2">{0} ja {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit-narrow">
-			<listPatternPart type="2">{0} {1}</listPatternPart>
-			<listPatternPart type="end">{0} {1}</listPatternPart>
-			<listPatternPart type="middle">{0} {1}</listPatternPart>
 			<listPatternPart type="start">{0} {1}</listPatternPart>
+			<listPatternPart type="middle">{0} {1}</listPatternPart>
+			<listPatternPart type="end">{0} {1}</listPatternPart>
+			<listPatternPart type="2">{0} {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="unit-short">
-			<listPatternPart type="2">{0}, {1}</listPatternPart>
-			<listPatternPart type="end">{0}, {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0}, {1}</listPatternPart>
+			<listPatternPart type="2">{0}, {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
 	<collations>
 		<collation type="search" sil:modified="true">
 			<cr><![CDATA[
-				[import und-u-co-search]
+				[normalization on]
+				# root search, suppress contractions for Thai, Lao, Tai Viet, New Tai Lue
+				# same as UCD property Logical_Order_Exception
+				[suppressContractions [เ-ไ ເ-ໄ ꪵ ꪶ ꪹ ꪻ ꪼ\u19B5-\u19B7\u19BA]]
+				# root search rules for Symbols
+				&'='<'≠'
+				# root search rules for Arabic, Hebrew
+				&ا	# 0627 ARABIC LETTER ALEF
+				<<<ﺎ<<<ﺍ	# FE8E, FE8D: FINAL FORM, ISOLATED FORM
+				<<آ		# 0622 ARABIC LETTER ALEF WITH MADDA ABOVE
+				<<<ﺂ<<<ﺁ	# FE82, FE81: FINAL FORM, ISOLATED FORM
+				<<أ		# 0623 ARABIC LETTER ALEF WITH HAMZA ABOVE
+				<<<ﺄ<<<ﺃ	# FE84, FE83: FINAL FORM, ISOLATED FORM
+				<<إ		# 0625 ARABIC LETTER ALEF WITH HAMZA BELOW
+				<<<ﺈ<<<ﺇ	# FE88, FE87: FINAL FORM, ISOLATED FORM
+				&و	# 0648 ARABIC LETTER WAW
+				<<<ۥ	# 06E5: SMALL WAW
+				<<<ﻮ<<<ﻭ	# FEEE, FEED: FINAL FORM, ISOLATED FORM
+				<<ؤ		# 0624 ARABIC LETTER WAW WITH HAMZA ABOVE
+				<<<ﺆ<<<ﺅ	# FE86, FE85: FINAL FORM, ISOLATED FORM
+				&ي	# 064A ARABIC LETTER YEH
+				<<<ۦ	# 06E6: ARABIC SMALL YEH
+				<<<ﻳ<<<ﻴ<<<ﻲ<<<ﻱ	# FEF3, FEF4, FEF2, FEF1: INITIAL FORM, MEDIAL FORM, FINAL FORM, ISOLATED FORM
+				<<ئ		# 0626 ARABIC LETTER YEH WITH HAMZA ABOVE
+				<<<ﺋ<<<ﺌ<<<ﺊ<<<ﺉ	# FE8B, FE8C, FE8A, FE89: INITIAL FORM, MEDIAL FORM. FINAL FORM, ISOLATED FORM
+				<<ى		# 0649 ARABIC LETTER ALEF MAKSURA
+				<<<ﯨ<<<ﯩ	# FBE8, FBE9: UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA INITIAL FORM, MEDIAL FORM
+				<<<ﻰ<<<ﻯ	# FEF0, FEEF: FINAL FORM, ISOLATED FORM
+				&ه	# 0647 ARABIC LETTER HEH
+				<<<ﻫ<<<ﻬ<<<ﻪ<<<ﻩ	# FEEB, FEEC, FEEA, FEE9: INITIAL FORM, MEDIAL FORM, FINAL FORM;, ISOLATED FORM
+				<<ة		# 0629 ARABIC LETTER TEH MARBUTA
+				<<<ﺔ<<<ﺓ	# FE94, FE93: FINAL FORM, ISOLATED FORM
+				&[last primary ignorable]<<׳	# 05F3 HEBREW PUNCTUATION GERESH
+				<<״	# 05F4 HEBREW PUNCTUATION GERSHAYIM
+				<<ـ	# 0640 ARABIC TATWEEL
+				# Don't need explicit entries for 064B - 0652 ARABIC FATHATAN - ARABIC SUKUN;
+				# these are already ignorable at level 1, and are not involved in contractions
+				<<ฺ	# 0E3A THAI CHARACTER PHINTHU
+				# root search rules for modern Korean jamos
+				# Korean modern complex consonants, decompose: x(L) = CHOSEONG x, x(T) = JONGSEONG x
+				&ᄀ	# 1100 KIYEOK(L) = 11A8 KIYEOK(T)
+				=ᆨ
+				&ᄀᄀ	# 1100 KIYEOK(L) + 1100 KIYEOK(L) = 1101 SSANGKIYEOK(L) = 11A9 SSANGKIYEOK(T)
+				=ᄁ=ᆩ
+				&ᄀᄉ	# 1100 KIYEOK(L) + 1109 SIOS(L) = 11AA KIYEOK-SIOS(T)
+				=ᆪ
+				&ᄂ	# 1102 NIEUN(L) = 11AB NIEUN(T)
+				=ᆫ
+				&ᄂᄌ	# 1102 NIEUN(L) + 110C CIEUC(L) = 11AC NIEUN-CIEUC(T), also archaic 115C NIEUN-CIEUC(L)
+				=ᆬ
+				&ᄂᄒ	# 1102 NIEUN(L) + 1112 HIEUH(L) = 11AD NIEUN-HIEUH(T), also archaic 115D NIEUN-HIEUH(L)
+				=ᆭ
+				&ᄃ	# 1103 TIKEUT(L) = 11AE TIKEUT(T)
+				=ᆮ
+				&ᄃᄃ	# 1103 TIKEUT(L) + 1103 TIKEUT(L) = 1104 SSANGTIKEUT(L)
+				=ᄄ
+				&ᄅ	# 1105 RIEUL(L) = 11AF RIEUL(T)
+				=ᆯ
+				&ᄅᄀ	# 1105 RIEUL(L) + 1100 KIYEOK(L) = 11B0 RIEUL-KIYEOK(T)
+				=ᆰ
+				&ᄅᄆ	# 1105 RIEUL(L) + 1106 MIEUM(L) = 11B1 RIEUL-MIEUM(T)
+				=ᆱ
+				&ᄅᄇ	# 1105 RIEUL(L) + 1107 PIEUP(L) = 11B2 RIEUL-PIEUP(T)
+				=ᆲ
+				&ᄅᄉ	# 1105 RIEUL(L) + 1109 SIOS(L) = 11B3 RIEUL-SIOS(T)
+				=ᆳ
+				&ᄅᄐ	# 1105 RIEUL(L) + 1110 THIEUTH(L) = 11B4 RIEUL-THIEUTH(T)
+				=ᆴ
+				&ᄅᄑ	# 1105 RIEUL(L) + 1111 PHIEUPH(L) = 11B5 RIEUL-PHIEUPH(T)
+				=ᆵ
+				&ᄅᄒ	# 1105 RIEUL(L) + 1112 HIEUH(L) = 11B6 RIEUL-HIEUH(T), also archic 111A RIEUL-HIEUH(L)
+				=ᆶ
+				&ᄆ	# 1106 MIEUM(L) = 11B7 MIEUM(T)
+				=ᆷ
+				&ᄇ	# 1107 PIEUP(L) = 11B8 PIEUP(T)
+				=ᆸ
+				&ᄇᄇ	# 1107 PIEUP(L) + 1107 PIEUP(L) = 1108 SSANGPIEUP(L)
+				=ᄈ
+				&ᄇᄉ	# 1107 PIEUP(L) + 1109 SIOS(L) = 11B9 PIEUP-SIOS(T), also archaic 1121 PIEUP-SIOS(L)
+				=ᆹ
+				&ᄉ	# 1109 SIOS(L) = 11BA SIOS(T)
+				=ᆺ
+				&ᄉᄉ	# 1109 SIOS(L) + 1109 SIOS(L) = 110A SSANGSIOS(L) = 11BB SSANGSIOS(T)
+				=ᄊ=ᆻ
+				&ᄋ	# 110B IEUNG(L) = 11BC IEUNG(T)
+				=ᆼ
+				&ᄌ	# 110C CIEUC(L) = 11BD CIEUC(T)
+				=ᆽ
+				&ᄌᄌ	# 110C CIEUC(L) + 110C CIEUC(L) = 110D SSANGCIEUC(L)
+				=ᄍ
+				&ᄎ	# 110E CHIEUCH(L) = 11BE CHIEUCH(T)
+				=ᆾ
+				&ᄏ	# 110F KHIEUKH(L) = 11BF KHIEUKH(T)
+				=ᆿ
+				&ᄐ	# 1110 THIEUTH(L) = 11C0 THIEUTH(T)
+				=ᇀ
+				&ᄑ	# 1111 PHIEUPH(L) = 11C1 PHIEUPH(T)
+				=ᇁ
+				&ᄒ	# 1112 HIEUH(L) = 11C2 HIEUH(T)
+				=ᇂ
+				# Korean modern complex vowels, decompose
+				&ᅡᅵ	# 1161 A(V) + 1175 I(V) = 1162 AE(V)
+				=ᅢ
+				&ᅣᅵ	# 1163 YA(V) + 1175 I(V) = 1164 YAE(V)
+				=ᅤ
+				&ᅥᅵ	# 1165 EO(V) + 1175 I(V) = 1166 E(V)
+				=ᅦ
+				&ᅧᅵ	# 1167 YEO(V) + 1175 I(V) = 1168 YE(V)
+				=ᅨ
+				&ᅩᅡ	# 1169 O(V) + 1161 A(V) = 116A WA(V)
+				=ᅪ
+				&ᅩᅡᅵ	# 1169 O(V) + 1161 A(V) + 1175 I(V) = 116B WAE(V)
+				=ᅫ
+				&ᅩᅵ	# 1169 O(V) + 1175 I(V) = 116C OE(V)
+				=ᅬ
+				&ᅮᅥ	# 116E U(V) + 1165 EO(V) = 116F WEO(V)
+				=ᅯ
+				&ᅮᅥᅵ	# 116E U(V) + 1165 EO(V) + 1175 I(V) = 1170 WE(V)
+				=ᅰ
+				&ᅮᅵ	# 116E U(V) + 1175 I(V) = 1171 WI(V)
+				=ᅱ
+				&ᅳᅵ	# 1173 EU(V) + 1175 I(V) = 1174 YI(V)
+				=ᅴ
 				# Below are the rules specific to fi.
 				# Per Apple language group, V and W should match for search.
-				[import fi-u-co-trad]
 			]]></cr>
 		</collation>
 		<collation type="standard" sil:modified="true">
@@ -10346,18 +10444,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</messages>
 	</posix>
 	<characterLabels>
+		<characterLabelPattern type="other">{0} – muut</characterLabelPattern>
 		<characterLabelPattern type="all">{0} – kaikki</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} – yhteensopivuus</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} – ympäröity</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} – laajennettu</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} – historiallinen</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} – sekalaiset</characterLabelPattern>
-		<characterLabelPattern type="other">{0} – muut</characterLabelPattern>
 		<characterLabelPattern type="scripts">kirjoitusjärjestelmät – {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} piirtoviiva</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} piirtoviivaa</characterLabelPattern>
 		<characterLabelPattern type="subscript">alaindeksi {0}</characterLabelPattern>
 		<characterLabelPattern type="superscript">yläindeksi {0}</characterLabelPattern>
+		<characterLabel type="other">muut</characterLabel>
 		<characterLabel type="activities">toiminta</characterLabel>
 		<characterLabel type="african_scripts">afrikkalaiset kirjoitusjärjestelmät</characterLabel>
 		<characterLabel type="american_scripts">amerikkalaiset kirjoitusjärjestelmät</characterLabel>
@@ -10413,7 +10512,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="nonspacing">omaa tilaa viemättömät merkit</characterLabel>
 		<characterLabel type="numbers">numerot</characterLabel>
 		<characterLabel type="objects">objektit</characterLabel>
-		<characterLabel type="other">muut</characterLabel>
 		<characterLabel type="paired">merkkiparit</characterLabel>
 		<characterLabel type="person">henkilö</characterLabel>
 		<characterLabel type="phonetic_alphabet">foneettiset aakkoset</characterLabel>

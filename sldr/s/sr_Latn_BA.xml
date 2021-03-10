@@ -11,7 +11,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<script type="Latn"/>
 		<territory type="BA"/>
 		<special>
-			<sil:identity draft="approved" source="cldr"/>
+			<sil:identity source="cldr" draft="approved"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
@@ -89,8 +89,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<dateTimeFormats>
 					<intervalFormats>
 						<intervalFormatItem id="MMMEd">
-							<greatestDifference id="M" draft="contributed">E, d. MMM – E, d. MMM</greatestDifference>
 							<greatestDifference id="d" draft="contributed">E, d. MMM – E, d. MMM</greatestDifference>
+							<greatestDifference id="M" draft="contributed">E, d. MMM – E, d. MMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yMd">
 							<greatestDifference id="M" draft="contributed">d.M.y. – d.M.y. GGGGG</greatestDifference>
@@ -102,8 +102,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<days>
 					<dayContext type="format">
 						<dayWidth type="wide">
-							<day type="mon">ponedjeljak</day>
 							<day type="sun" draft="contributed">nedjelja</day>
+							<day type="mon">ponedjeljak</day>
 							<day type="wed" draft="contributed">srijeda</day>
 						</dayWidth>
 					</dayContext>
@@ -112,8 +112,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<day type="wed">sri</day>
 						</dayWidth>
 						<dayWidth type="wide">
-							<day type="mon">ponedjeljak</day>
 							<day type="sun" draft="contributed">nedjelja</day>
+							<day type="mon">ponedjeljak</day>
 							<day type="wed" draft="contributed">srijeda</day>
 						</dayWidth>
 					</dayContext>
@@ -121,15 +121,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<dayPeriods>
 					<dayPeriodContext type="format">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="afternoon1" draft="contributed">po pod.</dayPeriod>
 							<dayPeriod type="am" draft="contributed">prije podne</dayPeriod>
-							<dayPeriod type="evening1" draft="contributed">veče</dayPeriod>
 							<dayPeriod type="morning1" draft="contributed">jutro</dayPeriod>
+							<dayPeriod type="afternoon1" draft="contributed">po pod.</dayPeriod>
+							<dayPeriod type="evening1" draft="contributed">veče</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
+							<dayPeriod type="morning1" draft="contributed">jutro</dayPeriod>
 							<dayPeriod type="afternoon1" draft="contributed">po pod.</dayPeriod>
 							<dayPeriod type="evening1" draft="contributed">veče</dayPeriod>
-							<dayPeriod type="morning1" draft="contributed">jutro</dayPeriod>
 							<dayPeriod type="night1" draft="contributed">noć</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
@@ -157,33 +157,110 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</eras>
 				<dateTimeFormats>
 					<intervalFormats>
-						<intervalFormatItem id="MEd">
-							<greatestDifference id="M" draft="contributed">E, MM-dd – E, MM-dd</greatestDifference>
-							<greatestDifference id="d" draft="contributed">E, MM-dd – E, MM-dd</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="Md">
-							<greatestDifference id="M" draft="contributed">MM-dd – MM-dd</greatestDifference>
 							<greatestDifference id="d" draft="contributed">MM-dd – MM-dd</greatestDifference>
+							<greatestDifference id="M" draft="contributed">MM-dd – MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="d" draft="contributed">E, MM-dd – E, MM-dd</greatestDifference>
+							<greatestDifference id="M" draft="contributed">E, MM-dd – E, MM-dd</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yM">
 							<greatestDifference id="M" draft="contributed">y-MM – y-MM</greatestDifference>
 							<greatestDifference id="y" draft="contributed">y-MM – y-MM</greatestDifference>
 						</intervalFormatItem>
-						<intervalFormatItem id="yMEd">
-							<greatestDifference id="M" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
-							<greatestDifference id="d" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
-							<greatestDifference id="y" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
-						</intervalFormatItem>
 						<intervalFormatItem id="yMd">
-							<greatestDifference id="M" draft="contributed">y-MM-dd – y-MM-dd</greatestDifference>
 							<greatestDifference id="d" draft="contributed">y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="M" draft="contributed">y-MM-dd – y-MM-dd</greatestDifference>
 							<greatestDifference id="y" draft="contributed">y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="d" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
+							<greatestDifference id="M" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
+							<greatestDifference id="y" draft="contributed">E, y-MM-dd – E, y-MM-dd</greatestDifference>
 						</intervalFormatItem>
 					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="sun">
+				<relative type="-1" draft="contributed">prošle nedjelje</relative>
+				<relative type="0" draft="contributed">u nedjelju</relative>
+				<relative type="1" draft="contributed">sljedeće nedjelje</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="few" draft="contributed">za {0} nedjelje</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">za {0} nedjelju</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">za {0} nedjelja</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} nedjelje</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} nedjelje</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} nedjelja</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1" draft="contributed">prošlog ponedjeljka</relative>
+				<relative type="0" draft="contributed">u ponedjeljak</relative>
+				<relative type="1" draft="contributed">sljedećeg ponedjeljka</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="few" draft="contributed">za {0} ponedjeljka</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">za {0} ponedjeljak</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">za {0} ponedjeljaka</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} ponedjeljka</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} ponedjeljka</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} ponedjeljaka</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="1" draft="contributed">sljedećeg utorka</relative>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} utorka</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} utorka</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} utoraka</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1" draft="contributed">prošle srijede</relative>
+				<relative type="0" draft="contributed">u srijedu</relative>
+				<relative type="1" draft="contributed">sljedeće srijede</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="few" draft="contributed">za {0} srijede</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">za {0} srijedu</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">za {0} srijeda</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} srijede</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} srijede</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} srijeda</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="1" draft="contributed">sljedećeg četvrtka</relative>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} četvrtka</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} četvrtka</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} četvrtaka</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="1" draft="contributed">sljedećeg petka</relative>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} petka</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} petka</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} petaka</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="1" draft="contributed">sljedeće subote</relative>
+				<relativeTime type="past">
+					<relativeTimePattern count="few" draft="contributed">prije {0} subote</relativeTimePattern>
+					<relativeTimePattern count="one" draft="contributed">prije {0} subote</relativeTimePattern>
+					<relativeTimePattern count="other" draft="contributed">prije {0} subota</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="day">
 				<relativeTime type="past">
 					<relativeTimePattern count="few" draft="contributed">prije {0} dana</relativeTimePattern>
@@ -213,14 +290,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 			<field type="dayperiod-short">
 				<displayName draft="contributed">prije podne/po podne</displayName>
-			</field>
-			<field type="fri">
-				<relative type="1" draft="contributed">sljedećeg petka</relative>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} petka</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} petka</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} petaka</relativeTimePattern>
-				</relativeTime>
 			</field>
 			<field type="fri-narrow">
 				<relative type="1" draft="contributed">sljedećeg pet</relative>
@@ -278,21 +347,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="few" draft="contributed">prije {0} min.</relativeTimePattern>
 					<relativeTimePattern count="one" draft="contributed">prije {0} min.</relativeTimePattern>
 					<relativeTimePattern count="other" draft="contributed">prije {0} min.</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1" draft="contributed">prošlog ponedjeljka</relative>
-				<relative type="0" draft="contributed">u ponedjeljak</relative>
-				<relative type="1" draft="contributed">sljedećeg ponedjeljka</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="few" draft="contributed">za {0} ponedjeljka</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">za {0} ponedjeljak</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">za {0} ponedjeljaka</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} ponedjeljka</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} ponedjeljka</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} ponedjeljaka</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="mon-narrow">
@@ -383,14 +437,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">prije {0} kv.</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="1" draft="contributed">sljedeće subote</relative>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} subote</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} subote</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} subota</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sat-narrow">
 				<relative type="1" draft="contributed">sljedeće sub</relative>
 				<relativeTime type="past">
@@ -428,23 +474,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">prije {0} sek.</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun">
-				<relative type="-1" draft="contributed">prošle nedjelje</relative>
-				<relative type="0" draft="contributed">u nedjelju</relative>
-				<relative type="1" draft="contributed">sljedeće nedjelje</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="few" draft="contributed">za {0} nedjelje</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">za {0} nedjelju</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">za {0} nedjelja</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} nedjelje</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} nedjelje</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} nedjelja</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="sun-narrow">
-				<relative type="-1">пр. нед.</relative>
 				<relative type="1" draft="contributed">slj. ned.</relative>
 				<relativeTime type="future">
 					<relativeTimePattern count="few" draft="contributed">za {0} nedjelje</relativeTimePattern>
@@ -470,14 +500,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">prije {0} nedjelja</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="1" draft="contributed">sljedećeg četvrtka</relative>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} četvrtka</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} četvrtka</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} četvrtaka</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="thu-narrow">
 				<relative type="1" draft="contributed">sljedećeg čet</relative>
 				<relativeTime type="past">
@@ -494,14 +516,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other" draft="contributed">prije {0} četvrtaka</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="1" draft="contributed">sljedećeg utorka</relative>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} utorka</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} utorka</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} utoraka</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="tue-narrow">
 				<relative type="1" draft="contributed">sljedećeg uto</relative>
 				<relativeTime type="past">
@@ -516,21 +530,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="few" draft="contributed">prije {0} utorka</relativeTimePattern>
 					<relativeTimePattern count="one" draft="contributed">prije {0} utorka</relativeTimePattern>
 					<relativeTimePattern count="other" draft="contributed">prije {0} utoraka</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1" draft="contributed">prošle srijede</relative>
-				<relative type="0" draft="contributed">u srijedu</relative>
-				<relative type="1" draft="contributed">sljedeće srijede</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="few" draft="contributed">za {0} srijede</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">za {0} srijedu</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">za {0} srijeda</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="few" draft="contributed">prije {0} srijede</relativeTimePattern>
-					<relativeTimePattern count="one" draft="contributed">prije {0} srijede</relativeTimePattern>
-					<relativeTimePattern count="other" draft="contributed">prije {0} srijeda</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="wed-narrow">
@@ -1648,12 +1647,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other" draft="contributed">{0} nedjelja</unitPattern>
 				<perUnitPattern draft="contributed">{0} nedjeljno</perUnitPattern>
 			</unit>
-			<unit type="graphics-dot">
-				<unitPattern count="other">{0} тачака</unitPattern>
-			</unit>
-			<unit type="length-earth-radius">
-				<unitPattern count="few">{0} R⊕</unitPattern>
-			</unit>
 			<unit type="length-light-year">
 				<displayName draft="contributed">svjetlosne godine</displayName>
 				<unitPattern count="few" draft="contributed">{0} svjetlosne godine</unitPattern>
@@ -1668,9 +1661,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 		</unitLength>
 		<unitLength type="narrow">
-			<compoundUnit type="power2">
-				<compoundUnitPattern1 count="other">{0}²</compoundUnitPattern1>
-			</compoundUnit>
 			<unit type="volume-barrel">
 				<displayName draft="contributed">bbl</displayName>
 				<unitPattern count="few" draft="contributed">{0} bbl</unitPattern>
@@ -1696,34 +1686,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few" draft="contributed">{0} mjes.</unitPattern>
 				<unitPattern count="one" draft="contributed">{0} mjes.</unitPattern>
 				<unitPattern count="other" draft="contributed">{0} mjes.</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-centimeter">
-				<unitPattern count="few">{0} dpcm</unitPattern>
-				<unitPattern count="one">{0} dpcm</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-inch">
-				<unitPattern count="few">{0} dpi</unitPattern>
-				<unitPattern count="one">{0} dpi</unitPattern>
-			</unit>
-			<unit type="graphics-em">
-				<unitPattern count="few">{0} em</unitPattern>
-				<unitPattern count="one">{0} em</unitPattern>
-			</unit>
-			<unit type="graphics-megapixel">
-				<unitPattern count="few">{0} MP</unitPattern>
-				<unitPattern count="one">{0} MP</unitPattern>
-			</unit>
-			<unit type="graphics-pixel">
-				<unitPattern count="few">{0} px</unitPattern>
-				<unitPattern count="one">{0} px</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-centimeter">
-				<unitPattern count="few">{0} ppcm</unitPattern>
-				<unitPattern count="one">{0} ppcm</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-inch">
-				<unitPattern count="few">{0} ppi</unitPattern>
-				<unitPattern count="one">{0} ppi</unitPattern>
 			</unit>
 			<unit type="length-light-year">
 				<displayName draft="contributed">svjetlosne god.</displayName>
