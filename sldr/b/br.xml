@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -1163,9 +1163,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
+			<parseLenient sample="’" draft="contributed">['ʼ՚ߴ᾽᾿’＇]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="number" level="stricter">
+			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="date" level="lenient">
 			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
@@ -3690,11 +3694,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="one">'sizhun' W MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="two">'sizhun' W MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="few">'sizhun' W MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="many">'sizhun' W MMMM</dateFormatItem>
-						<dateFormatItem id="MMMMW" count="other">'sizhun' W MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">'sizhun' W MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one" alt="proposed">'sizhun' W 'miz' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="two">'sizhun' W MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="two" alt="proposed">'sizhun' W 'miz' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="few">'sizhun' W MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="few" alt="proposed">'sizhun' W 'miz' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="many">'sizhun' W MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="many" alt="proposed">'sizhun' W 'miz' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">'sizhun' W MMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other" alt="proposed">'sizhun' W 'miz' MMMM</dateFormatItem>
 						<dateFormatItem id="yM">MM/y</dateFormatItem>
 						<dateFormatItem id="yMd">dd/MM/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E dd/MM/y</dateFormatItem>
@@ -7868,6 +7877,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="many">a besoioù Chile</displayName>
 				<displayName count="other">peso Chile</displayName>
 			</currency>
+			<currency type="CNH">
+				<displayName>yuan Sina (diavaez)</displayName>
+				<displayName count="one">yuan Sina (diavaez)</displayName>
+				<displayName count="two">yuan Sina (diavaez)</displayName>
+				<displayName count="few">yuan Sina (diavaez)</displayName>
+				<displayName count="many">a yuanoù Sina (diavaez)</displayName>
+				<displayName count="other">yuan Sina (diavaez)</displayName>
+			</currency>
 			<currency type="CNX">
 				<displayName>dollar Bank poblel Sina</displayName>
 				<displayName count="one">dollar Bank poblel Sina</displayName>
@@ -9363,9 +9380,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="XAG">
 				<displayName>arcʼhant</displayName>
+				<displayName count="one">oñs troy arcʼhant</displayName>
+				<displayName count="two">oñs troy arcʼhant</displayName>
+				<displayName count="few">oñs troy arcʼhant</displayName>
+				<displayName count="many">oñs troy arcʼhant</displayName>
+				<displayName count="other">oñs troy arcʼhant</displayName>
 			</currency>
 			<currency type="XAU">
 				<displayName>aour</displayName>
+				<displayName count="one">oñs troy aour</displayName>
+				<displayName count="two">oñs troy aour</displayName>
+				<displayName count="few">oñs troy aour</displayName>
+				<displayName count="many">oñs troy aour</displayName>
+				<displayName count="other">oñs troy aour</displayName>
 			</currency>
 			<currency type="XBA">
 				<displayName>unanenn genaoz europat</displayName>
@@ -9450,6 +9477,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="XPD">
 				<displayName>palladiom</displayName>
+				<displayName count="one">oñs troy palladiom</displayName>
+				<displayName count="two">oñs troy palladiom</displayName>
+				<displayName count="few">oñs troy palladiom</displayName>
+				<displayName count="many">oñs troy palladiom</displayName>
+				<displayName count="other">oñs troy palladiom</displayName>
 			</currency>
 			<currency type="XPF">
 				<displayName>lur CFP</displayName>
@@ -9461,6 +9493,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="XPT">
 				<displayName>platin</displayName>
+				<displayName count="one">oñs troy platin</displayName>
+				<displayName count="two">oñs troy platin</displayName>
+				<displayName count="few">oñs troy platin</displayName>
+				<displayName count="many">oñs troy platin</displayName>
+				<displayName count="other">oñs troy platin</displayName>
 			</currency>
 			<currency type="XTS">
 				<displayName>kod moneiz amprouiñ</displayName>
@@ -9469,6 +9506,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="few">unanenn voneiz amprouiñ</displayName>
 				<displayName count="many">a unanennoù voneiz amprouiñ</displayName>
 				<displayName count="other">unanenn voneiz amprouiñ</displayName>
+			</currency>
+			<currency type="XUA">
+				<displayName>unanenn jediñ BAD</displayName>
+				<displayName count="one">unanenn jediñ BAD</displayName>
+				<displayName count="two">unanenn jediñ BAD</displayName>
+				<displayName count="few">unanenn jediñ BAD</displayName>
+				<displayName count="many">a unanennoù jediñ BAD</displayName>
+				<displayName count="other">unanenn jediñ BAD</displayName>
 			</currency>
 			<currency type="XXX">
 				<displayName>moneiz dianav</displayName>
@@ -12026,6 +12071,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<listPatternPart type="2">{0}, {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
+	<collations>
+		<!-- References: https://en.wikipedia.org/wiki/Breton_language#Alphabet ; http://devri.bzh -->
+		<collation type="standard" sil:modified="true">
+			<cr><![CDATA[
+				&C<ch<<<Ch<<<CH<c''h=c\u2019h<<<C''h=C\u2019h<<<C''H=C\u2019H
+			]]></cr>
+		</collation>
+	</collations>
 	<posix>
 		<messages>
 			<yesstr>y</yesstr>
@@ -12055,6 +12108,26 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="travel_places">beaj ha lecʼhioù</characterLabel>
 		<characterLabel type="weather">amzer</characterLabel>
 	</characterLabels>
+	<typographicNames>
+		<axisName type="ital">italek</axisName>
+		<axisName type="opsz">korf optikel</axisName>
+		<axisName type="slnt">stouadur</axisName>
+		<axisName type="wdth">ledander</axisName>
+		<axisName type="wght">tevder</axisName>
+		<styleName type="ital" subtype="1">red</styleName>
+		<styleName type="opsz" subtype="12">testenn</styleName>
+		<styleName type="opsz" subtype="144">skritell</styleName>
+		<styleName type="opsz" subtype="18">titlañ</styleName>
+		<styleName type="opsz" subtype="72">diskwel</styleName>
+		<styleName type="opsz" subtype="8">alcʼhwez</styleName>
+		<styleName type="slnt" subtype="-12">kilstouet</styleName>
+		<styleName type="slnt" subtype="0">a-serzh</styleName>
+		<styleName type="slnt" subtype="12">stouet</styleName>
+		<featureName type="afrc">kevrennoù</featureName>
+		<featureName type="ordn">niveroù petvediñ</featureName>
+		<featureName type="smcp">pennlizherennoù bihan</featureName>
+		<featureName type="zero">teskad goullo</featureName>
+	</typographicNames>
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">lowercase</casingItem>

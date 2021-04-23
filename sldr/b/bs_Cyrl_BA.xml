@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -128,13 +128,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<script type="Zsye">emoji sličice</script>
 		</scripts>
 		<territories>
-			<territory type="202">Subsaharska Afrika</territory>
-			<territory type="PS" alt="short">Palestina</territory>
-			<territory type="SX">Sint Marten</territory>
 			<territory type="SZ" alt="variant">Svazi</territory>
-			<territory type="TL" alt="variant">TL</territory>
 			<territory type="UN" alt="short">UN</territory>
 		</territories>
+		<subdivisions>
+			<subdivision type="gbeng">Engleska</subdivision>
+			<subdivision type="gbsct">Škotska</subdivision>
+			<subdivision type="gbwls">Vels</subdivision>
+		</subdivisions>
 		<variants>
 			<variant type="ALUKU" draft="provisional">aluku dijalekt</variant>
 			<variant type="EMODENG" draft="provisional">rani moderni engleski</variant>
@@ -457,21 +458,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="hm">hh:mm a</dateFormatItem>
+						<dateFormatItem id="hms">hh:mm:ss a</dateFormatItem>
 						<dateFormatItem id="Hmsv">HH:mm:ss (v)</dateFormatItem>
 						<dateFormatItem id="hmsv">h:mm:ss a (v)</dateFormatItem>
 						<dateFormatItem id="Hmv">HH:mm (v)</dateFormatItem>
 						<dateFormatItem id="hmv">h:mm a (v)</dateFormatItem>
 						<dateFormatItem id="MMdd">d. M.</dateFormatItem>
-						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d. MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">W. 'sedmica' 'u' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="few">W. 'sedmica' 'u' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">W. 'sedmica' 'u' MMMM</dateFormatItem>
 						<dateFormatItem id="yMM">M/y</dateFormatItem>
-						<dateFormatItem id="yMMMM">LLLL y.</dateFormatItem>
-						<dateFormatItem id="yw" count="one">w. 'sedmica' 'u' Y.</dateFormatItem>
-						<dateFormatItem id="yw" count="few">w. 'sedmica' 'u' Y.</dateFormatItem>
-						<dateFormatItem id="yw" count="other">w. 'sedmica' 'u' Y.</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatItem id="Bh">
@@ -1287,6 +1285,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<symbols numberSystem="latn">
+			<approximatelySign>≈</approximatelySign>
+		</symbols>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
@@ -1376,12 +1377,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="NZD">
 				<symbol>NZD</symbol>
 			</currency>
-			<currency type="SSP">
-				<displayName>Južnosudanska funta</displayName>
-				<displayName count="one">južnosudanska funta</displayName>
-				<displayName count="few">južnosudanske funte</displayName>
-				<displayName count="other">južnosudanskih funti</displayName>
-			</currency>
+			<currency type="SSP"/>
 			<currency type="THB">
 				<symbol>฿</symbol>
 			</currency>
@@ -1390,6 +1386,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="USD">
 				<symbol>USD</symbol>
+			</currency>
+			<currency type="VES">
+				<symbol draft="contributed">VES</symbol>
 			</currency>
 			<currency type="VNN">
 				<displayName>Vijetnamski dong (1978–1985)</displayName>
@@ -1413,16 +1412,45 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<pattern type="atLeast">{0}+</pattern>
 			<pattern type="range">{0} – {1}</pattern>
 		</miscPatterns>
-		<minimalPairs>
-			<pluralMinimalPairs count="few" draft="contributed">{0} sata</pluralMinimalPairs>
-			<pluralMinimalPairs count="one" draft="contributed">{0} sat</pluralMinimalPairs>
-			<pluralMinimalPairs count="other" draft="contributed">{0} sati</pluralMinimalPairs>
-		</minimalPairs>
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>kibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>mebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>gibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>tebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>pebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>exbi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>zebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>yobe{0}</unitPrefixPattern>
+			</compoundUnit>
 			<compoundUnit type="per">
 				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1 count="one">kvadratni {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="few">kvadratna {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">kvadratnih {0}</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1 count="one">kubni {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="few">kubna {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">kubnih {0}</compoundUnitPattern1>
 			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>G</displayName>
@@ -1430,7 +1458,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} G</unitPattern>
 				<unitPattern count="other">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>metri u sekundi na kvadrat</displayName>
 				<unitPattern count="one">{0} metar u sekundi na kvadrat</unitPattern>
 				<unitPattern count="few">{0} metra u sekundi na kvadrat</unitPattern>
@@ -1466,30 +1494,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} okreta</unitPattern>
 				<unitPattern count="other">{0} okreta</unitPattern>
 			</unit>
-			<unit type="area-acre">
-				<displayName>katastarska jutra</displayName>
-				<unitPattern count="one">{0} katastarsko jutro</unitPattern>
-				<unitPattern count="few">{0} katastarska jutra</unitPattern>
-				<unitPattern count="other">{0} katastarskih jutara</unitPattern>
-			</unit>
 			<unit type="area-dunam">
 				<displayName>dunumi</displayName>
 				<unitPattern count="one">{0} dunum</unitPattern>
 				<unitPattern count="few">{0} dunuma</unitPattern>
 				<unitPattern count="other">{0} dunuma</unitPattern>
-			</unit>
-			<unit type="area-hectare">
-				<displayName>hektari</displayName>
-				<unitPattern count="one">{0} hektar</unitPattern>
-				<unitPattern count="few">{0} hektra</unitPattern>
-				<unitPattern count="other">{0} hektara</unitPattern>
-			</unit>
-			<unit type="area-square-centimeter">
-				<displayName>kvadratni centimetri</displayName>
-				<unitPattern count="one">{0} kvadratni centimetar</unitPattern>
-				<unitPattern count="few">{0} kvadratna centimetra</unitPattern>
-				<unitPattern count="other">{0} kvadratnih centimetara</unitPattern>
-				<perUnitPattern>{0} po kvadratnom centimetru</perUnitPattern>
 			</unit>
 			<unit type="area-square-foot">
 				<displayName>kvadratne stope</displayName>
@@ -1504,40 +1513,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} kvadratnih inča</unitPattern>
 				<perUnitPattern>{0} po kvadratnom inču</perUnitPattern>
 			</unit>
-			<unit type="area-square-kilometer">
-				<displayName>kvadratni kilometri</displayName>
-				<unitPattern count="one">{0} kvadratni kilometar</unitPattern>
-				<unitPattern count="few">{0} kvadratna kilometra</unitPattern>
-				<unitPattern count="other">{0} kvadratnih kilometara</unitPattern>
-				<perUnitPattern>{0} po kvadratnom kilometru</perUnitPattern>
-			</unit>
-			<unit type="area-square-meter">
-				<displayName>kvadratni metri</displayName>
-				<unitPattern count="one">{0} kvadratni metar</unitPattern>
-				<unitPattern count="few">{0} kvadratna metra</unitPattern>
-				<unitPattern count="other">{0} kvadratnih metara</unitPattern>
-				<perUnitPattern>{0} po kvadratnom metru</perUnitPattern>
-			</unit>
-			<unit type="area-square-mile">
-				<displayName>kvadratne milje</displayName>
-				<unitPattern count="one">{0} kvadratna milja</unitPattern>
-				<unitPattern count="few">{0} kvadratne milje</unitPattern>
-				<unitPattern count="other">{0} kvadratnih milja</unitPattern>
-				<perUnitPattern>{0} po kvadratnoj milji</perUnitPattern>
-			</unit>
-			<unit type="area-square-yard">
-				<displayName>kvadratni jardi</displayName>
-				<unitPattern count="one">{0} kvadratni jard</unitPattern>
-				<unitPattern count="few">{0} kvadratna jarda</unitPattern>
-				<unitPattern count="other">{0} kvadratnih jarda</unitPattern>
-			</unit>
 			<unit type="concentr-karat">
 				<displayName>karati</displayName>
 				<unitPattern count="one">{0} karat</unitPattern>
 				<unitPattern count="few">{0} karata</unitPattern>
 				<unitPattern count="other">{0} karata</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>miligrami po decilitru</displayName>
 				<unitPattern count="one">{0} miligram po decilitru</unitPattern>
 				<unitPattern count="few">{0} miligrama po decilitru</unitPattern>
@@ -1555,12 +1537,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} mola</unitPattern>
 				<unitPattern count="other">{0} mola</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>dijelovi na milion</displayName>
-				<unitPattern count="one">{0} dio na milion</unitPattern>
-				<unitPattern count="few">{0} dijela na milion</unitPattern>
-				<unitPattern count="other">{0} dijelova na milion</unitPattern>
-			</unit>
 			<unit type="concentr-percent">
 				<displayName>procenat</displayName>
 				<unitPattern count="one">{0} procenat</unitPattern>
@@ -1573,16 +1549,22 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} promila</unitPattern>
 				<unitPattern count="other">{0} promila</unitPattern>
 			</unit>
+			<unit type="concentr-permillion">
+				<displayName>dijelovi na milion</displayName>
+				<unitPattern count="one">{0} dio na milion</unitPattern>
+				<unitPattern count="few">{0} dijela na milion</unitPattern>
+				<unitPattern count="other">{0} dijelova na milion</unitPattern>
+			</unit>
 			<unit type="concentr-permyriad">
 				<displayName>permyriad</displayName>
 				<unitPattern count="one">{0} permyriad</unitPattern>
 				<unitPattern count="few">{0} permyriada</unitPattern>
 				<unitPattern count="other">{0} permyriada</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>litri na 100 kilometara</displayName>
 				<unitPattern count="one">{0} litar na 100 kilometara</unitPattern>
-				<unitPattern count="few">{0} litara na 100 kilometara</unitPattern>
+				<unitPattern count="few">{0} litra na 100 kilometara</unitPattern>
 				<unitPattern count="other">{0} litara na 100 kilometara</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-kilometer">
@@ -1668,51 +1650,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} terabajt</unitPattern>
 				<unitPattern count="few">{0} terabajta</unitPattern>
 				<unitPattern count="other">{0} terabajta</unitPattern>
-			</unit>
-			<unit type="duration-century">
-				<displayName>stoljeća</displayName>
-				<unitPattern count="one">{0} stoljeće</unitPattern>
-				<unitPattern count="few">{0} stoljeća</unitPattern>
-				<unitPattern count="other">{0} stoljeća</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<perUnitPattern>{0} dnevno</perUnitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<perUnitPattern>{0} na sat</perUnitPattern>
-			</unit>
-			<unit type="duration-microsecond">
-				<displayName>mikrosekunde</displayName>
-				<unitPattern count="one">{0} mikrosekunda</unitPattern>
-				<unitPattern count="few">{0} mikrosekunde</unitPattern>
-				<unitPattern count="other">{0} mikrosekundi</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>milisekunde</displayName>
-				<unitPattern count="one">{0} milisekunda</unitPattern>
-				<unitPattern count="few">{0} milisekunde</unitPattern>
-				<unitPattern count="other">{0} milisekundi</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<perUnitPattern>{0} po minuti</perUnitPattern>
-			</unit>
-			<unit type="duration-month">
-				<perUnitPattern>{0} mjesečno</perUnitPattern>
-			</unit>
-			<unit type="duration-nanosecond">
-				<displayName>nanosekunde</displayName>
-				<unitPattern count="one">{0} nanosekunda</unitPattern>
-				<unitPattern count="few">{0} nanosekunde</unitPattern>
-				<unitPattern count="other">{0} nanosekundi</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<perUnitPattern>{0} po sekundi</perUnitPattern>
-			</unit>
-			<unit type="duration-week">
-				<perUnitPattern>{0} sedmično</perUnitPattern>
-			</unit>
-			<unit type="duration-year">
-				<perUnitPattern>{0} godišnje</perUnitPattern>
 			</unit>
 			<unit type="electric-ampere">
 				<displayName>amperi</displayName>
@@ -1822,24 +1759,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} megaherca</unitPattern>
 				<unitPattern count="other">{0} megaherca</unitPattern>
 			</unit>
-			<unit type="length-astronomical-unit">
-				<displayName>astronomske jedinice</displayName>
-				<unitPattern count="one">{0} astronomska jedinica</unitPattern>
-				<unitPattern count="few">{0} astronomske jedinice</unitPattern>
-				<unitPattern count="other">{0} astronomskih jedinica</unitPattern>
+			<unit type="graphics-dot">
+				<displayName>tačka</displayName>
+				<unitPattern count="one">{0} tačka</unitPattern>
+				<unitPattern count="few">{0} tačke</unitPattern>
+				<unitPattern count="other">{0} tačaka</unitPattern>
 			</unit>
-			<unit type="length-centimeter">
-				<displayName>centimetri</displayName>
-				<unitPattern count="one">{0} centimetar</unitPattern>
-				<unitPattern count="few">{0} centimetra</unitPattern>
-				<unitPattern count="other">{0} centimetara</unitPattern>
-				<perUnitPattern>{0} po centimetru</perUnitPattern>
+			<unit type="length-earth-radius">
+				<displayName>radijus zemlje</displayName>
+				<unitPattern count="one">{0} radijus zemlje</unitPattern>
+				<unitPattern count="few">{0} radijusa zemlje</unitPattern>
+				<unitPattern count="other">{0} radijus zemlje</unitPattern>
 			</unit>
-			<unit type="length-decimeter">
-				<displayName>decimetri</displayName>
-				<unitPattern count="one">{0} decimetar</unitPattern>
-				<unitPattern count="few">{0} decimetra</unitPattern>
-				<unitPattern count="other">{0} decimetara</unitPattern>
+			<unit type="length-fathom">
+				<displayName>hvat</displayName>
+				<unitPattern count="one">{0} hvat</unitPattern>
+				<unitPattern count="few">{0} hvata</unitPattern>
+				<unitPattern count="other">{0} hvata</unitPattern>
 			</unit>
 			<unit type="length-foot">
 				<displayName>stope</displayName>
@@ -1848,6 +1784,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} stopa</unitPattern>
 				<perUnitPattern>{0} po stopi</perUnitPattern>
 			</unit>
+			<unit type="length-furlong">
+				<displayName>osmina milje</displayName>
+				<unitPattern count="one">{0} osmina milje</unitPattern>
+				<unitPattern count="few">{0} osmine milje</unitPattern>
+				<unitPattern count="other">{0} osmina milje</unitPattern>
+			</unit>
 			<unit type="length-inch">
 				<displayName>inči</displayName>
 				<unitPattern count="one">{0} inč</unitPattern>
@@ -1855,61 +1797,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} inča</unitPattern>
 				<perUnitPattern>{0} po inču</perUnitPattern>
 			</unit>
-			<unit type="length-kilometer">
-				<displayName>kilometri</displayName>
-				<unitPattern count="one">{0} kilometar</unitPattern>
-				<unitPattern count="few">{0} kilometra</unitPattern>
-				<unitPattern count="other">{0} kilometara</unitPattern>
-				<perUnitPattern>{0} po kilometru</perUnitPattern>
-			</unit>
-			<unit type="length-light-year">
-				<displayName>svjetlosne godine</displayName>
-				<unitPattern count="one">{0} svjetlosna godina</unitPattern>
-				<unitPattern count="few">{0} svjetlosne godine</unitPattern>
-				<unitPattern count="other">{0} svjetlosnih godina</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>metri</displayName>
-				<unitPattern count="one">{0} metar</unitPattern>
-				<unitPattern count="few">{0} metra</unitPattern>
-				<unitPattern count="other">{0} metara</unitPattern>
-				<perUnitPattern>{0} po metru</perUnitPattern>
-			</unit>
-			<unit type="length-micrometer">
-				<displayName>mikrometri</displayName>
-				<unitPattern count="one">{0} mikrometar</unitPattern>
-				<unitPattern count="few">{0} mikrometra</unitPattern>
-				<unitPattern count="other">{0} mikrometara</unitPattern>
-			</unit>
-			<unit type="length-mile">
-				<displayName>milje</displayName>
-				<unitPattern count="one">{0} milja</unitPattern>
-				<unitPattern count="few">{0} milje</unitPattern>
-				<unitPattern count="other">{0} milja</unitPattern>
-			</unit>
 			<unit type="length-mile-scandinavian">
 				<displayName>skandinavske milje</displayName>
 				<unitPattern count="one">{0} skandinavska milja</unitPattern>
 				<unitPattern count="few">{0} skandinavske milje</unitPattern>
 				<unitPattern count="other">{0} skandinavskih milja</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<displayName>milimetri</displayName>
-				<unitPattern count="one">{0} milimetar</unitPattern>
-				<unitPattern count="few">{0} milimetra</unitPattern>
-				<unitPattern count="other">{0} milimetara</unitPattern>
-			</unit>
-			<unit type="length-nanometer">
-				<displayName>nanometri</displayName>
-				<unitPattern count="one">{0} nanometar</unitPattern>
-				<unitPattern count="few">{0} nanometra</unitPattern>
-				<unitPattern count="other">{0} nanometara</unitPattern>
-			</unit>
-			<unit type="length-nautical-mile">
-				<displayName>nautičke milje</displayName>
-				<unitPattern count="one">{0} nautička milja</unitPattern>
-				<unitPattern count="few">{0} nautičke milje</unitPattern>
-				<unitPattern count="other">{0} nautičkih milja</unitPattern>
 			</unit>
 			<unit type="length-parsec">
 				<displayName>parseci</displayName>
@@ -1923,23 +1815,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} pikometra</unitPattern>
 				<unitPattern count="other">{0} pikometara</unitPattern>
 			</unit>
-			<unit type="length-point">
-				<displayName>tačke</displayName>
-				<unitPattern count="one">{0} tačka</unitPattern>
-				<unitPattern count="few">{0} tč</unitPattern>
-				<unitPattern count="other">{0} tačaka</unitPattern>
-			</unit>
 			<unit type="length-solar-radius">
 				<displayName>Sunčevi radijusi</displayName>
 				<unitPattern count="one">{0} Sunčev radijus</unitPattern>
 				<unitPattern count="few">{0} Sunčeva radijusa</unitPattern>
 				<unitPattern count="other">{0} Sunčevih radijusa</unitPattern>
 			</unit>
-			<unit type="length-yard">
-				<displayName>jardi</displayName>
-				<unitPattern count="one">{0} jard</unitPattern>
-				<unitPattern count="few">{0} jarda</unitPattern>
-				<unitPattern count="other">{0} jardi</unitPattern>
+			<unit type="light-candela">
+				<displayName>kandela</displayName>
+				<unitPattern count="one">{0} kandela</unitPattern>
+				<unitPattern count="few">{0} kandele</unitPattern>
+				<unitPattern count="other">{0} kandela</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lumen</displayName>
+				<unitPattern count="one">{0} lumen</unitPattern>
+				<unitPattern count="few">{0} lumena</unitPattern>
+				<unitPattern count="other">{0} lumena</unitPattern>
 			</unit>
 			<unit type="light-lux">
 				<displayName>luksi</displayName>
@@ -2029,6 +1921,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} Sunčeve mase</unitPattern>
 				<unitPattern count="other">{0} Sunčevih masa</unitPattern>
 			</unit>
+			<unit type="mass-stone">
+				<displayName>stone</displayName>
+				<unitPattern count="one">{0} stone</unitPattern>
+				<unitPattern count="few">{0} stone</unitPattern>
+				<unitPattern count="other">{0} stone</unitPattern>
+			</unit>
 			<unit type="mass-ton">
 				<displayName>tone</displayName>
 				<unitPattern count="one">{0} tona</unitPattern>
@@ -2077,17 +1975,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} atmosfere</unitPattern>
 				<unitPattern count="other">{0} atmosfera</unitPattern>
 			</unit>
+			<unit type="pressure-bar">
+				<unitPattern count="few">{0} bara</unitPattern>
+				<unitPattern count="other">{0} bara</unitPattern>
+			</unit>
 			<unit type="pressure-hectopascal">
 				<displayName>hektopaskali</displayName>
 				<unitPattern count="one">{0} hektopaskal</unitPattern>
 				<unitPattern count="few">{0} hektopaskala</unitPattern>
 				<unitPattern count="other">{0} hektopaskala</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>inči živinog stuba</displayName>
 				<unitPattern count="one">{0} inč živinog stuba</unitPattern>
 				<unitPattern count="few">{0} inča živinog stuba</unitPattern>
-				<unitPattern count="other">{0} inča žive</unitPattern>
+				<unitPattern count="other">{0} inča živinog stuba</unitPattern>
 			</unit>
 			<unit type="pressure-kilopascal">
 				<displayName>kilopaskali</displayName>
@@ -2107,13 +2009,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} milibara</unitPattern>
 				<unitPattern count="other">{0} milibara</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>milimetri živinog stuba</displayName>
 				<unitPattern count="one">{0} milimetar živinog stuba</unitPattern>
 				<unitPattern count="few">{0} milimetra živinog stuba</unitPattern>
 				<unitPattern count="other">{0} milimetara živinog stuba</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pascal">
+				<displayName>paskali</displayName>
+				<unitPattern count="one">{0} paskal</unitPattern>
+				<unitPattern count="few">{0} paskala</unitPattern>
+				<unitPattern count="other">{0} paskala</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
 				<displayName>funte po kvadratnom inču</displayName>
 				<unitPattern count="one">{0} funta po kvadratnom inču</unitPattern>
 				<unitPattern count="few">{0} funte po kvadratnom inču</unitPattern>
@@ -2179,6 +2087,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} funte sile po stopi</unitPattern>
 				<unitPattern count="other">{0} funti sile po stopi</unitPattern>
 			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>funte sile po stopi</displayName>
+				<unitPattern count="one">{0} funta sile po stopi</unitPattern>
+				<unitPattern count="few">{0} funte sile po stopi</unitPattern>
+				<unitPattern count="other">{0} funti sile po stopi</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>jutar-stope</displayName>
 				<unitPattern count="one">{0} jutar-stopa</unitPattern>
@@ -2190,6 +2104,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} barel</unitPattern>
 				<unitPattern count="few">{0} barela</unitPattern>
 				<unitPattern count="other">{0} barela</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>bušeli</displayName>
+				<unitPattern count="one">{0} bušel</unitPattern>
+				<unitPattern count="few">{0} bušela</unitPattern>
+				<unitPattern count="other">{0} bušela</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>centilitri</displayName>
@@ -2259,6 +2179,30 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} decilitra</unitPattern>
 				<unitPattern count="other">{0} decilitara</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>kašika za desert</displayName>
+				<unitPattern count="one">{0} kašika za desert</unitPattern>
+				<unitPattern count="few">{0} kašike za desert</unitPattern>
+				<unitPattern count="other">{0} kašika za desert</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>imperijalna kašika za desert</displayName>
+				<unitPattern count="one">{0} imperijalna kašika za desert</unitPattern>
+				<unitPattern count="few">{0} imperijalne kašike za desert</unitPattern>
+				<unitPattern count="other">{0} imperijalnih kašika za desert</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>tečni dram</displayName>
+				<unitPattern count="one">{0} tečni dram</unitPattern>
+				<unitPattern count="few">{0} tečna drama</unitPattern>
+				<unitPattern count="other">{0} tečnih drama</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>kap</displayName>
+				<unitPattern count="one">{0} kap</unitPattern>
+				<unitPattern count="few">{0} kapi</unitPattern>
+				<unitPattern count="other">{0} kapi</unitPattern>
+			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>tečne unce</displayName>
 				<unitPattern count="one">{0} tečna unca</unitPattern>
@@ -2291,6 +2235,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} hektolitra</unitPattern>
 				<unitPattern count="other">{0} hektolitara</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>mala čašica</displayName>
+				<unitPattern count="one">{0} mala čašica</unitPattern>
+				<unitPattern count="few">{0} male čašice</unitPattern>
+				<unitPattern count="other">{0} malih čašica</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>litri</displayName>
 				<unitPattern count="one">{0} litar</unitPattern>
@@ -2310,6 +2260,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="few">{0} mililitra</unitPattern>
 				<unitPattern count="other">{0} mililitara</unitPattern>
 			</unit>
+			<unit type="volume-pinch">
+				<displayName>prstohvat</displayName>
+				<unitPattern count="one">{0} prstohvat</unitPattern>
+				<unitPattern count="few">{0} prstohvata</unitPattern>
+				<unitPattern count="other">{0} prstohvata</unitPattern>
+			</unit>
 			<unit type="volume-pint">
 				<displayName>pinte</displayName>
 				<unitPattern count="one">{0} pinta</unitPattern>
@@ -2327,6 +2283,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} četvrtina</unitPattern>
 				<unitPattern count="few">{0} četvrtine</unitPattern>
 				<unitPattern count="other">{0} četvrtina</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>imperijalni kvarc</displayName>
+				<unitPattern count="one">{0} imperijalni kvarc</unitPattern>
+				<unitPattern count="few">{0} imperijalna kvarca</unitPattern>
+				<unitPattern count="other">{0} imperijalnih kvarca</unitPattern>
 			</unit>
 			<unit type="volume-tablespoon">
 				<displayName>kašike</displayName>
@@ -2354,7 +2316,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} G</unitPattern>
 				<unitPattern count="few">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<unitPattern count="one">{0} m/s²</unitPattern>
 				<unitPattern count="few">{0} m/s²</unitPattern>
 			</unit>
@@ -2434,7 +2396,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} kt</unitPattern>
 				<unitPattern count="few">{0} kt</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<unitPattern count="one">{0} mg/dL</unitPattern>
 				<unitPattern count="few">{0} mg/dL</unitPattern>
 			</unit>
@@ -2447,11 +2409,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} mol</unitPattern>
 				<unitPattern count="few">{0} mol</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>dijelovi/milion</displayName>
-				<unitPattern count="one">{0} ppm</unitPattern>
-				<unitPattern count="few">{0} ppm</unitPattern>
-			</unit>
 			<unit type="concentr-percent">
 				<unitPattern count="one">{0}%</unitPattern>
 				<unitPattern count="few">{0}%</unitPattern>
@@ -2460,11 +2417,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0}‰</unitPattern>
 				<unitPattern count="few">{0}‰</unitPattern>
 			</unit>
+			<unit type="concentr-permillion">
+				<displayName>dijelovi/milion</displayName>
+				<unitPattern count="one">{0} ppm</unitPattern>
+				<unitPattern count="few">{0} ppm</unitPattern>
+			</unit>
 			<unit type="concentr-permyriad">
 				<unitPattern count="one">{0}‱</unitPattern>
 				<unitPattern count="few">{0}‱</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>L/100 km</displayName>
 				<unitPattern count="one">{0} L/100 km</unitPattern>
 				<unitPattern count="few">{0} L/100 km</unitPattern>
@@ -2532,41 +2494,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} TB</unitPattern>
 				<unitPattern count="few">{0} TB</unitPattern>
 			</unit>
-			<unit type="duration-century">
-				<displayName>st.</displayName>
-				<unitPattern count="one">{0} st.</unitPattern>
-				<unitPattern count="few">{0} st.</unitPattern>
-				<unitPattern count="other">{0} st.</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<perUnitPattern>{0}/d.</perUnitPattern>
-			</unit>
 			<unit type="duration-microsecond">
 				<displayName>mikrosekunde</displayName>
 				<unitPattern count="one">{0} μs</unitPattern>
 				<unitPattern count="few">{0} μs</unitPattern>
 			</unit>
-			<unit type="duration-millisecond">
-				<displayName>milisekunde</displayName>
-				<unitPattern count="one">{0} ms</unitPattern>
-				<unitPattern count="few">{0} ms</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<perUnitPattern>{0}/min.</perUnitPattern>
-			</unit>
-			<unit type="duration-month">
-				<perUnitPattern>{0} mj.</perUnitPattern>
-			</unit>
 			<unit type="duration-nanosecond">
 				<displayName>nanosekunde</displayName>
 				<unitPattern count="one">{0} ns</unitPattern>
 				<unitPattern count="few">{0} ns</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<perUnitPattern>{0}/sedm.</perUnitPattern>
-			</unit>
-			<unit type="duration-year">
-				<perUnitPattern>{0}/god.</perUnitPattern>
 			</unit>
 			<unit type="electric-ampere">
 				<displayName>amperi</displayName>
@@ -2652,6 +2588,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} MHz</unitPattern>
 				<unitPattern count="few">{0} MHz</unitPattern>
 			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>dpcm</displayName>
+				<unitPattern count="other">{0} dpcm</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>dpi</displayName>
+				<unitPattern count="other">{0} dpi</unitPattern>
+			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>aj</displayName>
 				<unitPattern count="one">{0} aj</unitPattern>
@@ -2666,10 +2610,22 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} dm</unitPattern>
 				<unitPattern count="few">{0} dm</unitPattern>
 			</unit>
+			<unit type="length-fathom">
+				<displayName>hvat</displayName>
+				<unitPattern count="one">{0} hvat</unitPattern>
+				<unitPattern count="few">{0} hvata</unitPattern>
+				<unitPattern count="other">{0} hvata</unitPattern>
+			</unit>
 			<unit type="length-foot">
 				<displayName>stope</displayName>
 				<unitPattern count="one">{0} ft</unitPattern>
 				<unitPattern count="few">{0} ft</unitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>osmina milje</displayName>
+				<unitPattern count="one">{0} osmina milje</unitPattern>
+				<unitPattern count="few">{0} osmine milje</unitPattern>
+				<unitPattern count="other">{0} osmina milje</unitPattern>
 			</unit>
 			<unit type="length-inch">
 				<displayName>inči</displayName>
@@ -2840,8 +2796,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} hPa</unitPattern>
 				<unitPattern count="few">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
-				<displayName>in Hg</displayName>
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one">{0} inHg</unitPattern>
 				<unitPattern count="few">{0} inHg</unitPattern>
 			</unit>
@@ -2857,11 +2812,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} mbar</unitPattern>
 				<unitPattern count="few">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
-				<unitPattern count="one">{0} mm Hg</unitPattern>
-				<unitPattern count="few">{0} mm Hg</unitPattern>
+			<unit type="pressure-millimeter-ofhg">
+				<displayName>mmHg</displayName>
+				<unitPattern count="one">{0} mmHg</unitPattern>
+				<unitPattern count="few">{0} mmHg</unitPattern>
+				<unitPattern count="other">{0} mmHg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<unitPattern count="one">{0} psi</unitPattern>
 				<unitPattern count="few">{0} psi</unitPattern>
 			</unit>
@@ -2909,6 +2866,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} lbf⋅ft</unitPattern>
 				<unitPattern count="few">{0} lbf⋅ft</unitPattern>
 			</unit>
+			<unit type="torque-pound-force-foot">
+				<unitPattern count="one">{0} lbf⋅ft</unitPattern>
+				<unitPattern count="few">{0} lbf⋅ft</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<unitPattern count="one">{0} ac ft</unitPattern>
 				<unitPattern count="few">{0} ac ft</unitPattern>
@@ -2916,6 +2877,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="volume-barrel">
 				<unitPattern count="one">{0} bbl</unitPattern>
 				<unitPattern count="few">{0} bbl</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<unitPattern count="one">{0} bu</unitPattern>
+				<unitPattern count="few">{0} bu</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<unitPattern count="one">{0} cL</unitPattern>
@@ -2962,6 +2927,30 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} dL</unitPattern>
 				<unitPattern count="few">{0} dL</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>kš. des.</displayName>
+				<unitPattern count="one">{0} kš. des.</unitPattern>
+				<unitPattern count="few">{0} kš. des.</unitPattern>
+				<unitPattern count="other">{0} kš. des.</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>imp. kš. des.</displayName>
+				<unitPattern count="one">{0} imp. kš. des.</unitPattern>
+				<unitPattern count="few">{0} imp. kš. des.</unitPattern>
+				<unitPattern count="other">{0} imp. kš. des.</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>teč. dram</displayName>
+				<unitPattern count="one">{0} teč. dram</unitPattern>
+				<unitPattern count="few">{0} teč. drama</unitPattern>
+				<unitPattern count="other">{0} teč. drama</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>kap</displayName>
+				<unitPattern count="one">{0} kap</unitPattern>
+				<unitPattern count="few">{0} kapi</unitPattern>
+				<unitPattern count="other">{0} kapi</unitPattern>
+			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>fl oz</displayName>
 				<unitPattern count="one">{0} fl oz</unitPattern>
@@ -2992,6 +2981,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} hL</unitPattern>
 				<unitPattern count="few">{0} hL</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>mala čašica</displayName>
+				<unitPattern count="one">{0} mala čašica</unitPattern>
+				<unitPattern count="few">{0} male čašice</unitPattern>
+				<unitPattern count="other">{0} malih čašica</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>litri</displayName>
 				<unitPattern count="one">{0} l</unitPattern>
@@ -3005,6 +3000,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} mL</unitPattern>
 				<unitPattern count="few">{0} mL</unitPattern>
 			</unit>
+			<unit type="volume-pinch">
+				<displayName>prstohvat</displayName>
+				<unitPattern count="one">{0} prstohvat</unitPattern>
+				<unitPattern count="few">{0} prstohvata</unitPattern>
+				<unitPattern count="other">{0} prstohvata</unitPattern>
+			</unit>
 			<unit type="volume-pint">
 				<displayName>pinte</displayName>
 				<unitPattern count="one">{0} pt</unitPattern>
@@ -3017,6 +3018,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="volume-quart">
 				<unitPattern count="one">{0} qt</unitPattern>
 				<unitPattern count="few">{0} qt</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>imp. kvarc</displayName>
+				<unitPattern count="one">{0} imp. kvarc</unitPattern>
+				<unitPattern count="few">{0} imp. kvarca</unitPattern>
+				<unitPattern count="other">{0} imp. kvarca</unitPattern>
 			</unit>
 			<unit type="volume-tablespoon">
 				<unitPattern count="one">{0} tbsp</unitPattern>

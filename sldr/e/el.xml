@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -157,6 +157,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="eu">Βασκικά</language>
 			<language type="ewo">Εγουόντο</language>
 			<language type="fa">Περσικά</language>
+			<language type="fa_AF">Νταρί</language>
 			<language type="fan">Φανγκ</language>
 			<language type="fat">Φάντι</language>
 			<language type="ff">Φουλά</language>
@@ -411,7 +412,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ro_MD">Μολδαβικά</language>
 			<language type="rof">Ρόμπο</language>
 			<language type="rom">Ρομανί</language>
-			<language type="root">Ρίζα</language>
 			<language type="ru">Ρωσικά</language>
 			<language type="rup">Αρομανικά</language>
 			<language type="rw">Κινιαρουάντα</language>
@@ -537,14 +537,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="yi">Γίντις</language>
 			<language type="yo">Γιορούμπα</language>
 			<language type="yue">Καντονέζικα</language>
+			<language type="yue" alt="menu">Κινεζικά, Καντονέζικα</language>
 			<language type="za">Ζουάνγκ</language>
 			<language type="zap">Ζάποτεκ</language>
 			<language type="zbl">Σύμβολα Bliss</language>
 			<language type="zen">Ζενάγκα</language>
 			<language type="zgh">Τυπικά Ταμαζίτ Μαρόκου</language>
 			<language type="zh">Κινεζικά</language>
+			<language type="zh" alt="menu">Κινεζικά, Μανδαρινικά</language>
 			<language type="zh_Hans">Απλοποιημένα Κινεζικά</language>
+			<language type="zh_Hans" alt="long">Απλοποιημένα Μανδαρινικά Κινεζικά</language>
 			<language type="zh_Hant">Παραδοσιακά Κινεζικά</language>
+			<language type="zh_Hant" alt="long">Παραδοσιακά Μανδαρινικά Κινεζικά</language>
 			<language type="zu">Ζουλού</language>
 			<language type="zun">Ζούνι</language>
 			<language type="zxx">Χωρίς γλωσσολογικό περιεχόμενο</language>
@@ -767,6 +771,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="CG" alt="variant">Κονγκό (Δημοκρατία)</territory>
 			<territory type="CH">Ελβετία</territory>
 			<territory type="CI">Ακτή Ελεφαντοστού</territory>
+			<territory type="CI" alt="variant">Ακτή Ελεφαντοστού</territory>
 			<territory type="CK">Νήσοι Κουκ</territory>
 			<territory type="CL">Χιλή</territory>
 			<territory type="CM">Καμερούν</territory>
@@ -949,6 +954,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="SX">Άγιος Μαρτίνος (Ολλανδικό τμήμα)</territory>
 			<territory type="SY">Συρία</territory>
 			<territory type="SZ">Σουαζιλάνδη</territory>
+			<territory type="SZ" alt="variant">Σουαζιλάνδη</territory>
 			<territory type="TA">Τριστάν ντα Κούνια</territory>
 			<territory type="TC">Νήσοι Τερκς και Κάικος</territory>
 			<territory type="TD">Τσαντ</territory>
@@ -995,6 +1001,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="ZW">Ζιμπάμπουε</territory>
 			<territory type="ZZ">Άγνωστη περιοχή</territory>
 		</territories>
+		<subdivisions>
+			<subdivision type="gbeng">Αγγλία</subdivision>
+			<subdivision type="gbsct">Σκοτία</subdivision>
+			<subdivision type="gbwls">Ουαλία</subdivision>
+		</subdivisions>
 		<variants>
 			<variant type="1606NICT">Νεότερα Μέσα Γαλλικά του 1606</variant>
 			<variant type="1694ACAD">Πρώιμα Σύγχρονα Γαλλικά</variant>
@@ -1190,6 +1201,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="number" level="stricter">
+			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="date" level="lenient">
 			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
@@ -6627,15 +6641,109 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>κιμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>μεμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>γκιμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>τεμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>πεμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>εξμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>ζεμπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>γιομπι-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>δεκατο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>πικο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>φεμτο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>αττο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>εκατοστο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>ζεπτο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>γιοκτο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>χιλιοστο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>μικρο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>νανο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>δεκα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>τερα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>πετα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>εξα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>εκατο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>ζεττα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>γιοττα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>χιλιο-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>μεγα-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>γιγα-{0}</unitPrefixPattern>
+			</compoundUnit>
 			<compoundUnit type="per">
 				<compoundUnitPattern>{0} ανά {1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1>τετραγωνικό {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">τετραγωνικό {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">τετραγωνικά {0}</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1>κυβικό {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">κυβικό {0}</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">κυβικά {0}</compoundUnitPattern1>
 			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>δύναμη επιτάχυνσης</displayName>
 				<unitPattern count="one">{0} δύναμη επιτάχυνσης</unitPattern>
 				<unitPattern count="other">{0} δύναμη επιτάχυνσης</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>μέτρα ανά τετραγωνικό δευτερόλεπτο</displayName>
 				<unitPattern count="one">{0} μέτρο ανά τετραγωνικό δευτερόλεπτο</unitPattern>
 				<unitPattern count="other">{0} μέτρα ανά τετραγωνικό δευτερόλεπτο</unitPattern>
@@ -6725,7 +6833,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} καράτι</unitPattern>
 				<unitPattern count="other">{0} καράτια</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>χιλιοστόγραμμα ανά δεκατόλιτρο</displayName>
 				<unitPattern count="one">{0} χιλιοστόγραμμο ανά δεκατόλιτρο</unitPattern>
 				<unitPattern count="other">{0} χιλιοστόγραμμα ανά δεκατόλιτρο</unitPattern>
@@ -6740,11 +6848,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} μολ</unitPattern>
 				<unitPattern count="other">{0} μολ</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>μέρη ανά εκατομμύριο</displayName>
-				<unitPattern count="one">{0} μέρος ανά εκατομμύριο</unitPattern>
-				<unitPattern count="other">{0} μέρη ανά εκατομμύριο</unitPattern>
-			</unit>
 			<unit type="concentr-percent">
 				<displayName>τοις εκατό</displayName>
 				<unitPattern count="one">{0} τοις εκατό</unitPattern>
@@ -6755,12 +6858,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} τοις χιλίοις</unitPattern>
 				<unitPattern count="other">{0} τοις χιλίοις</unitPattern>
 			</unit>
+			<unit type="concentr-permillion">
+				<displayName>μέρη ανά εκατομμύριο</displayName>
+				<unitPattern count="one">{0} μέρος ανά εκατομμύριο</unitPattern>
+				<unitPattern count="other">{0} μέρη ανά εκατομμύριο</unitPattern>
+			</unit>
 			<unit type="concentr-permyriad">
 				<displayName>ποσοστόσημο τοις δεκάκις χιλίοις</displayName>
 				<unitPattern count="one">{0} ποσοστόσημο τοις δεκάκις χιλίοις</unitPattern>
 				<unitPattern count="other">{0} ποσοστόσημο τοις δεκάκις χιλίοις</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>λίτρα ανά 100 χιλιόμετρα</displayName>
 				<unitPattern count="one">{0} λίτρο ανά 100 χιλιόμετρα</unitPattern>
 				<unitPattern count="other">{0} λίτρα ανά 100 χιλιόμετρα</unitPattern>
@@ -6845,6 +6953,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ημέρα</unitPattern>
 				<unitPattern count="other">{0} ημέρες</unitPattern>
 				<perUnitPattern>{0} ανά ημέρα</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>δεκαετίες</displayName>
+				<unitPattern count="one">{0} δεκαετία</unitPattern>
+				<unitPattern count="other">{0} δεκαετίες</unitPattern>
 			</unit>
 			<unit type="duration-hour">
 				<displayName>ώρες</displayName>
@@ -6957,6 +7070,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} κιλοβατώρα</unitPattern>
 				<unitPattern count="other">{0} κιλοβατώρες</unitPattern>
 			</unit>
+			<unit type="energy-therm-us">
+				<displayName>θερμικές μονάδες ΗΠΑ</displayName>
+				<unitPattern count="one">{0} θερμική μονάδα ΗΠΑ</unitPattern>
+				<unitPattern count="other">{0} θερμικές μονάδες ΗΠΑ</unitPattern>
+			</unit>
 			<unit type="force-newton">
 				<displayName>νιούτον</displayName>
 				<unitPattern count="one">{0} νιούτον</unitPattern>
@@ -6987,6 +7105,46 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} μεγαχέρτζ</unitPattern>
 				<unitPattern count="other">{0} μεγαχέρτζ</unitPattern>
 			</unit>
+			<unit type="graphics-dot">
+				<displayName>κουκκίδα</displayName>
+				<unitPattern count="one">{0} κουκκίδα</unitPattern>
+				<unitPattern count="other">{0} κουκκίδες</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>κουκκίδες ανά εκατοστό</displayName>
+				<unitPattern count="one">{0} κουκκίδα ανά εκατοστό</unitPattern>
+				<unitPattern count="other">{0} κουκκίδες ανά εκατοστό</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>κουκκίδες ανά ίντσα</displayName>
+				<unitPattern count="one">{0} κουκκίδα ανά ίντσα</unitPattern>
+				<unitPattern count="other">{0} κουκκίδες ανά ίντσα</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>τυπογραφικό em</displayName>
+				<unitPattern count="one">{0} τυπογραφικό em</unitPattern>
+				<unitPattern count="other">{0} τυπογραφικά em</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>megapixel</displayName>
+				<unitPattern count="one">{0} megapixel</unitPattern>
+				<unitPattern count="other">{0} megapixel</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>pixel</displayName>
+				<unitPattern count="one">{0} pixel</unitPattern>
+				<unitPattern count="other">{0} pixel</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>pixel ανά εκατοστό</displayName>
+				<unitPattern count="one">{0} pixel ανά εκατοστό</unitPattern>
+				<unitPattern count="other">{0} pixel ανά εκατοστό</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>pixel ανά ίντσα</displayName>
+				<unitPattern count="one">{0} pixel ανά ίντσα</unitPattern>
+				<unitPattern count="other">{0} pixel ανά ίντσα</unitPattern>
+			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>αστρονομικές μονάδες</displayName>
 				<unitPattern count="one">{0} αστρονομική μονάδα</unitPattern>
@@ -7003,11 +7161,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} δεκατόμετρο</unitPattern>
 				<unitPattern count="other">{0} δεκατόμετρα</unitPattern>
 			</unit>
+			<unit type="length-earth-radius">
+				<displayName>ακτίνα της Γης</displayName>
+				<unitPattern count="one">{0} ακτίνα της Γης</unitPattern>
+				<unitPattern count="other">{0} ακτίνες της Γης</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName>οργιές</displayName>
+				<unitPattern count="one">{0} οργιά</unitPattern>
+				<unitPattern count="other">{0} οργιές</unitPattern>
+			</unit>
 			<unit type="length-foot">
 				<displayName>πόδια</displayName>
 				<unitPattern count="one">{0} πόδι</unitPattern>
 				<unitPattern count="other">{0} πόδια</unitPattern>
 				<perUnitPattern>{0} ανά πόδι</perUnitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>φέρλονγκ</displayName>
+				<unitPattern count="one">{0} φέρλονγκ</unitPattern>
+				<unitPattern count="other">{0} φέρλονγκ</unitPattern>
 			</unit>
 			<unit type="length-inch">
 				<displayName>ίντσες</displayName>
@@ -7086,6 +7259,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} γιάρδα</unitPattern>
 				<unitPattern count="other">{0} γιάρδες</unitPattern>
 			</unit>
+			<unit type="light-candela">
+				<displayName>καντέλα</displayName>
+				<unitPattern count="one">{0} καντέλα</unitPattern>
+				<unitPattern count="other">{0} καντέλα</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>λούμεν</displayName>
+				<unitPattern count="one">{0} λούμεν</unitPattern>
+				<unitPattern count="other">{0} λούμεν</unitPattern>
+			</unit>
 			<unit type="light-lux">
 				<displayName>λουξ</displayName>
 				<unitPattern count="one">{0} λουξ</unitPattern>
@@ -7109,6 +7292,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>μάζες της Γης</displayName>
 				<unitPattern count="one">{0} μάζα της Γης</unitPattern>
 				<unitPattern count="other">{0} μάζες της Γης</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>κόκκος</displayName>
+				<unitPattern count="one">{0} κόκκος</unitPattern>
+				<unitPattern count="other">{0} κόκκοι</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>γραμμάρια</displayName>
@@ -7159,6 +7347,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} μάζα του Ήλιου</unitPattern>
 				<unitPattern count="other">{0} μάζες του Ήλιου</unitPattern>
 			</unit>
+			<unit type="mass-stone">
+				<displayName>stone</displayName>
+				<unitPattern count="one">{0} stone</unitPattern>
+				<unitPattern count="other">{0} stone</unitPattern>
+			</unit>
 			<unit type="mass-ton">
 				<displayName>τόνοι</displayName>
 				<unitPattern count="one">{0} τόνος</unitPattern>
@@ -7199,12 +7392,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ατμόσφαιρα</unitPattern>
 				<unitPattern count="other">{0} ατμόσφαιρες</unitPattern>
 			</unit>
+			<unit type="pressure-bar">
+				<displayName>μπαρ</displayName>
+				<unitPattern count="one">{0} μπαρ</unitPattern>
+				<unitPattern count="other">{0} μπαρ</unitPattern>
+			</unit>
 			<unit type="pressure-hectopascal">
 				<displayName>εκτοπασκάλ</displayName>
 				<unitPattern count="one">{0} εκτοπασκάλ</unitPattern>
 				<unitPattern count="other">{0} εκτοπασκάλ</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>ίντσες στήλης υδραργύρου</displayName>
 				<unitPattern count="one">{0} ίντσα στήλης υδραργύρου</unitPattern>
 				<unitPattern count="other">{0} ίντσες στήλης υδραργύρου</unitPattern>
@@ -7224,13 +7422,18 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} μιλιμπάρ</unitPattern>
 				<unitPattern count="other">{0} μιλιμπάρ</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>χιλιοστόμετρα στήλης υδραργύρου</displayName>
-				<unitPattern count="one">{0} χιλιοστόμετρα στήλης υδραργύρου</unitPattern>
+				<unitPattern count="one">{0} χιλιοστόμετρο στήλης υδραργύρου</unitPattern>
 				<unitPattern count="other">{0} χιλιοστόμετρα στήλης υδραργύρου</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
-				<displayName>λίβρα ανά τετραγωνική ίντσα</displayName>
+			<unit type="pressure-pascal">
+				<displayName>πασκάλ</displayName>
+				<unitPattern count="one">{0} πασκάλ</unitPattern>
+				<unitPattern count="other">{0} πασκάλ</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
+				<displayName>λίβρες ανά τετραγωνική ίντσα</displayName>
 				<unitPattern count="one">{0} λίβρα ανά τετραγωνική ίντσα</unitPattern>
 				<unitPattern count="other">{0} λίβρες ανά τετραγωνική ίντσα</unitPattern>
 			</unit>
@@ -7284,6 +7487,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λίβρα-πόδι</unitPattern>
 				<unitPattern count="other">{0} λίβρες-πόδια</unitPattern>
 			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>λίβρες-πόδια</displayName>
+				<unitPattern count="one">{0} λίβρα-πόδι</unitPattern>
+				<unitPattern count="other">{0} λίβρες-πόδια</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ακρ-πόδια</displayName>
 				<unitPattern count="one">{0} ακρ-πόδι</unitPattern>
@@ -7293,6 +7501,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>βαρέλι</displayName>
 				<unitPattern count="one">{0} βαρέλι</unitPattern>
 				<unitPattern count="other">{0} βαρέλι</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>μπούσελ</displayName>
+				<unitPattern count="one">{0} μπούσελ</unitPattern>
+				<unitPattern count="other">{0} μπούσελ</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>εκατοστόλιτρα</displayName>
@@ -7351,6 +7564,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} δεκατόλιτρο</unitPattern>
 				<unitPattern count="other">{0} δεκατόλιτρα</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>κουταλιά φρούτου</displayName>
+				<unitPattern count="one">{0} κουταλιά φρούτου</unitPattern>
+				<unitPattern count="other">{0} κουταλιές φρούτου</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>αγγλοσαξονική κουταλιά φρούτου</displayName>
+				<unitPattern count="one">{0} αγγλοσαξονική κουταλιά φρούτου</unitPattern>
+				<unitPattern count="other">{0} αγγλοσαξονικές κουταλιές φρούτου</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>δράμι</displayName>
+				<unitPattern count="one">{0} δράμι</unitPattern>
+				<unitPattern count="other">{0} δράμια</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>σταγόνα</displayName>
+				<unitPattern count="one">{0} σταγόνα</unitPattern>
+				<unitPattern count="other">{0} σταγόνες</unitPattern>
+			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>ουγγιές όγκου</displayName>
 				<unitPattern count="one">{0} ουγγιά όγκου</unitPattern>
@@ -7378,6 +7611,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} εκτόλιτρο</unitPattern>
 				<unitPattern count="other">{0} εκτόλιτρα</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>μεζούρα</displayName>
+				<unitPattern count="one">{0} μεζούρα</unitPattern>
+				<unitPattern count="other">{0} μεζούρες</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>λίτρα</displayName>
 				<unitPattern count="one">{0} λίτρο</unitPattern>
@@ -7394,6 +7632,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} χιλιοστόλιτρο</unitPattern>
 				<unitPattern count="other">{0} χιλιοστόλιτρα</unitPattern>
 			</unit>
+			<unit type="volume-pinch">
+				<displayName>πρέζα</displayName>
+				<unitPattern count="one">{0} πρέζα</unitPattern>
+				<unitPattern count="other">{0} πρέζες</unitPattern>
+			</unit>
 			<unit type="volume-pint">
 				<displayName>πίντες</displayName>
 				<unitPattern count="one">{0} πίντα</unitPattern>
@@ -7408,6 +7651,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>τέταρτα του γαλονιού</displayName>
 				<unitPattern count="one">{0} τέταρτο του γαλονιού</unitPattern>
 				<unitPattern count="other">{0} τέταρτα του γαλονιού</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>αγγλοσαξονικά τέταρτα του γαλονιού</displayName>
+				<unitPattern count="one">{0} αγγλοσαξονικό τέταρτο του γαλονιού</unitPattern>
+				<unitPattern count="other">{0} αγγλοσαξονικά τέταρτα του γαλονιού</unitPattern>
 			</unit>
 			<unit type="volume-tablespoon">
 				<displayName>κουταλιές της σούπας</displayName>
@@ -7428,11 +7676,98 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>κμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>μμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>γκμ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>τμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>πμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>εξμ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>ζμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>γμπ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>δκτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>πκ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>φμτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>ατ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>εκστ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>ζπτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>γκτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>χλστ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>μκρ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>νν-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>δκ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>τρ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>πτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>εξ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>εκτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>ζτ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>γττ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>χλ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>μγ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>γγ-{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1 count="one">{0}³</compoundUnitPattern1>
+			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>δύν. επιτάχ.</displayName>
 				<unitPattern count="one">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>μέτρα/τετρ. δευτ.</displayName>
 				<unitPattern count="one">{0} m/s²</unitPattern>
 			</unit>
@@ -7519,7 +7854,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} κρτ</unitPattern>
 				<unitPattern count="other">{0} κρτ</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<unitPattern count="one">{0} mg/dL</unitPattern>
 			</unit>
 			<unit type="concentr-millimole-per-liter">
@@ -7530,9 +7865,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} μολ</unitPattern>
 				<unitPattern count="other">{0} μολ</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<unitPattern count="one">{0} ppm</unitPattern>
-			</unit>
 			<unit type="concentr-percent">
 				<displayName>τοις εκατό</displayName>
 				<unitPattern count="one">{0}%</unitPattern>
@@ -7541,11 +7873,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>τοις χιλίοις</displayName>
 				<unitPattern count="one">{0}‰</unitPattern>
 			</unit>
+			<unit type="concentr-permillion">
+				<displayName>μέρη/εκατ.</displayName>
+				<unitPattern count="one">{0} ppm</unitPattern>
+			</unit>
 			<unit type="concentr-permyriad">
 				<displayName>ποσοστόσημο τοις δεκάκις χιλίοις</displayName>
 				<unitPattern count="one">{0}‱</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>λ./100 χλμ.</displayName>
 				<unitPattern count="one">{0} λ./100 χλμ.</unitPattern>
 				<unitPattern count="other">{0} λ./100 χλμ.</unitPattern>
@@ -7609,6 +7945,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ημέρα</unitPattern>
 				<unitPattern count="other">{0} ημέρες</unitPattern>
 				<perUnitPattern>{0}/ημ.</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>δεκ.</displayName>
+				<unitPattern count="one">{0} δεκ.</unitPattern>
+				<unitPattern count="other">{0} δεκ.</unitPattern>
 			</unit>
 			<unit type="duration-hour">
 				<displayName>ώρες</displayName>
@@ -7708,6 +8049,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>κιλοβάτ/ώρα</displayName>
 				<unitPattern count="one">{0} kWh</unitPattern>
 			</unit>
+			<unit type="energy-therm-us">
+				<displayName>θερμ. μονάδες ΗΠΑ</displayName>
+				<unitPattern count="one">{0} θερμ. μονάδα ΗΠΑ</unitPattern>
+				<unitPattern count="other">{0} θερμ. μονάδες ΗΠΑ</unitPattern>
+			</unit>
 			<unit type="force-newton">
 				<displayName>νιούτον</displayName>
 				<unitPattern count="one">{0} N</unitPattern>
@@ -7732,6 +8078,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>μεγαχέρτζ</displayName>
 				<unitPattern count="one">{0} MHz</unitPattern>
 			</unit>
+			<unit type="graphics-dot">
+				<displayName>κουκ.</displayName>
+				<unitPattern count="one">{0} κουκ.</unitPattern>
+				<unitPattern count="other">{0} κουκ.</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>megapixel</displayName>
+			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>α.μ.</displayName>
 				<unitPattern count="one">{0} α.μ.</unitPattern>
@@ -7748,11 +8102,24 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} δεκ.</unitPattern>
 				<unitPattern count="other">{0} δεκ.</unitPattern>
 			</unit>
+			<unit type="length-earth-radius">
+				<unitPattern count="one">{0} R⊕</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName>οργιές</displayName>
+				<unitPattern count="one">{0} οργ.</unitPattern>
+				<unitPattern count="other">{0} οργ.</unitPattern>
+			</unit>
 			<unit type="length-foot">
 				<displayName>πόδια</displayName>
 				<unitPattern count="one">{0} πδ</unitPattern>
 				<unitPattern count="other">{0} πδ</unitPattern>
 				<perUnitPattern>{0}/πδ</perUnitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>φέρλ.</displayName>
+				<unitPattern count="one">{0} φέρλ.</unitPattern>
+				<unitPattern count="other">{0} φέρλ.</unitPattern>
 			</unit>
 			<unit type="length-inch">
 				<displayName>ίντσες</displayName>
@@ -7824,6 +8191,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} γρδ</unitPattern>
 				<unitPattern count="other">{0} γρδ</unitPattern>
 			</unit>
+			<unit type="light-candela">
+				<displayName>καντ.</displayName>
+				<unitPattern count="one">{0} καντ.</unitPattern>
+				<unitPattern count="other">{0} καντ.</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>λμ</displayName>
+				<unitPattern count="one">{0} λμ.</unitPattern>
+				<unitPattern count="other">{0} λμ.</unitPattern>
+			</unit>
 			<unit type="light-lux">
 				<displayName>λουξ</displayName>
 				<unitPattern count="one">{0} λουξ</unitPattern>
@@ -7844,6 +8221,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="mass-earth-mass">
 				<displayName>μάζες Γης</displayName>
 				<unitPattern count="one">{0} M⊕</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>κόκ.</displayName>
+				<unitPattern count="one">{0} κόκ.</unitPattern>
+				<unitPattern count="other">{0} κόκ.</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>γραμμ.</displayName>
@@ -7884,6 +8266,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>μάζες Ήλιου</displayName>
 				<unitPattern count="one">{0} M☉</unitPattern>
 			</unit>
+			<unit type="mass-stone">
+				<unitPattern count="one">{0} st</unitPattern>
+			</unit>
 			<unit type="mass-ton">
 				<displayName>τόνοι</displayName>
 				<unitPattern count="one">{0} τ.</unitPattern>
@@ -7917,10 +8302,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="pressure-atmosphere">
 				<unitPattern count="one">{0} atm</unitPattern>
 			</unit>
+			<unit type="pressure-bar">
+				<displayName>μπαρ</displayName>
+				<unitPattern count="one">{0} μπαρ</unitPattern>
+				<unitPattern count="other">{0} μπαρ</unitPattern>
+			</unit>
 			<unit type="pressure-hectopascal">
 				<unitPattern count="one">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one">{0} inHg</unitPattern>
 			</unit>
 			<unit type="pressure-kilopascal">
@@ -7932,12 +8322,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="pressure-millibar">
 				<unitPattern count="one">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>mmHg</displayName>
 				<unitPattern count="one">{0} mmHg</unitPattern>
 				<unitPattern count="other">{0} mmHg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pascal">
+				<unitPattern count="one">{0} Pa</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
 				<unitPattern count="one">{0} psi</unitPattern>
 			</unit>
 			<unit type="speed-kilometer-per-hour">
@@ -7982,6 +8375,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} λβρ⋅πδ</unitPattern>
 				<unitPattern count="other">{0} λβρ⋅πδ</unitPattern>
 			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>λβρ⋅πδ</displayName>
+				<unitPattern count="one">{0} λβρ⋅πδ</unitPattern>
+				<unitPattern count="other">{0} λβρ⋅πδ</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>ακρ πόδια</displayName>
 				<unitPattern count="one">{0} ακρ πδ</unitPattern>
@@ -7991,6 +8389,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>βαρέλι</displayName>
 				<unitPattern count="one">{0} βρλ</unitPattern>
 				<unitPattern count="other">{0} βρλ</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>μπ.</displayName>
+				<unitPattern count="one">{0} μπ.</unitPattern>
+				<unitPattern count="other">{0} μπ.</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<unitPattern count="one">{0} cL</unitPattern>
@@ -8030,6 +8433,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="volume-deciliter">
 				<unitPattern count="one">{0} dL</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>κ.φρ.</displayName>
+				<unitPattern count="one">{0} κ.φρ.</unitPattern>
+				<unitPattern count="other">{0} κ.φρ.</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>αγγλ. κουτ. φρ.</displayName>
+				<unitPattern count="one">{0} αγγλ. κουτ. φρ.</unitPattern>
+				<unitPattern count="other">{0} αγγλ. κουτ. φρ.</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>δράμι όγκου</displayName>
+				<unitPattern count="one">{0} δρ. όγκου</unitPattern>
+				<unitPattern count="other">{0} δρ. όγκου</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>σταγ.</displayName>
+				<unitPattern count="one">{0} σταγ.</unitPattern>
+				<unitPattern count="other">{0} σταγ.</unitPattern>
+			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>fl oz</displayName>
 				<unitPattern count="one">{0} fl oz</unitPattern>
@@ -8055,6 +8478,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="volume-hectoliter">
 				<unitPattern count="one">{0} hL</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<displayName>μεζ.</displayName>
+				<unitPattern count="one">{0} μεζ.</unitPattern>
+				<unitPattern count="other">{0} μεζ.</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>λίτρα</displayName>
 				<unitPattern count="one">{0} λίτ.</unitPattern>
@@ -8066,6 +8494,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="volume-milliliter">
 				<unitPattern count="one">{0} mL</unitPattern>
+			</unit>
+			<unit type="volume-pinch">
+				<displayName>πρ.</displayName>
+				<unitPattern count="one">{0} πρ.</unitPattern>
+				<unitPattern count="other">{0} πρ.</unitPattern>
 			</unit>
 			<unit type="volume-pint">
 				<displayName>πίντες</displayName>
@@ -8081,6 +8514,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>τέταρτα γαλονιού</displayName>
 				<unitPattern count="one">{0} τέτ. γαλ.</unitPattern>
 				<unitPattern count="other">{0} τέτ. γαλ.</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>αγγλ. τέτ. γαλ.</displayName>
+				<unitPattern count="one">{0} αγγλ. τέτ. γαλ.</unitPattern>
+				<unitPattern count="other">{0} αγγλ. τέτ. γαλ.</unitPattern>
 			</unit>
 			<unit type="volume-tablespoon">
 				<displayName>κ.σ.</displayName>
