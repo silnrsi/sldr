@@ -14,8 +14,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">amhariskt</language>
-			<language type="sat">santali</language>
 			<language type="aa">afar</language>
 			<language type="ab">abkhasiskt</language>
 			<language type="ace">achinese</language>
@@ -27,6 +25,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ak">akan</language>
 			<language type="ale">aleut</language>
 			<language type="alt">suður altai</language>
+			<language type="am">amhariskt</language>
 			<language type="an">aragoniskt</language>
 			<language type="anp">angika</language>
 			<language type="ar">arabiskt</language>
@@ -316,6 +315,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sad">sandawe</language>
 			<language type="sah">sakha</language>
 			<language type="saq">samburu</language>
+			<language type="sat">santali</language>
 			<language type="sba">ngambay</language>
 			<language type="sbp">sangu</language>
 			<language type="sc">sardiskt</language>
@@ -858,12 +858,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a á b d ð e f g h i í j k l m n o ó p r s t u ú v y ý æ ø]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[c q w x z]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ – , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ′ ″]</exemplarCharacters>
 		<exemplarCharacters type="index" draft="contributed">[A Á B C D Ð E F G H I Í J K L M N O Ó P Q R S T U Ú V W X Y Ý Z Æ Ø]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[, . % ‰ + − 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ – , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ′ ″]</exemplarCharacters>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
-		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
 			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
@@ -878,6 +875,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<parseLenients scope="number" level="stricter">
 			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
 			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
 	</characters>
 	<dates>
@@ -1408,96 +1408,170 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">seinasta sunnudag</relative>
-				<relative type="0">næsta sunnudag</relative>
-				<relative type="1">sunnudagin í næstu viku</relative>
+			<field type="era">
+				<displayName>tíðarrokning</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>tíðarrokning</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>tíðarrokning</displayName>
+			</field>
+			<field type="year">
+				<displayName>ár</displayName>
+				<relative type="-1">í fjør</relative>
+				<relative type="0">í ár</relative>
+				<relative type="1">næsta ár</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} sunnudag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} sunnudagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sunnudag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sunnudagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon">
-				<relative type="-1">seinasta mánadag</relative>
-				<relative type="0">næsta mánadag</relative>
-				<relative type="1">mánadagin í næstu viku</relative>
+			<field type="year-short">
+				<displayName>ár</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mánadag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mánadagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mánadag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mánadagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="-1">seinasta týsdag</relative>
-				<relative type="0">næsta týsdag</relative>
-				<relative type="1">týsdagin í næstu viku</relative>
+			<field type="year-narrow">
+				<displayName>ár</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} týsdag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} týsdagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} týsdag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} týsdagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="wed">
-				<relative type="-1">seinasta mikudag</relative>
-				<relative type="0">næsta mikudag</relative>
-				<relative type="1">mikudagin í næstu viku</relative>
+			<field type="quarter">
+				<displayName>ársfjórðingur</displayName>
+				<relative type="-1">seinasta ársfjórðing</relative>
+				<relative type="0">hendan ársfjórðingin</relative>
+				<relative type="1">næsta ársfjórðing</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mikudag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mikudagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ársfjórðing</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ársfjórðingar</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mikudag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mikudagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ársfjórðing síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ársfjórðingar síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="-1">seinasta hósdag</relative>
-				<relative type="0">næsta hósdag</relative>
-				<relative type="1">hósdagin í næstu viku</relative>
+			<field type="quarter-short">
+				<displayName>ársfj.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} hósdag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} hósdagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ársfj.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ársfj.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hósdag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hósdagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ársfj. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ársfj. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="fri">
-				<relative type="-1">seinasta fríggjadag</relative>
-				<relative type="0">næsta fríggjadag</relative>
-				<relative type="1">fríggjadagin í næstu viku</relative>
+			<field type="quarter-narrow">
+				<displayName>ársfj.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} fríggjadag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} fríggjadagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} ársfj.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ársfj.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} fríggjadag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} fríggjadagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ársfj. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ársfj. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="-1">seinasta leygardag</relative>
-				<relative type="0">næsta leygardag</relative>
-				<relative type="1">leygardagin í næstu viku</relative>
+			<field type="month">
+				<displayName>mánaður</displayName>
+				<relative type="-1">seinasta mánað</relative>
+				<relative type="0">henda mánaðin</relative>
+				<relative type="1">næsta mánað</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} leygardag</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} leygardagar</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} mánað</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mánaðir</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} leygardag síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} leygardagar síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} mánað síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mánaðir síðan</relativeTimePattern>
 				</relativeTime>
+			</field>
+			<field type="month-short">
+				<displayName>mnð.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mnð.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mnð.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mnð. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mnð. síðan</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>mnð.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mnð.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mnð.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mnð. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mnð. síðan</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>vika</displayName>
+				<relative type="-1">seinastu viku</relative>
+				<relative type="0">hesu viku</relative>
+				<relative type="1">næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} viku</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} vikur</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} vika síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} vikur síðan</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>vika nummar {0}</relativePeriod>
+			</field>
+			<field type="week-short">
+				<displayName>vi.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} vi.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} vi.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} vi. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} vi. síðan</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>vika nummar {0}</relativePeriod>
+			</field>
+			<field type="week-narrow">
+				<displayName>v.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} v.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} v.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} v. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} v. síðan</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>vika nummar {0}</relativePeriod>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>vika í mánaðinum</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>vi. í mnð.</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>vi. í mnð.</displayName>
 			</field>
 			<field type="day">
 				<displayName>dagur</displayName>
@@ -1515,17 +1589,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} dagar síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="day-narrow">
-				<displayName>d.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} d.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} d.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} d. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} d. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="day-short">
 				<displayName>da.</displayName>
 				<relativeTime type="future">
@@ -1537,44 +1600,250 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} da. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="day-narrow">
+				<displayName>d.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} d.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} d.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} d. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} d. síðan</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="dayOfYear">
 				<displayName>dagur í árinum</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>dagur í ár.</displayName>
 			</field>
 			<field type="dayOfYear-short">
 				<displayName>dagur í ár.</displayName>
 			</field>
-			<field type="dayperiod">
-				<displayName>AM/PM</displayName>
+			<field type="dayOfYear-narrow">
+				<displayName>dagur í ár.</displayName>
 			</field>
-			<field type="dayperiod-narrow">
-				<displayName>AM/PM</displayName>
+			<field type="weekday">
+				<displayName>vikudagur</displayName>
 			</field>
-			<field type="dayperiod-short">
-				<displayName>AM/PM</displayName>
+			<field type="weekday-short">
+				<displayName>vikudagur</displayName>
 			</field>
-			<field type="era">
-				<displayName>tíðarrokning</displayName>
+			<field type="weekday-narrow">
+				<displayName>vikudagur</displayName>
 			</field>
-			<field type="era-narrow">
-				<displayName>tíðarrokning</displayName>
+			<field type="weekdayOfMonth">
+				<displayName>vikudagur í mánaðinum</displayName>
 			</field>
-			<field type="era-short">
-				<displayName>tíðarrokning</displayName>
+			<field type="weekdayOfMonth-short">
+				<displayName>vikudagur í mnð.</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">seinasta fr.</relative>
-				<relative type="0">næsta fr.</relative>
-				<relative type="1">fr. í næstu viku</relative>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>vikudagur í mnð.</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">seinasta sunnudag</relative>
+				<relative type="0">næsta sunnudag</relative>
+				<relative type="1">sunnudagin í næstu viku</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} fr.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} fr.</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} sunnudag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} sunnudagar</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} fr. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} fr. síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} sunnudag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sunnudagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">seinasta sun.</relative>
+				<relative type="0">næsta sun.</relative>
+				<relative type="1">sun. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} sun.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} sun.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sun. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sun. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">seinasta su.</relative>
+				<relative type="0">næsta su.</relative>
+				<relative type="1">su. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} su.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} su.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} su. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} su. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">seinasta mánadag</relative>
+				<relative type="0">næsta mánadag</relative>
+				<relative type="1">mánadagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mánadag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mánadagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mánadag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mánadagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">seinasta mán.</relative>
+				<relative type="0">næsta mán.</relative>
+				<relative type="1">mán. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mán.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mán.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mán. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mán. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">seinasta má.</relative>
+				<relative type="0">næsta má.</relative>
+				<relative type="1">má. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} má.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} má.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} má. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} má. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">seinasta týsdag</relative>
+				<relative type="0">næsta týsdag</relative>
+				<relative type="1">týsdagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} týsdag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} týsdagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} týsdag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} týsdagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">seinasta týs.</relative>
+				<relative type="0">næsta týs.</relative>
+				<relative type="1">týs. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} týs.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} týs.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} týs. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} týs. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">seinasta tý.</relative>
+				<relative type="0">næsta tý.</relative>
+				<relative type="1">tý. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} tý.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} tý.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} tý. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} tý. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">seinasta mikudag</relative>
+				<relative type="0">næsta mikudag</relative>
+				<relative type="1">mikudagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mikudag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mikudagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mikudag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mikudagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">seinasta mik.</relative>
+				<relative type="0">næsta mik.</relative>
+				<relative type="1">mik. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mik.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mik.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mik. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mik. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">seinasta mi.</relative>
+				<relative type="0">næsta mi.</relative>
+				<relative type="1">mi. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} mi.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} mi.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mi. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mi. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">seinasta hósdag</relative>
+				<relative type="0">næsta hósdag</relative>
+				<relative type="1">hósdagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} hósdag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} hósdagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hósdag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hósdagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">seinasta hós.</relative>
+				<relative type="0">næsta hós.</relative>
+				<relative type="1">hós. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} hós.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} hós.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hós. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hós. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">seinasta hó.</relative>
+				<relative type="0">næsta hó.</relative>
+				<relative type="1">hó. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} hó.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} hó.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hó. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hó. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">seinasta fríggjadag</relative>
+				<relative type="0">næsta fríggjadag</relative>
+				<relative type="1">fríggjadagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} fríggjadag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} fríggjadagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} fríggjadag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} fríggjadagar síðani</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="fri-short">
@@ -1590,6 +1859,67 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} frí. síðani</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="fri-narrow">
+				<relative type="-1">seinasta fr.</relative>
+				<relative type="0">næsta fr.</relative>
+				<relative type="1">fr. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} fr.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} fr.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} fr. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} fr. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">seinasta leygardag</relative>
+				<relative type="0">næsta leygardag</relative>
+				<relative type="1">leygardagin í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} leygardag</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} leygardagar</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} leygardag síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} leygardagar síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">seinasta ley.</relative>
+				<relative type="0">næsta ley.</relative>
+				<relative type="1">ley. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} ley.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} ley.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ley. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ley. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">seinasta le.</relative>
+				<relative type="0">næsta le.</relative>
+				<relative type="1">le. í næstu viku</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">um {0} le.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} le.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} le. síðani</relativeTimePattern>
+					<relativeTimePattern count="other">{0} le. síðani</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>AM/PM</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>AM/PM</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>AM/PM</displayName>
+			</field>
 			<field type="hour">
 				<displayName>tími</displayName>
 				<relative type="0">hendan tíman</relative>
@@ -1602,7 +1932,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} tímar síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
+			<field type="hour-short">
 				<displayName>t.</displayName>
 				<relative type="0">hendan tíman</relative>
 				<relativeTime type="future">
@@ -1614,7 +1944,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} t. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-short">
+			<field type="hour-narrow">
 				<displayName>t.</displayName>
 				<relative type="0">hendan tíman</relative>
 				<relativeTime type="future">
@@ -1638,18 +1968,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} minuttir síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute-narrow">
-				<displayName>m.</displayName>
-				<relative type="0">hendan minuttin</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} m.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} m.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} m. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} m. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="minute-short">
 				<displayName>min.</displayName>
 				<relative type="0">hendan minuttin</relative>
@@ -1662,128 +1980,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} min. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon-narrow">
-				<relative type="-1">seinasta má.</relative>
-				<relative type="0">næsta má.</relative>
-				<relative type="1">má. í næstu viku</relative>
+			<field type="minute-narrow">
+				<displayName>m.</displayName>
+				<relative type="0">hendan minuttin</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} má.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} má.</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} m.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} m.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} má. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} má. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">seinasta mán.</relative>
-				<relative type="0">næsta mán.</relative>
-				<relative type="1">mán. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mán.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mán.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mán. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mán. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>mánaður</displayName>
-				<relative type="-1">seinasta mánað</relative>
-				<relative type="0">henda mánaðin</relative>
-				<relative type="1">næsta mánað</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mánað</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mánaðir</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mánað síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mánaðir síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>mnð.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mnð.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mnð.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mnð. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mnð. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>mnð.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mnð.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mnð.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mnð. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mnð. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>ársfjórðingur</displayName>
-				<relative type="-1">seinasta ársfjórðing</relative>
-				<relative type="0">hendan ársfjórðingin</relative>
-				<relative type="1">næsta ársfjórðing</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ársfjórðing</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ársfjórðingar</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ársfjórðing síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ársfjórðingar síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>ársfj.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ársfj.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ársfj.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ársfj. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ársfj. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>ársfj.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ársfj.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ársfj.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ársfj. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ársfj. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">seinasta le.</relative>
-				<relative type="0">næsta le.</relative>
-				<relative type="1">le. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} le.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} le.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} le. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} le. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">seinasta ley.</relative>
-				<relative type="0">næsta ley.</relative>
-				<relative type="1">ley. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ley.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ley.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ley. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ley. síðani</relativeTimePattern>
+					<relativeTimePattern count="one">{0} m. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} m. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="second">
@@ -1798,18 +2004,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sekund síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="second-narrow">
-				<displayName>s.</displayName>
-				<relative type="0">nú</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} s.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} s.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} s. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} s. síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="second-short">
 				<displayName>sek.</displayName>
 				<relative type="0">nú</relative>
@@ -1822,226 +2016,32 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sek. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun-narrow">
-				<relative type="-1">seinasta su.</relative>
-				<relative type="0">næsta su.</relative>
-				<relative type="1">su. í næstu viku</relative>
+			<field type="second-narrow">
+				<displayName>s.</displayName>
+				<relative type="0">nú</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} su.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} su.</relativeTimePattern>
+					<relativeTimePattern count="one">um {0} s.</relativeTimePattern>
+					<relativeTimePattern count="other">um {0} s.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} su. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} su. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">seinasta sun.</relative>
-				<relative type="0">næsta sun.</relative>
-				<relative type="1">sun. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} sun.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} sun.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sun. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sun. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">seinasta hó.</relative>
-				<relative type="0">næsta hó.</relative>
-				<relative type="1">hó. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} hó.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} hó.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hó. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hó. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">seinasta hós.</relative>
-				<relative type="0">næsta hós.</relative>
-				<relative type="1">hós. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} hós.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} hós.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hós. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hós. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">seinasta tý.</relative>
-				<relative type="0">næsta tý.</relative>
-				<relative type="1">tý. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} tý.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} tý.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} tý. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} tý. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">seinasta týs.</relative>
-				<relative type="0">næsta týs.</relative>
-				<relative type="1">týs. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} týs.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} týs.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} týs. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} týs. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">seinasta mi.</relative>
-				<relative type="0">næsta mi.</relative>
-				<relative type="1">mi. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mi.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mi.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mi. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mi. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">seinasta mik.</relative>
-				<relative type="0">næsta mik.</relative>
-				<relative type="1">mik. í næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} mik.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} mik.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mik. síðani</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mik. síðani</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>vika</displayName>
-				<relative type="-1">seinastu viku</relative>
-				<relative type="0">hesu viku</relative>
-				<relative type="1">næstu viku</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} viku</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} vikur</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} vika síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} vikur síðan</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>vika nummar {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>v.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} v.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} v.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} v. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} v. síðan</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>vika nummar {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>vi.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} vi.</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} vi.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} vi. síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} vi. síðan</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>vika nummar {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>vika í mánaðinum</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>vi. í mnð.</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>vi. í mnð.</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>vikudagur</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>vikudagur</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>vikudagur</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>vikudagur í mánaðinum</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>vikudagur í mnð.</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>vikudagur í mnð.</displayName>
-			</field>
-			<field type="year">
-				<displayName>ár</displayName>
-				<relative type="-1">í fjør</relative>
-				<relative type="0">í ár</relative>
-				<relative type="1">næsta ár</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>ár</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>ár</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">um {0} ár</relativeTimePattern>
-					<relativeTimePattern count="other">um {0} ár</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ár síðan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ár síðan</relativeTimePattern>
+					<relativeTimePattern count="one">{0} s. síðan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} s. síðan</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
 				<displayName>tíðarøki</displayName>
 			</field>
-			<field type="zone-narrow">
+			<field type="zone-short">
 				<displayName>tíðarøki</displayName>
 			</field>
-			<field type="zone-short">
+			<field type="zone-narrow">
 				<displayName>tíðarøki</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
 			<regionFormat>{0} tíð</regionFormat>
-			<regionFormat type="daylight">{0} summartíð</regionFormat>
 			<regionFormat type="standard">{0} vanlig tíð</regionFormat>
+			<regionFormat type="daylight">{0} summartíð</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Abidjan</exemplarCity>
 			</zone>
@@ -2909,13 +2909,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Australia/Sydney">
 				<exemplarCity>Sydney</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>ókendur býur</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Samskipað heimstíð</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>ókendur býur</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>Amsterdam</exemplarCity>
@@ -3577,11 +3577,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>Fronsku sunnaru landaøki og Antarktis tíð</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Greenwich Mean tíð</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Galapagos tíð</standard>
@@ -3602,6 +3597,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Gilbertoyggjar tíð</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Greenwich Mean tíð</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -5893,193 +5893,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} teskeiðir</unitPattern>
 			</unit>
 			<coordinateUnit>
-				<coordinateUnitPattern type="east">{0} eystur</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} norður</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} eystur</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} suður</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} vestur</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
-		<unitLength type="narrow">
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
-			<unit type="acceleration-g-force">
-				<unitPattern count="one" draft="contributed">{0}G</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}G</unitPattern>
-			</unit>
-			<unit type="angle-arc-minute">
-				<unitPattern count="one" draft="contributed">{0}′</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}′</unitPattern>
-			</unit>
-			<unit type="angle-arc-second">
-				<unitPattern count="one" draft="contributed">{0}″</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}″</unitPattern>
-			</unit>
-			<unit type="angle-degree">
-				<unitPattern count="one" draft="contributed">{0}°</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}°</unitPattern>
-			</unit>
-			<unit type="area-hectare">
-				<unitPattern count="one" draft="contributed">{0}ha</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}ha</unitPattern>
-			</unit>
-			<unit type="area-square-kilometer">
-				<unitPattern count="one" draft="contributed">{0}km²</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}km²</unitPattern>
-			</unit>
-			<unit type="area-square-meter">
-				<unitPattern count="one" draft="contributed">{0}m²</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}m²</unitPattern>
-			</unit>
-			<unit type="concentr-milligram-per-deciliter">
-				<displayName>mg/dL</displayName>
-				<unitPattern count="one">{0}mg/dL</unitPattern>
-				<unitPattern count="other">{0}mg/dL</unitPattern>
-			</unit>
-			<unit type="concentr-millimole-per-liter">
-				<displayName>mmol/L</displayName>
-				<unitPattern count="one">{0}mmol/L</unitPattern>
-				<unitPattern count="other">{0}mmol/L</unitPattern>
-			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>ppm</displayName>
-				<unitPattern count="one">{0} ppm</unitPattern>
-				<unitPattern count="other">{0} ppm</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-100kilometers">
-				<displayName>l/100km</displayName>
-				<unitPattern count="one">{0}l/100km</unitPattern>
-				<unitPattern count="other">{0}l/100km</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>d.</displayName>
-				<unitPattern count="one">{0}d.</unitPattern>
-				<unitPattern count="other">{0}d.</unitPattern>
-				<perUnitPattern>{0}/d</perUnitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>t.</displayName>
-				<unitPattern count="one">{0}t.</unitPattern>
-				<unitPattern count="other">{0}t.</unitPattern>
-				<perUnitPattern>{0}/t.</perUnitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>ms.</displayName>
-				<unitPattern count="one">{0}ms.</unitPattern>
-				<unitPattern count="other">{0}ms.</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>m.</displayName>
-				<unitPattern count="one">{0}m.</unitPattern>
-				<unitPattern count="other">{0}m.</unitPattern>
-				<perUnitPattern>{0}/min</perUnitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>m.</displayName>
-				<unitPattern count="one">{0}m.</unitPattern>
-				<unitPattern count="other">{0}m.</unitPattern>
-			</unit>
-			<unit type="duration-nanosecond">
-				<displayName>ns</displayName>
-			</unit>
-			<unit type="duration-second">
-				<displayName>s.</displayName>
-				<unitPattern count="one">{0}s.</unitPattern>
-				<unitPattern count="other">{0}s.</unitPattern>
-				<perUnitPattern>{0}/s</perUnitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>v.</displayName>
-				<unitPattern count="one">{0}v.</unitPattern>
-				<unitPattern count="other">{0}v.</unitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>ár</displayName>
-				<unitPattern count="one">{0}ár</unitPattern>
-				<unitPattern count="other">{0}ár</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>cm</displayName>
-				<unitPattern count="one">{0}cm</unitPattern>
-				<unitPattern count="other">{0}cm</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<displayName>km</displayName>
-				<unitPattern count="one">{0}km</unitPattern>
-				<unitPattern count="other">{0}km</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-				<unitPattern count="one">{0}m</unitPattern>
-				<unitPattern count="other">{0}m</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<displayName>mm</displayName>
-				<unitPattern count="one">{0}mm</unitPattern>
-				<unitPattern count="other">{0}mm</unitPattern>
-			</unit>
-			<unit type="length-picometer">
-				<unitPattern count="one" draft="contributed">{0}pm</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}pm</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>g</displayName>
-				<unitPattern count="one">{0}g</unitPattern>
-				<unitPattern count="other">{0}g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<displayName>kg</displayName>
-				<unitPattern count="one">{0}kg</unitPattern>
-				<unitPattern count="other">{0}kg</unitPattern>
-			</unit>
-			<unit type="power-kilowatt">
-				<unitPattern count="one" draft="contributed">{0}kW</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}kW</unitPattern>
-			</unit>
-			<unit type="power-watt">
-				<unitPattern count="one" draft="contributed">{0}W</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}W</unitPattern>
-			</unit>
-			<unit type="pressure-hectopascal">
-				<unitPattern count="one" draft="contributed">{0}hPa</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}hPa</unitPattern>
-			</unit>
-			<unit type="pressure-millibar">
-				<unitPattern count="one" draft="contributed">{0}mbar</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}mbar</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>km/t</displayName>
-				<unitPattern count="one">{0}km/t</unitPattern>
-				<unitPattern count="other">{0}km/t</unitPattern>
-			</unit>
-			<unit type="speed-meter-per-second">
-				<unitPattern count="one" draft="contributed">{0}m/s</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}m/s</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>°</displayName>
-				<unitPattern count="one">{0}°</unitPattern>
-				<unitPattern count="other">{0}°</unitPattern>
-			</unit>
-			<unit type="temperature-fahrenheit">
-				<unitPattern count="one" draft="contributed">{0}°F</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}°F</unitPattern>
-			</unit>
-			<unit type="volume-cubic-kilometer">
-				<unitPattern count="one" draft="contributed">{0}km³</unitPattern>
-				<unitPattern count="other" draft="contributed">{0}km³</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>l</displayName>
-				<unitPattern count="one">{0}l</unitPattern>
-				<unitPattern count="other">{0}l</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0}V</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
@@ -6637,10 +6454,193 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} tesk.</unitPattern>
 			</unit>
 			<coordinateUnit>
-				<coordinateUnitPattern type="east">{0} E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} E</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} S</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} V</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<unitPattern count="one" draft="contributed">{0}G</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}G</unitPattern>
+			</unit>
+			<unit type="angle-arc-minute">
+				<unitPattern count="one" draft="contributed">{0}′</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}′</unitPattern>
+			</unit>
+			<unit type="angle-arc-second">
+				<unitPattern count="one" draft="contributed">{0}″</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}″</unitPattern>
+			</unit>
+			<unit type="angle-degree">
+				<unitPattern count="one" draft="contributed">{0}°</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}°</unitPattern>
+			</unit>
+			<unit type="area-hectare">
+				<unitPattern count="one" draft="contributed">{0}ha</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}ha</unitPattern>
+			</unit>
+			<unit type="area-square-kilometer">
+				<unitPattern count="one" draft="contributed">{0}km²</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}km²</unitPattern>
+			</unit>
+			<unit type="area-square-meter">
+				<unitPattern count="one" draft="contributed">{0}m²</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}m²</unitPattern>
+			</unit>
+			<unit type="concentr-milligram-per-deciliter">
+				<displayName>mg/dL</displayName>
+				<unitPattern count="one">{0}mg/dL</unitPattern>
+				<unitPattern count="other">{0}mg/dL</unitPattern>
+			</unit>
+			<unit type="concentr-millimole-per-liter">
+				<displayName>mmol/L</displayName>
+				<unitPattern count="one">{0}mmol/L</unitPattern>
+				<unitPattern count="other">{0}mmol/L</unitPattern>
+			</unit>
+			<unit type="concentr-part-per-million">
+				<displayName>ppm</displayName>
+				<unitPattern count="one">{0} ppm</unitPattern>
+				<unitPattern count="other">{0} ppm</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100kilometers">
+				<displayName>l/100km</displayName>
+				<unitPattern count="one">{0}l/100km</unitPattern>
+				<unitPattern count="other">{0}l/100km</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>d.</displayName>
+				<unitPattern count="one">{0}d.</unitPattern>
+				<unitPattern count="other">{0}d.</unitPattern>
+				<perUnitPattern>{0}/d</perUnitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>t.</displayName>
+				<unitPattern count="one">{0}t.</unitPattern>
+				<unitPattern count="other">{0}t.</unitPattern>
+				<perUnitPattern>{0}/t.</perUnitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>ms.</displayName>
+				<unitPattern count="one">{0}ms.</unitPattern>
+				<unitPattern count="other">{0}ms.</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>m.</displayName>
+				<unitPattern count="one">{0}m.</unitPattern>
+				<unitPattern count="other">{0}m.</unitPattern>
+				<perUnitPattern>{0}/min</perUnitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>m.</displayName>
+				<unitPattern count="one">{0}m.</unitPattern>
+				<unitPattern count="other">{0}m.</unitPattern>
+			</unit>
+			<unit type="duration-nanosecond">
+				<displayName>ns</displayName>
+			</unit>
+			<unit type="duration-second">
+				<displayName>s.</displayName>
+				<unitPattern count="one">{0}s.</unitPattern>
+				<unitPattern count="other">{0}s.</unitPattern>
+				<perUnitPattern>{0}/s</perUnitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>v.</displayName>
+				<unitPattern count="one">{0}v.</unitPattern>
+				<unitPattern count="other">{0}v.</unitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>ár</displayName>
+				<unitPattern count="one">{0}ár</unitPattern>
+				<unitPattern count="other">{0}ár</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>cm</displayName>
+				<unitPattern count="one">{0}cm</unitPattern>
+				<unitPattern count="other">{0}cm</unitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="one">{0}km</unitPattern>
+				<unitPattern count="other">{0}km</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>m</displayName>
+				<unitPattern count="one">{0}m</unitPattern>
+				<unitPattern count="other">{0}m</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="one">{0}mm</unitPattern>
+				<unitPattern count="other">{0}mm</unitPattern>
+			</unit>
+			<unit type="length-picometer">
+				<unitPattern count="one" draft="contributed">{0}pm</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}pm</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>g</displayName>
+				<unitPattern count="one">{0}g</unitPattern>
+				<unitPattern count="other">{0}g</unitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kg</displayName>
+				<unitPattern count="one">{0}kg</unitPattern>
+				<unitPattern count="other">{0}kg</unitPattern>
+			</unit>
+			<unit type="power-kilowatt">
+				<unitPattern count="one" draft="contributed">{0}kW</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}kW</unitPattern>
+			</unit>
+			<unit type="power-watt">
+				<unitPattern count="one" draft="contributed">{0}W</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}W</unitPattern>
+			</unit>
+			<unit type="pressure-hectopascal">
+				<unitPattern count="one" draft="contributed">{0}hPa</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}hPa</unitPattern>
+			</unit>
+			<unit type="pressure-millibar">
+				<unitPattern count="one" draft="contributed">{0}mbar</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}mbar</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/t</displayName>
+				<unitPattern count="one">{0}km/t</unitPattern>
+				<unitPattern count="other">{0}km/t</unitPattern>
+			</unit>
+			<unit type="speed-meter-per-second">
+				<unitPattern count="one" draft="contributed">{0}m/s</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}m/s</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°</displayName>
+				<unitPattern count="one">{0}°</unitPattern>
+				<unitPattern count="other">{0}°</unitPattern>
+			</unit>
+			<unit type="temperature-fahrenheit">
+				<unitPattern count="one" draft="contributed">{0}°F</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}°F</unitPattern>
+			</unit>
+			<unit type="volume-cubic-kilometer">
+				<unitPattern count="one" draft="contributed">{0}km³</unitPattern>
+				<unitPattern count="other" draft="contributed">{0}km³</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>l</displayName>
+				<unitPattern count="one">{0}l</unitPattern>
+				<unitPattern count="other">{0}l</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}V</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 	</units>
@@ -6838,17 +6838,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — Annað</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — Alt</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — Sambæri</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} — Girða</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} — Víðkað</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — Søguligt</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — ymiskt</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — Annað</characterLabelPattern>
 		<characterLabelPattern type="scripts">Skriftir — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} strok</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} strok</characterLabelPattern>
-		<characterLabel type="other">Annað</characterLabel>
 		<characterLabel type="activities">Virksemi</characterLabel>
 		<characterLabel type="african_scripts">Afrikanskar skriftir</characterLabel>
 		<characterLabel type="american_scripts">Amerikanskar skriftir</characterLabel>
@@ -6907,6 +6906,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">Einki glopp</characterLabel>
 		<characterLabel type="numbers">Tøl</characterLabel>
 		<characterLabel type="objects">Lutir</characterLabel>
+		<characterLabel type="other">Annað</characterLabel>
 		<characterLabel type="paired">Greipa saman</characterLabel>
 		<characterLabel type="person">Persónur</characterLabel>
 		<characterLabel type="phonetic_alphabet">Ljóðstavrað</characterLabel>
@@ -6961,12 +6961,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<sil:font name="Noto Sans" types="ui">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf</sil:url>
 			</sil:font>
-			<sil:kbd id="basic_kbdfo" type="kmp">
-				<sil:url draft="generated">https://keyman.com/go/keyboard/basic_kbdfo/download/kmp</sil:url>
-			</sil:kbd>
 			<sil:font name="Noto Serif">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSerif/NotoSerif-Regular.ttf</sil:url>
 			</sil:font>
+			<sil:kbd id="basic_kbdfo" type="kmp">
+				<sil:url draft="generated">https://keyman.com/go/keyboard/basic_kbdfo/download/kmp</sil:url>
+			</sil:kbd>
 		</sil:external-resources>
 	</special>
 </ldml>

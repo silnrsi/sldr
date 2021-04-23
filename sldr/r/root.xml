@@ -24,9 +24,9 @@ for derived annotations.
 			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
 		</localeDisplayPattern>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">UK</measurementSystemName>
 			<measurementSystemName type="US">US</measurementSystemName>
 			<measurementSystemName type="metric">Metric</measurementSystemName>
+			<measurementSystemName type="UK">UK</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">{0}</codePattern>
@@ -43,19 +43,15 @@ for derived annotations.
 	<characters>
 		<exemplarCharacters>[]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[]</exemplarCharacters>
-		<exemplarCharacters type="numbers">[\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- , ; \: ! ? . ( ) \[ \] \{ \}]</exemplarCharacters>
-		<ellipsis type="final">{0}…</ellipsis>
+		<exemplarCharacters type="numbers">[\- , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<ellipsis type="initial">…{0}</ellipsis>
 		<ellipsis type="medial">{0}…{1}</ellipsis>
-		<ellipsis type="word-final">{0} …</ellipsis>
+		<ellipsis type="final">{0}…</ellipsis>
 		<ellipsis type="word-initial">… {0}</ellipsis>
 		<ellipsis type="word-medial">{0} … {1}</ellipsis>
+		<ellipsis type="word-final">{0} …</ellipsis>
 		<moreInformation>?</moreInformation>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample="-">[\--/]</parseLenient>
-			<parseLenient sample=":">[\:∶︓﹕：]</parseLenient>
-		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$">[\$﹩＄]</parseLenient>
 			<parseLenient sample="%">[%٪﹪％]</parseLenient>
@@ -75,6 +71,10 @@ for derived annotations.
 		<parseLenients scope="number" level="stricter">
 			<parseLenient sample=",">[,٫︐﹐，]</parseLenient>
 			<parseLenient sample=".">[.․﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample="-">[\--/]</parseLenient>
+			<parseLenient sample=":">[\:∶︓﹕：]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -179,11 +179,6 @@ for derived annotations.
 							<monthPattern type="leap">{0}bis</monthPattern>
 						</monthPatternWidth>
 					</monthPatternContext>
-					<monthPatternContext type="numeric">
-						<monthPatternWidth type="all">
-							<monthPattern type="leap">{0}bis</monthPattern>
-						</monthPatternWidth>
-					</monthPatternContext>
 					<monthPatternContext type="stand-alone">
 						<monthPatternWidth type="abbreviated">
 							<alias source="locale" path="../../monthPatternContext[@type='format']/monthPatternWidth[@type='abbreviated']"/>
@@ -193,6 +188,11 @@ for derived annotations.
 						</monthPatternWidth>
 						<monthPatternWidth type="wide">
 							<alias source="locale" path="../../monthPatternContext[@type='format']/monthPatternWidth[@type='wide']"/>
+						</monthPatternWidth>
+					</monthPatternContext>
+					<monthPatternContext type="numeric">
+						<monthPatternWidth type="all">
+							<monthPattern type="leap">{0}bis</monthPattern>
 						</monthPatternWidth>
 					</monthPatternContext>
 				</monthPatterns>
@@ -207,84 +207,10 @@ for derived annotations.
 				</dayPeriods>
 				<!-- chinese eras are computed, and don't fall back to gregorian -->
 				<cyclicNameSets>
-					<cyclicNameSet type="dayParts">
-						<cyclicNameContext type="format">
-							<cyclicNameWidth type="abbreviated">
-								<cyclicName type="1">zi</cyclicName>
-								<cyclicName type="2">chou</cyclicName>
-								<cyclicName type="3">yin</cyclicName>
-								<cyclicName type="4">mao</cyclicName>
-								<cyclicName type="5">chen</cyclicName>
-								<cyclicName type="6">si</cyclicName>
-								<cyclicName type="7">wu</cyclicName>
-								<cyclicName type="8">wei</cyclicName>
-								<cyclicName type="9">shen</cyclicName>
-								<cyclicName type="10">you</cyclicName>
-								<cyclicName type="11">xu</cyclicName>
-								<cyclicName type="12">hai</cyclicName>
-							</cyclicNameWidth>
-							<cyclicNameWidth type="narrow">
-								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
-							</cyclicNameWidth>
-							<cyclicNameWidth type="wide">
-								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
-							</cyclicNameWidth>
-						</cyclicNameContext>
-					</cyclicNameSet>
-					<cyclicNameSet type="days">
-						<alias source="locale" path="../cyclicNameSet[@type='years']"/>
-					</cyclicNameSet>
-					<cyclicNameSet type="months">
-						<alias source="locale" path="../cyclicNameSet[@type='years']"/>
-					</cyclicNameSet>
-					<cyclicNameSet type="solarTerms">
-						<cyclicNameContext type="format">
-							<cyclicNameWidth type="abbreviated">
-								<cyclicName type="1">spring begins</cyclicName>
-								<cyclicName type="2">rain water</cyclicName>
-								<cyclicName type="3">insects awaken</cyclicName>
-								<cyclicName type="4">spring equinox</cyclicName>
-								<cyclicName type="5">bright and clear</cyclicName>
-								<cyclicName type="6">grain rain</cyclicName>
-								<cyclicName type="7">summer begins</cyclicName>
-								<cyclicName type="8">grain full</cyclicName>
-								<cyclicName type="9">grain in ear</cyclicName>
-								<cyclicName type="10">summer solstice</cyclicName>
-								<cyclicName type="11">minor heat</cyclicName>
-								<cyclicName type="12">major heat</cyclicName>
-								<cyclicName type="13">autumn begins</cyclicName>
-								<cyclicName type="14">end of heat</cyclicName>
-								<cyclicName type="15">white dew</cyclicName>
-								<cyclicName type="16">autumn equinox</cyclicName>
-								<cyclicName type="17">cold dew</cyclicName>
-								<cyclicName type="18">frost descends</cyclicName>
-								<cyclicName type="19">winter begins</cyclicName>
-								<cyclicName type="20">minor snow</cyclicName>
-								<cyclicName type="21">major snow</cyclicName>
-								<cyclicName type="22">winter solstice</cyclicName>
-								<cyclicName type="23">minor cold</cyclicName>
-								<cyclicName type="24">major cold</cyclicName>
-							</cyclicNameWidth>
-							<cyclicNameWidth type="narrow">
-								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
-							</cyclicNameWidth>
-							<cyclicNameWidth type="wide">
-								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
-							</cyclicNameWidth>
-						</cyclicNameContext>
-					</cyclicNameSet>
 					<cyclicNameSet type="years">
 						<cyclicNameContext type="format">
 							<cyclicNameWidth type="abbreviated">
 								<cyclicName type="1">jia-zi</cyclicName>
-								<cyclicName type="2">yi-chou</cyclicName>
-								<cyclicName type="3">bing-yin</cyclicName>
-								<cyclicName type="4">ding-mao</cyclicName>
-								<cyclicName type="5">wu-chen</cyclicName>
-								<cyclicName type="6">ji-si</cyclicName>
-								<cyclicName type="7">geng-wu</cyclicName>
-								<cyclicName type="8">xin-wei</cyclicName>
-								<cyclicName type="9">ren-shen</cyclicName>
 								<cyclicName type="10">gui-you</cyclicName>
 								<cyclicName type="11">jia-xu</cyclicName>
 								<cyclicName type="12">yi-hai</cyclicName>
@@ -295,6 +221,7 @@ for derived annotations.
 								<cyclicName type="17">geng-chen</cyclicName>
 								<cyclicName type="18">xin-si</cyclicName>
 								<cyclicName type="19">ren-wu</cyclicName>
+								<cyclicName type="2">yi-chou</cyclicName>
 								<cyclicName type="20">gui-wei</cyclicName>
 								<cyclicName type="21">jia-shen</cyclicName>
 								<cyclicName type="22">yi-you</cyclicName>
@@ -305,6 +232,7 @@ for derived annotations.
 								<cyclicName type="27">geng-yin</cyclicName>
 								<cyclicName type="28">xin-mao</cyclicName>
 								<cyclicName type="29">ren-chen</cyclicName>
+								<cyclicName type="3">bing-yin</cyclicName>
 								<cyclicName type="30">gui-si</cyclicName>
 								<cyclicName type="31">jia-wu</cyclicName>
 								<cyclicName type="32">yi-wei</cyclicName>
@@ -315,6 +243,7 @@ for derived annotations.
 								<cyclicName type="37">geng-zi</cyclicName>
 								<cyclicName type="38">xin-chou</cyclicName>
 								<cyclicName type="39">ren-yin</cyclicName>
+								<cyclicName type="4">ding-mao</cyclicName>
 								<cyclicName type="40">gui-mao</cyclicName>
 								<cyclicName type="41">jia-chen</cyclicName>
 								<cyclicName type="42">yi-si</cyclicName>
@@ -325,6 +254,7 @@ for derived annotations.
 								<cyclicName type="47">geng-xu</cyclicName>
 								<cyclicName type="48">xin-hai</cyclicName>
 								<cyclicName type="49">ren-zi</cyclicName>
+								<cyclicName type="5">wu-chen</cyclicName>
 								<cyclicName type="50">gui-chou</cyclicName>
 								<cyclicName type="51">jia-yin</cyclicName>
 								<cyclicName type="52">yi-mao</cyclicName>
@@ -335,7 +265,41 @@ for derived annotations.
 								<cyclicName type="57">geng-shen</cyclicName>
 								<cyclicName type="58">xin-you</cyclicName>
 								<cyclicName type="59">ren-xu</cyclicName>
+								<cyclicName type="6">ji-si</cyclicName>
 								<cyclicName type="60">gui-hai</cyclicName>
+								<cyclicName type="7">geng-wu</cyclicName>
+								<cyclicName type="8">xin-wei</cyclicName>
+								<cyclicName type="9">ren-shen</cyclicName>
+							</cyclicNameWidth>
+							<cyclicNameWidth type="narrow">
+								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
+							</cyclicNameWidth>
+							<cyclicNameWidth type="wide">
+								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
+							</cyclicNameWidth>
+						</cyclicNameContext>
+					</cyclicNameSet>
+					<cyclicNameSet type="months">
+						<alias source="locale" path="../cyclicNameSet[@type='years']"/>
+					</cyclicNameSet>
+					<cyclicNameSet type="days">
+						<alias source="locale" path="../cyclicNameSet[@type='years']"/>
+					</cyclicNameSet>
+					<cyclicNameSet type="dayParts">
+						<cyclicNameContext type="format">
+							<cyclicNameWidth type="abbreviated">
+								<cyclicName type="1">zi</cyclicName>
+								<cyclicName type="10">you</cyclicName>
+								<cyclicName type="11">xu</cyclicName>
+								<cyclicName type="12">hai</cyclicName>
+								<cyclicName type="2">chou</cyclicName>
+								<cyclicName type="3">yin</cyclicName>
+								<cyclicName type="4">mao</cyclicName>
+								<cyclicName type="5">chen</cyclicName>
+								<cyclicName type="6">si</cyclicName>
+								<cyclicName type="7">wu</cyclicName>
+								<cyclicName type="8">wei</cyclicName>
+								<cyclicName type="9">shen</cyclicName>
 							</cyclicNameWidth>
 							<cyclicNameWidth type="narrow">
 								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
@@ -349,6 +313,42 @@ for derived annotations.
 						<cyclicNameContext type="format">
 							<cyclicNameWidth type="abbreviated">
 								<alias source="locale" path="../../../cyclicNameSet[@type='dayParts']/cyclicNameContext[@type='format']/cyclicNameWidth[@type='abbreviated']"/>
+							</cyclicNameWidth>
+							<cyclicNameWidth type="narrow">
+								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
+							</cyclicNameWidth>
+							<cyclicNameWidth type="wide">
+								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
+							</cyclicNameWidth>
+						</cyclicNameContext>
+					</cyclicNameSet>
+					<cyclicNameSet type="solarTerms">
+						<cyclicNameContext type="format">
+							<cyclicNameWidth type="abbreviated">
+								<cyclicName type="1">spring begins</cyclicName>
+								<cyclicName type="10">summer solstice</cyclicName>
+								<cyclicName type="11">minor heat</cyclicName>
+								<cyclicName type="12">major heat</cyclicName>
+								<cyclicName type="13">autumn begins</cyclicName>
+								<cyclicName type="14">end of heat</cyclicName>
+								<cyclicName type="15">white dew</cyclicName>
+								<cyclicName type="16">autumn equinox</cyclicName>
+								<cyclicName type="17">cold dew</cyclicName>
+								<cyclicName type="18">frost descends</cyclicName>
+								<cyclicName type="19">winter begins</cyclicName>
+								<cyclicName type="2">rain water</cyclicName>
+								<cyclicName type="20">minor snow</cyclicName>
+								<cyclicName type="21">major snow</cyclicName>
+								<cyclicName type="22">winter solstice</cyclicName>
+								<cyclicName type="23">minor cold</cyclicName>
+								<cyclicName type="24">major cold</cyclicName>
+								<cyclicName type="3">insects awaken</cyclicName>
+								<cyclicName type="4">spring equinox</cyclicName>
+								<cyclicName type="5">bright and clear</cyclicName>
+								<cyclicName type="6">grain rain</cyclicName>
+								<cyclicName type="7">summer begins</cyclicName>
+								<cyclicName type="8">grain full</cyclicName>
+								<cyclicName type="9">grain in ear</cyclicName>
 							</cyclicNameWidth>
 							<cyclicNameWidth type="narrow">
 								<alias source="locale" path="../cyclicNameWidth[@type='abbreviated']"/>
@@ -1907,104 +1907,7 @@ for derived annotations.
 						-->
 						<era type="0">Taika (645–650)</era>
 						<era type="1">Hakuchi (650–671)</era>
-						<era type="2">Hakuhō (672–686)</era>
-						<era type="3">Shuchō (686–701)</era>
-						<era type="4">Taihō (701–704)</era>
-						<era type="5">Keiun (704–708)</era>
-						<era type="6">Wadō (708–715)</era>
-						<era type="7">Reiki (715–717)</era>
-						<era type="8">Yōrō (717–724)</era>
-						<era type="9">Jinki (724–729)</era>
 						<era type="10">Tenpyō (729–749)</era>
-						<era type="11">Tenpyō-kampō (749–749)</era>
-						<era type="12">Tenpyō-shōhō (749–757)</era>
-						<era type="13">Tenpyō-hōji (757–765)</era>
-						<era type="14">Tenpyō-jingo (765–767)</era>
-						<era type="15">Jingo-keiun (767–770)</era>
-						<era type="16">Hōki (770–780)</era>
-						<era type="17">Ten-ō (781–782)</era>
-						<era type="18">Enryaku (782–806)</era>
-						<era type="19">Daidō (806–810)</era>
-						<era type="20">Kōnin (810–824)</era>
-						<era type="21">Tenchō (824–834)</era>
-						<era type="22">Jōwa (834–848)</era>
-						<era type="23">Kajō (848–851)</era>
-						<era type="24">Ninju (851–854)</era>
-						<era type="25">Saikō (854–857)</era>
-						<era type="26">Ten-an (857–859)</era>
-						<era type="27">Jōgan (859–877)</era>
-						<era type="28">Gangyō (877–885)</era>
-						<era type="29">Ninna (885–889)</era>
-						<era type="30">Kanpyō (889–898)</era>
-						<era type="31">Shōtai (898–901)</era>
-						<era type="32">Engi (901–923)</era>
-						<era type="33">Enchō (923–931)</era>
-						<era type="34">Jōhei (931–938)</era>
-						<era type="35">Tengyō (938–947)</era>
-						<era type="36">Tenryaku (947–957)</era>
-						<era type="37">Tentoku (957–961)</era>
-						<era type="38">Ōwa (961–964)</era>
-						<era type="39">Kōhō (964–968)</era>
-						<era type="40">Anna (968–970)</era>
-						<era type="41">Tenroku (970–973)</era>
-						<era type="42">Ten’en (973–976)</era>
-						<era type="43">Jōgen (976–978)</era>
-						<era type="44">Tengen (978–983)</era>
-						<era type="45">Eikan (983–985)</era>
-						<era type="46">Kanna (985–987)</era>
-						<era type="47">Eien (987–989)</era>
-						<era type="48">Eiso (989–990)</era>
-						<era type="49">Shōryaku (990–995)</era>
-						<era type="50">Chōtoku (995–999)</era>
-						<era type="51">Chōhō (999–1004)</era>
-						<era type="52">Kankō (1004–1012)</era>
-						<era type="53">Chōwa (1012–1017)</era>
-						<era type="54">Kannin (1017–1021)</era>
-						<era type="55">Jian (1021–1024)</era>
-						<era type="56">Manju (1024–1028)</era>
-						<era type="57">Chōgen (1028–1037)</era>
-						<era type="58">Chōryaku (1037–1040)</era>
-						<era type="59">Chōkyū (1040–1044)</era>
-						<era type="60">Kantoku (1044–1046)</era>
-						<era type="61">Eishō (1046–1053)</era>
-						<era type="62">Tengi (1053–1058)</era>
-						<era type="63">Kōhei (1058–1065)</era>
-						<era type="64">Jiryaku (1065–1069)</era>
-						<era type="65">Enkyū (1069–1074)</era>
-						<era type="66">Shōho (1074–1077)</era>
-						<era type="67">Shōryaku (1077–1081)</era>
-						<era type="68">Eihō (1081–1084)</era>
-						<era type="69">Ōtoku (1084–1087)</era>
-						<era type="70">Kanji (1087–1094)</era>
-						<era type="71">Kahō (1094–1096)</era>
-						<era type="72">Eichō (1096–1097)</era>
-						<era type="73">Jōtoku (1097–1099)</era>
-						<era type="74">Kōwa (1099–1104)</era>
-						<era type="75">Chōji (1104–1106)</era>
-						<era type="76">Kashō (1106–1108)</era>
-						<era type="77">Tennin (1108–1110)</era>
-						<era type="78">Ten-ei (1110–1113)</era>
-						<era type="79">Eikyū (1113–1118)</era>
-						<era type="80">Gen’ei (1118–1120)</era>
-						<era type="81">Hōan (1120–1124)</era>
-						<era type="82">Tenji (1124–1126)</era>
-						<era type="83">Daiji (1126–1131)</era>
-						<era type="84">Tenshō (1131–1132)</era>
-						<era type="85">Chōshō (1132–1135)</era>
-						<era type="86">Hōen (1135–1141)</era>
-						<era type="87">Eiji (1141–1142)</era>
-						<era type="88">Kōji (1142–1144)</era>
-						<era type="89">Ten’yō (1144–1145)</era>
-						<era type="90">Kyūan (1145–1151)</era>
-						<era type="91">Ninpei (1151–1154)</era>
-						<era type="92">Kyūju (1154–1156)</era>
-						<era type="93">Hōgen (1156–1159)</era>
-						<era type="94">Heiji (1159–1160)</era>
-						<era type="95">Eiryaku (1160–1161)</era>
-						<era type="96">Ōho (1161–1163)</era>
-						<era type="97">Chōkan (1163–1165)</era>
-						<era type="98">Eiman (1165–1166)</era>
-						<era type="99">Nin’an (1166–1169)</era>
 						<era type="100">Kaō (1169–1171)</era>
 						<era type="101">Shōan (1171–1175)</era>
 						<era type="102">Angen (1175–1177)</era>
@@ -2015,6 +1918,7 @@ for derived annotations.
 						<era type="107">Bunji (1185–1190)</era>
 						<era type="108">Kenkyū (1190–1199)</era>
 						<era type="109">Shōji (1199–1201)</era>
+						<era type="11">Tenpyō-kampō (749–749)</era>
 						<era type="110">Kennin (1201–1204)</era>
 						<era type="111">Genkyū (1204–1206)</era>
 						<era type="112">Ken’ei (1206–1207)</era>
@@ -2025,6 +1929,7 @@ for derived annotations.
 						<era type="117">Jōō (1222–1224)</era>
 						<era type="118">Gennin (1224–1225)</era>
 						<era type="119">Karoku (1225–1227)</era>
+						<era type="12">Tenpyō-shōhō (749–757)</era>
 						<era type="120">Antei (1227–1229)</era>
 						<era type="121">Kanki (1229–1232)</era>
 						<era type="122">Jōei (1232–1233)</era>
@@ -2035,6 +1940,7 @@ for derived annotations.
 						<era type="127">En’ō (1239–1240)</era>
 						<era type="128">Ninji (1240–1243)</era>
 						<era type="129">Kangen (1243–1247)</era>
+						<era type="13">Tenpyō-hōji (757–765)</era>
 						<era type="130">Hōji (1247–1249)</era>
 						<era type="131">Kenchō (1249–1256)</era>
 						<era type="132">Kōgen (1256–1257)</era>
@@ -2045,6 +1951,7 @@ for derived annotations.
 						<era type="137">Bun’ei (1264–1275)</era>
 						<era type="138">Kenji (1275–1278)</era>
 						<era type="139">Kōan (1278–1288)</era>
+						<era type="14">Tenpyō-jingo (765–767)</era>
 						<era type="140">Shōō (1288–1293)</era>
 						<era type="141">Einin (1293–1299)</era>
 						<era type="142">Shōan (1299–1302)</era>
@@ -2055,6 +1962,7 @@ for derived annotations.
 						<era type="147">Ōchō (1311–1312)</era>
 						<era type="148">Shōwa (1312–1317)</era>
 						<era type="149">Bunpō (1317–1319)</era>
+						<era type="15">Jingo-keiun (767–770)</era>
 						<era type="150">Genō (1319–1321)</era>
 						<era type="151">Genkō (1321–1324)</era>
 						<era type="152">Shōchū (1324–1326)</era>
@@ -2065,6 +1973,7 @@ for derived annotations.
 						<era type="157">Engen (1336–1340)</era>
 						<era type="158">Kōkoku (1340–1346)</era>
 						<era type="159">Shōhei (1346–1370)</era>
+						<era type="16">Hōki (770–780)</era>
 						<era type="160">Kentoku (1370–1372)</era>
 						<era type="161">Bunchū (1372–1375)</era>
 						<era type="162">Tenju (1375–1379)</era>
@@ -2075,6 +1984,7 @@ for derived annotations.
 						<era type="167">Kakei (1387–1389)</era>
 						<era type="168">Kōō (1389–1390)</era>
 						<era type="169">Meitoku (1390–1394)</era>
+						<era type="17">Ten-ō (781–782)</era>
 						<era type="170">Ōei (1394–1428)</era>
 						<era type="171">Shōchō (1428–1429)</era>
 						<era type="172">Eikyō (1429–1441)</era>
@@ -2085,6 +1995,7 @@ for derived annotations.
 						<era type="177">Kōshō (1455–1457)</era>
 						<era type="178">Chōroku (1457–1460)</era>
 						<era type="179">Kanshō (1460–1466)</era>
+						<era type="18">Enryaku (782–806)</era>
 						<era type="180">Bunshō (1466–1467)</era>
 						<era type="181">Ōnin (1467–1469)</era>
 						<era type="182">Bunmei (1469–1487)</era>
@@ -2095,6 +2006,7 @@ for derived annotations.
 						<era type="187">Eishō (1504–1521)</era>
 						<era type="188">Taiei (1521–1528)</era>
 						<era type="189">Kyōroku (1528–1532)</era>
+						<era type="19">Daidō (806–810)</era>
 						<era type="190">Tenbun (1532–1555)</era>
 						<era type="191">Kōji (1555–1558)</era>
 						<era type="192">Eiroku (1558–1570)</era>
@@ -2105,6 +2017,8 @@ for derived annotations.
 						<era type="197">Genna (1615–1624)</era>
 						<era type="198">Kan’ei (1624–1644)</era>
 						<era type="199">Shōho (1644–1648)</era>
+						<era type="2">Hakuhō (672–686)</era>
+						<era type="20">Kōnin (810–824)</era>
 						<era type="200">Keian (1648–1652)</era>
 						<era type="201">Jōō (1652–1655)</era>
 						<era type="202">Meireki (1655–1658)</era>
@@ -2115,6 +2029,7 @@ for derived annotations.
 						<era type="207">Jōkyō (1684–1688)</era>
 						<era type="208">Genroku (1688–1704)</era>
 						<era type="209">Hōei (1704–1711)</era>
+						<era type="21">Tenchō (824–834)</era>
 						<era type="210">Shōtoku (1711–1716)</era>
 						<era type="211">Kyōhō (1716–1736)</era>
 						<era type="212">Genbun (1736–1741)</era>
@@ -2125,6 +2040,7 @@ for derived annotations.
 						<era type="217">Meiwa (1764–1772)</era>
 						<era type="218">An’ei (1772–1781)</era>
 						<era type="219">Tenmei (1781–1789)</era>
+						<era type="22">Jōwa (834–848)</era>
 						<era type="220">Kansei (1789–1801)</era>
 						<era type="221">Kyōwa (1801–1804)</era>
 						<era type="222">Bunka (1804–1818)</era>
@@ -2135,6 +2051,7 @@ for derived annotations.
 						<era type="227">Ansei (1854–1860)</era>
 						<era type="228">Man’en (1860–1861)</era>
 						<era type="229">Bunkyū (1861–1864)</era>
+						<era type="23">Kajō (848–851)</era>
 						<era type="230">Genji (1864–1865)</era>
 						<era type="231">Keiō (1865–1868)</era>
 						<era type="232">Meiji</era>
@@ -2142,38 +2059,13 @@ for derived annotations.
 						<era type="234">Shōwa</era>
 						<era type="235">Heisei</era>
 						<era type="236">Reiwa</era>
-					</eraAbbr>
-					<eraNarrow>
-						<era type="0">Taika (645–650)</era>
-						<era type="1">Hakuchi (650–671)</era>
-						<era type="2">Hakuhō (672–686)</era>
-						<era type="3">Shuchō (686–701)</era>
-						<era type="4">Taihō (701–704)</era>
-						<era type="5">Keiun (704–708)</era>
-						<era type="6">Wadō (708–715)</era>
-						<era type="7">Reiki (715–717)</era>
-						<era type="8">Yōrō (717–724)</era>
-						<era type="9">Jinki (724–729)</era>
-						<era type="10">Tenpyō (729–749)</era>
-						<era type="11">Tenpyō-kampō (749–749)</era>
-						<era type="12">Tenpyō-shōhō (749–757)</era>
-						<era type="13">Tenpyō-hōji (757–765)</era>
-						<era type="14">Tenpyō-jingo (765–767)</era>
-						<era type="15">Jingo-keiun (767–770)</era>
-						<era type="16">Hōki (770–780)</era>
-						<era type="17">Ten-ō (781–782)</era>
-						<era type="18">Enryaku (782–806)</era>
-						<era type="19">Daidō (806–810)</era>
-						<era type="20">Kōnin (810–824)</era>
-						<era type="21">Tenchō (824–834)</era>
-						<era type="22">Jōwa (834–848)</era>
-						<era type="23">Kajō (848–851)</era>
 						<era type="24">Ninju (851–854)</era>
 						<era type="25">Saikō (854–857)</era>
 						<era type="26">Ten-an (857–859)</era>
 						<era type="27">Jōgan (859–877)</era>
 						<era type="28">Gangyō (877–885)</era>
 						<era type="29">Ninna (885–889)</era>
+						<era type="3">Shuchō (686–701)</era>
 						<era type="30">Kanpyō (889–898)</era>
 						<era type="31">Shōtai (898–901)</era>
 						<era type="32">Engi (901–923)</era>
@@ -2184,6 +2076,7 @@ for derived annotations.
 						<era type="37">Tentoku (957–961)</era>
 						<era type="38">Ōwa (961–964)</era>
 						<era type="39">Kōhō (964–968)</era>
+						<era type="4">Taihō (701–704)</era>
 						<era type="40">Anna (968–970)</era>
 						<era type="41">Tenroku (970–973)</era>
 						<era type="42">Ten’en (973–976)</era>
@@ -2194,6 +2087,7 @@ for derived annotations.
 						<era type="47">Eien (987–989)</era>
 						<era type="48">Eiso (989–990)</era>
 						<era type="49">Shōryaku (990–995)</era>
+						<era type="5">Keiun (704–708)</era>
 						<era type="50">Chōtoku (995–999)</era>
 						<era type="51">Chōhō (999–1004)</era>
 						<era type="52">Kankō (1004–1012)</era>
@@ -2204,6 +2098,7 @@ for derived annotations.
 						<era type="57">Chōgen (1028–1037)</era>
 						<era type="58">Chōryaku (1037–1040)</era>
 						<era type="59">Chōkyū (1040–1044)</era>
+						<era type="6">Wadō (708–715)</era>
 						<era type="60">Kantoku (1044–1046)</era>
 						<era type="61">Eishō (1046–1053)</era>
 						<era type="62">Tengi (1053–1058)</era>
@@ -2214,6 +2109,7 @@ for derived annotations.
 						<era type="67">Shōryaku (1077–1081)</era>
 						<era type="68">Eihō (1081–1084)</era>
 						<era type="69">Ōtoku (1084–1087)</era>
+						<era type="7">Reiki (715–717)</era>
 						<era type="70">Kanji (1087–1094)</era>
 						<era type="71">Kahō (1094–1096)</era>
 						<era type="72">Eichō (1096–1097)</era>
@@ -2224,6 +2120,7 @@ for derived annotations.
 						<era type="77">Tennin (1108–1110)</era>
 						<era type="78">Ten-ei (1110–1113)</era>
 						<era type="79">Eikyū (1113–1118)</era>
+						<era type="8">Yōrō (717–724)</era>
 						<era type="80">Gen’ei (1118–1120)</era>
 						<era type="81">Hōan (1120–1124)</era>
 						<era type="82">Tenji (1124–1126)</era>
@@ -2234,6 +2131,7 @@ for derived annotations.
 						<era type="87">Eiji (1141–1142)</era>
 						<era type="88">Kōji (1142–1144)</era>
 						<era type="89">Ten’yō (1144–1145)</era>
+						<era type="9">Jinki (724–729)</era>
 						<era type="90">Kyūan (1145–1151)</era>
 						<era type="91">Ninpei (1151–1154)</era>
 						<era type="92">Kyūju (1154–1156)</era>
@@ -2244,6 +2142,11 @@ for derived annotations.
 						<era type="97">Chōkan (1163–1165)</era>
 						<era type="98">Eiman (1165–1166)</era>
 						<era type="99">Nin’an (1166–1169)</era>
+					</eraAbbr>
+					<eraNarrow>
+						<era type="0">Taika (645–650)</era>
+						<era type="1">Hakuchi (650–671)</era>
+						<era type="10">Tenpyō (729–749)</era>
 						<era type="100">Kaō (1169–1171)</era>
 						<era type="101">Shōan (1171–1175)</era>
 						<era type="102">Angen (1175–1177)</era>
@@ -2254,6 +2157,7 @@ for derived annotations.
 						<era type="107">Bunji (1185–1190)</era>
 						<era type="108">Kenkyū (1190–1199)</era>
 						<era type="109">Shōji (1199–1201)</era>
+						<era type="11">Tenpyō-kampō (749–749)</era>
 						<era type="110">Kennin (1201–1204)</era>
 						<era type="111">Genkyū (1204–1206)</era>
 						<era type="112">Ken’ei (1206–1207)</era>
@@ -2264,6 +2168,7 @@ for derived annotations.
 						<era type="117">Jōō (1222–1224)</era>
 						<era type="118">Gennin (1224–1225)</era>
 						<era type="119">Karoku (1225–1227)</era>
+						<era type="12">Tenpyō-shōhō (749–757)</era>
 						<era type="120">Antei (1227–1229)</era>
 						<era type="121">Kanki (1229–1232)</era>
 						<era type="122">Jōei (1232–1233)</era>
@@ -2274,6 +2179,7 @@ for derived annotations.
 						<era type="127">En’ō (1239–1240)</era>
 						<era type="128">Ninji (1240–1243)</era>
 						<era type="129">Kangen (1243–1247)</era>
+						<era type="13">Tenpyō-hōji (757–765)</era>
 						<era type="130">Hōji (1247–1249)</era>
 						<era type="131">Kenchō (1249–1256)</era>
 						<era type="132">Kōgen (1256–1257)</era>
@@ -2284,6 +2190,7 @@ for derived annotations.
 						<era type="137">Bun’ei (1264–1275)</era>
 						<era type="138">Kenji (1275–1278)</era>
 						<era type="139">Kōan (1278–1288)</era>
+						<era type="14">Tenpyō-jingo (765–767)</era>
 						<era type="140">Shōō (1288–1293)</era>
 						<era type="141">Einin (1293–1299)</era>
 						<era type="142">Shōan (1299–1302)</era>
@@ -2294,6 +2201,7 @@ for derived annotations.
 						<era type="147">Ōchō (1311–1312)</era>
 						<era type="148">Shōwa (1312–1317)</era>
 						<era type="149">Bunpō (1317–1319)</era>
+						<era type="15">Jingo-keiun (767–770)</era>
 						<era type="150">Genō (1319–1321)</era>
 						<era type="151">Genkō (1321–1324)</era>
 						<era type="152">Shōchū (1324–1326)</era>
@@ -2304,6 +2212,7 @@ for derived annotations.
 						<era type="157">Engen (1336–1340)</era>
 						<era type="158">Kōkoku (1340–1346)</era>
 						<era type="159">Shōhei (1346–1370)</era>
+						<era type="16">Hōki (770–780)</era>
 						<era type="160">Kentoku (1370–1372)</era>
 						<era type="161">Bunchū (1372–1375)</era>
 						<era type="162">Tenju (1375–1379)</era>
@@ -2314,6 +2223,7 @@ for derived annotations.
 						<era type="167">Kakei (1387–1389)</era>
 						<era type="168">Kōō (1389–1390)</era>
 						<era type="169">Meitoku (1390–1394)</era>
+						<era type="17">Ten-ō (781–782)</era>
 						<era type="170">Ōei (1394–1428)</era>
 						<era type="171">Shōchō (1428–1429)</era>
 						<era type="172">Eikyō (1429–1441)</era>
@@ -2324,6 +2234,7 @@ for derived annotations.
 						<era type="177">Kōshō (1455–1457)</era>
 						<era type="178">Chōroku (1457–1460)</era>
 						<era type="179">Kanshō (1460–1466)</era>
+						<era type="18">Enryaku (782–806)</era>
 						<era type="180">Bunshō (1466–1467)</era>
 						<era type="181">Ōnin (1467–1469)</era>
 						<era type="182">Bunmei (1469–1487)</era>
@@ -2334,6 +2245,7 @@ for derived annotations.
 						<era type="187">Eishō (1504–1521)</era>
 						<era type="188">Taiei (1521–1528)</era>
 						<era type="189">Kyōroku (1528–1532)</era>
+						<era type="19">Daidō (806–810)</era>
 						<era type="190">Tenbun (1532–1555)</era>
 						<era type="191">Kōji (1555–1558)</era>
 						<era type="192">Eiroku (1558–1570)</era>
@@ -2344,6 +2256,8 @@ for derived annotations.
 						<era type="197">Genna (1615–1624)</era>
 						<era type="198">Kan’ei (1624–1644)</era>
 						<era type="199">Shōho (1644–1648)</era>
+						<era type="2">Hakuhō (672–686)</era>
+						<era type="20">Kōnin (810–824)</era>
 						<era type="200">Keian (1648–1652)</era>
 						<era type="201">Jōō (1652–1655)</era>
 						<era type="202">Meireki (1655–1658)</era>
@@ -2354,6 +2268,7 @@ for derived annotations.
 						<era type="207">Jōkyō (1684–1688)</era>
 						<era type="208">Genroku (1688–1704)</era>
 						<era type="209">Hōei (1704–1711)</era>
+						<era type="21">Tenchō (824–834)</era>
 						<era type="210">Shōtoku (1711–1716)</era>
 						<era type="211">Kyōhō (1716–1736)</era>
 						<era type="212">Genbun (1736–1741)</era>
@@ -2364,6 +2279,7 @@ for derived annotations.
 						<era type="217">Meiwa (1764–1772)</era>
 						<era type="218">An’ei (1772–1781)</era>
 						<era type="219">Tenmei (1781–1789)</era>
+						<era type="22">Jōwa (834–848)</era>
 						<era type="220">Kansei (1789–1801)</era>
 						<era type="221">Kyōwa (1801–1804)</era>
 						<era type="222">Bunka (1804–1818)</era>
@@ -2374,6 +2290,7 @@ for derived annotations.
 						<era type="227">Ansei (1854–1860)</era>
 						<era type="228">Man’en (1860–1861)</era>
 						<era type="229">Bunkyū (1861–1864)</era>
+						<era type="23">Kajō (848–851)</era>
 						<era type="230">Genji (1864–1865)</era>
 						<era type="231">Keiō (1865–1868)</era>
 						<era type="232">M</era>
@@ -2381,6 +2298,89 @@ for derived annotations.
 						<era type="234">S</era>
 						<era type="235">H</era>
 						<era type="236">R</era>
+						<era type="24">Ninju (851–854)</era>
+						<era type="25">Saikō (854–857)</era>
+						<era type="26">Ten-an (857–859)</era>
+						<era type="27">Jōgan (859–877)</era>
+						<era type="28">Gangyō (877–885)</era>
+						<era type="29">Ninna (885–889)</era>
+						<era type="3">Shuchō (686–701)</era>
+						<era type="30">Kanpyō (889–898)</era>
+						<era type="31">Shōtai (898–901)</era>
+						<era type="32">Engi (901–923)</era>
+						<era type="33">Enchō (923–931)</era>
+						<era type="34">Jōhei (931–938)</era>
+						<era type="35">Tengyō (938–947)</era>
+						<era type="36">Tenryaku (947–957)</era>
+						<era type="37">Tentoku (957–961)</era>
+						<era type="38">Ōwa (961–964)</era>
+						<era type="39">Kōhō (964–968)</era>
+						<era type="4">Taihō (701–704)</era>
+						<era type="40">Anna (968–970)</era>
+						<era type="41">Tenroku (970–973)</era>
+						<era type="42">Ten’en (973–976)</era>
+						<era type="43">Jōgen (976–978)</era>
+						<era type="44">Tengen (978–983)</era>
+						<era type="45">Eikan (983–985)</era>
+						<era type="46">Kanna (985–987)</era>
+						<era type="47">Eien (987–989)</era>
+						<era type="48">Eiso (989–990)</era>
+						<era type="49">Shōryaku (990–995)</era>
+						<era type="5">Keiun (704–708)</era>
+						<era type="50">Chōtoku (995–999)</era>
+						<era type="51">Chōhō (999–1004)</era>
+						<era type="52">Kankō (1004–1012)</era>
+						<era type="53">Chōwa (1012–1017)</era>
+						<era type="54">Kannin (1017–1021)</era>
+						<era type="55">Jian (1021–1024)</era>
+						<era type="56">Manju (1024–1028)</era>
+						<era type="57">Chōgen (1028–1037)</era>
+						<era type="58">Chōryaku (1037–1040)</era>
+						<era type="59">Chōkyū (1040–1044)</era>
+						<era type="6">Wadō (708–715)</era>
+						<era type="60">Kantoku (1044–1046)</era>
+						<era type="61">Eishō (1046–1053)</era>
+						<era type="62">Tengi (1053–1058)</era>
+						<era type="63">Kōhei (1058–1065)</era>
+						<era type="64">Jiryaku (1065–1069)</era>
+						<era type="65">Enkyū (1069–1074)</era>
+						<era type="66">Shōho (1074–1077)</era>
+						<era type="67">Shōryaku (1077–1081)</era>
+						<era type="68">Eihō (1081–1084)</era>
+						<era type="69">Ōtoku (1084–1087)</era>
+						<era type="7">Reiki (715–717)</era>
+						<era type="70">Kanji (1087–1094)</era>
+						<era type="71">Kahō (1094–1096)</era>
+						<era type="72">Eichō (1096–1097)</era>
+						<era type="73">Jōtoku (1097–1099)</era>
+						<era type="74">Kōwa (1099–1104)</era>
+						<era type="75">Chōji (1104–1106)</era>
+						<era type="76">Kashō (1106–1108)</era>
+						<era type="77">Tennin (1108–1110)</era>
+						<era type="78">Ten-ei (1110–1113)</era>
+						<era type="79">Eikyū (1113–1118)</era>
+						<era type="8">Yōrō (717–724)</era>
+						<era type="80">Gen’ei (1118–1120)</era>
+						<era type="81">Hōan (1120–1124)</era>
+						<era type="82">Tenji (1124–1126)</era>
+						<era type="83">Daiji (1126–1131)</era>
+						<era type="84">Tenshō (1131–1132)</era>
+						<era type="85">Chōshō (1132–1135)</era>
+						<era type="86">Hōen (1135–1141)</era>
+						<era type="87">Eiji (1141–1142)</era>
+						<era type="88">Kōji (1142–1144)</era>
+						<era type="89">Ten’yō (1144–1145)</era>
+						<era type="9">Jinki (724–729)</era>
+						<era type="90">Kyūan (1145–1151)</era>
+						<era type="91">Ninpei (1151–1154)</era>
+						<era type="92">Kyūju (1154–1156)</era>
+						<era type="93">Hōgen (1156–1159)</era>
+						<era type="94">Heiji (1159–1160)</era>
+						<era type="95">Eiryaku (1160–1161)</era>
+						<era type="96">Ōho (1161–1163)</era>
+						<era type="97">Chōkan (1163–1165)</era>
+						<era type="98">Eiman (1165–1166)</era>
+						<era type="99">Nin’an (1166–1169)</era>
 					</eraNarrow>
 				</eras>
 				<dateFormats>
@@ -2508,189 +2508,32 @@ for derived annotations.
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">last Sunday</relative>
-				<relative type="0">this Sunday</relative>
-				<relative type="1">next Sunday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Sundays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Sundays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">last Monday</relative>
-				<relative type="0">this Monday</relative>
-				<relative type="1">next Monday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Mondays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Mondays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">last Tuesday</relative>
-				<relative type="0">this Tuesday</relative>
-				<relative type="1">next Tuesday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Tuesdays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Tuesdays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">last Wednesday</relative>
-				<relative type="0">this Wednesday</relative>
-				<relative type="1">next Wednesday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Wednesdays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Wednesdays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">last Thursday</relative>
-				<relative type="0">this Thursday</relative>
-				<relative type="1">next Thursday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Thursdays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Thursdays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri">
-				<relative type="-1">last Friday</relative>
-				<relative type="0">this Friday</relative>
-				<relative type="1">next Friday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Fridays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Fridays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">last Saturday</relative>
-				<relative type="0">this Saturday</relative>
-				<relative type="1">next Saturday</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} Saturdays</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} Saturdays</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day">
-				<displayName>Day</displayName>
-				<relative type="-1">yesterday</relative>
-				<relative type="0">today</relative>
-				<relative type="1">tomorrow</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} d</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} d</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<alias source="locale" path="../field[@type='day-short']"/>
-			</field>
-			<field type="day-short">
-				<alias source="locale" path="../field[@type='day']"/>
-			</field>
-			<field type="dayOfYear">
-				<displayName>Day Of Year</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<alias source="locale" path="../field[@type='dayOfYear-short']"/>
-			</field>
-			<field type="dayOfYear-short">
-				<alias source="locale" path="../field[@type='dayOfYear']"/>
-			</field>
-			<field type="dayperiod">
-				<displayName>Dayperiod</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<alias source="locale" path="../field[@type='dayperiod-short']"/>
-			</field>
-			<field type="dayperiod-short">
-				<alias source="locale" path="../field[@type='dayperiod']"/>
-			</field>
 			<field type="era">
 				<displayName>Era</displayName>
-			</field>
-			<field type="era-narrow">
-				<alias source="locale" path="../field[@type='era-short']"/>
 			</field>
 			<field type="era-short">
 				<alias source="locale" path="../field[@type='era']"/>
 			</field>
-			<field type="fri-narrow">
-				<alias source="locale" path="../field[@type='fri-short']"/>
+			<field type="era-narrow">
+				<alias source="locale" path="../field[@type='era-short']"/>
 			</field>
-			<field type="fri-short">
-				<alias source="locale" path="../field[@type='fri']"/>
-			</field>
-			<field type="hour">
-				<displayName>Hour</displayName>
-				<relative type="0">this hour</relative>
+			<field type="year">
+				<displayName>Year</displayName>
+				<relative type="-1">last year</relative>
+				<relative type="0">this year</relative>
+				<relative type="1">next year</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} h</relativeTimePattern>
+					<relativeTimePattern count="other">+{0} y</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} h</relativeTimePattern>
+					<relativeTimePattern count="other">-{0} y</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
-				<alias source="locale" path="../field[@type='hour-short']"/>
+			<field type="year-short">
+				<alias source="locale" path="../field[@type='year']"/>
 			</field>
-			<field type="hour-short">
-				<alias source="locale" path="../field[@type='hour']"/>
-			</field>
-			<field type="minute">
-				<displayName>Minute</displayName>
-				<relative type="0">this minute</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} min</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} min</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<alias source="locale" path="../field[@type='minute-short']"/>
-			</field>
-			<field type="minute-short">
-				<alias source="locale" path="../field[@type='minute']"/>
-			</field>
-			<field type="mon-narrow">
-				<alias source="locale" path="../field[@type='mon-short']"/>
-			</field>
-			<field type="mon-short">
-				<alias source="locale" path="../field[@type='mon']"/>
-			</field>
-			<field type="month">
-				<displayName>Month</displayName>
-				<relative type="-1">last month</relative>
-				<relative type="0">this month</relative>
-				<relative type="1">next month</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} m</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} m</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<alias source="locale" path="../field[@type='month-short']"/>
-			</field>
-			<field type="month-short">
-				<alias source="locale" path="../field[@type='month']"/>
+			<field type="year-narrow">
+				<alias source="locale" path="../field[@type='year-short']"/>
 			</field>
 			<field type="quarter">
 				<displayName>Quarter</displayName>
@@ -2704,57 +2547,29 @@ for derived annotations.
 					<relativeTimePattern count="other">-{0} Q</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="quarter-narrow">
-				<alias source="locale" path="../field[@type='quarter-short']"/>
-			</field>
 			<field type="quarter-short">
 				<alias source="locale" path="../field[@type='quarter']"/>
 			</field>
-			<field type="sat-narrow">
-				<alias source="locale" path="../field[@type='sat-short']"/>
+			<field type="quarter-narrow">
+				<alias source="locale" path="../field[@type='quarter-short']"/>
 			</field>
-			<field type="sat-short">
-				<alias source="locale" path="../field[@type='sat']"/>
-			</field>
-			<field type="second">
-				<displayName>Second</displayName>
-				<relative type="0">now</relative>
+			<field type="month">
+				<displayName>Month</displayName>
+				<relative type="-1">last month</relative>
+				<relative type="0">this month</relative>
+				<relative type="1">next month</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} s</relativeTimePattern>
+					<relativeTimePattern count="other">+{0} m</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} s</relativeTimePattern>
+					<relativeTimePattern count="other">-{0} m</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="second-narrow">
-				<alias source="locale" path="../field[@type='second-short']"/>
+			<field type="month-short">
+				<alias source="locale" path="../field[@type='month']"/>
 			</field>
-			<field type="second-short">
-				<alias source="locale" path="../field[@type='second']"/>
-			</field>
-			<field type="sun-narrow">
-				<alias source="locale" path="../field[@type='sun-short']"/>
-			</field>
-			<field type="sun-short">
-				<alias source="locale" path="../field[@type='sun']"/>
-			</field>
-			<field type="thu-narrow">
-				<alias source="locale" path="../field[@type='thu-short']"/>
-			</field>
-			<field type="thu-short">
-				<alias source="locale" path="../field[@type='thu']"/>
-			</field>
-			<field type="tue-narrow">
-				<alias source="locale" path="../field[@type='tue-short']"/>
-			</field>
-			<field type="tue-short">
-				<alias source="locale" path="../field[@type='tue']"/>
-			</field>
-			<field type="wed-narrow">
-				<alias source="locale" path="../field[@type='wed-short']"/>
-			</field>
-			<field type="wed-short">
-				<alias source="locale" path="../field[@type='wed']"/>
+			<field type="month-narrow">
+				<alias source="locale" path="../field[@type='month-short']"/>
 			</field>
 			<field type="week">
 				<!-- for example, “the week of April 1” -->
@@ -2770,65 +2585,250 @@ for derived annotations.
 				</relativeTime>
 				<relativePeriod>the week of {0}</relativePeriod>
 			</field>
-			<field type="week-narrow">
-				<alias source="locale" path="../field[@type='week-short']"/>
-			</field>
 			<field type="week-short">
 				<alias source="locale" path="../field[@type='week']"/>
+			</field>
+			<field type="week-narrow">
+				<alias source="locale" path="../field[@type='week-short']"/>
 			</field>
 			<field type="weekOfMonth">
 				<displayName>Week Of Month</displayName>
 			</field>
+			<field type="weekOfMonth-short">
+				<alias source="locale" path="../field[@type='weekOfMonth']"/>
+			</field>
 			<field type="weekOfMonth-narrow">
 				<alias source="locale" path="../field[@type='weekOfMonth-short']"/>
 			</field>
-			<field type="weekOfMonth-short">
-				<alias source="locale" path="../field[@type='weekOfMonth']"/>
+			<field type="day">
+				<displayName>Day</displayName>
+				<relative type="-1">yesterday</relative>
+				<relative type="0">today</relative>
+				<relative type="1">tomorrow</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} d</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} d</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-short">
+				<alias source="locale" path="../field[@type='day']"/>
+			</field>
+			<field type="day-narrow">
+				<alias source="locale" path="../field[@type='day-short']"/>
+			</field>
+			<field type="dayOfYear">
+				<displayName>Day Of Year</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<alias source="locale" path="../field[@type='dayOfYear']"/>
+			</field>
+			<field type="dayOfYear-narrow">
+				<alias source="locale" path="../field[@type='dayOfYear-short']"/>
 			</field>
 			<field type="weekday">
 				<displayName>Day of the Week</displayName>
 			</field>
-			<field type="weekday-narrow">
-				<alias source="locale" path="../field[@type='weekday-short']"/>
-			</field>
 			<field type="weekday-short">
 				<alias source="locale" path="../field[@type='weekday']"/>
+			</field>
+			<field type="weekday-narrow">
+				<alias source="locale" path="../field[@type='weekday-short']"/>
 			</field>
 			<field type="weekdayOfMonth">
 				<displayName>Weekday Of Month</displayName>
 			</field>
-			<field type="weekdayOfMonth-narrow">
-				<alias source="locale" path="../field[@type='weekdayOfMonth-short']"/>
-			</field>
 			<field type="weekdayOfMonth-short">
 				<alias source="locale" path="../field[@type='weekdayOfMonth']"/>
 			</field>
-			<field type="year">
-				<displayName>Year</displayName>
-				<relative type="-1">last year</relative>
-				<relative type="0">this year</relative>
-				<relative type="1">next year</relative>
+			<field type="weekdayOfMonth-narrow">
+				<alias source="locale" path="../field[@type='weekdayOfMonth-short']"/>
+			</field>
+			<field type="sun">
+				<relative type="-1">last Sunday</relative>
+				<relative type="0">this Sunday</relative>
+				<relative type="1">next Sunday</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">+{0} y</relativeTimePattern>
+					<relativeTimePattern count="other">+{0} Sundays</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">-{0} y</relativeTimePattern>
+					<relativeTimePattern count="other">-{0} Sundays</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="year-narrow">
-				<alias source="locale" path="../field[@type='year-short']"/>
+			<field type="sun-short">
+				<alias source="locale" path="../field[@type='sun']"/>
 			</field>
-			<field type="year-short">
-				<alias source="locale" path="../field[@type='year']"/>
+			<field type="sun-narrow">
+				<alias source="locale" path="../field[@type='sun-short']"/>
+			</field>
+			<field type="mon">
+				<relative type="-1">last Monday</relative>
+				<relative type="0">this Monday</relative>
+				<relative type="1">next Monday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Mondays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Mondays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<alias source="locale" path="../field[@type='mon']"/>
+			</field>
+			<field type="mon-narrow">
+				<alias source="locale" path="../field[@type='mon-short']"/>
+			</field>
+			<field type="tue">
+				<relative type="-1">last Tuesday</relative>
+				<relative type="0">this Tuesday</relative>
+				<relative type="1">next Tuesday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Tuesdays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Tuesdays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<alias source="locale" path="../field[@type='tue']"/>
+			</field>
+			<field type="tue-narrow">
+				<alias source="locale" path="../field[@type='tue-short']"/>
+			</field>
+			<field type="wed">
+				<relative type="-1">last Wednesday</relative>
+				<relative type="0">this Wednesday</relative>
+				<relative type="1">next Wednesday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Wednesdays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Wednesdays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<alias source="locale" path="../field[@type='wed']"/>
+			</field>
+			<field type="wed-narrow">
+				<alias source="locale" path="../field[@type='wed-short']"/>
+			</field>
+			<field type="thu">
+				<relative type="-1">last Thursday</relative>
+				<relative type="0">this Thursday</relative>
+				<relative type="1">next Thursday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Thursdays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Thursdays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<alias source="locale" path="../field[@type='thu']"/>
+			</field>
+			<field type="thu-narrow">
+				<alias source="locale" path="../field[@type='thu-short']"/>
+			</field>
+			<field type="fri">
+				<relative type="-1">last Friday</relative>
+				<relative type="0">this Friday</relative>
+				<relative type="1">next Friday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Fridays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Fridays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<alias source="locale" path="../field[@type='fri']"/>
+			</field>
+			<field type="fri-narrow">
+				<alias source="locale" path="../field[@type='fri-short']"/>
+			</field>
+			<field type="sat">
+				<relative type="-1">last Saturday</relative>
+				<relative type="0">this Saturday</relative>
+				<relative type="1">next Saturday</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} Saturdays</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} Saturdays</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<alias source="locale" path="../field[@type='sat']"/>
+			</field>
+			<field type="sat-narrow">
+				<alias source="locale" path="../field[@type='sat-short']"/>
+			</field>
+			<field type="dayperiod">
+				<displayName>Dayperiod</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<alias source="locale" path="../field[@type='dayperiod']"/>
+			</field>
+			<field type="dayperiod-narrow">
+				<alias source="locale" path="../field[@type='dayperiod-short']"/>
+			</field>
+			<field type="hour">
+				<displayName>Hour</displayName>
+				<relative type="0">this hour</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} h</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} h</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-short">
+				<alias source="locale" path="../field[@type='hour']"/>
+			</field>
+			<field type="hour-narrow">
+				<alias source="locale" path="../field[@type='hour-short']"/>
+			</field>
+			<field type="minute">
+				<displayName>Minute</displayName>
+				<relative type="0">this minute</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} min</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} min</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-short">
+				<alias source="locale" path="../field[@type='minute']"/>
+			</field>
+			<field type="minute-narrow">
+				<alias source="locale" path="../field[@type='minute-short']"/>
+			</field>
+			<field type="second">
+				<displayName>Second</displayName>
+				<relative type="0">now</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">+{0} s</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">-{0} s</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second-short">
+				<alias source="locale" path="../field[@type='second']"/>
+			</field>
+			<field type="second-narrow">
+				<alias source="locale" path="../field[@type='second-short']"/>
 			</field>
 			<field type="zone">
 				<displayName>Zone</displayName>
 			</field>
-			<field type="zone-narrow">
-				<alias source="locale" path="../field[@type='zone-short']"/>
-			</field>
 			<field type="zone-short">
 				<alias source="locale" path="../field[@type='zone']"/>
+			</field>
+			<field type="zone-narrow">
+				<alias source="locale" path="../field[@type='zone-short']"/>
 			</field>
 		</fields>
 		<timeZoneNames>
@@ -2836,8 +2836,8 @@ for derived annotations.
 			<gmtFormat>GMT{0}</gmtFormat>
 			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>{0}</regionFormat>
-			<regionFormat type="daylight">{0} (+1)</regionFormat>
 			<regionFormat type="standard">{0} (+0)</regionFormat>
+			<regionFormat type="daylight">{0} (+1)</regionFormat>
 			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Africa/Asmera">
 				<exemplarCity>Asmara</exemplarCity>
@@ -2929,13 +2929,13 @@ for derived annotations.
 			<zone type="Atlantic/St_Helena">
 				<exemplarCity>St. Helena</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Unknown</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<short>
 					<standard>UTC</standard>
 				</short>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Unknown</exemplarCity>
 			</zone>
 			<zone type="Pacific/Ponape">
 				<exemplarCity>Pohnpei</exemplarCity>
@@ -4251,9 +4251,6 @@ for derived annotations.
 		<unitLength type="long">
 			<alias source="locale" path="../unitLength[@type='short']"/>
 		</unitLength>
-		<unitLength type="narrow">
-			<alias source="locale" path="../unitLength[@type='short']"/>
-		</unitLength>
 		<unitLength type="short">
 			<compoundUnit type="per">
 				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
@@ -4926,11 +4923,14 @@ for derived annotations.
 			</unit>
 			<coordinateUnit>
 				<displayName>direction</displayName>
-				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
+		</unitLength>
+		<unitLength type="narrow">
+			<alias source="locale" path="../unitLength[@type='short']"/>
 		</unitLength>
 		<durationUnit type="hm">
 			<durationUnitPattern>h:mm</durationUnitPattern>
@@ -6299,7 +6299,6 @@ for derived annotations.
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — other</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — all</characterLabelPattern>
 		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — compatibility</characterLabelPattern>
@@ -6307,9 +6306,9 @@ for derived annotations.
 		<characterLabelPattern type="extended">{0} — extended</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — historic</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — miscellaneous</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — other</characterLabelPattern>
 		<characterLabelPattern type="scripts">scripts — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} strokes</characterLabelPattern>
-		<characterLabel type="other">other</characterLabel>
 		<!-- regular -->
 		<characterLabel type="activities">activity</characterLabel>
 		<characterLabel type="african_scripts">African script</characterLabel>
@@ -6369,6 +6368,7 @@ for derived annotations.
 		<characterLabel type="nonspacing">nonspacing</characterLabel>
 		<characterLabel type="numbers">numbers</characterLabel>
 		<characterLabel type="objects">object</characterLabel>
+		<characterLabel type="other">other</characterLabel>
 		<characterLabel type="paired">paired</characterLabel>
 		<characterLabel type="person">person</characterLabel>
 		<characterLabel type="phonetic_alphabet">phonetic alphabet</characterLabel>
@@ -6421,6 +6421,12 @@ for derived annotations.
 				<variable id="$ZWJ">\p{Grapheme_Cluster_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
+				<!-- Do not break within emoji zwj sequences. -->
+				<rule id="11">$ExtPict $Extend* $ZWJ × $ExtPict</rule>
+				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
+				<rule id="12">^ ($RI $RI)* $RI × $RI</rule>
+				<rule id="13">[^$RI] ($RI $RI)* $RI × $RI</rule>
+				<!-- Otherwise, break everywhere. -->
 				<!-- RULES -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break between a CR and LF. Otherwise, break before and after controls. -->
@@ -6436,12 +6442,6 @@ for derived annotations.
 				<rule id="9.1">× $SpacingMark</rule>
 				<rule id="9.2">$Prepend ×</rule>
 				<rule id="9.3">$LinkingConsonant $ExtCccZwj* $Virama $ExtCccZwj* × $LinkingConsonant</rule>
-				<!-- Do not break within emoji zwj sequences. -->
-				<rule id="11">$ExtPict $Extend* $ZWJ × $ExtPict</rule>
-				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
-				<rule id="12">^ ($RI $RI)* $RI × $RI</rule>
-				<rule id="13">[^$RI] ($RI $RI)* $RI × $RI</rule>
-				<!-- Otherwise, break everywhere. -->
 			</segmentRules>
 		</segmentation>
 		<segmentation type="LineBreak">
@@ -6550,26 +6550,6 @@ for derived annotations.
 				<variable id="$ZWJ_O">\p{Line_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
-				<!-- RULES -->
-				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
-				<rule id="4">$BK ÷</rule>
-				<!-- LB 5  Treat CR followed by LF, as well as CR, LF and NL as hard line breaks. -->
-				<rule id="5.01">$CR × $LF</rule>
-				<rule id="5.02">$CR ÷</rule>
-				<rule id="5.03">$LF ÷</rule>
-				<rule id="5.04">$NL ÷</rule>
-				<!-- LB 6  Do not break before hard line breaks. -->
-				<rule id="6">× ( $BK | $CR | $LF | $NL )</rule>
-				<!-- LB 7  Do not break before spaces or zero-width space. -->
-				<rule id="7.01">× $SP</rule>
-				<rule id="7.02">× $ZW</rule>
-				<!-- LB 8  Break before any character following a zero-width space, even if one or more spaces intervene. -->
-				<rule id="8">$ZW $SP* ÷</rule>
-				<!-- LB 8a  Don't break between ZWJ and IDs (for use in Emoji ZWJ sequences) -->
-				<rule id="8.1">$ZWJ_O ×</rule>
-				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character -->
-				<!-- in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.) -->
-				<rule id="9">$Spec2_ × $CM</rule>
 				<!-- LB 11  Do not break before or after WORD JOINER and related characters. -->
 				<rule id="11.01">× $WJ</rule>
 				<rule id="11.02">$WJ ×</rule>
@@ -6657,6 +6637,26 @@ for derived annotations.
 				<rule id="30.12">[^$RI] ($RI $RI)* $RI × $RI</rule>
 				<rule id="30.13">$RI ÷ $RI</rule>
 				<rule id="30.2">$EB × $EM</rule>
+				<!-- RULES -->
+				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
+				<rule id="4">$BK ÷</rule>
+				<!-- LB 5  Treat CR followed by LF, as well as CR, LF and NL as hard line breaks. -->
+				<rule id="5.01">$CR × $LF</rule>
+				<rule id="5.02">$CR ÷</rule>
+				<rule id="5.03">$LF ÷</rule>
+				<rule id="5.04">$NL ÷</rule>
+				<!-- LB 6  Do not break before hard line breaks. -->
+				<rule id="6">× ( $BK | $CR | $LF | $NL )</rule>
+				<!-- LB 7  Do not break before spaces or zero-width space. -->
+				<rule id="7.01">× $SP</rule>
+				<rule id="7.02">× $ZW</rule>
+				<!-- LB 8  Break before any character following a zero-width space, even if one or more spaces intervene. -->
+				<rule id="8">$ZW $SP* ÷</rule>
+				<!-- LB 8a  Don't break between ZWJ and IDs (for use in Emoji ZWJ sequences) -->
+				<rule id="8.1">$ZWJ_O ×</rule>
+				<!-- LB 9  Do not break a combining character sequence; treat it as if it has the LB class of the base character -->
+				<!-- in all of the following rules. (Where X is any line break class except SP, BK, CR, LF, NL or ZW.) -->
+				<rule id="9">$Spec2_ × $CM</rule>
 			</segmentRules>
 		</segmentation>
 		<segmentation type="SentenceBreak">
@@ -6695,6 +6695,9 @@ for derived annotations.
 				<variable id="$Upper">($Upper $FE*)</variable>
 			</variables>
 			<segmentRules>
+				<!-- Note the fix to $Sp*, $Sep? -->
+				<rule id="10">$SATerm $Close* $Sp* × ( $Sp | $ParaSep )</rule>
+				<rule id="11">$SATerm $Close* $Sp* $ParaSep? ÷</rule>
 				<!-- RULES -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break within CRLF. -->
@@ -6715,9 +6718,6 @@ for derived annotations.
 				<rule id="8.1">$SATerm $Close* $Sp* × ($SContinue | $SATerm)</rule>
 				<!-- Break after sentence terminators, but include closing punctuation, trailing spaces, and any paragraph separator. [See note below.] Include closing punctuation, trailing spaces, and (optionally) a paragraph separator. -->
 				<rule id="9">$SATerm $Close* × ( $Close | $Sp | $ParaSep )</rule>
-				<!-- Note the fix to $Sp*, $Sep? -->
-				<rule id="10">$SATerm $Close* $Sp* × ( $Sp | $ParaSep )</rule>
-				<rule id="11">$SATerm $Close* $Sp* $ParaSep? ÷</rule>
 				<!-- Otherwise, do not break -->
 				<rule id="998">× $Any</rule>
 			</segmentRules>
@@ -6768,6 +6768,19 @@ for derived annotations.
 				<variable id="$ZWJ">\p{Word_Break=ZWJ}</variable>
 			</variables>
 			<segmentRules>
+				<rule id="10">$Numeric × $AHLetter</rule>
+				<!-- Do not break within sequences, such as “3.2” or “3,456.789”. -->
+				<rule id="11">$Numeric ($MidNum | $MidNumLetQ) × $Numeric</rule>
+				<rule id="12">$Numeric × ($MidNum | $MidNumLetQ) $Numeric</rule>
+				<!-- Do not break between Katakana. -->
+				<rule id="13">$Katakana × $Katakana</rule>
+				<!-- Do not break from extenders. -->
+				<rule id="13.1">($AHLetter | $Numeric | $Katakana | $ExtendNumLet) × $ExtendNumLet</rule>
+				<rule id="13.2">$ExtendNumLet × ($AHLetter | $Numeric | $Katakana)</rule>
+				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
+				<rule id="15">^ ($RI $RI)* $RI × $RI</rule>
+				<rule id="16">[^$RI] ($RI $RI)* $RI × $RI</rule>
+				<!-- Otherwise, break everywhere (including around ideographs). -->
 				<!-- RULES -->
 				<!-- Break at the start and end of text, unless the text is empty. -->
 				<!-- Do not break within CRLF. -->
@@ -6794,19 +6807,6 @@ for derived annotations.
 				<!-- Do not break within sequences of digits, or digits adjacent to letters (“3a”, or “A3”). -->
 				<rule id="8">$Numeric × $Numeric</rule>
 				<rule id="9">$AHLetter × $Numeric</rule>
-				<rule id="10">$Numeric × $AHLetter</rule>
-				<!-- Do not break within sequences, such as “3.2” or “3,456.789”. -->
-				<rule id="11">$Numeric ($MidNum | $MidNumLetQ) × $Numeric</rule>
-				<rule id="12">$Numeric × ($MidNum | $MidNumLetQ) $Numeric</rule>
-				<!-- Do not break between Katakana. -->
-				<rule id="13">$Katakana × $Katakana</rule>
-				<!-- Do not break from extenders. -->
-				<rule id="13.1">($AHLetter | $Numeric | $Katakana | $ExtendNumLet) × $ExtendNumLet</rule>
-				<rule id="13.2">$ExtendNumLet × ($AHLetter | $Numeric | $Katakana)</rule>
-				<!-- Do not break within emoji flag sequences. That is, do not break between regional indicator (RI) symbols if there is an odd number of RI characters before the break point. -->
-				<rule id="15">^ ($RI $RI)* $RI × $RI</rule>
-				<rule id="16">[^$RI] ($RI $RI)* $RI × $RI</rule>
-				<!-- Otherwise, break everywhere (including around ideographs). -->
 			</segmentRules>
 		</segmentation>
 	</segmentations>

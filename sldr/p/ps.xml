@@ -14,8 +14,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">امهاري</language>
-			<language type="sat">سنتالي</language>
 			<language type="aa">افري</language>
 			<language type="ab">ابخازي</language>
 			<language type="ace">اچيني</language>
@@ -27,6 +25,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ak">اکاني</language>
 			<language type="ale">اليوتي</language>
 			<language type="alt">سویل الټای</language>
+			<language type="am">امهاري</language>
 			<language type="an">اراگونېسي</language>
 			<language type="anp">انگيکي</language>
 			<language type="ar">عربي</language>
@@ -317,6 +316,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sad">سنډاوی</language>
 			<language type="sah">سخا</language>
 			<language type="saq">سمبورو</language>
+			<language type="sat">سنتالي</language>
 			<language type="sba">نګبای</language>
 			<language type="sbp">سانګوو</language>
 			<language type="sc">سارڊيني</language>
@@ -799,9 +799,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">لويديځ عددونه</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">بريتاني</measurementSystemName>
 			<measurementSystemName type="US">امريکايي</measurementSystemName>
 			<measurementSystemName type="metric">مېټرک</measurementSystemName>
+			<measurementSystemName type="UK">بريتاني</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">ژبه: {0}</codePattern>
@@ -817,18 +817,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[\u064E \u0650 \u064F \u064B \u064D \u064C \u0651 \u0652 \u0654 \u0670 آ ا أ ء ب پ ت ټ ث ج ځ چ څ ح خ د ډ ذ ر ړ ز ژ ږ س ش ښ ص ض ط ظ ع غ ف ق ک ګ گ ل م ن ڼ ه ة و ؤ ی ي ې ۍ ئ]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C \u200D \u200E\u200F ے]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[، ; \: ! ۔ ' ‘ ( ) \[ \] \{ \} /]</exemplarCharacters>
 		<exemplarCharacters type="index" draft="contributed">[آ ا ء ب پ ت ټ ث ج ځ چ څ ح خ د ډ ذ ر ړ ز ژ ږ س ش ښ ص ض ط ظ ع غ ف ق ک ګ ل م ن ڼ ه و ی]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[\u200E \- , ٫ ٬ . % ٪ ‰ ؉ + − 0۰ 1۱ 2۲ 3۳ 4۴ 5۵ 6۶ 7۷ 8۸ 9۹]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[، ; \: ! ۔ ' ‘ ( ) \[ \] \{ \} /]</exemplarCharacters>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
-		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
 	</characters>
 	<dates>
@@ -1443,129 +1443,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="day">
-				<displayName>ورځ</displayName>
-			</field>
-			<field type="day-narrow">
-				<displayName>ورځ</displayName>
-			</field>
-			<field type="day-short">
-				<displayName>ورځ</displayName>
-			</field>
-			<field type="dayOfYear">
-				<displayName>د کال ورځ</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>د کال ورځ</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>د کال ورځ</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>ورځ شېبه</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>ورځ شېبه</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>ورځ شېبه</displayName>
-			</field>
 			<field type="era">
-				<displayName>پېر</displayName>
-			</field>
-			<field type="era-narrow">
 				<displayName>پېر</displayName>
 			</field>
 			<field type="era-short">
 				<displayName>پېر</displayName>
 			</field>
-			<field type="hour">
-				<displayName>ساعت</displayName>
-			</field>
-			<field type="hour-narrow">
-				<displayName>ساعت</displayName>
-			</field>
-			<field type="hour-short">
-				<displayName>ساعت</displayName>
-			</field>
-			<field type="minute">
-				<displayName>دقيقه</displayName>
-			</field>
-			<field type="minute-narrow">
-				<displayName>دقيقه</displayName>
-			</field>
-			<field type="minute-short">
-				<displayName>دقيقه</displayName>
-			</field>
-			<field type="month">
-				<displayName>مياشت</displayName>
-			</field>
-			<field type="month-narrow">
-				<displayName>مياشت</displayName>
-			</field>
-			<field type="month-short">
-				<displayName>مياشت</displayName>
-			</field>
-			<field type="second">
-				<displayName>ثانيه</displayName>
-			</field>
-			<field type="second-narrow">
-				<displayName>ثانيه</displayName>
-			</field>
-			<field type="second-short">
-				<displayName>ثانيه</displayName>
-			</field>
-			<field type="week">
-				<displayName>اونۍ</displayName>
-			</field>
-			<field type="week-narrow">
-				<displayName>اونۍ</displayName>
-			</field>
-			<field type="week-short">
-				<displayName>اونۍ</displayName>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>د مياشتې اونۍ</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>د مياشتې اونۍ</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>د مياشتې اونۍ</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>د اونۍ ورځ</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>د اونۍ ورځ</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>د اونۍ ورځ</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>د مياشتې اونۍ ورځ</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>د مياشتې اونۍ ورځ</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>د مياشتې اونۍ ورځ</displayName>
+			<field type="era-narrow">
+				<displayName>پېر</displayName>
 			</field>
 			<field type="year">
-				<displayName>کال</displayName>
-				<relative type="-1">پروسږکال</relative>
-				<relative type="0">سږکال</relative>
-				<relative type="1">بل کال</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">په {0} کال کې</relativeTimePattern>
-					<relativeTimePattern count="other">په {0} کالونو کې</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} کال مخکې</relativeTimePattern>
-					<relativeTimePattern count="other">{0} کاله مخکې</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
 				<displayName>کال</displayName>
 				<relative type="-1">پروسږکال</relative>
 				<relative type="0">سږکال</relative>
@@ -1593,20 +1480,133 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} کاله مخکې</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="zone">
-				<displayName>وخت سيمه</displayName>
+			<field type="year-narrow">
+				<displayName>کال</displayName>
+				<relative type="-1">پروسږکال</relative>
+				<relative type="0">سږکال</relative>
+				<relative type="1">بل کال</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">په {0} کال کې</relativeTimePattern>
+					<relativeTimePattern count="other">په {0} کالونو کې</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} کال مخکې</relativeTimePattern>
+					<relativeTimePattern count="other">{0} کاله مخکې</relativeTimePattern>
+				</relativeTime>
 			</field>
-			<field type="zone-narrow">
+			<field type="month">
+				<displayName>مياشت</displayName>
+			</field>
+			<field type="month-short">
+				<displayName>مياشت</displayName>
+			</field>
+			<field type="month-narrow">
+				<displayName>مياشت</displayName>
+			</field>
+			<field type="week">
+				<displayName>اونۍ</displayName>
+			</field>
+			<field type="week-short">
+				<displayName>اونۍ</displayName>
+			</field>
+			<field type="week-narrow">
+				<displayName>اونۍ</displayName>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>د مياشتې اونۍ</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>د مياشتې اونۍ</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>د مياشتې اونۍ</displayName>
+			</field>
+			<field type="day">
+				<displayName>ورځ</displayName>
+			</field>
+			<field type="day-short">
+				<displayName>ورځ</displayName>
+			</field>
+			<field type="day-narrow">
+				<displayName>ورځ</displayName>
+			</field>
+			<field type="dayOfYear">
+				<displayName>د کال ورځ</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>د کال ورځ</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>د کال ورځ</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>د اونۍ ورځ</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>د اونۍ ورځ</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>د اونۍ ورځ</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>د مياشتې اونۍ ورځ</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>د مياشتې اونۍ ورځ</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>د مياشتې اونۍ ورځ</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>ورځ شېبه</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>ورځ شېبه</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>ورځ شېبه</displayName>
+			</field>
+			<field type="hour">
+				<displayName>ساعت</displayName>
+			</field>
+			<field type="hour-short">
+				<displayName>ساعت</displayName>
+			</field>
+			<field type="hour-narrow">
+				<displayName>ساعت</displayName>
+			</field>
+			<field type="minute">
+				<displayName>دقيقه</displayName>
+			</field>
+			<field type="minute-short">
+				<displayName>دقيقه</displayName>
+			</field>
+			<field type="minute-narrow">
+				<displayName>دقيقه</displayName>
+			</field>
+			<field type="second">
+				<displayName>ثانيه</displayName>
+			</field>
+			<field type="second-short">
+				<displayName>ثانيه</displayName>
+			</field>
+			<field type="second-narrow">
+				<displayName>ثانيه</displayName>
+			</field>
+			<field type="zone">
 				<displayName>وخت سيمه</displayName>
 			</field>
 			<field type="zone-short">
 				<displayName>وخت سيمه</displayName>
 			</field>
+			<field type="zone-narrow">
+				<displayName>وخت سيمه</displayName>
+			</field>
 		</fields>
 		<timeZoneNames>
 			<regionFormat>د {0} په وخت</regionFormat>
-			<regionFormat type="daylight">{0} رڼا ورځ وخت</regionFormat>
 			<regionFormat type="standard">{0} معیاری وخت</regionFormat>
+			<regionFormat type="daylight">{0} رڼا ورځ وخت</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>ابيجان</exemplarCity>
 			</zone>
@@ -2513,13 +2513,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Australia/Sydney">
 				<exemplarCity>سډني</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>نامعلوم ښار</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>همغږۍ نړیواله موده</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>نامعلوم ښار</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>امستردام</exemplarCity>
@@ -3159,11 +3159,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>د فرانسې سویل او انټارټيک وخت</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>گرينويچ وخت</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>ګالپګوس وخت</standard>
@@ -3184,6 +3179,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>د ګیلبرټ جزیره وخت</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>گرينويچ وخت</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -4577,117 +4577,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>کارډنل اړخ</displayName>
-				<coordinateUnitPattern type="east">{0} ختيځ</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} شمال</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} ختيځ</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} سويل</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} لوېديځ</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
-		<unitLength type="narrow">
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
-			<unit type="concentr-percent">
-				<displayName>سلنه</displayName>
-				<unitPattern count="one">{0}%</unitPattern>
-				<unitPattern count="other">{0}%</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-100kilometers">
-				<displayName>L/100km</displayName>
-				<unitPattern count="one">{0} L/100km</unitPattern>
-				<unitPattern count="other">{0} L/100km</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>ورځ</displayName>
-				<unitPattern count="one">{0} ورځ</unitPattern>
-				<unitPattern count="other">{0}d</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>hr</displayName>
-				<unitPattern count="one">{0} h</unitPattern>
-				<unitPattern count="other">{0} h</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>ms</displayName>
-				<unitPattern count="one">{0} ms</unitPattern>
-				<unitPattern count="other">{0} ms</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>min</displayName>
-				<unitPattern count="one">{0} min</unitPattern>
-				<unitPattern count="other">{0} min</unitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>مياشت</displayName>
-				<unitPattern count="one">{0} m</unitPattern>
-				<unitPattern count="other">{0} m</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>sec</displayName>
-				<unitPattern count="one">{0} s</unitPattern>
-				<unitPattern count="other">{0} s</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>اونۍ</displayName>
-				<unitPattern count="one">{0} w</unitPattern>
-				<unitPattern count="other">{0} w</unitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>yr</displayName>
-				<unitPattern count="one">{0} y</unitPattern>
-				<unitPattern count="other">{0} y</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>cm</displayName>
-				<unitPattern count="one">{0}cm</unitPattern>
-				<unitPattern count="other">{0}cm</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<displayName>km</displayName>
-				<unitPattern count="one">{0} km</unitPattern>
-				<unitPattern count="other">{0} km</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-				<unitPattern count="one">{0} m</unitPattern>
-				<unitPattern count="other">{0} m</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<displayName>mm</displayName>
-				<unitPattern count="one">{0}mm</unitPattern>
-				<unitPattern count="other">{0}mm</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>ګرام</displayName>
-				<unitPattern count="one">{0}g</unitPattern>
-				<unitPattern count="other">{0}g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<displayName>kg</displayName>
-				<unitPattern count="one">{0}kg</unitPattern>
-				<unitPattern count="other">{0}kg</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>km/hr</displayName>
-				<unitPattern count="one">{0}kph</unitPattern>
-				<unitPattern count="other">{0}kph</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>°C</displayName>
-				<unitPattern count="one">{0}°C</unitPattern>
-				<unitPattern count="other">{0}°C</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>liter</displayName>
-				<unitPattern count="one">{0}L</unitPattern>
-				<unitPattern count="other">{0}L</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<displayName>اړخ</displayName>
-				<coordinateUnitPattern type="east">{0}خ</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0}ش</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0}س</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0}ل</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
@@ -5227,10 +5120,117 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>اړخ</displayName>
-				<coordinateUnitPattern type="east">{0} خ</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} ش</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} خ</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} س</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} ل</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="concentr-percent">
+				<displayName>سلنه</displayName>
+				<unitPattern count="one">{0}%</unitPattern>
+				<unitPattern count="other">{0}%</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100kilometers">
+				<displayName>L/100km</displayName>
+				<unitPattern count="one">{0} L/100km</unitPattern>
+				<unitPattern count="other">{0} L/100km</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>ورځ</displayName>
+				<unitPattern count="one">{0} ورځ</unitPattern>
+				<unitPattern count="other">{0}d</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>hr</displayName>
+				<unitPattern count="one">{0} h</unitPattern>
+				<unitPattern count="other">{0} h</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>ms</displayName>
+				<unitPattern count="one">{0} ms</unitPattern>
+				<unitPattern count="other">{0} ms</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>min</displayName>
+				<unitPattern count="one">{0} min</unitPattern>
+				<unitPattern count="other">{0} min</unitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>مياشت</displayName>
+				<unitPattern count="one">{0} m</unitPattern>
+				<unitPattern count="other">{0} m</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>sec</displayName>
+				<unitPattern count="one">{0} s</unitPattern>
+				<unitPattern count="other">{0} s</unitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>اونۍ</displayName>
+				<unitPattern count="one">{0} w</unitPattern>
+				<unitPattern count="other">{0} w</unitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>yr</displayName>
+				<unitPattern count="one">{0} y</unitPattern>
+				<unitPattern count="other">{0} y</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>cm</displayName>
+				<unitPattern count="one">{0}cm</unitPattern>
+				<unitPattern count="other">{0}cm</unitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="one">{0} km</unitPattern>
+				<unitPattern count="other">{0} km</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>m</displayName>
+				<unitPattern count="one">{0} m</unitPattern>
+				<unitPattern count="other">{0} m</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="one">{0}mm</unitPattern>
+				<unitPattern count="other">{0}mm</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>ګرام</displayName>
+				<unitPattern count="one">{0}g</unitPattern>
+				<unitPattern count="other">{0}g</unitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kg</displayName>
+				<unitPattern count="one">{0}kg</unitPattern>
+				<unitPattern count="other">{0}kg</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/hr</displayName>
+				<unitPattern count="one">{0}kph</unitPattern>
+				<unitPattern count="other">{0}kph</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°C</displayName>
+				<unitPattern count="one">{0}°C</unitPattern>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>liter</displayName>
+				<unitPattern count="one">{0}L</unitPattern>
+				<unitPattern count="other">{0}L</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<displayName>اړخ</displayName>
+				<coordinateUnitPattern type="north">{0}ش</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}خ</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}س</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}ل</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 	</units>
@@ -5299,17 +5299,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} - نورو</characterLabelPattern>
 		<characterLabelPattern type="all">{0} - ټول</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} - مطابقت</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} - منسلک</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} - غځېدلی</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} - تاريخي</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} - متفرقه</characterLabelPattern>
+		<characterLabelPattern type="other">{0} - نورو</characterLabelPattern>
 		<characterLabelPattern type="scripts">سکرېپټونه - {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} استروک</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} استروکس</characterLabelPattern>
-		<characterLabel type="other">نور</characterLabel>
 		<characterLabel type="activities">فعاليت</characterLabel>
 		<characterLabel type="african_scripts">افريقايي سکريپټ</characterLabel>
 		<characterLabel type="american_scripts">امريکايي سکريپټ</characterLabel>
@@ -5368,6 +5367,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">بې واټنه کول</characterLabel>
 		<characterLabel type="numbers">شمېرې</characterLabel>
 		<characterLabel type="objects">څيز</characterLabel>
+		<characterLabel type="other">نور</characterLabel>
 		<characterLabel type="paired">جوړه</characterLabel>
 		<characterLabel type="person">شخص</characterLabel>
 		<characterLabel type="phonetic_alphabet">صوتي الفبا</characterLabel>
@@ -5471,12 +5471,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<sil:font name="Noto Sans Arabic" types="ui">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf</sil:url>
 			</sil:font>
-			<sil:kbd id="basic_kbdpash" type="kmp">
-				<sil:url draft="generated">https://keyman.com/go/keyboard/basic_kbdpash/download/kmp</sil:url>
-			</sil:kbd>
 			<sil:font name="Scheherazade">
 				<sil:url>https://wirl.api.sil.org/Scheherazade&amp;type=ttf</sil:url>
 			</sil:font>
+			<sil:kbd id="basic_kbdpash" type="kmp">
+				<sil:url draft="generated">https://keyman.com/go/keyboard/basic_kbdpash/download/kmp</sil:url>
+			</sil:kbd>
 		</sil:external-resources>
 	</special>
 </ldml>

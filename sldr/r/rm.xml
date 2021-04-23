@@ -14,8 +14,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am" draft="contributed">amaric</language>
-			<language type="sat" draft="contributed">santali</language>
 			<language type="aa" draft="contributed">afar</language>
 			<language type="ab" draft="contributed">abchasian</language>
 			<language type="ace" draft="contributed">aceh</language>
@@ -30,6 +28,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="akk" draft="contributed">accadic</language>
 			<language type="ale" draft="contributed">aleutic</language>
 			<language type="alt" draft="contributed">altaic dal sid</language>
+			<language type="am" draft="contributed">amaric</language>
 			<language type="an" draft="contributed">aragonais</language>
 			<language type="ang" draft="contributed">englais vegl</language>
 			<language type="anp" draft="contributed">angika</language>
@@ -353,6 +352,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sah" draft="contributed">jakut</language>
 			<language type="sam" draft="contributed">arameic samaritan</language>
 			<language type="sas" draft="contributed">sasak</language>
+			<language type="sat" draft="contributed">santali</language>
 			<language type="sc" draft="contributed">sard</language>
 			<language type="scn" draft="contributed">sicilian</language>
 			<language type="sco" draft="contributed">scot</language>
@@ -931,9 +931,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">cifras europeicas</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">englais</measurementSystemName>
 			<measurementSystemName type="US">american</measurementSystemName>
 			<measurementSystemName type="metric">metric</measurementSystemName>
+			<measurementSystemName type="UK">englais</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language" draft="contributed">Lingua: {0}</codePattern>
@@ -1360,6 +1360,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName draft="contributed">epoca</displayName>
+			</field>
+			<field type="year">
+				<displayName draft="contributed">onn</displayName>
+			</field>
+			<field type="month">
+				<displayName draft="contributed">mais</displayName>
+			</field>
+			<field type="week">
+				<displayName draft="contributed">emna</displayName>
+			</field>
 			<field type="day">
 				<displayName>Tag</displayName>
 				<relative type="-1" draft="contributed">ier</relative>
@@ -1368,11 +1380,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="1" draft="contributed">damaun</relative>
 				<relative type="2" draft="contributed">puschmaun</relative>
 			</field>
+			<field type="weekday">
+				<displayName draft="contributed">di da l’emna</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName draft="contributed">mesadad dal di</displayName>
-			</field>
-			<field type="era">
-				<displayName draft="contributed">epoca</displayName>
 			</field>
 			<field type="hour">
 				<displayName draft="contributed">ura</displayName>
@@ -1380,20 +1392,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName draft="contributed">minuta</displayName>
 			</field>
-			<field type="month">
-				<displayName draft="contributed">mais</displayName>
-			</field>
 			<field type="second">
 				<displayName draft="contributed">secunda</displayName>
-			</field>
-			<field type="week">
-				<displayName draft="contributed">emna</displayName>
-			</field>
-			<field type="weekday">
-				<displayName draft="contributed">di da l’emna</displayName>
-			</field>
-			<field type="year">
-				<displayName draft="contributed">onn</displayName>
 			</field>
 			<field type="zone">
 				<displayName draft="contributed">zona d’urari</displayName>
@@ -2899,6 +2899,77 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} liters</unitPattern>
 			</unit>
 		</unitLength>
+		<unitLength type="short">
+			<unit type="duration-day">
+				<displayName>dis</displayName>
+				<unitPattern count="one">{0} di</unitPattern>
+				<unitPattern count="other">{0} dis</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>uras</displayName>
+				<unitPattern count="one">{0} ura</unitPattern>
+				<unitPattern count="other">{0} uras</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<unitPattern count="one">{0} ms</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>minutas</displayName>
+				<unitPattern count="one">{0} min.</unitPattern>
+				<unitPattern count="other">{0} mins.</unitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>mais</displayName>
+				<unitPattern count="one">{0} mais</unitPattern>
+				<unitPattern count="other">{0} mais</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>secundas</displayName>
+				<unitPattern count="one">{0} sec.</unitPattern>
+				<unitPattern count="other">{0} secs.</unitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>emnas</displayName>
+				<unitPattern count="one">{0} emna</unitPattern>
+				<unitPattern count="other">{0} emnas</unitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>onns</displayName>
+				<unitPattern count="one">{0} onn</unitPattern>
+				<unitPattern count="other">{0} onns</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<unitPattern count="one">{0} cm</unitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<unitPattern count="one">{0} km</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>meters</displayName>
+				<unitPattern count="one">{0} m</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<unitPattern count="one">{0} mm</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>grams</displayName>
+				<unitPattern count="one">{0} g</unitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<unitPattern count="one">{0} kg</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<unitPattern count="one">{0} km/h</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<unitPattern count="one">{0} °C</unitPattern>
+				<unitPattern count="other">{0} °C</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>liters</displayName>
+				<unitPattern count="one">{0} l</unitPattern>
+			</unit>
+		</unitLength>
 		<unitLength type="narrow">
 			<unit type="duration-day">
 				<displayName>di</displayName>
@@ -2986,77 +3057,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} l</unitPattern>
 			</unit>
 		</unitLength>
-		<unitLength type="short">
-			<unit type="duration-day">
-				<displayName>dis</displayName>
-				<unitPattern count="one">{0} di</unitPattern>
-				<unitPattern count="other">{0} dis</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>uras</displayName>
-				<unitPattern count="one">{0} ura</unitPattern>
-				<unitPattern count="other">{0} uras</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<unitPattern count="one">{0} ms</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>minutas</displayName>
-				<unitPattern count="one">{0} min.</unitPattern>
-				<unitPattern count="other">{0} mins.</unitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>mais</displayName>
-				<unitPattern count="one">{0} mais</unitPattern>
-				<unitPattern count="other">{0} mais</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>secundas</displayName>
-				<unitPattern count="one">{0} sec.</unitPattern>
-				<unitPattern count="other">{0} secs.</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>emnas</displayName>
-				<unitPattern count="one">{0} emna</unitPattern>
-				<unitPattern count="other">{0} emnas</unitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>onns</displayName>
-				<unitPattern count="one">{0} onn</unitPattern>
-				<unitPattern count="other">{0} onns</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<unitPattern count="one">{0} cm</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<unitPattern count="one">{0} km</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>meters</displayName>
-				<unitPattern count="one">{0} m</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<unitPattern count="one">{0} mm</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>grams</displayName>
-				<unitPattern count="one">{0} g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<unitPattern count="one">{0} kg</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<unitPattern count="one">{0} km/h</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<unitPattern count="one">{0} °C</unitPattern>
-				<unitPattern count="other">{0} °C</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>liters</displayName>
-				<unitPattern count="one">{0} l</unitPattern>
-			</unit>
-		</unitLength>
 	</units>
 	<posix>
 		<messages>
@@ -3090,12 +3090,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<sil:font name="Noto Sans" types="ui">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf</sil:url>
 			</sil:font>
-			<sil:kbd id="sil_euro_latin" type="kmp">
-				<sil:url draft="generated">https://keyman.com/go/keyboard/sil_euro_latin/download/kmp</sil:url>
-			</sil:kbd>
 			<sil:font name="Noto Serif">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSerif/NotoSerif-Regular.ttf</sil:url>
 			</sil:font>
+			<sil:kbd id="sil_euro_latin" type="kmp">
+				<sil:url draft="generated">https://keyman.com/go/keyboard/sil_euro_latin/download/kmp</sil:url>
+			</sil:kbd>
 		</sil:external-resources>
 	</special>
 </ldml>

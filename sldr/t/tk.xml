@@ -14,8 +14,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">amhar dili</language>
-			<language type="sat">santali dili</language>
 			<language type="aa">afar dili</language>
 			<language type="ab">abhaz dili</language>
 			<language type="ace">açeh dili</language>
@@ -27,6 +25,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ak">akan dili</language>
 			<language type="ale">aleut dili</language>
 			<language type="alt">günorta Altaý dili</language>
+			<language type="am">amhar dili</language>
 			<language type="an">aragon dili</language>
 			<language type="anp">angika dili</language>
 			<language type="ar">arap dili</language>
@@ -306,6 +305,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sad">sandawe dili</language>
 			<language type="sah">ýakut dili</language>
 			<language type="saq">samburu dili</language>
+			<language type="sat">santali dili</language>
 			<language type="sba">ngambaý dili</language>
 			<language type="sbp">sangu dili</language>
 			<language type="sc">sardin dili</language>
@@ -829,9 +829,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="tibt">Tibet sanlary</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">Birleşen Patyşalyk</measurementSystemName>
 			<measurementSystemName type="US">ABŞ</measurementSystemName>
 			<measurementSystemName type="metric">Metrik</measurementSystemName>
+			<measurementSystemName type="UK">Birleşen Patyşalyk</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Dil: {0}</codePattern>
@@ -847,18 +847,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a b ç d e ä f g h i j ž k l m n ň o ö p r s ş t u ü w y ý z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[c q v x]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- – — , ; \: ! ? . … " “ ” ( ) \[ \] \{ \} § @ * #]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B Ç D E Ä F G H I J Ž K L M N Ň O Ö P R S Ş T U Ü W Y Ý Z]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[  \- , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- – — , ; \: ! ? . … " “ ” ( ) \[ \] \{ \} § @ * #]</exemplarCharacters>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
-		</parseLenients>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -1387,96 +1387,170 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">geçen ýekşenbe</relative>
-				<relative type="0">şu ýekşenbe</relative>
-				<relative type="1">indiki çekşenbe</relative>
+			<field type="era">
+				<displayName>era</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>era</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>era</displayName>
+			</field>
+			<field type="year">
+				<displayName>ýyl</displayName>
+				<relative type="-1">geçen ýyl</relative>
+				<relative type="0">şu ýyl</relative>
+				<relative type="1">indiki ýyl</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ýekşenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýekşenbe</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ýyldan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýyldan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ýekşenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýekşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ýyl öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýyl öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon">
-				<relative type="-1">geçen duşenbe</relative>
-				<relative type="0">şu duşenbe</relative>
-				<relative type="1">indiki duşenbe</relative>
+			<field type="year-short">
+				<displayName>ý.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} duşenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} duşenbeden</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ý-dan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ý-dan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} duşenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} duşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ý. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ý. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="-1">geçen sişenbe</relative>
-				<relative type="0">şu sişenbe</relative>
-				<relative type="1">indiki sişenbe</relative>
+			<field type="year-narrow">
+				<displayName>ý.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} sişenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sişenbeden</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ý-dan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ý-dan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sişenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sişenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ý. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ý. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="wed">
-				<relative type="-1">geçen çarşenbe</relative>
-				<relative type="0">şu çarşenbe</relative>
-				<relative type="1">indiki çarşenbe</relative>
+			<field type="quarter">
+				<displayName>çärýek</displayName>
+				<relative type="-1">geçen çärýek</relative>
+				<relative type="0">şu çärýek</relative>
+				<relative type="1">indiki çärýek</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} çarşenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çarşenbeden</relativeTimePattern>
+					<relativeTimePattern count="one">{0} çärýekden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çärýekden</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} çarşenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çarşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} çärýek öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çärýek öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="-1">geçen penşenbe</relative>
-				<relative type="0">şu penşenbe</relative>
-				<relative type="1">indiki penşenbe</relative>
+			<field type="quarter-short">
+				<displayName>çär.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} penşenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} penşenbeden</relativeTimePattern>
+					<relativeTimePattern count="one">{0} çär-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çär-den</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} penşenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} penşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} çär. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çär. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="fri">
-				<relative type="-1">geçen anna</relative>
-				<relative type="0">şu anna</relative>
-				<relative type="1">indiki anna</relative>
+			<field type="quarter-narrow">
+				<displayName>çär.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} annadan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} annadan</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ç-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ç-den</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} anna öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} anna öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ç. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ç. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="-1">geçen şenbe</relative>
-				<relative type="0">şu şenbe</relative>
-				<relative type="1">indiki şenbe</relative>
+			<field type="month">
+				<displayName>aý</displayName>
+				<relative type="-1">geçen aý</relative>
+				<relative type="0">şu aý</relative>
+				<relative type="1">indiki aý</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} şenbeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şenbeden</relativeTimePattern>
+					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} şenbe öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şenbe öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
 				</relativeTime>
+			</field>
+			<field type="month-short">
+				<displayName>aý</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>aý</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>hepde</displayName>
+				<relative type="-1">geçen hepde</relative>
+				<relative type="0">şu hepde</relative>
+				<relative type="1">indiki hepde</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} hepdeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hepdeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hepde öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hepde öň</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} hepdesi</relativePeriod>
+			</field>
+			<field type="week-short">
+				<displayName>hep.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} hep-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hep-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hep. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hep. öň</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} hepdesi</relativePeriod>
+			</field>
+			<field type="week-narrow">
+				<displayName>hep.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} h-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} h-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} h. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} h. öň</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0} hepdesi</relativePeriod>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>aýyň hepdesi</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>hep./aý</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>hep./aý</displayName>
 			</field>
 			<field type="day">
 				<displayName>gün</displayName>
@@ -1492,7 +1566,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} gün öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="day-narrow">
+			<field type="day-short">
 				<displayName>gün</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} g-den</relativeTimePattern>
@@ -1503,7 +1577,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} g. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="day-short">
+			<field type="day-narrow">
 				<displayName>gün</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} g-den</relativeTimePattern>
@@ -1517,41 +1591,236 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="dayOfYear">
 				<displayName>ýylyň güni</displayName>
 			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>ý. güni</displayName>
-			</field>
 			<field type="dayOfYear-short">
 				<displayName>ý. güni</displayName>
 			</field>
-			<field type="dayperiod">
-				<displayName>günortadan öň/günortadan soň</displayName>
+			<field type="dayOfYear-narrow">
+				<displayName>ý. güni</displayName>
 			</field>
-			<field type="dayperiod-narrow">
-				<displayName>GÖ/GS</displayName>
+			<field type="weekday">
+				<displayName>hepdäniň güni</displayName>
 			</field>
-			<field type="dayperiod-short">
-				<displayName>GÖ/GS</displayName>
+			<field type="weekday-short">
+				<displayName>hep. güni</displayName>
 			</field>
-			<field type="era">
-				<displayName>era</displayName>
+			<field type="weekday-narrow">
+				<displayName>hep. güni</displayName>
 			</field>
-			<field type="era-narrow">
-				<displayName>era</displayName>
+			<field type="weekdayOfMonth">
+				<displayName>aýda hepdäň güni</displayName>
 			</field>
-			<field type="era-short">
-				<displayName>era</displayName>
+			<field type="weekdayOfMonth-short">
+				<displayName>aýda hep. güni</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">geçen an</relative>
-				<relative type="0">şu an</relative>
-				<relative type="1">indiki an</relative>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>aýda hep. güni</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">geçen ýekşenbe</relative>
+				<relative type="0">şu ýekşenbe</relative>
+				<relative type="1">indiki çekşenbe</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} an-dan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} an-dan</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ýekşenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýekşenbe</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} an öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} an öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ýekşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýekşenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">geçen ýek.</relative>
+				<relative type="0">şu ýek.</relative>
+				<relative type="1">indiki ýek.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ýek-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýek-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ýek. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýek. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">geçen ýb</relative>
+				<relative type="0">şu ýb</relative>
+				<relative type="1">indiki ýb</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ýb.-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýb.-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ýb öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ýb öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">geçen duşenbe</relative>
+				<relative type="0">şu duşenbe</relative>
+				<relative type="1">indiki duşenbe</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} duşenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} duşenbeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} duşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} duşenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">geçen duş.</relative>
+				<relative type="0">şu duş.</relative>
+				<relative type="1">indiki duş.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} duş-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} duş-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} duş. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} duş. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">geçen db</relative>
+				<relative type="0">şu db</relative>
+				<relative type="1">indiki db</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} db-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} db-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} db öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} db öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">geçen sişenbe</relative>
+				<relative type="0">şu sişenbe</relative>
+				<relative type="1">indiki sişenbe</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} sişenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sişenbeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sişenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sişenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">geçen siş.</relative>
+				<relative type="0">şu siş.</relative>
+				<relative type="1">indiki siş.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} siş-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} siş-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} siş. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} siş. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">geçen sb</relative>
+				<relative type="0">şu sb</relative>
+				<relative type="1">indiki sb</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} sb-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sb-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sb öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sb öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">geçen çarşenbe</relative>
+				<relative type="0">şu çarşenbe</relative>
+				<relative type="1">indiki çarşenbe</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} çarşenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çarşenbeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} çarşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çarşenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">geçen çar.</relative>
+				<relative type="0">şu çar.</relative>
+				<relative type="1">indiki çar.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} çar-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çar-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} çar. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çar. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">geçen çb</relative>
+				<relative type="0">şu çb</relative>
+				<relative type="1">indiki çb</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} çb-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çb-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} çb öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} çb öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">geçen penşenbe</relative>
+				<relative type="0">şu penşenbe</relative>
+				<relative type="1">indiki penşenbe</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} penşenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} penşenbeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} penşenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} penşenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">geçen pen.</relative>
+				<relative type="0">şu pen.</relative>
+				<relative type="1">indiki pen.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} pen-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} pen-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} pen. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} pen. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">geçen pb</relative>
+				<relative type="0">şu pb</relative>
+				<relative type="1">indiki pb</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} pb-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} pb-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} pb öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} pb öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">geçen anna</relative>
+				<relative type="0">şu anna</relative>
+				<relative type="1">indiki anna</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} annadan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} annadan</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} anna öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} anna öň</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="fri-short">
@@ -1567,6 +1836,67 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} an. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="fri-narrow">
+				<relative type="-1">geçen an</relative>
+				<relative type="0">şu an</relative>
+				<relative type="1">indiki an</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} an-dan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} an-dan</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} an öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} an öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">geçen şenbe</relative>
+				<relative type="0">şu şenbe</relative>
+				<relative type="1">indiki şenbe</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} şenbeden</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şenbeden</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} şenbe öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şenbe öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">geçen şen.</relative>
+				<relative type="0">şu şen.</relative>
+				<relative type="1">indiki şen.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} şen-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şen-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} şen. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şen. öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">geçen şb</relative>
+				<relative type="0">şu şb</relative>
+				<relative type="1">indiki şb</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} şb-den</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şb-den</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} şb öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} şb öň</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>günortadan öň/günortadan soň</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>GÖ/GS</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>GÖ/GS</displayName>
+			</field>
 			<field type="hour">
 				<displayName>sagat</displayName>
 				<relative type="0">şu sagat</relative>
@@ -1579,7 +1909,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sagat öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
+			<field type="hour-short">
 				<displayName>sag.</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} sag-dan</relativeTimePattern>
@@ -1590,7 +1920,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sag. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-short">
+			<field type="hour-narrow">
 				<displayName>sag.</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} sag-dan</relativeTimePattern>
@@ -1613,17 +1943,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} minut öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute-narrow">
-				<displayName>min.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} min-dan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} min-dan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} min. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} min. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="minute-short">
 				<displayName>min.</displayName>
 				<relativeTime type="future">
@@ -1635,128 +1954,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} min. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon-narrow">
-				<relative type="-1">geçen db</relative>
-				<relative type="0">şu db</relative>
-				<relative type="1">indiki db</relative>
+			<field type="minute-narrow">
+				<displayName>min.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} db-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} db-den</relativeTimePattern>
+					<relativeTimePattern count="one">{0} min-dan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} min-dan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} db öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} db öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">geçen duş.</relative>
-				<relative type="0">şu duş.</relative>
-				<relative type="1">indiki duş.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} duş-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} duş-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} duş. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} duş. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>aý</displayName>
-				<relative type="-1">geçen aý</relative>
-				<relative type="0">şu aý</relative>
-				<relative type="1">indiki aý</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>aý</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>aý</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} aýdan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aýdan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} aý öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} aý öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>çärýek</displayName>
-				<relative type="-1">geçen çärýek</relative>
-				<relative type="0">şu çärýek</relative>
-				<relative type="1">indiki çärýek</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} çärýekden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çärýekden</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} çärýek öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çärýek öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>çär.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ç-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ç-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ç. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ç. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>çär.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} çär-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çär-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} çär. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çär. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">geçen şb</relative>
-				<relative type="0">şu şb</relative>
-				<relative type="1">indiki şb</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} şb-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şb-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} şb öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şb öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">geçen şen.</relative>
-				<relative type="0">şu şen.</relative>
-				<relative type="1">indiki şen.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} şen-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şen-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} şen. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} şen. öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} min. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} min. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="second">
@@ -1771,17 +1977,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sekunt öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="second-narrow">
-				<displayName>sek.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} sek-dan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sek-dan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sek. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sek. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="second-short">
 				<displayName>sek.</displayName>
 				<relativeTime type="future">
@@ -1793,226 +1988,31 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} sek. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun-narrow">
-				<relative type="-1">geçen ýb</relative>
-				<relative type="0">şu ýb</relative>
-				<relative type="1">indiki ýb</relative>
+			<field type="second-narrow">
+				<displayName>sek.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ýb.-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýb.-den</relativeTimePattern>
+					<relativeTimePattern count="one">{0} sek-dan</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sek-dan</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ýb öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýb öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">geçen ýek.</relative>
-				<relative type="0">şu ýek.</relative>
-				<relative type="1">indiki ýek.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ýek-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýek-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ýek. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýek. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">geçen pb</relative>
-				<relative type="0">şu pb</relative>
-				<relative type="1">indiki pb</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} pb-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} pb-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} pb öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} pb öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">geçen pen.</relative>
-				<relative type="0">şu pen.</relative>
-				<relative type="1">indiki pen.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} pen-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} pen-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} pen. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} pen. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">geçen sb</relative>
-				<relative type="0">şu sb</relative>
-				<relative type="1">indiki sb</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} sb-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sb-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sb öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sb öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">geçen siş.</relative>
-				<relative type="0">şu siş.</relative>
-				<relative type="1">indiki siş.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} siş-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} siş-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} siş. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} siş. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">geçen çb</relative>
-				<relative type="0">şu çb</relative>
-				<relative type="1">indiki çb</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} çb-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çb-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} çb öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çb öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">geçen çar.</relative>
-				<relative type="0">şu çar.</relative>
-				<relative type="1">indiki çar.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} çar-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çar-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} çar. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} çar. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>hepde</displayName>
-				<relative type="-1">geçen hepde</relative>
-				<relative type="0">şu hepde</relative>
-				<relative type="1">indiki hepde</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} hepdeden</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hepdeden</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hepde öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hepde öň</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} hepdesi</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>hep.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} h-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} h-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} h. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} h. öň</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} hepdesi</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>hep.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} hep-den</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hep-den</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hep. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hep. öň</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0} hepdesi</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>aýyň hepdesi</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>hep./aý</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>hep./aý</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>hepdäniň güni</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>hep. güni</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>hep. güni</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>aýda hepdäň güni</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>aýda hep. güni</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>aýda hep. güni</displayName>
-			</field>
-			<field type="year">
-				<displayName>ýyl</displayName>
-				<relative type="-1">geçen ýyl</relative>
-				<relative type="0">şu ýyl</relative>
-				<relative type="1">indiki ýyl</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ýyldan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýyldan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ýyl öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ýyl öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>ý.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ý-dan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ý-dan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ý. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ý. öň</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>ý.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ý-dan</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ý-dan</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ý. öň</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ý. öň</relativeTimePattern>
+					<relativeTimePattern count="one">{0} sek. öň</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sek. öň</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
 				<displayName>sagat guşaklygy</displayName>
 			</field>
-			<field type="zone-narrow">
+			<field type="zone-short">
 				<displayName>guşaklyk</displayName>
 			</field>
-			<field type="zone-short">
+			<field type="zone-narrow">
 				<displayName>guşaklyk</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
 			<regionFormat>{0} wagty</regionFormat>
-			<regionFormat type="daylight">{0} tomusky wagty</regionFormat>
 			<regionFormat type="standard">{0} standart wagty</regionFormat>
+			<regionFormat type="daylight">{0} tomusky wagty</regionFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Abijan</exemplarCity>
 			</zone>
@@ -2952,13 +2952,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Australia/Sydney">
 				<exemplarCity>Sidneý</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Näbelli şäher</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Utgaşdyrylýan ähliumumy wagt</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Näbelli şäher</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>Amsterdam</exemplarCity>
@@ -3626,11 +3626,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>Fransuz Günorta we Antarktika ýerleri wagty</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Grinwiç boýunça orta wagt</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Galapagos adalary wagty</standard>
@@ -3651,6 +3646,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Gilberta adalary wagty</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Grinwiç boýunça orta wagt</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -6034,117 +6034,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>esasy ugur</displayName>
-				<coordinateUnitPattern type="east">{0} gündogar</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} demirgazyk</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} gündogar</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} günorta</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} günbatar</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
-		<unitLength type="narrow">
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
-			<unit type="concentr-percent">
-				<displayName>%</displayName>
-				<unitPattern count="one">{0}%</unitPattern>
-				<unitPattern count="other">{0}%</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-100kilometers">
-				<displayName>l/100 km</displayName>
-				<unitPattern count="one">{0} l/100 km</unitPattern>
-				<unitPattern count="other">{0} l/100 km</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>g</displayName>
-				<unitPattern count="one">{0}g</unitPattern>
-				<unitPattern count="other">{0}g</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>sg</displayName>
-				<unitPattern count="one">{0}sg</unitPattern>
-				<unitPattern count="other">{0}sg</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>ms</displayName>
-				<unitPattern count="one">{0}ms</unitPattern>
-				<unitPattern count="other">{0}ms</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>m</displayName>
-				<unitPattern count="one">{0}m</unitPattern>
-				<unitPattern count="other">{0}m</unitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>a</displayName>
-				<unitPattern count="one">{0}a</unitPattern>
-				<unitPattern count="other">{0}a</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>se</displayName>
-				<unitPattern count="one">{0}se</unitPattern>
-				<unitPattern count="other">{0}se</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>h</displayName>
-				<unitPattern count="one">{0}h</unitPattern>
-				<unitPattern count="other">{0}h</unitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>ý</displayName>
-				<unitPattern count="one">{0}ý</unitPattern>
-				<unitPattern count="other">{0}ý</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>sm</displayName>
-				<unitPattern count="one">{0}sm</unitPattern>
-				<unitPattern count="other">{0}sm</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<displayName>km</displayName>
-				<unitPattern count="one">{0}km</unitPattern>
-				<unitPattern count="other">{0}km</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-				<unitPattern count="one">{0}m</unitPattern>
-				<unitPattern count="other">{0}m</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<displayName>mm</displayName>
-				<unitPattern count="one">{0}mm</unitPattern>
-				<unitPattern count="other">{0}mm</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>gram</displayName>
-				<unitPattern count="one">{0}g</unitPattern>
-				<unitPattern count="other">{0}g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<displayName>kg</displayName>
-				<unitPattern count="one">{0}kg</unitPattern>
-				<unitPattern count="other">{0}kg</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>km/sag</displayName>
-				<unitPattern count="one">{0}km/sag</unitPattern>
-				<unitPattern count="other">{0}km/sag</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>°C</displayName>
-				<unitPattern count="one">{0}°C</unitPattern>
-				<unitPattern count="other">{0}°C</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>litr</displayName>
-				<unitPattern count="one">{0}l</unitPattern>
-				<unitPattern count="other">{0}l</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<displayName>ugur</displayName>
-				<coordinateUnitPattern type="east">{0}gd</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0}dg</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0}go</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0}gb</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
@@ -6797,10 +6690,117 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>ugur</displayName>
-				<coordinateUnitPattern type="east">{0} gd</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} dg</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} gd</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} go</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} gb</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="concentr-percent">
+				<displayName>%</displayName>
+				<unitPattern count="one">{0}%</unitPattern>
+				<unitPattern count="other">{0}%</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100kilometers">
+				<displayName>l/100 km</displayName>
+				<unitPattern count="one">{0} l/100 km</unitPattern>
+				<unitPattern count="other">{0} l/100 km</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>g</displayName>
+				<unitPattern count="one">{0}g</unitPattern>
+				<unitPattern count="other">{0}g</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>sg</displayName>
+				<unitPattern count="one">{0}sg</unitPattern>
+				<unitPattern count="other">{0}sg</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>ms</displayName>
+				<unitPattern count="one">{0}ms</unitPattern>
+				<unitPattern count="other">{0}ms</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>m</displayName>
+				<unitPattern count="one">{0}m</unitPattern>
+				<unitPattern count="other">{0}m</unitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>a</displayName>
+				<unitPattern count="one">{0}a</unitPattern>
+				<unitPattern count="other">{0}a</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>se</displayName>
+				<unitPattern count="one">{0}se</unitPattern>
+				<unitPattern count="other">{0}se</unitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>h</displayName>
+				<unitPattern count="one">{0}h</unitPattern>
+				<unitPattern count="other">{0}h</unitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>ý</displayName>
+				<unitPattern count="one">{0}ý</unitPattern>
+				<unitPattern count="other">{0}ý</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>sm</displayName>
+				<unitPattern count="one">{0}sm</unitPattern>
+				<unitPattern count="other">{0}sm</unitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="one">{0}km</unitPattern>
+				<unitPattern count="other">{0}km</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>m</displayName>
+				<unitPattern count="one">{0}m</unitPattern>
+				<unitPattern count="other">{0}m</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="one">{0}mm</unitPattern>
+				<unitPattern count="other">{0}mm</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>gram</displayName>
+				<unitPattern count="one">{0}g</unitPattern>
+				<unitPattern count="other">{0}g</unitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kg</displayName>
+				<unitPattern count="one">{0}kg</unitPattern>
+				<unitPattern count="other">{0}kg</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/sag</displayName>
+				<unitPattern count="one">{0}km/sag</unitPattern>
+				<unitPattern count="other">{0}km/sag</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°C</displayName>
+				<unitPattern count="one">{0}°C</unitPattern>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>litr</displayName>
+				<unitPattern count="one">{0}l</unitPattern>
+				<unitPattern count="other">{0}l</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<displayName>ugur</displayName>
+				<coordinateUnitPattern type="north">{0}dg</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}gd</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}go</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}gb</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<durationUnit type="hms">
@@ -6867,17 +6867,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — başga</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — ähli</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — ylalaşyjylyk</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} — daşy ýapyk</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} — giňeldilen</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — taryhy</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — dürli</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — başga</characterLabelPattern>
 		<characterLabelPattern type="scripts">elipbiýler — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} ştrih</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} ştrih</characterLabelPattern>
-		<characterLabel type="other">başga</characterLabel>
 		<characterLabel type="activities">işjeňlik</characterLabel>
 		<characterLabel type="african_scripts">Afrika elipbiýi</characterLabel>
 		<characterLabel type="american_scripts">Amerikan elipbiýi</characterLabel>
@@ -6931,6 +6930,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">aralyksyz</characterLabel>
 		<characterLabel type="numbers">sanlar</characterLabel>
 		<characterLabel type="objects">obýekt</characterLabel>
+		<characterLabel type="other">başga</characterLabel>
 		<characterLabel type="paired">jübütlenen</characterLabel>
 		<characterLabel type="person">şahs</characterLabel>
 		<characterLabel type="phonetic_alphabet">fonetik elipbiý</characterLabel>
@@ -7039,10 +7039,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<sil:font name="Noto Serif">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSerif/NotoSerif-Regular.ttf</sil:url>
 			</sil:font>
+			<sil:font name="Scheherazade KasLow LnSpcTght"/>
 			<sil:kbd id="basic_kbdturme" type="kmp">
 				<sil:url draft="generated">https://keyman.com/go/keyboard/basic_kbdturme/download/kmp</sil:url>
 			</sil:kbd>
-			<sil:font name="Scheherazade KasLow LnSpcTght"/>
 		</sil:external-resources>
 	</special>
 </ldml>
