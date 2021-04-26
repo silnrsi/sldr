@@ -45,7 +45,7 @@ def test_identity(ldml, langid, fixdata):
                     assert False, "Unexpected {} of {} in identity block in {}".format(k, inf.get("type"), langid)
         elif inf is None:
             if fixdata:
-                inf = ldml.ldml.ensure_path('identity/{}[@type="{}"]'.format(k, val))
+                inf = ldml.ldml.ensure_path('identity/{}[@type="{}"]'.format(k, val))[0] ###
                 ldml.dirty = True
             else:
                 assert False, "{} missing {} in identity block".format(langid, k)
@@ -69,7 +69,7 @@ def test_identity(ldml, langid, fixdata):
                 assert False, "Unexpected variant of {} in identity block in {}".format(inf.get("type"), langid)
     elif inf is None:
         if fixdata:
-            inf = ldml.ldml.ensure_path('identity/variant[@type="{}"]'.format(var))
+            inf = ldml.ldml.ensure_path('identity/variant[@type="{}"]'.format(var))[0] ###
             ldml.dirty = True
         else:
             assert False, "identity/variant missing in {}".format(langid)
@@ -87,7 +87,7 @@ def test_identity(ldml, langid, fixdata):
         silid = ldml.ldml.find("identity/special/sil:identity")
         if silid is None:
             if fixdata:
-                silid = ldml.ldml.ensure_path("identity/special/sil:identity")
+                silid = ldml.ldml.ensure_path("identity/special/sil:identity")[0] ###
                 ldml.dirty = True
         if tagset != "" and silid is not None:
             for k, v in {"script": "script", "defaultRegion": "region"}.items():
