@@ -31,7 +31,7 @@ def test_autonym(ldml):
         return
 
 #   get language id
-    lid = filename[:-4].replace("_", "-")
+    lid = filename[:-4] #.replace("_", "-")
     #langid = ldml.ldml.root.find("identity/language").get("type")
     ### should be target of another test:
     ### could check that filename.split('_')[0] == langid
