@@ -13,6 +13,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
 			<language type="de">Jérman</language>
 			<language type="de_AT">Jérman Austria</language>
@@ -74,9 +79,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">Digit Barat</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">U.K.</measurementSystemName>
 			<measurementSystemName type="US">A.S.</measurementSystemName>
 			<measurementSystemName type="metric">Métrik</measurementSystemName>
+			<measurementSystemName type="UK">U.K.</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Basa: {0}</codePattern>
@@ -87,9 +92,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters draft="contributed">[a b c d e é f g h i j k l m n o p q r s t u v w x y z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary" draft="contributed">[á à ă â å ä ã ā æ ç è ĕ ê ë ē í ì ĭ î ï ī ñ ó ò ŏ ô ö ø ō œ ú ù ŭ û ü ū ÿ]</exemplarCharacters>
-		<exemplarCharacters type="index" draft="contributed">[A B C D E É F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="index" draft="contributed">[A B C D E É F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
+		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationEnd>”</quotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
@@ -136,6 +145,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<pattern>{1}, {0}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
@@ -250,6 +262,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<day type="wed">R</day>
 							<day type="thu">K</day>
 							<day type="fri">J</day>
+							<day type="sat">S</day>
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">Minggu</day>
@@ -374,10 +387,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="Ehm">E h.mm a</dateFormatItem>
 						<dateFormatItem id="EHm">E HH.mm</dateFormatItem>
 						<dateFormatItem id="Ehms">E h.mm.ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, d MMM y G</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
 						<dateFormatItem id="hm">h.mm a</dateFormatItem>
 						<dateFormatItem id="Hm">HH.mm</dateFormatItem>
 						<dateFormatItem id="hms">h.mm.ss a</dateFormatItem>
@@ -386,6 +401,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="Hmsv">HH.mm.ss v</dateFormatItem>
 						<dateFormatItem id="hmv">h.mm a v</dateFormatItem>
 						<dateFormatItem id="Hmv">HH.mm v</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="MEd">E, d/M</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
@@ -402,22 +418,56 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">Minggu kamari</relative>
-				<relative type="0">Minggu ieu</relative>
-				<relative type="1">Minggu payun</relative>
+			<field type="era">
+				<displayName>éra</displayName>
+			</field>
+			<field type="year">
+				<displayName>taun</displayName>
+				<relative type="-1">taun kamari</relative>
+				<relative type="0">taun ieu</relative>
+				<relative type="1">taun payun</relative>
+			</field>
+			<field type="year-short">
+				<displayName>tn.</displayName>
+			</field>
+			<field type="year-narrow">
+				<displayName>tn.</displayName>
+			</field>
+			<field type="quarter">
+				<displayName>triwulan</displayName>
+			</field>
+			<field type="quarter-short">
+				<displayName>tri.</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>tri.</displayName>
+			</field>
+			<field type="month">
+				<displayName>sasih</displayName>
+			</field>
+			<field type="month-short">
+				<displayName>sa.</displayName>
+			</field>
+			<field type="month-narrow">
+				<displayName>sa.</displayName>
+			</field>
+			<field type="week">
+				<displayName>minggu</displayName>
+			</field>
+			<field type="week-short">
+				<displayName>mgg.</displayName>
+			</field>
+			<field type="week-narrow">
+				<displayName>mgg.</displayName>
 			</field>
 			<field type="day">
-				<displayName>dinten</displayName>
-				<relative type="-1">kamari</relative>
-				<relative type="0">dinten ieu</relative>
-				<relative type="1">énjing</relative>
-			</field>
-			<field type="day-narrow">
 				<displayName>dinten</displayName>
 				<relative type="-1">kamari</relative>
 				<relative type="0">dinten ieu</relative>
@@ -429,96 +479,66 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="0">dinten ieu</relative>
 				<relative type="1">énjing</relative>
 			</field>
+			<field type="day-narrow">
+				<displayName>dinten</displayName>
+				<relative type="-1">kamari</relative>
+				<relative type="0">dinten ieu</relative>
+				<relative type="1">énjing</relative>
+			</field>
+			<field type="weekday">
+				<displayName>dinten dina saminggu</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">Minggu kamari</relative>
+				<relative type="0">Minggu ieu</relative>
+				<relative type="1">Minggu payun</relative>
+			</field>
 			<field type="dayperiod">
 				<displayName>AM/PM</displayName>
-			</field>
-			<field type="era">
-				<displayName>éra</displayName>
 			</field>
 			<field type="hour">
 				<displayName>jam</displayName>
 			</field>
-			<field type="hour-narrow">
+			<field type="hour-short">
 				<displayName>j.</displayName>
 			</field>
-			<field type="hour-short">
+			<field type="hour-narrow">
 				<displayName>j.</displayName>
 			</field>
 			<field type="minute">
 				<displayName>menit</displayName>
 			</field>
-			<field type="minute-narrow">
-				<displayName>mnt.</displayName>
-			</field>
 			<field type="minute-short">
 				<displayName>mnt.</displayName>
 			</field>
-			<field type="month">
-				<displayName>sasih</displayName>
-			</field>
-			<field type="month-narrow">
-				<displayName>sa.</displayName>
-			</field>
-			<field type="month-short">
-				<displayName>sa.</displayName>
-			</field>
-			<field type="quarter">
-				<displayName>triwulan</displayName>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>tri.</displayName>
-			</field>
-			<field type="quarter-short">
-				<displayName>tri.</displayName>
+			<field type="minute-narrow">
+				<displayName>mnt.</displayName>
 			</field>
 			<field type="second">
 				<displayName>detik</displayName>
 			</field>
-			<field type="second-narrow">
-				<displayName>dtk.</displayName>
-			</field>
 			<field type="second-short">
 				<displayName>dtk.</displayName>
 			</field>
-			<field type="week">
-				<displayName>minggu</displayName>
-			</field>
-			<field type="week-narrow">
-				<displayName>mgg.</displayName>
-			</field>
-			<field type="week-short">
-				<displayName>mgg.</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>dinten dina saminggu</displayName>
-			</field>
-			<field type="year">
-				<displayName>taun</displayName>
-				<relative type="-1">taun kamari</relative>
-				<relative type="0">taun ieu</relative>
-				<relative type="1">taun payun</relative>
-			</field>
-			<field type="year-narrow">
-				<displayName>tn.</displayName>
-			</field>
-			<field type="year-short">
-				<displayName>tn.</displayName>
+			<field type="second-narrow">
+				<displayName>dtk.</displayName>
 			</field>
 			<field type="zone">
 				<displayName>zona waktu</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Asia/Macau">
 				<exemplarCity>Makau</exemplarCity>
+			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Kota Teu Dikenal</exemplarCity>
 			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Waktu Universal Terkoordinasi</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Kota Teu Dikenal</exemplarCity>
 			</zone>
 			<metazone type="America_Central">
 				<long>
@@ -583,14 +603,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<daylight>Waktu Usum Panas Éropa Barat</daylight>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Waktu Greenwich</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Waktu Galapagos</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Waktu Greenwich</standard>
 				</long>
 			</metazone>
 		</timeZoneNames>
@@ -599,55 +619,78 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<symbols numberSystem="latn">
 			<decimal>,</decimal>
 			<group>.</group>
+			<plusSign>+</plusSign>
 			<timeSeparator draft="contributed">.</timeSeparator>
 		</symbols>
+		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="standard">
 					<pattern>¤#,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="BRL">
 				<displayName>Real Brasil</displayName>
 				<displayName count="other">real Brasil</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>Yuan Tiongkok</displayName>
 				<displayName count="other">yuan Tiongkok</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>Euro</displayName>
 				<displayName count="other">euro</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>Pound Inggris</displayName>
 				<displayName count="other">pound Inggris</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>Rupee Indonésia</displayName>
 				<displayName count="other">rupee Indonésia</displayName>
 				<symbol>Rp</symbol>
+				<symbol alt="narrow" draft="contributed">Rp</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Rupee India</displayName>
 				<displayName count="other">rupee India</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>Yén Jepang</displayName>
 				<displayName count="other">yén Jepang</displayName>
 				<symbol draft="contributed">¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="RUB">
 				<displayName>Rubel Rusia</displayName>
 				<displayName count="other">rubel Rusia</displayName>
 				<symbol draft="contributed">RUB</symbol>
+				<symbol alt="narrow" draft="contributed">₽</symbol>
 			</currency>
 			<currency type="USD">
 				<displayName>Dolar A.S.</displayName>
 				<displayName count="other">dolar A.S.</displayName>
 				<symbol draft="contributed">$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>Mata Uang Teu Dikenal</displayName>
@@ -668,6 +711,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</units>
 	<listPatterns>
 		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0}, sareng {1}</listPatternPart>
 			<listPatternPart type="2">{0} sareng {1}</listPatternPart>
 		</listPattern>

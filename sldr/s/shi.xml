@@ -14,8 +14,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">ⵜⴰⵎⵀⴰⵔⵉⵜ</language>
 			<language type="ak">ⵜⴰⴽⴰⵏⵜ</language>
+			<language type="am">ⵜⴰⵎⵀⴰⵔⵉⵜ</language>
 			<language type="ar">ⵜⴰⵄⵔⴰⴱⵜ</language>
 			<language type="be">ⵜⴰⴱⵉⵍⴰⵔⵓⵙⵜ</language>
 			<language type="bg">ⵜⴰⴱⵍⵖⴰⵔⵉⵜ</language>
@@ -488,6 +488,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="ms">m:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E d/M/y</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
@@ -496,21 +497,46 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Day">{0} ({2}: {1})</appendItem>
+						<appendItem request="Day-Of-Week">{0} {1}</appendItem>
+						<appendItem request="Era">{1} {0}</appendItem>
+						<appendItem request="Hour">{0} ({2}: {1})</appendItem>
+						<appendItem request="Minute">{0} ({2}: {1})</appendItem>
+						<appendItem request="Month">{0} ({2}: {1})</appendItem>
+						<appendItem request="Quarter">{0} ({2}: {1})</appendItem>
+						<appendItem request="Second">{0} ({2}: {1})</appendItem>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+						<appendItem request="Week">{0} ({2}: {1})</appendItem>
+						<appendItem request="Year">{1} {0}</appendItem>
+					</appendItems>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName>ⵜⴰⵙⵓⵜ</displayName>
+			</field>
+			<field type="year">
+				<displayName>ⴰⵙⴳⴳⵯⴰⵙ</displayName>
+			</field>
+			<field type="month">
+				<displayName>ⴰⵢⵢⵓⵔ</displayName>
+			</field>
+			<field type="week">
+				<displayName>ⵉⵎⴰⵍⴰⵙⵙ</displayName>
+			</field>
 			<field type="day">
 				<displayName>ⴰⵙⵙ</displayName>
 				<relative type="-1">ⵉⴹⵍⵍⵉ</relative>
 				<relative type="0">ⴰⵙⵙⴰ</relative>
 				<relative type="1">ⴰⵙⴽⴽⴰ</relative>
 			</field>
+			<field type="weekday">
+				<displayName>ⴰⵙⵙ ⴳ ⵉⵎⴰⵍⴰⵙⵙ</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName>ⵜⵉⵣⵉ ⴳ ⵡⴰⵙⵙ: ⵜⵉⴼⴰⵡⵜ/ⵜⴰⴷⴳⴳⵯⴰⵜ</displayName>
-			</field>
-			<field type="era">
-				<displayName>ⵜⴰⵙⵓⵜ</displayName>
 			</field>
 			<field type="hour">
 				<displayName>ⵜⴰⵙⵔⴰⴳⵜ</displayName>
@@ -518,20 +544,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName>ⵜⵓⵙⴷⵉⴷⵜ</displayName>
 			</field>
-			<field type="month">
-				<displayName>ⴰⵢⵢⵓⵔ</displayName>
-			</field>
 			<field type="second">
 				<displayName>ⵜⴰⵙⵉⵏⵜ</displayName>
-			</field>
-			<field type="week">
-				<displayName>ⵉⵎⴰⵍⴰⵙⵙ</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>ⴰⵙⵙ ⴳ ⵉⵎⴰⵍⴰⵙⵙ</displayName>
-			</field>
-			<field type="year">
-				<displayName>ⴰⵙⴳⴳⵯⴰⵙ</displayName>
 			</field>
 			<field type="zone">
 				<displayName>ⴰⴽⵓⴷ ⵏ ⵓⴳⵎⵎⴰⴹ</displayName>
@@ -551,41 +565,41 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currencyFormatLength>
 			<currencyFormatLength type="short">
 				<currencyFormat type="standard">
-					<pattern type="1000" count="few" draft="provisional">0K¤</pattern>
 					<pattern type="1000" count="one" draft="provisional">0K¤</pattern>
+					<pattern type="1000" count="few" draft="provisional">0K¤</pattern>
 					<pattern type="1000" count="other" draft="provisional">0K¤</pattern>
-					<pattern type="10000" count="few" draft="provisional">00K¤</pattern>
 					<pattern type="10000" count="one" draft="provisional">00K¤</pattern>
+					<pattern type="10000" count="few" draft="provisional">00K¤</pattern>
 					<pattern type="10000" count="other" draft="provisional">00K¤</pattern>
-					<pattern type="100000" count="few" draft="provisional">000K¤</pattern>
 					<pattern type="100000" count="one" draft="provisional">000K¤</pattern>
+					<pattern type="100000" count="few" draft="provisional">000K¤</pattern>
 					<pattern type="100000" count="other" draft="provisional">000K¤</pattern>
-					<pattern type="1000000" count="few" draft="provisional">0M¤</pattern>
 					<pattern type="1000000" count="one" draft="provisional">0M¤</pattern>
+					<pattern type="1000000" count="few" draft="provisional">0M¤</pattern>
 					<pattern type="1000000" count="other" draft="provisional">0M¤</pattern>
-					<pattern type="10000000" count="few" draft="provisional">00M¤</pattern>
 					<pattern type="10000000" count="one" draft="provisional">00M¤</pattern>
+					<pattern type="10000000" count="few" draft="provisional">00M¤</pattern>
 					<pattern type="10000000" count="other" draft="provisional">00M¤</pattern>
-					<pattern type="100000000" count="few" draft="provisional">000M¤</pattern>
 					<pattern type="100000000" count="one" draft="provisional">000M¤</pattern>
+					<pattern type="100000000" count="few" draft="provisional">000M¤</pattern>
 					<pattern type="100000000" count="other" draft="provisional">000M¤</pattern>
-					<pattern type="1000000000" count="few" draft="provisional">0G¤</pattern>
 					<pattern type="1000000000" count="one" draft="provisional">0G¤</pattern>
+					<pattern type="1000000000" count="few" draft="provisional">0G¤</pattern>
 					<pattern type="1000000000" count="other" draft="provisional">0G¤</pattern>
-					<pattern type="10000000000" count="few" draft="provisional">00G¤</pattern>
 					<pattern type="10000000000" count="one" draft="provisional">00G¤</pattern>
+					<pattern type="10000000000" count="few" draft="provisional">00G¤</pattern>
 					<pattern type="10000000000" count="other" draft="provisional">00G¤</pattern>
-					<pattern type="100000000000" count="few" draft="provisional">000G¤</pattern>
 					<pattern type="100000000000" count="one" draft="provisional">000G¤</pattern>
+					<pattern type="100000000000" count="few" draft="provisional">000G¤</pattern>
 					<pattern type="100000000000" count="other" draft="provisional">000G¤</pattern>
-					<pattern type="1000000000000" count="few" draft="provisional">0T¤</pattern>
 					<pattern type="1000000000000" count="one" draft="provisional">0T¤</pattern>
+					<pattern type="1000000000000" count="few" draft="provisional">0T¤</pattern>
 					<pattern type="1000000000000" count="other" draft="provisional">0T¤</pattern>
-					<pattern type="10000000000000" count="few" draft="provisional">00T¤</pattern>
 					<pattern type="10000000000000" count="one" draft="provisional">00T¤</pattern>
+					<pattern type="10000000000000" count="few" draft="provisional">00T¤</pattern>
 					<pattern type="10000000000000" count="other" draft="provisional">00T¤</pattern>
-					<pattern type="100000000000000" count="few" draft="provisional">000T¤</pattern>
 					<pattern type="100000000000000" count="one" draft="provisional">000T¤</pattern>
+					<pattern type="100000000000000" count="few" draft="provisional">000T¤</pattern>
 					<pattern type="100000000000000" count="other" draft="provisional">000T¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>

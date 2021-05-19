@@ -14,8 +14,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">kutitab Amariek</language>
 			<language type="ak">kutitab Aka</language>
+			<language type="am">kutitab Amariek</language>
 			<language type="ar">kutitab Arabuk</language>
 			<language type="be">kutitab Belarusa</language>
 			<language type="bg">kutitab Bulgaria</language>
@@ -291,6 +291,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters type="auxiliary">[f q v x z]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C D E G H I J K L M N O P R S T U W Y]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
@@ -318,10 +324,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, MMMM d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, M/d/y</dateFormatItem>
@@ -475,12 +490,44 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss zzzz</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="long">
+						<timeFormat>
+							<pattern>HH:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
+				</timeFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, MMMM d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, M/d/y</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
@@ -493,17 +540,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName>Ibinta</displayName>
+			</field>
+			<field type="year">
+				<displayName>Kenyit</displayName>
+			</field>
+			<field type="month">
+				<displayName>Arawet</displayName>
+			</field>
+			<field type="week">
+				<displayName>Wikit</displayName>
+			</field>
 			<field type="day">
 				<displayName>Betut</displayName>
 				<relative type="-1">Amut</relative>
 				<relative type="0">Raini</relative>
 				<relative type="1">Mutai</relative>
 			</field>
+			<field type="weekday">
+				<displayName>Betutab wikit</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName>BE/KE</displayName>
-			</field>
-			<field type="era">
-				<displayName>Ibinta</displayName>
 			</field>
 			<field type="hour">
 				<displayName>Sait</displayName>
@@ -511,20 +570,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName>Minitit</displayName>
 			</field>
-			<field type="month">
-				<displayName>Arawet</displayName>
-			</field>
 			<field type="second">
 				<displayName>Sekondit</displayName>
-			</field>
-			<field type="week">
-				<displayName>Wikit</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>Betutab wikit</displayName>
-			</field>
-			<field type="year">
-				<displayName>Kenyit</displayName>
 			</field>
 			<field type="zone">
 				<displayName>Saitab sonit</displayName>
@@ -741,9 +788,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</posix>
 	<metadata>
 		<casingData>
+			<casingItem type="calendar_field">titlecase</casingItem>
+			<casingItem type="currencyName">titlecase</casingItem>
+			<casingItem type="day_format_except_narrow">titlecase</casingItem>
+			<casingItem type="day_narrow">titlecase</casingItem>
+			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="era_abbr">titlecase</casingItem>
+			<casingItem type="era_name">titlecase</casingItem>
+			<casingItem type="era_narrow">titlecase</casingItem>
+			<casingItem type="language">lowercase</casingItem>
+			<casingItem type="month_format_except_narrow">titlecase</casingItem>
 			<casingItem type="month_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="quarter_abbreviated">titlecase</casingItem>
+			<casingItem type="quarter_format_wide">titlecase</casingItem>
+			<casingItem type="quarter_standalone_wide">titlecase</casingItem>
 			<casingItem type="relative">titlecase</casingItem>
 			<casingItem type="symbol">titlecase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 		</casingData>
 	</metadata>
 </ldml>

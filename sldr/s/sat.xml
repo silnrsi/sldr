@@ -13,8 +13,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="sat">ᱥᱟᱱᱛᱟᱲᱤ</language>
 			<language type="de">ᱡᱟᱨᱢᱟᱱ</language>
 			<language type="de_AT">ᱚᱥᱴᱨᱤᱭᱟ ᱡᱟᱨᱢᱟᱱ</language>
 			<language type="de_CH">ᱥᱩᱣᱤᱥ ᱦᱟᱤ ᱡᱟᱨᱢᱟᱱ</language>
@@ -38,6 +40,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="pt_BR">ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱯᱩᱨᱛᱜᱟᱞᱤ</language>
 			<language type="pt_PT">ᱭᱩᱨᱚᱯᱤᱭᱟᱱ ᱯᱩᱨᱛᱜᱟᱞᱤ</language>
 			<language type="ru">ᱨᱩᱥᱤᱭᱟᱱ</language>
+			<language type="sat">ᱥᱟᱱᱛᱟᱲᱤ</language>
 			<language type="und">ᱵᱟᱝ ᱩᱨᱩᱢ ᱯᱟᱹᱨᱥᱤ</language>
 			<language type="zh">ᱪᱟᱭᱱᱤᱡᱽ</language>
 			<language type="zh" alt="menu">ᱪᱟᱭᱱᱤᱡᱽ, ᱢᱟᱱᱰᱟᱨᱤᱱ</language>
@@ -78,9 +81,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">ᱣᱮᱥᱴᱟᱨᱱ ᱮᱞ</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">ᱭᱩᱠᱮ</measurementSystemName>
 			<measurementSystemName type="US">ᱭᱩᱮᱥ</measurementSystemName>
 			<measurementSystemName type="metric">ᱢᱮᱴᱨᱤᱠ</measurementSystemName>
+			<measurementSystemName type="UK">ᱭᱩᱠᱮ</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">ᱯᱟᱹᱨᱥᱤ: {0}</codePattern>
@@ -92,8 +95,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters draft="contributed">[ᱚ ᱛ ᱜ ᱝ ᱞ ᱟ ᱠ ᱡ ᱢ ᱣ ᱤ ᱥ ᱦ ᱧ ᱨ ᱩ ᱪ ᱫ ᱬ ᱭ ᱮ ᱯ ᱰ ᱱ ᱲ ᱳ ᱴ ᱵ ᱶ ᱷ ᱸ ᱹ ᱺ ᱻ ᱼ ᱽ]</exemplarCharacters>
 		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % + 0᱐ 1᱑ 2᱒ 3᱓ 4᱔ 5᱕ 6᱖ 7᱗ 8᱘ 9᱙]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
+			<calendar type="generic">
+				<dateTimeFormats>
+					<dateTimeFormatLength type="full">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+				</dateTimeFormats>
+			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
@@ -311,23 +329,56 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName>ᱡᱩᱜᱽ</displayName>
+			</field>
+			<field type="year">
+				<displayName>ᱥᱮᱨᱢᱟ/ᱵᱚᱪᱷᱚᱞᱨ</displayName>
+			</field>
+			<field type="quarter">
+				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="quarter-short">
+				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="month">
+				<displayName>ᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="month-short">
+				<displayName>ᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="month-narrow">
+				<displayName>ᱪᱟᱸᱫᱚ</displayName>
+			</field>
+			<field type="week">
+				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
+			</field>
+			<field type="week-short">
+				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
+			</field>
+			<field type="week-narrow">
+				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
+			</field>
 			<field type="day">
 				<displayName>ᱢᱟᱦᱟ</displayName>
 				<relative type="-1">ᱦᱚᱞᱟ</relative>
 				<relative type="0">ᱛᱮᱦᱮᱧ</relative>
 				<relative type="1">ᱜᱟᱯᱟ</relative>
 			</field>
-			<field type="day-narrow">
-				<displayName>ᱢᱟᱦᱟ</displayName>
-			</field>
 			<field type="day-short">
 				<displayName>ᱢᱟᱦᱟ</displayName>
 			</field>
+			<field type="day-narrow">
+				<displayName>ᱢᱟᱦᱟ</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>ᱦᱟᱯᱛᱟ ᱨᱮᱭᱟᱜ ᱢᱟᱦᱟ</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName>ᱥᱮᱛᱟᱜ/ᱟᱹᱭᱩᱵ</displayName>
-			</field>
-			<field type="era">
-				<displayName>ᱡᱩᱜᱽ</displayName>
 			</field>
 			<field type="hour">
 				<displayName>ᱴᱟᱲᱟᱝ</displayName>
@@ -335,41 +386,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName>ᱴᱤᱯᱤᱡ</displayName>
 			</field>
-			<field type="month">
-				<displayName>ᱪᱟᱸᱫᱚ</displayName>
-			</field>
-			<field type="month-narrow">
-				<displayName>ᱪᱟᱸᱫᱚ</displayName>
-			</field>
-			<field type="month-short">
-				<displayName>ᱪᱟᱸᱫᱚ</displayName>
-			</field>
-			<field type="quarter">
-				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
-			</field>
-			<field type="quarter-short">
-				<displayName>ᱯᱮᱪᱟᱸᱫᱚ</displayName>
-			</field>
 			<field type="second">
 				<displayName>ᱴᱤᱡ</displayName>
-			</field>
-			<field type="week">
-				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
-			</field>
-			<field type="week-narrow">
-				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
-			</field>
-			<field type="week-short">
-				<displayName>ᱦᱟᱯᱛᱟ/ᱮᱢᱦᱟ</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>ᱦᱟᱯᱛᱟ ᱨᱮᱭᱟᱜ ᱢᱟᱦᱟ</displayName>
-			</field>
-			<field type="year">
-				<displayName>ᱥᱮᱨᱢᱟ/ᱵᱚᱪᱷᱚᱞᱨ</displayName>
 			</field>
 			<field type="zone">
 				<displayName>ᱴᱚᱴᱷᱟ</displayName>
@@ -379,15 +397,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<gmtFormat>ᱡᱤᱮᱢᱴᱤ{0}</gmtFormat>
 			<gmtZeroFormat>ᱡᱤᱮᱢᱴᱤ</gmtZeroFormat>
 			<regionFormat>{0} ᱚᱠᱛᱚ</regionFormat>
-			<regionFormat type="daylight">{0} ᱫᱤᱱᱵᱮᱲᱟ ᱚᱠᱛᱚ</regionFormat>
 			<regionFormat type="standard">{0} ᱮᱴᱮᱱᱰᱟᱨᱰ ᱚᱠᱛᱚ</regionFormat>
+			<regionFormat type="daylight">{0} ᱫᱤᱱᱵᱮᱲᱟ ᱚᱠᱛᱚ</regionFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>ᱵᱟᱝ ᱪᱤᱱᱦᱟᱹᱣ ᱵᱟᱡᱟᱨ</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>ᱠᱚᱨᱰᱤᱱᱮᱴᱮᱰ ᱭᱩᱱᱤᱣᱟᱨᱥᱟᱞ ᱚᱠᱛᱚ</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>ᱵᱟᱝ ᱪᱤᱱᱦᱟᱹᱣ ᱵᱟᱡᱟᱨ</exemplarCity>
 			</zone>
 			<metazone type="America_Central">
 				<long>
@@ -454,12 +472,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</dates>
 	<numbers>
 		<defaultNumberingSystem>olck</defaultNumberingSystem>
+		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+		</symbols>
 		<currencies>
 			<currency type="BRL">
 				<displayName>ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱨᱤᱭᱟᱹᱞ</displayName>
 				<displayName count="one">ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱨᱤᱭᱟᱹᱞ</displayName>
-				<displayName count="other">ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱨᱤᱭᱟᱹᱞᱥ</displayName>
 				<displayName count="two">ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱨᱤᱭᱟᱹᱞᱥ</displayName>
+				<displayName count="other">ᱵᱨᱟᱡᱤᱞᱤᱭᱟᱱ ᱨᱤᱭᱟᱹᱞᱥ</displayName>
 			</currency>
 			<currency type="CNY">
 				<displayName>ᱪᱤᱱᱤ ᱭᱩᱣᱟᱱ</displayName>
@@ -467,44 +492,44 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="EUR">
 				<displayName>ᱭᱩᱨᱚ</displayName>
 				<displayName count="one">ᱭᱩᱨᱚ</displayName>
-				<displayName count="other">ᱭᱩᱨᱚ</displayName>
 				<displayName count="two">ᱭᱩᱨᱚ</displayName>
+				<displayName count="other">ᱭᱩᱨᱚ</displayName>
 			</currency>
 			<currency type="GBP">
 				<displayName>ᱵᱨᱤᱴᱤᱥ ᱯᱟᱣᱩᱸᱰ</displayName>
 				<displayName count="one">ᱵᱨᱤᱴᱤᱥ ᱯᱟᱣᱩᱸᱰ</displayName>
-				<displayName count="other">ᱵᱨᱤᱴᱤᱥ ᱯᱟᱣᱩᱸᱰᱥ</displayName>
 				<displayName count="two">ᱵᱨᱤᱴᱤᱥ ᱯᱟᱣᱩᱸᱰᱥ</displayName>
+				<displayName count="other">ᱵᱨᱤᱴᱤᱥ ᱯᱟᱣᱩᱸᱰᱥ</displayName>
 			</currency>
 			<currency type="INR">
 				<displayName>ᱥᱤᱧᱚᱛ ᱨᱮᱱᱟᱜ ᱴᱟᱠᱟ</displayName>
 				<displayName count="one">ᱥᱤᱧᱚᱛ ᱨᱮᱱᱟᱜ ᱴᱟᱠᱟ</displayName>
-				<displayName count="other">ᱥᱤᱧᱚᱛ ᱨᱮᱱᱟᱜ ᱴᱟᱠᱟ</displayName>
 				<displayName count="two">ᱥᱤᱧᱚᱛ ᱨᱮᱱᱟᱜ ᱴᱟᱠᱟ</displayName>
+				<displayName count="other">ᱥᱤᱧᱚᱛ ᱨᱮᱱᱟᱜ ᱴᱟᱠᱟ</displayName>
 			</currency>
 			<currency type="JPY">
 				<displayName>ᱡᱟᱯᱟᱱᱤ ᱭᱮᱱ</displayName>
 				<displayName count="one">ᱡᱟᱯᱟᱱᱤ ᱭᱮᱱ</displayName>
-				<displayName count="other">ᱡᱟᱯᱟᱱᱤ ᱭᱮᱱ</displayName>
 				<displayName count="two">ᱡᱟᱯᱟᱱᱤ ᱭᱮᱱ</displayName>
+				<displayName count="other">ᱡᱟᱯᱟᱱᱤ ᱭᱮᱱ</displayName>
 			</currency>
 			<currency type="RUB">
 				<displayName>ᱨᱩᱥᱤ ᱨᱩᱵᱟᱹᱞ</displayName>
 				<displayName count="one">ᱨᱩᱥᱤ ᱨᱩᱵᱟᱹᱞ</displayName>
-				<displayName count="other">ᱨᱩᱥᱤ ᱨᱩᱵᱟᱹᱞᱥ</displayName>
 				<displayName count="two">ᱨᱩᱥᱤ ᱨᱩᱵᱟᱹᱞᱥ</displayName>
+				<displayName count="other">ᱨᱩᱥᱤ ᱨᱩᱵᱟᱹᱞᱥ</displayName>
 			</currency>
 			<currency type="USD">
 				<displayName>ᱭᱩᱮᱥ ᱰᱚᱞᱟᱨ</displayName>
 				<displayName count="one">ᱭᱩᱮᱥ ᱰᱚᱞᱟᱨ</displayName>
-				<displayName count="other">ᱭᱩᱮᱥ ᱰᱚᱞᱟᱨ</displayName>
 				<displayName count="two">ᱭᱩᱮᱥ ᱰᱚᱞᱟᱨ</displayName>
+				<displayName count="other">ᱭᱩᱮᱥ ᱰᱚᱞᱟᱨ</displayName>
 			</currency>
 			<currency type="XXX">
 				<displayName>ᱵᱟᱝᱩᱨᱩᱢ ᱠᱟᱨᱮᱱᱥᱤ</displayName>
 				<displayName count="one">ᱵᱟᱝᱩᱨᱩᱢ ᱠᱟᱨᱮᱱᱥᱤ</displayName>
-				<displayName count="other">ᱵᱟᱝᱩᱨᱩᱢ ᱠᱟᱨᱮᱱᱥᱤ</displayName>
 				<displayName count="two">ᱵᱟᱝᱩᱨᱩᱢ ᱠᱟᱨᱮᱱᱥᱤ</displayName>
+				<displayName count="other">ᱵᱟᱝᱩᱨᱩᱢ ᱠᱟᱨᱮᱱᱥᱤ</displayName>
 			</currency>
 		</currencies>
 	</numbers>

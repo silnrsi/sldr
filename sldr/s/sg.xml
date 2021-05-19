@@ -14,8 +14,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">Amarîki</language>
 			<language type="ak">Akâan</language>
+			<language type="am">Amarîki</language>
 			<language type="ar">Arâbo</language>
 			<language type="be">Bielörûsi</language>
 			<language type="bg">Bulugäri</language>
@@ -291,6 +291,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<exemplarCharacters>[a â ä b d e ê ë f g h i î ï j k l m n o ô ö p r s t u ù û ü v w y z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[c q x]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B D E F G H I J K L M N O P R S T U V W Y Z]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>«</quotationStart>
@@ -420,6 +421,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dayWidth type="narrow">
 							<day type="sun">K</day>
 							<day type="mon">S</day>
+							<day type="tue">T</day>
 							<day type="wed">S</day>
 							<day type="thu">K</day>
 							<day type="fri">P</day>
@@ -487,6 +489,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss zzzz</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="long">
+						<timeFormat>
+							<pattern>HH:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
+				</timeFormats>
 				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="M">M</dateFormatItem>
@@ -499,6 +523,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="ms">m:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E d/M/y</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
@@ -507,21 +532,46 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Day">{0} ({2}: {1})</appendItem>
+						<appendItem request="Day-Of-Week">{0} {1}</appendItem>
+						<appendItem request="Era">{1} {0}</appendItem>
+						<appendItem request="Hour">{0} ({2}: {1})</appendItem>
+						<appendItem request="Minute">{0} ({2}: {1})</appendItem>
+						<appendItem request="Month">{0} ({2}: {1})</appendItem>
+						<appendItem request="Quarter">{0} ({2}: {1})</appendItem>
+						<appendItem request="Second">{0} ({2}: {1})</appendItem>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+						<appendItem request="Week">{0} ({2}: {1})</appendItem>
+						<appendItem request="Year">{1} {0}</appendItem>
+					</appendItems>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName>Kùotângo</displayName>
+			</field>
+			<field type="year">
+				<displayName>Ngû</displayName>
+			</field>
+			<field type="month">
+				<displayName>Nze</displayName>
+			</field>
+			<field type="week">
+				<displayName>Dimâsi</displayName>
+			</field>
 			<field type="day">
 				<displayName>Lâ</displayName>
 				<relative type="-1">Bîrï</relative>
 				<relative type="0">Lâsô</relative>
 				<relative type="1">Kêkerêke</relative>
 			</field>
+			<field type="weekday">
+				<displayName>Bïkua</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName>Na lâ</displayName>
-			</field>
-			<field type="era">
-				<displayName>Kùotângo</displayName>
 			</field>
 			<field type="hour">
 				<displayName>Ngbonga</displayName>
@@ -529,20 +579,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName>Ndurü ngbonga</displayName>
 			</field>
-			<field type="month">
-				<displayName>Nze</displayName>
-			</field>
 			<field type="second">
 				<displayName>Nzîna ngbonga</displayName>
-			</field>
-			<field type="week">
-				<displayName>Dimâsi</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>Bïkua</displayName>
-			</field>
-			<field type="year">
-				<displayName>Ngû</displayName>
 			</field>
 			<field type="zone">
 				<displayName>Zukangbonga</displayName>
@@ -759,10 +797,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</posix>
 	<metadata>
 		<casingData>
+			<casingItem type="calendar_field">titlecase</casingItem>
 			<casingItem type="currencyName">lowercase</casingItem>
+			<casingItem type="day_format_except_narrow">titlecase</casingItem>
+			<casingItem type="day_narrow">titlecase</casingItem>
+			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="era_abbr">titlecase</casingItem>
+			<casingItem type="era_name">titlecase</casingItem>
+			<casingItem type="era_narrow">titlecase</casingItem>
 			<casingItem type="language">titlecase</casingItem>
+			<casingItem type="month_format_except_narrow">titlecase</casingItem>
 			<casingItem type="month_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="quarter_abbreviated">titlecase</casingItem>
+			<casingItem type="quarter_format_wide">titlecase</casingItem>
+			<casingItem type="quarter_standalone_wide">titlecase</casingItem>
 			<casingItem type="relative">titlecase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 		</casingData>
 	</metadata>
 </ldml>

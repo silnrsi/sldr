@@ -13,10 +13,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="am">амҳарӣ</language>
-			<language type="sat">санталӣ</language>
 			<language type="af">африкаанс</language>
+			<language type="am">амҳарӣ</language>
 			<language type="ar">арабӣ</language>
 			<language type="as">ассомӣ</language>
 			<language type="az">озарбойҷонӣ</language>
@@ -144,6 +148,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="rw">киняруанда</language>
 			<language type="sa">санскрит</language>
 			<language type="sah">саха</language>
+			<language type="sat">санталӣ</language>
 			<language type="sd">синдӣ</language>
 			<language type="se">самии шимолӣ</language>
 			<language type="si">сингалӣ</language>
@@ -458,16 +463,22 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">Рақамҳои ғарбӣ</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">БК</measurementSystemName>
 			<measurementSystemName type="US">ИМА</measurementSystemName>
 			<measurementSystemName type="metric">Метрӣ</measurementSystemName>
+			<measurementSystemName type="UK">БК</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">{0}</codePattern>
+			<codePattern type="script">{0}</codePattern>
+			<codePattern type="territory">{0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[а б в г ғ д е ё ж з и ӣ й к қ л м н о п р с т у ӯ ф х ҳ ч ҷ ш ъ э ю я]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[ц щ ы ь]</exemplarCharacters>
-		<exemplarCharacters type="index" draft="contributed">[А Б В Г Ғ Д Е Ё Ж З И Ӣ Й К Қ Л М Н О П Р С Т У Ӯ Ф Х Ҳ Ч Ҷ Ш Ъ Э Ю Я]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="index" draft="contributed">[А Б В Г Ғ Д Е Ё Ж З И Ӣ Й К Қ Л М Н О П Р С Т У Ӯ Ф Х Ҳ Ч Ҷ Ш Ъ Э Ю Я]</exemplarCharacters>
+		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -495,16 +506,57 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength type="full">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="long">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="Ed">d, E</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, d MMM y G</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">dd-MM</dateFormatItem>
 						<dateFormatItem id="MEd">E, dd-MM</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yyyy">y G</dateFormatItem>
 						<dateFormatItem id="yyyyM">MM-y GGGGG</dateFormatItem>
@@ -518,10 +570,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yyyyQQQQ">QQQQ y G</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
 							<greatestDifference id="h">h – h B</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
 							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
 						</intervalFormatItem>
@@ -582,6 +637,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMd">
 							<greatestDifference id="d">MMM d – d</greatestDifference>
+							<greatestDifference id="M">MMM d – MMM d</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="d">E, MMM d – E, MMM d</greatestDifference>
@@ -822,6 +878,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<quarter type="3">Ч3</quarter>
 							<quarter type="4">Ч4</quarter>
 						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">Ч1</quarter>
 							<quarter type="2">Ч2</quarter>
@@ -874,18 +936,86 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
+				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss zzzz</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="long">
+						<timeFormat>
+							<pattern>HH:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
+				</timeFormats>
 				<dateTimeFormats>
+					<dateTimeFormatLength type="full">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="long">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="Ed">d, E</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM, y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, d MMM, y G</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="hmsv">h:mm:ss a v</dateFormatItem>
+						<dateFormatItem id="Hmsv">HH:mm:ss v</dateFormatItem>
+						<dateFormatItem id="hmv">h:mm a v</dateFormatItem>
+						<dateFormatItem id="Hmv">HH:mm v</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">dd-MM</dateFormatItem>
 						<dateFormatItem id="MEd">E, dd-MM</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">'ҳафтаи' W, MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">MM-y</dateFormatItem>
 						<dateFormatItem id="yMd">d/M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, d/M/y</dateFormatItem>
@@ -897,11 +1027,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 						<dateFormatItem id="yw" count="other">'ҳафтаи' w, Y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+					</appendItems>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
 							<greatestDifference id="h">h – h B</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm B</greatestDifference>
 							<greatestDifference id="m">h:mm – h:mm B</greatestDifference>
 						</intervalFormatItem>
@@ -947,12 +1083,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="y">E, MMM d, y – E, MMM d, y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
 							<greatestDifference id="h">h – h a</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm a</greatestDifference>
 							<greatestDifference id="m">h:mm – h:mm a</greatestDifference>
 						</intervalFormatItem>
@@ -961,6 +1099,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="m">HH:mm – HH:mm</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm a v</greatestDifference>
 							<greatestDifference id="m">h:mm – h:mm a v</greatestDifference>
 						</intervalFormatItem>
@@ -969,6 +1108,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="m">HH:mm – HH:mm v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
 							<greatestDifference id="h">h – h a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hv">
@@ -990,6 +1130,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMd">
 							<greatestDifference id="d">MMM d – d</greatestDifference>
+							<greatestDifference id="M">MMM d – MMM d</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="d">E, MMM d – E, MMM d</greatestDifference>
@@ -1202,88 +1343,168 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">якшанбеи гузашта</relative>
-				<relative type="0">якшанбеи ҷорӣ</relative>
-				<relative type="1">якшанбеи оянда</relative>
+			<field type="era">
+				<displayName>мабдаи таърих</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>мабдаи таърих</displayName>
+			</field>
+			<field type="year">
+				<displayName>сол</displayName>
+				<relative type="-1">соли гузашта</relative>
+				<relative type="0">соли ҷорӣ</relative>
+				<relative type="1">соли оянда</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} якшанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} сол</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} якшанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} сол пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon">
-				<relative type="-1">душанбеи гузашта</relative>
-				<relative type="0">душанбеи ҷорӣ</relative>
-				<relative type="1">душанбеи оянда</relative>
+			<field type="year-short">
+				<displayName>с.</displayName>
+				<relative type="-1">соли г.</relative>
+				<relative type="0">соли ҷ.</relative>
+				<relative type="1">соли о.</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} душанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} с.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} душанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} с. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="-1">сешанбеи гузашта</relative>
-				<relative type="0">сешанбеи ҷорӣ</relative>
-				<relative type="1">сешанбеи оянда</relative>
+			<field type="year-narrow">
+				<displayName>с.</displayName>
+				<relative type="-1">соли г.</relative>
+				<relative type="0">соли ҷ.</relative>
+				<relative type="1">соли о.</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} сешанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} с.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} сешанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} с. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="wed">
-				<relative type="-1">чоршанбеи гузашта</relative>
-				<relative type="0">чоршанбеи ҷорӣ</relative>
-				<relative type="1">чоршанбеи оянда</relative>
+			<field type="quarter">
+				<displayName>чоряк</displayName>
+				<relative type="-1">чоряки гузашта</relative>
+				<relative type="0">чоряки ҷорӣ</relative>
+				<relative type="1">чоряки оянда</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} чоршанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} чоряк</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} чоршанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} чоряк пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="-1">панҷшанбеи гузашта</relative>
-				<relative type="0">панҷшанбеи ҷорӣ</relative>
-				<relative type="1">панҷшанбеи оянда</relative>
+			<field type="quarter-short">
+				<displayName>чр.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} панҷшанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} чр.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} панҷшанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} чр. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="fri">
-				<relative type="-1">ҷумъаи гузашта</relative>
-				<relative type="0">ҷумъаи ҷорӣ</relative>
-				<relative type="1">ҷумъаи оянда</relative>
+			<field type="quarter-narrow">
+				<displayName>чр.</displayName>
+			</field>
+			<field type="month">
+				<displayName>моҳ</displayName>
+				<relative type="-1">моҳи гузашта</relative>
+				<relative type="0">моҳи ҷорӣ</relative>
+				<relative type="1">моҳи оянда</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} ҷумъа</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} моҳ</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ҷумъа пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} моҳ пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="-1">шанбеи гузашта</relative>
-				<relative type="0">шанбеи ҷорӣ</relative>
-				<relative type="1">шанбеи оянда</relative>
+			<field type="month-short">
+				<displayName>м.</displayName>
+				<relative type="-1">моҳи г.</relative>
+				<relative type="0">моҳи ҷ.</relative>
+				<relative type="1">моҳи о.</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} шанбе</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} м.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} шанбе пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} м. пеш</relativeTimePattern>
 				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>м.</displayName>
+				<relative type="-1">моҳи г.</relative>
+				<relative type="0">моҳи ҷ.</relative>
+				<relative type="1">моҳи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} м.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} м. пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>ҳафта</displayName>
+				<relative type="-1">ҳафтаи гузашта</relative>
+				<relative type="0">ҳафтаи ҷорӣ</relative>
+				<relative type="1">ҳафтаи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} ҳафта</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ҳафта пеш</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ҳафтаи {0}</relativePeriod>
+			</field>
+			<field type="week-short">
+				<displayName>ҳ.</displayName>
+				<relative type="-1">ҳафтаи г.</relative>
+				<relative type="0">ҳафтаи ҷ.</relative>
+				<relative type="1">ҳафтаи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} ҳ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ҳ. пеш</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ҳ. {0}</relativePeriod>
+			</field>
+			<field type="week-narrow">
+				<relative type="-1">ҳафтаи г.</relative>
+				<relative type="0">ҳафтаи ҷ.</relative>
+				<relative type="1">ҳафтаи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} ҳ.</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ҳ. пеш</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ҳ. {0}</relativePeriod>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>ҳафтаи моҳ</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>ҳ. м.</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>ҳ. м.</displayName>
 			</field>
 			<field type="day">
 				<displayName>рӯз</displayName>
 				<relative type="-1">дирӯз</relative>
 				<relative type="0">имрӯз</relative>
 				<relative type="1">фардо</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} рӯз</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} рӯз пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-short">
 				<relativeTime type="future">
 					<relativeTimePattern count="other">пас аз {0} рӯз</relativeTimePattern>
 				</relativeTime>
@@ -1300,41 +1521,207 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} рӯз пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="day-short">
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} рӯз</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} рӯз пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="dayOfYear">
 				<displayName>рӯзи сол</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>рӯзи с.</displayName>
 			</field>
 			<field type="dayOfYear-short">
 				<displayName>рӯзи с.</displayName>
 			</field>
-			<field type="dayperiod">
-				<displayName>AM/PM</displayName>
+			<field type="dayOfYear-narrow">
+				<displayName>рӯзи с.</displayName>
 			</field>
-			<field type="era">
-				<displayName>мабдаи таърих</displayName>
+			<field type="weekday">
+				<displayName>рӯзи ҳафта</displayName>
 			</field>
-			<field type="era-narrow">
-				<displayName>мабдаи таърих</displayName>
+			<field type="weekday-short">
+				<displayName>рӯзи ҳ.</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">ҷмъ г.</relative>
-				<relative type="0">ҷмъ ҷ.</relative>
-				<relative type="1">ҷмъ о.</relative>
+			<field type="weekday-narrow">
+				<displayName>рӯзи ҳ.</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>рӯзи ҳафтаи моҳ</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>рӯзи ҳ. м.</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>рӯзи ҳ. м.</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">якшанбеи гузашта</relative>
+				<relative type="0">якшанбеи ҷорӣ</relative>
+				<relative type="1">якшанбеи оянда</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} ҷмъ</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} якшанбе</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ҷмъ пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} якшанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">якшанбеи г.</relative>
+				<relative type="0">якшанбеи ҷ.</relative>
+				<relative type="1">якшанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} яшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} яшб. пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">яшб г.</relative>
+				<relative type="0">яшб ҷ.</relative>
+				<relative type="1">яшб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} яшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ябш пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">душанбеи гузашта</relative>
+				<relative type="0">душанбеи ҷорӣ</relative>
+				<relative type="1">душанбеи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} душанбе</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} душанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">душанбеи г.</relative>
+				<relative type="0">душанбеи ҷ.</relative>
+				<relative type="1">душанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} дшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} дшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">дшб г.</relative>
+				<relative type="0">дшб ҷ.</relative>
+				<relative type="1">дшб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} дшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} дшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">сешанбеи гузашта</relative>
+				<relative type="0">сешанбеи ҷорӣ</relative>
+				<relative type="1">сешанбеи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} сешанбе</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} сешанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">сешанбеи г.</relative>
+				<relative type="0">сешанбеи ҷ.</relative>
+				<relative type="1">сешанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} сшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} сшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">сшб г.</relative>
+				<relative type="0">сшб ҷ.</relative>
+				<relative type="1">сшб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} сшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} сшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">чоршанбеи гузашта</relative>
+				<relative type="0">чоршанбеи ҷорӣ</relative>
+				<relative type="1">чоршанбеи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} чоршанбе</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} чоршанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">чоршанбеи г.</relative>
+				<relative type="0">чоршанбеи ҷ.</relative>
+				<relative type="1">чоршанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} чшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} чшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">чшб г.</relative>
+				<relative type="0">чшб ҷ.</relative>
+				<relative type="1">чшб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} чшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} чшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">панҷшанбеи гузашта</relative>
+				<relative type="0">панҷшанбеи ҷорӣ</relative>
+				<relative type="1">панҷшанбеи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} панҷшанбе</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} панҷшанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">панҷшанбеи г.</relative>
+				<relative type="0">панҷшанбеи ҷ.</relative>
+				<relative type="1">панҷшанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} пшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} пшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">пшб г.</relative>
+				<relative type="0">пшб ҷ.</relative>
+				<relative type="1">пшб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} пшб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} пшб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">ҷумъаи гузашта</relative>
+				<relative type="0">ҷумъаи ҷорӣ</relative>
+				<relative type="1">ҷумъаи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} ҷумъа</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ҷумъа пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="fri-short">
@@ -1348,6 +1735,53 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} ҷмъ пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="fri-narrow">
+				<relative type="-1">ҷмъ г.</relative>
+				<relative type="0">ҷмъ ҷ.</relative>
+				<relative type="1">ҷмъ о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} ҷмъ</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ҷмъ пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">шанбеи гузашта</relative>
+				<relative type="0">шанбеи ҷорӣ</relative>
+				<relative type="1">шанбеи оянда</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} шанбе</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} шанбе пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">шанбеи г.</relative>
+				<relative type="0">шанбеи ҷ.</relative>
+				<relative type="1">шанбеи о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} шнб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} шнб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">шнб г.</relative>
+				<relative type="0">шнб ҷ.</relative>
+				<relative type="1">шнб о.</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">пас аз {0} шнб</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} шнб пеш</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>AM/PM</displayName>
+			</field>
 			<field type="hour">
 				<displayName>соат</displayName>
 				<relative type="0">соати ҷорӣ</relative>
@@ -1358,7 +1792,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} соат пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
+			<field type="hour-short">
 				<displayName>ст.</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="other">пас аз {0} ст.</relativeTimePattern>
@@ -1367,7 +1801,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} ст. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-short">
+			<field type="hour-narrow">
 				<displayName>ст.</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="other">пас аз {0} ст.</relativeTimePattern>
@@ -1386,15 +1820,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} дақиқа пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute-narrow">
-				<displayName>дақ.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} дақ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} дақ. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="minute-short">
 				<displayName>дақ.</displayName>
 				<relativeTime type="future">
@@ -1404,108 +1829,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} дақ. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon-narrow">
-				<relative type="-1">дшб г.</relative>
-				<relative type="0">дшб ҷ.</relative>
-				<relative type="1">дшб о.</relative>
+			<field type="minute-narrow">
+				<displayName>дақ.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} дшб</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} дақ.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} дшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">душанбеи г.</relative>
-				<relative type="0">душанбеи ҷ.</relative>
-				<relative type="1">душанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} дшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} дшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>моҳ</displayName>
-				<relative type="-1">моҳи гузашта</relative>
-				<relative type="0">моҳи ҷорӣ</relative>
-				<relative type="1">моҳи оянда</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} моҳ</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} моҳ пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>м.</displayName>
-				<relative type="-1">моҳи г.</relative>
-				<relative type="0">моҳи ҷ.</relative>
-				<relative type="1">моҳи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} м.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} м. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>м.</displayName>
-				<relative type="-1">моҳи г.</relative>
-				<relative type="0">моҳи ҷ.</relative>
-				<relative type="1">моҳи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} м.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} м. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>чоряк</displayName>
-				<relative type="-1">чоряки гузашта</relative>
-				<relative type="0">чоряки ҷорӣ</relative>
-				<relative type="1">чоряки оянда</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} чоряк</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} чоряк пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>чр.</displayName>
-			</field>
-			<field type="quarter-short">
-				<displayName>чр.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} чр.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} чр. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">шнб г.</relative>
-				<relative type="0">шнб ҷ.</relative>
-				<relative type="1">шнб о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} шнб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} шнб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">шанбеи г.</relative>
-				<relative type="0">шанбеи ҷ.</relative>
-				<relative type="1">шанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} шнб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} шнб пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} дақ. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="second">
@@ -1518,15 +1848,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} сония пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="second-narrow">
-				<displayName>сон.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} сон.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} сон. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
 			<field type="second-short">
 				<displayName>сон.</displayName>
 				<relativeTime type="future">
@@ -1536,193 +1857,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} сон. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun-narrow">
-				<relative type="-1">яшб г.</relative>
-				<relative type="0">яшб ҷ.</relative>
-				<relative type="1">яшб о.</relative>
+			<field type="second-narrow">
+				<displayName>сон.</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} яшб</relativeTimePattern>
+					<relativeTimePattern count="other">пас аз {0} сон.</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ябш пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">якшанбеи г.</relative>
-				<relative type="0">якшанбеи ҷ.</relative>
-				<relative type="1">якшанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} яшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} яшб. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">пшб г.</relative>
-				<relative type="0">пшб ҷ.</relative>
-				<relative type="1">пшб о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} пшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} пшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">панҷшанбеи г.</relative>
-				<relative type="0">панҷшанбеи ҷ.</relative>
-				<relative type="1">панҷшанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} пшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} пшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">сшб г.</relative>
-				<relative type="0">сшб ҷ.</relative>
-				<relative type="1">сшб о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} сшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} сшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">сешанбеи г.</relative>
-				<relative type="0">сешанбеи ҷ.</relative>
-				<relative type="1">сешанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} сшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} сшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">чшб г.</relative>
-				<relative type="0">чшб ҷ.</relative>
-				<relative type="1">чшб о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} чшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} чшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">чоршанбеи г.</relative>
-				<relative type="0">чоршанбеи ҷ.</relative>
-				<relative type="1">чоршанбеи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} чшб</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} чшб пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>ҳафта</displayName>
-				<relative type="-1">ҳафтаи гузашта</relative>
-				<relative type="0">ҳафтаи ҷорӣ</relative>
-				<relative type="1">ҳафтаи оянда</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} ҳафта</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ҳафта пеш</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ҳафтаи {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<relative type="-1">ҳафтаи г.</relative>
-				<relative type="0">ҳафтаи ҷ.</relative>
-				<relative type="1">ҳафтаи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} ҳ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ҳ. пеш</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ҳ. {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>ҳ.</displayName>
-				<relative type="-1">ҳафтаи г.</relative>
-				<relative type="0">ҳафтаи ҷ.</relative>
-				<relative type="1">ҳафтаи о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} ҳ.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ҳ. пеш</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ҳ. {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>ҳафтаи моҳ</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>ҳ. м.</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>ҳ. м.</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>рӯзи ҳафта</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>рӯзи ҳ.</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>рӯзи ҳ.</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>рӯзи ҳафтаи моҳ</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>рӯзи ҳ. м.</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>рӯзи ҳ. м.</displayName>
-			</field>
-			<field type="year">
-				<displayName>сол</displayName>
-				<relative type="-1">соли гузашта</relative>
-				<relative type="0">соли ҷорӣ</relative>
-				<relative type="1">соли оянда</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} сол</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} сол пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>с.</displayName>
-				<relative type="-1">соли г.</relative>
-				<relative type="0">соли ҷ.</relative>
-				<relative type="1">соли о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} с.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} с. пеш</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>с.</displayName>
-				<relative type="-1">соли г.</relative>
-				<relative type="0">соли ҷ.</relative>
-				<relative type="1">соли о.</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">пас аз {0} с.</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} с. пеш</relativeTimePattern>
+					<relativeTimePattern count="other">{0} сон. пеш</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
@@ -1730,16 +1871,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
+			<regionFormat>{0}</regionFormat>
+			<regionFormat type="standard">{0} (+0)</regionFormat>
+			<regionFormat type="daylight">{0} (+1)</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Asia/Dushanbe">
 				<exemplarCity>Душанбе</exemplarCity>
+			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Шаҳри номаълум</exemplarCity>
 			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Вақти ҷаҳонии ҳамоҳангсозӣ</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Шаҳри номаълум</exemplarCity>
 			</zone>
 			<metazone type="America_Central">
 				<long>
@@ -1805,11 +1953,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<defaultNumberingSystem draft="contributed">latn</defaultNumberingSystem>
+		<otherNumberingSystems>
+			<native draft="contributed">latn</native>
+		</otherNumberingSystems>
+		<minimumGroupingDigits draft="contributed">1</minimumGroupingDigits>
 		<symbols numberSystem="latn">
 			<decimal>,</decimal>
 			<group/>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 		</symbols>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<decimalFormat>
 					<pattern type="1000" count="other">0 ҳазор</pattern>
@@ -1843,6 +2009,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</decimalFormat>
 			</decimalFormatLength>
 		</decimalFormats>
+		<scientificFormats numberSystem="latn">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats numberSystem="latn">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
@@ -1868,36 +2048,50 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<pattern type="100000000000000" count="other">000 трлн'.' ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="BRL">
 				<displayName>Реали бразилиягӣ</displayName>
 				<displayName count="other">реали бразилиягӣ</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>Иенаи хитоӣ</displayName>
 				<displayName count="other">иенаи хитоӣ</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="EUR">
 				<displayName>Евро</displayName>
 				<displayName count="other">евро</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>Фунт стерлинги британӣ</displayName>
 				<displayName count="other">фунт стерлинги британӣ</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Рупияи ҳиндустонӣ</displayName>
 				<displayName count="other">рупияи ҳиндустонӣ</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="JPY">
 				<displayName>Иенаи японӣ</displayName>
 				<displayName count="other">иенаи японӣ</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="RUB">
 				<displayName>Рубли русӣ</displayName>
 				<displayName count="other">рубли русӣ</displayName>
 				<symbol draft="contributed">RUB</symbol>
+				<symbol alt="narrow" draft="contributed">₽</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>Сомонӣ</displayName>
@@ -1908,6 +2102,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Доллари ИМА</displayName>
 				<displayName count="other">доллари ИМА</displayName>
 				<symbol draft="contributed">$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>Асъори номаълум</displayName>
@@ -1916,11 +2111,42 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</currencies>
 		<miscPatterns numberSystem="latn">
 			<pattern type="atLeast">⩾{0}</pattern>
+			<pattern type="range">{0}–{1}</pattern>
 		</miscPatterns>
 	</numbers>
+	<units>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
+	</units>
+	<listPatterns>
+		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0}, {1}</listPatternPart>
+			<listPatternPart type="2">{0}, {1}</listPatternPart>
+		</listPattern>
+	</listPatterns>
 	<metadata>
 		<casingData>
+			<casingItem type="currencyName">titlecase</casingItem>
+			<casingItem type="day_format_except_narrow">titlecase</casingItem>
+			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="era_abbr">titlecase</casingItem>
+			<casingItem type="era_name">titlecase</casingItem>
+			<casingItem type="era_narrow">titlecase</casingItem>
+			<casingItem type="language">lowercase</casingItem>
+			<casingItem type="month_format_except_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="script">titlecase</casingItem>
 			<casingItem type="symbol">lowercase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 		</casingData>
 	</metadata>
 </ldml>

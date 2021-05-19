@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -14,11 +14,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</identity>
 	<localeDisplayNames>
 		<languages>
-			<language type="am">Amariikị</language>
-			<language type="sat">Santalị</language>
 			<language type="af">Afrikaans</language>
 			<language type="agq">Aghem</language>
 			<language type="ak">Akan</language>
+			<language type="am">Amariikị</language>
 			<language type="ar">Arabiikị</language>
 			<language type="ar_001">Ụdị Arabiikị nke oge a</language>
 			<language type="asa">Asụ</language>
@@ -196,6 +195,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sa">Sansịkịt</language>
 			<language type="sah">Saka</language>
 			<language type="saq">Sambụrụ</language>
+			<language type="sat">Santalị</language>
 			<language type="sbp">Sangụ</language>
 			<language type="sd">Sịndh</language>
 			<language type="se">Nọrtan Samị</language>
@@ -684,8 +684,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a b {ch} d e ẹ f g {gb} {gh} {gw} h i ị j k {kp} {kw} l m n ṅ {nw} {ny} o ọ p r s {sh} t u ụ v w y z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à ā c é è ē í ì ī {ị\u0301} {ị\u0300} ḿ {m\u0300} ń ǹ ó ò ō {ọ\u0301} {ọ\u0300} q ú ù ū {ụ\u0301} {ụ\u0300} x]</exemplarCharacters>
-		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‑ , ; \: ! ? . ‘ ’ “ ” ( ) \[ \] \{ \}]</exemplarCharacters>
+		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -734,10 +734,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, MMMM d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, M/d/y</dateFormatItem>
@@ -928,6 +937,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<quarter type="3">Ọ3</quarter>
 							<quarter type="4">Ọ4</quarter>
 						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">Ọkara 1</quarter>
 							<quarter type="2">Ọkara 2</quarter>
@@ -1051,124 +1066,140 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 						<dateFormatItem id="yw" count="other">'Izu' w 'n' 'ime' Y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+					</appendItems>
 					<intervalFormats>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d–d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="H">
+							<greatestDifference id="H">HH–HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hm">
+							<greatestDifference id="H">HH:mm–HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hmv">
+							<greatestDifference id="H">HH:mm–HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
+							<greatestDifference id="h">h–h a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hv">
+							<greatestDifference id="H">HH–HH v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">MM–MM</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Md">
 							<greatestDifference id="d">MM/dd – MM/dd</greatestDifference>
 							<greatestDifference id="M">MM/dd – MM/dd</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="MEd">
 							<greatestDifference id="d">E, MM/dd – E, MM/dd</greatestDifference>
+							<greatestDifference id="M">MM-dd, E – MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLL–LLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="d">MMM d–d</greatestDifference>
+							<greatestDifference id="M">MMM d – MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="d">MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="M">MMM d, E – MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y–y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yM">
 							<greatestDifference id="M">MM/y – MM/y</greatestDifference>
+							<greatestDifference id="y">y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="d">y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="M">y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="d">y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="d">y MMM d–d</greatestDifference>
+							<greatestDifference id="M">y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="y">y MMM d – y MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="d">y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="M">y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">y MMMM–MMMM</greatestDifference>
+							<greatestDifference id="y">y MMMM – y MMMM</greatestDifference>
 						</intervalFormatItem>
 					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">Ụbọchị ụka gara aga</relative>
-				<relative type="0">ụbọchị ụka a</relative>
-				<relative type="1">ụbọchị ụka na abịa</relative>
-			</field>
-			<field type="mon">
-				<relative type="-1">ụbọchị Mọnde gara aga</relative>
-				<relative type="0">ụbọchị Mọnde a</relative>
-				<relative type="1">ụbọchị Monde a</relative>
-			</field>
-			<field type="tue">
-				<relative type="-1">ụbọchị Tuesde gara aga</relative>
-				<relative type="0">ụbọchị Tuesde a</relative>
-				<relative type="1">ụbọchị Tuesde na abịa</relative>
-			</field>
-			<field type="wed">
-				<relative type="-1">ụbọchị wednesde gara aga</relative>
-				<relative type="0">ụbọchị Wednesde a</relative>
-				<relative type="1">ụbọchị Wednesde na abịa</relative>
-			</field>
-			<field type="thu">
-				<relative type="-1">ụbọchị Tọsdee gara aga</relative>
-				<relative type="0">ụbọchị Tọsdee a</relative>
-				<relative type="1">ụbọchị Tọsdee na abịa</relative>
-			</field>
-			<field type="fri">
-				<relative type="-1">Ụbọchị faraịde gara aga</relative>
-				<relative type="0">ụbọchị Faraịde a</relative>
-				<relative type="1">ụbọchị Faraịde na abịa</relative>
-			</field>
-			<field type="sat">
-				<relative type="-1">ụbọchị Satụde gara aga</relative>
-				<relative type="0">ụbọchị Satụde a</relative>
-				<relative type="1">ụbọchị Satụde na abịa</relative>
-			</field>
-			<field type="day">
-				<displayName>Ụbọchị</displayName>
-				<relative type="-1">Ụnyaahụ</relative>
-				<relative type="0">Taa</relative>
-				<relative type="1">Echi</relative>
-			</field>
-			<field type="day-narrow">
-				<relative type="-1">Ụnyaahụ</relative>
-				<relative type="0">Taata</relative>
-			</field>
-			<field type="day-short">
-				<relative type="-1">Ụnyaahụ</relative>
-				<relative type="0">Taata</relative>
-			</field>
-			<field type="dayOfYear">
-				<displayName>ụbọchị na afọ</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>Ụbọchị na afọ</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>N’ụtụtụ/N’abalị</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>N’ụtụtụ/N’abalị</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>N’ụtụtụ/N’abalị</displayName>
-			</field>
 			<field type="era">
 				<displayName>Agba</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">ụbọchị Faraịde gara aga</relative>
-				<relative type="0">ụbọchị Faraịde a</relative>
-				<relative type="1">ụọchị Faraịde na abịa</relative>
+			<field type="year">
+				<displayName>Afọ</displayName>
+				<relative type="-1">Afọ gara aga</relative>
+				<relative type="0">Afọ a</relative>
+				<relative type="1">Afọ ọzọ</relative>
 			</field>
-			<field type="fri-short">
-				<relative type="-1">ụbọchị Faraịde gara aga</relative>
-				<relative type="0">ụbọchị Faraịde a</relative>
-				<relative type="1">ụbọchị na abịa</relative>
+			<field type="year-short">
+				<relative type="-1">Afọ gara aga</relative>
+				<relative type="0">Afọ a</relative>
+				<relative type="1">Afọ ọzọ</relative>
 			</field>
-			<field type="hour">
-				<displayName>Elekere</displayName>
-				<relative type="0">elekere a</relative>
+			<field type="year-narrow">
+				<relative type="-1">Afọ gara aga</relative>
+				<relative type="0">Afọ a</relative>
+				<relative type="1">Afọ ọzọ</relative>
 			</field>
-			<field type="minute">
-				<displayName>Nkeji</displayName>
-				<relative type="0">nkejị a</relative>
+			<field type="quarter">
+				<displayName>Ọnwa atọ n’afọ</displayName>
+				<relative type="-1">Nkejị keanọ gara aga</relative>
+				<relative type="0">nkejị keanọ a</relative>
+				<relative type="1">nkejị keanọ na abịa</relative>
 			</field>
-			<field type="mon-narrow">
-				<relative type="-1">ụbọchị Monde gara aga</relative>
-				<relative type="0">ụbọchị Monde a</relative>
-				<relative type="1">ụbọchị Monde na abịa</relative>
+			<field type="quarter-short">
+				<displayName>Ọnwa atọ n’afọ</displayName>
 			</field>
-			<field type="mon-short">
-				<relative type="-1">Mon gara aga</relative>
-				<relative type="0">ụbọchị Mọnde a</relative>
-				<relative type="1">ụbọchị Mọnde na abịa</relative>
+			<field type="quarter-narrow">
+				<displayName>Ọnwa atọ n’afọ</displayName>
 			</field>
 			<field type="month">
 				<displayName>Ọnwa</displayName>
-				<relative type="-1">Ọnwa gara aga</relative>
-				<relative type="0">Ọnwa a</relative>
-				<relative type="1">Ọnwa ọzọ</relative>
-			</field>
-			<field type="month-narrow">
 				<relative type="-1">Ọnwa gara aga</relative>
 				<relative type="0">Ọnwa a</relative>
 				<relative type="1">Ọnwa ọzọ</relative>
@@ -1178,86 +1209,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="0">Ọnwa a</relative>
 				<relative type="1">Ọnwa ọzọ</relative>
 			</field>
-			<field type="quarter">
-				<displayName>Ọnwa atọ n’afọ</displayName>
-				<relative type="-1">Nkejị keanọ gara aga</relative>
-				<relative type="0">nkejị keanọ a</relative>
-				<relative type="1">nkejị keanọ na abịa</relative>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>Ọnwa atọ n’afọ</displayName>
-			</field>
-			<field type="quarter-short">
-				<displayName>Ọnwa atọ n’afọ</displayName>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">ụbọchị Satụde gara aga</relative>
-				<relative type="0">ụbọchị Satụde a</relative>
-				<relative type="1">ụbọchị Satụde na abịa</relative>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">Ụbọchị Satụde gara aga</relative>
-				<relative type="0">ụbọchị Satụde a</relative>
-				<relative type="1">ụbọchị Satụde na abịa</relative>
-			</field>
-			<field type="second">
-				<displayName>Tịm kọm</displayName>
-				<relative type="0">ụgbụa</relative>
-			</field>
-			<field type="second-narrow">
-				<displayName>Tịm kọm</displayName>
-			</field>
-			<field type="second-short">
-				<displayName>Tịm kọm</displayName>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">ụbọchị ụka gara aga</relative>
-				<relative type="0">ụbọchị ụka a</relative>
-				<relative type="1">ụbọchị ụka na abịa</relative>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">ụbọchị ụka gara aga</relative>
-				<relative type="0">ubochị ụka a</relative>
-				<relative type="1">ụbọchị ụka na abịa</relative>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">ụbọchị Tọsdee gara aga</relative>
-				<relative type="0">ụbọchị Tọsdee a</relative>
-				<relative type="1">ụbọchị Tọsdee na abịa</relative>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">Ụbọchị Tọsdee gara aga</relative>
-				<relative type="0">ụbọchị Tọsdee a</relative>
-				<relative type="1">ụbọchị Tọsdee na abịa</relative>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">ụbọchị Tuesde gara aga</relative>
-				<relative type="0">ụbọchị Tuesde a</relative>
-				<relative type="1">ụbọchị Tuesde na abịa</relative>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">ụbọchị Tụesde gara aga</relative>
-				<relative type="0">ụbọchị Tuesde a</relative>
-				<relative type="1">ụbọchị Tuesde na abịa</relative>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">ụbọchị Wednesde gara ag</relative>
-				<relative type="0">ụbọchị Wednesde a</relative>
-				<relative type="1">ụbọchị Wednesde a</relative>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">ụbọchị Wednesde gara ag</relative>
-				<relative type="0">ụbọchị Wednesde a</relative>
-				<relative type="1">ụbọchị Wednesde na abịa</relative>
+			<field type="month-narrow">
+				<relative type="-1">Ọnwa gara aga</relative>
+				<relative type="0">Ọnwa a</relative>
+				<relative type="1">Ọnwa ọzọ</relative>
 			</field>
 			<field type="week">
 				<displayName>Izu</displayName>
-				<relative type="-1">Izu gara aga</relative>
-				<relative type="0">Izu a</relative>
-				<relative type="1">Izu na-esote</relative>
-				<relativePeriod>Izu nke{0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
 				<relative type="-1">Izu gara aga</relative>
 				<relative type="0">Izu a</relative>
 				<relative type="1">Izu na-esote</relative>
@@ -1269,67 +1227,213 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="1">Izu na-esote</relative>
 				<relativePeriod>Izu nke{0}</relativePeriod>
 			</field>
-			<field type="weekOfMonth">
-				<displayName>ịzụ ọnwa</displayName>
+			<field type="week-narrow">
+				<relative type="-1">Izu gara aga</relative>
+				<relative type="0">Izu a</relative>
+				<relative type="1">Izu na-esote</relative>
+				<relativePeriod>Izu nke{0}</relativePeriod>
 			</field>
-			<field type="weekOfMonth-narrow">
+			<field type="weekOfMonth">
 				<displayName>ịzụ ọnwa</displayName>
 			</field>
 			<field type="weekOfMonth-short">
 				<displayName>ịzụ ọnwa</displayName>
 			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>ịzụ ọnwa</displayName>
+			</field>
+			<field type="day">
+				<displayName>Ụbọchị</displayName>
+				<relative type="-1">Ụnyaahụ</relative>
+				<relative type="0">Taa</relative>
+				<relative type="1">Echi</relative>
+			</field>
+			<field type="day-short">
+				<relative type="-1">Ụnyaahụ</relative>
+				<relative type="0">Taata</relative>
+			</field>
+			<field type="day-narrow">
+				<relative type="-1">Ụnyaahụ</relative>
+				<relative type="0">Taata</relative>
+			</field>
+			<field type="dayOfYear">
+				<displayName>ụbọchị na afọ</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>Ụbọchị na afọ</displayName>
+			</field>
 			<field type="weekday">
 				<displayName>Ụbọchị izu</displayName>
 			</field>
-			<field type="weekday-narrow">
+			<field type="weekday-short">
 				<displayName>Ụbọchị ịzụ</displayName>
 			</field>
-			<field type="weekday-short">
+			<field type="weekday-narrow">
 				<displayName>Ụbọchị ịzụ</displayName>
 			</field>
 			<field type="weekdayOfMonth">
 				<displayName>Ụbọchị ịzụ na ọnwa</displayName>
 			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>Ụbọchị ịzụ na ọnwa</displayName>
-			</field>
 			<field type="weekdayOfMonth-short">
 				<displayName>Ụbọchị ịzụ na ọnwa</displayName>
 			</field>
-			<field type="year">
-				<displayName>Afọ</displayName>
-				<relative type="-1">Afọ gara aga</relative>
-				<relative type="0">Afọ a</relative>
-				<relative type="1">Afọ ọzọ</relative>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>Ụbọchị ịzụ na ọnwa</displayName>
 			</field>
-			<field type="year-narrow">
-				<relative type="-1">Afọ gara aga</relative>
-				<relative type="0">Afọ a</relative>
-				<relative type="1">Afọ ọzọ</relative>
+			<field type="sun">
+				<relative type="-1">Ụbọchị ụka gara aga</relative>
+				<relative type="0">ụbọchị ụka a</relative>
+				<relative type="1">ụbọchị ụka na abịa</relative>
 			</field>
-			<field type="year-short">
-				<relative type="-1">Afọ gara aga</relative>
-				<relative type="0">Afọ a</relative>
-				<relative type="1">Afọ ọzọ</relative>
+			<field type="sun-short">
+				<relative type="-1">ụbọchị ụka gara aga</relative>
+				<relative type="0">ubochị ụka a</relative>
+				<relative type="1">ụbọchị ụka na abịa</relative>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">ụbọchị ụka gara aga</relative>
+				<relative type="0">ụbọchị ụka a</relative>
+				<relative type="1">ụbọchị ụka na abịa</relative>
+			</field>
+			<field type="mon">
+				<relative type="-1">ụbọchị Mọnde gara aga</relative>
+				<relative type="0">ụbọchị Mọnde a</relative>
+				<relative type="1">ụbọchị Monde a</relative>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">Mon gara aga</relative>
+				<relative type="0">ụbọchị Mọnde a</relative>
+				<relative type="1">ụbọchị Mọnde na abịa</relative>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">ụbọchị Monde gara aga</relative>
+				<relative type="0">ụbọchị Monde a</relative>
+				<relative type="1">ụbọchị Monde na abịa</relative>
+			</field>
+			<field type="tue">
+				<relative type="-1">ụbọchị Tuesde gara aga</relative>
+				<relative type="0">ụbọchị Tuesde a</relative>
+				<relative type="1">ụbọchị Tuesde na abịa</relative>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">ụbọchị Tụesde gara aga</relative>
+				<relative type="0">ụbọchị Tuesde a</relative>
+				<relative type="1">ụbọchị Tuesde na abịa</relative>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">ụbọchị Tuesde gara aga</relative>
+				<relative type="0">ụbọchị Tuesde a</relative>
+				<relative type="1">ụbọchị Tuesde na abịa</relative>
+			</field>
+			<field type="wed">
+				<relative type="-1">ụbọchị wednesde gara aga</relative>
+				<relative type="0">ụbọchị Wednesde a</relative>
+				<relative type="1">ụbọchị Wednesde na abịa</relative>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">ụbọchị Wednesde gara ag</relative>
+				<relative type="0">ụbọchị Wednesde a</relative>
+				<relative type="1">ụbọchị Wednesde na abịa</relative>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">ụbọchị Wednesde gara ag</relative>
+				<relative type="0">ụbọchị Wednesde a</relative>
+				<relative type="1">ụbọchị Wednesde a</relative>
+			</field>
+			<field type="thu">
+				<relative type="-1">ụbọchị Tọsdee gara aga</relative>
+				<relative type="0">ụbọchị Tọsdee a</relative>
+				<relative type="1">ụbọchị Tọsdee na abịa</relative>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">Ụbọchị Tọsdee gara aga</relative>
+				<relative type="0">ụbọchị Tọsdee a</relative>
+				<relative type="1">ụbọchị Tọsdee na abịa</relative>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">ụbọchị Tọsdee gara aga</relative>
+				<relative type="0">ụbọchị Tọsdee a</relative>
+				<relative type="1">ụbọchị Tọsdee na abịa</relative>
+			</field>
+			<field type="fri">
+				<relative type="-1">Ụbọchị faraịde gara aga</relative>
+				<relative type="0">ụbọchị Faraịde a</relative>
+				<relative type="1">ụbọchị Faraịde na abịa</relative>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">ụbọchị Faraịde gara aga</relative>
+				<relative type="0">ụbọchị Faraịde a</relative>
+				<relative type="1">ụbọchị na abịa</relative>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">ụbọchị Faraịde gara aga</relative>
+				<relative type="0">ụbọchị Faraịde a</relative>
+				<relative type="1">ụọchị Faraịde na abịa</relative>
+			</field>
+			<field type="sat">
+				<relative type="-1">ụbọchị Satụde gara aga</relative>
+				<relative type="0">ụbọchị Satụde a</relative>
+				<relative type="1">ụbọchị Satụde na abịa</relative>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">Ụbọchị Satụde gara aga</relative>
+				<relative type="0">ụbọchị Satụde a</relative>
+				<relative type="1">ụbọchị Satụde na abịa</relative>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">ụbọchị Satụde gara aga</relative>
+				<relative type="0">ụbọchị Satụde a</relative>
+				<relative type="1">ụbọchị Satụde na abịa</relative>
+			</field>
+			<field type="dayperiod">
+				<displayName>N’ụtụtụ/N’abalị</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>N’ụtụtụ/N’abalị</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>N’ụtụtụ/N’abalị</displayName>
+			</field>
+			<field type="hour">
+				<displayName>Elekere</displayName>
+				<relative type="0">elekere a</relative>
+			</field>
+			<field type="minute">
+				<displayName>Nkeji</displayName>
+				<relative type="0">nkejị a</relative>
+			</field>
+			<field type="second">
+				<displayName>Tịm kọm</displayName>
+				<relative type="0">ụgbụa</relative>
+			</field>
+			<field type="second-short">
+				<displayName>Tịm kọm</displayName>
+			</field>
+			<field type="second-narrow">
+				<displayName>Tịm kọm</displayName>
 			</field>
 			<field type="zone">
 				<displayName>Mpaghara oge</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>Oge {0}</regionFormat>
-			<regionFormat type="daylight">Oge Ihe {0}</regionFormat>
 			<regionFormat type="standard">Oge Izugbe {0}</regionFormat>
+			<regionFormat type="daylight">Oge Ihe {0}</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="America/Araguaina">
 				<exemplarCity>Araguaina</exemplarCity>
+			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Obodo Amaghị</exemplarCity>
 			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Nhazi Oge Ụwa Niile</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Obodo Amaghị</exemplarCity>
 			</zone>
 			<zone type="Europe/Dublin">
 				<long>
@@ -1671,11 +1775,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>Oge French Southern &amp; Antarctic</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Oge Mpaghara Greemwich Mean</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Oge Galapagos</standard>
@@ -1696,6 +1795,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Oge Gilbert Islands</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Oge Mpaghara Greemwich Mean</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -2225,10 +2329,32 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<minimumGroupingDigits draft="contributed">1</minimumGroupingDigits>
 		<symbols numberSystem="arab">
+			<decimal>٫</decimal>
+			<group>٬</group>
+			<list>؛</list>
 			<percentSign>٪‏</percentSign>
 			<plusSign>‏+</plusSign>
 			<minusSign>‏-</minusSign>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>؉</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
+			<timeSeparator draft="contributed">:</timeSeparator>
+		</symbols>
+		<symbols numberSystem="arabext">
+			<decimal>٫</decimal>
+			<group>٬</group>
+			<list>؛</list>
+			<percentSign>٪</percentSign>
+			<plusSign>‎+‎</plusSign>
+			<minusSign>‎-‎</minusSign>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>؉</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
+			<timeSeparator draft="contributed">٫</timeSeparator>
 		</symbols>
 		<symbols numberSystem="bali">
 			<timeSeparator draft="contributed">:</timeSeparator>
@@ -2240,6 +2366,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<timeSeparator draft="contributed">:</timeSeparator>
 		</symbols>
 		<symbols numberSystem="cakm">
+			<timeSeparator draft="contributed">:</timeSeparator>
+		</symbols>
+		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
 			<timeSeparator draft="contributed">:</timeSeparator>
 		</symbols>
 		<percentFormats numberSystem="arab">
@@ -2819,6 +2959,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</currencies>
 		<miscPatterns numberSystem="latn">
 			<pattern type="atLeast">{0}+</pattern>
+			<pattern type="atMost">≤{0}</pattern>
+			<pattern type="range">{0}–{1}</pattern>
 		</miscPatterns>
 		<minimalPairs>
 			<pluralMinimalPairs count="other" draft="contributed">ubochi {0}</pluralMinimalPairs>
@@ -2863,6 +3005,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</units>
 	<listPatterns>
 		<listPattern>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0}, na {1}</listPatternPart>
 			<listPatternPart type="2">{0} na {1}</listPatternPart>
 		</listPattern>
@@ -2871,7 +3014,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</listPattern>
 	</listPatterns>
 	<collations>
-		<collation type="standard" sil:modified="true">
+		<collation type="standard">
 			<cr><![CDATA[
 				[normalization on]
 				&B<ch<<<Ch<<<CH
@@ -2892,7 +3035,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabel type="other">ọzọ</characterLabel>
 		<characterLabel type="animal">anụmanụ</characterLabel>
 		<characterLabel type="animals_nature">anụmanụ ma ọbụ ụwa</characterLabel>
 		<characterLabel type="arrows">arọ</characterLabel>
@@ -2915,6 +3057,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">enweghịọhere</characterLabel>
 		<characterLabel type="numbers">ọnụọgụgụ</characterLabel>
 		<characterLabel type="objects">ịhe</characterLabel>
+		<characterLabel type="other">ọzọ</characterLabel>
 		<characterLabel type="person">mmadụ</characterLabel>
 		<characterLabel type="place">ebe</characterLabel>
 		<characterLabel type="plant">ahịha</characterLabel>
@@ -2984,8 +3127,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</typographicNames>
 	<metadata>
 		<casingData>
+			<casingItem type="calendar_field">titlecase</casingItem>
+			<casingItem type="currencyName">titlecase</casingItem>
+			<casingItem type="day_format_except_narrow">titlecase</casingItem>
+			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="era_abbr">titlecase</casingItem>
+			<casingItem type="era_name">titlecase</casingItem>
+			<casingItem type="era_narrow">titlecase</casingItem>
 			<casingItem type="language">titlecase</casingItem>
+			<casingItem type="month_format_except_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="quarter_abbreviated">titlecase</casingItem>
+			<casingItem type="quarter_format_wide">titlecase</casingItem>
+			<casingItem type="quarter_standalone_wide">titlecase</casingItem>
 			<casingItem type="relative">titlecase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 		</casingData>
 	</metadata>
 </ldml>

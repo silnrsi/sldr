@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -13,12 +13,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="am">امهری</language>
 			<language type="ab">آبخازی</language>
 			<language type="af">آفریکانس</language>
 			<language type="agq">آقم</language>
 			<language type="ak">آکان</language>
+			<language type="am">امهری</language>
 			<language type="ar">عربی</language>
 			<language type="ar_001">مدرن استاندارد عربی</language>
 			<language type="arn">ماپوچه</language>
@@ -574,9 +579,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="ZZ">نامَیِّن منطقه</territory>
 		</territories>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">بریتانیایی</measurementSystemName>
 			<measurementSystemName type="US">آمریکایی</measurementSystemName>
 			<measurementSystemName type="metric">متریک</measurementSystemName>
+			<measurementSystemName type="UK">بریتانیایی</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">زوون: {0}</codePattern>
@@ -587,13 +592,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<layout>
 		<orientation>
 			<characterOrder>right-to-left</characterOrder>
+			<lineOrder>top-to-bottom</lineOrder>
 		</orientation>
 	</layout>
 	<characters>
 		<exemplarCharacters>[\u064B \u064C \u064D \u0651 \u0654 ء آ أ ؤ ئ ا ب پ ة ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ه و ی]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C\u200D\u200E\u200F \u064E \u064F \u0650 \u0652 \u0656 \u0670 إ ك ى ي]</exemplarCharacters>
-		<exemplarCharacters type="index">[آ ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ه و ی]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- ‐ ‑ ، ٫ ٬ ؛ \: ! ؟ . … ‹ › « » ( ) \[ \] * / \\]</exemplarCharacters>
+		<exemplarCharacters type="index">[آ ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک گ ل م ن ه و ی]</exemplarCharacters>
+		<ellipsis type="initial">…{0}</ellipsis>
+		<ellipsis type="medial">{0}…{1}</ellipsis>
+		<ellipsis type="final">{0}…</ellipsis>
+		<ellipsis type="word-initial">… {0}</ellipsis>
+		<ellipsis type="word-medial">{0} … {1}</ellipsis>
+		<ellipsis type="word-final">{0} …</ellipsis>
 		<moreInformation>؟</moreInformation>
 	</characters>
 	<delimiters>
@@ -684,191 +696,40 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">قبلی یکشنبه</relative>
-				<relative type="0">این یکشنبه</relative>
-				<relative type="1">بعدی یکشنبه</relative>
-			</field>
-			<field type="mon">
-				<relative type="-1">قبلی دِشنبه</relative>
-				<relative type="0">این دِشنبه</relative>
-				<relative type="1">بعدی دِشنبه</relative>
-			</field>
-			<field type="tue">
-				<relative type="-1">قبلی سه‌شنبه</relative>
-				<relative type="0">این سه‌شنبه</relative>
-				<relative type="1">بعدی سه‌شنبه</relative>
-			</field>
-			<field type="wed">
-				<relative type="-1">قبلی چارشنبه</relative>
-				<relative type="0">این چارشنبه</relative>
-				<relative type="1">بعدی چارشنبه</relative>
-			</field>
-			<field type="thu">
-				<relative type="-1">قبلی پنجشنبه</relative>
-				<relative type="0">این پنجشنبه</relative>
-				<relative type="1">بعدی پنجشنبه</relative>
-			</field>
-			<field type="fri">
-				<relative type="-1">قبلی جومه</relative>
-				<relative type="0">این جومه</relative>
-				<relative type="1">بعدی جومه</relative>
-			</field>
-			<field type="sat">
-				<relative type="-1">قبلی شنبه</relative>
-				<relative type="0">این شنبه</relative>
-				<relative type="1">بعدی شنبه</relative>
-			</field>
-			<field type="day">
-				<displayName>روز</displayName>
-				<relative type="-1">دیروز</relative>
-				<relative type="0">اَمروز</relative>
-				<relative type="1">فِردا</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>روز</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>روز</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayperiod">
-				<displayName>صواحی/ظُر</displayName>
-			</field>
 			<field type="era">
 				<displayName>تقویم</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">قبلی جومه</relative>
-				<relative type="0">این جومه</relative>
-				<relative type="1">بعدی جومه</relative>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">قبلی جومه</relative>
-				<relative type="0">این جومه</relative>
-				<relative type="1">بعدی جومه</relative>
-			</field>
-			<field type="hour">
-				<displayName>ساعِت</displayName>
+			<field type="year">
+				<displayName>سال</displayName>
+				<relative type="-1">پارسال</relative>
+				<relative type="0">امسال</relative>
+				<relative type="1">سال دیگه</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ساعِت دله</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ساعِت پیش</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
-				<displayName>ساعت</displayName>
+			<field type="year-short">
+				<displayName>سال</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ساعت دله</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ساعت پیش</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-short">
-				<displayName>ساعت</displayName>
+			<field type="year-narrow">
+				<displayName>سال</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ساعت دله</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ساعت پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>دقیقه</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} دقیقه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>دَقه</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} دَقه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>دَقه</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} دَقه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">قبلی دِشنبه</relative>
-				<relative type="0">این دِشنبه</relative>
-				<relative type="1">بعدی دِشنبه</relative>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">قبلی دِشنبه</relative>
-				<relative type="0">این دِشنبه</relative>
-				<relative type="1">بعدی دِشنبه</relative>
-			</field>
-			<field type="month">
-				<displayName>ماه</displayName>
-				<relative type="-1">ماه قبل</relative>
-				<relative type="0">این ماه</relative>
-				<relative type="1">ماه ِبعد</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>ماه</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>ماه</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
+					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="quarter">
-				<displayName>ربع</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ربع دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ربع پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
 				<displayName>ربع</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="other">{0} ربع دله</relativeTimePattern>
@@ -886,7 +747,199 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} ربع پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat-narrow">
+			<field type="quarter-narrow">
+				<displayName>ربع</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ربع دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ربع پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<displayName>ماه</displayName>
+				<relative type="-1">ماه قبل</relative>
+				<relative type="0">این ماه</relative>
+				<relative type="1">ماه ِبعد</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-short">
+				<displayName>ماه</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>ماه</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ماه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ماه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>هفته</displayName>
+				<relative type="-1">قبلی هفته</relative>
+				<relative type="0">این هفته</relative>
+				<relative type="1">بعدی هفته</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week-short">
+				<displayName>هفته</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week-narrow">
+				<displayName>هفته</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day">
+				<displayName>روز</displayName>
+				<relative type="-1">دیروز</relative>
+				<relative type="0">اَمروز</relative>
+				<relative type="1">فِردا</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-short">
+				<displayName>روز</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-narrow">
+				<displayName>روز</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} روز دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} روز پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="weekday">
+				<displayName>هفته‌ی ِروز</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">قبلی یکشنبه</relative>
+				<relative type="0">این یکشنبه</relative>
+				<relative type="1">بعدی یکشنبه</relative>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">یکشنبه قبل</relative>
+				<relative type="0">این یکشنبه</relative>
+				<relative type="1">یکشنبه بعد</relative>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">قبلی یکشنبه</relative>
+				<relative type="0">این یکشنبه</relative>
+				<relative type="1">بعدی یکشنبه</relative>
+			</field>
+			<field type="mon">
+				<relative type="-1">قبلی دِشنبه</relative>
+				<relative type="0">این دِشنبه</relative>
+				<relative type="1">بعدی دِشنبه</relative>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">قبلی دِشنبه</relative>
+				<relative type="0">این دِشنبه</relative>
+				<relative type="1">بعدی دِشنبه</relative>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">قبلی دِشنبه</relative>
+				<relative type="0">این دِشنبه</relative>
+				<relative type="1">بعدی دِشنبه</relative>
+			</field>
+			<field type="tue">
+				<relative type="-1">قبلی سه‌شنبه</relative>
+				<relative type="0">این سه‌شنبه</relative>
+				<relative type="1">بعدی سه‌شنبه</relative>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">قبلی سه‌شنبه</relative>
+				<relative type="0">این سه‌شنبه</relative>
+				<relative type="1">بعدی سه‌شنبه</relative>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">قبلی سه‌شنبه</relative>
+				<relative type="0">این سه‌شنبه</relative>
+				<relative type="1">بعدی سه‌شنبه</relative>
+			</field>
+			<field type="wed">
+				<relative type="-1">قبلی چارشنبه</relative>
+				<relative type="0">این چارشنبه</relative>
+				<relative type="1">بعدی چارشنبه</relative>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">قبلی چارشنبه</relative>
+				<relative type="0">این چارشنبه</relative>
+				<relative type="1">بعدی چارشنبه</relative>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">قبلی چارشنبه</relative>
+				<relative type="0">این چارشنبه</relative>
+				<relative type="1">بعدی چارشنبه</relative>
+			</field>
+			<field type="thu">
+				<relative type="-1">قبلی پنجشنبه</relative>
+				<relative type="0">این پنجشنبه</relative>
+				<relative type="1">بعدی پنجشنبه</relative>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">قبلی پنجشنبه</relative>
+				<relative type="0">این پنجشنبه</relative>
+				<relative type="1">بعدی پنجشنبه</relative>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">قبلی پنجشنبه</relative>
+				<relative type="0">این پنجشنبه</relative>
+				<relative type="1">بعدی پنجشنبه</relative>
+			</field>
+			<field type="fri">
+				<relative type="-1">قبلی جومه</relative>
+				<relative type="0">این جومه</relative>
+				<relative type="1">بعدی جومه</relative>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">قبلی جومه</relative>
+				<relative type="0">این جومه</relative>
+				<relative type="1">بعدی جومه</relative>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">قبلی جومه</relative>
+				<relative type="0">این جومه</relative>
+				<relative type="1">بعدی جومه</relative>
+			</field>
+			<field type="sat">
 				<relative type="-1">قبلی شنبه</relative>
 				<relative type="0">این شنبه</relative>
 				<relative type="1">بعدی شنبه</relative>
@@ -896,16 +949,69 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="0">این شنبه</relative>
 				<relative type="1">بعدی شنبه</relative>
 			</field>
-			<field type="second">
-				<displayName>ثانیه</displayName>
+			<field type="sat-narrow">
+				<relative type="-1">قبلی شنبه</relative>
+				<relative type="0">این شنبه</relative>
+				<relative type="1">بعدی شنبه</relative>
+			</field>
+			<field type="dayperiod">
+				<displayName>صواحی/ظُر</displayName>
+			</field>
+			<field type="hour">
+				<displayName>ساعِت</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} ثانیه دله</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ساعِت دله</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} ثانیه پیش</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ساعِت پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="second-narrow">
+			<field type="hour-short">
+				<displayName>ساعت</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ساعت دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ساعت پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-narrow">
+				<displayName>ساعت</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} ساعت دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} ساعت پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute">
+				<displayName>دقیقه</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} دقیقه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-short">
+				<displayName>دَقه</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} دَقه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-narrow">
+				<displayName>دَقه</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">{0} دَقه دله</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">{0} دَقه پیش</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
 				<displayName>ثانیه</displayName>
 				<relativeTime type="future">
 					<relativeTimePattern count="other">{0} ثانیه دله</relativeTimePattern>
@@ -923,113 +1029,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} ثانیه پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun-narrow">
-				<relative type="-1">قبلی یکشنبه</relative>
-				<relative type="0">این یکشنبه</relative>
-				<relative type="1">بعدی یکشنبه</relative>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">یکشنبه قبل</relative>
-				<relative type="0">این یکشنبه</relative>
-				<relative type="1">یکشنبه بعد</relative>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">قبلی پنجشنبه</relative>
-				<relative type="0">این پنجشنبه</relative>
-				<relative type="1">بعدی پنجشنبه</relative>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">قبلی پنجشنبه</relative>
-				<relative type="0">این پنجشنبه</relative>
-				<relative type="1">بعدی پنجشنبه</relative>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">قبلی سه‌شنبه</relative>
-				<relative type="0">این سه‌شنبه</relative>
-				<relative type="1">بعدی سه‌شنبه</relative>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">قبلی سه‌شنبه</relative>
-				<relative type="0">این سه‌شنبه</relative>
-				<relative type="1">بعدی سه‌شنبه</relative>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">قبلی چارشنبه</relative>
-				<relative type="0">این چارشنبه</relative>
-				<relative type="1">بعدی چارشنبه</relative>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">قبلی چارشنبه</relative>
-				<relative type="0">این چارشنبه</relative>
-				<relative type="1">بعدی چارشنبه</relative>
-			</field>
-			<field type="week">
-				<displayName>هفته</displayName>
-				<relative type="-1">قبلی هفته</relative>
-				<relative type="0">این هفته</relative>
-				<relative type="1">بعدی هفته</relative>
+			<field type="second-narrow">
+				<displayName>ثانیه</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ثانیه دله</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week-narrow">
-				<displayName>هفته</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week-short">
-				<displayName>هفته</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} هفته دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} هفته پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="weekday">
-				<displayName>هفته‌ی ِروز</displayName>
-			</field>
-			<field type="year">
-				<displayName>سال</displayName>
-				<relative type="-1">پارسال</relative>
-				<relative type="0">امسال</relative>
-				<relative type="1">سال دیگه</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>سال</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>سال</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">{0} سال دله</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">{0} سال پیش</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ثانیه پیش</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
 				<displayName>زمونی منقطه</displayName>
 			</field>
 		</fields>
+		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
+			<regionFormat>{0}</regionFormat>
+			<regionFormat type="standard">{0} (+0)</regionFormat>
+			<regionFormat type="daylight">{0} (+1)</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
+		</timeZoneNames>
 	</dates>
 	<numbers>
 		<defaultNumberingSystem draft="contributed">arabext</defaultNumberingSystem>
@@ -1069,11 +1090,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>آنگولای ِکوانزا</displayName>
 				<displayName count="other">آنگولای ِکوانزا</displayName>
 				<symbol draft="contributed">AOA</symbol>
+				<symbol alt="narrow" draft="contributed">Kz</symbol>
 			</currency>
 			<currency type="ARS">
 				<displayName>آرژانتین ِپزو</displayName>
 				<displayName count="other">آرژانتین ِپزو</displayName>
 				<symbol draft="contributed">ARS</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AWG">
 				<displayName>آروبای ِفلورن</displayName>
@@ -1089,16 +1112,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>بوسنی و هرزگوین ِتبدیل‌بَیی مارک</displayName>
 				<displayName count="other">بوسنی و هرزگوین ِتبدیل‌بَیی مارک</displayName>
 				<symbol draft="contributed">BAM</symbol>
+				<symbol alt="narrow" draft="contributed">KM</symbol>
 			</currency>
 			<currency type="BBD">
 				<displayName>باربادوس ِدولار</displayName>
 				<displayName count="other">باربادوس دلار</displayName>
 				<symbol draft="contributed">BBD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>بنگلادش ِتاکا</displayName>
 				<displayName count="other">بنگلادش ِتاکا</displayName>
 				<symbol draft="contributed">BDT</symbol>
+				<symbol alt="narrow" draft="contributed">৳</symbol>
 			</currency>
 			<currency type="BGN">
 				<displayName>بلغارستون ِلیوا</displayName>
@@ -1119,25 +1145,31 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>برمودای ِدولار</displayName>
 				<displayName count="other">برمودای ِدلار</displayName>
 				<symbol draft="contributed">BMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>برونئی ِدولار</displayName>
 				<displayName count="other">برونئی دلار</displayName>
 				<symbol draft="contributed">BND</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>بولیوی ِبولیویانو</displayName>
 				<displayName count="other">بولیوی ِبولیویانو</displayName>
 				<symbol draft="contributed">BOB</symbol>
+				<symbol alt="narrow" draft="contributed">Bs</symbol>
 			</currency>
 			<currency type="BRL">
 				<displayName>برزیل ِرئال</displayName>
 				<displayName count="other">برزیل ِرئال</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="BSD">
 				<displayName>باهامای ِدولار</displayName>
 				<displayName count="other">باهامای ِدولار</displayName>
 				<symbol draft="contributed">BSD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>بوتان ِنگولتروم</displayName>
@@ -1148,11 +1180,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>بوتساوانای ِپولا</displayName>
 				<displayName count="other">بوتساوانای ِپولا</displayName>
 				<symbol draft="contributed">BWP</symbol>
+				<symbol alt="narrow" draft="contributed">P</symbol>
 			</currency>
 			<currency type="BYN">
 				<displayName>بلاروس ِروبل</displayName>
 				<displayName count="other">بلاروس ِروبل</displayName>
 				<symbol draft="contributed">BYN</symbol>
+				<symbol alt="narrow" draft="contributed">р.</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>بلاروس ِروبل (۲۰۰۰–۲۰۱۶)</displayName>
@@ -1163,10 +1197,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>بلیز ِدولار</displayName>
 				<displayName count="other">بلیز دلار</displayName>
 				<symbol draft="contributed">BZD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>کانادای ِدولار</displayName>
 				<displayName count="other">کانادای ِدلار</displayName>
+				<symbol draft="contributed">CA$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName>کنگوی ِفرانک</displayName>
@@ -1182,30 +1219,37 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>شیلی ِپزو</displayName>
 				<displayName count="other">شیلی ِپزو</displayName>
 				<symbol draft="contributed">CLP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CNY">
 				<displayName>چین ِیوآن</displayName>
 				<displayName count="other">چین ِیوآن</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName>کلمبیای ِپزو</displayName>
 				<displayName count="other">کلمبیای ِپزو</displayName>
 				<symbol draft="contributed">COP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>کاستاریکای ِکولون</displayName>
 				<displayName count="other">کاستاریکا کولون</displayName>
 				<symbol draft="contributed">CRC</symbol>
+				<symbol alt="narrow" draft="contributed">₡</symbol>
 			</currency>
 			<currency type="CUC">
 				<displayName>کوبای ِتبدیل‌بَیی پزو</displayName>
 				<displayName count="other">کوبای تبدیل‌بَیی پزو</displayName>
 				<symbol draft="contributed">CUC</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>کوبای ِپزو</displayName>
 				<displayName count="other">کوبای پزو</displayName>
 				<symbol draft="contributed">CUP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>عاج ِساحل ِایسکودو</displayName>
@@ -1216,6 +1260,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>چک ِکرون</displayName>
 				<displayName count="other">چک ِکرون</displayName>
 				<symbol draft="contributed">CZK</symbol>
+				<symbol alt="narrow" draft="contributed">Kč</symbol>
 			</currency>
 			<currency type="DJF">
 				<displayName>جیبوتی ِفرانک</displayName>
@@ -1226,11 +1271,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>دانمارک ِکورن</displayName>
 				<displayName count="other">دانمارک ِکورن</displayName>
 				<symbol draft="contributed">DKK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>دومینیکن ِپزو</displayName>
 				<displayName count="other">دومینیکن پزو</displayName>
 				<symbol draft="contributed">DOP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>الجزیره‌ی ِدینار</displayName>
@@ -1241,6 +1288,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>مصر ِپوند</displayName>
 				<displayName count="other">مصر ِپوند</displayName>
 				<symbol draft="contributed">EGP</symbol>
+				<symbol alt="narrow" draft="contributed">E£</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>اریتره‌ی ِناکفا</displayName>
@@ -1255,21 +1303,26 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="EUR">
 				<displayName>یورو</displayName>
 				<displayName count="other">یورو</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>فالکلند ِجزایر ِپوند</displayName>
 				<displayName count="other">فالکلند ِجزایر ِپوند</displayName>
 				<symbol draft="contributed">FKP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>بریتانیای ِپوند</displayName>
 				<displayName count="other">بریتانیای ِپوند</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GEL">
 				<displayName>گرجستون ِلاری</displayName>
 				<displayName count="other">گرجستون ِلاری</displayName>
-				<symbol alt="variant" draft="contributed">₾</symbol>
 				<symbol draft="contributed">GEL</symbol>
+				<symbol alt="variant" draft="contributed">₾</symbol>
 			</currency>
 			<currency type="GHS">
 				<displayName>غنای ِسدی</displayName>
@@ -1280,6 +1333,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>جبل‌طارق ِپوند</displayName>
 				<displayName count="other">جبل‌طارق ِپوند</displayName>
 				<symbol draft="contributed">GIP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>گامبیای ِدالاسی</displayName>
@@ -1290,30 +1344,37 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>گینه‌ی ِفرانک</displayName>
 				<displayName count="other">گینه‌ی ِفرانک</displayName>
 				<symbol draft="contributed">GNF</symbol>
+				<symbol alt="narrow" draft="contributed">FG</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>گواتمالا کتزال</displayName>
 				<displayName count="other">گواتمالای ِکتزال</displayName>
 				<symbol draft="contributed">GTQ</symbol>
+				<symbol alt="narrow" draft="contributed">Q</symbol>
 			</currency>
 			<currency type="GYD">
 				<displayName>گویان ِدولار</displayName>
 				<displayName count="other">گویان دلار</displayName>
 				<symbol draft="contributed">GYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>هونگ کونگ ِدولار</displayName>
 				<displayName count="other">هنگ کنگ ِدلار</displayName>
+				<symbol draft="contributed">HK$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName>هندوراس ِلمپیرا</displayName>
 				<displayName count="other">هندوراس لمپیرا</displayName>
 				<symbol draft="contributed">HNL</symbol>
+				<symbol alt="narrow" draft="contributed">L</symbol>
 			</currency>
 			<currency type="HRK">
 				<displayName>کرواسی ِکونا</displayName>
 				<displayName count="other">کرواسی ِکونا</displayName>
 				<symbol draft="contributed">HRK</symbol>
+				<symbol alt="narrow" draft="contributed">kn</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>هائیتی ِگورد</displayName>
@@ -1324,19 +1385,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>مجارستون ِفروینت</displayName>
 				<displayName count="other">مجارستون ِفروینت</displayName>
 				<symbol draft="contributed">HUF</symbol>
+				<symbol alt="narrow" draft="contributed">Ft</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>اندونزی ِروپیه</displayName>
 				<displayName count="other">اندونزی ِروپیه</displayName>
 				<symbol draft="contributed">IDR</symbol>
+				<symbol alt="narrow" draft="contributed">Rp</symbol>
 			</currency>
 			<currency type="ILS">
 				<displayName>اسراییل ِنو شِکِل</displayName>
 				<displayName count="other">اسراییل ِنو شِکِل</displayName>
+				<symbol draft="contributed">₪</symbol>
+				<symbol alt="narrow" draft="contributed">₪</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>هند ِروپیه</displayName>
 				<displayName count="other">هند ِروپیه</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName>عراق ِدینار</displayName>
@@ -1352,11 +1419,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>ایسلند کرونا</displayName>
 				<displayName count="other">ایسلند کرونا</displayName>
 				<symbol draft="contributed">ISK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="JMD">
 				<displayName>جاماییکای ِدولار</displayName>
 				<displayName count="other">جاماییکا دلار</displayName>
 				<symbol draft="contributed">JMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>اردن ِدینار</displayName>
@@ -1366,6 +1435,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="JPY">
 				<displayName>جاپون ِین</displayName>
 				<displayName count="other">جاپون ِین</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>کنیای ِشیلینگ</displayName>
@@ -1381,20 +1452,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>کامبوج ِریل</displayName>
 				<displayName count="other">کامبوج ِریل</displayName>
 				<symbol draft="contributed">KHR</symbol>
+				<symbol alt="narrow" draft="contributed">៛</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>کامرون ِفرانک</displayName>
 				<displayName count="other">کامرون ِفرانک</displayName>
 				<symbol draft="contributed">KMF</symbol>
+				<symbol alt="narrow" draft="contributed">CF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>شمالی کره‌ی ِوون</displayName>
 				<displayName count="other">شمالی کره وون</displayName>
 				<symbol draft="contributed">KPW</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>جنوبی کُره‌ی ِوون</displayName>
 				<displayName count="other">جنوبی کره وون</displayName>
+				<symbol draft="contributed">₩</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName>کویت ِدینار</displayName>
@@ -1405,31 +1481,37 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>کایمن جزیره‌ی ِدولار</displayName>
 				<displayName count="other">کایمن جزیره‌ی دلار</displayName>
 				<symbol draft="contributed">KYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>قراقستون ِتنگ</displayName>
 				<displayName count="other">قراقستون ِتنگ</displayName>
 				<symbol draft="contributed">KZT</symbol>
+				<symbol alt="narrow" draft="contributed">₸</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>لائوس ِکیپ</displayName>
 				<displayName count="other">لائوس ِکیپ</displayName>
 				<symbol draft="contributed">LAK</symbol>
+				<symbol alt="narrow" draft="contributed">₭</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>لبنان ِپوند</displayName>
 				<displayName count="other">لبنان ِپوند</displayName>
 				<symbol draft="contributed">LBP</symbol>
+				<symbol alt="narrow" draft="contributed">L£</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>سریلانکا روپیه</displayName>
 				<displayName count="other">سریلانکا روپیه</displayName>
 				<symbol draft="contributed">LKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>لیبریای ِدولار</displayName>
 				<displayName count="other">لیبریا دلار</displayName>
 				<symbol draft="contributed">LRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="LYD">
 				<displayName>لیبی ِدینار</displayName>
@@ -1450,6 +1532,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>ماداگاسکار ِآریاری</displayName>
 				<displayName count="other">ماداگاسکار ِآریاری</displayName>
 				<symbol draft="contributed">MGA</symbol>
+				<symbol alt="narrow" draft="contributed">Ar</symbol>
 			</currency>
 			<currency type="MKD">
 				<displayName>مقدونیه‌ی ِدینار</displayName>
@@ -1460,11 +1543,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>میانمار ِکیات</displayName>
 				<displayName count="other">میانمار ِکیات</displayName>
 				<symbol draft="contributed">MMK</symbol>
+				<symbol alt="narrow" draft="contributed">K</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>مغلستون ِتوگریک</displayName>
 				<displayName count="other">مغلستون ِتوگریک</displayName>
 				<symbol draft="contributed">MNT</symbol>
+				<symbol alt="narrow" draft="contributed">₮</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>ماکائو ِپاتاجا</displayName>
@@ -1484,6 +1569,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>موریتیان ِروپیه</displayName>
 				<displayName count="other">موریتیان ِروپیه</displayName>
 				<symbol draft="contributed">MUR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>مالدیو ِروفیا</displayName>
@@ -1498,11 +1584,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="MXN">
 				<displayName>مکزیک ِپزو</displayName>
 				<displayName count="other">مکزیک پزو</displayName>
+				<symbol draft="contributed">MX$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="MYR">
 				<displayName>مالزی ِرینگیت</displayName>
 				<displayName count="other">مالزی ِرینگیت</displayName>
 				<symbol draft="contributed">MYR</symbol>
+				<symbol alt="narrow" draft="contributed">RM</symbol>
 			</currency>
 			<currency type="MZN">
 				<displayName>موزامبیک متیکال</displayName>
@@ -1513,26 +1602,31 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>نامبیای ِدولار</displayName>
 				<displayName count="other">نامبیای ِدلار</displayName>
 				<symbol draft="contributed">NAD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>نیجریه‌ی ِنیارا</displayName>
 				<displayName count="other">نیجریه‌ی ِنیارا</displayName>
 				<symbol draft="contributed">NGN</symbol>
+				<symbol alt="narrow" draft="contributed">₦</symbol>
 			</currency>
 			<currency type="NIO">
 				<displayName>نیکاراگوئه‌ی ِکوردوبا</displayName>
 				<displayName count="other">نیکاراگوئه کوردوبا</displayName>
 				<symbol draft="contributed">NIO</symbol>
+				<symbol alt="narrow" draft="contributed">C$</symbol>
 			</currency>
 			<currency type="NOK">
 				<displayName>نروژ ِکرون</displayName>
 				<displayName count="other">نروژ ِکرون</displayName>
 				<symbol draft="contributed">NOK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>نپال ِروپیه</displayName>
 				<displayName count="other">نپال ِروپیه</displayName>
 				<symbol draft="contributed">NPR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName>عمان ِریال</displayName>
@@ -1553,21 +1647,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>فیلیپین ِپزو</displayName>
 				<displayName count="other">فیلیپین ِپزو</displayName>
 				<symbol draft="contributed">PHP</symbol>
+				<symbol alt="narrow" draft="contributed">₱</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>پاکستون روپیه</displayName>
 				<displayName count="other">پاکستون روپیه</displayName>
 				<symbol draft="contributed">PKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>لهستون ِزلوتی</displayName>
 				<displayName count="other">لهستون ِزلوتی</displayName>
 				<symbol draft="contributed">PLN</symbol>
+				<symbol alt="narrow" draft="contributed">zł</symbol>
 			</currency>
 			<currency type="PYG">
 				<displayName>پاراگوئه‌ی ِگوارانی</displayName>
 				<displayName count="other">پاراگوئه‌ی ِگوارانی</displayName>
 				<symbol draft="contributed">PYG</symbol>
+				<symbol alt="narrow" draft="contributed">₲</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>قطر ِریال</displayName>
@@ -1588,11 +1686,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>روسیه‌ی ِروبل</displayName>
 				<displayName count="other">روسیه‌ی ِروبل</displayName>
 				<symbol draft="contributed">RUB</symbol>
+				<symbol alt="narrow" draft="contributed">₽</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>روآندای ِفرانک</displayName>
 				<displayName count="other">روآندای ِفرانک</displayName>
 				<symbol draft="contributed">RWF</symbol>
+				<symbol alt="narrow" draft="contributed">RF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>عربستون ِریال</displayName>
@@ -1613,16 +1713,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>سوئد ِکرون</displayName>
 				<displayName count="other">سوئد ِکرون</displayName>
 				<symbol draft="contributed">SEK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>سنگاپور ِدلار</displayName>
 				<displayName count="other">سنگاپور ِدلار</displayName>
 				<symbol draft="contributed">SGD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>سنت هلنای ِپوند</displayName>
 				<displayName count="other">سنت هلنای ِپوند</displayName>
 				<symbol draft="contributed">SHP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SLL">
 				<displayName>سیرالئون ِلئون</displayName>
@@ -1638,11 +1741,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>سورینام ِدولار</displayName>
 				<displayName count="other">سورینام ِدولار</displayName>
 				<symbol draft="contributed">SRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SSP">
 				<displayName>جنوبی سودان ِپوند</displayName>
 				<displayName count="other">جنوبی سودان ِپوند</displayName>
 				<symbol draft="contributed">SSP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="STD">
 				<displayName>سائوتومه و پرینسیپ ِدوبرا (1977–2017)</displayName>
@@ -1652,11 +1757,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="STN">
 				<displayName>سائوتومه و پرینسیپ ِدوبرا</displayName>
 				<displayName count="other">سائوتومه و پرینسیپ ِدوبرا</displayName>
+				<symbol alt="narrow" draft="contributed">Db</symbol>
 			</currency>
 			<currency type="SYP">
 				<displayName>سوریه‌ی ِپوند</displayName>
 				<displayName count="other">سوریه‌ی ِپوند</displayName>
 				<symbol draft="contributed">SYP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>سوازیلند ِلیلانجنی</displayName>
@@ -1667,6 +1774,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>تایلند ِبات</displayName>
 				<displayName count="other">تایلند ِبات</displayName>
 				<symbol draft="contributed">THB</symbol>
+				<symbol alt="narrow" draft="contributed">฿</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>تاجیکستون ِسامانی</displayName>
@@ -1687,15 +1795,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>ترکیه‌ی ِلیره</displayName>
 				<displayName count="other">ترکیه‌ی ِلیره</displayName>
 				<symbol draft="contributed">TRY</symbol>
+				<symbol alt="narrow" draft="contributed">₺</symbol>
+				<symbol alt="variant" draft="contributed">TL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>ترینیداد و توباگوی ِدولار</displayName>
 				<displayName count="other">ترینیداد و توباگوی ِدلار</displayName>
 				<symbol draft="contributed">TTD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>جدید ِتایوان ِدولار</displayName>
 				<displayName count="other">تایوان دلار</displayName>
+				<symbol draft="contributed">NT$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>تانزانیای ِشیلینگ</displayName>
@@ -1706,6 +1819,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>اکراین ِگریونا</displayName>
 				<displayName count="other">اکراین ِگریونا</displayName>
 				<symbol draft="contributed">UAH</symbol>
+				<symbol alt="narrow" draft="contributed">₴</symbol>
 			</currency>
 			<currency type="UGX">
 				<displayName>اوگاندای ِشیلینگ</displayName>
@@ -1716,11 +1830,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>آمریکای ِدولار</displayName>
 				<displayName count="other">آمریکای ِدلار</displayName>
 				<symbol draft="contributed">$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UYU">
 				<displayName>اروگوئه‌ی ِپزو</displayName>
 				<displayName count="other">اروگوئه‌ی ِپزو</displayName>
 				<symbol draft="contributed">UYU</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>ازبکستون ِسام</displayName>
@@ -1731,6 +1847,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>ونزوئلایِ بولیوار (2008–2018)</displayName>
 				<displayName count="other">ونزوئلایِ بولیوار (2008–2018)</displayName>
 				<symbol draft="contributed">VEF</symbol>
+				<symbol alt="narrow" draft="contributed">Bs</symbol>
 			</currency>
 			<currency type="VES">
 				<displayName>ونزوئلایِ بولیوار</displayName>
@@ -1739,18 +1856,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="VND">
 				<displayName>ویتنام ِدنگ</displayName>
 				<displayName count="other">ویتنام ِدنگ</displayName>
+				<symbol draft="contributed">₫</symbol>
+				<symbol alt="narrow" draft="contributed">₫</symbol>
 			</currency>
 			<currency type="XAF">
 				<displayName>میونی آفریقای ِسی‌اف‌ای فرانک</displayName>
 				<displayName count="other">میونی آفریقای ِسی‌اف‌ای فرانک</displayName>
+				<symbol draft="contributed">FCFA</symbol>
 			</currency>
 			<currency type="XCD">
 				<displayName>شرقی کاراییب ِدولار</displayName>
 				<displayName count="other">شرقی کارائیب دلار</displayName>
+				<symbol draft="contributed">EC$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XOF">
 				<displayName>غربی آفریقای ِسی‌اف‌ای فرانک</displayName>
 				<displayName count="other">غربی آفریقای ِسی‌اف‌ای فرانک</displayName>
+				<symbol draft="contributed">CFA</symbol>
 			</currency>
 			<currency type="YER">
 				<displayName>یمن ِریال</displayName>
@@ -1761,11 +1884,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>جنوبی آفریقای ِراند</displayName>
 				<displayName count="other">جنوبی آفریقای ِراند</displayName>
 				<symbol draft="contributed">ZAR</symbol>
+				<symbol alt="narrow" draft="contributed">R</symbol>
 			</currency>
 			<currency type="ZMW">
 				<displayName>زامبیای ِکواچا</displayName>
 				<displayName count="other">زامبیای ِکواچا</displayName>
 				<symbol draft="contributed">ZMW</symbol>
+				<symbol alt="narrow" draft="contributed">ZK</symbol>
 			</currency>
 		</currencies>
 	</numbers>
@@ -2165,80 +2290,56 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} چایی‌خاری کچه</unitPattern>
 			</unit>
 			<coordinateUnit>
-				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
-		<unitLength type="narrow">
-			<compoundUnit type="per">
-				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
-			</compoundUnit>
-			<unit type="consumption-liter-per-100-kilometer">
-				<displayName>L/100km</displayName>
-				<unitPattern count="other">{0} L/100km</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>روز</displayName>
-				<unitPattern count="other">{0} روز</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>ساعت</displayName>
-				<unitPattern count="other">{0} ساعِت</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>میلی‌ثانیه</displayName>
-				<unitPattern count="other">{0} میلی‌ثانیه</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>دَقه</displayName>
-				<unitPattern count="other">{0} دَقه</unitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>ماه</displayName>
-				<unitPattern count="other">{0} ماه</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>ثانیه</displayName>
-				<unitPattern count="other">{0} ثانیه</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>هفته</displayName>
-				<unitPattern count="other">{0} هفته</unitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>سال</displayName>
-				<unitPattern count="other">{0} سال</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>گرم</displayName>
-				<unitPattern count="other">{0} g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<displayName>کیلوگرم</displayName>
-				<unitPattern count="other">{0} kg</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>کیلومتر بر ساعت</displayName>
-				<unitPattern count="other">{0} km/h</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>°C</displayName>
-				<unitPattern count="other">{0}°C</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>لیتر</displayName>
-				<unitPattern count="other">{0} l</unitPattern>
-			</unit>
-			<coordinateUnit>
 				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<displayName>g-force</displayName>
+				<unitPattern count="other">{0} G</unitPattern>
+			</unit>
+			<unit type="acceleration-meter-per-square-second">
+				<displayName>m/s²</displayName>
+				<unitPattern count="other">{0} m/s²</unitPattern>
+			</unit>
+			<unit type="angle-arc-minute">
+				<displayName>arcmin</displayName>
+				<unitPattern count="other">{0}′</unitPattern>
+			</unit>
+			<unit type="angle-arc-second">
+				<displayName>arcsec</displayName>
+				<unitPattern count="other">{0}″</unitPattern>
+			</unit>
+			<unit type="angle-degree">
+				<displayName>deg</displayName>
+				<unitPattern count="other">{0}°</unitPattern>
+			</unit>
+			<unit type="angle-radian">
+				<displayName>rad</displayName>
+				<unitPattern count="other">{0} rad</unitPattern>
+			</unit>
+			<unit type="angle-revolution">
+				<displayName>rev</displayName>
+				<unitPattern count="other">{0} rev</unitPattern>
+			</unit>
+			<unit type="concentr-karat">
+				<displayName>kt</displayName>
+				<unitPattern count="other">{0} kt</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
+				<displayName>L/100km</displayName>
+				<unitPattern count="other">{0} L/100km</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-kilometer">
+				<displayName>L/km</displayName>
+				<unitPattern count="other">{0} L/km</unitPattern>
+			</unit>
 			<unit type="consumption-mile-per-gallon">
 				<displayName>mpg</displayName>
 				<unitPattern count="other">{0} mpg</unitPattern>
@@ -2335,18 +2436,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="electric-ampere">
 				<displayName>آمپر</displayName>
+				<unitPattern count="other">{0} A</unitPattern>
 			</unit>
 			<unit type="electric-milliampere">
 				<displayName>میلی‌آمپر</displayName>
+				<unitPattern count="other">{0} mA</unitPattern>
 			</unit>
 			<unit type="electric-ohm">
 				<displayName>اهم</displayName>
+				<unitPattern count="other">{0} Ω</unitPattern>
 			</unit>
 			<unit type="electric-volt">
 				<displayName>ولت</displayName>
+				<unitPattern count="other">{0} V</unitPattern>
 			</unit>
 			<unit type="energy-calorie">
 				<displayName>کالری</displayName>
+				<unitPattern count="other">{0} cal</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
 				<displayName>کالری</displayName>
@@ -2354,27 +2460,39 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="energy-joule">
 				<displayName>ژول</displayName>
+				<unitPattern count="other">{0} J</unitPattern>
 			</unit>
 			<unit type="energy-kilocalorie">
 				<displayName>کیلوکالری</displayName>
+				<unitPattern count="other">{0} kcal</unitPattern>
 			</unit>
 			<unit type="energy-kilojoule">
 				<displayName>کیلوژول</displayName>
+				<unitPattern count="other">{0} kJ</unitPattern>
 			</unit>
 			<unit type="energy-kilowatt-hour">
 				<displayName>کیلووات-ساعت</displayName>
+				<unitPattern count="other">{0} kWh</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<displayName>گیگاهرتز</displayName>
+				<unitPattern count="other">{0} GHz</unitPattern>
 			</unit>
 			<unit type="frequency-hertz">
 				<displayName>هرتز</displayName>
+				<unitPattern count="other">{0} Hz</unitPattern>
 			</unit>
 			<unit type="frequency-kilohertz">
 				<displayName>کیلوهرتز</displayName>
+				<unitPattern count="other">{0} kHz</unitPattern>
 			</unit>
 			<unit type="frequency-megahertz">
 				<displayName>مگاهرتز</displayName>
+				<unitPattern count="other">{0} MHz</unitPattern>
+			</unit>
+			<unit type="light-lux">
+				<displayName>lx</displayName>
+				<unitPattern count="other">{0} lx</unitPattern>
 			</unit>
 			<unit type="mass-carat">
 				<displayName>قیراط</displayName>
@@ -2382,69 +2500,149 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="mass-gram">
 				<displayName>گرم</displayName>
+				<unitPattern count="other">{0} g</unitPattern>
+				<perUnitPattern>{0}/g</perUnitPattern>
 			</unit>
 			<unit type="mass-kilogram">
 				<displayName>کیلوگرم</displayName>
+				<unitPattern count="other">{0} kg</unitPattern>
+				<perUnitPattern>{0}/kg</perUnitPattern>
+			</unit>
+			<unit type="mass-metric-ton">
+				<displayName>t</displayName>
+				<unitPattern count="other">{0} t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
 				<displayName>میکروگرم</displayName>
+				<unitPattern count="other">{0} µg</unitPattern>
 			</unit>
 			<unit type="mass-milligram">
 				<displayName>میلی‌گرم</displayName>
+				<unitPattern count="other">{0} mg</unitPattern>
 			</unit>
 			<unit type="mass-ounce">
 				<displayName>اونس</displayName>
+				<unitPattern count="other">{0} oz</unitPattern>
+				<perUnitPattern>{0}/oz</perUnitPattern>
 			</unit>
 			<unit type="mass-ounce-troy">
 				<displayName>تروی اونس</displayName>
+				<unitPattern count="other">{0} oz t</unitPattern>
 			</unit>
 			<unit type="mass-pound">
 				<displayName>پوند</displayName>
+				<unitPattern count="other">{0} lb</unitPattern>
+				<perUnitPattern>{0}/lb</perUnitPattern>
 			</unit>
 			<unit type="mass-ton">
 				<displayName>تُن</displayName>
+				<unitPattern count="other">{0} tn</unitPattern>
 			</unit>
 			<unit type="power-gigawatt">
 				<displayName>گیگاوات</displayName>
+				<unitPattern count="other">{0} GW</unitPattern>
 			</unit>
 			<unit type="power-horsepower">
 				<displayName>اسب‌بخار</displayName>
+				<unitPattern count="other">{0} hp</unitPattern>
 			</unit>
 			<unit type="power-kilowatt">
 				<displayName>کیلووات</displayName>
+				<unitPattern count="other">{0} kW</unitPattern>
 			</unit>
 			<unit type="power-megawatt">
 				<displayName>مگاوات</displayName>
+				<unitPattern count="other">{0} MW</unitPattern>
 			</unit>
 			<unit type="power-milliwatt">
 				<displayName>میلی‌وات</displayName>
+				<unitPattern count="other">{0} mW</unitPattern>
 			</unit>
 			<unit type="power-watt">
 				<displayName>وات</displayName>
+				<unitPattern count="other">{0} W</unitPattern>
 			</unit>
 			<unit type="speed-kilometer-per-hour">
 				<displayName>کیلومتر بر ساعت</displayName>
+				<unitPattern count="other">{0} km/h</unitPattern>
 			</unit>
 			<unit type="speed-knot">
 				<displayName>گره</displayName>
+				<unitPattern count="other">{0} kn</unitPattern>
 			</unit>
 			<unit type="speed-meter-per-second">
 				<displayName>متر بر ثانیه</displayName>
+				<unitPattern count="other">{0} m/s</unitPattern>
 			</unit>
 			<unit type="speed-mile-per-hour">
 				<displayName>مایل بر ساعت</displayName>
+				<unitPattern count="other">{0} mi/h</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°C</displayName>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="temperature-fahrenheit">
+				<displayName>°F</displayName>
+				<unitPattern count="other">{0}°F</unitPattern>
+			</unit>
+			<unit type="temperature-generic">
+				<displayName>°</displayName>
+				<unitPattern count="other">{0}°</unitPattern>
+			</unit>
+			<unit type="temperature-kelvin">
+				<displayName>K</displayName>
+				<unitPattern count="other">{0} K</unitPattern>
 			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>آکرفوت</displayName>
+				<unitPattern count="other">{0} ac ft</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>سانتی‌لیتر</displayName>
+				<unitPattern count="other">{0} cL</unitPattern>
+			</unit>
+			<unit type="volume-cubic-centimeter">
+				<displayName>cm³</displayName>
+				<unitPattern count="other">{0} cm³</unitPattern>
+				<perUnitPattern>{0}/cm³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-foot">
+				<displayName>ft³</displayName>
+				<unitPattern count="other">{0} ft³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-inch">
+				<displayName>in³</displayName>
+				<unitPattern count="other">{0} in³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-kilometer">
+				<displayName>km³</displayName>
+				<unitPattern count="other">{0} km³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-meter">
+				<displayName>m³</displayName>
+				<unitPattern count="other">{0} m³</unitPattern>
+				<perUnitPattern>{0}/m³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-mile">
+				<displayName>mi³</displayName>
+				<unitPattern count="other">{0} mi³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-yard">
+				<displayName>yd³</displayName>
+				<unitPattern count="other">{0} yd³</unitPattern>
 			</unit>
 			<unit type="volume-cup">
 				<displayName>دَییل</displayName>
+				<unitPattern count="other">{0} c</unitPattern>
+			</unit>
+			<unit type="volume-cup-metric">
+				<displayName>mcup</displayName>
+				<unitPattern count="other">{0} mc</unitPattern>
 			</unit>
 			<unit type="volume-deciliter">
 				<displayName>دسی‌لیتر</displayName>
+				<unitPattern count="other">{0} dL</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>فلوید اونس</displayName>
@@ -2457,35 +2655,132 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="volume-hectoliter">
 				<displayName>هکتولیتر</displayName>
+				<unitPattern count="other">{0} hL</unitPattern>
 			</unit>
 			<unit type="volume-liter">
 				<displayName>لیتر</displayName>
 				<unitPattern count="other">{0} لیتر</unitPattern>
+				<perUnitPattern>{0}/l</perUnitPattern>
 			</unit>
 			<unit type="volume-megaliter">
 				<displayName>مگالیتر</displayName>
+				<unitPattern count="other">{0} ML</unitPattern>
 			</unit>
 			<unit type="volume-milliliter">
 				<displayName>میلی‌لیتر</displayName>
+				<unitPattern count="other">{0} mL</unitPattern>
 			</unit>
 			<unit type="volume-pint">
 				<displayName>پاینت</displayName>
+				<unitPattern count="other">{0} pt</unitPattern>
 			</unit>
 			<unit type="volume-pint-metric">
 				<displayName>متریک پاینت</displayName>
+				<unitPattern count="other">{0} mpt</unitPattern>
 			</unit>
 			<unit type="volume-quart">
 				<displayName>ربع</displayName>
+				<unitPattern count="other">{0} qt</unitPattern>
 			</unit>
 			<unit type="volume-tablespoon">
 				<displayName>کال</displayName>
+				<unitPattern count="other">{0} tbsp</unitPattern>
 			</unit>
 			<unit type="volume-teaspoon">
 				<displayName>چایی‌خاری کچه</displayName>
+				<unitPattern count="other">{0} tsp</unitPattern>
 			</unit>
+			<coordinateUnit>
+				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
+			</coordinateUnit>
 		</unitLength>
+		<unitLength type="narrow">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="consumption-liter-per-100-kilometer">
+				<displayName>L/100km</displayName>
+				<unitPattern count="other">{0} L/100km</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>روز</displayName>
+				<unitPattern count="other">{0} روز</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>ساعت</displayName>
+				<unitPattern count="other">{0} ساعِت</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>میلی‌ثانیه</displayName>
+				<unitPattern count="other">{0} میلی‌ثانیه</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>دَقه</displayName>
+				<unitPattern count="other">{0} دَقه</unitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>ماه</displayName>
+				<unitPattern count="other">{0} ماه</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>ثانیه</displayName>
+				<unitPattern count="other">{0} ثانیه</unitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>هفته</displayName>
+				<unitPattern count="other">{0} هفته</unitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>سال</displayName>
+				<unitPattern count="other">{0} سال</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>گرم</displayName>
+				<unitPattern count="other">{0} g</unitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>کیلوگرم</displayName>
+				<unitPattern count="other">{0} kg</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>کیلومتر بر ساعت</displayName>
+				<unitPattern count="other">{0} km/h</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°C</displayName>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>لیتر</displayName>
+				<unitPattern count="other">{0} l</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
 	</units>
 	<listPatterns>
+		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
+			<listPatternPart type="end">{0}, {1}</listPatternPart>
+			<listPatternPart type="2">{0}, {1}</listPatternPart>
+		</listPattern>
 		<listPattern type="unit">
 			<listPatternPart type="start">{0}, {1}</listPatternPart>
 			<listPatternPart type="middle">{0}, {1}</listPatternPart>
@@ -2505,4 +2800,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<listPatternPart type="2">{0}, {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
+	<posix>
+		<messages>
+			<yesstr>yes:y</yesstr>
+			<nostr>no:n</nostr>
+		</messages>
+	</posix>
 </ldml>

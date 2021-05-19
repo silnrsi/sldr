@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -15,9 +15,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="am">amxar</language>
-			<language type="sat">santali</language>
 			<language type="aa">afar</language>
 			<language type="ab">abxaz</language>
 			<language type="ace">achin</language>
@@ -29,6 +32,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ak">akan</language>
 			<language type="ale">aleut</language>
 			<language type="alt">janubiy oltoy</language>
+			<language type="am">amxar</language>
 			<language type="an">aragon</language>
 			<language type="anp">angika</language>
 			<language type="ar">arab</language>
@@ -314,6 +318,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ro">rumincha</language>
 			<language type="ro_MD">moldovan</language>
 			<language type="rof">rombo</language>
+			<language type="root">tub aholi tili</language>
 			<language type="ru">ruscha</language>
 			<language type="rup">arumin</language>
 			<language type="rw">kinyaruanda</language>
@@ -322,6 +327,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="sad">sandave</language>
 			<language type="sah">saxa</language>
 			<language type="saq">samburu</language>
+			<language type="sat">santali</language>
 			<language type="sba">ngambay</language>
 			<language type="sbp">sangu</language>
 			<language type="sc">sardin</language>
@@ -858,9 +864,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<type key="numbers" type="tibt">tibet raqamlari</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">Buyuk Britaniya</measurementSystemName>
 			<measurementSystemName type="US">AQSH</measurementSystemName>
 			<measurementSystemName type="metric">Metrik</measurementSystemName>
+			<measurementSystemName type="UK">Buyuk Britaniya</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Til: {0}</codePattern>
@@ -871,11 +877,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	<characters>
 		<exemplarCharacters>[a b d e f g h i j k l m n o p q r s t u v x y z {oʻ} {gʻ} {sh} {ch} ʼ]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à ă â å ä ã ā æ c ç é è ĕ ê ë ē í ì ĭ î ï ī ñ ó ò ŏ ô ö ø ō œ ú ù ŭ û ü ū w ÿ]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B D E F G H I J K L M N O P Q R S T U V X Y Z {Oʻ} {Gʻ} {Sh} {Ch}]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[  \- ‑ , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<ellipsis type="initial">…{0}</ellipsis>
+		<ellipsis type="medial">{0}…{1}</ellipsis>
+		<ellipsis type="final">{0}…</ellipsis>
+		<ellipsis type="word-initial">… {0}</ellipsis>
+		<ellipsis type="word-medial">{0} … {1}</ellipsis>
+		<ellipsis type="word-final">{0} …</ellipsis>
+		<moreInformation>?</moreInformation>
 	</characters>
 	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
 		<alternateQuotationStart>’</alternateQuotationStart>
 		<alternateQuotationEnd>‘</alternateQuotationEnd>
 	</delimiters>
@@ -929,6 +944,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="Bh">B h</dateFormatItem>
 						<dateFormatItem id="Bhm">B h:mm</dateFormatItem>
 						<dateFormatItem id="Bhms">B h:mm:ss</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
 						<dateFormatItem id="EBhm">E, B h:mm</dateFormatItem>
 						<dateFormatItem id="EBhms">E, B h:mm:ss</dateFormatItem>
 						<dateFormatItem id="Ed">E, d</dateFormatItem>
@@ -941,13 +958,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="GyMMMd">d-MMM, y (G)</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, d-MMM, y (G)</dateFormatItem>
 						<dateFormatItem id="h">h (a)</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
 						<dateFormatItem id="hm">h:mm (a)</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
 						<dateFormatItem id="hms">h:mm:ss (a)</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">dd.MM</dateFormatItem>
 						<dateFormatItem id="MEd">E, dd.MM</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d-MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d-MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d-MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y (G)</dateFormatItem>
 						<dateFormatItem id="yyyy">y (G)</dateFormatItem>
 						<dateFormatItem id="yyyyM">MM.y (GGGGG)</dateFormatItem>
@@ -961,6 +984,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yyyyQQQQ">y (G), QQQQ</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="Bh">
 							<greatestDifference id="B">B h – B h</greatestDifference>
 							<greatestDifference id="h">B h – h</greatestDifference>
@@ -969,6 +993,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="B">B h:mm – B h:mm</greatestDifference>
 							<greatestDifference id="h">B h:mm–h:mm</greatestDifference>
 							<greatestDifference id="m">B h:mm – h:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d–d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">G y – G y</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyM">
 							<greatestDifference id="G">M/y (GGGGG) – M/y (GGGGG)</greatestDifference>
@@ -1003,6 +1034,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="G">E, d-MMM, G y – E, d-MMM, G y</greatestDifference>
 							<greatestDifference id="M">E, d-MMM – E, d-MMM, G y</greatestDifference>
 							<greatestDifference id="y">E, d-MMM, y – E, d-MMM, y (G)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">MM–MM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Md">
 							<greatestDifference id="d">dd.MM – dd.MM</greatestDifference>
@@ -1208,6 +1242,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<day type="wed">C</day>
 							<day type="thu">P</day>
 							<day type="fri">J</day>
+							<day type="sat">S</day>
 						</dayWidth>
 						<dayWidth type="short">
 							<day type="sun">Ya</day>
@@ -1257,6 +1292,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<quarter type="3">3-ch</quarter>
 							<quarter type="4">4-ch</quarter>
 						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">1-chorak</quarter>
 							<quarter type="2">2-chorak</quarter>
@@ -1268,66 +1309,66 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<dayPeriods>
 					<dayPeriodContext type="format">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 					<dayPeriodContext type="stand-alone">
 						<dayPeriodWidth type="abbreviated">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 						<dayPeriodWidth type="wide">
-							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
 							<dayPeriod type="am">TO</dayPeriod>
+							<dayPeriod type="evening1">kechqurun</dayPeriod>
+							<dayPeriod type="midnight">yarim tun</dayPeriod>
+							<dayPeriod type="morning1">ertalab</dayPeriod>
+							<dayPeriod type="night1">kechasi</dayPeriod>
 							<dayPeriod type="noon">tush payti</dayPeriod>
 							<dayPeriod type="pm">TK</dayPeriod>
-							<dayPeriod type="morning1">ertalab</dayPeriod>
-							<dayPeriod type="afternoon1">kunduzi</dayPeriod>
-							<dayPeriod type="evening1">kechqurun</dayPeriod>
-							<dayPeriod type="night1">kechasi</dayPeriod>
 						</dayPeriodWidth>
 					</dayPeriodContext>
 				</dayPeriods>
@@ -1378,6 +1419,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<pattern>H:mm:ss (z)</pattern>
 						</timeFormat>
 					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
+						</timeFormat>
+					</timeFormatLength>
 				</timeFormats>
 				<dateTimeFormats>
 					<dateTimeFormatLength type="full">
@@ -1404,15 +1455,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="Bh">B h</dateFormatItem>
 						<dateFormatItem id="Bhm">B h:mm</dateFormatItem>
 						<dateFormatItem id="Bhms">B h:mm:ss</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
 						<dateFormatItem id="EBhm">E, B h:mm</dateFormatItem>
 						<dateFormatItem id="EBhms">E, B h:mm:ss</dateFormatItem>
+						<dateFormatItem id="Ed">d, E</dateFormatItem>
 						<dateFormatItem id="Ehm">E, h:mm a</dateFormatItem>
 						<dateFormatItem id="EHm">E, HH:mm</dateFormatItem>
 						<dateFormatItem id="Ehms">E, h:mm:ss a</dateFormatItem>
 						<dateFormatItem id="EHms">E, HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="Gy">G y</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM, G y</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d-MMM, G y</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, d-MMM, G y</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="hmsv">h:mm:ss a (v)</dateFormatItem>
 						<dateFormatItem id="Hmsv">HH:mm:ss (v)</dateFormatItem>
 						<dateFormatItem id="hmv">h:mm a (v)</dateFormatItem>
@@ -1420,11 +1481,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="M">LL</dateFormatItem>
 						<dateFormatItem id="Md">dd/MM</dateFormatItem>
 						<dateFormatItem id="MEd">E, dd/MM</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d-MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d-MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d-MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">MMMM, W-'hafta'</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">MMMM, W-'hafta'</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">MM.y</dateFormatItem>
 						<dateFormatItem id="yMd">dd/MM/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, dd/MM/y</dateFormatItem>
@@ -1437,7 +1501,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<dateFormatItem id="yw" count="one">Y, w-'hafta'</dateFormatItem>
 						<dateFormatItem id="yw" count="other">Y, w-'hafta'</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+					</appendItems>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="Bh">
 							<greatestDifference id="B">B h – B h</greatestDifference>
 							<greatestDifference id="h">B h – h</greatestDifference>
@@ -1446,6 +1514,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="B">B h:mm – B h:mm</greatestDifference>
 							<greatestDifference id="h">B h:mm – h:mm</greatestDifference>
 							<greatestDifference id="m">B h:mm – h:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d–d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">G y – G y</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyM">
 							<greatestDifference id="G">M/y (GGGGG) – M/y (GGGGG)</greatestDifference>
@@ -1480,6 +1555,22 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<greatestDifference id="G">E, d-MMM, G y – E, d-MMM, G y</greatestDifference>
 							<greatestDifference id="M">E, d-MMM – E, d-MMM, G y</greatestDifference>
 							<greatestDifference id="y">E, d-MMM, y – E, d-MMM, y (G)</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="H">
+							<greatestDifference id="H">HH–HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hm">
+							<greatestDifference id="H">HH:mm–HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hmv">
 							<greatestDifference id="a">h:mm a – h:mm a (v)</greatestDifference>
@@ -1518,6 +1609,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="d">E, d-MMM – E, d-MMM</greatestDifference>
 							<greatestDifference id="M">E, d-MMM – E, d-MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y–y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yM">
 							<greatestDifference id="M">MM/y – MM/y</greatestDifference>
@@ -1558,19 +1652,27 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<months>
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
+							<month type="1">Muh.</month>
+							<month type="2">Saf.</month>
 							<month type="3">Rob. avv.</month>
 							<month type="4">Rob. ox.</month>
 							<month type="5">Jum. avv.</month>
 							<month type="6">Jum. ox.</month>
+							<month type="7">Raj.</month>
+							<month type="8">Sha.</month>
+							<month type="9">Ram.</month>
 							<month type="10">Shav.</month>
 							<month type="11">Zul-q.</month>
 							<month type="12">Zul-h.</month>
 						</monthWidth>
 						<monthWidth type="wide">
+							<month type="1">Muharram</month>
+							<month type="2">Safar</month>
 							<month type="3">Robi’ ul-avval</month>
 							<month type="4">Robi’ ul-oxir</month>
 							<month type="5">Jumad ul-avval</month>
 							<month type="6">Jumad ul-oxir</month>
+							<month type="7">Rajab</month>
 							<month type="8">Sha’bon</month>
 							<month type="9">Ramazon</month>
 							<month type="10">Shavvol</month>
@@ -1587,6 +1689,20 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 							<month type="10">Shav.</month>
 							<month type="11">Zul-q.</month>
 							<month type="12">Zul-h.</month>
+						</monthWidth>
+						<monthWidth type="narrow">
+							<month type="1">1</month>
+							<month type="2">2</month>
+							<month type="3">3</month>
+							<month type="4">4</month>
+							<month type="5">5</month>
+							<month type="6">6</month>
+							<month type="7">7</month>
+							<month type="8">8</month>
+							<month type="9">9</month>
+							<month type="10">10</month>
+							<month type="11">11</month>
+							<month type="12">12</month>
 						</monthWidth>
 						<monthWidth type="wide">
 							<month type="3">Robi’ ul-avval</month>
@@ -1613,278 +1729,91 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">o‘tgan yakshanba</relative>
-				<relative type="0">shu yakshanba</relative>
-				<relative type="1">keyingi yakshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">o‘tgan dushanba</relative>
-				<relative type="0">shu dushanba</relative>
-				<relative type="1">keyingi dushanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">o‘tgan seshanba</relative>
-				<relative type="0">shu seshanba</relative>
-				<relative type="1">keyingi seshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">o‘tgan chorshanba</relative>
-				<relative type="0">shu chorshanba</relative>
-				<relative type="1">keyingi chorshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">o‘tgan payshanba</relative>
-				<relative type="0">shu payshanba</relative>
-				<relative type="1">keyingi payshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri">
-				<relative type="-1">o‘tgan juma</relative>
-				<relative type="0">shu juma</relative>
-				<relative type="1">keyingi juma</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">o‘tgan shanba</relative>
-				<relative type="0">shu shanba</relative>
-				<relative type="1">keyingi shanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day">
-				<displayName>kun</displayName>
-				<relative type="-1">kecha</relative>
-				<relative type="0">bugun</relative>
-				<relative type="1">ertaga</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>kun</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>kun</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>yilning kuni</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>yilning kuni</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>yilning kuni</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>TO/TK</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>TO/TK</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>TO/TK</displayName>
-			</field>
 			<field type="era">
-				<displayName>era</displayName>
-			</field>
-			<field type="era-narrow">
 				<displayName>era</displayName>
 			</field>
 			<field type="era-short">
 				<displayName>era</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">o‘tgan juma</relative>
-				<relative type="0">shu juma</relative>
-				<relative type="1">keyingi juma</relative>
+			<field type="era-narrow">
+				<displayName>era</displayName>
+			</field>
+			<field type="year">
+				<displayName>yil</displayName>
+				<relative type="-1">o‘tgan yil</relative>
+				<relative type="0">shu yil</relative>
+				<relative type="1">keyingi yil</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="fri-short">
-				<relative type="-1">o‘tgan juma</relative>
-				<relative type="0">shu juma</relative>
-				<relative type="1">keyingi juma</relative>
+			<field type="year-short">
+				<displayName>yil</displayName>
+				<relative type="-1">o‘ʻtgan yil</relative>
+				<relative type="0">bu yil</relative>
+				<relative type="1">keyingi yil</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour">
-				<displayName>soat</displayName>
-				<relative type="0">shu soatda</relative>
+			<field type="year-narrow">
+				<displayName>yil</displayName>
+				<relative type="-1">o‘tgan yil</relative>
+				<relative type="0">bu yil</relative>
+				<relative type="1">keyingi yil</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
-				<displayName>soat</displayName>
+			<field type="quarter">
+				<displayName>chorak</displayName>
+				<relative type="-1">o‘tgan chorak</relative>
+				<relative type="0">shu chorak</relative>
+				<relative type="1">keyingi chorak</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-short">
-				<displayName>soat</displayName>
+			<field type="quarter-short">
+				<displayName>ch</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute">
-				<displayName>daqiqa</displayName>
-				<relative type="0">shu daqiqada</relative>
+			<field type="quarter-narrow">
+				<displayName>ch</displayName>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>daq.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>daq.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">o‘tgan dushanba</relative>
-				<relative type="0">shu dushanba</relative>
-				<relative type="1">keyingi dushanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">o‘tgan dushanba</relative>
-				<relative type="0">shu dushanba</relative>
-				<relative type="1">keyingi dushanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="month">
@@ -1892,19 +1821,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<relative type="-1">o‘tgan oy</relative>
 				<relative type="0">shu oy</relative>
 				<relative type="1">keyingi oy</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} oydan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} oydan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} oy oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} oy oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>oy</displayName>
-				<relative type="-1">o‘tgan oy</relative>
-				<relative type="0">bu oy</relative>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} oydan keyin</relativeTimePattern>
 					<relativeTimePattern count="other">{0} oydan keyin</relativeTimePattern>
@@ -1928,225 +1844,23 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<relativeTimePattern count="other">{0} oy oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="quarter">
-				<displayName>chorak</displayName>
-				<relative type="-1">o‘tgan chorak</relative>
-				<relative type="0">shu chorak</relative>
-				<relative type="1">keyingi chorak</relative>
+			<field type="month-narrow">
+				<displayName>oy</displayName>
+				<relative type="-1">o‘tgan oy</relative>
+				<relative type="0">bu oy</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} oydan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} oydan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>ch</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>ch</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} chorakdan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorakdan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} chorak oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} chorak oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">o‘tgan shanba</relative>
-				<relative type="0">shu shanba</relative>
-				<relative type="1">keyingi shanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">o‘tgan shanba</relative>
-				<relative type="0">shu shanba</relative>
-				<relative type="1">keyingi shanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>soniya</displayName>
-				<relative type="0">hozir</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>son.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>son.</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">o‘tgan yakshanba</relative>
-				<relative type="0">shu yakshanba</relative>
-				<relative type="1">keyingi yakshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">o‘tgan yakshanba</relative>
-				<relative type="0">shu yakshanba</relative>
-				<relative type="1">keyingi yakshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">o‘tgan payshanba</relative>
-				<relative type="0">shu payshanba</relative>
-				<relative type="1">keyingi payshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">o‘tgan payshanba</relative>
-				<relative type="0">shu payshanba</relative>
-				<relative type="1">keyingi payshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">o‘tgan seshanba</relative>
-				<relative type="0">shu seshanba</relative>
-				<relative type="1">keyingi seshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">o‘tgan seshanba</relative>
-				<relative type="0">shu seshanba</relative>
-				<relative type="1">keyingi seshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">o‘tgan chorshanba</relative>
-				<relative type="0">shu chorshanba</relative>
-				<relative type="1">keyingi chorshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">o‘tgan chorshanba</relative>
-				<relative type="0">shu chorshanba</relative>
-				<relative type="1">keyingi chorshanba</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} oy oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} oy oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="week">
 				<displayName>hafta</displayName>
 				<relative type="-1">o‘tgan hafta</relative>
 				<relative type="0">shu hafta</relative>
-				<relative type="1">keyingi hafta</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} haftadan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} haftadan keyin</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} hafta oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} hafta oldin</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>{0}-hafta</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>hafta</displayName>
-				<relative type="-1">o‘tgan hafta</relative>
-				<relative type="0">bu hafta</relative>
 				<relative type="1">keyingi hafta</relative>
 				<relativeTime type="future">
 					<relativeTimePattern count="one">{0} haftadan keyin</relativeTimePattern>
@@ -2173,86 +1887,495 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</relativeTime>
 				<relativePeriod>{0}-hafta</relativePeriod>
 			</field>
-			<field type="weekOfMonth">
-				<displayName>oyning haftasi</displayName>
+			<field type="week-narrow">
+				<displayName>hafta</displayName>
+				<relative type="-1">o‘tgan hafta</relative>
+				<relative type="0">bu hafta</relative>
+				<relative type="1">keyingi hafta</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} haftadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} haftadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} hafta oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} hafta oldin</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>{0}-hafta</relativePeriod>
 			</field>
-			<field type="weekOfMonth-narrow">
+			<field type="weekOfMonth">
 				<displayName>oyning haftasi</displayName>
 			</field>
 			<field type="weekOfMonth-short">
 				<displayName>oyning haftasi</displayName>
 			</field>
-			<field type="weekday">
-				<displayName>hafta kuni</displayName>
+			<field type="weekOfMonth-narrow">
+				<displayName>oyning haftasi</displayName>
 			</field>
-			<field type="weekday-narrow">
+			<field type="day">
+				<displayName>kun</displayName>
+				<relative type="-1">kecha</relative>
+				<relative type="0">bugun</relative>
+				<relative type="1">ertaga</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-short">
+				<displayName>kun</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-narrow">
+				<displayName>kun</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} kundan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kundan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kun oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kun oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayOfYear">
+				<displayName>yilning kuni</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>yilning kuni</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>yilning kuni</displayName>
+			</field>
+			<field type="weekday">
 				<displayName>hafta kuni</displayName>
 			</field>
 			<field type="weekday-short">
 				<displayName>hafta kuni</displayName>
 			</field>
-			<field type="weekdayOfMonth">
-				<displayName>oyning hafta kuni</displayName>
+			<field type="weekday-narrow">
+				<displayName>hafta kuni</displayName>
 			</field>
-			<field type="weekdayOfMonth-narrow">
+			<field type="weekdayOfMonth">
 				<displayName>oyning hafta kuni</displayName>
 			</field>
 			<field type="weekdayOfMonth-short">
 				<displayName>oyning hafta kuni</displayName>
 			</field>
-			<field type="year">
-				<displayName>yil</displayName>
-				<relative type="-1">o‘tgan yil</relative>
-				<relative type="0">shu yil</relative>
-				<relative type="1">keyingi yil</relative>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>oyning hafta kuni</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">o‘tgan yakshanba</relative>
+				<relative type="0">shu yakshanba</relative>
+				<relative type="1">keyingi yakshanba</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="year-narrow">
-				<displayName>yil</displayName>
-				<relative type="-1">o‘tgan yil</relative>
-				<relative type="0">bu yil</relative>
-				<relative type="1">keyingi yil</relative>
+			<field type="sun-short">
+				<relative type="-1">o‘tgan yakshanba</relative>
+				<relative type="0">shu yakshanba</relative>
+				<relative type="1">keyingi yakshanba</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="year-short">
-				<displayName>yil</displayName>
-				<relative type="-1">o‘ʻtgan yil</relative>
-				<relative type="0">bu yil</relative>
-				<relative type="1">keyingi yil</relative>
+			<field type="sun-narrow">
+				<relative type="-1">o‘tgan yakshanba</relative>
+				<relative type="0">shu yakshanba</relative>
+				<relative type="1">keyingi yakshanba</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="one">{0} yildan keyin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yildan keyin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanbadan keyin</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} yil oldin</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yil oldin</relativeTimePattern>
+					<relativeTimePattern count="one">{0} ta yakshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta yakshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">o‘tgan dushanba</relative>
+				<relative type="0">shu dushanba</relative>
+				<relative type="1">keyingi dushanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">o‘tgan dushanba</relative>
+				<relative type="0">shu dushanba</relative>
+				<relative type="1">keyingi dushanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">o‘tgan dushanba</relative>
+				<relative type="0">shu dushanba</relative>
+				<relative type="1">keyingi dushanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta dushanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta dushanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta dushanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">o‘tgan seshanba</relative>
+				<relative type="0">shu seshanba</relative>
+				<relative type="1">keyingi seshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">o‘tgan seshanba</relative>
+				<relative type="0">shu seshanba</relative>
+				<relative type="1">keyingi seshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">o‘tgan seshanba</relative>
+				<relative type="0">shu seshanba</relative>
+				<relative type="1">keyingi seshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta seshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta seshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta seshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">o‘tgan chorshanba</relative>
+				<relative type="0">shu chorshanba</relative>
+				<relative type="1">keyingi chorshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">o‘tgan chorshanba</relative>
+				<relative type="0">shu chorshanba</relative>
+				<relative type="1">keyingi chorshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">o‘tgan chorshanba</relative>
+				<relative type="0">shu chorshanba</relative>
+				<relative type="1">keyingi chorshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta chorshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta chorshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta chorshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">o‘tgan payshanba</relative>
+				<relative type="0">shu payshanba</relative>
+				<relative type="1">keyingi payshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">o‘tgan payshanba</relative>
+				<relative type="0">shu payshanba</relative>
+				<relative type="1">keyingi payshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">o‘tgan payshanba</relative>
+				<relative type="0">shu payshanba</relative>
+				<relative type="1">keyingi payshanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta payshanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta payshanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta payshanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">o‘tgan juma</relative>
+				<relative type="0">shu juma</relative>
+				<relative type="1">keyingi juma</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">o‘tgan juma</relative>
+				<relative type="0">shu juma</relative>
+				<relative type="1">keyingi juma</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">o‘tgan juma</relative>
+				<relative type="0">shu juma</relative>
+				<relative type="1">keyingi juma</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta jumadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta jumadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta juma oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta juma oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">o‘tgan shanba</relative>
+				<relative type="0">shu shanba</relative>
+				<relative type="1">keyingi shanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">o‘tgan shanba</relative>
+				<relative type="0">shu shanba</relative>
+				<relative type="1">keyingi shanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">o‘tgan shanba</relative>
+				<relative type="0">shu shanba</relative>
+				<relative type="1">keyingi shanba</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} ta shanbadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanbadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} ta shanba oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} ta shanba oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>TO/TK</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>TO/TK</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>TO/TK</displayName>
+			</field>
+			<field type="hour">
+				<displayName>soat</displayName>
+				<relative type="0">shu soatda</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-short">
+				<displayName>soat</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-narrow">
+				<displayName>soat</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soatdan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soatdan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soat oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soat oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute">
+				<displayName>daqiqa</displayName>
+				<relative type="0">shu daqiqada</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-short">
+				<displayName>daq.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-narrow">
+				<displayName>daq.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} daqiqadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} daqiqa oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} daqiqa oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<displayName>soniya</displayName>
+				<relative type="0">hozir</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second-short">
+				<displayName>son.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second-narrow">
+				<displayName>son.</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">{0} soniyadan keyin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniyadan keyin</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} soniya oldin</relativeTimePattern>
+					<relativeTimePattern count="other">{0} soniya oldin</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
 				<displayName>vaqt mintaqasi</displayName>
 			</field>
-			<field type="zone-narrow">
+			<field type="zone-short">
 				<displayName>vaqt mintaqasi</displayName>
 			</field>
-			<field type="zone-short">
+			<field type="zone-narrow">
 				<displayName>vaqt mintaqasi</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
+			<regionFormat>{0}</regionFormat>
+			<regionFormat type="standard">{0} (+0)</regionFormat>
+			<regionFormat type="daylight">{0} (+1)</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Abidjan</exemplarCity>
 			</zone>
@@ -2597,6 +2720,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</zone>
 			<zone type="America/Indiana/Knox">
 				<exemplarCity>Noks, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Marengo">
+				<exemplarCity>Marengo, Indiana</exemplarCity>
 			</zone>
 			<zone type="America/Indiana/Petersburg">
 				<exemplarCity>Pitersberg, Indiana</exemplarCity>
@@ -3201,13 +3327,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<zone type="Australia/Sydney">
 				<exemplarCity>Sidney</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>noma’lum shahar</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Koordinatali universal vaqt</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>noma’lum shahar</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>Amsterdam</exemplarCity>
@@ -3875,11 +4001,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<standard>Fransuz Janubiy hududlari va Antarktika vaqti</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Grinvich o‘rtacha vaqti</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Galapagos vaqti</standard>
@@ -3900,6 +4021,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Gilbert orollari vaqti</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Grinvich o‘rtacha vaqti</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -4429,15 +4555,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<defaultNumberingSystem draft="contributed">latn</defaultNumberingSystem>
+		<otherNumberingSystems>
+			<native draft="contributed">latn</native>
+		</otherNumberingSystems>
+		<minimumGroupingDigits draft="contributed">1</minimumGroupingDigits>
 		<symbols numberSystem="arabext">
+			<decimal draft="contributed">٫</decimal>
+			<group draft="contributed">٬</group>
+			<percentSign>٪</percentSign>
 			<plusSign>+</plusSign>
 			<minusSign>-</minusSign>
+			<exponential>×۱۰^</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>؉</perMille>
+			<infinity>∞</infinity>
 			<nan>son emas</nan>
+			<timeSeparator draft="contributed">٫</timeSeparator>
 		</symbols>
 		<symbols numberSystem="latn">
 			<decimal>,</decimal>
 			<group/>
+			<percentSign>%</percentSign>
+			<plusSign draft="contributed">+</plusSign>
+			<minusSign draft="contributed">-</minusSign>
+			<exponential>E</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
 			<nan>son emas</nan>
+			<timeSeparator draft="contributed">:</timeSeparator>
 		</symbols>
 		<decimalFormats numberSystem="arabext">
 			<decimalFormatLength>
@@ -4447,6 +4594,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</decimalFormatLength>
 		</decimalFormats>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern draft="contributed">#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<decimalFormat>
 					<pattern type="1000" count="one">0 ming</pattern>
@@ -4511,7 +4663,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</scientificFormat>
 			</scientificFormatLength>
 		</scientificFormats>
+		<scientificFormats numberSystem="latn">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
 		<percentFormats numberSystem="arabext">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<percentFormats numberSystem="latn">
 			<percentFormatLength>
 				<percentFormat>
 					<pattern>#,##0%</pattern>
@@ -4563,6 +4729,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				</currencyFormat>
 			</currencyFormatLength>
 			<unitPattern count="one">{0} {1}</unitPattern>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
@@ -4600,17 +4767,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Angola kvanzasi</displayName>
 				<displayName count="other">Angola kvanzasi</displayName>
 				<symbol draft="contributed">AOA</symbol>
+				<symbol alt="narrow" draft="contributed">Kz</symbol>
 			</currency>
 			<currency type="ARS">
 				<displayName>Argentina pesosi</displayName>
 				<displayName count="one">Argentina pesosi</displayName>
 				<displayName count="other">Argentina pesosi</displayName>
 				<symbol draft="contributed">ARS</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AUD">
 				<displayName>Avstraliya dollari</displayName>
 				<displayName count="one">Avstraliya dollari</displayName>
 				<displayName count="other">Avstraliya dollari</displayName>
+				<symbol draft="contributed">A$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AWG">
 				<displayName>Aruba florini</displayName>
@@ -4629,18 +4800,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Bosniya va Gertsegovina ayirboshlash markasi</displayName>
 				<displayName count="other">Bosniya va Gertsegovina ayirboshlash markasi</displayName>
 				<symbol draft="contributed">BAM</symbol>
+				<symbol alt="narrow" draft="contributed">KM</symbol>
 			</currency>
 			<currency type="BBD">
 				<displayName>Barbados dollari</displayName>
 				<displayName count="one">Barbados dollari</displayName>
 				<displayName count="other">Barbados dollari</displayName>
 				<symbol draft="contributed">BBD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>Bangladesh takasi</displayName>
 				<displayName count="one">Bangladesh takasi</displayName>
 				<displayName count="other">Bangladesh takasi</displayName>
 				<symbol draft="contributed">BDT</symbol>
+				<symbol alt="narrow" draft="contributed">৳</symbol>
 			</currency>
 			<currency type="BGN">
 				<displayName>Bolgariya levi</displayName>
@@ -4665,29 +4839,35 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Bermuda dollari</displayName>
 				<displayName count="other">Bermuda dollari</displayName>
 				<symbol draft="contributed">BMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>Bruney dollari</displayName>
 				<displayName count="one">Bruney dollari</displayName>
 				<displayName count="other">Bruney dollari</displayName>
 				<symbol draft="contributed">BND</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>Boliviya bolivianosi</displayName>
 				<displayName count="one">Boliviya bolivianosi</displayName>
 				<displayName count="other">Boliviya bolivianosi</displayName>
 				<symbol draft="contributed">BOB</symbol>
+				<symbol alt="narrow" draft="contributed">Bs</symbol>
 			</currency>
 			<currency type="BRL">
 				<displayName>Braziliya reali</displayName>
 				<displayName count="one">Braziliya reali</displayName>
 				<displayName count="other">Braziliya reali</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="BSD">
 				<displayName>Bagama dollari</displayName>
 				<displayName count="one">Bagama dollari</displayName>
 				<displayName count="other">Bagama dollari</displayName>
 				<symbol draft="contributed">BSD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>Butan ngultrumi</displayName>
@@ -4700,12 +4880,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Botsvana pulasi</displayName>
 				<displayName count="other">Botsvana pulasi</displayName>
 				<symbol draft="contributed">BWP</symbol>
+				<symbol alt="narrow" draft="contributed">P</symbol>
 			</currency>
 			<currency type="BYN">
 				<displayName>Belarus rubli</displayName>
 				<displayName count="one">Belarus rubli</displayName>
 				<displayName count="other">Belarus rubli</displayName>
 				<symbol draft="contributed">BYN</symbol>
+				<symbol alt="narrow" draft="contributed">р.</symbol>
 			</currency>
 			<currency type="BYR">
 				<displayName>Belarus rubli (2000–2016)</displayName>
@@ -4718,11 +4900,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Beliz dollari</displayName>
 				<displayName count="other">Beliz dollari</displayName>
 				<symbol draft="contributed">BZD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>Kanada dollari</displayName>
 				<displayName count="one">Kanada dollari</displayName>
 				<displayName count="other">Kanada dollari</displayName>
+				<symbol draft="contributed">CA$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName>Kongo franki</displayName>
@@ -4741,6 +4926,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Chili pesosi</displayName>
 				<displayName count="other">Chili pesosi</displayName>
 				<symbol draft="contributed">CLP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CNH">
 				<displayName>Xitoy yuani (ofshor)</displayName>
@@ -4752,30 +4938,36 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Xitoy yuani</displayName>
 				<displayName count="one">Xitoy yuani</displayName>
 				<displayName count="other">Xitoy yuani</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName>Kolumbiya pesosi</displayName>
 				<displayName count="one">Kolumbiya pesosi</displayName>
 				<displayName count="other">Kolumbiya pesosi</displayName>
 				<symbol draft="contributed">COP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>Kosta-Rika koloni</displayName>
 				<displayName count="one">Kosta-Rika koloni</displayName>
 				<displayName count="other">Kosta-Rika koloni</displayName>
 				<symbol draft="contributed">CRC</symbol>
+				<symbol alt="narrow" draft="contributed">₡</symbol>
 			</currency>
 			<currency type="CUC">
 				<displayName>Kuba ayirboshlash pesosi</displayName>
 				<displayName count="one">Kuba ayirboshlash pesosi</displayName>
 				<displayName count="other">Kuba ayirboshlash pesosi</displayName>
 				<symbol draft="contributed">CUC</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>Kuba pesosi</displayName>
 				<displayName count="one">Kuba pesosi</displayName>
 				<displayName count="other">Kuba pesosi</displayName>
 				<symbol draft="contributed">CUP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>Kabo-Verde eskudosi</displayName>
@@ -4788,6 +4980,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Chexiya kronasi</displayName>
 				<displayName count="other">Chexiya kronasi</displayName>
 				<symbol draft="contributed">CZK</symbol>
+				<symbol alt="narrow" draft="contributed">Kč</symbol>
 			</currency>
 			<currency type="DJF">
 				<displayName>Jibuti franki</displayName>
@@ -4800,12 +4993,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Daniya kronasi</displayName>
 				<displayName count="other">Daniya kronasi</displayName>
 				<symbol draft="contributed">DKK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>Dominikana pesosi</displayName>
 				<displayName count="one">Dominikana pesosi</displayName>
 				<displayName count="other">Dominikana pesosi</displayName>
 				<symbol draft="contributed">DOP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>Jazoir dinori</displayName>
@@ -4818,6 +5013,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Misr funti</displayName>
 				<displayName count="other">Misr funti</displayName>
 				<symbol draft="contributed">EGP</symbol>
+				<symbol alt="narrow" draft="contributed">E£</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>Eritreya nakfasi</displayName>
@@ -4835,30 +5031,37 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Yevro</displayName>
 				<displayName count="one">yevro</displayName>
 				<displayName count="other">yevro</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="FJD">
 				<displayName>Fiji dollari</displayName>
 				<displayName count="one">Fiji dollari</displayName>
 				<displayName count="other">Fiji dollari</displayName>
 				<symbol draft="contributed">FJD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>Folklend orollari funti</displayName>
 				<displayName count="one">Folklend orollari funti</displayName>
 				<displayName count="other">Folklend orollari funti</displayName>
 				<symbol draft="contributed">FKP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>Angliya funt sterlingi</displayName>
 				<displayName count="one">Angliya funt sterlingi</displayName>
 				<displayName count="other">Angliya funt sterlingi</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GEL">
 				<displayName>Gruziya larisi</displayName>
 				<displayName count="one">Gruziya larisi</displayName>
 				<displayName count="other">Gruziya larisi</displayName>
-				<symbol alt="variant" draft="contributed">₾</symbol>
 				<symbol draft="contributed">GEL</symbol>
+				<symbol alt="narrow" draft="contributed">₾</symbol>
+				<symbol alt="variant" draft="contributed">₾</symbol>
 			</currency>
 			<currency type="GHS">
 				<displayName>Gana sedisi</displayName>
@@ -4871,6 +5074,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Gibraltar funti</displayName>
 				<displayName count="other">Gibraltar funti</displayName>
 				<symbol draft="contributed">GIP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>Gambiya dalasisi</displayName>
@@ -4883,35 +5087,42 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Gvineya franki</displayName>
 				<displayName count="other">Gvineya franki</displayName>
 				<symbol draft="contributed">GNF</symbol>
+				<symbol alt="narrow" draft="contributed">FG</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>Gvatemala ketsali</displayName>
 				<displayName count="one">Gvatemala ketsali</displayName>
 				<displayName count="other">Gvatemala ketsali</displayName>
 				<symbol draft="contributed">GTQ</symbol>
+				<symbol alt="narrow" draft="contributed">Q</symbol>
 			</currency>
 			<currency type="GYD">
 				<displayName>Gayana dollari</displayName>
 				<displayName count="one">Gayana dollari</displayName>
 				<displayName count="other">Gayana dollari</displayName>
 				<symbol draft="contributed">GYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>Gonkong dollari</displayName>
 				<displayName count="one">Gonkong dollari</displayName>
 				<displayName count="other">Gonkong dollari</displayName>
+				<symbol draft="contributed">HK$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName>Gonduras lempirasi</displayName>
 				<displayName count="one">Gonduras lempirasi</displayName>
 				<displayName count="other">Gonduras lempirasi</displayName>
 				<symbol draft="contributed">HNL</symbol>
+				<symbol alt="narrow" draft="contributed">L</symbol>
 			</currency>
 			<currency type="HRK">
 				<displayName>Xorvatiya kunasi</displayName>
 				<displayName count="one">Xorvatiya kunasi</displayName>
 				<displayName count="other">Xorvatiya kunasi</displayName>
 				<symbol draft="contributed">HRK</symbol>
+				<symbol alt="narrow" draft="contributed">kn</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>Gaiti gurdi</displayName>
@@ -4924,22 +5135,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Vengriya forinti</displayName>
 				<displayName count="other">Vengriya forinti</displayName>
 				<symbol draft="contributed">HUF</symbol>
+				<symbol alt="narrow" draft="contributed">Ft</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>Indoneziya rupiyasi</displayName>
 				<displayName count="one">Indoneziya rupiyasi</displayName>
 				<displayName count="other">Indoneziya rupiyasi</displayName>
 				<symbol draft="contributed">IDR</symbol>
+				<symbol alt="narrow" draft="contributed">Rp</symbol>
 			</currency>
 			<currency type="ILS">
 				<displayName>Isroil yangi shekeli</displayName>
 				<displayName count="one">Isroil yangi shekeli</displayName>
 				<displayName count="other">Isroil yangi shekeli</displayName>
+				<symbol draft="contributed">₪</symbol>
+				<symbol alt="narrow" draft="contributed">₪</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Hindiston rupiyasi</displayName>
 				<displayName count="one">Hindiston rupiyasi</displayName>
 				<displayName count="other">Hindiston rupiyasi</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName>Iroq dinori</displayName>
@@ -4958,12 +5175,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Islandiya kronasi</displayName>
 				<displayName count="other">Islandiya kronasi</displayName>
 				<symbol draft="contributed">ISK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="JMD">
 				<displayName>Yamayka dollari</displayName>
 				<displayName count="one">Yamayka dollari</displayName>
 				<displayName count="other">Yamayka dollari</displayName>
 				<symbol draft="contributed">JMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>Iordaniya dinori</displayName>
@@ -4975,6 +5194,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Yaponiya iyenasi</displayName>
 				<displayName count="one">Yaponiya iyenasi</displayName>
 				<displayName count="other">Yaponiya iyenasi</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>Keniya shillingi</displayName>
@@ -4993,23 +5214,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Kambodja rieli</displayName>
 				<displayName count="other">Kambodja rieli</displayName>
 				<symbol draft="contributed">KHR</symbol>
+				<symbol alt="narrow" draft="contributed">៛</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>Komor orollari franki</displayName>
 				<displayName count="one">Komor orollari franki</displayName>
 				<displayName count="other">Komor orollari franki</displayName>
 				<symbol draft="contributed">KMF</symbol>
+				<symbol alt="narrow" draft="contributed">CF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>Shimoliy Koreya voni</displayName>
 				<displayName count="one">Shimoliy Koreya voni</displayName>
 				<displayName count="other">Shimoliy Koreya voni</displayName>
 				<symbol draft="contributed">KPW</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>Janubiy Koreya voni</displayName>
 				<displayName count="one">Janubiy Koreya voni</displayName>
 				<displayName count="other">Janubiy Koreya voni</displayName>
+				<symbol draft="contributed">₩</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName>Kuvayt dinori</displayName>
@@ -5022,36 +5248,42 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Kayman orollari dollari</displayName>
 				<displayName count="other">Kayman orollari dollari</displayName>
 				<symbol draft="contributed">KYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>Qozog‘iston tengesi</displayName>
 				<displayName count="one">Qozog‘iston tengesi</displayName>
 				<displayName count="other">Qozog‘iston tengesi</displayName>
 				<symbol draft="contributed">KZT</symbol>
+				<symbol alt="narrow" draft="contributed">₸</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>Laos kipi</displayName>
 				<displayName count="one">Laos kipi</displayName>
 				<displayName count="other">Laos kipi</displayName>
 				<symbol draft="contributed">LAK</symbol>
+				<symbol alt="narrow" draft="contributed">₭</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>Livan funti</displayName>
 				<displayName count="one">Livan funti</displayName>
 				<displayName count="other">Livan funti</displayName>
 				<symbol draft="contributed">LBP</symbol>
+				<symbol alt="narrow" draft="contributed">L£</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>Shri-Lanka rupiyasi</displayName>
 				<displayName count="one">Shri-Lanka rupiyasi</displayName>
 				<displayName count="other">Shri-Lanka rupiyasi</displayName>
 				<symbol draft="contributed">LKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>Liberiya dollari</displayName>
 				<displayName count="one">Liberiya dollari</displayName>
 				<displayName count="other">Liberiya dollari</displayName>
 				<symbol draft="contributed">LRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="LTL">
 				<displayName>Litva liti</displayName>
@@ -5088,6 +5320,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Malagasi ariarisi</displayName>
 				<displayName count="other">Malagasi ariarisi</displayName>
 				<symbol draft="contributed">MGA</symbol>
+				<symbol alt="narrow" draft="contributed">Ar</symbol>
 			</currency>
 			<currency type="MKD">
 				<displayName>Makedoniya dinori</displayName>
@@ -5100,12 +5333,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Myanma kyati</displayName>
 				<displayName count="other">Myanma kyati</displayName>
 				<symbol draft="contributed">MMK</symbol>
+				<symbol alt="narrow" draft="contributed">K</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>Mongoliya tugriki</displayName>
 				<displayName count="one">Mongoliya tugriki</displayName>
 				<displayName count="other">Mongoliya tugriki</displayName>
 				<symbol draft="contributed">MNT</symbol>
+				<symbol alt="narrow" draft="contributed">₮</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>Makao patakasi</displayName>
@@ -5130,6 +5365,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Mavritaniya rupiyasi</displayName>
 				<displayName count="other">Mavritaniya rupiyasi</displayName>
 				<symbol draft="contributed">MUR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>Maldiv rupiyasi</displayName>
@@ -5147,12 +5383,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Meksika pesosi</displayName>
 				<displayName count="one">Meksika pesosi</displayName>
 				<displayName count="other">Meksika pesosi</displayName>
+				<symbol draft="contributed">MX$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="MYR">
 				<displayName>Malayziya ringgiti</displayName>
 				<displayName count="one">Malayziya ringgiti</displayName>
 				<displayName count="other">Malayziya ringgiti</displayName>
 				<symbol draft="contributed">MYR</symbol>
+				<symbol alt="narrow" draft="contributed">RM</symbol>
 			</currency>
 			<currency type="MZN">
 				<displayName>Mozambik metikali</displayName>
@@ -5165,35 +5404,42 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Namibiya dollari</displayName>
 				<displayName count="other">Namibiya dollari</displayName>
 				<symbol draft="contributed">NAD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>Nigeriya nayrasi</displayName>
 				<displayName count="one">Nigeriya nayrasi</displayName>
 				<displayName count="other">Nigeriya nayrasi</displayName>
 				<symbol draft="contributed">NGN</symbol>
+				<symbol alt="narrow" draft="contributed">₦</symbol>
 			</currency>
 			<currency type="NIO">
 				<displayName>Nikaragua kordobasi</displayName>
 				<displayName count="one">Nikaragua kordobasi</displayName>
 				<displayName count="other">Nikaragua kordobasi</displayName>
 				<symbol draft="contributed">NIO</symbol>
+				<symbol alt="narrow" draft="contributed">C$</symbol>
 			</currency>
 			<currency type="NOK">
 				<displayName>Norvegiya kronasi</displayName>
 				<displayName count="one">Norvegiya kronasi</displayName>
 				<displayName count="other">Norvegiya kronasi</displayName>
 				<symbol draft="contributed">NOK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>Nepal rupiyasi</displayName>
 				<displayName count="one">Nepal rupiyasi</displayName>
 				<displayName count="other">Nepal rupiyasi</displayName>
 				<symbol draft="contributed">NPR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>Yangi Zelandiya dollari</displayName>
 				<displayName count="one">Yangi Zelandiya dollari</displayName>
 				<displayName count="other">Yangi Zelandiya dollari</displayName>
+				<symbol draft="contributed">NZ$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName>Ummon riyoli</displayName>
@@ -5224,24 +5470,28 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Filippin pesosi</displayName>
 				<displayName count="other">Filippin pesosi</displayName>
 				<symbol draft="contributed">PHP</symbol>
+				<symbol alt="narrow" draft="contributed">₱</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Pokiston rupiyasi</displayName>
 				<displayName count="one">Pokiston rupiyasi</displayName>
 				<displayName count="other">Pokiston rupiyasi</displayName>
 				<symbol draft="contributed">PKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>Polsha zlotiyi</displayName>
 				<displayName count="one">Polsha zlotiyi</displayName>
 				<displayName count="other">Polsha zlotiyi</displayName>
 				<symbol draft="contributed">PLN</symbol>
+				<symbol alt="narrow" draft="contributed">zł</symbol>
 			</currency>
 			<currency type="PYG">
 				<displayName>Paragvay guaranisi</displayName>
 				<displayName count="one">Paragvay guaranisi</displayName>
 				<displayName count="other">Paragvay guaranisi</displayName>
 				<symbol draft="contributed">PYG</symbol>
+				<symbol alt="narrow" draft="contributed">₲</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>Qatar riyoli</displayName>
@@ -5254,6 +5504,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Ruminiya leyi</displayName>
 				<displayName count="other">Ruminiya leyi</displayName>
 				<symbol draft="contributed">RON</symbol>
+				<symbol alt="narrow" draft="contributed">lei</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>Serbiya dinori</displayName>
@@ -5266,12 +5517,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Rossiya rubli</displayName>
 				<displayName count="other">Rossiya rubli</displayName>
 				<symbol draft="contributed">RUB</symbol>
+				<symbol alt="narrow" draft="contributed">₽</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>Ruanda franki</displayName>
 				<displayName count="one">Ruanda franki</displayName>
 				<displayName count="other">Ruanda franki</displayName>
 				<symbol draft="contributed">RWF</symbol>
+				<symbol alt="narrow" draft="contributed">RF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>Saudiya Arabistoni riyoli</displayName>
@@ -5284,6 +5537,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Solomon orollari dollari</displayName>
 				<displayName count="other">Solomon orollari dollari</displayName>
 				<symbol draft="contributed">SBD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SCR">
 				<displayName>Seyshel rupiyasi</displayName>
@@ -5302,18 +5556,21 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Shvetsiya kronasi</displayName>
 				<displayName count="other">Shvetsiya kronasi</displayName>
 				<symbol draft="contributed">SEK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>Singapur dollari</displayName>
 				<displayName count="one">Singapur dollari</displayName>
 				<displayName count="other">Singapur dollari</displayName>
 				<symbol draft="contributed">SGD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>Muqaddas Yelena oroli funti</displayName>
 				<displayName count="one">Muqaddas Yelena oroli funti</displayName>
 				<displayName count="other">Muqaddas Yelena oroli funti</displayName>
 				<symbol draft="contributed">SHP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SLL">
 				<displayName>Syerra-Leone leonesi</displayName>
@@ -5332,12 +5589,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Surinam dollari</displayName>
 				<displayName count="other">Surinam dollari</displayName>
 				<symbol draft="contributed">SRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SSP">
 				<displayName>Janubiy Sudan funti</displayName>
 				<displayName count="one">Janubiy Sudan funti</displayName>
 				<displayName count="other">Janubiy Sudan funti</displayName>
 				<symbol draft="contributed">SSP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="STD">
 				<displayName>San-Tome va Prinsipi dobrasi (1977–2017)</displayName>
@@ -5350,12 +5609,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">San-Tome va Prinsipi dobrasi</displayName>
 				<displayName count="other">San-Tome va Prinsipi dobrasi</displayName>
 				<symbol draft="contributed">STN</symbol>
+				<symbol alt="narrow" draft="contributed">Db</symbol>
 			</currency>
 			<currency type="SYP">
 				<displayName>Suriya funti</displayName>
 				<displayName count="one">Suriya funti</displayName>
 				<displayName count="other">Suriya funti</displayName>
 				<symbol draft="contributed">SYP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>Svazilend lilangenisi</displayName>
@@ -5368,6 +5629,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Tailand bati</displayName>
 				<displayName count="other">Tailand bati</displayName>
 				<symbol draft="contributed">THB</symbol>
+				<symbol alt="narrow" draft="contributed">฿</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>Tojikiston somoniysi</displayName>
@@ -5392,23 +5654,29 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Tonga paangasi</displayName>
 				<displayName count="other">Tonga paangasi</displayName>
 				<symbol draft="contributed">TOP</symbol>
+				<symbol alt="narrow" draft="contributed">T$</symbol>
 			</currency>
 			<currency type="TRY">
 				<displayName>Turk lirasi</displayName>
 				<displayName count="one">Turk lirasi</displayName>
 				<displayName count="other">Turk lirasi</displayName>
 				<symbol draft="contributed">TRY</symbol>
+				<symbol alt="narrow" draft="contributed">₺</symbol>
+				<symbol alt="variant" draft="contributed">TL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Trinidad va Tobago dollari</displayName>
 				<displayName count="one">Trinidad va Tobago dollari</displayName>
 				<displayName count="other">Trinidad va Tobago dollari</displayName>
 				<symbol draft="contributed">TTD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>Yangi Tayvan dollari</displayName>
 				<displayName count="one">Yangi Tayvan dollari</displayName>
 				<displayName count="other">Yangi Tayvan dollari</displayName>
+				<symbol draft="contributed">NT$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>Tanzaniya shillingi</displayName>
@@ -5421,6 +5689,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Ukraina grivnasi</displayName>
 				<displayName count="other">Ukraina grivnasi</displayName>
 				<symbol draft="contributed">UAH</symbol>
+				<symbol alt="narrow" draft="contributed">₴</symbol>
 			</currency>
 			<currency type="UGX">
 				<displayName>Uganda shillingi</displayName>
@@ -5432,12 +5701,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>AQSH dollari</displayName>
 				<displayName count="one">AQSH dollari</displayName>
 				<displayName count="other">AQSH dollari</displayName>
+				<symbol draft="contributed">US$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UYU">
 				<displayName>Urugvay pesosi</displayName>
 				<displayName count="one">Urugvay pesosi</displayName>
 				<displayName count="other">Urugvay pesosi</displayName>
 				<symbol draft="contributed">UYU</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>O‘zbekiston so‘mi</displayName>
@@ -5450,6 +5722,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Venesuela bolivari (2008–2018)</displayName>
 				<displayName count="other">Venesuela bolivari (2008–2018)</displayName>
 				<symbol draft="contributed">VEF</symbol>
+				<symbol alt="narrow" draft="contributed">Bs</symbol>
 			</currency>
 			<currency type="VES">
 				<displayName>Venesuela bolivari</displayName>
@@ -5461,6 +5734,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Vyetnam dongi</displayName>
 				<displayName count="one">Vyetnam dongi</displayName>
 				<displayName count="other">Vyetnam dongi</displayName>
+				<symbol draft="contributed">₫</symbol>
+				<symbol alt="narrow" draft="contributed">₫</symbol>
 			</currency>
 			<currency type="VUV">
 				<displayName>Vanuatu vatusi</displayName>
@@ -5478,21 +5753,26 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Markaziy Afrika CFA franki</displayName>
 				<displayName count="one">Markaziy Afrika CFA franki</displayName>
 				<displayName count="other">Markaziy Afrika CFA franki</displayName>
+				<symbol draft="contributed">FCFA</symbol>
 			</currency>
 			<currency type="XCD">
 				<displayName>Sharqiy Karib dollari</displayName>
 				<displayName count="one">Sharqiy Karib dollari</displayName>
 				<displayName count="other">Sharqiy Karib dollari</displayName>
+				<symbol draft="contributed">EC$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XOF">
 				<displayName>G‘arbiy Afrika CFA franki</displayName>
 				<displayName count="one">G‘arbiy Afrika CFA franki</displayName>
 				<displayName count="other">G‘arbiy Afrika CFA franki</displayName>
+				<symbol draft="contributed">CFA</symbol>
 			</currency>
 			<currency type="XPF">
 				<displayName>Fransuz Polineziyasi franki</displayName>
 				<displayName count="one">Fransuz Polineziyasi franki</displayName>
 				<displayName count="other">Fransuz Polineziyasi franki</displayName>
+				<symbol draft="contributed">CFPF</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>Noma’lum valyuta</displayName>
@@ -5510,14 +5790,22 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName count="one">Janubiy Afrika rendi</displayName>
 				<displayName count="other">Janubiy Afrika rendi</displayName>
 				<symbol draft="contributed">ZAR</symbol>
+				<symbol alt="narrow" draft="contributed">R</symbol>
 			</currency>
 			<currency type="ZMW">
 				<displayName>Zambiya kvachasi</displayName>
 				<displayName count="one">Zambiya kvachasi</displayName>
 				<displayName count="other">Zambiya kvachasi</displayName>
 				<symbol draft="contributed">ZMW</symbol>
+				<symbol alt="narrow" draft="contributed">ZK</symbol>
 			</currency>
 		</currencies>
+		<miscPatterns numberSystem="latn">
+			<pattern type="approximately">~{0}</pattern>
+			<pattern type="atLeast">≥{0}</pattern>
+			<pattern type="atMost">≤{0}</pattern>
+			<pattern type="range">{0}–{1}</pattern>
+		</miscPatterns>
 		<minimalPairs>
 			<pluralMinimalPairs count="one">Savatingizda {0}X bor. Uni sotib olasizmi?</pluralMinimalPairs>
 			<pluralMinimalPairs count="other">Savatingizda {0}X bor. Ularni sotib olasizmi?</pluralMinimalPairs>
@@ -5713,7 +6001,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} karat</unitPattern>
 				<unitPattern count="other">{0} karat</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
+			<unit type="concentr-milligram-per-deciliter">
 				<displayName>milligramm/detsilitr</displayName>
 				<unitPattern count="one">{0} milligramm/detsilitr</unitPattern>
 				<unitPattern count="other">{0} milligramm/detsilitr</unitPattern>
@@ -6534,10 +6822,1002 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<coordinateUnit>
 				<displayName>yo‘nalish</displayName>
-				<coordinateUnitPattern type="east">{0} sharqiy uzunlik</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} shimoliy kenglik</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} sharqiy uzunlik</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} janubiy kenglik</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} g‘arbiy uzunlik</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="short">
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>d{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>p{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>f{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>a{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>s{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>z{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>y{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>m{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>µ{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>n{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>da{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>T{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>P{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>E{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>gekto{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>Z{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>Y{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>k{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>M{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>G{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1>{0}²</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0}²</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}²</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1>{0}³</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0}³</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}³</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="times">
+				<compoundUnitPattern>{0}⋅{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<displayName>grav. kuchi</displayName>
+				<unitPattern count="one">{0} G</unitPattern>
+				<unitPattern count="other">{0} G</unitPattern>
+			</unit>
+			<unit type="acceleration-meter-per-square-second">
+				<displayName>metr/soniya²</displayName>
+				<unitPattern count="one">{0} m/s²</unitPattern>
+				<unitPattern count="other">{0} m/s²</unitPattern>
+			</unit>
+			<unit type="angle-arc-minute">
+				<displayName>yoy daqiqasi</displayName>
+				<unitPattern count="one">{0} yoy daq.</unitPattern>
+				<unitPattern count="other">{0} yoy daq.</unitPattern>
+			</unit>
+			<unit type="angle-arc-second">
+				<displayName>yoy soniyasi</displayName>
+				<unitPattern count="one">{0} yoy son.</unitPattern>
+				<unitPattern count="other">{0} yoy son.</unitPattern>
+			</unit>
+			<unit type="angle-degree">
+				<displayName>gradus</displayName>
+				<unitPattern count="one">{0} grad</unitPattern>
+				<unitPattern count="other">{0} grad</unitPattern>
+			</unit>
+			<unit type="angle-radian">
+				<displayName>rad</displayName>
+				<unitPattern count="one">{0} rad</unitPattern>
+				<unitPattern count="other">{0} rad</unitPattern>
+			</unit>
+			<unit type="angle-revolution">
+				<displayName>aylanish</displayName>
+				<unitPattern count="one">{0} marta ayl.</unitPattern>
+				<unitPattern count="other">{0} marta ayl.</unitPattern>
+			</unit>
+			<unit type="area-acre">
+				<displayName>akr</displayName>
+				<unitPattern count="one">{0} akr</unitPattern>
+				<unitPattern count="other">{0} akr</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>dunam</displayName>
+				<unitPattern count="other">{0} dunam</unitPattern>
+			</unit>
+			<unit type="area-hectare">
+				<displayName>gektar</displayName>
+				<unitPattern count="one">{0} ga</unitPattern>
+				<unitPattern count="other">{0} ga</unitPattern>
+			</unit>
+			<unit type="area-square-centimeter">
+				<displayName>sm²</displayName>
+				<unitPattern count="one">{0} sm²</unitPattern>
+				<unitPattern count="other">{0} sm²</unitPattern>
+				<perUnitPattern>{0}/sm²</perUnitPattern>
+			</unit>
+			<unit type="area-square-foot">
+				<displayName>kv. fut</displayName>
+				<unitPattern count="one">{0} kv. fut</unitPattern>
+				<unitPattern count="other">{0} kv. fut</unitPattern>
+			</unit>
+			<unit type="area-square-inch">
+				<displayName>kvadrat duym</displayName>
+				<unitPattern count="one">{0} kv. duym</unitPattern>
+				<unitPattern count="other">{0} kv. duym</unitPattern>
+				<perUnitPattern>{0} kv. duym</perUnitPattern>
+			</unit>
+			<unit type="area-square-kilometer">
+				<displayName>km²</displayName>
+				<unitPattern count="one">{0} km²</unitPattern>
+				<unitPattern count="other">{0} km²</unitPattern>
+				<perUnitPattern>{0}/km²</perUnitPattern>
+			</unit>
+			<unit type="area-square-meter">
+				<displayName>m²</displayName>
+				<unitPattern count="one">{0} m²</unitPattern>
+				<unitPattern count="other">{0} m²</unitPattern>
+				<perUnitPattern>{0}/m²</perUnitPattern>
+			</unit>
+			<unit type="area-square-mile">
+				<displayName>kv. mil</displayName>
+				<unitPattern count="one">{0} kv. mil</unitPattern>
+				<unitPattern count="other">{0} kv. mil</unitPattern>
+				<perUnitPattern>{0}/mil²</perUnitPattern>
+			</unit>
+			<unit type="area-square-yard">
+				<displayName>yard²</displayName>
+				<unitPattern count="one">{0} yard²</unitPattern>
+				<unitPattern count="other">{0} yard²</unitPattern>
+			</unit>
+			<unit type="concentr-karat">
+				<displayName>karat</displayName>
+				<unitPattern count="one">{0} kt</unitPattern>
+				<unitPattern count="other">{0} kt</unitPattern>
+			</unit>
+			<unit type="concentr-milligram-per-deciliter">
+				<displayName>mg/dL</displayName>
+				<unitPattern count="one">{0} mg/dL</unitPattern>
+				<unitPattern count="other">{0} mg/dL</unitPattern>
+			</unit>
+			<unit type="concentr-millimole-per-liter">
+				<displayName>millimol/litr</displayName>
+				<unitPattern count="one">{0} mmol/L</unitPattern>
+				<unitPattern count="other">{0} mmol/L</unitPattern>
+			</unit>
+			<unit type="concentr-mole">
+				<displayName>mol</displayName>
+				<unitPattern count="other">{0} mol</unitPattern>
+			</unit>
+			<unit type="concentr-percent">
+				<displayName>foiz</displayName>
+				<unitPattern count="one">{0}%</unitPattern>
+				<unitPattern count="other">{0}%</unitPattern>
+			</unit>
+			<unit type="concentr-permille">
+				<displayName>promille</displayName>
+				<unitPattern count="one">{0}‰</unitPattern>
+				<unitPattern count="other">{0}‰</unitPattern>
+			</unit>
+			<unit type="concentr-permillion">
+				<displayName>qism/million</displayName>
+				<unitPattern count="one">{0} qism/million</unitPattern>
+				<unitPattern count="other">{0} qism/million</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>promiriada</displayName>
+				<unitPattern count="other">{0}‱</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
+				<displayName>L/100 km</displayName>
+				<unitPattern count="one">{0} L/100 km</unitPattern>
+				<unitPattern count="other">{0} L/100 km</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-kilometer">
+				<displayName>litr/km</displayName>
+				<unitPattern count="one">{0} L/km</unitPattern>
+				<unitPattern count="other">{0} L/km</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon">
+				<displayName>mil/gal</displayName>
+				<unitPattern count="one">{0} mil/gal</unitPattern>
+				<unitPattern count="other">{0} mil/gal</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon-imperial">
+				<displayName>mil/imp. gallon</displayName>
+				<unitPattern count="one">{0} mil/imp.gal</unitPattern>
+				<unitPattern count="other">{0} mil/imp.gal</unitPattern>
+			</unit>
+			<unit type="digital-bit">
+				<displayName>bit</displayName>
+				<unitPattern count="one">{0} bit</unitPattern>
+				<unitPattern count="other">{0} bit</unitPattern>
+			</unit>
+			<unit type="digital-byte">
+				<displayName>bayt</displayName>
+				<unitPattern count="one">{0} bayt</unitPattern>
+				<unitPattern count="other">{0} bayt</unitPattern>
+			</unit>
+			<unit type="digital-gigabit">
+				<displayName>Gbit</displayName>
+				<unitPattern count="one">{0} Gbit</unitPattern>
+				<unitPattern count="other">{0} Gbit</unitPattern>
+			</unit>
+			<unit type="digital-gigabyte">
+				<displayName>GB</displayName>
+				<unitPattern count="one">{0} GB</unitPattern>
+				<unitPattern count="other">{0} GB</unitPattern>
+			</unit>
+			<unit type="digital-kilobit">
+				<displayName>kbit</displayName>
+				<unitPattern count="one">{0} kbit</unitPattern>
+				<unitPattern count="other">{0} kbit</unitPattern>
+			</unit>
+			<unit type="digital-kilobyte">
+				<displayName>kB</displayName>
+				<unitPattern count="one">{0} kB</unitPattern>
+				<unitPattern count="other">{0} kB</unitPattern>
+			</unit>
+			<unit type="digital-megabit">
+				<displayName>Mbit</displayName>
+				<unitPattern count="one">{0} Mbit</unitPattern>
+				<unitPattern count="other">{0} Mbit</unitPattern>
+			</unit>
+			<unit type="digital-megabyte">
+				<displayName>MB</displayName>
+				<unitPattern count="one">{0} MB</unitPattern>
+				<unitPattern count="other">{0} MB</unitPattern>
+			</unit>
+			<unit type="digital-petabyte">
+				<displayName>PB</displayName>
+				<unitPattern count="one">{0} PB</unitPattern>
+				<unitPattern count="other">{0} PB</unitPattern>
+			</unit>
+			<unit type="digital-terabit">
+				<displayName>Tbit</displayName>
+				<unitPattern count="one">{0} Tbit</unitPattern>
+				<unitPattern count="other">{0} Tbit</unitPattern>
+			</unit>
+			<unit type="digital-terabyte">
+				<displayName>TB</displayName>
+				<unitPattern count="one">{0} TB</unitPattern>
+				<unitPattern count="other">{0} TB</unitPattern>
+			</unit>
+			<unit type="duration-century">
+				<displayName>asr</displayName>
+				<unitPattern count="one">{0} asr</unitPattern>
+				<unitPattern count="other">{0} asr</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>kun</displayName>
+				<unitPattern count="one">{0} kun</unitPattern>
+				<unitPattern count="other">{0} kun</unitPattern>
+				<perUnitPattern>{0}/kun</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>dekada</displayName>
+				<unitPattern count="one">{0} dekada</unitPattern>
+				<unitPattern count="other">{0} dekada</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>soat</displayName>
+				<unitPattern count="one">{0} soat</unitPattern>
+				<unitPattern count="other">{0} soat</unitPattern>
+				<perUnitPattern>{0}/soat</perUnitPattern>
+			</unit>
+			<unit type="duration-microsecond">
+				<displayName>mks</displayName>
+				<unitPattern count="one">{0} mks</unitPattern>
+				<unitPattern count="other">{0} mks</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>millisoniya</displayName>
+				<unitPattern count="one">{0} ms</unitPattern>
+				<unitPattern count="other">{0} ms</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>daq.</displayName>
+				<unitPattern count="one">{0} daq.</unitPattern>
+				<unitPattern count="other">{0} daq.</unitPattern>
+				<perUnitPattern>{0}/daq.</perUnitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>oy</displayName>
+				<unitPattern count="one">{0} oy</unitPattern>
+				<unitPattern count="other">{0} oy</unitPattern>
+				<perUnitPattern>{0}/oy</perUnitPattern>
+			</unit>
+			<unit type="duration-nanosecond">
+				<displayName>nanosoniya</displayName>
+				<unitPattern count="one">{0} ns</unitPattern>
+				<unitPattern count="other">{0} ns</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>son.</displayName>
+				<unitPattern count="one">{0} son.</unitPattern>
+				<unitPattern count="other">{0} son.</unitPattern>
+				<perUnitPattern>{0}/s</perUnitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>hafta</displayName>
+				<unitPattern count="one">{0} hafta</unitPattern>
+				<unitPattern count="other">{0} hafta</unitPattern>
+				<perUnitPattern>{0}/hafta</perUnitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>yil</displayName>
+				<unitPattern count="one">{0} yil</unitPattern>
+				<unitPattern count="other">{0} yil</unitPattern>
+				<perUnitPattern>{0}/yil</perUnitPattern>
+			</unit>
+			<unit type="electric-ampere">
+				<displayName>amper</displayName>
+				<unitPattern count="one">{0} A</unitPattern>
+				<unitPattern count="other">{0} A</unitPattern>
+			</unit>
+			<unit type="electric-milliampere">
+				<displayName>mA</displayName>
+				<unitPattern count="one">{0} mA</unitPattern>
+				<unitPattern count="other">{0} mA</unitPattern>
+			</unit>
+			<unit type="electric-ohm">
+				<displayName>om</displayName>
+				<unitPattern count="one">{0} Ω</unitPattern>
+				<unitPattern count="other">{0} Ω</unitPattern>
+			</unit>
+			<unit type="electric-volt">
+				<displayName>volt</displayName>
+				<unitPattern count="one">{0} V</unitPattern>
+				<unitPattern count="other">{0} V</unitPattern>
+			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>BTU</displayName>
+				<unitPattern count="one">{0} BTU</unitPattern>
+				<unitPattern count="other">{0} BTU</unitPattern>
+			</unit>
+			<unit type="energy-calorie">
+				<displayName>kal</displayName>
+				<unitPattern count="one">{0} kal</unitPattern>
+				<unitPattern count="other">{0} kal</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>elektronvolt</displayName>
+				<unitPattern count="other">{0} eV</unitPattern>
+			</unit>
+			<unit type="energy-foodcalorie">
+				<displayName>kal</displayName>
+				<unitPattern count="one">{0} kal</unitPattern>
+				<unitPattern count="other">{0} kal</unitPattern>
+			</unit>
+			<unit type="energy-joule">
+				<displayName>joul</displayName>
+				<unitPattern count="one">{0} J</unitPattern>
+				<unitPattern count="other">{0} J</unitPattern>
+			</unit>
+			<unit type="energy-kilocalorie">
+				<displayName>kkal</displayName>
+				<unitPattern count="one">{0} kkal</unitPattern>
+				<unitPattern count="other">{0} kkal</unitPattern>
+			</unit>
+			<unit type="energy-kilojoule">
+				<displayName>kilojoul</displayName>
+				<unitPattern count="one">{0} kJ</unitPattern>
+				<unitPattern count="other">{0} kJ</unitPattern>
+			</unit>
+			<unit type="energy-kilowatt-hour">
+				<displayName>kVt-soat</displayName>
+				<unitPattern count="one">{0} kVt-soat</unitPattern>
+				<unitPattern count="other">{0} kVt-soat</unitPattern>
+			</unit>
+			<unit type="energy-therm-us">
+				<displayName>AQSH termi</displayName>
+				<unitPattern count="one">{0} AQSH termi</unitPattern>
+				<unitPattern count="other">{0} AQSH termi</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>nyuton</displayName>
+				<unitPattern count="other">{0} N</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>funt-kuch</displayName>
+				<unitPattern count="one">{0} funt-kuch</unitPattern>
+				<unitPattern count="other">{0} funt-kuch</unitPattern>
+			</unit>
+			<unit type="frequency-gigahertz">
+				<displayName>GGs</displayName>
+				<unitPattern count="one">{0} GGs</unitPattern>
+				<unitPattern count="other">{0} GGs</unitPattern>
+			</unit>
+			<unit type="frequency-hertz">
+				<displayName>Gs</displayName>
+				<unitPattern count="one">{0} Gs</unitPattern>
+				<unitPattern count="other">{0} Gs</unitPattern>
+			</unit>
+			<unit type="frequency-kilohertz">
+				<displayName>kGs</displayName>
+				<unitPattern count="one">{0} kGs</unitPattern>
+				<unitPattern count="other">{0} kGs</unitPattern>
+			</unit>
+			<unit type="frequency-megahertz">
+				<displayName>MGs</displayName>
+				<unitPattern count="one">{0} MGs</unitPattern>
+				<unitPattern count="other">{0} MGs</unitPattern>
+			</unit>
+			<unit type="graphics-dot">
+				<displayName>piksel</displayName>
+				<unitPattern count="one">{0} piksel</unitPattern>
+				<unitPattern count="other">{0} piksel</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>nuqta/sm</displayName>
+				<unitPattern count="one">{0} nuqta/sm</unitPattern>
+				<unitPattern count="other">{0} nuqta/sm</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>nuqta/duym</displayName>
+				<unitPattern count="one">{0} nuqta/duym</unitPattern>
+				<unitPattern count="other">{0} nuqta/duym</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>em</displayName>
+				<unitPattern count="other">{0} em</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>megapiksel</displayName>
+				<unitPattern count="other">{0} MP</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>piksel</displayName>
+				<unitPattern count="other">{0} px</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>px/sm</displayName>
+				<unitPattern count="one">{0} px/sm</unitPattern>
+				<unitPattern count="other">{0} px/sm</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>piksel/duym</displayName>
+				<unitPattern count="one">{0} piksel/duym</unitPattern>
+				<unitPattern count="other">{0} piksel/duym</unitPattern>
+			</unit>
+			<unit type="length-astronomical-unit">
+				<displayName>a.b.</displayName>
+				<unitPattern count="one">{0} a.b.</unitPattern>
+				<unitPattern count="other">{0} a.b.</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>sm</displayName>
+				<unitPattern count="one">{0} sm</unitPattern>
+				<unitPattern count="other">{0} sm</unitPattern>
+				<perUnitPattern>{0}/sm</perUnitPattern>
+			</unit>
+			<unit type="length-decimeter">
+				<displayName>dm</displayName>
+				<unitPattern count="one">{0} dm</unitPattern>
+				<unitPattern count="other">{0} dm</unitPattern>
+			</unit>
+			<unit type="length-earth-radius">
+				<displayName>yer radiusi</displayName>
+				<unitPattern count="one">{0} yer radiusi</unitPattern>
+				<unitPattern count="other">{0} yer radiusi</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName>fatom</displayName>
+				<unitPattern count="one">{0} fatom</unitPattern>
+				<unitPattern count="other">{0} fatom</unitPattern>
+			</unit>
+			<unit type="length-foot">
+				<displayName>fut</displayName>
+				<unitPattern count="one">{0} fut</unitPattern>
+				<unitPattern count="other">{0} fut</unitPattern>
+				<perUnitPattern>{0} fut</perUnitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>farlong</displayName>
+				<unitPattern count="one">{0} farlong</unitPattern>
+				<unitPattern count="other">{0} farlong</unitPattern>
+			</unit>
+			<unit type="length-inch">
+				<displayName>duym</displayName>
+				<unitPattern count="one">{0} dy</unitPattern>
+				<unitPattern count="other">{0} dy</unitPattern>
+				<perUnitPattern>{0}/dy</perUnitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="one">{0} km</unitPattern>
+				<unitPattern count="other">{0} km</unitPattern>
+				<perUnitPattern>{0}/km</perUnitPattern>
+			</unit>
+			<unit type="length-light-year">
+				<displayName>yorug‘lik yili</displayName>
+				<unitPattern count="one">{0} y.y.</unitPattern>
+				<unitPattern count="other">{0} y.y.</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>metr</displayName>
+				<unitPattern count="one">{0} m</unitPattern>
+				<unitPattern count="other">{0} m</unitPattern>
+				<perUnitPattern>{0}/m</perUnitPattern>
+			</unit>
+			<unit type="length-micrometer">
+				<displayName>µmetr</displayName>
+				<unitPattern count="one">{0} µm</unitPattern>
+				<unitPattern count="other">{0} µm</unitPattern>
+			</unit>
+			<unit type="length-mile">
+				<displayName>mil</displayName>
+				<unitPattern count="one">{0} mil</unitPattern>
+				<unitPattern count="other">{0} mil</unitPattern>
+			</unit>
+			<unit type="length-mile-scandinavian">
+				<displayName>sk. mili</displayName>
+				<unitPattern count="one">{0} sk. mili</unitPattern>
+				<unitPattern count="other">{0} sk. mili</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="one">{0} mm</unitPattern>
+				<unitPattern count="other">{0} mm</unitPattern>
+			</unit>
+			<unit type="length-nanometer">
+				<displayName>nm</displayName>
+				<unitPattern count="one">{0} nm</unitPattern>
+				<unitPattern count="other">{0} nm</unitPattern>
+			</unit>
+			<unit type="length-nautical-mile">
+				<displayName>den. mili</displayName>
+				<unitPattern count="one">{0} den. mili</unitPattern>
+				<unitPattern count="other">{0} den. mili</unitPattern>
+			</unit>
+			<unit type="length-parsec">
+				<displayName>pk</displayName>
+				<unitPattern count="one">{0} pk</unitPattern>
+				<unitPattern count="other">{0} pk</unitPattern>
+			</unit>
+			<unit type="length-picometer">
+				<displayName>pm</displayName>
+				<unitPattern count="one">{0} pm</unitPattern>
+				<unitPattern count="other">{0} pm</unitPattern>
+			</unit>
+			<unit type="length-point">
+				<displayName>nuqta</displayName>
+				<unitPattern count="one">{0} nuqta</unitPattern>
+				<unitPattern count="other">{0} nuqta</unitPattern>
+			</unit>
+			<unit type="length-solar-radius">
+				<displayName>quyosh radiusi</displayName>
+				<unitPattern count="other">{0} R☉</unitPattern>
+			</unit>
+			<unit type="length-yard">
+				<displayName>yard</displayName>
+				<unitPattern count="one">{0} yard</unitPattern>
+				<unitPattern count="other">{0} yard</unitPattern>
+			</unit>
+			<unit type="light-candela">
+				<displayName>kandela</displayName>
+				<unitPattern count="one">{0} kandela</unitPattern>
+				<unitPattern count="other">{0} kandela</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lm</displayName>
+				<unitPattern count="one">{0} lm</unitPattern>
+				<unitPattern count="other">{0} lm</unitPattern>
+			</unit>
+			<unit type="light-lux">
+				<displayName>lk</displayName>
+				<unitPattern count="one">{0} lk</unitPattern>
+				<unitPattern count="other">{0} lk</unitPattern>
+			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>quyosh nuri kuchi</displayName>
+				<unitPattern count="other">{0} L☉</unitPattern>
+			</unit>
+			<unit type="mass-carat">
+				<displayName>karat</displayName>
+				<unitPattern count="one">{0} kar</unitPattern>
+				<unitPattern count="other">{0} kar</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>dalton</displayName>
+				<unitPattern count="other">{0} Da</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>Yer massasi</displayName>
+				<unitPattern count="other">{0} M⊕</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>gran</displayName>
+				<unitPattern count="one">{0} gran</unitPattern>
+				<unitPattern count="other">{0} gran</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>gramm</displayName>
+				<unitPattern count="one">{0} g</unitPattern>
+				<unitPattern count="other">{0} g</unitPattern>
+				<perUnitPattern>{0}/g</perUnitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kg</displayName>
+				<unitPattern count="one">{0} kg</unitPattern>
+				<unitPattern count="other">{0} kg</unitPattern>
+				<perUnitPattern>{0}/kg</perUnitPattern>
+			</unit>
+			<unit type="mass-metric-ton">
+				<displayName>t</displayName>
+				<unitPattern count="one">{0} t</unitPattern>
+				<unitPattern count="other">{0} t</unitPattern>
+			</unit>
+			<unit type="mass-microgram">
+				<displayName>µg</displayName>
+				<unitPattern count="one">{0} µg</unitPattern>
+				<unitPattern count="other">{0} µg</unitPattern>
+			</unit>
+			<unit type="mass-milligram">
+				<displayName>mg</displayName>
+				<unitPattern count="one">{0} mg</unitPattern>
+				<unitPattern count="other">{0} mg</unitPattern>
+			</unit>
+			<unit type="mass-ounce">
+				<displayName>unsiya</displayName>
+				<unitPattern count="one">{0} unsiya</unitPattern>
+				<unitPattern count="other">{0} unsiya</unitPattern>
+				<perUnitPattern>{0}/unsiya</perUnitPattern>
+			</unit>
+			<unit type="mass-ounce-troy">
+				<displayName>troya unsiyasi</displayName>
+				<unitPattern count="one">{0} troya unsiyasi</unitPattern>
+				<unitPattern count="other">{0} troya unsiyasi</unitPattern>
+			</unit>
+			<unit type="mass-pound">
+				<displayName>funt</displayName>
+				<unitPattern count="one">{0} funt</unitPattern>
+				<unitPattern count="other">{0} funt</unitPattern>
+				<perUnitPattern>{0}/funt</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>quyosh massasi</displayName>
+				<unitPattern count="other">{0} M☉</unitPattern>
+			</unit>
+			<unit type="mass-stone">
+				<displayName>tosh</displayName>
+				<unitPattern count="one">{0} tosh</unitPattern>
+				<unitPattern count="other">{0} tosh</unitPattern>
+			</unit>
+			<unit type="mass-ton">
+				<displayName>amer. t</displayName>
+				<unitPattern count="one">{0} amer. t</unitPattern>
+				<unitPattern count="other">{0} amer. t</unitPattern>
+			</unit>
+			<unit type="power-gigawatt">
+				<displayName>GVt</displayName>
+				<unitPattern count="one">{0} GVt</unitPattern>
+				<unitPattern count="other">{0} GVt</unitPattern>
+			</unit>
+			<unit type="power-horsepower">
+				<displayName>o.k.</displayName>
+				<unitPattern count="one">{0} o.k.</unitPattern>
+				<unitPattern count="other">{0} o.k.</unitPattern>
+			</unit>
+			<unit type="power-kilowatt">
+				<displayName>kVt</displayName>
+				<unitPattern count="one">{0} kVt</unitPattern>
+				<unitPattern count="other">{0} kVt</unitPattern>
+			</unit>
+			<unit type="power-megawatt">
+				<displayName>MVt</displayName>
+				<unitPattern count="one">{0} MVt</unitPattern>
+				<unitPattern count="other">{0} MVt</unitPattern>
+			</unit>
+			<unit type="power-milliwatt">
+				<displayName>mVt</displayName>
+				<unitPattern count="one">{0} mVt</unitPattern>
+				<unitPattern count="other">{0} mVt</unitPattern>
+			</unit>
+			<unit type="power-watt">
+				<displayName>Vt</displayName>
+				<unitPattern count="one">{0} Vt</unitPattern>
+				<unitPattern count="other">{0} Vt</unitPattern>
+			</unit>
+			<unit type="pressure-atmosphere">
+				<displayName>atm</displayName>
+				<unitPattern count="one">{0} atm</unitPattern>
+				<unitPattern count="other">{0} atm</unitPattern>
+			</unit>
+			<unit type="pressure-bar">
+				<displayName>bar</displayName>
+				<unitPattern count="other">{0} bar</unitPattern>
+			</unit>
+			<unit type="pressure-hectopascal">
+				<displayName>gPa</displayName>
+				<unitPattern count="one">{0} gPa</unitPattern>
+				<unitPattern count="other">{0} gPa</unitPattern>
+			</unit>
+			<unit type="pressure-inch-ofhg">
+				<displayName>inHg</displayName>
+				<unitPattern count="one">{0} inHg</unitPattern>
+				<unitPattern count="other">{0} inHg</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>kPa</displayName>
+				<unitPattern count="other">{0} kPa</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>MPa</displayName>
+				<unitPattern count="other">{0} MPa</unitPattern>
+			</unit>
+			<unit type="pressure-millibar">
+				<displayName>mbar</displayName>
+				<unitPattern count="one">{0} mbar</unitPattern>
+				<unitPattern count="other">{0} mbar</unitPattern>
+			</unit>
+			<unit type="pressure-millimeter-ofhg">
+				<unitPattern count="one">{0} mmHg</unitPattern>
+				<unitPattern count="other">{0} mmHg</unitPattern>
+			</unit>
+			<unit type="pressure-pascal">
+				<displayName>Pa</displayName>
+				<unitPattern count="other">{0} Pa</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
+				<displayName>funt/dy.kv</displayName>
+				<unitPattern count="one">{0} funt/dy.kv</unitPattern>
+				<unitPattern count="other">{0} funt/dy.kv</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/soat</displayName>
+				<unitPattern count="one">{0} km/soat</unitPattern>
+				<unitPattern count="other">{0} km/soat</unitPattern>
+			</unit>
+			<unit type="speed-knot">
+				<displayName>uzel</displayName>
+				<unitPattern count="one">{0} uzel</unitPattern>
+				<unitPattern count="other">{0} uzel</unitPattern>
+			</unit>
+			<unit type="speed-meter-per-second">
+				<displayName>m/s</displayName>
+				<unitPattern count="one">{0} m/s</unitPattern>
+				<unitPattern count="other">{0} m/s</unitPattern>
+			</unit>
+			<unit type="speed-mile-per-hour">
+				<displayName>mil/soat</displayName>
+				<unitPattern count="one">{0} mil/soat</unitPattern>
+				<unitPattern count="other">{0} mil/soat</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°C</displayName>
+				<unitPattern count="one">{0}°C</unitPattern>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="temperature-fahrenheit">
+				<displayName>°F</displayName>
+				<unitPattern count="one">{0}°F</unitPattern>
+				<unitPattern count="other">{0}°F</unitPattern>
+			</unit>
+			<unit type="temperature-generic">
+				<displayName>°</displayName>
+				<unitPattern count="one">{0}°</unitPattern>
+				<unitPattern count="other">{0}°</unitPattern>
+			</unit>
+			<unit type="temperature-kelvin">
+				<displayName>K</displayName>
+				<unitPattern count="one">{0} K</unitPattern>
+				<unitPattern count="other">{0} K</unitPattern>
+			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>N⋅m</displayName>
+				<unitPattern count="other">{0} N⋅m</unitPattern>
+			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>funt-kuch-fut</displayName>
+				<unitPattern count="one">{0} funt-kuch-fut</unitPattern>
+				<unitPattern count="other">{0} funt-kuch-fut</unitPattern>
+			</unit>
+			<unit type="volume-acre-foot">
+				<displayName>akrofut</displayName>
+				<unitPattern count="one">{0} akrofut</unitPattern>
+				<unitPattern count="other">{0} akrofut</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>barrel</displayName>
+				<unitPattern count="one">{0} barrel</unitPattern>
+				<unitPattern count="other">{0} barrel</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>bushel</displayName>
+				<unitPattern count="one">{0} bushel</unitPattern>
+				<unitPattern count="other">{0} bushel</unitPattern>
+			</unit>
+			<unit type="volume-centiliter">
+				<displayName>sL</displayName>
+				<unitPattern count="one">{0} sL</unitPattern>
+				<unitPattern count="other">{0} sL</unitPattern>
+			</unit>
+			<unit type="volume-cubic-centimeter">
+				<displayName>sm³</displayName>
+				<unitPattern count="one">{0} sm³</unitPattern>
+				<unitPattern count="other">{0} sm³</unitPattern>
+				<perUnitPattern>{0}/sm³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-foot">
+				<displayName>kub fut</displayName>
+				<unitPattern count="one">{0} kub fut</unitPattern>
+				<unitPattern count="other">{0} kub fut</unitPattern>
+			</unit>
+			<unit type="volume-cubic-inch">
+				<displayName>kub duym</displayName>
+				<unitPattern count="one">{0} kub duym</unitPattern>
+				<unitPattern count="other">{0} kub duym</unitPattern>
+			</unit>
+			<unit type="volume-cubic-kilometer">
+				<displayName>km³</displayName>
+				<unitPattern count="one">{0} km³</unitPattern>
+				<unitPattern count="other">{0} km³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-meter">
+				<displayName>m³</displayName>
+				<unitPattern count="one">{0} m³</unitPattern>
+				<unitPattern count="other">{0} m³</unitPattern>
+				<perUnitPattern>{0}/m³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-mile">
+				<displayName>kub mil</displayName>
+				<unitPattern count="one">{0} kub mil</unitPattern>
+				<unitPattern count="other">{0} kub mil</unitPattern>
+			</unit>
+			<unit type="volume-cubic-yard">
+				<displayName>kub yard</displayName>
+				<unitPattern count="one">{0} yard³</unitPattern>
+				<unitPattern count="other">{0} yard³</unitPattern>
+			</unit>
+			<unit type="volume-cup">
+				<displayName>piyola</displayName>
+				<unitPattern count="one">{0} piyola</unitPattern>
+				<unitPattern count="other">{0} piyola</unitPattern>
+			</unit>
+			<unit type="volume-cup-metric">
+				<displayName>m. piyola</displayName>
+				<unitPattern count="one">{0} m. piyola</unitPattern>
+				<unitPattern count="other">{0} m. piyola</unitPattern>
+			</unit>
+			<unit type="volume-deciliter">
+				<displayName>dL</displayName>
+				<unitPattern count="one">{0} dL</unitPattern>
+				<unitPattern count="other">{0} dL</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>desert qoshiq</displayName>
+				<unitPattern count="one">{0} desert qoshiq</unitPattern>
+				<unitPattern count="other">{0} desert qoshiq</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>imp desert qoshiq</displayName>
+				<unitPattern count="one">{0} imp desert qoshiq</unitPattern>
+				<unitPattern count="other">{0} imp desert qoshiq</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>suyuqlik draxmasi</displayName>
+				<unitPattern count="one">{0} suyuqlik draxmasi</unitPattern>
+				<unitPattern count="other">{0} suyuqlik draxmasi</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>tomchi</displayName>
+				<unitPattern count="one">{0} tomchi</unitPattern>
+				<unitPattern count="other">{0} tomchi</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce">
+				<displayName>suyuq unsiya</displayName>
+				<unitPattern count="one">{0} suyuq unsiya</unitPattern>
+				<unitPattern count="other">{0} suyuq unsiya</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>ingliz suyuq unsiyasi</displayName>
+				<unitPattern count="one">{0} ing. suyuq uns.</unitPattern>
+				<unitPattern count="other">{0} ing. suyuq uns.</unitPattern>
+			</unit>
+			<unit type="volume-gallon">
+				<displayName>gal</displayName>
+				<unitPattern count="one">{0} gal</unitPattern>
+				<unitPattern count="other">{0} gal</unitPattern>
+				<perUnitPattern>{0}/gal</perUnitPattern>
+			</unit>
+			<unit type="volume-gallon-imperial">
+				<displayName>imp. gal.</displayName>
+				<unitPattern count="one">{0} imp. gal.</unitPattern>
+				<unitPattern count="other">{0} imp. gal.</unitPattern>
+				<perUnitPattern>{0} imp. gal.</perUnitPattern>
+			</unit>
+			<unit type="volume-hectoliter">
+				<displayName>gL</displayName>
+				<unitPattern count="one">{0} gL</unitPattern>
+				<unitPattern count="other">{0} gL</unitPattern>
+			</unit>
+			<unit type="volume-jigger">
+				<displayName>qadah</displayName>
+				<unitPattern count="one">{0} qadah</unitPattern>
+				<unitPattern count="other">{0} qadah</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>litr</displayName>
+				<unitPattern count="one">{0} L</unitPattern>
+				<unitPattern count="other">{0} L</unitPattern>
+				<perUnitPattern>{0}/L</perUnitPattern>
+			</unit>
+			<unit type="volume-megaliter">
+				<displayName>ML</displayName>
+				<unitPattern count="one">{0} ML</unitPattern>
+				<unitPattern count="other">{0} ML</unitPattern>
+			</unit>
+			<unit type="volume-milliliter">
+				<displayName>mL</displayName>
+				<unitPattern count="one">{0} mL</unitPattern>
+				<unitPattern count="other">{0} mL</unitPattern>
+			</unit>
+			<unit type="volume-pinch">
+				<displayName>chimdim</displayName>
+				<unitPattern count="one">{0} chimdim</unitPattern>
+				<unitPattern count="other">{0} chimdim</unitPattern>
+			</unit>
+			<unit type="volume-pint">
+				<displayName>pint</displayName>
+				<unitPattern count="one">{0} pint</unitPattern>
+				<unitPattern count="other">{0} pint</unitPattern>
+			</unit>
+			<unit type="volume-pint-metric">
+				<displayName>mpt</displayName>
+				<unitPattern count="one">{0} mpt</unitPattern>
+				<unitPattern count="other">{0} mpt</unitPattern>
+			</unit>
+			<unit type="volume-quart">
+				<displayName>kvart</displayName>
+				<unitPattern count="one">{0} kvart</unitPattern>
+				<unitPattern count="other">{0} kvart</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>imp kvarta</displayName>
+				<unitPattern count="one">{0} imp. kvarta</unitPattern>
+				<unitPattern count="other">{0} imp. kvarta</unitPattern>
+			</unit>
+			<unit type="volume-tablespoon">
+				<displayName>osh qoshiq</displayName>
+				<unitPattern count="one">{0} osh qoshiq</unitPattern>
+				<unitPattern count="other">{0} osh qoshiq</unitPattern>
+			</unit>
+			<unit type="volume-teaspoon">
+				<displayName>choy qoshiq</displayName>
+				<unitPattern count="one">{0} choy qoshiq</unitPattern>
+				<unitPattern count="other">{0} choy qoshiq</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<displayName>yo‘nalish</displayName>
+				<coordinateUnitPattern type="north">{0} shm. k.</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} shq. u.</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0} jan. k.</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0} g‘rb. u.</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
@@ -6566,7 +7846,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPrefixPattern>m{0}</unitPrefixPattern>
 			</compoundUnit>
 			<compoundUnit type="10p-6">
-				<unitPrefixPattern>μ{0}</unitPrefixPattern>
+				<unitPrefixPattern>µ{0}</unitPrefixPattern>
 			</compoundUnit>
 			<compoundUnit type="10p-9">
 				<unitPrefixPattern>n{0}</unitPrefixPattern>
@@ -6830,809 +8110,32 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<coordinateUnit>
 				<displayName>yo‘nalish</displayName>
-				<coordinateUnitPattern type="east">{0} shq. u.</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} shm. k.</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} shq. u.</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} jan. k.</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} g‘rb. u.</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
-		<unitLength type="short">
-			<compoundUnit type="10p-2">
-				<unitPrefixPattern>s{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p2">
-				<unitPrefixPattern>gekto{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="power2">
-				<compoundUnitPattern1 count="one">{0}²</compoundUnitPattern1>
-			</compoundUnit>
-			<compoundUnit type="power3">
-				<compoundUnitPattern1 count="one">{0}³</compoundUnitPattern1>
-			</compoundUnit>
-			<unit type="acceleration-g-force">
-				<displayName>grav. kuchi</displayName>
-				<unitPattern count="one">{0} G</unitPattern>
-			</unit>
-			<unit type="acceleration-meter-per-square-second">
-				<displayName>metr/soniya²</displayName>
-				<unitPattern count="one">{0} m/s²</unitPattern>
-			</unit>
-			<unit type="angle-arc-minute">
-				<displayName>yoy daqiqasi</displayName>
-				<unitPattern count="one">{0} yoy daq.</unitPattern>
-				<unitPattern count="other">{0} yoy daq.</unitPattern>
-			</unit>
-			<unit type="angle-arc-second">
-				<displayName>yoy soniyasi</displayName>
-				<unitPattern count="one">{0} yoy son.</unitPattern>
-				<unitPattern count="other">{0} yoy son.</unitPattern>
-			</unit>
-			<unit type="angle-degree">
-				<displayName>gradus</displayName>
-				<unitPattern count="one">{0} grad</unitPattern>
-				<unitPattern count="other">{0} grad</unitPattern>
-			</unit>
-			<unit type="angle-radian">
-				<unitPattern count="one">{0} rad</unitPattern>
-			</unit>
-			<unit type="angle-revolution">
-				<displayName>aylanish</displayName>
-				<unitPattern count="one">{0} marta ayl.</unitPattern>
-				<unitPattern count="other">{0} marta ayl.</unitPattern>
-			</unit>
-			<unit type="area-acre">
-				<displayName>akr</displayName>
-				<unitPattern count="one">{0} akr</unitPattern>
-				<unitPattern count="other">{0} akr</unitPattern>
-			</unit>
-			<unit type="area-hectare">
-				<displayName>gektar</displayName>
-				<unitPattern count="one">{0} ga</unitPattern>
-				<unitPattern count="other">{0} ga</unitPattern>
-			</unit>
-			<unit type="area-square-centimeter">
-				<displayName>sm²</displayName>
-				<unitPattern count="one">{0} sm²</unitPattern>
-				<unitPattern count="other">{0} sm²</unitPattern>
-				<perUnitPattern>{0}/sm²</perUnitPattern>
-			</unit>
-			<unit type="area-square-foot">
-				<displayName>kv. fut</displayName>
-				<unitPattern count="one">{0} kv. fut</unitPattern>
-				<unitPattern count="other">{0} kv. fut</unitPattern>
-			</unit>
-			<unit type="area-square-inch">
-				<displayName>kvadrat duym</displayName>
-				<unitPattern count="one">{0} kv. duym</unitPattern>
-				<unitPattern count="other">{0} kv. duym</unitPattern>
-				<perUnitPattern>{0} kv. duym</perUnitPattern>
-			</unit>
-			<unit type="area-square-kilometer">
-				<unitPattern count="one">{0} km²</unitPattern>
-			</unit>
-			<unit type="area-square-meter">
-				<unitPattern count="one">{0} m²</unitPattern>
-			</unit>
-			<unit type="area-square-mile">
-				<displayName>kv. mil</displayName>
-				<unitPattern count="one">{0} kv. mil</unitPattern>
-				<unitPattern count="other">{0} kv. mil</unitPattern>
-				<perUnitPattern>{0}/mil²</perUnitPattern>
-			</unit>
-			<unit type="area-square-yard">
-				<displayName>yard²</displayName>
-				<unitPattern count="one">{0} yard²</unitPattern>
-				<unitPattern count="other">{0} yard²</unitPattern>
-			</unit>
-			<unit type="concentr-karat">
-				<displayName>karat</displayName>
-				<unitPattern count="one">{0} kt</unitPattern>
-			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
-				<unitPattern count="one">{0} mg/dL</unitPattern>
-			</unit>
-			<unit type="concentr-millimole-per-liter">
-				<displayName>millimol/litr</displayName>
-				<unitPattern count="one">{0} mmol/L</unitPattern>
-			</unit>
-			<unit type="concentr-percent">
-				<displayName>foiz</displayName>
-				<unitPattern count="one">{0}%</unitPattern>
-			</unit>
-			<unit type="concentr-permille">
-				<displayName>promille</displayName>
-				<unitPattern count="one">{0}‰</unitPattern>
-			</unit>
-			<unit type="concentr-permillion">
-				<displayName>qism/million</displayName>
-				<unitPattern count="one">{0} qism/million</unitPattern>
-				<unitPattern count="other">{0} qism/million</unitPattern>
-			</unit>
-			<unit type="concentr-permyriad">
-				<displayName>promiriada</displayName>
-			</unit>
-			<unit type="consumption-liter-per-100-kilometer">
-				<displayName>L/100 km</displayName>
-				<unitPattern count="one">{0} L/100 km</unitPattern>
-				<unitPattern count="other">{0} L/100 km</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-kilometer">
-				<displayName>litr/km</displayName>
-				<unitPattern count="one">{0} L/km</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon">
-				<displayName>mil/gal</displayName>
-				<unitPattern count="one">{0} mil/gal</unitPattern>
-				<unitPattern count="other">{0} mil/gal</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon-imperial">
-				<displayName>mil/imp. gallon</displayName>
-				<unitPattern count="one">{0} mil/imp.gal</unitPattern>
-				<unitPattern count="other">{0} mil/imp.gal</unitPattern>
-			</unit>
-			<unit type="digital-bit">
-				<unitPattern count="one">{0} bit</unitPattern>
-			</unit>
-			<unit type="digital-byte">
-				<displayName>bayt</displayName>
-				<unitPattern count="one">{0} bayt</unitPattern>
-				<unitPattern count="other">{0} bayt</unitPattern>
-			</unit>
-			<unit type="digital-gigabit">
-				<displayName>Gbit</displayName>
-				<unitPattern count="one">{0} Gbit</unitPattern>
-				<unitPattern count="other">{0} Gbit</unitPattern>
-			</unit>
-			<unit type="digital-gigabyte">
-				<unitPattern count="one">{0} GB</unitPattern>
-			</unit>
-			<unit type="digital-kilobit">
-				<displayName>kbit</displayName>
-				<unitPattern count="one">{0} kbit</unitPattern>
-				<unitPattern count="other">{0} kbit</unitPattern>
-			</unit>
-			<unit type="digital-kilobyte">
-				<unitPattern count="one">{0} kB</unitPattern>
-			</unit>
-			<unit type="digital-megabit">
-				<displayName>Mbit</displayName>
-				<unitPattern count="one">{0} Mbit</unitPattern>
-				<unitPattern count="other">{0} Mbit</unitPattern>
-			</unit>
-			<unit type="digital-megabyte">
-				<unitPattern count="one">{0} MB</unitPattern>
-			</unit>
-			<unit type="digital-petabyte">
-				<unitPattern count="one">{0} PB</unitPattern>
-			</unit>
-			<unit type="digital-terabit">
-				<displayName>Tbit</displayName>
-				<unitPattern count="one">{0} Tbit</unitPattern>
-				<unitPattern count="other">{0} Tbit</unitPattern>
-			</unit>
-			<unit type="digital-terabyte">
-				<unitPattern count="one">{0} TB</unitPattern>
-			</unit>
-			<unit type="duration-century">
-				<displayName>asr</displayName>
-				<unitPattern count="one">{0} asr</unitPattern>
-				<unitPattern count="other">{0} asr</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>kun</displayName>
-				<unitPattern count="one">{0} kun</unitPattern>
-				<unitPattern count="other">{0} kun</unitPattern>
-				<perUnitPattern>{0}/kun</perUnitPattern>
-			</unit>
-			<unit type="duration-decade">
-				<displayName>dekada</displayName>
-				<unitPattern count="one">{0} dekada</unitPattern>
-				<unitPattern count="other">{0} dekada</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>soat</displayName>
-				<unitPattern count="one">{0} soat</unitPattern>
-				<unitPattern count="other">{0} soat</unitPattern>
-				<perUnitPattern>{0}/soat</perUnitPattern>
-			</unit>
-			<unit type="duration-microsecond">
-				<displayName>mks</displayName>
-				<unitPattern count="one">{0} mks</unitPattern>
-				<unitPattern count="other">{0} mks</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>millisoniya</displayName>
-				<unitPattern count="one">{0} ms</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>daq.</displayName>
-				<unitPattern count="one">{0} daq.</unitPattern>
-				<unitPattern count="other">{0} daq.</unitPattern>
-				<perUnitPattern>{0}/daq.</perUnitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>oy</displayName>
-				<unitPattern count="one">{0} oy</unitPattern>
-				<unitPattern count="other">{0} oy</unitPattern>
-				<perUnitPattern>{0}/oy</perUnitPattern>
-			</unit>
-			<unit type="duration-nanosecond">
-				<displayName>nanosoniya</displayName>
-				<unitPattern count="one">{0} ns</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>son.</displayName>
-				<unitPattern count="one">{0} son.</unitPattern>
-				<unitPattern count="other">{0} son.</unitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>hafta</displayName>
-				<unitPattern count="one">{0} hafta</unitPattern>
-				<unitPattern count="other">{0} hafta</unitPattern>
-				<perUnitPattern>{0}/hafta</perUnitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>yil</displayName>
-				<unitPattern count="one">{0} yil</unitPattern>
-				<unitPattern count="other">{0} yil</unitPattern>
-				<perUnitPattern>{0}/yil</perUnitPattern>
-			</unit>
-			<unit type="electric-ampere">
-				<displayName>amper</displayName>
-				<unitPattern count="one">{0} A</unitPattern>
-			</unit>
-			<unit type="electric-milliampere">
-				<unitPattern count="one">{0} mA</unitPattern>
-			</unit>
-			<unit type="electric-ohm">
-				<displayName>om</displayName>
-				<unitPattern count="one">{0} Ω</unitPattern>
-			</unit>
-			<unit type="electric-volt">
-				<unitPattern count="one">{0} V</unitPattern>
-			</unit>
-			<unit type="energy-british-thermal-unit">
-				<displayName>BTU</displayName>
-				<unitPattern count="one">{0} BTU</unitPattern>
-				<unitPattern count="other">{0} BTU</unitPattern>
-			</unit>
-			<unit type="energy-calorie">
-				<displayName>kal</displayName>
-				<unitPattern count="one">{0} kal</unitPattern>
-				<unitPattern count="other">{0} kal</unitPattern>
-			</unit>
-			<unit type="energy-electronvolt">
-				<displayName>elektronvolt</displayName>
-			</unit>
-			<unit type="energy-foodcalorie">
-				<displayName>kal</displayName>
-				<unitPattern count="one">{0} kal</unitPattern>
-				<unitPattern count="other">{0} kal</unitPattern>
-			</unit>
-			<unit type="energy-joule">
-				<displayName>joul</displayName>
-				<unitPattern count="one">{0} J</unitPattern>
-			</unit>
-			<unit type="energy-kilocalorie">
-				<displayName>kkal</displayName>
-				<unitPattern count="one">{0} kkal</unitPattern>
-				<unitPattern count="other">{0} kkal</unitPattern>
-			</unit>
-			<unit type="energy-kilojoule">
-				<displayName>kilojoul</displayName>
-				<unitPattern count="one">{0} kJ</unitPattern>
-			</unit>
-			<unit type="energy-kilowatt-hour">
-				<displayName>kVt-soat</displayName>
-				<unitPattern count="one">{0} kVt-soat</unitPattern>
-				<unitPattern count="other">{0} kVt-soat</unitPattern>
-			</unit>
-			<unit type="energy-therm-us">
-				<displayName>AQSH termi</displayName>
-				<unitPattern count="one">{0} AQSH termi</unitPattern>
-				<unitPattern count="other">{0} AQSH termi</unitPattern>
-			</unit>
-			<unit type="force-newton">
-				<displayName>nyuton</displayName>
-			</unit>
-			<unit type="force-pound-force">
-				<displayName>funt-kuch</displayName>
-				<unitPattern count="one">{0} funt-kuch</unitPattern>
-				<unitPattern count="other">{0} funt-kuch</unitPattern>
-			</unit>
-			<unit type="frequency-gigahertz">
-				<displayName>GGs</displayName>
-				<unitPattern count="one">{0} GGs</unitPattern>
-				<unitPattern count="other">{0} GGs</unitPattern>
-			</unit>
-			<unit type="frequency-hertz">
-				<displayName>Gs</displayName>
-				<unitPattern count="one">{0} Gs</unitPattern>
-				<unitPattern count="other">{0} Gs</unitPattern>
-			</unit>
-			<unit type="frequency-kilohertz">
-				<displayName>kGs</displayName>
-				<unitPattern count="one">{0} kGs</unitPattern>
-				<unitPattern count="other">{0} kGs</unitPattern>
-			</unit>
-			<unit type="frequency-megahertz">
-				<displayName>MGs</displayName>
-				<unitPattern count="one">{0} MGs</unitPattern>
-				<unitPattern count="other">{0} MGs</unitPattern>
-			</unit>
-			<unit type="graphics-dot">
-				<displayName>piksel</displayName>
-				<unitPattern count="one">{0} piksel</unitPattern>
-				<unitPattern count="other">{0} piksel</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-centimeter">
-				<displayName>nuqta/sm</displayName>
-				<unitPattern count="one">{0} nuqta/sm</unitPattern>
-				<unitPattern count="other">{0} nuqta/sm</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-inch">
-				<displayName>nuqta/duym</displayName>
-				<unitPattern count="one">{0} nuqta/duym</unitPattern>
-				<unitPattern count="other">{0} nuqta/duym</unitPattern>
-			</unit>
-			<unit type="graphics-megapixel">
-				<displayName>megapiksel</displayName>
-			</unit>
-			<unit type="graphics-pixel">
-				<displayName>piksel</displayName>
-			</unit>
-			<unit type="graphics-pixel-per-centimeter">
-				<displayName>px/sm</displayName>
-				<unitPattern count="one">{0} px/sm</unitPattern>
-				<unitPattern count="other">{0} px/sm</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-inch">
-				<displayName>piksel/duym</displayName>
-				<unitPattern count="one">{0} piksel/duym</unitPattern>
-				<unitPattern count="other">{0} piksel/duym</unitPattern>
-			</unit>
-			<unit type="length-astronomical-unit">
-				<displayName>a.b.</displayName>
-				<unitPattern count="one">{0} a.b.</unitPattern>
-				<unitPattern count="other">{0} a.b.</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>sm</displayName>
-				<unitPattern count="one">{0} sm</unitPattern>
-				<unitPattern count="other">{0} sm</unitPattern>
-				<perUnitPattern>{0}/sm</perUnitPattern>
-			</unit>
-			<unit type="length-decimeter">
-				<unitPattern count="one">{0} dm</unitPattern>
-			</unit>
-			<unit type="length-earth-radius">
-				<displayName>yer radiusi</displayName>
-				<unitPattern count="one">{0} yer radiusi</unitPattern>
-				<unitPattern count="other">{0} yer radiusi</unitPattern>
-			</unit>
-			<unit type="length-fathom">
-				<displayName>fatom</displayName>
-				<unitPattern count="one">{0} fatom</unitPattern>
-				<unitPattern count="other">{0} fatom</unitPattern>
-			</unit>
-			<unit type="length-foot">
-				<displayName>fut</displayName>
-				<unitPattern count="one">{0} fut</unitPattern>
-				<unitPattern count="other">{0} fut</unitPattern>
-				<perUnitPattern>{0} fut</perUnitPattern>
-			</unit>
-			<unit type="length-furlong">
-				<displayName>farlong</displayName>
-				<unitPattern count="one">{0} farlong</unitPattern>
-				<unitPattern count="other">{0} farlong</unitPattern>
-			</unit>
-			<unit type="length-inch">
-				<displayName>duym</displayName>
-				<unitPattern count="one">{0} dy</unitPattern>
-				<unitPattern count="other">{0} dy</unitPattern>
-				<perUnitPattern>{0}/dy</perUnitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<unitPattern count="one">{0} km</unitPattern>
-			</unit>
-			<unit type="length-light-year">
-				<displayName>yorug‘lik yili</displayName>
-				<unitPattern count="one">{0} y.y.</unitPattern>
-				<unitPattern count="other">{0} y.y.</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>metr</displayName>
-				<unitPattern count="one">{0} m</unitPattern>
-			</unit>
-			<unit type="length-micrometer">
-				<displayName>μmetr</displayName>
-				<unitPattern count="one">{0} μm</unitPattern>
-			</unit>
-			<unit type="length-mile">
-				<displayName>mil</displayName>
-				<unitPattern count="one">{0} mil</unitPattern>
-				<unitPattern count="other">{0} mil</unitPattern>
-			</unit>
-			<unit type="length-mile-scandinavian">
-				<displayName>sk. mili</displayName>
-				<unitPattern count="one">{0} sk. mili</unitPattern>
-				<unitPattern count="other">{0} sk. mili</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<unitPattern count="one">{0} mm</unitPattern>
-			</unit>
-			<unit type="length-nanometer">
-				<unitPattern count="one">{0} nm</unitPattern>
-			</unit>
-			<unit type="length-nautical-mile">
-				<displayName>den. mili</displayName>
-				<unitPattern count="one">{0} den. mili</unitPattern>
-				<unitPattern count="other">{0} den. mili</unitPattern>
-			</unit>
-			<unit type="length-parsec">
-				<displayName>pk</displayName>
-				<unitPattern count="one">{0} pk</unitPattern>
-				<unitPattern count="other">{0} pk</unitPattern>
-			</unit>
-			<unit type="length-picometer">
-				<unitPattern count="one">{0} pm</unitPattern>
-			</unit>
-			<unit type="length-point">
-				<displayName>nuqta</displayName>
-				<unitPattern count="one">{0} nuqta</unitPattern>
-				<unitPattern count="other">{0} nuqta</unitPattern>
-			</unit>
-			<unit type="length-solar-radius">
-				<displayName>quyosh radiusi</displayName>
-			</unit>
-			<unit type="length-yard">
-				<displayName>yard</displayName>
-				<unitPattern count="one">{0} yard</unitPattern>
-				<unitPattern count="other">{0} yard</unitPattern>
-			</unit>
-			<unit type="light-candela">
-				<displayName>kandela</displayName>
-				<unitPattern count="one">{0} kandela</unitPattern>
-				<unitPattern count="other">{0} kandela</unitPattern>
-			</unit>
-			<unit type="light-lumen">
-				<unitPattern count="one">{0} lm</unitPattern>
-			</unit>
-			<unit type="light-lux">
-				<displayName>lk</displayName>
-				<unitPattern count="one">{0} lk</unitPattern>
-				<unitPattern count="other">{0} lk</unitPattern>
-			</unit>
-			<unit type="light-solar-luminosity">
-				<displayName>quyosh nuri kuchi</displayName>
-			</unit>
-			<unit type="mass-carat">
-				<displayName>karat</displayName>
-				<unitPattern count="one">{0} kar</unitPattern>
-				<unitPattern count="other">{0} kar</unitPattern>
-			</unit>
-			<unit type="mass-dalton">
-				<displayName>dalton</displayName>
-			</unit>
-			<unit type="mass-earth-mass">
-				<displayName>Yer massasi</displayName>
-			</unit>
-			<unit type="mass-grain">
-				<displayName>gran</displayName>
-				<unitPattern count="one">{0} gran</unitPattern>
-				<unitPattern count="other">{0} gran</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>gramm</displayName>
-				<unitPattern count="one">{0} g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<unitPattern count="one">{0} kg</unitPattern>
-			</unit>
-			<unit type="mass-metric-ton">
-				<unitPattern count="one">{0} t</unitPattern>
-			</unit>
-			<unit type="mass-microgram">
-				<unitPattern count="one">{0} μg</unitPattern>
-			</unit>
-			<unit type="mass-milligram">
-				<unitPattern count="one">{0} mg</unitPattern>
-			</unit>
-			<unit type="mass-ounce">
-				<displayName>unsiya</displayName>
-				<unitPattern count="one">{0} unsiya</unitPattern>
-				<unitPattern count="other">{0} unsiya</unitPattern>
-				<perUnitPattern>{0}/unsiya</perUnitPattern>
-			</unit>
-			<unit type="mass-ounce-troy">
-				<displayName>troya unsiyasi</displayName>
-				<unitPattern count="one">{0} troya unsiyasi</unitPattern>
-				<unitPattern count="other">{0} troya unsiyasi</unitPattern>
-			</unit>
-			<unit type="mass-pound">
-				<displayName>funt</displayName>
-				<unitPattern count="one">{0} funt</unitPattern>
-				<unitPattern count="other">{0} funt</unitPattern>
-				<perUnitPattern>{0}/funt</perUnitPattern>
-			</unit>
-			<unit type="mass-solar-mass">
-				<displayName>quyosh massasi</displayName>
-			</unit>
-			<unit type="mass-stone">
-				<displayName>tosh</displayName>
-				<unitPattern count="one">{0} tosh</unitPattern>
-				<unitPattern count="other">{0} tosh</unitPattern>
-			</unit>
-			<unit type="mass-ton">
-				<displayName>amer. t</displayName>
-				<unitPattern count="one">{0} amer. t</unitPattern>
-				<unitPattern count="other">{0} amer. t</unitPattern>
-			</unit>
-			<unit type="power-gigawatt">
-				<displayName>GVt</displayName>
-				<unitPattern count="one">{0} GVt</unitPattern>
-				<unitPattern count="other">{0} GVt</unitPattern>
-			</unit>
-			<unit type="power-horsepower">
-				<displayName>o.k.</displayName>
-				<unitPattern count="one">{0} o.k.</unitPattern>
-				<unitPattern count="other">{0} o.k.</unitPattern>
-			</unit>
-			<unit type="power-kilowatt">
-				<displayName>kVt</displayName>
-				<unitPattern count="one">{0} kVt</unitPattern>
-				<unitPattern count="other">{0} kVt</unitPattern>
-			</unit>
-			<unit type="power-megawatt">
-				<displayName>MVt</displayName>
-				<unitPattern count="one">{0} MVt</unitPattern>
-				<unitPattern count="other">{0} MVt</unitPattern>
-			</unit>
-			<unit type="power-milliwatt">
-				<displayName>mVt</displayName>
-				<unitPattern count="one">{0} mVt</unitPattern>
-				<unitPattern count="other">{0} mVt</unitPattern>
-			</unit>
-			<unit type="power-watt">
-				<displayName>Vt</displayName>
-				<unitPattern count="one">{0} Vt</unitPattern>
-				<unitPattern count="other">{0} Vt</unitPattern>
-			</unit>
-			<unit type="pressure-atmosphere">
-				<unitPattern count="one">{0} atm</unitPattern>
-			</unit>
-			<unit type="pressure-hectopascal">
-				<displayName>gPa</displayName>
-				<unitPattern count="one">{0} gPa</unitPattern>
-				<unitPattern count="other">{0} gPa</unitPattern>
-			</unit>
-			<unit type="pressure-inch-ofhg">
-				<unitPattern count="one">{0} inHg</unitPattern>
-			</unit>
-			<unit type="pressure-millibar">
-				<unitPattern count="one">{0} mbar</unitPattern>
-			</unit>
-			<unit type="pressure-millimeter-ofhg">
-				<unitPattern count="one">{0} mmHg</unitPattern>
-				<unitPattern count="other">{0} mmHg</unitPattern>
-			</unit>
-			<unit type="pressure-pound-force-per-square-inch">
-				<displayName>funt/dy.kv</displayName>
-				<unitPattern count="one">{0} funt/dy.kv</unitPattern>
-				<unitPattern count="other">{0} funt/dy.kv</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>km/soat</displayName>
-				<unitPattern count="one">{0} km/soat</unitPattern>
-				<unitPattern count="other">{0} km/soat</unitPattern>
-			</unit>
-			<unit type="speed-knot">
-				<displayName>uzel</displayName>
-				<unitPattern count="one">{0} uzel</unitPattern>
-				<unitPattern count="other">{0} uzel</unitPattern>
-			</unit>
-			<unit type="speed-meter-per-second">
-				<unitPattern count="one">{0} m/s</unitPattern>
-			</unit>
-			<unit type="speed-mile-per-hour">
-				<displayName>mil/soat</displayName>
-				<unitPattern count="one">{0} mil/soat</unitPattern>
-				<unitPattern count="other">{0} mil/soat</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<unitPattern count="one">{0}°C</unitPattern>
-			</unit>
-			<unit type="temperature-fahrenheit">
-				<unitPattern count="one">{0}°F</unitPattern>
-			</unit>
-			<unit type="temperature-generic">
-				<unitPattern count="one">{0}°</unitPattern>
-			</unit>
-			<unit type="temperature-kelvin">
-				<unitPattern count="one">{0} K</unitPattern>
-			</unit>
-			<unit type="torque-pound-force-foot">
-				<displayName>funt-kuch-fut</displayName>
-				<unitPattern count="one">{0} funt-kuch-fut</unitPattern>
-				<unitPattern count="other">{0} funt-kuch-fut</unitPattern>
-			</unit>
-			<unit type="volume-acre-foot">
-				<displayName>akrofut</displayName>
-				<unitPattern count="one">{0} akrofut</unitPattern>
-				<unitPattern count="other">{0} akrofut</unitPattern>
-			</unit>
-			<unit type="volume-barrel">
-				<displayName>barrel</displayName>
-				<unitPattern count="one">{0} barrel</unitPattern>
-				<unitPattern count="other">{0} barrel</unitPattern>
-			</unit>
-			<unit type="volume-bushel">
-				<displayName>bushel</displayName>
-				<unitPattern count="one">{0} bushel</unitPattern>
-				<unitPattern count="other">{0} bushel</unitPattern>
-			</unit>
-			<unit type="volume-centiliter">
-				<displayName>sL</displayName>
-				<unitPattern count="one">{0} sL</unitPattern>
-				<unitPattern count="other">{0} sL</unitPattern>
-			</unit>
-			<unit type="volume-cubic-centimeter">
-				<displayName>sm³</displayName>
-				<unitPattern count="one">{0} sm³</unitPattern>
-				<unitPattern count="other">{0} sm³</unitPattern>
-				<perUnitPattern>{0}/sm³</perUnitPattern>
-			</unit>
-			<unit type="volume-cubic-foot">
-				<displayName>kub fut</displayName>
-				<unitPattern count="one">{0} kub fut</unitPattern>
-				<unitPattern count="other">{0} kub fut</unitPattern>
-			</unit>
-			<unit type="volume-cubic-inch">
-				<displayName>kub duym</displayName>
-				<unitPattern count="one">{0} kub duym</unitPattern>
-				<unitPattern count="other">{0} kub duym</unitPattern>
-			</unit>
-			<unit type="volume-cubic-kilometer">
-				<unitPattern count="one">{0} km³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-meter">
-				<unitPattern count="one">{0} m³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-mile">
-				<displayName>kub mil</displayName>
-				<unitPattern count="one">{0} kub mil</unitPattern>
-				<unitPattern count="other">{0} kub mil</unitPattern>
-			</unit>
-			<unit type="volume-cubic-yard">
-				<displayName>kub yard</displayName>
-				<unitPattern count="one">{0} yard³</unitPattern>
-				<unitPattern count="other">{0} yard³</unitPattern>
-			</unit>
-			<unit type="volume-cup">
-				<displayName>piyola</displayName>
-				<unitPattern count="one">{0} piyola</unitPattern>
-				<unitPattern count="other">{0} piyola</unitPattern>
-			</unit>
-			<unit type="volume-cup-metric">
-				<displayName>m. piyola</displayName>
-				<unitPattern count="one">{0} m. piyola</unitPattern>
-				<unitPattern count="other">{0} m. piyola</unitPattern>
-			</unit>
-			<unit type="volume-deciliter">
-				<unitPattern count="one">{0} dL</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon">
-				<displayName>desert qoshiq</displayName>
-				<unitPattern count="one">{0} desert qoshiq</unitPattern>
-				<unitPattern count="other">{0} desert qoshiq</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon-imperial">
-				<displayName>imp desert qoshiq</displayName>
-				<unitPattern count="one">{0} imp desert qoshiq</unitPattern>
-				<unitPattern count="other">{0} imp desert qoshiq</unitPattern>
-			</unit>
-			<unit type="volume-dram">
-				<displayName>suyuqlik draxmasi</displayName>
-				<unitPattern count="one">{0} suyuqlik draxmasi</unitPattern>
-				<unitPattern count="other">{0} suyuqlik draxmasi</unitPattern>
-			</unit>
-			<unit type="volume-drop">
-				<displayName>tomchi</displayName>
-				<unitPattern count="one">{0} tomchi</unitPattern>
-				<unitPattern count="other">{0} tomchi</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce">
-				<displayName>suyuq unsiya</displayName>
-				<unitPattern count="one">{0} suyuq unsiya</unitPattern>
-				<unitPattern count="other">{0} suyuq unsiya</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce-imperial">
-				<displayName>ingliz suyuq unsiyasi</displayName>
-				<unitPattern count="one">{0} ing. suyuq uns.</unitPattern>
-				<unitPattern count="other">{0} ing. suyuq uns.</unitPattern>
-			</unit>
-			<unit type="volume-gallon">
-				<displayName>gal</displayName>
-				<unitPattern count="one">{0} gal</unitPattern>
-				<unitPattern count="other">{0} gal</unitPattern>
-				<perUnitPattern>{0}/gal</perUnitPattern>
-			</unit>
-			<unit type="volume-gallon-imperial">
-				<displayName>imp. gal.</displayName>
-				<unitPattern count="one">{0} imp. gal.</unitPattern>
-				<unitPattern count="other">{0} imp. gal.</unitPattern>
-				<perUnitPattern>{0} imp. gal.</perUnitPattern>
-			</unit>
-			<unit type="volume-hectoliter">
-				<displayName>gL</displayName>
-				<unitPattern count="one">{0} gL</unitPattern>
-				<unitPattern count="other">{0} gL</unitPattern>
-			</unit>
-			<unit type="volume-jigger">
-				<displayName>qadah</displayName>
-				<unitPattern count="one">{0} qadah</unitPattern>
-				<unitPattern count="other">{0} qadah</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>litr</displayName>
-				<unitPattern count="one">{0} L</unitPattern>
-				<unitPattern count="other">{0} L</unitPattern>
-				<perUnitPattern>{0}/L</perUnitPattern>
-			</unit>
-			<unit type="volume-megaliter">
-				<unitPattern count="one">{0} ML</unitPattern>
-			</unit>
-			<unit type="volume-milliliter">
-				<unitPattern count="one">{0} mL</unitPattern>
-			</unit>
-			<unit type="volume-pinch">
-				<displayName>chimdim</displayName>
-				<unitPattern count="one">{0} chimdim</unitPattern>
-				<unitPattern count="other">{0} chimdim</unitPattern>
-			</unit>
-			<unit type="volume-pint">
-				<displayName>pint</displayName>
-				<unitPattern count="one">{0} pint</unitPattern>
-				<unitPattern count="other">{0} pint</unitPattern>
-			</unit>
-			<unit type="volume-pint-metric">
-				<unitPattern count="one">{0} mpt</unitPattern>
-			</unit>
-			<unit type="volume-quart">
-				<displayName>kvart</displayName>
-				<unitPattern count="one">{0} kvart</unitPattern>
-				<unitPattern count="other">{0} kvart</unitPattern>
-			</unit>
-			<unit type="volume-quart-imperial">
-				<displayName>imp kvarta</displayName>
-				<unitPattern count="one">{0} imp. kvarta</unitPattern>
-				<unitPattern count="other">{0} imp. kvarta</unitPattern>
-			</unit>
-			<unit type="volume-tablespoon">
-				<displayName>osh qoshiq</displayName>
-				<unitPattern count="one">{0} osh qoshiq</unitPattern>
-				<unitPattern count="other">{0} osh qoshiq</unitPattern>
-			</unit>
-			<unit type="volume-teaspoon">
-				<displayName>choy qoshiq</displayName>
-				<unitPattern count="one">{0} choy qoshiq</unitPattern>
-				<unitPattern count="other">{0} choy qoshiq</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<displayName>yo‘nalish</displayName>
-				<coordinateUnitPattern type="east">{0} shq. u.</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0} shm. k.</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0} jan. k.</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0} g‘rb. u.</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
 	</units>
 	<listPatterns>
 		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0} va {1}</listPatternPart>
 			<listPatternPart type="2">{0} va {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="or">
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0} yoki {1}</listPatternPart>
 			<listPatternPart type="2">{0} yoki {1}</listPatternPart>
 		</listPattern>
@@ -7668,7 +8171,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</listPattern>
 	</listPatterns>
 	<collations>
-		<collation type="standard" sil:modified="true">
+		<collation type="standard">
 			<cr><![CDATA[
 				# The following letters sort after z, see
 				# https://en.wikipedia.org/wiki/Uzbek_alphabet#Alphabetical_order
@@ -7696,19 +8199,19 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — boshqa</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — hammasi</characterLabelPattern>
+		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — mos</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} — biriktirilgan</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} — kengaytirilgan</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — tarixiy</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — har xil</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — boshqa</characterLabelPattern>
 		<characterLabelPattern type="scripts">yozuvlar — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} ta chiziq</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} ta chiziq</characterLabelPattern>
 		<characterLabelPattern type="subscript">{0} pastki yozuv</characterLabelPattern>
 		<characterLabelPattern type="superscript">{0} ustki yozuv</characterLabelPattern>
-		<characterLabel type="other">boshqa</characterLabel>
 		<characterLabel type="activities">mashg‘ulotlar</characterLabel>
 		<characterLabel type="african_scripts">Afrika yozuvlari</characterLabel>
 		<characterLabel type="american_scripts">Amerika yozuvlari</characterLabel>
@@ -7729,6 +8232,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="downwards_arrows">pastga qaragan strelkalar</characterLabel>
 		<characterLabel type="downwards_upwards_arrows">tepaga va pastga qaragan strelkalar</characterLabel>
 		<characterLabel type="east_asian_scripts">Sharqiy Osiyo yozuvlari</characterLabel>
+		<characterLabel type="emoji">emoji</characterLabel>
 		<characterLabel type="european_scripts">Yevropa yozuvlari</characterLabel>
 		<characterLabel type="female">ayol</characterLabel>
 		<characterLabel type="flag">bayroq</characterLabel>
@@ -7749,6 +8253,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="ideographic_desc_characters">iyeroglif tavsifi belgilari</characterLabel>
 		<characterLabel type="japanese_kana">yaponcha kana</characterLabel>
 		<characterLabel type="kanbun">kambun</characterLabel>
+		<characterLabel type="kanji">kanji</characterLabel>
 		<characterLabel type="keycap">tugma qalpog‘i</characterLabel>
 		<characterLabel type="leftwards_arrows">chapga qaragan strelkalar</characterLabel>
 		<characterLabel type="leftwards_rightwards_arrows">chapga va o‘ngga qaragan strelkalar</characterLabel>
@@ -7765,6 +8270,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="nonspacing">cho‘zilmagan belgilar</characterLabel>
 		<characterLabel type="numbers">sonlar</characterLabel>
 		<characterLabel type="objects">obyektlar</characterLabel>
+		<characterLabel type="other">boshqa</characterLabel>
 		<characterLabel type="paired">juft belgilar</characterLabel>
 		<characterLabel type="person">shaxs</characterLabel>
 		<characterLabel type="phonetic_alphabet">fonetik alifbo</characterLabel>
@@ -7780,6 +8286,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabel type="south_asian_scripts">Janubiy Osiyo yozuvlari</characterLabel>
 		<characterLabel type="southeast_asian_scripts">Janubi-sharqiy Osiyo yozuvlari</characterLabel>
 		<characterLabel type="spacing">oraliq</characterLabel>
+		<characterLabel type="sport">sport</characterLabel>
 		<characterLabel type="symbols">maxsus belgilar</characterLabel>
 		<characterLabel type="technical_symbols">texnik belgilar</characterLabel>
 		<characterLabel type="tone_marks">ohang belgilari</characterLabel>
@@ -7798,6 +8305,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<axisName type="slnt">qiyalik</axisName>
 		<axisName type="wdth">eni</axisName>
 		<axisName type="wght">qalinligi</axisName>
+		<styleName type="ital" subtype="1">cursive</styleName>
+		<styleName type="opsz" subtype="12">text</styleName>
+		<styleName type="opsz" subtype="144">poster</styleName>
 		<styleName type="opsz" subtype="18">titul</styleName>
 		<styleName type="opsz" subtype="72">monitor</styleName>
 		<styleName type="opsz" subtype="8">izoh</styleName>
@@ -7805,6 +8315,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<styleName type="slnt" subtype="0">to‘g‘ri</styleName>
 		<styleName type="slnt" subtype="12">qiya</styleName>
 		<styleName type="slnt" subtype="24">juda qiya</styleName>
+		<styleName type="wdth" subtype="100">normal</styleName>
 		<styleName type="wdth" subtype="112.5">yarim yoyilgan</styleName>
 		<styleName type="wdth" subtype="112.5" alt="extended">yarim kengaygan</styleName>
 		<styleName type="wdth" subtype="112.5" alt="wide">yarim keng</styleName>
@@ -7861,13 +8372,22 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">lowercase</casingItem>
+			<casingItem type="currencyName">titlecase</casingItem>
 			<casingItem type="currencyName_count">titlecase</casingItem>
+			<casingItem type="day_narrow">titlecase</casingItem>
 			<casingItem type="era_abbr">lowercase</casingItem>
 			<casingItem type="era_name">lowercase</casingItem>
 			<casingItem type="era_narrow">lowercase</casingItem>
+			<casingItem type="key">lowercase</casingItem>
+			<casingItem type="keyValue">lowercase</casingItem>
+			<casingItem type="language">lowercase</casingItem>
 			<casingItem type="metazone_long">titlecase</casingItem>
 			<casingItem type="month_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="relative">lowercase</casingItem>
 			<casingItem type="script">lowercase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
+			<casingItem type="zone_exemplarCity">titlecase</casingItem>
 			<casingItem type="zone_long">titlecase</casingItem>
 		</casingData>
 	</metadata>

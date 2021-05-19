@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -13,9 +13,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="am">lea fakaʻameliki</language>
-			<language type="sat">lea fakasanitali</language>
 			<language type="aa">lea fakaʻafāla</language>
 			<language type="ab">lea fakaʻapakasia</language>
 			<language type="ace">lea fakaʻatisē</language>
@@ -34,6 +37,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ale">lea fakaʻaleuti</language>
 			<language type="aln">lea fakaʻalapēnia-keki</language>
 			<language type="alt">lea fakaʻalitai-tonga</language>
+			<language type="am">lea fakaʻameliki</language>
 			<language type="an">lea fakaʻalakoni</language>
 			<language type="ang">lea fakapālangi-motuʻa</language>
 			<language type="anp">lea fakaʻangika</language>
@@ -472,6 +476,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="ro_MD">lea fakamolitāvia</language>
 			<language type="rof">lea fakalomipō</language>
 			<language type="rom">lea fakalomani</language>
+			<language type="root">lea fakaʻilonga-tefito</language>
 			<language type="rtm">lea fakalotuma</language>
 			<language type="ru">lea fakalūsia</language>
 			<language type="rue">lea fakalusini</language>
@@ -485,6 +490,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sam">lea fakasamalitani-ʻalāmiti</language>
 			<language type="saq">lea fakasamipulu</language>
 			<language type="sas">lea fakasasaki</language>
+			<language type="sat">lea fakasanitali</language>
 			<language type="saz">lea fakasaulasitilā</language>
 			<language type="sba">lea fakangāmipai</language>
 			<language type="sbp">lea fakasangu</language>
@@ -1388,9 +1394,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="wcho">fika fakauāniko</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">fakapilitānia</measurementSystemName>
 			<measurementSystemName type="US">fakaʻamelika</measurementSystemName>
 			<measurementSystemName type="metric">fakamita</measurementSystemName>
+			<measurementSystemName type="UK">fakapilitānia</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Lea: {0}</codePattern>
@@ -1401,23 +1407,41 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a á ā e é ē f h i í ī k l m n {ng} o ó ō p s t u ú ū v ʻ]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[à ă â å ä æ b c ç d è ĕ ê ë g ì ĭ î ï j ñ ò ŏ ô ö ø œ q r ù ŭ û ü w x y ÿ z]</exemplarCharacters>
-		<exemplarCharacters type="index">[A E F H I K L M N {NG} O P S T U V ʻ]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
-		</parseLenients>
+		<exemplarCharacters type="index">[A E F H I K L M N {NG} O P S T U V ʻ]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<ellipsis type="initial">…{0}</ellipsis>
+		<ellipsis type="medial">{0}…{1}</ellipsis>
+		<ellipsis type="final">{0}…</ellipsis>
+		<ellipsis type="word-initial">… {0}</ellipsis>
+		<ellipsis type="word-medial">{0} … {1}</ellipsis>
+		<ellipsis type="word-final">{0} …</ellipsis>
+		<moreInformation>?</moreInformation>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
+			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
+			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
 			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="stricter">
 			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
+			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample="-" draft="contributed">[\--/]</parseLenient>
+			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="buddhist">
@@ -1435,18 +1459,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 			<calendar type="chinese">
 				<cyclicNameSets>
+					<cyclicNameSet type="zodiacs">
+						<cyclicNameContext type="format">
+							<cyclicNameWidth type="abbreviated">
+								<cyclicName type="1">Kumā</cyclicName>
+								<cyclicName type="10">Moataʻane</cyclicName>
+								<cyclicName type="11">Kulī</cyclicName>
+								<cyclicName type="12">Puaka</cyclicName>
+								<cyclicName type="2">Pulupokaʻi</cyclicName>
+								<cyclicName type="3">Taika</cyclicName>
+								<cyclicName type="4">Lapisi</cyclicName>
+								<cyclicName type="5">Talakoni</cyclicName>
+								<cyclicName type="6">Ngata</cyclicName>
+								<cyclicName type="7">Hoosi</cyclicName>
+								<cyclicName type="8">Kosi</cyclicName>
+								<cyclicName type="9">Ngeli</cyclicName>
+							</cyclicNameWidth>
+						</cyclicNameContext>
+					</cyclicNameSet>
 					<cyclicNameSet type="solarTerms">
 						<cyclicNameContext type="format">
 							<cyclicNameWidth type="abbreviated">
 								<cyclicName type="1">kamata faʻahitaʻu matala</cyclicName>
-								<cyclicName type="2">vai ʻuha</cyclicName>
-								<cyclicName type="3">ʻā ʻinisēkite</cyclicName>
-								<cyclicName type="4">pōtatau faʻʻahitaʻu matala</cyclicName>
-								<cyclicName type="5">lāofie moe ʻatā</cyclicName>
-								<cyclicName type="6">ʻuha tenga</cyclicName>
-								<cyclicName type="7">kamata faʻahitaʻu mafana</cyclicName>
-								<cyclicName type="8">tenga fonu</cyclicName>
-								<cyclicName type="9">foʻi tenga</cyclicName>
 								<cyclicName type="10">laʻātuʻumaʻu māʻolunga</cyclicName>
 								<cyclicName type="11">vevela siʻi</cyclicName>
 								<cyclicName type="12">vevela lahi</cyclicName>
@@ -1457,29 +1491,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 								<cyclicName type="17">hahau momoko</cyclicName>
 								<cyclicName type="18">haʻu falōsite</cyclicName>
 								<cyclicName type="19">kamata faʻahitaʻu momoko</cyclicName>
+								<cyclicName type="2">vai ʻuha</cyclicName>
 								<cyclicName type="20">sinou siʻi</cyclicName>
 								<cyclicName type="21">sinou lahi</cyclicName>
 								<cyclicName type="22">laʻātuʻumaʻu māʻulalo</cyclicName>
 								<cyclicName type="23">momoko siʻi</cyclicName>
 								<cyclicName type="24">momoko lahi</cyclicName>
-							</cyclicNameWidth>
-						</cyclicNameContext>
-					</cyclicNameSet>
-					<cyclicNameSet type="zodiacs">
-						<cyclicNameContext type="format">
-							<cyclicNameWidth type="abbreviated">
-								<cyclicName type="1">Kumā</cyclicName>
-								<cyclicName type="2">Pulupokaʻi</cyclicName>
-								<cyclicName type="3">Taika</cyclicName>
-								<cyclicName type="4">Lapisi</cyclicName>
-								<cyclicName type="5">Talakoni</cyclicName>
-								<cyclicName type="6">Ngata</cyclicName>
-								<cyclicName type="7">Hoosi</cyclicName>
-								<cyclicName type="8">Kosi</cyclicName>
-								<cyclicName type="9">Ngeli</cyclicName>
-								<cyclicName type="10">Moataʻane</cyclicName>
-								<cyclicName type="11">Kulī</cyclicName>
-								<cyclicName type="12">Puaka</cyclicName>
+								<cyclicName type="3">ʻā ʻinisēkite</cyclicName>
+								<cyclicName type="4">pōtatau faʻʻahitaʻu matala</cyclicName>
+								<cyclicName type="5">lāofie moe ʻatā</cyclicName>
+								<cyclicName type="6">ʻuha tenga</cyclicName>
+								<cyclicName type="7">kamata faʻahitaʻu mafana</cyclicName>
+								<cyclicName type="8">tenga fonu</cyclicName>
+								<cyclicName type="9">foʻi tenga</cyclicName>
 							</cyclicNameWidth>
 						</cyclicNameContext>
 					</cyclicNameSet>
@@ -1569,19 +1593,37 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E d MMM y G</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
 						<dateFormatItem id="Hm">H:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
 						<dateFormatItem id="Hms">H:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="MEd">E d/M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yM">M-y</dateFormatItem>
 						<dateFormatItem id="yMd">d-M-y</dateFormatItem>
@@ -1600,10 +1642,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yyyyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E d MMM y G</dateFormatItem>
+						<dateFormatItem id="yyyyMMMM">G y MMMM</dateFormatItem>
 						<dateFormatItem id="yyyyQQQ">y QQQ G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQQ">y QQQQ G</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="d">
 							<greatestDifference id="d">d – d</greatestDifference>
 						</intervalFormatItem>
@@ -1645,16 +1689,34 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="M">E d MMM – E d MMM y G</greatestDifference>
 							<greatestDifference id="y">E d MMM y – E d MMM y G</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hm">
 							<greatestDifference id="H">HH:mm – HH:mm</greatestDifference>
 							<greatestDifference id="m">HH:mm – HH:mm</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a v</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Hmv">
 							<greatestDifference id="H">HH:mm – HH:mm v</greatestDifference>
 							<greatestDifference id="m">HH:mm – HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
+							<greatestDifference id="h">h–h a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hv">
 							<greatestDifference id="H">HH – HH v</greatestDifference>
@@ -1860,7 +1922,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<day type="sat">Tok</day>
 						</dayWidth>
 						<dayWidth type="narrow">
+							<day type="sun">S</day>
+							<day type="mon">M</day>
+							<day type="tue">T</day>
 							<day type="wed">P</day>
+							<day type="thu">T</day>
+							<day type="fri">F</day>
 							<day type="sat">T</day>
 						</dayWidth>
 						<dayWidth type="short">
@@ -1911,6 +1978,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<quarter type="3">K3</quarter>
 							<quarter type="4">K4</quarter>
 						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">kuata 1</quarter>
 							<quarter type="2">kuata 2</quarter>
@@ -1921,6 +1994,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</quarters>
 				<dayPeriods>
 					<dayPeriodContext type="format">
+						<dayPeriodWidth type="abbreviated">
+							<dayPeriod type="am">AM</dayPeriod>
+							<dayPeriod type="pm">PM</dayPeriod>
+						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
 							<dayPeriod type="am">AM</dayPeriod>
 							<dayPeriod type="pm">PM</dayPeriod>
@@ -2025,19 +2102,49 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<pattern>{1}, {0}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E d MMM y G</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="hmsv">h:mm:ss a v</dateFormatItem>
+						<dateFormatItem id="Hmsv">HH:mm:ss v</dateFormatItem>
+						<dateFormatItem id="hmv">h:mm a v</dateFormatItem>
+						<dateFormatItem id="Hmv">HH:mm v</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="MEd">E d/M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">'uike' 'hono' W ʻ'o' MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMd">d/M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E d/M/y</dateFormatItem>
@@ -2046,9 +2153,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yMMMd">d MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">E d MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yQQQ">y QQQ</dateFormatItem>
+						<dateFormatItem id="yQQQQ">y QQQQ</dateFormatItem>
 						<dateFormatItem id="yw" count="other">'uike' 'hono' w ʻ'o' Y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+					</appendItems>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="d">
 							<greatestDifference id="d">d – d</greatestDifference>
 						</intervalFormatItem>
@@ -2091,12 +2204,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="y">E d MMM y – E d MMM y G</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
 							<greatestDifference id="h">h – h a</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm a</greatestDifference>
 							<greatestDifference id="m">h:mm – h:mm a</greatestDifference>
 						</intervalFormatItem>
@@ -2105,9 +2220,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="m">HH:mm – HH:mm</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
 							<greatestDifference id="h">h:mm – h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hmv">
+							<greatestDifference id="H">HH:mm–HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
 							<greatestDifference id="h">h – h a v</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Hv">
@@ -2295,98 +2417,172 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">Sāpate kuoʻosi</relative>
-				<relative type="0">Sāpaté ni</relative>
-				<relative type="1">Sāpate kahaʻu</relative>
+			<field type="era">
+				<displayName>kuonga</displayName>
+			</field>
+			<field type="era-short">
+				<displayName>kuonga</displayName>
+			</field>
+			<field type="era-narrow">
+				<displayName>kuonga</displayName>
+			</field>
+			<field type="year">
+				<displayName>taʻu</displayName>
+				<relative type="-1">taʻu kuoʻosi</relative>
+				<relative type="0">taʻú ni</relative>
+				<relative type="1">taʻu kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon">
-				<relative type="-1">Mōnite kuoʻosi</relative>
-				<relative type="0">Mōnité ni</relative>
-				<relative type="1">Mōnite kahaʻu</relative>
+			<field type="year-short">
+				<displayName>taʻu</displayName>
+				<relative type="-1">taʻu kuoʻosi</relative>
+				<relative type="0">taʻú ni</relative>
+				<relative type="1">taʻu kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="tue">
-				<relative type="-1">Tūsite kuoʻosi</relative>
-				<relative type="0">Tūsité ni</relative>
-				<relative type="1">Tūsite kahaʻu</relative>
+			<field type="year-narrow">
+				<displayName>taʻu</displayName>
+				<relative type="-1">taʻu kuoʻosi</relative>
+				<relative type="0">taʻú ni</relative>
+				<relative type="1">taʻu kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="wed">
-				<relative type="-1">Pulelulu kuoʻosi</relative>
-				<relative type="0">Pulelulú ni</relative>
-				<relative type="1">Pulelulu kahaʻu</relative>
+			<field type="quarter">
+				<displayName>kuata</displayName>
+				<relative type="-1">kuata kuoʻosi</relative>
+				<relative type="0">kuata koʻeni</relative>
+				<relative type="1">kuata hoko</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="thu">
-				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
-				<relative type="0">Tuʻapulelulú ni</relative>
-				<relative type="1">Tuʻapulelulu kahaʻu</relative>
+			<field type="quarter-short">
+				<displayName>kuata</displayName>
+				<relative type="-1">kuata kuoʻosi</relative>
+				<relative type="0">kuata koʻeni</relative>
+				<relative type="1">kuata hoko</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="fri">
-				<relative type="-1">Falaite kuoʻosi</relative>
-				<relative type="0">Falaité ni</relative>
-				<relative type="1">Falaite kahaʻu</relative>
+			<field type="quarter-narrow">
+				<displayName>kuata</displayName>
+				<relative type="-1">kuata kuoʻosi</relative>
+				<relative type="0">kuata koʻeni</relative>
+				<relative type="1">kuata hoko</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Falaite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Falaite ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sat">
-				<relative type="-1">Tokonaki kuoʻosi</relative>
-				<relative type="0">Tokonakí ni</relative>
-				<relative type="1">Tokonaki kahaʻu</relative>
+			<field type="month">
+				<displayName>māhina</displayName>
+				<relative type="-1">māhina kuoʻosi</relative>
+				<relative type="0">māhiná ni</relative>
+				<relative type="1">māhina kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Ngaahi Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Ngaahi Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
+			</field>
+			<field type="month-short">
+				<displayName>māhina</displayName>
+				<relative type="-1">māhina kuoʻosi</relative>
+				<relative type="0">māhiná ni</relative>
+				<relative type="1">māhina kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>māhina</displayName>
+				<relative type="-1">māhina kuoʻosi</relative>
+				<relative type="0">māhiná ni</relative>
+				<relative type="1">māhina kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>uike</displayName>
+				<relative type="-1">uike kuoʻosi</relative>
+				<relative type="0">uiké ni</relative>
+				<relative type="1">uike kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
+			</field>
+			<field type="week-short">
+				<displayName>uike</displayName>
+				<relative type="-1">uike kuoʻosi</relative>
+				<relative type="0">uiké ni</relative>
+				<relative type="1">uike kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
+			</field>
+			<field type="week-narrow">
+				<displayName>uike</displayName>
+				<relative type="-1">uike kuoʻosi</relative>
+				<relative type="0">uiké ni</relative>
+				<relative type="1">uike kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>uike ʻo e māhina</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>uike ʻoe māhina</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>uk ʻoe mh</displayName>
 			</field>
 			<field type="day">
-				<displayName>ʻaho</displayName>
-				<relative type="-1">ʻaneafi</relative>
-				<relative type="-2">ʻaneheafi</relative>
-				<relative type="0">ʻahó ni</relative>
-				<relative type="1">ʻapongipongi</relative>
-				<relative type="2">ʻahepongipongi</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he ʻaho ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">ʻaho ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
 				<displayName>ʻaho</displayName>
 				<relative type="-1">ʻaneafi</relative>
 				<relative type="-2">ʻaneheafi</relative>
@@ -2414,42 +2610,221 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">ʻaho ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
+			<field type="day-narrow">
+				<displayName>ʻaho</displayName>
+				<relative type="-1">ʻaneafi</relative>
+				<relative type="-2">ʻaneheafi</relative>
+				<relative type="0">ʻahó ni</relative>
+				<relative type="1">ʻapongipongi</relative>
+				<relative type="2">ʻahepongipongi</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">ʻi he ʻaho ʻe {0}</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">ʻaho ʻe {0} kuoʻosi</relativeTimePattern>
+				</relativeTime>
+			</field>
 			<field type="dayOfYear">
 				<displayName>ʻaho ʻo e taʻu</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>ʻaho ʻoe taʻu</displayName>
 			</field>
 			<field type="dayOfYear-short">
 				<displayName>ʻaho ʻoe taʻu</displayName>
 			</field>
-			<field type="dayperiod">
-				<displayName>AM/PM</displayName>
+			<field type="dayOfYear-narrow">
+				<displayName>ʻaho ʻoe taʻu</displayName>
 			</field>
-			<field type="dayperiod-narrow">
-				<displayName>HH/EA</displayName>
+			<field type="weekday">
+				<displayName>ʻaho ʻo e uike</displayName>
 			</field>
-			<field type="dayperiod-short">
-				<displayName>HH/EA</displayName>
+			<field type="weekday-short">
+				<displayName>ʻaho ʻoe uike</displayName>
 			</field>
-			<field type="era">
-				<displayName>kuonga</displayName>
+			<field type="weekday-narrow">
+				<displayName>ʻaho ʻoe uike</displayName>
 			</field>
-			<field type="era-narrow">
-				<displayName>kuonga</displayName>
+			<field type="weekdayOfMonth">
+				<displayName>ʻaho ʻo e mahina</displayName>
 			</field>
-			<field type="era-short">
-				<displayName>kuonga</displayName>
+			<field type="weekdayOfMonth-short">
+				<displayName>ʻaho ʻo e mahina</displayName>
 			</field>
-			<field type="fri-narrow">
+			<field type="weekdayOfMonth-narrow">
+				<displayName>ʻaho ʻo e mahina</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">Sāpate kuoʻosi</relative>
+				<relative type="0">Sāpaté ni</relative>
+				<relative type="1">Sāpate kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">Sāpate kuoʻosi</relative>
+				<relative type="0">Sāpaté ni</relative>
+				<relative type="1">Sāpate kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">Sāpate kuoʻosi</relative>
+				<relative type="0">Sāpaté ni</relative>
+				<relative type="1">Sāpate kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">Mōnite kuoʻosi</relative>
+				<relative type="0">Mōnité ni</relative>
+				<relative type="1">Mōnite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">Mōnite kuoʻosi</relative>
+				<relative type="0">Mōnité ni</relative>
+				<relative type="1">Mōnite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">Mōnite kuoʻosi</relative>
+				<relative type="0">Mōnité ni</relative>
+				<relative type="1">Mōnite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">Tūsite kuoʻosi</relative>
+				<relative type="0">Tūsité ni</relative>
+				<relative type="1">Tūsite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">Tūsite kuoʻosi</relative>
+				<relative type="0">Tūsité ni</relative>
+				<relative type="1">Tūsite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">Tūsite kuoʻosi</relative>
+				<relative type="0">Tūsité ni</relative>
+				<relative type="1">Tūsite kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">Pulelulu kuoʻosi</relative>
+				<relative type="0">Pulelulú ni</relative>
+				<relative type="1">Pulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">Pulelulu kuoʻosi</relative>
+				<relative type="0">Pulelulú ni</relative>
+				<relative type="1">Pulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">Pulelulu kuoʻosi</relative>
+				<relative type="0">Pulelulú ni</relative>
+				<relative type="1">Pulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
+				<relative type="0">Tuʻapulelulú ni</relative>
+				<relative type="1">Tuʻapulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
+				<relative type="0">Tuʻapulelulú ni</relative>
+				<relative type="1">Tuʻapulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
+				<relative type="0">Tuʻapulelulú ni</relative>
+				<relative type="1">Tuʻapulelulu kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
 				<relative type="-1">Falaite kuoʻosi</relative>
 				<relative type="0">Falaité ni</relative>
 				<relative type="1">Falaite kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Falaite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">Ngaahi Falaite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Falaite ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">Ngaahi Falaite ʻe {0} ʻi he kuohili</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="fri-short">
@@ -2463,17 +2838,60 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">Falaite ʻe {0} ʻi he kuohili</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour">
-				<displayName>houa</displayName>
-				<relative type="0">ko e houa ʻeni</relative>
+			<field type="fri-narrow">
+				<relative type="-1">Falaite kuoʻosi</relative>
+				<relative type="0">Falaité ni</relative>
+				<relative type="1">Falaite kahaʻu</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he houa ʻe {0}</relativeTimePattern>
+					<relativeTimePattern count="other">Falaite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">houa ʻe {0} kuoʻosi</relativeTimePattern>
+					<relativeTimePattern count="other">Falaite ʻe {0} ʻi he kuohili</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="hour-narrow">
+			<field type="sat">
+				<relative type="-1">Tokonaki kuoʻosi</relative>
+				<relative type="0">Tokonakí ni</relative>
+				<relative type="1">Tokonaki kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Ngaahi Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Ngaahi Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">Tokonaki kuoʻosi</relative>
+				<relative type="0">Tokonakí ni</relative>
+				<relative type="1">Tokonaki kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">Tokonaki kuoʻosi</relative>
+				<relative type="0">Tokonakí ni</relative>
+				<relative type="1">Tokonaki kahaʻu</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>AM/PM</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>HH/EA</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>HH/EA</displayName>
+			</field>
+			<field type="hour">
 				<displayName>houa</displayName>
 				<relative type="0">ko e houa ʻeni</relative>
 				<relativeTime type="future">
@@ -2493,17 +2911,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">houa ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute">
-				<displayName>miniti</displayName>
-				<relative type="0">ko e miniti ʻeni</relative>
+			<field type="hour-narrow">
+				<displayName>houa</displayName>
+				<relative type="0">ko e houa ʻeni</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he miniti ʻe {0}</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he houa ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">miniti ʻe {0} kuoʻosi</relativeTimePattern>
+					<relativeTimePattern count="other">houa ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="minute-narrow">
+			<field type="minute">
 				<displayName>miniti</displayName>
 				<relative type="0">ko e miniti ʻeni</relative>
 				<relativeTime type="future">
@@ -2523,133 +2941,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">miniti ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="mon-narrow">
-				<relative type="-1">Mōnite kuoʻosi</relative>
-				<relative type="0">Mōnité ni</relative>
-				<relative type="1">Mōnite kahaʻu</relative>
+			<field type="minute-narrow">
+				<displayName>miniti</displayName>
+				<relative type="0">ko e miniti ʻeni</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he miniti ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">Mōnite kuoʻosi</relative>
-				<relative type="0">Mōnité ni</relative>
-				<relative type="1">Mōnite kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Mōnite ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>māhina</displayName>
-				<relative type="-1">māhina kuoʻosi</relative>
-				<relative type="0">māhiná ni</relative>
-				<relative type="1">māhina kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>māhina</displayName>
-				<relative type="-1">māhina kuoʻosi</relative>
-				<relative type="0">māhiná ni</relative>
-				<relative type="1">māhina kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>māhina</displayName>
-				<relative type="-1">māhina kuoʻosi</relative>
-				<relative type="0">māhiná ni</relative>
-				<relative type="1">māhina kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he māhina ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">māhina ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>kuata</displayName>
-				<relative type="-1">kuata kuoʻosi</relative>
-				<relative type="0">kuata koʻeni</relative>
-				<relative type="1">kuata hoko</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>kuata</displayName>
-				<relative type="-1">kuata kuoʻosi</relative>
-				<relative type="0">kuata koʻeni</relative>
-				<relative type="1">kuata hoko</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>kuata</displayName>
-				<relative type="-1">kuata kuoʻosi</relative>
-				<relative type="0">kuata koʻeni</relative>
-				<relative type="1">kuata hoko</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he kuata ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">kuata ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">Tokonaki kuoʻosi</relative>
-				<relative type="0">Tokonakí ni</relative>
-				<relative type="1">Tokonaki kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">Tokonaki kuoʻosi</relative>
-				<relative type="0">Tokonakí ni</relative>
-				<relative type="1">Tokonaki kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tokonaki ʻe {0} ʻi he kuohili</relativeTimePattern>
+					<relativeTimePattern count="other">miniti ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="second">
-				<displayName>sekoni</displayName>
-				<relative type="0">taimí ni</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he sekoni ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">sekoni ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
 				<displayName>sekoni</displayName>
 				<relative type="0">taimí ni</relative>
 				<relativeTime type="future">
@@ -2669,210 +2971,34 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">sekoni ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="sun-narrow">
-				<relative type="-1">Sāpate kuoʻosi</relative>
-				<relative type="0">Sāpaté ni</relative>
-				<relative type="1">Sāpate kahaʻu</relative>
+			<field type="second-narrow">
+				<displayName>sekoni</displayName>
+				<relative type="0">taimí ni</relative>
 				<relativeTime type="future">
-					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
+					<relativeTimePattern count="other">ʻi he sekoni ʻe {0}</relativeTimePattern>
 				</relativeTime>
 				<relativeTime type="past">
-					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">Sāpate kuoʻosi</relative>
-				<relative type="0">Sāpaté ni</relative>
-				<relative type="1">Sāpate kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Sāpate ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
-				<relative type="0">Tuʻapulelulú ni</relative>
-				<relative type="1">Tuʻapulelulu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">Tuʻapulelulu kuoʻosi</relative>
-				<relative type="0">Tuʻapulelulú ni</relative>
-				<relative type="1">Tuʻapulelulu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tuʻapulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">Tūsite kuoʻosi</relative>
-				<relative type="0">Tūsité ni</relative>
-				<relative type="1">Tūsite kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">Tūsite kuoʻosi</relative>
-				<relative type="0">Tūsité ni</relative>
-				<relative type="1">Tūsite kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Tūsite ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">Pulelulu kuoʻosi</relative>
-				<relative type="0">Pulelulú ni</relative>
-				<relative type="1">Pulelulu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">Pulelulu kuoʻosi</relative>
-				<relative type="0">Pulelulú ni</relative>
-				<relative type="1">Pulelulu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kahaʻu</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">Pulelulu ʻe {0} ʻi he kuohili</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>uike</displayName>
-				<relative type="-1">uike kuoʻosi</relative>
-				<relative type="0">uiké ni</relative>
-				<relative type="1">uike kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>uike</displayName>
-				<relative type="-1">uike kuoʻosi</relative>
-				<relative type="0">uiké ni</relative>
-				<relative type="1">uike kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>uike</displayName>
-				<relative type="-1">uike kuoʻosi</relative>
-				<relative type="0">uiké ni</relative>
-				<relative type="1">uike kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he uike ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">uike ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>ʻi he uike ʻo e {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>uike ʻo e māhina</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>uk ʻoe mh</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>uike ʻoe māhina</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>ʻaho ʻo e uike</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>ʻaho ʻoe uike</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>ʻaho ʻoe uike</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>ʻaho ʻo e mahina</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>ʻaho ʻo e mahina</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>ʻaho ʻo e mahina</displayName>
-			</field>
-			<field type="year">
-				<displayName>taʻu</displayName>
-				<relative type="-1">taʻu kuoʻosi</relative>
-				<relative type="0">taʻú ni</relative>
-				<relative type="1">taʻu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
-				<displayName>taʻu</displayName>
-				<relative type="-1">taʻu kuoʻosi</relative>
-				<relative type="0">taʻú ni</relative>
-				<relative type="1">taʻu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-short">
-				<displayName>taʻu</displayName>
-				<relative type="-1">taʻu kuoʻosi</relative>
-				<relative type="0">taʻú ni</relative>
-				<relative type="1">taʻu kahaʻu</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="other">ʻi he taʻu ʻe {0}</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="other">taʻu ʻe {0} kuoʻosi</relativeTimePattern>
+					<relativeTimePattern count="other">sekoni ʻe {0} kuoʻosi</relativeTimePattern>
 				</relativeTime>
 			</field>
 			<field type="zone">
 				<displayName>taimi fakavahe</displayName>
 			</field>
-			<field type="zone-narrow">
+			<field type="zone-short">
 				<displayName>taimi fakavahe</displayName>
 			</field>
-			<field type="zone-short">
+			<field type="zone-narrow">
 				<displayName>taimi fakavahe</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>Taimi {0}</regionFormat>
-			<regionFormat type="daylight">{0} Taimi liliu</regionFormat>
 			<regionFormat type="standard">{0} Taimi totonu</regionFormat>
+			<regionFormat type="daylight">{0} Taimi liliu</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Abidjan</exemplarCity>
 			</zone>
@@ -2884,6 +3010,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Africa/Algiers">
 				<exemplarCity>Algiers</exemplarCity>
+			</zone>
+			<zone type="Africa/Asmera">
+				<exemplarCity>Asmara</exemplarCity>
 			</zone>
 			<zone type="Africa/Bamako">
 				<exemplarCity>Bamako</exemplarCity>
@@ -3125,6 +3254,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Chihuahua">
 				<exemplarCity>Chihuahua</exemplarCity>
 			</zone>
+			<zone type="America/Coral_Harbour">
+				<exemplarCity>Atikokan</exemplarCity>
+			</zone>
 			<zone type="America/Cordoba">
 				<exemplarCity>Cordoba</exemplarCity>
 			</zone>
@@ -3176,6 +3308,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Glace_Bay">
 				<exemplarCity>Glace Bay</exemplarCity>
 			</zone>
+			<zone type="America/Godthab">
+				<exemplarCity>Nuuk</exemplarCity>
+			</zone>
 			<zone type="America/Goose_Bay">
 				<exemplarCity>Goose Bay</exemplarCity>
 			</zone>
@@ -3206,6 +3341,27 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Hermosillo">
 				<exemplarCity>Hermosillo</exemplarCity>
 			</zone>
+			<zone type="America/Indiana/Knox">
+				<exemplarCity>Knox, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Marengo">
+				<exemplarCity>Marengo, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Petersburg">
+				<exemplarCity>Petersburg, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Tell_City">
+				<exemplarCity>Tell City, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vevay">
+				<exemplarCity>Vevay, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Vincennes">
+				<exemplarCity>Vincennes, Indiana</exemplarCity>
+			</zone>
+			<zone type="America/Indiana/Winamac">
+				<exemplarCity>Winamac, Indiana</exemplarCity>
+			</zone>
 			<zone type="America/Indianapolis">
 				<exemplarCity>Indianapolis</exemplarCity>
 			</zone>
@@ -3224,6 +3380,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Juneau">
 				<exemplarCity>Juneau</exemplarCity>
 			</zone>
+			<zone type="America/Kentucky/Monticello">
+				<exemplarCity>Monticello, Kentucky</exemplarCity>
+			</zone>
 			<zone type="America/Kralendijk">
 				<exemplarCity>Kralendijk</exemplarCity>
 			</zone>
@@ -3238,6 +3397,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="America/Louisville">
 				<exemplarCity>Louisville</exemplarCity>
+			</zone>
+			<zone type="America/Lower_Princes">
+				<exemplarCity>Lower Prince’s Quarter</exemplarCity>
 			</zone>
 			<zone type="America/Maceio">
 				<exemplarCity>Maceio</exemplarCity>
@@ -3305,6 +3467,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Noronha">
 				<exemplarCity>Noronha</exemplarCity>
 			</zone>
+			<zone type="America/North_Dakota/Beulah">
+				<exemplarCity>Beulah, North Dakota</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/Center">
+				<exemplarCity>Center, North Dakota</exemplarCity>
+			</zone>
+			<zone type="America/North_Dakota/New_Salem">
+				<exemplarCity>New Salem, North Dakota</exemplarCity>
+			</zone>
 			<zone type="America/Ojinaga">
 				<exemplarCity>Ojinaga</exemplarCity>
 			</zone>
@@ -3368,11 +3539,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="America/Sao_Paulo">
 				<exemplarCity>Sao Paulo</exemplarCity>
 			</zone>
+			<zone type="America/Scoresbysund">
+				<exemplarCity>Ittoqqortoormiit</exemplarCity>
+			</zone>
 			<zone type="America/Sitka">
 				<exemplarCity>Sitka</exemplarCity>
 			</zone>
 			<zone type="America/St_Barthelemy">
 				<exemplarCity>St. Barthélemy</exemplarCity>
+			</zone>
+			<zone type="America/St_Johns">
+				<exemplarCity>St. John’s</exemplarCity>
+			</zone>
+			<zone type="America/St_Kitts">
+				<exemplarCity>St. Kitts</exemplarCity>
+			</zone>
+			<zone type="America/St_Lucia">
+				<exemplarCity>St. Lucia</exemplarCity>
+			</zone>
+			<zone type="America/St_Thomas">
+				<exemplarCity>St. Thomas</exemplarCity>
+			</zone>
+			<zone type="America/St_Vincent">
+				<exemplarCity>St. Vincent</exemplarCity>
 			</zone>
 			<zone type="America/Swift_Current">
 				<exemplarCity>Swift Current</exemplarCity>
@@ -3415,6 +3604,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Antarctica/Davis">
 				<exemplarCity>Davis</exemplarCity>
+			</zone>
+			<zone type="Antarctica/DumontDUrville">
+				<exemplarCity>Dumont d’Urville</exemplarCity>
 			</zone>
 			<zone type="Antarctica/Macquarie">
 				<exemplarCity>Macquarie</exemplarCity>
@@ -3491,6 +3683,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Asia/Brunei">
 				<exemplarCity>Brunei</exemplarCity>
 			</zone>
+			<zone type="Asia/Calcutta">
+				<exemplarCity>Kolkata</exemplarCity>
+			</zone>
 			<zone type="Asia/Chita">
 				<exemplarCity>Chita</exemplarCity>
 			</zone>
@@ -3550,6 +3745,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Asia/Karachi">
 				<exemplarCity>Karachi</exemplarCity>
+			</zone>
+			<zone type="Asia/Katmandu">
+				<exemplarCity>Kathmandu</exemplarCity>
 			</zone>
 			<zone type="Asia/Khandyga">
 				<exemplarCity>Khandyga</exemplarCity>
@@ -3616,6 +3814,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Asia/Riyadh">
 				<exemplarCity>Riyadh</exemplarCity>
+			</zone>
+			<zone type="Asia/Saigon">
+				<exemplarCity>Ho Chi Minh</exemplarCity>
 			</zone>
 			<zone type="Asia/Sakhalin">
 				<exemplarCity>Sakhalin</exemplarCity>
@@ -3692,6 +3893,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Atlantic/Cape_Verde">
 				<exemplarCity>Cape Verde</exemplarCity>
 			</zone>
+			<zone type="Atlantic/Faeroe">
+				<exemplarCity>Faroe</exemplarCity>
+			</zone>
 			<zone type="Atlantic/Madeira">
 				<exemplarCity>Madeira</exemplarCity>
 			</zone>
@@ -3700,6 +3904,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="Atlantic/South_Georgia">
 				<exemplarCity>South Georgia</exemplarCity>
+			</zone>
+			<zone type="Atlantic/St_Helena">
+				<exemplarCity>St. Helena</exemplarCity>
 			</zone>
 			<zone type="Atlantic/Stanley">
 				<exemplarCity>Stanley</exemplarCity>
@@ -3740,6 +3947,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Australia/Sydney">
 				<exemplarCity>Senē</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Feituʻu taʻeʻiloa</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>taimi fakaemāmani</standard>
@@ -3747,9 +3957,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<short>
 					<standard>TMT</standard>
 				</short>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Feituʻu taʻeʻiloa</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>Amsterdam</exemplarCity>
@@ -4462,11 +4669,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>houa fakaʻanetātikafalanisē</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>houa fakakiliniuisi mālie</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>houa fakakalapakosi</standard>
@@ -4487,6 +4689,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>houa fakakilipasi</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>houa fakakiliniuisi mālie</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -5060,12 +5267,30 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</dates>
 	<numbers>
 		<symbols numberSystem="arab">
+			<decimal>٫</decimal>
+			<group>٬</group>
+			<list>؛</list>
+			<percentSign>٪؜</percentSign>
 			<plusSign>‏+</plusSign>
 			<minusSign>‏-</minusSign>
+			<exponential>اس</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>؉</perMille>
+			<infinity>∞</infinity>
 			<nan>TF</nan>
+			<timeSeparator>:</timeSeparator>
 		</symbols>
 		<symbols numberSystem="arabext">
+			<decimal>٫</decimal>
+			<group>٬</group>
+			<list>؛</list>
+			<percentSign>٪</percentSign>
+			<plusSign>‎+‎</plusSign>
+			<exponential>×۱۰^</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>؉</perMille>
 			<nan>TF</nan>
+			<timeSeparator>٫</timeSeparator>
 		</symbols>
 		<symbols numberSystem="bali">
 			<decimal>.</decimal>
@@ -5317,6 +5542,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<nan>TF</nan>
 		</symbols>
 		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
 			<nan>TF</nan>
 		</symbols>
 		<symbols numberSystem="lepc">
@@ -5743,6 +5978,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</decimalFormatLength>
 		</decimalFormats>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<decimalFormat>
 					<pattern type="1000" count="other">0 afe</pattern>
@@ -5764,9 +6004,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<pattern type="1000" count="other">0a</pattern>
 					<pattern type="10000" count="other">0m</pattern>
 					<pattern type="100000" count="other">0k</pattern>
+					<pattern type="1000000" count="other">0M</pattern>
+					<pattern type="10000000" count="other">00M</pattern>
+					<pattern type="100000000" count="other">000M</pattern>
 					<pattern type="1000000000" count="other">0P</pattern>
 					<pattern type="10000000000" count="other">00P</pattern>
 					<pattern type="100000000000" count="other">000P</pattern>
+					<pattern type="1000000000000" count="other">0T</pattern>
+					<pattern type="10000000000000" count="other">00T</pattern>
+					<pattern type="100000000000000" count="other">000T</pattern>
 				</decimalFormat>
 			</decimalFormatLength>
 		</decimalFormats>
@@ -6058,6 +6304,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</scientificFormatLength>
 		</scientificFormats>
 		<scientificFormats numberSystem="laoo">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<scientificFormats numberSystem="latn">
 			<scientificFormatLength>
 				<scientificFormat>
 					<pattern>#E0</pattern>
@@ -6358,6 +6611,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</percentFormat>
 			</percentFormatLength>
 		</percentFormats>
+		<percentFormats numberSystem="latn">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<percentFormats numberSystem="lepc">
 			<percentFormatLength>
 				<percentFormat>
@@ -6515,6 +6775,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<currencyFormats numberSystem="arab">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
+					<pattern>#,##0.00 ¤</pattern>
+				</currencyFormat>
+				<currencyFormat type="standard">
 					<pattern>#,##0.00 ¤</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
@@ -6733,15 +6996,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<currencyFormat type="accounting">
 					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
+				<currencyFormat type="standard">
+					<pattern>¤ #,##0.00</pattern>
+				</currencyFormat>
 			</currencyFormatLength>
 			<currencyFormatLength type="short">
 				<currencyFormat type="standard">
 					<pattern type="1000" count="other">¤ 0a</pattern>
 					<pattern type="10000" count="other">¤ 0m</pattern>
 					<pattern type="100000" count="other">¤ 0k</pattern>
+					<pattern type="1000000" count="other">¤ 0M</pattern>
+					<pattern type="10000000" count="other">¤ 00M</pattern>
+					<pattern type="100000000" count="other">¤ 000M</pattern>
 					<pattern type="1000000000" count="other">¤ 0P</pattern>
 					<pattern type="10000000000" count="other">¤ 00P</pattern>
 					<pattern type="100000000000" count="other">¤ 000P</pattern>
+					<pattern type="1000000000000" count="other">¤ 0T</pattern>
+					<pattern type="10000000000000" count="other">¤ 00T</pattern>
+					<pattern type="100000000000000" count="other">¤ 000T</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 			<unitPattern count="other">{1} {0}</unitPattern>
@@ -7026,6 +7298,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Paʻanga fakatonga</displayName>
 				<displayName count="other">Paʻanga fakatonga</displayName>
 				<symbol>T$</symbol>
+				<symbol alt="narrow" draft="contributed">T$</symbol>
 			</currency>
 			<currency type="VUV">
 				<displayName>Vatu fakavanuatu</displayName>
@@ -7393,7 +7666,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>kalati</displayName>
 				<unitPattern count="other">kalati ʻe {0}</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
+			<unit type="concentr-milligram-per-deciliter">
 				<displayName>milikalami he tesilita</displayName>
 				<unitPattern count="other">milikalami ʻe {0} he tesilita</unitPattern>
 			</unit>
@@ -8064,10 +8337,776 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>fua tefitoʻi</displayName>
-				<coordinateUnitPattern type="east">hahake ʻe {0}</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">tokelau ʻe {0}</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">hahake ʻe {0}</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">tonga ʻe {0}</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">hihifo ʻe {0}</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="short">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>ki{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>Ki{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>t{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>s{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>ta{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<displayName>k-mā</displayName>
+				<unitPattern count="other">k-mā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="acceleration-meter-per-square-second">
+				<displayName>m/s²</displayName>
+				<unitPattern count="other">m/s² ʻe {0}</unitPattern>
+			</unit>
+			<unit type="angle-arc-minute">
+				<displayName>msk</displayName>
+				<unitPattern count="other">msk ʻe {0}</unitPattern>
+			</unit>
+			<unit type="angle-arc-second">
+				<displayName>ssk</displayName>
+				<unitPattern count="other">ssk ʻe {0}</unitPattern>
+			</unit>
+			<unit type="angle-degree">
+				<displayName>tsk</displayName>
+				<unitPattern count="other">tsk ʻe {0}</unitPattern>
+			</unit>
+			<unit type="angle-radian">
+				<displayName>lēt</displayName>
+				<unitPattern count="other">lēt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="angle-revolution">
+				<displayName>tak</displayName>
+				<unitPattern count="other">tak ʻe {0}</unitPattern>
+			</unit>
+			<unit type="area-acre">
+				<displayName>ʻek</displayName>
+				<unitPattern count="other">ʻek ʻe {0}</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>tunami</displayName>
+				<unitPattern count="other">tunami ʻe {0}</unitPattern>
+			</unit>
+			<unit type="area-hectare">
+				<displayName>ha</displayName>
+				<unitPattern count="other">ha ʻe {0}</unitPattern>
+			</unit>
+			<unit type="area-square-centimeter">
+				<displayName>sm²</displayName>
+				<unitPattern count="other">sm² ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/sm²</perUnitPattern>
+			</unit>
+			<unit type="area-square-foot">
+				<displayName>ft²</displayName>
+				<unitPattern count="other">ft² ʻe {0}</unitPattern>
+			</unit>
+			<unit type="area-square-inch">
+				<displayName>in²</displayName>
+				<unitPattern count="other">in² ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/in²</perUnitPattern>
+			</unit>
+			<unit type="area-square-kilometer">
+				<displayName>km²</displayName>
+				<unitPattern count="other">km² ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/km²</perUnitPattern>
+			</unit>
+			<unit type="area-square-meter">
+				<displayName>m²</displayName>
+				<unitPattern count="other">m² ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/m²</perUnitPattern>
+			</unit>
+			<unit type="area-square-mile">
+				<displayName>mi²</displayName>
+				<unitPattern count="other">mi² ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/mi²</perUnitPattern>
+			</unit>
+			<unit type="area-square-yard">
+				<displayName>it²</displayName>
+				<unitPattern count="other">it² ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-karat">
+				<displayName>kt</displayName>
+				<unitPattern count="other">kt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-milligram-per-deciliter">
+				<displayName>mk/tl</displayName>
+				<unitPattern count="other">mk ʻe {0}/tl</unitPattern>
+			</unit>
+			<unit type="concentr-millimole-per-liter">
+				<displayName>mmol/l</displayName>
+				<unitPattern count="other">mmol ʻe {0}/l</unitPattern>
+			</unit>
+			<unit type="concentr-mole">
+				<displayName>mol</displayName>
+				<unitPattern count="other">mol ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-percent">
+				<displayName>%</displayName>
+				<unitPattern count="other">% ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-permille">
+				<displayName>‰</displayName>
+				<unitPattern count="other">‰ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-permillion">
+				<displayName>khm</displayName>
+				<unitPattern count="other">khm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<unitPattern count="other">‱ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
+				<displayName>l/100km</displayName>
+				<unitPattern count="other">l ʻe {0}/100km</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-kilometer">
+				<displayName>l/km</displayName>
+				<unitPattern count="other">l ʻe {0}/km</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon">
+				<displayName>mi/kā</displayName>
+				<unitPattern count="other">mi ʻe {0}/kā</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon-imperial">
+				<displayName>mi/kā-ʻem</displayName>
+				<unitPattern count="other">mi ʻe {0}/kā-ʻem</unitPattern>
+			</unit>
+			<unit type="digital-bit">
+				<displayName>piti</displayName>
+				<unitPattern count="other">piti ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-byte">
+				<displayName>paiti</displayName>
+				<unitPattern count="other">paiti ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-gigabit">
+				<displayName>kikapiti</displayName>
+				<unitPattern count="other">Gb ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-gigabyte">
+				<displayName>kikapaiti</displayName>
+				<unitPattern count="other">GB ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-kilobit">
+				<displayName>kilopiti</displayName>
+				<unitPattern count="other">kb ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-kilobyte">
+				<displayName>kilopaiti</displayName>
+				<unitPattern count="other">kB ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-megabit">
+				<displayName>mekapiti</displayName>
+				<unitPattern count="other">Mb ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-megabyte">
+				<displayName>mekapaiti</displayName>
+				<unitPattern count="other">MB ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-petabyte">
+				<displayName>PB</displayName>
+				<unitPattern count="other">PB ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-terabit">
+				<displayName>telapiti</displayName>
+				<unitPattern count="other">Tb ʻe {0}</unitPattern>
+			</unit>
+			<unit type="digital-terabyte">
+				<displayName>telapaiti</displayName>
+				<unitPattern count="other">TB ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-century">
+				<displayName>tt</displayName>
+				<unitPattern count="other">tt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>ʻa</displayName>
+				<unitPattern count="other">ʻa ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /ʻa</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>ht</displayName>
+				<unitPattern count="other">ht ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>h</displayName>
+				<unitPattern count="other">h ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /h</perUnitPattern>
+			</unit>
+			<unit type="duration-microsecond">
+				<displayName>μs</displayName>
+				<unitPattern count="other">μs ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>ms</displayName>
+				<unitPattern count="other">ms ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>m</displayName>
+				<unitPattern count="other">m ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /m</perUnitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>mā</displayName>
+				<unitPattern count="other">mā ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /mā</perUnitPattern>
+			</unit>
+			<unit type="duration-nanosecond">
+				<displayName>ns</displayName>
+				<unitPattern count="other">ns ʻe {0}</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>s</displayName>
+				<unitPattern count="other">s ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /s</perUnitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>u</displayName>
+				<unitPattern count="other">u ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /u</perUnitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>taʻu</displayName>
+				<unitPattern count="other">taʻu ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /t</perUnitPattern>
+			</unit>
+			<unit type="electric-ampere">
+				<displayName>A</displayName>
+				<unitPattern count="other">A ʻe {0}</unitPattern>
+			</unit>
+			<unit type="electric-milliampere">
+				<displayName>mA</displayName>
+				<unitPattern count="other">mA ʻe {0}</unitPattern>
+			</unit>
+			<unit type="electric-ohm">
+				<displayName>Ω</displayName>
+				<unitPattern count="other">Ω ʻe {0}</unitPattern>
+			</unit>
+			<unit type="electric-volt">
+				<displayName>volotā</displayName>
+				<unitPattern count="other">V ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>imfP</displayName>
+				<unitPattern count="other">imfP ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-calorie">
+				<displayName>kal</displayName>
+				<unitPattern count="other">kal ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<unitPattern count="other">eV ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-foodcalorie">
+				<displayName>kal-k</displayName>
+				<unitPattern count="other">kal-k ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-joule">
+				<displayName>J</displayName>
+				<unitPattern count="other">J ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-kilocalorie">
+				<displayName>kkal</displayName>
+				<unitPattern count="other">kkal ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-kilojoule">
+				<displayName>kJ</displayName>
+				<unitPattern count="other">kJ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-kilowatt-hour">
+				<displayName>kWh</displayName>
+				<unitPattern count="other">kWh ʻe {0}</unitPattern>
+			</unit>
+			<unit type="energy-therm-us">
+				<displayName>imfA</displayName>
+				<unitPattern count="other">imfA ʻe {0}</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<unitPattern count="other">N ʻe {0}</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>pāmā</displayName>
+				<unitPattern count="other">pāmā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="frequency-gigahertz">
+				<displayName>GHz</displayName>
+				<unitPattern count="other">GHz ʻe {0}</unitPattern>
+			</unit>
+			<unit type="frequency-hertz">
+				<displayName>Hz</displayName>
+				<unitPattern count="other">Hz ʻe {0}</unitPattern>
+			</unit>
+			<unit type="frequency-kilohertz">
+				<displayName>kHz</displayName>
+				<unitPattern count="other">kHz ʻe {0}</unitPattern>
+			</unit>
+			<unit type="frequency-megahertz">
+				<displayName>MHz</displayName>
+				<unitPattern count="other">MHz ʻe {0}</unitPattern>
+			</unit>
+			<unit type="graphics-dot">
+				<displayName>toti</displayName>
+				<unitPattern count="other">toti ʻe {0}</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>toti/sm</displayName>
+				<unitPattern count="other">toti ʻe {0}/sm</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>toti/in</displayName>
+				<unitPattern count="other">toti ʻe {0}/in</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>ʻemi</displayName>
+				<unitPattern count="other">ʻemi ʻe {0}</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>Mmeʻatā</displayName>
+				<unitPattern count="other">Mmeʻatā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>meʻatā</displayName>
+				<unitPattern count="other">meʻatā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>meʻatā/sm</displayName>
+				<unitPattern count="other">meʻatā ʻe {0}/sm</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>meʻatā/in</displayName>
+				<unitPattern count="other">meʻatā ʻe {0}/in</unitPattern>
+			</unit>
+			<unit type="length-astronomical-unit">
+				<displayName>ʻiʻa</displayName>
+				<unitPattern count="other">ʻiʻa ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>sm</displayName>
+				<unitPattern count="other">sm ʻe {0}</unitPattern>
+				<perUnitPattern>{0} /sm</perUnitPattern>
+			</unit>
+			<unit type="length-decimeter">
+				<displayName>tm</displayName>
+				<unitPattern count="other">tm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-earth-radius">
+				<displayName>L⊕</displayName>
+				<unitPattern count="other">L⊕ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName>ofa</displayName>
+				<unitPattern count="other">ofa ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-foot">
+				<displayName>ft</displayName>
+				<unitPattern count="other">ft ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/ft</perUnitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>fāl</displayName>
+				<unitPattern count="other">fāl ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-inch">
+				<displayName>in</displayName>
+				<unitPattern count="other">in ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/in</perUnitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="other">km ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/km</perUnitPattern>
+			</unit>
+			<unit type="length-light-year">
+				<displayName>tma</displayName>
+				<unitPattern count="other">tma ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>m</displayName>
+				<unitPattern count="other">m ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/m</perUnitPattern>
+			</unit>
+			<unit type="length-micrometer">
+				<displayName>µm</displayName>
+				<unitPattern count="other">µm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-mile">
+				<displayName>mi</displayName>
+				<unitPattern count="other">mi ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-mile-scandinavian">
+				<displayName>msi</displayName>
+				<unitPattern count="other">msi ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="other">mm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-nanometer">
+				<displayName>nm</displayName>
+				<unitPattern count="other">nm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-nautical-mile">
+				<displayName>mt</displayName>
+				<unitPattern count="other">mt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-parsec">
+				<displayName>ngs</displayName>
+				<unitPattern count="other">ngs ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-picometer">
+				<displayName>pm</displayName>
+				<unitPattern count="other">pm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-point">
+				<displayName>pn</displayName>
+				<unitPattern count="other">pn ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-solar-radius">
+				<displayName>L☉</displayName>
+				<unitPattern count="other">L☉ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="length-yard">
+				<displayName>it</displayName>
+				<unitPattern count="other">it ʻe {0}</unitPattern>
+			</unit>
+			<unit type="light-candela">
+				<displayName>ktl</displayName>
+				<unitPattern count="other">ktl ʻe {0}</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lm</displayName>
+				<unitPattern count="other">lm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="light-lux">
+				<displayName>lx</displayName>
+				<unitPattern count="other">lx ʻe {0}</unitPattern>
+			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>H☉</displayName>
+				<unitPattern count="other">H☉ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-carat">
+				<displayName>kt</displayName>
+				<unitPattern count="other">kt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>tlt</displayName>
+				<unitPattern count="other">tlt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>mamafa ⊕</displayName>
+				<unitPattern count="other">mamafa ⊕ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>tenga</displayName>
+				<unitPattern count="other">tenga ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>k</displayName>
+				<unitPattern count="other">k ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/k</perUnitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kk</displayName>
+				<unitPattern count="other">kk ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/kk</perUnitPattern>
+			</unit>
+			<unit type="mass-metric-ton">
+				<displayName>to</displayName>
+				<unitPattern count="other">to ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-microgram">
+				<displayName>μk</displayName>
+				<unitPattern count="other">μk ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-milligram">
+				<displayName>mk</displayName>
+				<unitPattern count="other">mk ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-ounce">
+				<displayName>ʻau</displayName>
+				<unitPattern count="other">ʻau ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/ʻau</perUnitPattern>
+			</unit>
+			<unit type="mass-ounce-troy">
+				<displayName>ʻau-k</displayName>
+				<unitPattern count="other">ʻau-k ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-pound">
+				<displayName>pāu</displayName>
+				<unitPattern count="other">pāu ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/pāu</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>mamafa ☉</displayName>
+				<unitPattern count="other">mamafa ☉ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-stone">
+				<displayName>st</displayName>
+				<unitPattern count="other">st ʻe {0}</unitPattern>
+			</unit>
+			<unit type="mass-ton">
+				<displayName>tn</displayName>
+				<unitPattern count="other">tn ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-gigawatt">
+				<displayName>GW</displayName>
+				<unitPattern count="other">GW ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-horsepower">
+				<displayName>hp</displayName>
+				<unitPattern count="other">hp ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-kilowatt">
+				<displayName>kW</displayName>
+				<unitPattern count="other">kW ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-megawatt">
+				<displayName>MW</displayName>
+				<unitPattern count="other">MW ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-milliwatt">
+				<displayName>mW</displayName>
+				<unitPattern count="other">mW ʻe {0}</unitPattern>
+			</unit>
+			<unit type="power-watt">
+				<displayName>uate</displayName>
+				<unitPattern count="other">W ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-atmosphere">
+				<displayName>ʻati</displayName>
+				<unitPattern count="other">ʻati ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-bar">
+				<displayName>pā</displayName>
+				<unitPattern count="other">pā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-hectopascal">
+				<displayName>hPa</displayName>
+				<unitPattern count="other">hPa ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-inch-ofhg">
+				<displayName>in-Hg</displayName>
+				<unitPattern count="other">in-Hg ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<unitPattern count="other">kPa ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<unitPattern count="other">MPa ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-millibar">
+				<displayName>mpā</displayName>
+				<unitPattern count="other">mpā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-millimeter-ofhg">
+				<displayName>mm-Hg</displayName>
+				<unitPattern count="other">mm-Hg ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-pascal">
+				<unitPattern count="other">Pā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
+				<displayName>pā/in²</displayName>
+				<unitPattern count="other">pā/in² ʻe {0}</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/h</displayName>
+				<unitPattern count="other">km/h ʻe {0}</unitPattern>
+			</unit>
+			<unit type="speed-knot">
+				<displayName>fp</displayName>
+				<unitPattern count="other">fp ʻe {0}</unitPattern>
+			</unit>
+			<unit type="speed-meter-per-second">
+				<displayName>m/s</displayName>
+				<unitPattern count="other">m/s ʻe {0}</unitPattern>
+			</unit>
+			<unit type="speed-mile-per-hour">
+				<displayName>mi/h</displayName>
+				<unitPattern count="other">mi/h ʻe {0}</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>°S</displayName>
+				<unitPattern count="other">°S ʻe {0}</unitPattern>
+			</unit>
+			<unit type="temperature-fahrenheit">
+				<displayName>°F</displayName>
+				<unitPattern count="other">°F ʻe {0}</unitPattern>
+			</unit>
+			<unit type="temperature-generic">
+				<displayName>°</displayName>
+				<unitPattern count="other">° ʻe {0}</unitPattern>
+			</unit>
+			<unit type="temperature-kelvin">
+				<displayName>K</displayName>
+				<unitPattern count="other">K ʻe {0}</unitPattern>
+			</unit>
+			<unit type="torque-newton-meter">
+				<unitPattern count="other">N⋅m ʻe {0}</unitPattern>
+			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>pā⋅ft</displayName>
+				<unitPattern count="other">pā⋅ft ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-acre-foot">
+				<displayName>ʻe-ft</displayName>
+				<unitPattern count="other">ʻe-ft ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>paelo</displayName>
+				<unitPattern count="other">paelo ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>pū</displayName>
+				<unitPattern count="other">pū ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-centiliter">
+				<displayName>sl</displayName>
+				<unitPattern count="other">sl ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cubic-centimeter">
+				<displayName>sm³</displayName>
+				<unitPattern count="other">sm³ ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/sm³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-foot">
+				<displayName>ft³</displayName>
+				<unitPattern count="other">ft³ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cubic-inch">
+				<displayName>in³</displayName>
+				<unitPattern count="other">in³ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cubic-kilometer">
+				<displayName>km³</displayName>
+				<unitPattern count="other">km³ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cubic-meter">
+				<displayName>m³</displayName>
+				<unitPattern count="other">m³ ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/m³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-mile">
+				<displayName>mi³</displayName>
+				<unitPattern count="other">mi³ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cubic-yard">
+				<displayName>it³</displayName>
+				<unitPattern count="other">it³ ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cup">
+				<displayName>ip</displayName>
+				<unitPattern count="other">ip ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-cup-metric">
+				<displayName>ipm</displayName>
+				<unitPattern count="other">ipm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-deciliter">
+				<displayName>tl</displayName>
+				<unitPattern count="other">tl ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>sēpu</displayName>
+				<unitPattern count="other">sēpu ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>sēpu-ʻem</displayName>
+				<unitPattern count="other">sēpu-ʻem ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>tlmu-tf</displayName>
+				<unitPattern count="other">tlmu-tf ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>tltā</displayName>
+				<unitPattern count="other">tltā ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce">
+				<displayName>ʻau-tf</displayName>
+				<unitPattern count="other">ʻau-tf ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>ʻau-ʻem</displayName>
+				<unitPattern count="other">ʻau-ʻem ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-gallon">
+				<displayName>kā</displayName>
+				<unitPattern count="other">kā ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/kā</perUnitPattern>
+			</unit>
+			<unit type="volume-gallon-imperial">
+				<displayName>kāʻ-em</displayName>
+				<unitPattern count="other">kā-ʻem ʻe {0}</unitPattern>
+				<perUnitPattern>{0} / kā-ʻem</perUnitPattern>
+			</unit>
+			<unit type="volume-hectoliter">
+				<displayName>hl</displayName>
+				<unitPattern count="other">hl ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-jigger">
+				<displayName>sike</displayName>
+				<unitPattern count="other">sike ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>l</displayName>
+				<unitPattern count="other">l ʻe {0}</unitPattern>
+				<perUnitPattern>{0}/l</perUnitPattern>
+			</unit>
+			<unit type="volume-megaliter">
+				<displayName>Ml</displayName>
+				<unitPattern count="other">Ml ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-milliliter">
+				<displayName>ml</displayName>
+				<unitPattern count="other">ml ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-pinch">
+				<displayName>kiʻimeʻi</displayName>
+				<unitPattern count="other">kiʻimeʻi ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-pint">
+				<displayName>pt</displayName>
+				<unitPattern count="other">pt ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-pint-metric">
+				<displayName>ptm</displayName>
+				<unitPattern count="other">ptm ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-quart">
+				<displayName>ku</displayName>
+				<unitPattern count="other">ku ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>ku-ʻem</displayName>
+				<unitPattern count="other">ku-ʻem ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-tablespoon">
+				<displayName>sētē</displayName>
+				<unitPattern count="other">sētē ʻe {0}</unitPattern>
+			</unit>
+			<unit type="volume-teaspoon">
+				<displayName>sētī</displayName>
+				<unitPattern count="other">sētī ʻe {0}</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<displayName>fua</displayName>
+				<coordinateUnitPattern type="north">tk ʻe {0}</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">ha ʻe {0}</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">to ʻe {0}</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">hi ʻe {0}</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
@@ -8166,7 +9205,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>kt</displayName>
 				<unitPattern count="other">{0} kt</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
+			<unit type="concentr-milligram-per-deciliter">
 				<displayName>mk/tl</displayName>
 				<unitPattern count="other">{0} mk/tl</unitPattern>
 			</unit>
@@ -8463,8 +9502,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<perUnitPattern>{0}/m</perUnitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<displayName>μm</displayName>
-				<unitPattern count="other">{0} μm</unitPattern>
+				<displayName>µm</displayName>
+				<unitPattern count="other">{0} µm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<displayName>mi</displayName>
@@ -8824,714 +9863,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>fua</displayName>
-				<coordinateUnitPattern type="east">{0} ha</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} tk</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} ha</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} to</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} hi</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
-		<unitLength type="short">
-			<compoundUnit type="1024p1">
-				<unitPrefixPattern>ki{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p3">
-				<unitPrefixPattern>Ki{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-1">
-				<unitPrefixPattern>t{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-2">
-				<unitPrefixPattern>s{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p1">
-				<unitPrefixPattern>ta{0}</unitPrefixPattern>
-			</compoundUnit>
-			<unit type="acceleration-g-force">
-				<displayName>k-mā</displayName>
-				<unitPattern count="other">k-mā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="acceleration-meter-per-square-second">
-				<unitPattern count="other">m/s² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="angle-arc-minute">
-				<displayName>msk</displayName>
-				<unitPattern count="other">msk ʻe {0}</unitPattern>
-			</unit>
-			<unit type="angle-arc-second">
-				<displayName>ssk</displayName>
-				<unitPattern count="other">ssk ʻe {0}</unitPattern>
-			</unit>
-			<unit type="angle-degree">
-				<displayName>tsk</displayName>
-				<unitPattern count="other">tsk ʻe {0}</unitPattern>
-			</unit>
-			<unit type="angle-radian">
-				<displayName>lēt</displayName>
-				<unitPattern count="other">lēt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="angle-revolution">
-				<displayName>tak</displayName>
-				<unitPattern count="other">tak ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-acre">
-				<displayName>ʻek</displayName>
-				<unitPattern count="other">ʻek ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-dunam">
-				<displayName>tunami</displayName>
-				<unitPattern count="other">tunami ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-hectare">
-				<displayName>ha</displayName>
-				<unitPattern count="other">ha ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-centimeter">
-				<displayName>sm²</displayName>
-				<unitPattern count="other">sm² ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/sm²</perUnitPattern>
-			</unit>
-			<unit type="area-square-foot">
-				<unitPattern count="other">ft² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-inch">
-				<unitPattern count="other">in² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-kilometer">
-				<unitPattern count="other">km² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-meter">
-				<unitPattern count="other">m² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-mile">
-				<unitPattern count="other">mi² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="area-square-yard">
-				<displayName>it²</displayName>
-				<unitPattern count="other">it² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-karat">
-				<unitPattern count="other">kt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
-				<displayName>mk/tl</displayName>
-				<unitPattern count="other">mk ʻe {0}/tl</unitPattern>
-			</unit>
-			<unit type="concentr-millimole-per-liter">
-				<displayName>mmol/l</displayName>
-				<unitPattern count="other">mmol ʻe {0}/l</unitPattern>
-			</unit>
-			<unit type="concentr-mole">
-				<unitPattern count="other">mol ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-percent">
-				<unitPattern count="other">% ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-permille">
-				<unitPattern count="other">‰ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-permillion">
-				<displayName>khm</displayName>
-				<unitPattern count="other">khm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="concentr-permyriad">
-				<unitPattern count="other">‱ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-100-kilometer">
-				<displayName>l/100km</displayName>
-				<unitPattern count="other">l ʻe {0}/100km</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-kilometer">
-				<displayName>l/km</displayName>
-				<unitPattern count="other">l ʻe {0}/km</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon">
-				<displayName>mi/kā</displayName>
-				<unitPattern count="other">mi ʻe {0}/kā</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon-imperial">
-				<displayName>mi/kā-ʻem</displayName>
-				<unitPattern count="other">mi ʻe {0}/kā-ʻem</unitPattern>
-			</unit>
-			<unit type="digital-bit">
-				<displayName>piti</displayName>
-				<unitPattern count="other">piti ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-byte">
-				<displayName>paiti</displayName>
-				<unitPattern count="other">paiti ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-gigabit">
-				<displayName>kikapiti</displayName>
-				<unitPattern count="other">Gb ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-gigabyte">
-				<displayName>kikapaiti</displayName>
-				<unitPattern count="other">GB ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-kilobit">
-				<displayName>kilopiti</displayName>
-				<unitPattern count="other">kb ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-kilobyte">
-				<displayName>kilopaiti</displayName>
-				<unitPattern count="other">kB ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-megabit">
-				<displayName>mekapiti</displayName>
-				<unitPattern count="other">Mb ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-megabyte">
-				<displayName>mekapaiti</displayName>
-				<unitPattern count="other">MB ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-petabyte">
-				<unitPattern count="other">PB ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-terabit">
-				<displayName>telapiti</displayName>
-				<unitPattern count="other">Tb ʻe {0}</unitPattern>
-			</unit>
-			<unit type="digital-terabyte">
-				<displayName>telapaiti</displayName>
-				<unitPattern count="other">TB ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-century">
-				<displayName>tt</displayName>
-				<unitPattern count="other">tt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>ʻa</displayName>
-				<unitPattern count="other">ʻa ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /ʻa</perUnitPattern>
-			</unit>
-			<unit type="duration-decade">
-				<displayName>ht</displayName>
-				<unitPattern count="other">ht ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>h</displayName>
-				<unitPattern count="other">h ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /h</perUnitPattern>
-			</unit>
-			<unit type="duration-microsecond">
-				<unitPattern count="other">μs ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<unitPattern count="other">ms ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>m</displayName>
-				<unitPattern count="other">m ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /m</perUnitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>mā</displayName>
-				<unitPattern count="other">mā ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /mā</perUnitPattern>
-			</unit>
-			<unit type="duration-nanosecond">
-				<unitPattern count="other">ns ʻe {0}</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>s</displayName>
-				<unitPattern count="other">s ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /s</perUnitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>u</displayName>
-				<unitPattern count="other">u ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /u</perUnitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>taʻu</displayName>
-				<unitPattern count="other">taʻu ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /t</perUnitPattern>
-			</unit>
-			<unit type="electric-ampere">
-				<displayName>A</displayName>
-				<unitPattern count="other">A ʻe {0}</unitPattern>
-			</unit>
-			<unit type="electric-milliampere">
-				<unitPattern count="other">mA ʻe {0}</unitPattern>
-			</unit>
-			<unit type="electric-ohm">
-				<displayName>Ω</displayName>
-				<unitPattern count="other">Ω ʻe {0}</unitPattern>
-			</unit>
-			<unit type="electric-volt">
-				<displayName>volotā</displayName>
-				<unitPattern count="other">V ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-british-thermal-unit">
-				<displayName>imfP</displayName>
-				<unitPattern count="other">imfP ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-calorie">
-				<displayName>kal</displayName>
-				<unitPattern count="other">kal ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-electronvolt">
-				<unitPattern count="other">eV ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-foodcalorie">
-				<displayName>kal-k</displayName>
-				<unitPattern count="other">kal-k ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-joule">
-				<displayName>J</displayName>
-				<unitPattern count="other">J ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-kilocalorie">
-				<displayName>kkal</displayName>
-				<unitPattern count="other">kkal ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-kilojoule">
-				<unitPattern count="other">kJ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-kilowatt-hour">
-				<unitPattern count="other">kWh ʻe {0}</unitPattern>
-			</unit>
-			<unit type="energy-therm-us">
-				<displayName>imfA</displayName>
-				<unitPattern count="other">imfA ʻe {0}</unitPattern>
-			</unit>
-			<unit type="force-newton">
-				<unitPattern count="other">N ʻe {0}</unitPattern>
-			</unit>
-			<unit type="force-pound-force">
-				<displayName>pāmā</displayName>
-				<unitPattern count="other">pāmā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="frequency-gigahertz">
-				<unitPattern count="other">GHz ʻe {0}</unitPattern>
-			</unit>
-			<unit type="frequency-hertz">
-				<unitPattern count="other">Hz ʻe {0}</unitPattern>
-			</unit>
-			<unit type="frequency-kilohertz">
-				<unitPattern count="other">kHz ʻe {0}</unitPattern>
-			</unit>
-			<unit type="frequency-megahertz">
-				<unitPattern count="other">MHz ʻe {0}</unitPattern>
-			</unit>
-			<unit type="graphics-dot">
-				<displayName>toti</displayName>
-				<unitPattern count="other">toti ʻe {0}</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-centimeter">
-				<displayName>toti/sm</displayName>
-				<unitPattern count="other">toti ʻe {0}/sm</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-inch">
-				<displayName>toti/in</displayName>
-				<unitPattern count="other">toti ʻe {0}/in</unitPattern>
-			</unit>
-			<unit type="graphics-em">
-				<displayName>ʻemi</displayName>
-				<unitPattern count="other">ʻemi ʻe {0}</unitPattern>
-			</unit>
-			<unit type="graphics-megapixel">
-				<displayName>Mmeʻatā</displayName>
-				<unitPattern count="other">Mmeʻatā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="graphics-pixel">
-				<displayName>meʻatā</displayName>
-				<unitPattern count="other">meʻatā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-centimeter">
-				<displayName>meʻatā/sm</displayName>
-				<unitPattern count="other">meʻatā ʻe {0}/sm</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-inch">
-				<displayName>meʻatā/in</displayName>
-				<unitPattern count="other">meʻatā ʻe {0}/in</unitPattern>
-			</unit>
-			<unit type="length-astronomical-unit">
-				<displayName>ʻiʻa</displayName>
-				<unitPattern count="other">ʻiʻa ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>sm</displayName>
-				<unitPattern count="other">sm ʻe {0}</unitPattern>
-				<perUnitPattern>{0} /sm</perUnitPattern>
-			</unit>
-			<unit type="length-decimeter">
-				<displayName>tm</displayName>
-				<unitPattern count="other">tm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-earth-radius">
-				<displayName>L⊕</displayName>
-				<unitPattern count="other">L⊕ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-fathom">
-				<displayName>ofa</displayName>
-				<unitPattern count="other">ofa ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-foot">
-				<unitPattern count="other">ft ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-furlong">
-				<displayName>fāl</displayName>
-				<unitPattern count="other">fāl ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-inch">
-				<unitPattern count="other">in ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<unitPattern count="other">km ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-light-year">
-				<displayName>tma</displayName>
-				<unitPattern count="other">tma ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-				<unitPattern count="other">m ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-micrometer">
-				<unitPattern count="other">μm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-mile">
-				<unitPattern count="other">mi ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-mile-scandinavian">
-				<displayName>msi</displayName>
-				<unitPattern count="other">msi ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<unitPattern count="other">mm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-nanometer">
-				<unitPattern count="other">nm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-nautical-mile">
-				<displayName>mt</displayName>
-				<unitPattern count="other">mt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-parsec">
-				<displayName>ngs</displayName>
-				<unitPattern count="other">ngs ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-picometer">
-				<unitPattern count="other">pm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-point">
-				<displayName>pn</displayName>
-				<unitPattern count="other">pn ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-solar-radius">
-				<displayName>L☉</displayName>
-				<unitPattern count="other">L☉ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="length-yard">
-				<displayName>it</displayName>
-				<unitPattern count="other">it ʻe {0}</unitPattern>
-			</unit>
-			<unit type="light-candela">
-				<displayName>ktl</displayName>
-				<unitPattern count="other">ktl ʻe {0}</unitPattern>
-			</unit>
-			<unit type="light-lumen">
-				<unitPattern count="other">lm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="light-lux">
-				<unitPattern count="other">lx ʻe {0}</unitPattern>
-			</unit>
-			<unit type="light-solar-luminosity">
-				<displayName>H☉</displayName>
-				<unitPattern count="other">H☉ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-carat">
-				<displayName>kt</displayName>
-				<unitPattern count="other">kt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-dalton">
-				<displayName>tlt</displayName>
-				<unitPattern count="other">tlt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-earth-mass">
-				<displayName>mamafa ⊕</displayName>
-				<unitPattern count="other">mamafa ⊕ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-grain">
-				<displayName>tenga</displayName>
-				<unitPattern count="other">tenga ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>k</displayName>
-				<unitPattern count="other">k ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/k</perUnitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<displayName>kk</displayName>
-				<unitPattern count="other">kk ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/kk</perUnitPattern>
-			</unit>
-			<unit type="mass-metric-ton">
-				<displayName>to</displayName>
-				<unitPattern count="other">to ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-microgram">
-				<displayName>μk</displayName>
-				<unitPattern count="other">μk ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-milligram">
-				<displayName>mk</displayName>
-				<unitPattern count="other">mk ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-ounce">
-				<displayName>ʻau</displayName>
-				<unitPattern count="other">ʻau ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/ʻau</perUnitPattern>
-			</unit>
-			<unit type="mass-ounce-troy">
-				<displayName>ʻau-k</displayName>
-				<unitPattern count="other">ʻau-k ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-pound">
-				<displayName>pāu</displayName>
-				<unitPattern count="other">pāu ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/pāu</perUnitPattern>
-			</unit>
-			<unit type="mass-solar-mass">
-				<displayName>mamafa ☉</displayName>
-				<unitPattern count="other">mamafa ☉ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-stone">
-				<unitPattern count="other">st ʻe {0}</unitPattern>
-			</unit>
-			<unit type="mass-ton">
-				<unitPattern count="other">tn ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-gigawatt">
-				<unitPattern count="other">GW ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-horsepower">
-				<unitPattern count="other">hp ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-kilowatt">
-				<unitPattern count="other">kW ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-megawatt">
-				<unitPattern count="other">MW ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-milliwatt">
-				<unitPattern count="other">mW ʻe {0}</unitPattern>
-			</unit>
-			<unit type="power-watt">
-				<displayName>uate</displayName>
-				<unitPattern count="other">W ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-atmosphere">
-				<displayName>ʻati</displayName>
-				<unitPattern count="other">ʻati ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-bar">
-				<displayName>pā</displayName>
-				<unitPattern count="other">pā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-hectopascal">
-				<unitPattern count="other">hPa ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-inch-ofhg">
-				<displayName>in-Hg</displayName>
-				<unitPattern count="other">in-Hg ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-kilopascal">
-				<unitPattern count="other">kPa ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-megapascal">
-				<unitPattern count="other">MPa ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-millibar">
-				<displayName>mpā</displayName>
-				<unitPattern count="other">mpā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-millimeter-ofhg">
-				<displayName>mm-Hg</displayName>
-				<unitPattern count="other">mm-Hg ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-pascal">
-				<unitPattern count="other">Pā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="pressure-pound-force-per-square-inch">
-				<displayName>pā/in²</displayName>
-				<unitPattern count="other">pā/in² ʻe {0}</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<unitPattern count="other">km/h ʻe {0}</unitPattern>
-			</unit>
-			<unit type="speed-knot">
-				<displayName>fp</displayName>
-				<unitPattern count="other">fp ʻe {0}</unitPattern>
-			</unit>
-			<unit type="speed-meter-per-second">
-				<unitPattern count="other">m/s ʻe {0}</unitPattern>
-			</unit>
-			<unit type="speed-mile-per-hour">
-				<unitPattern count="other">mi/h ʻe {0}</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>°S</displayName>
-				<unitPattern count="other">°S ʻe {0}</unitPattern>
-			</unit>
-			<unit type="temperature-fahrenheit">
-				<unitPattern count="other">°F ʻe {0}</unitPattern>
-			</unit>
-			<unit type="temperature-generic">
-				<unitPattern count="other">° ʻe {0}</unitPattern>
-			</unit>
-			<unit type="temperature-kelvin">
-				<unitPattern count="other">K ʻe {0}</unitPattern>
-			</unit>
-			<unit type="torque-newton-meter">
-				<unitPattern count="other">N⋅m ʻe {0}</unitPattern>
-			</unit>
-			<unit type="torque-pound-force-foot">
-				<displayName>pā⋅ft</displayName>
-				<unitPattern count="other">pā⋅ft ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-acre-foot">
-				<displayName>ʻe-ft</displayName>
-				<unitPattern count="other">ʻe-ft ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-barrel">
-				<displayName>paelo</displayName>
-				<unitPattern count="other">paelo ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-bushel">
-				<displayName>pū</displayName>
-				<unitPattern count="other">pū ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-centiliter">
-				<displayName>sl</displayName>
-				<unitPattern count="other">sl ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-centimeter">
-				<displayName>sm³</displayName>
-				<unitPattern count="other">sm³ ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/sm³</perUnitPattern>
-			</unit>
-			<unit type="volume-cubic-foot">
-				<unitPattern count="other">ft³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-inch">
-				<unitPattern count="other">in³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-kilometer">
-				<unitPattern count="other">km³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-meter">
-				<unitPattern count="other">m³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-mile">
-				<unitPattern count="other">mi³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cubic-yard">
-				<displayName>it³</displayName>
-				<unitPattern count="other">it³ ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cup">
-				<displayName>ip</displayName>
-				<unitPattern count="other">ip ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-cup-metric">
-				<displayName>ipm</displayName>
-				<unitPattern count="other">ipm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-deciliter">
-				<displayName>tl</displayName>
-				<unitPattern count="other">tl ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon">
-				<displayName>sēpu</displayName>
-				<unitPattern count="other">sēpu ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon-imperial">
-				<displayName>sēpu-ʻem</displayName>
-				<unitPattern count="other">sēpu-ʻem ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-dram">
-				<displayName>tlmu-tf</displayName>
-				<unitPattern count="other">tlmu-tf ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-drop">
-				<displayName>tltā</displayName>
-				<unitPattern count="other">tltā ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce">
-				<displayName>ʻau-tf</displayName>
-				<unitPattern count="other">ʻau-tf ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce-imperial">
-				<displayName>ʻau-ʻem</displayName>
-				<unitPattern count="other">ʻau-ʻem ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-gallon">
-				<displayName>kā</displayName>
-				<unitPattern count="other">kā ʻe {0}</unitPattern>
-				<perUnitPattern>{0}/kā</perUnitPattern>
-			</unit>
-			<unit type="volume-gallon-imperial">
-				<displayName>kāʻ-em</displayName>
-				<unitPattern count="other">kā-ʻem ʻe {0}</unitPattern>
-				<perUnitPattern>{0} / kā-ʻem</perUnitPattern>
-			</unit>
-			<unit type="volume-hectoliter">
-				<displayName>hl</displayName>
-				<unitPattern count="other">hl ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-jigger">
-				<displayName>sike</displayName>
-				<unitPattern count="other">sike ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>l</displayName>
-				<unitPattern count="other">l ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-megaliter">
-				<displayName>Ml</displayName>
-				<unitPattern count="other">Ml ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-milliliter">
-				<displayName>ml</displayName>
-				<unitPattern count="other">ml ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-pinch">
-				<displayName>kiʻimeʻi</displayName>
-				<unitPattern count="other">kiʻimeʻi ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-pint">
-				<unitPattern count="other">pt ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-pint-metric">
-				<displayName>ptm</displayName>
-				<unitPattern count="other">ptm ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-quart">
-				<displayName>ku</displayName>
-				<unitPattern count="other">ku ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-quart-imperial">
-				<displayName>ku-ʻem</displayName>
-				<unitPattern count="other">ku-ʻem ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-tablespoon">
-				<displayName>sētē</displayName>
-				<unitPattern count="other">sētē ʻe {0}</unitPattern>
-			</unit>
-			<unit type="volume-teaspoon">
-				<displayName>sētī</displayName>
-				<unitPattern count="other">sētī ʻe {0}</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<displayName>fua</displayName>
-				<coordinateUnitPattern type="east">ha ʻe {0}</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">tk ʻe {0}</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">to ʻe {0}</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">hi ʻe {0}</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
 	</units>
 	<listPatterns>
 		<listPattern>
@@ -9541,6 +9887,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<listPatternPart type="2">{0} mo {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="or">
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0}, pē {1}</listPatternPart>
 			<listPatternPart type="2">{0} pē {1}</listPatternPart>
 		</listPattern>
@@ -9570,7 +9918,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</listPattern>
 	</listPatterns>
 	<collations>
-		<collation type="standard" sil:modified="true">
+		<collation type="standard">
 			<cr><![CDATA[
 				&n<ng<<<Ng<<<NG<<<ŋ<<<Ŋ
 				&z<ʻ<<<ʽ
@@ -9589,18 +9937,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — kehe</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — kotoa</characterLabelPattern>
+		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — hoa</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} — kāpui</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} — toloi</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — tupuʻa</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — kehekehe</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — kehe</characterLabelPattern>
 		<characterLabelPattern type="scripts">ngaahi tohinima — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">kohi ʻe {0}</characterLabelPattern>
 		<characterLabelPattern type="subscript">tohi ʻi lalo {0}</characterLabelPattern>
 		<characterLabelPattern type="superscript">tohi ʻi ʻolunga {0}</characterLabelPattern>
-		<characterLabel type="other">kehe</characterLabel>
 		<characterLabel type="activities">vaʻinga</characterLabel>
 		<characterLabel type="african_scripts">tohinima fakaʻafilika</characterLabel>
 		<characterLabel type="american_scripts">tohinima fakaʻamelika</characterLabel>
@@ -9659,6 +10007,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">taʻevā</characterLabel>
 		<characterLabel type="numbers">fika</characterLabel>
 		<characterLabel type="objects">foʻi meʻa</characterLabel>
+		<characterLabel type="other">kehe</characterLabel>
 		<characterLabel type="paired">tauhoa</characterLabel>
 		<characterLabel type="person">kakai</characterLabel>
 		<characterLabel type="phonetic_alphabet">motuʻalea fakafonētiki</characterLabel>
@@ -9760,14 +10109,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">lowercase</casingItem>
+			<casingItem type="currencyName">titlecase</casingItem>
 			<casingItem type="currencyName_count">titlecase</casingItem>
+			<casingItem type="day_format_except_narrow">titlecase</casingItem>
+			<casingItem type="day_narrow">titlecase</casingItem>
+			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="era_abbr">titlecase</casingItem>
+			<casingItem type="era_narrow">titlecase</casingItem>
+			<casingItem type="key">lowercase</casingItem>
+			<casingItem type="keyValue">lowercase</casingItem>
+			<casingItem type="language">lowercase</casingItem>
 			<casingItem type="metazone_long">lowercase</casingItem>
+			<casingItem type="month_format_except_narrow">titlecase</casingItem>
 			<casingItem type="month_narrow">titlecase</casingItem>
+			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
+			<casingItem type="quarter_abbreviated">titlecase</casingItem>
 			<casingItem type="quarter_format_wide">lowercase</casingItem>
 			<casingItem type="quarter_standalone_wide">lowercase</casingItem>
 			<casingItem type="script">lowercase</casingItem>
 			<casingItem type="symbol">titlecase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 			<casingItem type="unit_pattern">lowercase</casingItem>
+			<casingItem type="zone_exemplarCity">titlecase</casingItem>
 			<casingItem type="zone_long">lowercase</casingItem>
 		</casingData>
 	</metadata>

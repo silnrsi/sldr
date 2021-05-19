@@ -13,6 +13,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
 			<language type="de">জর্মন</language>
 			<language type="de_AT">ওষ্ট্রিয়ান জর্মন</language>
@@ -79,9 +84,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">ৱেস্তর্ন দিজিট</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">য়ু কে</measurementSystemName>
 			<measurementSystemName type="US">য়ু এস</measurementSystemName>
 			<measurementSystemName type="metric">মেত্রিক</measurementSystemName>
+			<measurementSystemName type="UK">য়ু কে</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">লোল: {0}</codePattern>
@@ -92,8 +97,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters draft="contributed">[\u09BC \u0981 ং ঃ অ আ ই ঈ উ ঊ ঋ এ ঐ ও ঔ ক খ গ ঘ ঙ চ ছ জ ঝ ঞ ট ঠ ড {ড\u09BC} ঢ {ঢ\u09BC} ণ ত থ দ ধ ন প ফ ব ভ ম য {য\u09BC} র ল ৱ শ ষ স হ া ি ী \u09C1 \u09C2 \u09C3 ে ৈ ো ৌ \u09CD]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C\u200D]</exemplarCharacters>
-		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % ‰ + 0০ 1১ 2২ 3৩ 4৪ 5৫ 6৬ 7৭ 8৮ 9৯]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % ‰ + 0০ 1১ 2২ 3৩ 4৪ 5৫ 6৬ 7৭ 8৮ 9৯]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -129,6 +134,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<dateTimeFormatLength type="long">
 						<dateTimeFormat>
 							<pattern>{1} গী {0} দা</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<dateTimeFormatLength type="short">
@@ -367,8 +377,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="GyMMM">G y MMM</dateFormatItem>
+						<dateFormatItem id="GyMMMd">G y MMM d</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">G y MMM d, E</dateFormatItem>
 						<dateFormatItem id="Md">d/M</dateFormatItem>
 						<dateFormatItem id="MEd">d/M, E</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
+						<dateFormatItem id="MMMEd">MMM d, E</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMd">d/M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">d/M/y, E</dateFormatItem>
@@ -376,13 +392,40 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yMMMd">MMM d, y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">MMM d, y, E</dateFormatItem>
 						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yQQQ">y QQQ</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName>চক</displayName>
+			</field>
+			<field type="year">
+				<displayName>চহী</displayName>
+			</field>
+			<field type="quarter">
+				<displayName>মসুং</displayName>
+			</field>
+			<field type="quarter-short">
+				<displayName>মসুং</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>মসুং</displayName>
+			</field>
+			<field type="month">
+				<displayName>থা</displayName>
+			</field>
+			<field type="week">
+				<displayName>চয়োল</displayName>
+			</field>
 			<field type="day">
 				<displayName>নুমিৎ</displayName>
+				<relative type="-1">ঙরাং</relative>
+				<relative type="0">ঙসি</relative>
+				<relative type="1">হয়েং</relative>
+			</field>
+			<field type="day-short">
 				<relative type="-1">ঙরাং</relative>
 				<relative type="0">ঙসি</relative>
 				<relative type="1">হয়েং</relative>
@@ -391,16 +434,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>নুমিৎ</displayName>
 				<relative type="1">হয়েং</relative>
 			</field>
-			<field type="day-short">
-				<relative type="-1">ঙরাং</relative>
-				<relative type="0">ঙসি</relative>
-				<relative type="1">হয়েং</relative>
+			<field type="weekday">
+				<displayName>চয়োলগী নুমিৎ</displayName>
 			</field>
 			<field type="dayperiod">
 				<displayName>এ এম/পি এম</displayName>
-			</field>
-			<field type="era">
-				<displayName>চক</displayName>
 			</field>
 			<field type="hour">
 				<displayName>পুং</displayName>
@@ -408,53 +446,34 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName>মিনট</displayName>
 			</field>
-			<field type="minute-narrow">
-				<displayName>মিনট</displayName>
-			</field>
 			<field type="minute-short">
 				<displayName>মিনট</displayName>
 			</field>
-			<field type="month">
-				<displayName>থা</displayName>
-			</field>
-			<field type="quarter">
-				<displayName>মসুং</displayName>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>মসুং</displayName>
-			</field>
-			<field type="quarter-short">
-				<displayName>মসুং</displayName>
+			<field type="minute-narrow">
+				<displayName>মিনট</displayName>
 			</field>
 			<field type="second">
 				<displayName>সেকেণ্ড</displayName>
-			</field>
-			<field type="week">
-				<displayName>চয়োল</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>চয়োলগী নুমিৎ</displayName>
-			</field>
-			<field type="year">
-				<displayName>চহী</displayName>
 			</field>
 			<field type="zone">
 				<displayName>জোন</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>জি এম টি {0}</gmtFormat>
 			<gmtZeroFormat>জি এম টি</gmtZeroFormat>
 			<regionFormat>{0} টাইম</regionFormat>
-			<regionFormat type="daylight">{0} (+1) দেলাইট টাইম</regionFormat>
 			<regionFormat type="standard">{0} (+0) ষ্টেন্দর্দ টাইম</regionFormat>
+			<regionFormat type="daylight">{0} (+1) দেলাইট টাইম</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
+			<zone type="Etc/Unknown">
+				<exemplarCity>খংদবা সিটি</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>কোওর্দিনেটেদ য়ুনিভর্সেল টাইম</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>খংদবা সিটি</exemplarCity>
 			</zone>
 			<metazone type="America_Central">
 				<long>
@@ -521,6 +540,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</dates>
 	<numbers>
 		<defaultNumberingSystem>beng</defaultNumberingSystem>
+		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+		</symbols>
 		<currencies>
 			<currency type="BRL">
 				<displayName>ব্রাজিলিয়ান রেয়াল</displayName>
@@ -554,6 +580,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>য়ু এস দি</displayName>
 				<displayName count="other">য়ু এস দি</displayName>
 				<symbol draft="contributed">$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>মশকখংদবা করেন্সি</displayName>
@@ -563,6 +590,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</numbers>
 	<listPatterns>
 		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0} অমসুং {1}</listPatternPart>
 			<listPatternPart type="2">{0} অমসুং {1}</listPatternPart>
 		</listPattern>

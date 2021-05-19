@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -13,12 +13,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
-			<language type="am">Amhárík Lángwej</language>
-			<language type="sat">Sántáli</language>
 			<language type="af">Áfríkaans Lángwej</language>
 			<language type="agq">Aghẹ́m Lángwej</language>
 			<language type="ak">Akan Lángwej</language>
+			<language type="am">Amhárík Lángwej</language>
 			<language type="ar">Arábík Lángwej</language>
 			<language type="ar_001">Gẹ́nárál Arábík Lángwej fọ dís taim</language>
 			<language type="as">Asamíz Lángwej</language>
@@ -205,6 +209,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="sa">Sánskrit</language>
 			<language type="sah">Sakhá</language>
 			<language type="saq">Sambúru</language>
+			<language type="sat">Sántáli</language>
 			<language type="sbp">Sangu</language>
 			<language type="sd">Síndí</language>
 			<language type="se">Nọ́tán Sámí Lángwej</language>
@@ -695,8 +700,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="tibt">Tíbẹt Nọ́mba-dẹm</type>
 		</types>
 		<measurementSystemNames>
-			<measurementSystemName type="UK">Brítish</measurementSystemName>
+			<measurementSystemName type="US">US</measurementSystemName>
 			<measurementSystemName type="metric">Mẹ́trik</measurementSystemName>
+			<measurementSystemName type="UK">Brítish</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Lángwej: {0}</codePattern>
@@ -707,15 +713,47 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a á b {ch} d e é ẹ {ẹ\u0301} f g {gb} h i í j k {kp} l m n o ó ọ {ọ\u0301} p r s {sh} t u ú v w y z {zh}]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[à c è {ẹ\u0300} ì ò {ọ\u0300} q ù x]</exemplarCharacters>
-		<exemplarCharacters type="index">[A B {CH} D E F G H I J K L M N O P R S T U V W Y Z]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="index">[A B {CH} D E F G H I J K L M N O P R S T U V W Y Z]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<ellipsis type="initial">…{0}</ellipsis>
+		<ellipsis type="medial">{0}…{1}</ellipsis>
+		<ellipsis type="final">{0}…</ellipsis>
+		<ellipsis type="word-initial">… {0}</ellipsis>
+		<ellipsis type="word-medial">{0} … {1}</ellipsis>
+		<ellipsis type="word-final">{0} …</ellipsis>
+		<moreInformation>?</moreInformation>
+		<parseLenients scope="general" level="lenient">
+			<parseLenient sample="$" draft="contributed">[\$﹩＄]</parseLenient>
+			<parseLenient sample="%" draft="contributed">[%٪﹪％]</parseLenient>
+			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
+			<parseLenient sample="£" draft="contributed">[£₤￡]</parseLenient>
+			<parseLenient sample="¥" draft="contributed">[¥￥]</parseLenient>
+			<parseLenient sample="’" draft="contributed">['ʼ՚᾽᾿’＇]</parseLenient>
+			<parseLenient sample="‰" draft="contributed">[؉‰]</parseLenient>
+			<parseLenient sample="₩" draft="contributed">[₩￦]</parseLenient>
+			<parseLenient sample="₹" draft="contributed">[₨₹{Rp}{Rs}]</parseLenient>
+		</parseLenients>
 		<parseLenients scope="number" level="lenient">
+			<parseLenient sample="+" draft="contributed">[+⁺₊➕﬩﹢＋]</parseLenient>
 			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
+			<parseLenient sample="-" draft="contributed">[\-‐‒–⁻₋−➖﹣－]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="stricter">
 			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
+			<parseLenient sample="." draft="contributed">[.․﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample="-" draft="contributed">[\--/]</parseLenient>
+			<parseLenient sample=":" draft="contributed">[\:∶︓﹕：]</parseLenient>
 		</parseLenients>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
@@ -763,12 +801,158 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="Ed">d, E</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="Gy">G y</dateFormatItem>
+						<dateFormatItem id="GyMMM">G y MMM</dateFormatItem>
+						<dateFormatItem id="GyMMMd">G y MMM d</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">G y MMM d, E</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yyyy">y G</dateFormatItem>
+						<dateFormatItem id="yyyyM">GGGGG y-MM</dateFormatItem>
+						<dateFormatItem id="yyyyMd">GGGGG y-MM-dd</dateFormatItem>
+						<dateFormatItem id="yyyyMEd">GGGGG y-MM-dd, E</dateFormatItem>
+						<dateFormatItem id="yyyyMMM">G y MMM</dateFormatItem>
+						<dateFormatItem id="yyyyMMMd">G y MMM d</dateFormatItem>
+						<dateFormatItem id="yyyyMMMEd">G y MMM d, E</dateFormatItem>
+						<dateFormatItem id="yyyyMMMM">G y MMMM</dateFormatItem>
+						<dateFormatItem id="yyyyQQQ">G y QQQ</dateFormatItem>
+						<dateFormatItem id="yyyyQQQQ">G y QQQQ</dateFormatItem>
 					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
+							<greatestDifference id="h">h–h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d–d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Gy">
+							<greatestDifference id="G">G y – G y</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">GGGGG y-MM – GGGGG y-MM</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM – y-MM</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="d">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="G">GGGGG y-MM-dd – GGGGG y-MM-dd</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="d">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="G">GGGGG y-MM-dd, E – GGGGG y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">G y MMM – G y MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">G y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="d">G y MMM d–d</greatestDifference>
+							<greatestDifference id="G">G y MMM d – G y MMM d</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="G">G y MMM d, E – G y MMM d, E</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">MM–MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Md">
+							<greatestDifference id="d">MM-dd – MM-dd</greatestDifference>
+							<greatestDifference id="M">MM-dd – MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MEd">
+							<greatestDifference id="d">MM-dd, E – MM-dd, E</greatestDifference>
+							<greatestDifference id="M">MM-dd, E – MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLL–LLL</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMd">
+							<greatestDifference id="d">MMM d–d</greatestDifference>
+							<greatestDifference id="M">MMM d – MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="MMMEd">
+							<greatestDifference id="d">MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="M">MMM d, E – MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">G y–y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yM">
+							<greatestDifference id="M">GGGGG y-MM – y-MM</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMd">
+							<greatestDifference id="d">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMEd">
+							<greatestDifference id="d">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMM">
+							<greatestDifference id="M">G y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">G y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMd">
+							<greatestDifference id="d">G y MMM d–d</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y MMM d</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMEd">
+							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="yMMMM">
+							<greatestDifference id="M">G y MMMM–MMMM</greatestDifference>
+							<greatestDifference id="y">G y MMMM – y MMMM</greatestDifference>
+						</intervalFormatItem>
+					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
@@ -911,6 +1095,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<day type="fri">Fraí</day>
 							<day type="sat">Sát</day>
 						</dayWidth>
+						<dayWidth type="narrow">
+							<day type="sun">S</day>
+							<day type="mon">M</day>
+							<day type="tue">T</day>
+							<day type="wed">W</day>
+							<day type="thu">T</day>
+							<day type="fri">F</day>
+							<day type="sat">S</day>
+						</dayWidth>
 						<dayWidth type="short">
 							<day type="sun">Sọ́n</day>
 							<day type="mon">Mọ́n</day>
@@ -959,6 +1152,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<quarter type="3">K3</quarter>
 							<quarter type="4">K4</quarter>
 						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
+						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">Fẹ́st Kwọ́ta</quarter>
 							<quarter type="2">Sẹ́kọ́n Kwọ́ta</quarter>
@@ -969,6 +1168,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</quarters>
 				<dayPeriods>
 					<dayPeriodContext type="format">
+						<dayPeriodWidth type="abbreviated">
+							<dayPeriod type="am">AM</dayPeriod>
+							<dayPeriod type="pm">PM</dayPeriod>
+						</dayPeriodWidth>
 						<dayPeriodWidth type="narrow">
 							<dayPeriod type="am">AM</dayPeriod>
 							<dayPeriod type="pm">PM</dayPeriod>
@@ -1030,9 +1233,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					</dateFormatLength>
 				</dateFormats>
 				<timeFormats>
+					<timeFormatLength type="full">
+						<timeFormat>
+							<pattern>HH:mm:ss zzzz</pattern>
+						</timeFormat>
+					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
 							<pattern>H:mm:ss z</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="medium">
+						<timeFormat>
+							<pattern>HH:mm:ss</pattern>
+						</timeFormat>
+					</timeFormatLength>
+					<timeFormatLength type="short">
+						<timeFormat>
+							<pattern>HH:mm</pattern>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
@@ -1047,15 +1265,54 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<pattern>{1} 'fọ' {0}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
 					<availableFormats>
+						<dateFormatItem id="Bh">h B</dateFormatItem>
+						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
+						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
+						<dateFormatItem id="d">d</dateFormatItem>
+						<dateFormatItem id="E">ccc</dateFormatItem>
+						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
+						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
 						<dateFormatItem id="Ed">d E</dateFormatItem>
+						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
+						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
+						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="Gy">G y</dateFormatItem>
+						<dateFormatItem id="GyMMM">G y MMM</dateFormatItem>
+						<dateFormatItem id="GyMMMd">G y MMM d</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">G y MMM d, E</dateFormatItem>
+						<dateFormatItem id="h">h a</dateFormatItem>
+						<dateFormatItem id="H">HH</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="hmsv">h:mm:ss a v</dateFormatItem>
+						<dateFormatItem id="Hmsv">HH:mm:ss v</dateFormatItem>
+						<dateFormatItem id="hmv">h:mm a v</dateFormatItem>
+						<dateFormatItem id="Hmv">HH:mm v</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">d /M</dateFormatItem>
 						<dateFormatItem id="MEd">E, d/M</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
 						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">'Wik' W 'fọ' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">'Wik' W 'fọ' MMMM</dateFormatItem>
+						<dateFormatItem id="ms">mm:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMd">d/M/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, d/M/y</dateFormatItem>
@@ -1068,15 +1325,95 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yw" count="one">'Wik' w 'fọ' Y</dateFormatItem>
 						<dateFormatItem id="yw" count="other">'Wiik' w 'fọ' Y</dateFormatItem>
 					</availableFormats>
+					<appendItems>
+						<appendItem request="Timezone">{0} {1}</appendItem>
+					</appendItems>
 					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+						<intervalFormatItem id="Bh">
+							<greatestDifference id="B">h B – h B</greatestDifference>
+							<greatestDifference id="h">h–h B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Bhm">
+							<greatestDifference id="B">h:mm B – h:mm B</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm B</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm B</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="d">
+							<greatestDifference id="d">d–d</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="Gy">
 							<greatestDifference id="G">Gy – Gy</greatestDifference>
+							<greatestDifference id="y">G y–y</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyM">
+							<greatestDifference id="G">GGGGG y-MM – GGGGG y-MM</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM – y-MM</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM – y-MM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMd">
+							<greatestDifference id="d">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="G">GGGGG y-MM-dd – GGGGG y-MM-dd</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd – y-MM-dd</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMEd">
+							<greatestDifference id="d">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
 							<greatestDifference id="G">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="M">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+							<greatestDifference id="y">GGGGG y-MM-dd, E – y-MM-dd, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMM">
+							<greatestDifference id="G">G y MMM – G y MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM–MMM</greatestDifference>
+							<greatestDifference id="y">G y MMM – y MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="GyMMMd">
+							<greatestDifference id="d">G y MMM d–d</greatestDifference>
+							<greatestDifference id="G">G y MMM d – G y MMM d</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y MMM d</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMEd">
+							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
 							<greatestDifference id="G">G y MMM d, E – G y MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="h">
+							<greatestDifference id="a">h a – h a</greatestDifference>
+							<greatestDifference id="h">h–h a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="H">
+							<greatestDifference id="H">HH–HH</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hm">
+							<greatestDifference id="a">h:mm a – h:mm a</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hm">
+							<greatestDifference id="H">HH:mm–HH:mm</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hmv">
+							<greatestDifference id="a">h:mm a – h:mm a v</greatestDifference>
+							<greatestDifference id="h">h:mm–h:mm a v</greatestDifference>
+							<greatestDifference id="m">h:mm–h:mm a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hmv">
+							<greatestDifference id="H">HH:mm–HH:mm v</greatestDifference>
+							<greatestDifference id="m">HH:mm–HH:mm v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="hv">
+							<greatestDifference id="a">h a – h a v</greatestDifference>
+							<greatestDifference id="h">h–h a v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="Hv">
+							<greatestDifference id="H">HH–HH v</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="M">
+							<greatestDifference id="M">MM–MM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="Md">
 							<greatestDifference id="d">dd/MM – dd/MM</greatestDifference>
@@ -1086,6 +1423,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<greatestDifference id="d">E, dd/MM – E, dd/MM</greatestDifference>
 							<greatestDifference id="M">E, dd-MM – E, dd/MM</greatestDifference>
 						</intervalFormatItem>
+						<intervalFormatItem id="MMM">
+							<greatestDifference id="M">LLL–LLL</greatestDifference>
+						</intervalFormatItem>
 						<intervalFormatItem id="MMMd">
 							<greatestDifference id="d">d–d MMM</greatestDifference>
 							<greatestDifference id="M">d MMM – d MMM</greatestDifference>
@@ -1093,6 +1433,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<intervalFormatItem id="MMMEd">
 							<greatestDifference id="d">E, d MMM – E, d MMM</greatestDifference>
 							<greatestDifference id="M">E, d MMM – E, d MMM</greatestDifference>
+						</intervalFormatItem>
+						<intervalFormatItem id="y">
+							<greatestDifference id="y">y–y</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="yM">
 							<greatestDifference id="M">MM/y – MM/y</greatestDifference>
@@ -1131,615 +1474,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
-			<field type="sun">
-				<relative type="-1">Lást Sọ́ndè</relative>
-				<relative type="0">Dís Sọ́ndè</relative>
-				<relative type="1">Nẹ́st Sọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon">
-				<relative type="-1">Lást Mọ́ndè</relative>
-				<relative type="0">Dís Mọ́ndè</relative>
-				<relative type="1">Nẹ́st Mọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue">
-				<relative type="-1">Lást Tiúzdè</relative>
-				<relative type="0">Dís Tiúzdè</relative>
-				<relative type="1">Nẹ́st Tiúzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed">
-				<relative type="-1">Lást Wẹ́nzdè</relative>
-				<relative type="0">Dís Wẹ́nzdè</relative>
-				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Wẹ́nẹdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Wẹ́nẹdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu">
-				<relative type="-1">Lást Tọ́zdè</relative>
-				<relative type="0">Dís Tọ́zdè</relative>
-				<relative type="1">Nẹ́st Tọ́zdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri">
-				<relative type="-1">Lást Fraidè</relative>
-				<relative type="0">Dís Fraidè</relative>
-				<relative type="1">Nẹ́st Fraidè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat">
-				<relative type="-1">Lást Sátọdè</relative>
-				<relative type="0">Dís Sátọdè</relative>
-				<relative type="1">Nẹ́st Sátọdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day">
-				<displayName>Dè</displayName>
-				<relative type="-1">Yẹ́stadè</relative>
-				<relative type="0">Todè</relative>
-				<relative type="1">Tumọ́ro</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-narrow">
-				<displayName>Dè</displayName>
-				<relative type="-1">Yẹ́stadè</relative>
-				<relative type="0">Todè</relative>
-				<relative type="1">Tumọ́ro</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="day-short">
-				<displayName>Dè</displayName>
-				<relative type="-1">Yẹ́stadè</relative>
-				<relative type="0">Todè</relative>
-				<relative type="1">Tumọ́ro</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="dayOfYear">
-				<displayName>Dè fọ yiẹ</displayName>
-			</field>
-			<field type="dayOfYear-narrow">
-				<displayName>Dè fọ yiẹ</displayName>
-			</field>
-			<field type="dayOfYear-short">
-				<displayName>Dè fọ yiẹ</displayName>
-			</field>
-			<field type="dayperiod">
-				<displayName>fọ mọ́nin fọ áftanun fọ ívnin fọ nait</displayName>
-			</field>
-			<field type="dayperiod-narrow">
-				<displayName>fọ mọ́nin/fọ áftanun, fọ ívnin, fọ nait</displayName>
-			</field>
-			<field type="dayperiod-short">
-				<displayName>fọ mọ́nin/fọ áftanun, fọ ívnin, fọ nait</displayName>
-			</field>
 			<field type="era">
-				<displayName>Taim</displayName>
-			</field>
-			<field type="era-narrow">
 				<displayName>Taim</displayName>
 			</field>
 			<field type="era-short">
 				<displayName>Taim</displayName>
 			</field>
-			<field type="fri-narrow">
-				<relative type="-1">Lást Fraidè</relative>
-				<relative type="0">Dís Fraidè</relative>
-				<relative type="1">Nẹ́st Fraidè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="fri-short">
-				<relative type="-1">Lást Fraidè</relative>
-				<relative type="0">Dís Fraidè</relative>
-				<relative type="1">Nẹ́st Fraidè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour">
-				<displayName>Awa</displayName>
-				<relative type="0">Dís áwa</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} áwa wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} áwa wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-narrow">
-				<displayName>Awa</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="hour-short">
-				<displayName>Awa</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} áwa wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} áwa wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute">
-				<displayName>Mínit</displayName>
-				<relative type="0">Dís mínit</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-narrow">
-				<displayName>Mínit</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="minute-short">
-				<displayName>Mínit</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-narrow">
-				<relative type="-1">Lást Mọ́ndè</relative>
-				<relative type="0">Dís Mọ́ndè</relative>
-				<relative type="1">Nẹ́st Mọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="mon-short">
-				<relative type="-1">Lást Mọ́ndè</relative>
-				<relative type="0">Dís Mọ́ndè</relative>
-				<relative type="1">Nẹ́st Mọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month">
-				<displayName>Mọnt</displayName>
-				<relative type="-1">Lást mọnt</relative>
-				<relative type="0">Dís mọnt</relative>
-				<relative type="1">Nẹ́st mọnt</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-narrow">
-				<displayName>Mọnt</displayName>
-				<relative type="-1">Lást mọnt</relative>
-				<relative type="0">Dís mọnt</relative>
-				<relative type="1">Nẹ́st mọnt</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="month-short">
-				<displayName>Mọnt</displayName>
-				<relative type="-1">Lást mọnt</relative>
-				<relative type="0">Dís mọnt</relative>
-				<relative type="1">Nẹ́st mọnt</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter">
-				<displayName>Kwọ́ta</displayName>
-				<relative type="-1">Lást kwọ́ta</relative>
-				<relative type="0">Dís kwọ́ta</relative>
-				<relative type="1">Nẹ́st kwọ́ta</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-narrow">
-				<displayName>Kwọ́ta</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="quarter-short">
-				<displayName>Kwọ́ta</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-narrow">
-				<relative type="-1">Lást Sátọdè</relative>
-				<relative type="0">Dís Sátọdè</relative>
-				<relative type="1">Nẹ́st Sátọdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sat-short">
-				<relative type="-1">Lást Sátọdè</relative>
-				<relative type="0">Dís Sátọdè</relative>
-				<relative type="1">Nẹ́st Sátọdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second">
-				<displayName>Sẹ́kọn</displayName>
-				<relative type="0">nau</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-narrow">
-				<displayName>Sẹ́kọn</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="second-short">
-				<displayName>Sẹ́kọn</displayName>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-narrow">
-				<relative type="-1">Lást Sọ́ndè</relative>
-				<relative type="0">Dís Sọ́ndè</relative>
-				<relative type="1">Nẹ́st Sọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="sun-short">
-				<relative type="-1">Lást Sọ́ndè</relative>
-				<relative type="0">Dís Sọ́ndè</relative>
-				<relative type="1">Nẹ́st Sọ́ndè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-narrow">
-				<relative type="-1">Lást Tọ́zdè</relative>
-				<relative type="0">Dís Tọ́zdè</relative>
-				<relative type="1">Nẹ́st Tọ́zdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="thu-short">
-				<relative type="-1">Lást Tọ́zdè</relative>
-				<relative type="0">Dís Tọ́zdè</relative>
-				<relative type="1">Nẹ́st Tọ́zdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-narrow">
-				<relative type="-1">Lást Tiúzdè</relative>
-				<relative type="0">Dís Tiúzdè</relative>
-				<relative type="1">Nẹ́st Tiúzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="tue-short">
-				<relative type="-1">Lást Tiúzdè</relative>
-				<relative type="0">Dís Tiúzdè</relative>
-				<relative type="1">Nẹ́st Tiúzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-narrow">
-				<relative type="-1">Lást Wẹ́nzdè</relative>
-				<relative type="0">Dís Wẹ́nzdè</relative>
-				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="wed-short">
-				<relative type="-1">Lást Wẹ́nzdè</relative>
-				<relative type="0">Dís Wẹ́nzdè</relative>
-				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="week">
-				<displayName>Wik</displayName>
-				<relative type="-1">Lást wik</relative>
-				<relative type="0">Dís wik</relative>
-				<relative type="1">Nẹ́st wik</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>Di wík ọf {0}</relativePeriod>
-			</field>
-			<field type="week-narrow">
-				<displayName>Wik</displayName>
-				<relative type="-1">Lást wik</relative>
-				<relative type="0">Dís wik</relative>
-				<relative type="1">Nẹ́st wik</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>Di wik ọf {0}</relativePeriod>
-			</field>
-			<field type="week-short">
-				<displayName>Wik</displayName>
-				<relative type="-1">Lást wik</relative>
-				<relative type="0">Dís wik</relative>
-				<relative type="1">Nẹ́st wik</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-				<relativePeriod>Di wik ọf {0}</relativePeriod>
-			</field>
-			<field type="weekOfMonth">
-				<displayName>Wik fọ mọnt</displayName>
-			</field>
-			<field type="weekOfMonth-narrow">
-				<displayName>Wik fọ mọnt</displayName>
-			</field>
-			<field type="weekOfMonth-short">
-				<displayName>Wik fọ mọnt</displayName>
-			</field>
-			<field type="weekday">
-				<displayName>Dè fọ wik</displayName>
-			</field>
-			<field type="weekday-narrow">
-				<displayName>Dè fọ wik</displayName>
-			</field>
-			<field type="weekday-short">
-				<displayName>Dè fọ wik</displayName>
-			</field>
-			<field type="weekdayOfMonth">
-				<displayName>Dè fọ mọnt</displayName>
-			</field>
-			<field type="weekdayOfMonth-narrow">
-				<displayName>Dè fọ mọnt</displayName>
-			</field>
-			<field type="weekdayOfMonth-short">
-				<displayName>Dè fọ mọnt</displayName>
+			<field type="era-narrow">
+				<displayName>Taim</displayName>
 			</field>
 			<field type="year">
-				<displayName>Yiẹ</displayName>
-				<relative type="-1">Lást yiẹ</relative>
-				<relative type="0">Dís yiẹ</relative>
-				<relative type="1">Nẹ́st yiẹ</relative>
-				<relativeTime type="future">
-					<relativeTimePattern count="one">fọ {0} yiẹ wé de kọm</relativeTimePattern>
-					<relativeTimePattern count="other">fọ {0} yiẹ wé de kọm</relativeTimePattern>
-				</relativeTime>
-				<relativeTime type="past">
-					<relativeTimePattern count="one">{0} yiẹ wé dọ́n pas</relativeTimePattern>
-					<relativeTimePattern count="other">{0} yiẹ wé dọ́n pas</relativeTimePattern>
-				</relativeTime>
-			</field>
-			<field type="year-narrow">
 				<displayName>Yiẹ</displayName>
 				<relative type="-1">Lást yiẹ</relative>
 				<relative type="0">Dís yiẹ</relative>
@@ -1767,20 +1511,623 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<relativeTimePattern count="other">{0} yiẹ wé dọ́n pas</relativeTimePattern>
 				</relativeTime>
 			</field>
-			<field type="zone">
-				<displayName>Taím Zon</displayName>
+			<field type="year-narrow">
+				<displayName>Yiẹ</displayName>
+				<relative type="-1">Lást yiẹ</relative>
+				<relative type="0">Dís yiẹ</relative>
+				<relative type="1">Nẹ́st yiẹ</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">fọ {0} yiẹ wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">fọ {0} yiẹ wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} yiẹ wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} yiẹ wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
 			</field>
-			<field type="zone-narrow">
+			<field type="quarter">
+				<displayName>Kwọ́ta</displayName>
+				<relative type="-1">Lást kwọ́ta</relative>
+				<relative type="0">Dís kwọ́ta</relative>
+				<relative type="1">Nẹ́st kwọ́ta</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="quarter-short">
+				<displayName>Kwọ́ta</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>Kwọ́ta</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">fọ {0} kwọ́ta wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} kwọ́ta wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month">
+				<displayName>Mọnt</displayName>
+				<relative type="-1">Lást mọnt</relative>
+				<relative type="0">Dís mọnt</relative>
+				<relative type="1">Nẹ́st mọnt</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-short">
+				<displayName>Mọnt</displayName>
+				<relative type="-1">Lást mọnt</relative>
+				<relative type="0">Dís mọnt</relative>
+				<relative type="1">Nẹ́st mọnt</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="month-narrow">
+				<displayName>Mọnt</displayName>
+				<relative type="-1">Lást mọnt</relative>
+				<relative type="0">Dís mọnt</relative>
+				<relative type="1">Nẹ́st mọnt</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}mọnt wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mọnt wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mọnt wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="week">
+				<displayName>Wik</displayName>
+				<relative type="-1">Lást wik</relative>
+				<relative type="0">Dís wik</relative>
+				<relative type="1">Nẹ́st wik</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>Di wík ọf {0}</relativePeriod>
+			</field>
+			<field type="week-short">
+				<displayName>Wik</displayName>
+				<relative type="-1">Lást wik</relative>
+				<relative type="0">Dís wik</relative>
+				<relative type="1">Nẹ́st wik</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>Di wik ọf {0}</relativePeriod>
+			</field>
+			<field type="week-narrow">
+				<displayName>Wik</displayName>
+				<relative type="-1">Lást wik</relative>
+				<relative type="0">Dís wik</relative>
+				<relative type="1">Nẹ́st wik</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}wik wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}wik wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} wik wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} wik wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+				<relativePeriod>Di wik ọf {0}</relativePeriod>
+			</field>
+			<field type="weekOfMonth">
+				<displayName>Wik fọ mọnt</displayName>
+			</field>
+			<field type="weekOfMonth-short">
+				<displayName>Wik fọ mọnt</displayName>
+			</field>
+			<field type="weekOfMonth-narrow">
+				<displayName>Wik fọ mọnt</displayName>
+			</field>
+			<field type="day">
+				<displayName>Dè</displayName>
+				<relative type="-1">Yẹ́stadè</relative>
+				<relative type="0">Todè</relative>
+				<relative type="1">Tumọ́ro</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-short">
+				<displayName>Dè</displayName>
+				<relative type="-1">Yẹ́stadè</relative>
+				<relative type="0">Todè</relative>
+				<relative type="1">Tumọ́ro</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="day-narrow">
+				<displayName>Dè</displayName>
+				<relative type="-1">Yẹ́stadè</relative>
+				<relative type="0">Todè</relative>
+				<relative type="1">Tumọ́ro</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0}dè wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0}dè wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} dè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} dè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayOfYear">
+				<displayName>Dè fọ yiẹ</displayName>
+			</field>
+			<field type="dayOfYear-short">
+				<displayName>Dè fọ yiẹ</displayName>
+			</field>
+			<field type="dayOfYear-narrow">
+				<displayName>Dè fọ yiẹ</displayName>
+			</field>
+			<field type="weekday">
+				<displayName>Dè fọ wik</displayName>
+			</field>
+			<field type="weekday-short">
+				<displayName>Dè fọ wik</displayName>
+			</field>
+			<field type="weekday-narrow">
+				<displayName>Dè fọ wik</displayName>
+			</field>
+			<field type="weekdayOfMonth">
+				<displayName>Dè fọ mọnt</displayName>
+			</field>
+			<field type="weekdayOfMonth-short">
+				<displayName>Dè fọ mọnt</displayName>
+			</field>
+			<field type="weekdayOfMonth-narrow">
+				<displayName>Dè fọ mọnt</displayName>
+			</field>
+			<field type="sun">
+				<relative type="-1">Lást Sọ́ndè</relative>
+				<relative type="0">Dís Sọ́ndè</relative>
+				<relative type="1">Nẹ́st Sọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-short">
+				<relative type="-1">Lást Sọ́ndè</relative>
+				<relative type="0">Dís Sọ́ndè</relative>
+				<relative type="1">Nẹ́st Sọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sun-narrow">
+				<relative type="-1">Lást Sọ́ndè</relative>
+				<relative type="0">Dís Sọ́ndè</relative>
+				<relative type="1">Nẹ́st Sọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon">
+				<relative type="-1">Lást Mọ́ndè</relative>
+				<relative type="0">Dís Mọ́ndè</relative>
+				<relative type="1">Nẹ́st Mọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-short">
+				<relative type="-1">Lást Mọ́ndè</relative>
+				<relative type="0">Dís Mọ́ndè</relative>
+				<relative type="1">Nẹ́st Mọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="mon-narrow">
+				<relative type="-1">Lást Mọ́ndè</relative>
+				<relative type="0">Dís Mọ́ndè</relative>
+				<relative type="1">Nẹ́st Mọ́ndè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Mọ́ndè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Mọ́ndè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Mọ́ndè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue">
+				<relative type="-1">Lást Tiúzdè</relative>
+				<relative type="0">Dís Tiúzdè</relative>
+				<relative type="1">Nẹ́st Tiúzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-short">
+				<relative type="-1">Lást Tiúzdè</relative>
+				<relative type="0">Dís Tiúzdè</relative>
+				<relative type="1">Nẹ́st Tiúzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="tue-narrow">
+				<relative type="-1">Lást Tiúzdè</relative>
+				<relative type="0">Dís Tiúzdè</relative>
+				<relative type="1">Nẹ́st Tiúzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tiúzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tiúzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Tiúzdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed">
+				<relative type="-1">Lást Wẹ́nzdè</relative>
+				<relative type="0">Dís Wẹ́nzdè</relative>
+				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Wẹ́nẹdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Wẹ́nẹdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-short">
+				<relative type="-1">Lást Wẹ́nzdè</relative>
+				<relative type="0">Dís Wẹ́nzdè</relative>
+				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="wed-narrow">
+				<relative type="-1">Lást Wẹ́nzdè</relative>
+				<relative type="0">Dís Wẹ́nzdè</relative>
+				<relative type="1">Nẹ́st Wẹ́nzdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Wẹ́nzdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Wẹ́nzdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu">
+				<relative type="-1">Lást Tọ́zdè</relative>
+				<relative type="0">Dís Tọ́zdè</relative>
+				<relative type="1">Nẹ́st Tọ́zdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-short">
+				<relative type="-1">Lást Tọ́zdè</relative>
+				<relative type="0">Dís Tọ́zdè</relative>
+				<relative type="1">Nẹ́st Tọ́zdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="thu-narrow">
+				<relative type="-1">Lást Tọ́zdè</relative>
+				<relative type="0">Dís Tọ́zdè</relative>
+				<relative type="1">Nẹ́st Tọ́zdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Tọ́zdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Tọ́zdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Tọ́zdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri">
+				<relative type="-1">Lást Fraidè</relative>
+				<relative type="0">Dís Fraidè</relative>
+				<relative type="1">Nẹ́st Fraidè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-short">
+				<relative type="-1">Lást Fraidè</relative>
+				<relative type="0">Dís Fraidè</relative>
+				<relative type="1">Nẹ́st Fraidè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="fri-narrow">
+				<relative type="-1">Lást Fraidè</relative>
+				<relative type="0">Dís Fraidè</relative>
+				<relative type="1">Nẹ́st Fraidè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Fraidè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Fraidè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0}Fraidè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat">
+				<relative type="-1">Lást Sátọdè</relative>
+				<relative type="0">Dís Sátọdè</relative>
+				<relative type="1">Nẹ́st Sátọdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-short">
+				<relative type="-1">Lást Sátọdè</relative>
+				<relative type="0">Dís Sátọdè</relative>
+				<relative type="1">Nẹ́st Sátọdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="sat-narrow">
+				<relative type="-1">Lást Sátọdè</relative>
+				<relative type="0">Dís Sátọdè</relative>
+				<relative type="1">Nẹ́st Sátọdè</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sátọdè</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sátọdè</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} Sátọdè wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="dayperiod">
+				<displayName>fọ mọ́nin fọ áftanun fọ ívnin fọ nait</displayName>
+			</field>
+			<field type="dayperiod-short">
+				<displayName>fọ mọ́nin/fọ áftanun, fọ ívnin, fọ nait</displayName>
+			</field>
+			<field type="dayperiod-narrow">
+				<displayName>fọ mọ́nin/fọ áftanun, fọ ívnin, fọ nait</displayName>
+			</field>
+			<field type="hour">
+				<displayName>Awa</displayName>
+				<relative type="0">Dís áwa</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} áwa wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} áwa wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-short">
+				<displayName>Awa</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} áwa wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} áwa wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="hour-narrow">
+				<displayName>Awa</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">Fọ {0} áwa wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} áwa wé de kọm</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute">
+				<displayName>Mínit</displayName>
+				<relative type="0">Dís mínit</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-short">
+				<displayName>Mínit</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="minute-narrow">
+				<displayName>Mínit</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} mínit wé de kọm</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} mínit wé de kọm</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} mínit wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} mínit wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second">
+				<displayName>Sẹ́kọn</displayName>
+				<relative type="0">nau</relative>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second-short">
+				<displayName>Sẹ́kọn</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="second-narrow">
+				<displayName>Sẹ́kọn</displayName>
+				<relativeTime type="future">
+					<relativeTimePattern count="one">Fọ {0} Sẹ́kọn</relativeTimePattern>
+					<relativeTimePattern count="other">Fọ {0} Sẹ́kọn</relativeTimePattern>
+				</relativeTime>
+				<relativeTime type="past">
+					<relativeTimePattern count="one">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+					<relativeTimePattern count="other">{0} sẹ́kọn wé dọ́n pas</relativeTimePattern>
+				</relativeTime>
+			</field>
+			<field type="zone">
 				<displayName>Taím Zon</displayName>
 			</field>
 			<field type="zone-short">
 				<displayName>Taím Zon</displayName>
 			</field>
+			<field type="zone-narrow">
+				<displayName>Taím Zon</displayName>
+			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>{0} Taim</regionFormat>
-			<regionFormat type="daylight">{0} Délaít Taim</regionFormat>
 			<regionFormat type="standard">{0} Fíksd Taim</regionFormat>
+			<regionFormat type="daylight">{0} Délaít Taim</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Africa/Abidjan">
 				<exemplarCity>Ábijan</exemplarCity>
 			</zone>
@@ -2089,6 +2436,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</zone>
 			<zone type="America/Glace_Bay">
 				<exemplarCity>Glás Bè</exemplarCity>
+			</zone>
+			<zone type="America/Godthab">
+				<exemplarCity>Nuuk</exemplarCity>
 			</zone>
 			<zone type="America/Goose_Bay">
 				<exemplarCity>Gúz Bè</exemplarCity>
@@ -2726,13 +3076,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<zone type="Australia/Sydney">
 				<exemplarCity>Sídni</exemplarCity>
 			</zone>
+			<zone type="Etc/Unknown">
+				<exemplarCity>Taun wé Pẹ́sin Nọ́ No</exemplarCity>
+			</zone>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>Arénjmẹnt ọf Di Hól Wọld Taim</standard>
 				</long>
-			</zone>
-			<zone type="Etc/Unknown">
-				<exemplarCity>Taun wé Pẹ́sin Nọ́ No</exemplarCity>
 			</zone>
 			<zone type="Europe/Amsterdam">
 				<exemplarCity>Ámstádam</exemplarCity>
@@ -3397,11 +3747,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<standard>Frẹ́nch Saútan an Antátík Taim</standard>
 				</long>
 			</metazone>
-			<metazone type="GMT">
-				<long>
-					<standard>Grínwích Mín Taim</standard>
-				</long>
-			</metazone>
 			<metazone type="Galapagos">
 				<long>
 					<standard>Galápágọs Taim</standard>
@@ -3422,6 +3767,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<metazone type="Gilbert_Islands">
 				<long>
 					<standard>Gílbat Aílands Taim</standard>
+				</long>
+			</metazone>
+			<metazone type="GMT">
+				<long>
+					<standard>Grínwích Mín Taim</standard>
 				</long>
 			</metazone>
 			<metazone type="Greenland_Eastern">
@@ -3951,7 +4301,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<defaultNumberingSystem draft="contributed">latn</defaultNumberingSystem>
+		<otherNumberingSystems>
+			<native draft="contributed">latn</native>
+		</otherNumberingSystems>
+		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<list>;</list>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<perMille>‰</perMille>
+			<infinity>∞</infinity>
+			<nan>NaN</nan>
+		</symbols>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<decimalFormat>
 					<pattern type="1000" count="one">0 Taúzan</pattern>
@@ -3983,11 +4354,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<decimalFormatLength type="short">
 				<decimalFormat>
 					<pattern type="1000" count="one">0K</pattern>
+					<pattern type="1000" count="other">0K</pattern>
 					<pattern type="10000" count="one">00K</pattern>
+					<pattern type="10000" count="other">00K</pattern>
 					<pattern type="100000" count="one">000K</pattern>
+					<pattern type="100000" count="other">000K</pattern>
 					<pattern type="1000000" count="one">0M</pattern>
+					<pattern type="1000000" count="other">0M</pattern>
 					<pattern type="10000000" count="one">00M</pattern>
+					<pattern type="10000000" count="other">00M</pattern>
 					<pattern type="100000000" count="one">000M</pattern>
+					<pattern type="100000000" count="other">000M</pattern>
 					<pattern type="1000000000" count="one">0B</pattern>
 					<pattern type="1000000000" count="other">0B</pattern>
 					<pattern type="10000000000" count="one">00B</pattern>
@@ -3995,11 +4372,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<pattern type="100000000000" count="one">000B</pattern>
 					<pattern type="100000000000" count="other">000B</pattern>
 					<pattern type="1000000000000" count="one">0T</pattern>
+					<pattern type="1000000000000" count="other">0T</pattern>
 					<pattern type="10000000000000" count="one">00T</pattern>
+					<pattern type="10000000000000" count="other">00T</pattern>
 					<pattern type="100000000000000" count="one">000T</pattern>
+					<pattern type="100000000000000" count="other">000T</pattern>
 				</decimalFormat>
 			</decimalFormatLength>
 		</decimalFormats>
+		<scientificFormats numberSystem="latn">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats numberSystem="latn">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
@@ -4038,6 +4432,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</currencyFormat>
 			</currencyFormatLength>
 			<unitPattern count="one">{0} {1}</unitPattern>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
@@ -4075,17 +4470,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Angólá kwánza</displayName>
 				<displayName count="other">Angólá kwánzas</displayName>
 				<symbol draft="contributed">AOA</symbol>
+				<symbol alt="narrow" draft="contributed">Kz</symbol>
 			</currency>
 			<currency type="ARS">
 				<displayName>Ajẹntína Pẹ́so</displayName>
 				<displayName count="one">Ajẹntína Pẹ́so</displayName>
 				<displayName count="other">Ajẹntína Pẹ́so</displayName>
 				<symbol draft="contributed">ARS</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AUD">
 				<displayName>Ọstréliá Dọ́la</displayName>
 				<displayName count="one">Ọstréliá dọ́la</displayName>
 				<displayName count="other">Ọstréliá dọ́las</displayName>
+				<symbol draft="contributed">A$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AWG">
 				<displayName>Arúba Flọ́rin</displayName>
@@ -4104,18 +4503,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Bọ́sniá an Hẹzẹgovína Mak Wé Pẹ́sin Fít Chenj</displayName>
 				<displayName count="other">Bọ́sniá an Hẹzẹgovína Mak Wé Pẹ́sin Fít Chenj</displayName>
 				<symbol draft="contributed">BAM</symbol>
+				<symbol alt="narrow" draft="contributed">KM</symbol>
 			</currency>
 			<currency type="BBD">
 				<displayName>Barbédọs Dọ́la</displayName>
 				<displayName count="one">Barbédọs Dọ́la</displayName>
 				<displayName count="other">Barbédọs Dọ́la</displayName>
 				<symbol draft="contributed">BBD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BDT">
 				<displayName>Bangladẹ́sh Táka</displayName>
 				<displayName count="one">Bangladẹ́sh táka</displayName>
 				<displayName count="other">Bangladẹ́sh táka</displayName>
 				<symbol draft="contributed">BDT</symbol>
+				<symbol alt="narrow" draft="contributed">৳</symbol>
 			</currency>
 			<currency type="BGN">
 				<displayName>Bọlgériá Lẹv</displayName>
@@ -4140,29 +4542,35 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Bẹmiúda Dọ́la</displayName>
 				<displayName count="other">Bẹmiúda Dọ́la</displayName>
 				<symbol draft="contributed">BMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BND">
 				<displayName>Brunẹí Dọ́la</displayName>
 				<displayName count="one">Brunẹí dọ́la</displayName>
 				<displayName count="other">Brunẹí dọ́las</displayName>
 				<symbol draft="contributed">BND</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>Bolíviá Boliviáno</displayName>
 				<displayName count="one">Bolíviá Boliviáno</displayName>
 				<displayName count="other">Bolíviá Boliviáno</displayName>
 				<symbol draft="contributed">BOB</symbol>
+				<symbol alt="narrow" draft="contributed">Bs</symbol>
 			</currency>
 			<currency type="BRL">
 				<displayName>Brazíl Rẹal</displayName>
 				<displayName count="one">Brazíl Rẹal</displayName>
 				<displayName count="other">Brazíl Rẹal</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="BSD">
 				<displayName>Bahámas Dọ́la</displayName>
 				<displayName count="one">Bahámas Dọ́la</displayName>
 				<displayName count="other">Bahámas Dọ́la</displayName>
 				<symbol draft="contributed">BSD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BTN">
 				<displayName>Bután Ngúltrum</displayName>
@@ -4175,25 +4583,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Botswáná púla</displayName>
 				<displayName count="other">Botswáná púlas</displayName>
 				<symbol draft="contributed">BWP</symbol>
+				<symbol alt="narrow" draft="contributed">P</symbol>
 			</currency>
 			<currency type="BYN">
 				<displayName>Bẹlarús Rúbul</displayName>
 				<displayName count="one">Bẹlarús Rúbul</displayName>
 				<displayName count="other">Bẹlarús Rúbul</displayName>
-				<symbol alt="narrow" draft="contributed">p.</symbol>
 				<symbol draft="contributed">BYN</symbol>
+				<symbol alt="narrow" draft="contributed">p.</symbol>
 			</currency>
 			<currency type="BZD">
 				<displayName>Bẹliz Dọ́la</displayName>
 				<displayName count="one">Bẹliz Dọ́la</displayName>
 				<displayName count="other">Bẹliz Dọ́la</displayName>
 				<symbol draft="contributed">BZD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CAD">
 				<displayName>Kánádá Dọ́la</displayName>
 				<displayName count="one">Kánádá Dọ́la</displayName>
 				<displayName count="other">Kánádá Dọ́la</displayName>
 				<symbol draft="contributed">KA$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName>Kóngó Frank</displayName>
@@ -4212,6 +4623,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Chílí Pẹ́so</displayName>
 				<displayName count="other">Chílí Pẹ́so</displayName>
 				<symbol draft="contributed">CLP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CNH">
 				<displayName>Chaíná Yuan (ples-dẹm aúsaíd chaína)</displayName>
@@ -4223,30 +4635,36 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Chaíná Yuan</displayName>
 				<displayName count="one">Chaíná yuan</displayName>
 				<displayName count="other">Chaíná yuans</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName>Kolómbiá Pẹ́so</displayName>
 				<displayName count="one">Kolómbiá pẹ́so</displayName>
 				<displayName count="other">Kolómbiá pẹ́sos</displayName>
 				<symbol draft="contributed">COP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CRC">
 				<displayName>Kósta Ríka Kólọn</displayName>
 				<displayName count="one">Kósta Ríka Kólọn</displayName>
 				<displayName count="other">Kósta Ríka Kólọn</displayName>
 				<symbol draft="contributed">CRC</symbol>
+				<symbol alt="narrow" draft="contributed">₡</symbol>
 			</currency>
 			<currency type="CUC">
 				<displayName>Kiúbá Pẹ́so Wé Pẹ́sin Fít Chenj</displayName>
 				<displayName count="one">Kiúbá Pẹ́so Wé Pẹ́sin Fít Chenj</displayName>
 				<displayName count="other">Kiúbá Pẹ́so Wé Pẹ́sin Fít Chenj</displayName>
 				<symbol draft="contributed">CUC</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CUP">
 				<displayName>Kiúbá Pẹ́so</displayName>
 				<displayName count="one">Kiúbá Pẹ́so</displayName>
 				<displayName count="other">Kiúbá Pẹ́so</displayName>
 				<symbol draft="contributed">CUP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CVE">
 				<displayName>Kép Vẹ́d Ẹskúdo</displayName>
@@ -4259,6 +4677,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Chẹ́k Kórúna</displayName>
 				<displayName count="other">Chẹ́k Kórúna</displayName>
 				<symbol draft="contributed">CZK</symbol>
+				<symbol alt="narrow" draft="contributed">Kč</symbol>
 			</currency>
 			<currency type="DJF">
 				<displayName>Jibútí Frank</displayName>
@@ -4271,12 +4690,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Dẹ́nmák Króna</displayName>
 				<displayName count="other">Dẹ́nmák Króna</displayName>
 				<symbol draft="contributed">DKK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="DOP">
 				<displayName>Dọmíníkan Pẹ́so</displayName>
 				<displayName count="one">Dọmíníkan Pẹ́so</displayName>
 				<displayName count="other">Dọmíníkan Pẹ́so</displayName>
 				<symbol draft="contributed">DOP</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="DZD">
 				<displayName>Aljíria Dínar</displayName>
@@ -4289,6 +4710,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Íjípt Paund</displayName>
 				<displayName count="other">Íjípt Paund</displayName>
 				<symbol draft="contributed">EGP</symbol>
+				<symbol alt="narrow" draft="contributed">E£</symbol>
 			</currency>
 			<currency type="ERN">
 				<displayName>Ẹritrẹá Nákfa</displayName>
@@ -4306,29 +4728,36 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Yúro</displayName>
 				<displayName count="one">eúro</displayName>
 				<displayName count="other">eúros</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="FJD">
 				<displayName>Fíjí Dọ́la</displayName>
 				<displayName count="one">Fíjí dọ́la</displayName>
 				<displayName count="other">Fíjí dọ́las</displayName>
 				<symbol draft="contributed">FJD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="FKP">
 				<displayName>Fọlkland Aílands Paund</displayName>
 				<displayName count="one">Fọlkland Aílands paund</displayName>
 				<displayName count="other">Fọlkland Aílands paunds</displayName>
 				<symbol draft="contributed">FKP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GBP">
 				<displayName>Brítísh Páund</displayName>
 				<displayName count="one">Brítísh Páund</displayName>
 				<displayName count="other">Brítísh Páund</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GEL">
 				<displayName>Jọ́jiá Lári</displayName>
 				<displayName count="one">Jọ́jiá lári</displayName>
 				<displayName count="other">Jọ́jiá láris</displayName>
 				<symbol draft="contributed">GEL</symbol>
+				<symbol alt="narrow" draft="contributed">₾</symbol>
 			</currency>
 			<currency type="GHS">
 				<displayName>Ganá Sídi</displayName>
@@ -4341,6 +4770,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Jibrọ́lta Páund</displayName>
 				<displayName count="other">Jibrọ́lta Páund</displayName>
 				<symbol draft="contributed">GIP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GMD">
 				<displayName>Gámbiá Dalási</displayName>
@@ -4353,35 +4783,42 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Gíní frank</displayName>
 				<displayName count="other">Gíní franks</displayName>
 				<symbol draft="contributed">GNF</symbol>
+				<symbol alt="narrow" draft="contributed">FG</symbol>
 			</currency>
 			<currency type="GTQ">
 				<displayName>Guátẹmála Kwuẹ́tzal</displayName>
 				<displayName count="one">Guátẹmála Kwuẹ́tzal</displayName>
 				<displayName count="other">Guátẹmála Kwuẹ́tzal</displayName>
 				<symbol draft="contributed">GTQ</symbol>
+				<symbol alt="narrow" draft="contributed">Q</symbol>
 			</currency>
 			<currency type="GYD">
 				<displayName>Giyána Dọ́la</displayName>
 				<displayName count="one">Giyána dọ́la</displayName>
 				<displayName count="other">Giyána dọ́las</displayName>
 				<symbol draft="contributed">GYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HKD">
 				<displayName>Họng Kọ́ng Dọ́la</displayName>
 				<displayName count="one">Họng Kọ́ng dọ́la</displayName>
 				<displayName count="other">Họng Kọ́ng dọ́las</displayName>
+				<symbol draft="contributed">HK$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName>Họndúrán Lẹmpíra</displayName>
 				<displayName count="one">Họndúrán Lẹmpíra</displayName>
 				<displayName count="other">Họndúrán Lẹmpíra</displayName>
 				<symbol draft="contributed">HNL</symbol>
+				<symbol alt="narrow" draft="contributed">L</symbol>
 			</currency>
 			<currency type="HRK">
 				<displayName>Kroéshia Kúna</displayName>
 				<displayName count="one">Kroéshia Kúna</displayName>
 				<displayName count="other">Kroéshia Kúna</displayName>
 				<symbol draft="contributed">HRK</symbol>
+				<symbol alt="narrow" draft="contributed">kn</symbol>
 			</currency>
 			<currency type="HTG">
 				<displayName>Haíti Gourd</displayName>
@@ -4394,22 +4831,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Họngériá Fọ́rint</displayName>
 				<displayName count="other">Họngériá Fọ́rint</displayName>
 				<symbol draft="contributed">HUF</symbol>
+				<symbol alt="narrow" draft="contributed">Ft</symbol>
 			</currency>
 			<currency type="IDR">
 				<displayName>Indoníshiá Rupia</displayName>
 				<displayName count="one">Indoníshiá rupia</displayName>
 				<displayName count="other">Indoníshiá rupias</displayName>
 				<symbol draft="contributed">IDR</symbol>
+				<symbol alt="narrow" draft="contributed">Rp</symbol>
 			</currency>
 			<currency type="ILS">
 				<displayName>Ízrẹ́l Niú Shẹ́kẹl</displayName>
 				<displayName count="one">Ízrẹ́l niú shẹ́kẹl</displayName>
 				<displayName count="other">Ízrẹ́l niú shẹ́kẹls</displayName>
+				<symbol draft="contributed">₪</symbol>
+				<symbol alt="narrow" draft="contributed">₪</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Índiá Rúpi</displayName>
 				<displayName count="one">Índiá rúpi</displayName>
 				<displayName count="other">Índiá rúpis</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName>Irák Dínar</displayName>
@@ -4428,12 +4871,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Aíslánd Króna</displayName>
 				<displayName count="other">Aíslánd Króna</displayName>
 				<symbol draft="contributed">ISK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="JMD">
 				<displayName>Jamaíka Dọla</displayName>
 				<displayName count="one">Jamaíka Dọla</displayName>
 				<displayName count="other">Jamaíka Dọla</displayName>
 				<symbol draft="contributed">JMD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="JOD">
 				<displayName>Jọ́dán Dínar</displayName>
@@ -4445,6 +4890,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Japán Yẹn</displayName>
 				<displayName count="one">Japán yẹn</displayName>
 				<displayName count="other">Japán yẹns</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>Kẹ́nyá Shílin</displayName>
@@ -4463,23 +4910,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Kambódiá riẹl</displayName>
 				<displayName count="other">Kambódiá riẹls</displayName>
 				<symbol draft="contributed">KHR</symbol>
+				<symbol alt="narrow" draft="contributed">៛</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>Kọ́mọ́ros Frank</displayName>
 				<displayName count="one">Kọ́mọ́ros frank</displayName>
 				<displayName count="other">Kọ́mọ́ros franks</displayName>
 				<symbol draft="contributed">KMF</symbol>
+				<symbol alt="narrow" draft="contributed">CF</symbol>
 			</currency>
 			<currency type="KPW">
 				<displayName>Nọ́t Koriá Wọn</displayName>
 				<displayName count="one">Nọ́t Koriá wọn</displayName>
 				<displayName count="other">Nọ́t Koriá wọns</displayName>
 				<symbol draft="contributed">KPW</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KRW">
 				<displayName>Saút Koriá Wọn</displayName>
 				<displayName count="one">Saút Koriá wọn</displayName>
 				<displayName count="other">Saút Koriá wọns</displayName>
+				<symbol draft="contributed">₩</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName>Kuwét Dínar</displayName>
@@ -4492,36 +4944,42 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Kéman Aílands Dọla</displayName>
 				<displayName count="other">Kéman Aílands Dọla</displayName>
 				<symbol draft="contributed">KYD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="KZT">
 				<displayName>Kazakstan Tẹ́nj</displayName>
 				<displayName count="one">Kazakstan tẹ́nj</displayName>
 				<displayName count="other">Kazakstan tẹ́njs</displayName>
 				<symbol draft="contributed">KZT</symbol>
+				<symbol alt="narrow" draft="contributed">₸</symbol>
 			</currency>
 			<currency type="LAK">
 				<displayName>Laós Kip</displayName>
 				<displayName count="one">Laós kip</displayName>
 				<displayName count="other">Laós kips</displayName>
 				<symbol draft="contributed">LAK</symbol>
+				<symbol alt="narrow" draft="contributed">₭</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>Lẹ́bánọ́n Paund</displayName>
 				<displayName count="one">Lẹ́bánọ́n paund</displayName>
 				<displayName count="other">Lẹ́bánọ́n paunds</displayName>
 				<symbol draft="contributed">LBP</symbol>
+				<symbol alt="narrow" draft="contributed">L£</symbol>
 			</currency>
 			<currency type="LKR">
 				<displayName>Sri Lánká Rúpi</displayName>
 				<displayName count="one">Sri Lánká rúpi</displayName>
 				<displayName count="other">Sri Lánká rúpis</displayName>
 				<symbol draft="contributed">LKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="LRD">
 				<displayName>Laibẹ́riá Dọ́la</displayName>
 				<displayName count="one">Laibẹ́riá dọ́la</displayName>
 				<displayName count="other">Laibẹ́riá dọ́las</displayName>
 				<symbol draft="contributed">LRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="LYD">
 				<displayName>Líbia Dínar</displayName>
@@ -4546,6 +5004,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Malagásí ariári</displayName>
 				<displayName count="other">Malagásí ariáris</displayName>
 				<symbol draft="contributed">MGA</symbol>
+				<symbol alt="narrow" draft="contributed">Ar</symbol>
 			</currency>
 			<currency type="MKD">
 				<displayName>Masẹdónia Dínar</displayName>
@@ -4558,12 +5017,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Miánmá kiat</displayName>
 				<displayName count="other">Miánmá kiats</displayName>
 				<symbol draft="contributed">MMK</symbol>
+				<symbol alt="narrow" draft="contributed">K</symbol>
 			</currency>
 			<currency type="MNT">
 				<displayName>Mọngóliá Túgrik</displayName>
 				<displayName count="one">Mọngóliá túgrik</displayName>
 				<displayName count="other">Mọngóliá túgriks</displayName>
 				<symbol draft="contributed">MNT</symbol>
+				<symbol alt="narrow" draft="contributed">₮</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>Makáo Pátáka</displayName>
@@ -4582,6 +5043,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Mọríshọ́s rúpi</displayName>
 				<displayName count="other">Mọríshọ́s rúpis</displayName>
 				<symbol draft="contributed">MUR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="MVR">
 				<displayName>Mọ́ldívs Rúfíya</displayName>
@@ -4599,12 +5061,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Mẹ́ksíko Pẹ́so</displayName>
 				<displayName count="one">Mẹ́ksíko Pẹ́so</displayName>
 				<displayName count="other">Mẹ́ksíko Pẹ́so</displayName>
+				<symbol draft="contributed">MX$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="MYR">
 				<displayName>Maléshiá Ríngit</displayName>
 				<displayName count="one">Maléshiá ríngit</displayName>
 				<displayName count="other">Maléshiá ríngits</displayName>
 				<symbol draft="contributed">MYR</symbol>
+				<symbol alt="narrow" draft="contributed">RM</symbol>
 			</currency>
 			<currency type="MZN">
 				<displayName>Mozámbík Métíkal</displayName>
@@ -4617,35 +5082,42 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Namíbiá dọ́la</displayName>
 				<displayName count="other">Namíbiá dọ́las</displayName>
 				<symbol draft="contributed">NAD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="NGN">
 				<displayName>Naijíriá Naíra</displayName>
 				<displayName count="one">Naijíriá naíra</displayName>
 				<displayName count="other">Naijíriá naíras</displayName>
 				<symbol draft="contributed">₦</symbol>
+				<symbol alt="narrow" draft="contributed">₦</symbol>
 			</currency>
 			<currency type="NIO">
 				<displayName>Nikarágwua Kordóba</displayName>
 				<displayName count="one">Nikarágwua Kordóba</displayName>
 				<displayName count="other">Nikarágwua Kordóba</displayName>
 				<symbol draft="contributed">NIO</symbol>
+				<symbol alt="narrow" draft="contributed">C$</symbol>
 			</currency>
 			<currency type="NOK">
 				<displayName>Nọ́wé Króna</displayName>
 				<displayName count="one">Nọ́wé Króna</displayName>
 				<displayName count="other">Nọ́wé Króna</displayName>
 				<symbol draft="contributed">NOK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="NPR">
 				<displayName>Nẹ́pál Rúpi</displayName>
 				<displayName count="one">Nẹ́pál rúpi</displayName>
 				<displayName count="other">Nẹ́pál rúpis</displayName>
 				<symbol draft="contributed">NPR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="NZD">
 				<displayName>Niú Zílánd Dọ́las</displayName>
 				<displayName count="one">Niú Zílánd dọ́la</displayName>
 				<displayName count="other">Niú Zílánd dọ́las</displayName>
+				<symbol draft="contributed">NZ$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName>Omán Rial</displayName>
@@ -4676,24 +5148,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Fílípíns píso</displayName>
 				<displayName count="other">Fílípíns písos</displayName>
 				<symbol draft="contributed">PHP</symbol>
+				<symbol alt="narrow" draft="contributed">₱</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Pakístán Rúpi</displayName>
 				<displayName count="one">Pakístán rúpi</displayName>
 				<displayName count="other">Pakístán rúpis</displayName>
 				<symbol draft="contributed">PKR</symbol>
+				<symbol alt="narrow" draft="contributed">Rs</symbol>
 			</currency>
 			<currency type="PLN">
 				<displayName>Pólánd Zílọ́ti</displayName>
 				<displayName count="one">Pólánd Zílọ́ti</displayName>
 				<displayName count="other">Pólánd Zílọ́ti</displayName>
 				<symbol draft="contributed">PLN</symbol>
+				<symbol alt="narrow" draft="contributed">zł</symbol>
 			</currency>
 			<currency type="PYG">
 				<displayName>Páragwuá Guaráni</displayName>
 				<displayName count="one">Páragwuá Guaráni</displayName>
 				<displayName count="other">Páragwuá Guaráni</displayName>
 				<symbol draft="contributed">PYG</symbol>
+				<symbol alt="narrow" draft="contributed">₲</symbol>
 			</currency>
 			<currency type="QAR">
 				<displayName>Kata Ríal</displayName>
@@ -4706,6 +5182,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Roméniá Lu</displayName>
 				<displayName count="other">Roméniá Lu</displayName>
 				<symbol draft="contributed">RON</symbol>
+				<symbol alt="narrow" draft="contributed">lei</symbol>
 			</currency>
 			<currency type="RSD">
 				<displayName>Sẹrbia Dínar</displayName>
@@ -4718,12 +5195,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Rọ́shiá Rúbul</displayName>
 				<displayName count="other">Rọ́shiá Rúbul</displayName>
 				<symbol draft="contributed">RUB</symbol>
+				<symbol alt="narrow" draft="contributed">₽</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>Ruwándá Frank</displayName>
 				<displayName count="one">Ruwándá frank</displayName>
 				<displayName count="other">Ruwándá franks</displayName>
 				<symbol draft="contributed">RWF</symbol>
+				<symbol alt="narrow" draft="contributed">RF</symbol>
 			</currency>
 			<currency type="SAR">
 				<displayName>Saúdí Arébiá Riyal</displayName>
@@ -4736,6 +5215,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Sólómọ́n Aílands dọ́la</displayName>
 				<displayName count="other">Sólómọ́n Aílands dọ́las</displayName>
 				<symbol draft="contributed">SBD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SCR">
 				<displayName>Sẹ́chẹ́ls Rúpi</displayName>
@@ -4754,18 +5234,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Swídẹ́n Króna</displayName>
 				<displayName count="other">Swídẹ́n Króna</displayName>
 				<symbol draft="contributed">SEK</symbol>
+				<symbol alt="narrow" draft="contributed">kr</symbol>
 			</currency>
 			<currency type="SGD">
 				<displayName>Singapọ́ Dọ́la</displayName>
 				<displayName count="one">Singapọ́ dọ́la</displayName>
 				<displayName count="other">Singapọ́ dọ́las</displayName>
 				<symbol draft="contributed">SGD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>Sent Hẹlẹ́ná Paund</displayName>
 				<displayName count="one">Sent Hẹlẹ́ná paund</displayName>
 				<displayName count="other">Sent Hẹlẹ́ná paunds</displayName>
 				<symbol draft="contributed">SHP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SLL">
 				<displayName>Siẹ́ra Líoniá Liọn</displayName>
@@ -4784,24 +5267,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Súrínám Dọla</displayName>
 				<displayName count="other">Súrínám Dọla</displayName>
 				<symbol draft="contributed">SRD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SSP">
 				<displayName>Saút Sudán Paund</displayName>
 				<displayName count="one">Saút Sudán paund</displayName>
 				<displayName count="other">Saút Sudán paunds</displayName>
 				<symbol draft="contributed">SSP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="STN">
 				<displayName>Sao Tómẹ &amp; Prínsípẹ Dóbra</displayName>
 				<displayName count="one">Sao Tómẹ &amp; Prínsípẹ dóbra</displayName>
 				<displayName count="other">Sao Tómẹ &amp; Prínsípẹ dóbras</displayName>
 				<symbol draft="contributed">STN</symbol>
+				<symbol alt="narrow" draft="contributed">Db</symbol>
 			</currency>
 			<currency type="SYP">
 				<displayName>Síriá Paund</displayName>
 				<displayName count="one">Síriá paund</displayName>
 				<displayName count="other">Síriá paunds</displayName>
 				<symbol draft="contributed">SYP</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="SZL">
 				<displayName>Swází Lilánjẹ́ni</displayName>
@@ -4814,6 +5301,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Taílánd baht</displayName>
 				<displayName count="other">Taílánd bahts</displayName>
 				<symbol draft="contributed">THB</symbol>
+				<symbol alt="narrow" draft="contributed">฿</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>Tajíkstan Sómóni</displayName>
@@ -4838,23 +5326,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Tónga pánga</displayName>
 				<displayName count="other">Tónga pángas</displayName>
 				<symbol draft="contributed">TOP</symbol>
+				<symbol alt="narrow" draft="contributed">T$</symbol>
 			</currency>
 			<currency type="TRY">
 				<displayName>Tọ́kí Líra</displayName>
 				<displayName count="one">Tọ́kí líra</displayName>
 				<displayName count="other">Tọ́kí líras</displayName>
 				<symbol draft="contributed">TRY</symbol>
+				<symbol alt="narrow" draft="contributed">₺</symbol>
+				<symbol alt="variant" draft="contributed">TL</symbol>
 			</currency>
 			<currency type="TTD">
 				<displayName>Trínídad &amp; Tobágo Dọ́la</displayName>
 				<displayName count="one">Trínídad &amp; Tobágo Dọ́la</displayName>
 				<displayName count="other">Trínídad &amp; Tobágo Dọ́la</displayName>
 				<symbol draft="contributed">TTD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TWD">
 				<displayName>Niú Taiwán Dọ́la</displayName>
 				<displayName count="one">Niú Taiwán dọ́la</displayName>
 				<displayName count="other">Niú Taiwán dọ́las</displayName>
+				<symbol draft="contributed">NT$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>Tanzániá Shílin</displayName>
@@ -4867,6 +5361,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Yukrẹín Rívnia</displayName>
 				<displayName count="other">Yukrẹín Rívnia</displayName>
 				<symbol draft="contributed">UAH</symbol>
+				<symbol alt="narrow" draft="contributed">₴</symbol>
 			</currency>
 			<currency type="UGX">
 				<displayName>Yugándá Shílin</displayName>
@@ -4878,12 +5373,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>US Dọ́la</displayName>
 				<displayName count="one">US Dọ́la</displayName>
 				<displayName count="other">Amẹ́ríká Dọ́la</displayName>
+				<symbol draft="contributed">US$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UYU">
 				<displayName>Yurugwaí Pẹ́so</displayName>
 				<displayName count="one">Yurugwaí Pẹ́so</displayName>
 				<displayName count="other">Yurugwaí Pẹ́so</displayName>
 				<symbol draft="contributed">UYU</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UZS">
 				<displayName>Uzbẹ́kistan Som</displayName>
@@ -4901,6 +5399,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Viẹ́tnám Dọng</displayName>
 				<displayName count="one">Viẹ́tnám dọng</displayName>
 				<displayName count="other">Viẹ́tnám dọngs</displayName>
+				<symbol draft="contributed">₫</symbol>
+				<symbol alt="narrow" draft="contributed">₫</symbol>
 			</currency>
 			<currency type="VUV">
 				<displayName>Vanuátú Vátu</displayName>
@@ -4918,21 +5418,26 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Sẹ́ntrál Áfríká Frank</displayName>
 				<displayName count="one">Sẹ́ntrál Áfríká frank</displayName>
 				<displayName count="other">Sẹ́ntrál Áfríká franks</displayName>
+				<symbol draft="contributed">FCFA</symbol>
 			</currency>
 			<currency type="XCD">
 				<displayName>Íst Karíbián Dọla</displayName>
 				<displayName count="one">Íst Karíbián Dọla</displayName>
 				<displayName count="other">Íst Karíbián Dọla</displayName>
+				<symbol draft="contributed">EC$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XOF">
 				<displayName>Wẹ́st Afríká Sẹ́fa Frank</displayName>
 				<displayName count="one">Wẹ́st Afríká Sẹ́fa frank</displayName>
 				<displayName count="other">Wẹ́st Afríká Sẹ́fa franks</displayName>
+				<symbol draft="contributed">CFA</symbol>
 			</currency>
 			<currency type="XPF">
 				<displayName>Frẹ́nch Poliníshiá Frank</displayName>
 				<displayName count="one">Frẹ́nch Poliníshiá frank</displayName>
 				<displayName count="other">Frẹ́nch Poliníshiá franks</displayName>
+				<symbol draft="contributed">CFPF</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>Mọní Wé Pípol Nọ No</displayName>
@@ -4950,19 +5455,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="one">Saút Áfríká rand</displayName>
 				<displayName count="other">Saút Áfríká rands</displayName>
 				<symbol draft="contributed">ZAR</symbol>
+				<symbol alt="narrow" draft="contributed">R</symbol>
 			</currency>
 			<currency type="ZMW">
 				<displayName>Zámbiá Kwácha</displayName>
 				<displayName count="one">Zámbiá kwácha</displayName>
 				<displayName count="other">Zámbiá kwáchas</displayName>
 				<symbol draft="contributed">ZMW</symbol>
+				<symbol alt="narrow" draft="contributed">ZK</symbol>
 			</currency>
 		</currencies>
 		<miscPatterns numberSystem="latn">
+			<pattern type="approximately">~{0}</pattern>
 			<pattern type="atLeast">{0}+</pattern>
+			<pattern type="atMost">≤{0}</pattern>
+			<pattern type="range">{0}–{1}</pattern>
 		</miscPatterns>
 		<minimalPairs>
 			<pluralMinimalPairs count="one" draft="contributed">{0} dè</pluralMinimalPairs>
+			<pluralMinimalPairs count="other" draft="contributed">{0}?</pluralMinimalPairs>
 			<ordinalMinimalPairs ordinal="other">Take the {0}th right.</ordinalMinimalPairs>
 		</minimalPairs>
 	</numbers>
@@ -5151,7 +5662,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} Karat</unitPattern>
 				<unitPattern count="other">{0} Karat</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
+			<unit type="concentr-milligram-per-deciliter">
 				<displayName>Mílígram-dẹm Fọ Ẹ́vrí Dẹsílíta</displayName>
 				<unitPattern count="one">{0} Mílígram Fọ Ẹ́vrí Dẹsílíta</unitPattern>
 				<unitPattern count="other">{0} Mílígram Fọ Ẹ́vrí Dẹsílíta</unitPattern>
@@ -5984,10 +6495,1040 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>Kádínál Pọint</displayName>
-				<coordinateUnitPattern type="east">{0} Ist</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0} Nọt</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} Ist</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0} Sáut</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0} Wẹst</coordinateUnitPattern>
+			</coordinateUnit>
+		</unitLength>
+		<unitLength type="short">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>Kí{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>Mím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>Gím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>Tím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>Pím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>Ẹím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>Zím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>Yím{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>Dẹ{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>p{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>Fẹ́{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>Á{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>s{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>Zẹ{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>Yo{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>m{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>µ{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>n{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>Dẹ́{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>T{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>P{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>{0}Ẹ</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>h{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>Zẹ́{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>Yó{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>k{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>M{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>G{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0}/{1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1>{0}²</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0}²</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}²</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1>{0}³</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0}³</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0}³</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="times">
+				<compoundUnitPattern>{0}⋅{1}</compoundUnitPattern>
+			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<displayName>g-Fọs</displayName>
+				<unitPattern count="one">{0} G</unitPattern>
+				<unitPattern count="other">{0} G</unitPattern>
+			</unit>
+			<unit type="acceleration-meter-per-square-second">
+				<displayName>Míta/sẹk²</displayName>
+				<unitPattern count="one">{0} m/s²</unitPattern>
+				<unitPattern count="other">{0} m/s²</unitPattern>
+			</unit>
+			<unit type="angle-arc-minute">
+				<displayName>Ákmínits</displayName>
+				<unitPattern count="one">{0} Ákmín</unitPattern>
+				<unitPattern count="other">{0} Ákmín</unitPattern>
+			</unit>
+			<unit type="angle-arc-second">
+				<displayName>Áksẹ́kọns</displayName>
+				<unitPattern count="one">{0} Áksẹ́k</unitPattern>
+				<unitPattern count="other">{0} Áksẹ́k</unitPattern>
+			</unit>
+			<unit type="angle-degree">
+				<displayName>Digriis</displayName>
+				<unitPattern count="one">{0} dig</unitPattern>
+				<unitPattern count="other">{0} dig</unitPattern>
+			</unit>
+			<unit type="angle-radian">
+				<displayName>Rédians</displayName>
+				<unitPattern count="one">{0}Réd</unitPattern>
+				<unitPattern count="other">{0}Réd</unitPattern>
+			</unit>
+			<unit type="angle-revolution">
+				<displayName>rẹv</displayName>
+				<unitPattern count="one">{0} rẹv</unitPattern>
+				<unitPattern count="other">{0} rẹv</unitPattern>
+			</unit>
+			<unit type="area-acre">
+				<displayName>Ékas</displayName>
+				<unitPattern count="one">{0} ék</unitPattern>
+				<unitPattern count="other">{0} ék</unitPattern>
+			</unit>
+			<unit type="area-dunam">
+				<displayName>Dúnams</displayName>
+				<unitPattern count="one">{0} Dúnam</unitPattern>
+				<unitPattern count="other">{0} Dúnam</unitPattern>
+			</unit>
+			<unit type="area-hectare">
+				<displayName>Hẹ́ktas</displayName>
+				<unitPattern count="one">{0} hẹ</unitPattern>
+				<unitPattern count="other">{0} hẹ</unitPattern>
+			</unit>
+			<unit type="area-square-centimeter">
+				<displayName>sm²</displayName>
+				<unitPattern count="one">{0} sm²</unitPattern>
+				<unitPattern count="other">{0} sm²</unitPattern>
+				<perUnitPattern>{0}/sm²</perUnitPattern>
+			</unit>
+			<unit type="area-square-foot">
+				<displayName>Skw Fut-dẹm</displayName>
+				<unitPattern count="one">{0} Skw ft</unitPattern>
+				<unitPattern count="other">{0} Skw ft</unitPattern>
+			</unit>
+			<unit type="area-square-inch">
+				<displayName>Ínchis2</displayName>
+				<unitPattern count="one">{0} in²</unitPattern>
+				<unitPattern count="other">{0} in²</unitPattern>
+				<perUnitPattern>{0}/in²</perUnitPattern>
+			</unit>
+			<unit type="area-square-kilometer">
+				<displayName>km²</displayName>
+				<unitPattern count="one">{0} km²</unitPattern>
+				<unitPattern count="other">{0} km²</unitPattern>
+				<perUnitPattern>{0}/km²</perUnitPattern>
+			</unit>
+			<unit type="area-square-meter">
+				<displayName>Mítas²</displayName>
+				<unitPattern count="one">{0} m²</unitPattern>
+				<unitPattern count="other">{0} m²</unitPattern>
+				<perUnitPattern>{0}/m²</perUnitPattern>
+			</unit>
+			<unit type="area-square-mile">
+				<displayName>Skwiá Mails</displayName>
+				<unitPattern count="one">{0} skw ma</unitPattern>
+				<unitPattern count="other">{0} skw ma</unitPattern>
+				<perUnitPattern>{0}/ma²</perUnitPattern>
+			</unit>
+			<unit type="area-square-yard">
+				<displayName>Yads²</displayName>
+				<unitPattern count="one">{0} yd²</unitPattern>
+				<unitPattern count="other">{0} yd²</unitPattern>
+			</unit>
+			<unit type="concentr-karat">
+				<displayName>Karats</displayName>
+				<unitPattern count="one">{0} kar</unitPattern>
+				<unitPattern count="other">{0} kar</unitPattern>
+			</unit>
+			<unit type="concentr-milligram-per-deciliter">
+				<displayName>mg/dL</displayName>
+				<unitPattern count="one">{0} mg/dL</unitPattern>
+				<unitPattern count="other">{0} mg/dL</unitPattern>
+			</unit>
+			<unit type="concentr-millimole-per-liter">
+				<displayName>Mílimol/Líta</displayName>
+				<unitPattern count="one">{0} mmol/L</unitPattern>
+				<unitPattern count="other">{0} mmol/L</unitPattern>
+			</unit>
+			<unit type="concentr-mole">
+				<displayName>mol</displayName>
+				<unitPattern count="one">{0} mol</unitPattern>
+				<unitPattern count="other">{0} mol</unitPattern>
+			</unit>
+			<unit type="concentr-percent">
+				<displayName>Pasẹnt</displayName>
+				<unitPattern count="one">{0}%</unitPattern>
+				<unitPattern count="other">{0}%</unitPattern>
+			</unit>
+			<unit type="concentr-permille">
+				<displayName>Fọ Ích Taúzan</displayName>
+				<unitPattern count="one">{0}‰</unitPattern>
+				<unitPattern count="other">{0}‰</unitPattern>
+			</unit>
+			<unit type="concentr-permillion">
+				<displayName>Pat/Míliọn</displayName>
+				<unitPattern count="one">{0} ppm</unitPattern>
+				<unitPattern count="other">{0} ppm</unitPattern>
+			</unit>
+			<unit type="concentr-permyriad">
+				<displayName>Fọ Ích Tẹ́n Taúzan</displayName>
+				<unitPattern count="one">{0}‱</unitPattern>
+				<unitPattern count="other">{0}‱</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
+				<displayName>L/100 km</displayName>
+				<unitPattern count="one">{0} L/100 km</unitPattern>
+				<unitPattern count="other">{0} L/100 km</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-kilometer">
+				<displayName>Lítas/km</displayName>
+				<unitPattern count="one">{0} L/km</unitPattern>
+				<unitPattern count="other">{0} L/km</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon">
+				<displayName>Mails/gal</displayName>
+				<unitPattern count="one">{0} mfeg</unitPattern>
+				<unitPattern count="other">{0} mfeg</unitPattern>
+			</unit>
+			<unit type="consumption-mile-per-gallon-imperial">
+				<displayName>Mails/gal Brítish</displayName>
+				<unitPattern count="one">{0} mfeg Brít</unitPattern>
+				<unitPattern count="other">{0} mfeg Brít</unitPattern>
+			</unit>
+			<unit type="digital-bit">
+				<displayName>Bit</displayName>
+				<unitPattern count="one">{0} Bit</unitPattern>
+				<unitPattern count="other">{0} Bit</unitPattern>
+			</unit>
+			<unit type="digital-byte">
+				<displayName>Bait</displayName>
+				<unitPattern count="one">{0} Bait</unitPattern>
+				<unitPattern count="other">{0} Bait</unitPattern>
+			</unit>
+			<unit type="digital-gigabit">
+				<displayName>Gbit</displayName>
+				<unitPattern count="one">{0} Gb</unitPattern>
+				<unitPattern count="other">{0} Gb</unitPattern>
+			</unit>
+			<unit type="digital-gigabyte">
+				<displayName>GBait</displayName>
+				<unitPattern count="one">{0} GB</unitPattern>
+				<unitPattern count="other">{0} GB</unitPattern>
+			</unit>
+			<unit type="digital-kilobit">
+				<displayName>kbit</displayName>
+				<unitPattern count="one">{0} kb</unitPattern>
+				<unitPattern count="other">{0} kb</unitPattern>
+			</unit>
+			<unit type="digital-kilobyte">
+				<displayName>KBait</displayName>
+				<unitPattern count="one">{0} kB</unitPattern>
+				<unitPattern count="other">{0} kB</unitPattern>
+			</unit>
+			<unit type="digital-megabit">
+				<displayName>Mbit</displayName>
+				<unitPattern count="one">{0} Mb</unitPattern>
+				<unitPattern count="other">{0} Mb</unitPattern>
+			</unit>
+			<unit type="digital-megabyte">
+				<displayName>MBait</displayName>
+				<unitPattern count="one">{0} MB</unitPattern>
+				<unitPattern count="other">{0} MB</unitPattern>
+			</unit>
+			<unit type="digital-petabyte">
+				<displayName>PBaít</displayName>
+				<unitPattern count="one">{0} PB</unitPattern>
+				<unitPattern count="other">{0} PB</unitPattern>
+			</unit>
+			<unit type="digital-terabit">
+				<displayName>Tbit</displayName>
+				<unitPattern count="one">{0} Tb</unitPattern>
+				<unitPattern count="other">{0} Tb</unitPattern>
+			</unit>
+			<unit type="digital-terabyte">
+				<displayName>TBait</displayName>
+				<unitPattern count="one">{0} TB</unitPattern>
+				<unitPattern count="other">{0} TB</unitPattern>
+			</unit>
+			<unit type="duration-century">
+				<displayName>Họ́ndrẹ́d-yiẹ</displayName>
+				<unitPattern count="one">{0} Họ́nd-yiẹ́</unitPattern>
+				<unitPattern count="other">{0} Họ́nd-yiẹ́</unitPattern>
+			</unit>
+			<unit type="duration-day">
+				<displayName>Dez</displayName>
+				<unitPattern count="one">{0} dè</unitPattern>
+				<unitPattern count="other">{0} dez</unitPattern>
+				<perUnitPattern>{0}/d</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>Tẹ́n-tẹ́n-yiẹ</displayName>
+				<unitPattern count="one">{0} Tẹ́n-yiẹ</unitPattern>
+				<unitPattern count="other">{0}Tẹ́n-yiẹ</unitPattern>
+			</unit>
+			<unit type="duration-hour">
+				<displayName>Áwas</displayName>
+				<unitPattern count="one">{0} Áwa</unitPattern>
+				<unitPattern count="other">{0} Áwa</unitPattern>
+				<perUnitPattern>{0}/a</perUnitPattern>
+			</unit>
+			<unit type="duration-microsecond">
+				<displayName>Maíkrosẹ́kọns</displayName>
+				<unitPattern count="one">{0}Maíksẹ́k</unitPattern>
+				<unitPattern count="other">{0}Maiksẹk</unitPattern>
+			</unit>
+			<unit type="duration-millisecond">
+				<displayName>Mílisẹ́kọn</displayName>
+				<unitPattern count="one">{0} Mílisẹ́kọn</unitPattern>
+				<unitPattern count="other">{0} Mílisẹ́kọn</unitPattern>
+			</unit>
+			<unit type="duration-minute">
+				<displayName>Mínit</displayName>
+				<unitPattern count="one">{0} Mínit</unitPattern>
+				<unitPattern count="other">{0} Mínit</unitPattern>
+				<perUnitPattern>{0}/min</perUnitPattern>
+			</unit>
+			<unit type="duration-month">
+				<displayName>Mọnt-dẹm</displayName>
+				<unitPattern count="one">{0} Mọnt</unitPattern>
+				<unitPattern count="other">{0} Mọnt</unitPattern>
+				<perUnitPattern>{0}/Mt</perUnitPattern>
+			</unit>
+			<unit type="duration-nanosecond">
+				<displayName>Nánosẹ́kọns</displayName>
+				<unitPattern count="one">{0} Nansẹk</unitPattern>
+				<unitPattern count="other">{0} Nansẹk</unitPattern>
+			</unit>
+			<unit type="duration-second">
+				<displayName>Sẹ́kọns</displayName>
+				<unitPattern count="one">{0} Sẹ́kọn</unitPattern>
+				<unitPattern count="other">{0} Sẹ́kọn</unitPattern>
+				<perUnitPattern>{0}/sẹ́k</perUnitPattern>
+			</unit>
+			<unit type="duration-week">
+				<displayName>Wik</displayName>
+				<unitPattern count="one">{0} Wik</unitPattern>
+				<unitPattern count="other">Wik {0}</unitPattern>
+				<perUnitPattern>{0} Wik</perUnitPattern>
+			</unit>
+			<unit type="duration-year">
+				<displayName>Yiẹ</displayName>
+				<unitPattern count="one">{0} Yiẹ</unitPattern>
+				<unitPattern count="other">{0} Yiẹ</unitPattern>
+				<perUnitPattern>{0}/Yiẹ</perUnitPattern>
+			</unit>
+			<unit type="electric-ampere">
+				<displayName>amps</displayName>
+				<unitPattern count="one">{0} A</unitPattern>
+				<unitPattern count="other">{0} A</unitPattern>
+			</unit>
+			<unit type="electric-milliampere">
+				<displayName>Míliámps</displayName>
+				<unitPattern count="one">{0} mA</unitPattern>
+				<unitPattern count="other">{0} mA</unitPattern>
+			</unit>
+			<unit type="electric-ohm">
+				<displayName>Oms</displayName>
+				<unitPattern count="one">{0} Ω</unitPattern>
+				<unitPattern count="other">{0} Ω</unitPattern>
+			</unit>
+			<unit type="electric-volt">
+				<displayName>Volts</displayName>
+				<unitPattern count="one">{0} V</unitPattern>
+				<unitPattern count="other">{0} V</unitPattern>
+			</unit>
+			<unit type="energy-british-thermal-unit">
+				<displayName>BTY</displayName>
+				<unitPattern count="one">{0}Bty</unitPattern>
+				<unitPattern count="other">{0}Bty</unitPattern>
+			</unit>
+			<unit type="energy-calorie">
+				<displayName>kal</displayName>
+				<unitPattern count="one">{0} kal</unitPattern>
+				<unitPattern count="other">{0} kal</unitPattern>
+			</unit>
+			<unit type="energy-electronvolt">
+				<displayName>Ẹlẹ́ktrọ́nvolt</displayName>
+				<unitPattern count="one">{0} ẹV</unitPattern>
+				<unitPattern count="other">{0} ẹV</unitPattern>
+			</unit>
+			<unit type="energy-foodcalorie">
+				<displayName>Kal</displayName>
+				<unitPattern count="one">{0} Kal</unitPattern>
+				<unitPattern count="other">{0} Kal</unitPattern>
+			</unit>
+			<unit type="energy-joule">
+				<displayName>Joules</displayName>
+				<unitPattern count="one">{0} J</unitPattern>
+				<unitPattern count="other">{0} J</unitPattern>
+			</unit>
+			<unit type="energy-kilocalorie">
+				<displayName>kkal</displayName>
+				<unitPattern count="one">{0} kkal</unitPattern>
+				<unitPattern count="other">{0} kkal</unitPattern>
+			</unit>
+			<unit type="energy-kilojoule">
+				<displayName>Kílojul</displayName>
+				<unitPattern count="one">{0} kJ</unitPattern>
+				<unitPattern count="other">{0} kJ</unitPattern>
+			</unit>
+			<unit type="energy-kilowatt-hour">
+				<displayName>KW-áwa</displayName>
+				<unitPattern count="one">{0} kWa</unitPattern>
+				<unitPattern count="other">{0} kWa</unitPattern>
+			</unit>
+			<unit type="energy-therm-us">
+				<displayName>US Támál</displayName>
+				<unitPattern count="one">{0} US Támal</unitPattern>
+				<unitPattern count="other">{0} US Támal</unitPattern>
+			</unit>
+			<unit type="force-newton">
+				<displayName>Niúton</displayName>
+				<unitPattern count="one">{0} N</unitPattern>
+				<unitPattern count="other">{0} N</unitPattern>
+			</unit>
+			<unit type="force-pound-force">
+				<displayName>Páund-Fọs</displayName>
+				<unitPattern count="one">{0} lbf</unitPattern>
+				<unitPattern count="other">{0} lbf</unitPattern>
+			</unit>
+			<unit type="frequency-gigahertz">
+				<displayName>GHz</displayName>
+				<unitPattern count="one">{0} GHz</unitPattern>
+				<unitPattern count="other">{0} GHz</unitPattern>
+			</unit>
+			<unit type="frequency-hertz">
+				<displayName>Hz</displayName>
+				<unitPattern count="one">{0} Hz</unitPattern>
+				<unitPattern count="other">{0} Hz</unitPattern>
+			</unit>
+			<unit type="frequency-kilohertz">
+				<displayName>kHz</displayName>
+				<unitPattern count="one">{0} kHz</unitPattern>
+				<unitPattern count="other">{0} kHz</unitPattern>
+			</unit>
+			<unit type="frequency-megahertz">
+				<displayName>MHz</displayName>
+				<unitPattern count="one">{0} MHz</unitPattern>
+				<unitPattern count="other">{0} MHz</unitPattern>
+			</unit>
+			<unit type="graphics-dot">
+				<displayName>dọt</displayName>
+				<unitPattern count="one">{0} dọt</unitPattern>
+				<unitPattern count="other">{0} dọt</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>Pọints fọ ích sẹntímíta</displayName>
+				<unitPattern count="one">{0} PFIS</unitPattern>
+				<unitPattern count="other">{0} PFIS</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>Pọints Fọ Ẹ́vrí Inch</displayName>
+				<unitPattern count="one">{0} PFẸI</unitPattern>
+				<unitPattern count="other">{0} PFẸI</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>em</displayName>
+				<unitPattern count="one">{0} em</unitPattern>
+				<unitPattern count="other">{0} em</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>Mẹ́gapíksẹls</displayName>
+				<unitPattern count="one">{0} Mẹ́gapíks</unitPattern>
+				<unitPattern count="other">{0} Mẹ́gapíks</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>Píksẹls</displayName>
+				<unitPattern count="one">{0} Píksẹl</unitPattern>
+				<unitPattern count="other">{0} Píksẹl</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>Píksẹls Fọ Ích Sẹntímíta</displayName>
+				<unitPattern count="one">{0} PFS</unitPattern>
+				<unitPattern count="other">{0} PFS</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>Píksẹl Fọ Ẹ́vrí Inch</displayName>
+				<unitPattern count="one">{0} PFI</unitPattern>
+				<unitPattern count="other">{0} PFI</unitPattern>
+			</unit>
+			<unit type="length-astronomical-unit">
+				<displayName>ay</displayName>
+				<unitPattern count="one">{0} ay</unitPattern>
+				<unitPattern count="other">{0} ay</unitPattern>
+			</unit>
+			<unit type="length-centimeter">
+				<displayName>sm</displayName>
+				<unitPattern count="one">{0} sm</unitPattern>
+				<unitPattern count="other">{0} sm</unitPattern>
+				<perUnitPattern>{0}/sm</perUnitPattern>
+			</unit>
+			<unit type="length-decimeter">
+				<displayName>dm</displayName>
+				<unitPattern count="one">{0} dm</unitPattern>
+				<unitPattern count="other">{0} dm</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName>Fátọm</displayName>
+				<unitPattern count="one">{0} fátọ</unitPattern>
+				<unitPattern count="other">{0} fátọ</unitPattern>
+			</unit>
+			<unit type="length-foot">
+				<displayName>Fut-dẹm</displayName>
+				<unitPattern count="one">{0} ft</unitPattern>
+				<unitPattern count="other">{0} ft</unitPattern>
+				<perUnitPattern>{0}/ft</perUnitPattern>
+			</unit>
+			<unit type="length-furlong">
+				<displayName>Fọ́lọng</displayName>
+				<unitPattern count="one">{0} fọl</unitPattern>
+				<unitPattern count="other">{0} fọl</unitPattern>
+			</unit>
+			<unit type="length-inch">
+				<displayName>Ínchis</displayName>
+				<unitPattern count="one">{0} in</unitPattern>
+				<unitPattern count="other">{0} in</unitPattern>
+				<perUnitPattern>{0}/in</perUnitPattern>
+			</unit>
+			<unit type="length-kilometer">
+				<displayName>km</displayName>
+				<unitPattern count="one">{0} km</unitPattern>
+				<unitPattern count="other">{0} km</unitPattern>
+				<perUnitPattern>{0}/km</perUnitPattern>
+			</unit>
+			<unit type="length-light-year">
+				<displayName>Laít Yiẹ</displayName>
+				<unitPattern count="one">{0}ly</unitPattern>
+				<unitPattern count="other">{0}ly</unitPattern>
+			</unit>
+			<unit type="length-meter">
+				<displayName>m</displayName>
+				<unitPattern count="one">{0} m</unitPattern>
+				<unitPattern count="other">{0} m</unitPattern>
+				<perUnitPattern>{0}/m</perUnitPattern>
+			</unit>
+			<unit type="length-micrometer">
+				<displayName>µmíta</displayName>
+				<unitPattern count="one">{0} µm</unitPattern>
+				<unitPattern count="other">{0} µm</unitPattern>
+			</unit>
+			<unit type="length-mile">
+				<displayName>Mails</displayName>
+				<unitPattern count="one">{0} ma</unitPattern>
+				<unitPattern count="other">{0} ma</unitPattern>
+			</unit>
+			<unit type="length-mile-scandinavian">
+				<displayName>smi</displayName>
+				<unitPattern count="one">{0} smi</unitPattern>
+				<unitPattern count="other">{0} smi</unitPattern>
+			</unit>
+			<unit type="length-millimeter">
+				<displayName>mm</displayName>
+				<unitPattern count="one">{0} mm</unitPattern>
+				<unitPattern count="other">{0} mm</unitPattern>
+			</unit>
+			<unit type="length-nanometer">
+				<displayName>nm</displayName>
+				<unitPattern count="one">{0} nm</unitPattern>
+				<unitPattern count="other">{0} nm</unitPattern>
+			</unit>
+			<unit type="length-nautical-mile">
+				<displayName>nmi</displayName>
+				<unitPattern count="one">{0} nmi</unitPattern>
+				<unitPattern count="other">{0} nmi</unitPattern>
+			</unit>
+			<unit type="length-parsec">
+				<displayName>parsecs</displayName>
+				<unitPattern count="one">{0} pc</unitPattern>
+				<unitPattern count="other">{0} pc</unitPattern>
+			</unit>
+			<unit type="length-picometer">
+				<displayName>pm</displayName>
+				<unitPattern count="one">{0} pm</unitPattern>
+				<unitPattern count="other">{0} pm</unitPattern>
+			</unit>
+			<unit type="length-point">
+				<displayName>points</displayName>
+				<unitPattern count="one">{0} pt</unitPattern>
+				<unitPattern count="other">{0} pt</unitPattern>
+			</unit>
+			<unit type="length-solar-radius">
+				<displayName>Sólá Rédiọs-Dẹm</displayName>
+				<unitPattern count="one">{0} R☉</unitPattern>
+				<unitPattern count="other">{0} R☉</unitPattern>
+			</unit>
+			<unit type="length-yard">
+				<displayName>Yads</displayName>
+				<unitPattern count="one">{0} yd</unitPattern>
+				<unitPattern count="other">{0} yd</unitPattern>
+			</unit>
+			<unit type="light-candela">
+				<displayName>kd</displayName>
+				<unitPattern count="one">{0} kd</unitPattern>
+				<unitPattern count="other">{0} kd</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lm</displayName>
+				<unitPattern count="one">{0} lm</unitPattern>
+				<unitPattern count="other">{0} lm</unitPattern>
+			</unit>
+			<unit type="light-lux">
+				<displayName>lux</displayName>
+				<unitPattern count="one">{0} lx</unitPattern>
+				<unitPattern count="other">{0} lx</unitPattern>
+			</unit>
+			<unit type="light-solar-luminosity">
+				<displayName>Sólá Luminósítis</displayName>
+				<unitPattern count="one">{0} L☉</unitPattern>
+				<unitPattern count="other">{0} L☉</unitPattern>
+			</unit>
+			<unit type="mass-carat">
+				<displayName>Kárats</displayName>
+				<unitPattern count="one">{0} Kt</unitPattern>
+				<unitPattern count="other">{0} Kt</unitPattern>
+			</unit>
+			<unit type="mass-dalton">
+				<displayName>Dọ́ltons</displayName>
+				<unitPattern count="one">{0} Dọ</unitPattern>
+				<unitPattern count="other">{0} Dọ</unitPattern>
+			</unit>
+			<unit type="mass-earth-mass">
+				<displayName>Ẹ́t Masís</displayName>
+				<unitPattern count="one">{0} M⊕</unitPattern>
+				<unitPattern count="other">{0} M⊕</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName>Gren</displayName>
+				<unitPattern count="one">{0} gren</unitPattern>
+				<unitPattern count="other">{0} gren</unitPattern>
+			</unit>
+			<unit type="mass-gram">
+				<displayName>Grams</displayName>
+				<unitPattern count="one">{0} g</unitPattern>
+				<unitPattern count="other">{0} g</unitPattern>
+				<perUnitPattern>{0}/g</perUnitPattern>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>kg</displayName>
+				<unitPattern count="one">{0} kg</unitPattern>
+				<unitPattern count="other">{0} kg</unitPattern>
+				<perUnitPattern>{0}/kg</perUnitPattern>
+			</unit>
+			<unit type="mass-metric-ton">
+				<displayName>T</displayName>
+				<unitPattern count="one">{0} t</unitPattern>
+				<unitPattern count="other">{0} t</unitPattern>
+			</unit>
+			<unit type="mass-microgram">
+				<displayName>µg</displayName>
+				<unitPattern count="one">{0} µg</unitPattern>
+				<unitPattern count="other">{0} µg</unitPattern>
+			</unit>
+			<unit type="mass-milligram">
+				<displayName>mg</displayName>
+				<unitPattern count="one">{0} mg</unitPattern>
+				<unitPattern count="other">{0} mg</unitPattern>
+			</unit>
+			<unit type="mass-ounce">
+				<displayName>oz</displayName>
+				<unitPattern count="one">{0} oz</unitPattern>
+				<unitPattern count="other">{0} oz</unitPattern>
+				<perUnitPattern>{0}/oz</perUnitPattern>
+			</unit>
+			<unit type="mass-ounce-troy">
+				<displayName>oz trọi</displayName>
+				<unitPattern count="one">{0} oz t</unitPattern>
+				<unitPattern count="other">{0} oz t</unitPattern>
+			</unit>
+			<unit type="mass-pound">
+				<displayName>Paunds</displayName>
+				<unitPattern count="one">{0} lb</unitPattern>
+				<unitPattern count="other">{0} lb</unitPattern>
+				<perUnitPattern>{0}/lb</perUnitPattern>
+			</unit>
+			<unit type="mass-solar-mass">
+				<displayName>Sólá Masís</displayName>
+				<unitPattern count="one">{0} M☉</unitPattern>
+				<unitPattern count="other">{0} M☉</unitPattern>
+			</unit>
+			<unit type="mass-stone">
+				<displayName>Ston</displayName>
+				<unitPattern count="one">{0} st</unitPattern>
+				<unitPattern count="other">{0} st</unitPattern>
+			</unit>
+			<unit type="mass-ton">
+				<displayName>Tọns</displayName>
+				<unitPattern count="one">{0} tn</unitPattern>
+				<unitPattern count="other">{0} tn</unitPattern>
+			</unit>
+			<unit type="power-gigawatt">
+				<displayName>GW</displayName>
+				<unitPattern count="one">{0} GW</unitPattern>
+				<unitPattern count="other">{0} GW</unitPattern>
+			</unit>
+			<unit type="power-horsepower">
+				<displayName>hp</displayName>
+				<unitPattern count="one">{0} hp</unitPattern>
+				<unitPattern count="other">{0} hp</unitPattern>
+			</unit>
+			<unit type="power-kilowatt">
+				<displayName>kW</displayName>
+				<unitPattern count="one">{0} kW</unitPattern>
+				<unitPattern count="other">{0} kW</unitPattern>
+			</unit>
+			<unit type="power-megawatt">
+				<displayName>MW</displayName>
+				<unitPattern count="one">{0} MW</unitPattern>
+				<unitPattern count="other">{0} MW</unitPattern>
+			</unit>
+			<unit type="power-milliwatt">
+				<displayName>mW</displayName>
+				<unitPattern count="one">{0} mW</unitPattern>
+				<unitPattern count="other">{0} mW</unitPattern>
+			</unit>
+			<unit type="power-watt">
+				<displayName>Wats</displayName>
+				<unitPattern count="one">{0} W</unitPattern>
+				<unitPattern count="other">{0} W</unitPattern>
+			</unit>
+			<unit type="pressure-atmosphere">
+				<displayName>atm</displayName>
+				<unitPattern count="one">{0} atm</unitPattern>
+				<unitPattern count="other">{0} atm</unitPattern>
+			</unit>
+			<unit type="pressure-bar">
+				<displayName>Baa</displayName>
+				<unitPattern count="one">{0} Baa</unitPattern>
+				<unitPattern count="other">{0} Baa</unitPattern>
+			</unit>
+			<unit type="pressure-hectopascal">
+				<displayName>hPa</displayName>
+				<unitPattern count="one">{0} hPa</unitPattern>
+				<unitPattern count="other">{0} hPa</unitPattern>
+			</unit>
+			<unit type="pressure-inch-ofhg">
+				<displayName>inHg</displayName>
+				<unitPattern count="one">{0} inHg</unitPattern>
+				<unitPattern count="other">{0} inHg</unitPattern>
+			</unit>
+			<unit type="pressure-kilopascal">
+				<displayName>kPa</displayName>
+				<unitPattern count="one">{0} kPa</unitPattern>
+				<unitPattern count="other">{0} kPa</unitPattern>
+			</unit>
+			<unit type="pressure-megapascal">
+				<displayName>MPa</displayName>
+				<unitPattern count="one">{0} MPa</unitPattern>
+				<unitPattern count="other">{0} MPa</unitPattern>
+			</unit>
+			<unit type="pressure-millibar">
+				<displayName>mbaa</displayName>
+				<unitPattern count="one">{0} mbaa</unitPattern>
+				<unitPattern count="other">{0} mbaa</unitPattern>
+			</unit>
+			<unit type="pressure-millimeter-ofhg">
+				<displayName>mmHg</displayName>
+				<unitPattern count="one">{0} mmHg</unitPattern>
+				<unitPattern count="other">{0} mmHg</unitPattern>
+			</unit>
+			<unit type="pressure-pascal">
+				<displayName>Pa</displayName>
+				<unitPattern count="one">{0} Pa</unitPattern>
+				<unitPattern count="other">{0} Pa</unitPattern>
+			</unit>
+			<unit type="pressure-pound-force-per-square-inch">
+				<displayName>pfẹsi</displayName>
+				<unitPattern count="one">{0} pẹsi</unitPattern>
+				<unitPattern count="other">{0} pẹsi</unitPattern>
+			</unit>
+			<unit type="speed-kilometer-per-hour">
+				<displayName>km/áwa</displayName>
+				<unitPattern count="one">{0} km/á</unitPattern>
+				<unitPattern count="other">{0} km/á</unitPattern>
+			</unit>
+			<unit type="speed-knot">
+				<displayName>Nọt</displayName>
+				<unitPattern count="one">{0} Nọt</unitPattern>
+				<unitPattern count="other">{0} Nọt</unitPattern>
+			</unit>
+			<unit type="speed-meter-per-second">
+				<displayName>Mítas/Sẹk</displayName>
+				<unitPattern count="one">{0} m/s</unitPattern>
+				<unitPattern count="other">{0} m/s</unitPattern>
+			</unit>
+			<unit type="speed-mile-per-hour">
+				<displayName>Mails/Áwa</displayName>
+				<unitPattern count="one">{0} mfẹa</unitPattern>
+				<unitPattern count="other">{0} mfẹa</unitPattern>
+			</unit>
+			<unit type="temperature-celsius">
+				<displayName>Dig. C</displayName>
+				<unitPattern count="one">{0}°C</unitPattern>
+				<unitPattern count="other">{0}°C</unitPattern>
+			</unit>
+			<unit type="temperature-fahrenheit">
+				<displayName>dig. F</displayName>
+				<unitPattern count="one">{0}°F</unitPattern>
+				<unitPattern count="other">{0}°F</unitPattern>
+			</unit>
+			<unit type="temperature-generic">
+				<displayName>°</displayName>
+				<unitPattern count="one">{0}°</unitPattern>
+				<unitPattern count="other">{0}°</unitPattern>
+			</unit>
+			<unit type="temperature-kelvin">
+				<displayName>K</displayName>
+				<unitPattern count="one">{0} K</unitPattern>
+				<unitPattern count="other">{0} K</unitPattern>
+			</unit>
+			<unit type="torque-newton-meter">
+				<displayName>N.m</displayName>
+				<unitPattern count="one">{0} N⋅m</unitPattern>
+				<unitPattern count="other">{0} N⋅m</unitPattern>
+			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>lbf⋅ft</displayName>
+				<unitPattern count="one">{0} lbf⋅ft</unitPattern>
+				<unitPattern count="other">{0} lbf⋅ft</unitPattern>
+			</unit>
+			<unit type="volume-acre-foot">
+				<displayName>Éka ft</displayName>
+				<unitPattern count="one">{0} ek ft</unitPattern>
+				<unitPattern count="other">{0} ek ft</unitPattern>
+			</unit>
+			<unit type="volume-barrel">
+				<displayName>Drọm</displayName>
+				<unitPattern count="one">{0}dr</unitPattern>
+				<unitPattern count="other">{0}dr</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName>Búshẹl</displayName>
+				<unitPattern count="one">{0} bú</unitPattern>
+				<unitPattern count="other">{0} bú</unitPattern>
+			</unit>
+			<unit type="volume-centiliter">
+				<displayName>sl</displayName>
+				<unitPattern count="one">{0} sl</unitPattern>
+				<unitPattern count="other">{0} sl</unitPattern>
+			</unit>
+			<unit type="volume-cubic-centimeter">
+				<displayName>sm³</displayName>
+				<unitPattern count="one">{0} sm³</unitPattern>
+				<unitPattern count="other">{0} sm³</unitPattern>
+				<perUnitPattern>{0}/sm³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-foot">
+				<displayName>Fut³</displayName>
+				<unitPattern count="one">{0} ft³</unitPattern>
+				<unitPattern count="other">{0} ft³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-inch">
+				<displayName>Ínchis³</displayName>
+				<unitPattern count="one">{0} in³</unitPattern>
+				<unitPattern count="other">{0} in³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-kilometer">
+				<displayName>km³</displayName>
+				<unitPattern count="one">{0} km³</unitPattern>
+				<unitPattern count="other">{0} km³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-meter">
+				<displayName>m³</displayName>
+				<unitPattern count="one">{0} m³</unitPattern>
+				<unitPattern count="other">{0} m³</unitPattern>
+				<perUnitPattern>{0}/m³</perUnitPattern>
+			</unit>
+			<unit type="volume-cubic-mile">
+				<displayName>ma³</displayName>
+				<unitPattern count="one">{0} ma³</unitPattern>
+				<unitPattern count="other">{0} ma³</unitPattern>
+			</unit>
+			<unit type="volume-cubic-yard">
+				<displayName>Yáds³</displayName>
+				<unitPattern count="one">{0} yd³</unitPattern>
+				<unitPattern count="other">{0} yd³</unitPattern>
+			</unit>
+			<unit type="volume-cup">
+				<displayName>Kọps</displayName>
+				<unitPattern count="one">{0} Kọp</unitPattern>
+				<unitPattern count="other">{0} Kọp</unitPattern>
+			</unit>
+			<unit type="volume-cup-metric">
+				<displayName>mkọp</displayName>
+				<unitPattern count="one">{0} mk</unitPattern>
+				<unitPattern count="other">{0} mk</unitPattern>
+			</unit>
+			<unit type="volume-deciliter">
+				<displayName>dl</displayName>
+				<unitPattern count="one">{0} dl</unitPattern>
+				<unitPattern count="other">{0} dl</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>Dztspn</displayName>
+				<unitPattern count="one">{0} dztspn</unitPattern>
+				<unitPattern count="other">{0} dztspn</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>Dztspn Imp</displayName>
+				<unitPattern count="one">{0} dzsp Imp</unitPattern>
+				<unitPattern count="other">{0} dzsp Imp</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>Drám Líkwid</displayName>
+				<unitPattern count="one">{0} Dram lí</unitPattern>
+				<unitPattern count="other">{0} Dram lí</unitPattern>
+			</unit>
+			<unit type="volume-drop">
+				<displayName>Drọp</displayName>
+				<unitPattern count="one">{0} Drọp</unitPattern>
+				<unitPattern count="other">{0} Drọp</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce">
+				<displayName>fl oz</displayName>
+				<unitPattern count="one">{0} fl oz</unitPattern>
+				<unitPattern count="other">{0} fl oz</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>Brít. Fl oz</displayName>
+				<unitPattern count="one">{0} fl oz Brit.</unitPattern>
+				<unitPattern count="other">{0} fl oz Brit.</unitPattern>
+			</unit>
+			<unit type="volume-gallon">
+				<displayName>gal</displayName>
+				<unitPattern count="one">{0} gal</unitPattern>
+				<unitPattern count="other">{0} gal</unitPattern>
+				<perUnitPattern>{0}/gal US</perUnitPattern>
+			</unit>
+			<unit type="volume-gallon-imperial">
+				<displayName>Brít. gal</displayName>
+				<unitPattern count="one">{0} Brít. gal</unitPattern>
+				<unitPattern count="other">{0} Brít. gal</unitPattern>
+				<perUnitPattern>{0} Brít. gal</perUnitPattern>
+			</unit>
+			<unit type="volume-hectoliter">
+				<displayName>hL</displayName>
+				<unitPattern count="one">{0} hL</unitPattern>
+				<unitPattern count="other">{0} hL</unitPattern>
+			</unit>
+			<unit type="volume-jigger">
+				<displayName>Jigá</displayName>
+				<unitPattern count="one">{0} Jigá</unitPattern>
+				<unitPattern count="other">{0} Jigá</unitPattern>
+			</unit>
+			<unit type="volume-liter">
+				<displayName>Lítas</displayName>
+				<unitPattern count="one">{0} L</unitPattern>
+				<unitPattern count="other">{0} L</unitPattern>
+				<perUnitPattern>{0}/L</perUnitPattern>
+			</unit>
+			<unit type="volume-megaliter">
+				<displayName>ML</displayName>
+				<unitPattern count="one">{0} ML</unitPattern>
+				<unitPattern count="other">{0} ML</unitPattern>
+			</unit>
+			<unit type="volume-milliliter">
+				<displayName>ml</displayName>
+				<unitPattern count="one">{0} ml</unitPattern>
+				<unitPattern count="other">{0} ml</unitPattern>
+			</unit>
+			<unit type="volume-pinch">
+				<displayName>Pinch</displayName>
+				<unitPattern count="one">{0} Pinch</unitPattern>
+				<unitPattern count="other">{0} Pinch</unitPattern>
+			</unit>
+			<unit type="volume-pint">
+				<displayName>Paints</displayName>
+				<unitPattern count="one">{0} pt</unitPattern>
+				<unitPattern count="other">{0} pt</unitPattern>
+			</unit>
+			<unit type="volume-pint-metric">
+				<displayName>mpt</displayName>
+				<unitPattern count="one">{0} mpt</unitPattern>
+				<unitPattern count="other">{0} mpt</unitPattern>
+			</unit>
+			<unit type="volume-quart">
+				<displayName>kwts</displayName>
+				<unitPattern count="one">{0} kwt</unitPattern>
+				<unitPattern count="other">{0} kwt</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>Kt Impẹ́riál</displayName>
+				<unitPattern count="one">{0} Kt Imp</unitPattern>
+				<unitPattern count="other">{0} Kt Imp</unitPattern>
+			</unit>
+			<unit type="volume-tablespoon">
+				<displayName>Tbsp</displayName>
+				<unitPattern count="one">{0} Tbsp</unitPattern>
+				<unitPattern count="other">{0} Tbsp</unitPattern>
+			</unit>
+			<unit type="volume-teaspoon">
+				<displayName>Tsp</displayName>
+				<unitPattern count="one">{0} Tsp</unitPattern>
+				<unitPattern count="other">{0} Tsp</unitPattern>
+			</unit>
+			<coordinateUnit>
+				<displayName>Pọint</displayName>
+				<coordinateUnitPattern type="north">{0} N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} E</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0} S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0} W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
@@ -6040,7 +7581,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPrefixPattern>m{0}</unitPrefixPattern>
 			</compoundUnit>
 			<compoundUnit type="10p-6">
-				<unitPrefixPattern>μ{0}</unitPrefixPattern>
+				<unitPrefixPattern>µ{0}</unitPrefixPattern>
 			</compoundUnit>
 			<compoundUnit type="10p-9">
 				<unitPrefixPattern>n{0}</unitPrefixPattern>
@@ -6188,861 +7729,32 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<coordinateUnit>
 				<displayName>Pọint</displayName>
-				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="north">{0}N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0}E</coordinateUnitPattern>
 				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
 				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
-		<unitLength type="short">
-			<compoundUnit type="1024p1">
-				<unitPrefixPattern>Kí{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p2">
-				<unitPrefixPattern>Mím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p3">
-				<unitPrefixPattern>Gím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p4">
-				<unitPrefixPattern>Tím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p5">
-				<unitPrefixPattern>Pím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p6">
-				<unitPrefixPattern>Ẹím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p7">
-				<unitPrefixPattern>Zím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="1024p8">
-				<unitPrefixPattern>Yím{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-1">
-				<unitPrefixPattern>Dẹ{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-15">
-				<unitPrefixPattern>Fẹ́{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-18">
-				<unitPrefixPattern>Á{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-2">
-				<unitPrefixPattern>s{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-21">
-				<unitPrefixPattern>Zẹ{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p-24">
-				<unitPrefixPattern>Yo{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p1">
-				<unitPrefixPattern>Dẹ́{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p18">
-				<unitPrefixPattern>{0}Ẹ</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p21">
-				<unitPrefixPattern>Zẹ́{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="10p24">
-				<unitPrefixPattern>Yó{0}</unitPrefixPattern>
-			</compoundUnit>
-			<compoundUnit type="power2">
-				<compoundUnitPattern1 count="one">{0}²</compoundUnitPattern1>
-			</compoundUnit>
-			<compoundUnit type="power3">
-				<compoundUnitPattern1 count="one">{0}³</compoundUnitPattern1>
-			</compoundUnit>
-			<unit type="acceleration-g-force">
-				<displayName>g-Fọs</displayName>
-				<unitPattern count="one">{0} G</unitPattern>
-			</unit>
-			<unit type="acceleration-meter-per-square-second">
-				<displayName>Míta/sẹk²</displayName>
-				<unitPattern count="one">{0} m/s²</unitPattern>
-			</unit>
-			<unit type="angle-arc-minute">
-				<displayName>Ákmínits</displayName>
-				<unitPattern count="one">{0} Ákmín</unitPattern>
-				<unitPattern count="other">{0} Ákmín</unitPattern>
-			</unit>
-			<unit type="angle-arc-second">
-				<displayName>Áksẹ́kọns</displayName>
-				<unitPattern count="one">{0} Áksẹ́k</unitPattern>
-				<unitPattern count="other">{0} Áksẹ́k</unitPattern>
-			</unit>
-			<unit type="angle-degree">
-				<displayName>Digriis</displayName>
-				<unitPattern count="one">{0} dig</unitPattern>
-				<unitPattern count="other">{0} dig</unitPattern>
-			</unit>
-			<unit type="angle-radian">
-				<displayName>Rédians</displayName>
-				<unitPattern count="one">{0}Réd</unitPattern>
-				<unitPattern count="other">{0}Réd</unitPattern>
-			</unit>
-			<unit type="angle-revolution">
-				<displayName>rẹv</displayName>
-				<unitPattern count="one">{0} rẹv</unitPattern>
-				<unitPattern count="other">{0} rẹv</unitPattern>
-			</unit>
-			<unit type="area-acre">
-				<displayName>Ékas</displayName>
-				<unitPattern count="one">{0} ék</unitPattern>
-				<unitPattern count="other">{0} ék</unitPattern>
-			</unit>
-			<unit type="area-dunam">
-				<displayName>Dúnams</displayName>
-				<unitPattern count="one">{0} Dúnam</unitPattern>
-				<unitPattern count="other">{0} Dúnam</unitPattern>
-			</unit>
-			<unit type="area-hectare">
-				<displayName>Hẹ́ktas</displayName>
-				<unitPattern count="one">{0} hẹ</unitPattern>
-				<unitPattern count="other">{0} hẹ</unitPattern>
-			</unit>
-			<unit type="area-square-centimeter">
-				<displayName>sm²</displayName>
-				<unitPattern count="one">{0} sm²</unitPattern>
-				<unitPattern count="other">{0} sm²</unitPattern>
-				<perUnitPattern>{0}/sm²</perUnitPattern>
-			</unit>
-			<unit type="area-square-foot">
-				<displayName>Skw Fut-dẹm</displayName>
-				<unitPattern count="one">{0} Skw ft</unitPattern>
-				<unitPattern count="other">{0} Skw ft</unitPattern>
-			</unit>
-			<unit type="area-square-inch">
-				<displayName>Ínchis2</displayName>
-				<unitPattern count="one">{0} in²</unitPattern>
-			</unit>
-			<unit type="area-square-kilometer">
-				<unitPattern count="one">{0} km²</unitPattern>
-			</unit>
-			<unit type="area-square-meter">
-				<displayName>Mítas²</displayName>
-				<unitPattern count="one">{0} m²</unitPattern>
-			</unit>
-			<unit type="area-square-mile">
-				<displayName>Skwiá Mails</displayName>
-				<unitPattern count="one">{0} skw ma</unitPattern>
-				<unitPattern count="other">{0} skw ma</unitPattern>
-				<perUnitPattern>{0}/ma²</perUnitPattern>
-			</unit>
-			<unit type="area-square-yard">
-				<displayName>Yads²</displayName>
-				<unitPattern count="one">{0} yd²</unitPattern>
-			</unit>
-			<unit type="concentr-karat">
-				<displayName>Karats</displayName>
-				<unitPattern count="one">{0} kar</unitPattern>
-				<unitPattern count="other">{0} kar</unitPattern>
-			</unit>
-			<unit type="concentr-milligram-ofglucose-per-deciliter">
-				<unitPattern count="one">{0} mg/dL</unitPattern>
-			</unit>
-			<unit type="concentr-millimole-per-liter">
-				<displayName>Mílimol/Líta</displayName>
-				<unitPattern count="one">{0} mmol/L</unitPattern>
-			</unit>
-			<unit type="concentr-mole">
-				<unitPattern count="one">{0} mol</unitPattern>
-			</unit>
-			<unit type="concentr-percent">
-				<displayName>Pasẹnt</displayName>
-				<unitPattern count="one">{0}%</unitPattern>
-			</unit>
-			<unit type="concentr-permille">
-				<displayName>Fọ Ích Taúzan</displayName>
-				<unitPattern count="one">{0}‰</unitPattern>
-			</unit>
-			<unit type="concentr-permillion">
-				<displayName>Pat/Míliọn</displayName>
-				<unitPattern count="one">{0} ppm</unitPattern>
-			</unit>
-			<unit type="concentr-permyriad">
-				<displayName>Fọ Ích Tẹ́n Taúzan</displayName>
-				<unitPattern count="one">{0}‱</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-100-kilometer">
-				<displayName>L/100 km</displayName>
-				<unitPattern count="one">{0} L/100 km</unitPattern>
-				<unitPattern count="other">{0} L/100 km</unitPattern>
-			</unit>
-			<unit type="consumption-liter-per-kilometer">
-				<displayName>Lítas/km</displayName>
-				<unitPattern count="one">{0} L/km</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon">
-				<displayName>Mails/gal</displayName>
-				<unitPattern count="one">{0} mfeg</unitPattern>
-				<unitPattern count="other">{0} mfeg</unitPattern>
-			</unit>
-			<unit type="consumption-mile-per-gallon-imperial">
-				<displayName>Mails/gal Brítish</displayName>
-				<unitPattern count="one">{0} mfeg Brít</unitPattern>
-				<unitPattern count="other">{0} mfeg Brít</unitPattern>
-			</unit>
-			<unit type="digital-bit">
-				<displayName>Bit</displayName>
-				<unitPattern count="one">{0} Bit</unitPattern>
-				<unitPattern count="other">{0} Bit</unitPattern>
-			</unit>
-			<unit type="digital-byte">
-				<displayName>Bait</displayName>
-				<unitPattern count="one">{0} Bait</unitPattern>
-				<unitPattern count="other">{0} Bait</unitPattern>
-			</unit>
-			<unit type="digital-gigabit">
-				<displayName>Gbit</displayName>
-				<unitPattern count="one">{0} Gb</unitPattern>
-			</unit>
-			<unit type="digital-gigabyte">
-				<displayName>GBait</displayName>
-				<unitPattern count="one">{0} GB</unitPattern>
-			</unit>
-			<unit type="digital-kilobit">
-				<displayName>kbit</displayName>
-				<unitPattern count="one">{0} kb</unitPattern>
-			</unit>
-			<unit type="digital-kilobyte">
-				<displayName>KBait</displayName>
-				<unitPattern count="one">{0} kB</unitPattern>
-			</unit>
-			<unit type="digital-megabit">
-				<displayName>Mbit</displayName>
-				<unitPattern count="one">{0} Mb</unitPattern>
-			</unit>
-			<unit type="digital-megabyte">
-				<displayName>MBait</displayName>
-				<unitPattern count="one">{0} MB</unitPattern>
-			</unit>
-			<unit type="digital-petabyte">
-				<displayName>PBaít</displayName>
-				<unitPattern count="one">{0} PB</unitPattern>
-			</unit>
-			<unit type="digital-terabit">
-				<displayName>Tbit</displayName>
-				<unitPattern count="one">{0} Tb</unitPattern>
-			</unit>
-			<unit type="digital-terabyte">
-				<displayName>TBait</displayName>
-				<unitPattern count="one">{0} TB</unitPattern>
-			</unit>
-			<unit type="duration-century">
-				<displayName>Họ́ndrẹ́d-yiẹ</displayName>
-				<unitPattern count="one">{0} Họ́nd-yiẹ́</unitPattern>
-				<unitPattern count="other">{0} Họ́nd-yiẹ́</unitPattern>
-			</unit>
-			<unit type="duration-day">
-				<displayName>Dez</displayName>
-				<unitPattern count="one">{0} dè</unitPattern>
-				<unitPattern count="other">{0} dez</unitPattern>
-			</unit>
-			<unit type="duration-decade">
-				<displayName>Tẹ́n-tẹ́n-yiẹ</displayName>
-				<unitPattern count="one">{0} Tẹ́n-yiẹ</unitPattern>
-				<unitPattern count="other">{0}Tẹ́n-yiẹ</unitPattern>
-			</unit>
-			<unit type="duration-hour">
-				<displayName>Áwas</displayName>
-				<unitPattern count="one">{0} Áwa</unitPattern>
-				<unitPattern count="other">{0} Áwa</unitPattern>
-				<perUnitPattern>{0}/a</perUnitPattern>
-			</unit>
-			<unit type="duration-microsecond">
-				<displayName>Maíkrosẹ́kọns</displayName>
-				<unitPattern count="one">{0}Maíksẹ́k</unitPattern>
-				<unitPattern count="other">{0}Maiksẹk</unitPattern>
-			</unit>
-			<unit type="duration-millisecond">
-				<displayName>Mílisẹ́kọn</displayName>
-				<unitPattern count="one">{0} Mílisẹ́kọn</unitPattern>
-				<unitPattern count="other">{0} Mílisẹ́kọn</unitPattern>
-			</unit>
-			<unit type="duration-minute">
-				<displayName>Mínit</displayName>
-				<unitPattern count="one">{0} Mínit</unitPattern>
-				<unitPattern count="other">{0} Mínit</unitPattern>
-			</unit>
-			<unit type="duration-month">
-				<displayName>Mọnt-dẹm</displayName>
-				<unitPattern count="one">{0} Mọnt</unitPattern>
-				<unitPattern count="other">{0} Mọnt</unitPattern>
-				<perUnitPattern>{0}/Mt</perUnitPattern>
-			</unit>
-			<unit type="duration-nanosecond">
-				<displayName>Nánosẹ́kọns</displayName>
-				<unitPattern count="one">{0} Nansẹk</unitPattern>
-				<unitPattern count="other">{0} Nansẹk</unitPattern>
-			</unit>
-			<unit type="duration-second">
-				<displayName>Sẹ́kọns</displayName>
-				<unitPattern count="one">{0} Sẹ́kọn</unitPattern>
-				<unitPattern count="other">{0} Sẹ́kọn</unitPattern>
-				<perUnitPattern>{0}/sẹ́k</perUnitPattern>
-			</unit>
-			<unit type="duration-week">
-				<displayName>Wik</displayName>
-				<unitPattern count="one">{0} Wik</unitPattern>
-				<unitPattern count="other">Wik {0}</unitPattern>
-				<perUnitPattern>{0} Wik</perUnitPattern>
-			</unit>
-			<unit type="duration-year">
-				<displayName>Yiẹ</displayName>
-				<unitPattern count="one">{0} Yiẹ</unitPattern>
-				<unitPattern count="other">{0} Yiẹ</unitPattern>
-				<perUnitPattern>{0}/Yiẹ</perUnitPattern>
-			</unit>
-			<unit type="electric-ampere">
-				<displayName>amps</displayName>
-				<unitPattern count="one">{0} A</unitPattern>
-			</unit>
-			<unit type="electric-milliampere">
-				<displayName>Míliámps</displayName>
-				<unitPattern count="one">{0} mA</unitPattern>
-			</unit>
-			<unit type="electric-ohm">
-				<displayName>Oms</displayName>
-				<unitPattern count="one">{0} Ω</unitPattern>
-			</unit>
-			<unit type="electric-volt">
-				<displayName>Volts</displayName>
-				<unitPattern count="one">{0} V</unitPattern>
-			</unit>
-			<unit type="energy-british-thermal-unit">
-				<displayName>BTY</displayName>
-				<unitPattern count="one">{0}Bty</unitPattern>
-				<unitPattern count="other">{0}Bty</unitPattern>
-			</unit>
-			<unit type="energy-calorie">
-				<displayName>kal</displayName>
-				<unitPattern count="one">{0} kal</unitPattern>
-				<unitPattern count="other">{0} kal</unitPattern>
-			</unit>
-			<unit type="energy-electronvolt">
-				<displayName>Ẹlẹ́ktrọ́nvolt</displayName>
-				<unitPattern count="one">{0} ẹV</unitPattern>
-				<unitPattern count="other">{0} ẹV</unitPattern>
-			</unit>
-			<unit type="energy-foodcalorie">
-				<displayName>Kal</displayName>
-				<unitPattern count="one">{0} Kal</unitPattern>
-				<unitPattern count="other">{0} Kal</unitPattern>
-			</unit>
-			<unit type="energy-joule">
-				<displayName>Joules</displayName>
-				<unitPattern count="one">{0} J</unitPattern>
-			</unit>
-			<unit type="energy-kilocalorie">
-				<displayName>kkal</displayName>
-				<unitPattern count="one">{0} kkal</unitPattern>
-				<unitPattern count="other">{0} kkal</unitPattern>
-			</unit>
-			<unit type="energy-kilojoule">
-				<displayName>Kílojul</displayName>
-				<unitPattern count="one">{0} kJ</unitPattern>
-			</unit>
-			<unit type="energy-kilowatt-hour">
-				<displayName>KW-áwa</displayName>
-				<unitPattern count="one">{0} kWa</unitPattern>
-				<unitPattern count="other">{0} kWa</unitPattern>
-			</unit>
-			<unit type="energy-therm-us">
-				<displayName>US Támál</displayName>
-				<unitPattern count="one">{0} US Támal</unitPattern>
-				<unitPattern count="other">{0} US Támal</unitPattern>
-			</unit>
-			<unit type="force-newton">
-				<displayName>Niúton</displayName>
-				<unitPattern count="one">{0} N</unitPattern>
-			</unit>
-			<unit type="force-pound-force">
-				<displayName>Páund-Fọs</displayName>
-				<unitPattern count="one">{0} lbf</unitPattern>
-			</unit>
-			<unit type="frequency-gigahertz">
-				<unitPattern count="one">{0} GHz</unitPattern>
-			</unit>
-			<unit type="frequency-hertz">
-				<unitPattern count="one">{0} Hz</unitPattern>
-			</unit>
-			<unit type="frequency-kilohertz">
-				<unitPattern count="one">{0} kHz</unitPattern>
-			</unit>
-			<unit type="frequency-megahertz">
-				<unitPattern count="one">{0} MHz</unitPattern>
-			</unit>
-			<unit type="graphics-dot">
-				<displayName>dọt</displayName>
-				<unitPattern count="one">{0} dọt</unitPattern>
-				<unitPattern count="other">{0} dọt</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-centimeter">
-				<displayName>Pọints fọ ích sẹntímíta</displayName>
-				<unitPattern count="one">{0} PFIS</unitPattern>
-				<unitPattern count="other">{0} PFIS</unitPattern>
-			</unit>
-			<unit type="graphics-dot-per-inch">
-				<displayName>Pọints Fọ Ẹ́vrí Inch</displayName>
-				<unitPattern count="one">{0} PFẸI</unitPattern>
-				<unitPattern count="other">{0} PFẸI</unitPattern>
-			</unit>
-			<unit type="graphics-em">
-				<unitPattern count="one">{0} em</unitPattern>
-			</unit>
-			<unit type="graphics-megapixel">
-				<displayName>Mẹ́gapíksẹls</displayName>
-				<unitPattern count="one">{0} Mẹ́gapíks</unitPattern>
-				<unitPattern count="other">{0} Mẹ́gapíks</unitPattern>
-			</unit>
-			<unit type="graphics-pixel">
-				<displayName>Píksẹls</displayName>
-				<unitPattern count="one">{0} Píksẹl</unitPattern>
-				<unitPattern count="other">{0} Píksẹl</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-centimeter">
-				<displayName>Píksẹls Fọ Ích Sẹntímíta</displayName>
-				<unitPattern count="one">{0} PFS</unitPattern>
-				<unitPattern count="other">{0} PFS</unitPattern>
-			</unit>
-			<unit type="graphics-pixel-per-inch">
-				<displayName>Píksẹl Fọ Ẹ́vrí Inch</displayName>
-				<unitPattern count="one">{0} PFI</unitPattern>
-				<unitPattern count="other">{0} PFI</unitPattern>
-			</unit>
-			<unit type="length-astronomical-unit">
-				<displayName>ay</displayName>
-				<unitPattern count="one">{0} ay</unitPattern>
-				<unitPattern count="other">{0} ay</unitPattern>
-			</unit>
-			<unit type="length-centimeter">
-				<displayName>sm</displayName>
-				<unitPattern count="one">{0} sm</unitPattern>
-				<unitPattern count="other">{0} sm</unitPattern>
-				<perUnitPattern>{0}/sm</perUnitPattern>
-			</unit>
-			<unit type="length-decimeter">
-				<unitPattern count="one">{0} dm</unitPattern>
-			</unit>
-			<unit type="length-fathom">
-				<displayName>Fátọm</displayName>
-				<unitPattern count="one">{0} fátọ</unitPattern>
-				<unitPattern count="other">{0} fátọ</unitPattern>
-			</unit>
-			<unit type="length-foot">
-				<displayName>Fut-dẹm</displayName>
-				<unitPattern count="one">{0} ft</unitPattern>
-			</unit>
-			<unit type="length-furlong">
-				<displayName>Fọ́lọng</displayName>
-				<unitPattern count="one">{0} fọl</unitPattern>
-				<unitPattern count="other">{0} fọl</unitPattern>
-			</unit>
-			<unit type="length-inch">
-				<displayName>Ínchis</displayName>
-				<unitPattern count="one">{0} in</unitPattern>
-			</unit>
-			<unit type="length-kilometer">
-				<unitPattern count="one">{0} km</unitPattern>
-			</unit>
-			<unit type="length-light-year">
-				<displayName>Laít Yiẹ</displayName>
-				<unitPattern count="one">{0}ly</unitPattern>
-				<unitPattern count="other">{0}ly</unitPattern>
-			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-				<unitPattern count="one">{0} m</unitPattern>
-			</unit>
-			<unit type="length-micrometer">
-				<displayName>μmíta</displayName>
-				<unitPattern count="one">{0} μm</unitPattern>
-			</unit>
-			<unit type="length-mile">
-				<displayName>Mails</displayName>
-				<unitPattern count="one">{0} ma</unitPattern>
-				<unitPattern count="other">{0} ma</unitPattern>
-			</unit>
-			<unit type="length-mile-scandinavian">
-				<unitPattern count="one">{0} smi</unitPattern>
-			</unit>
-			<unit type="length-millimeter">
-				<unitPattern count="one">{0} mm</unitPattern>
-			</unit>
-			<unit type="length-nanometer">
-				<unitPattern count="one">{0} nm</unitPattern>
-			</unit>
-			<unit type="length-nautical-mile">
-				<unitPattern count="one">{0} nmi</unitPattern>
-			</unit>
-			<unit type="length-parsec">
-				<displayName>parsecs</displayName>
-				<unitPattern count="one">{0} pc</unitPattern>
-			</unit>
-			<unit type="length-picometer">
-				<unitPattern count="one">{0} pm</unitPattern>
-			</unit>
-			<unit type="length-point">
-				<displayName>points</displayName>
-				<unitPattern count="one">{0} pt</unitPattern>
-			</unit>
-			<unit type="length-solar-radius">
-				<displayName>Sólá Rédiọs-Dẹm</displayName>
-				<unitPattern count="one">{0} R☉</unitPattern>
-			</unit>
-			<unit type="length-yard">
-				<displayName>Yads</displayName>
-				<unitPattern count="one">{0} yd</unitPattern>
-			</unit>
-			<unit type="light-candela">
-				<displayName>kd</displayName>
-				<unitPattern count="one">{0} kd</unitPattern>
-				<unitPattern count="other">{0} kd</unitPattern>
-			</unit>
-			<unit type="light-lumen">
-				<unitPattern count="one">{0} lm</unitPattern>
-			</unit>
-			<unit type="light-lux">
-				<displayName>lux</displayName>
-				<unitPattern count="one">{0} lx</unitPattern>
-			</unit>
-			<unit type="light-solar-luminosity">
-				<displayName>Sólá Luminósítis</displayName>
-				<unitPattern count="one">{0} L☉</unitPattern>
-			</unit>
-			<unit type="mass-carat">
-				<displayName>Kárats</displayName>
-				<unitPattern count="one">{0} Kt</unitPattern>
-				<unitPattern count="other">{0} Kt</unitPattern>
-			</unit>
-			<unit type="mass-dalton">
-				<displayName>Dọ́ltons</displayName>
-				<unitPattern count="one">{0} Dọ</unitPattern>
-				<unitPattern count="other">{0} Dọ</unitPattern>
-			</unit>
-			<unit type="mass-earth-mass">
-				<displayName>Ẹ́t Masís</displayName>
-				<unitPattern count="one">{0} M⊕</unitPattern>
-			</unit>
-			<unit type="mass-grain">
-				<displayName>Gren</displayName>
-				<unitPattern count="one">{0} gren</unitPattern>
-				<unitPattern count="other">{0} gren</unitPattern>
-			</unit>
-			<unit type="mass-gram">
-				<displayName>Grams</displayName>
-				<unitPattern count="one">{0} g</unitPattern>
-			</unit>
-			<unit type="mass-kilogram">
-				<unitPattern count="one">{0} kg</unitPattern>
-			</unit>
-			<unit type="mass-metric-ton">
-				<displayName>T</displayName>
-				<unitPattern count="one">{0} t</unitPattern>
-			</unit>
-			<unit type="mass-microgram">
-				<unitPattern count="one">{0} μg</unitPattern>
-			</unit>
-			<unit type="mass-milligram">
-				<unitPattern count="one">{0} mg</unitPattern>
-			</unit>
-			<unit type="mass-ounce">
-				<unitPattern count="one">{0} oz</unitPattern>
-			</unit>
-			<unit type="mass-ounce-troy">
-				<displayName>oz trọi</displayName>
-				<unitPattern count="one">{0} oz t</unitPattern>
-			</unit>
-			<unit type="mass-pound">
-				<displayName>Paunds</displayName>
-				<unitPattern count="one">{0} lb</unitPattern>
-			</unit>
-			<unit type="mass-solar-mass">
-				<displayName>Sólá Masís</displayName>
-				<unitPattern count="one">{0} M☉</unitPattern>
-			</unit>
-			<unit type="mass-stone">
-				<displayName>Ston</displayName>
-				<unitPattern count="one">{0} st</unitPattern>
-			</unit>
-			<unit type="mass-ton">
-				<displayName>Tọns</displayName>
-				<unitPattern count="one">{0} tn</unitPattern>
-			</unit>
-			<unit type="power-gigawatt">
-				<unitPattern count="one">{0} GW</unitPattern>
-			</unit>
-			<unit type="power-horsepower">
-				<unitPattern count="one">{0} hp</unitPattern>
-			</unit>
-			<unit type="power-kilowatt">
-				<unitPattern count="one">{0} kW</unitPattern>
-			</unit>
-			<unit type="power-megawatt">
-				<unitPattern count="one">{0} MW</unitPattern>
-			</unit>
-			<unit type="power-milliwatt">
-				<unitPattern count="one">{0} mW</unitPattern>
-			</unit>
-			<unit type="power-watt">
-				<displayName>Wats</displayName>
-				<unitPattern count="one">{0} W</unitPattern>
-			</unit>
-			<unit type="pressure-atmosphere">
-				<unitPattern count="one">{0} atm</unitPattern>
-			</unit>
-			<unit type="pressure-bar">
-				<displayName>Baa</displayName>
-				<unitPattern count="one">{0} Baa</unitPattern>
-				<unitPattern count="other">{0} Baa</unitPattern>
-			</unit>
-			<unit type="pressure-hectopascal">
-				<unitPattern count="one">{0} hPa</unitPattern>
-			</unit>
-			<unit type="pressure-inch-ofhg">
-				<unitPattern count="one">{0} inHg</unitPattern>
-			</unit>
-			<unit type="pressure-kilopascal">
-				<unitPattern count="one">{0} kPa</unitPattern>
-			</unit>
-			<unit type="pressure-megapascal">
-				<unitPattern count="one">{0} MPa</unitPattern>
-			</unit>
-			<unit type="pressure-millibar">
-				<displayName>mbaa</displayName>
-				<unitPattern count="one">{0} mbaa</unitPattern>
-				<unitPattern count="other">{0} mbaa</unitPattern>
-			</unit>
-			<unit type="pressure-millimeter-ofhg">
-				<displayName>mmHg</displayName>
-				<unitPattern count="one">{0} mmHg</unitPattern>
-				<unitPattern count="other">{0} mmHg</unitPattern>
-			</unit>
-			<unit type="pressure-pascal">
-				<unitPattern count="one">{0} Pa</unitPattern>
-			</unit>
-			<unit type="pressure-pound-force-per-square-inch">
-				<displayName>pfẹsi</displayName>
-				<unitPattern count="one">{0} pẹsi</unitPattern>
-				<unitPattern count="other">{0} pẹsi</unitPattern>
-			</unit>
-			<unit type="speed-kilometer-per-hour">
-				<displayName>km/áwa</displayName>
-				<unitPattern count="one">{0} km/á</unitPattern>
-				<unitPattern count="other">{0} km/á</unitPattern>
-			</unit>
-			<unit type="speed-knot">
-				<displayName>Nọt</displayName>
-				<unitPattern count="one">{0} Nọt</unitPattern>
-				<unitPattern count="other">{0} Nọt</unitPattern>
-			</unit>
-			<unit type="speed-meter-per-second">
-				<displayName>Mítas/Sẹk</displayName>
-				<unitPattern count="one">{0} m/s</unitPattern>
-			</unit>
-			<unit type="speed-mile-per-hour">
-				<displayName>Mails/Áwa</displayName>
-				<unitPattern count="one">{0} mfẹa</unitPattern>
-				<unitPattern count="other">{0} mfẹa</unitPattern>
-			</unit>
-			<unit type="temperature-celsius">
-				<displayName>Dig. C</displayName>
-				<unitPattern count="one">{0}°C</unitPattern>
-			</unit>
-			<unit type="temperature-fahrenheit">
-				<displayName>dig. F</displayName>
-				<unitPattern count="one">{0}°F</unitPattern>
-			</unit>
-			<unit type="temperature-generic">
-				<unitPattern count="one">{0}°</unitPattern>
-			</unit>
-			<unit type="temperature-kelvin">
-				<unitPattern count="one">{0} K</unitPattern>
-			</unit>
-			<unit type="torque-newton-meter">
-				<displayName>N.m</displayName>
-				<unitPattern count="one">{0} N⋅m</unitPattern>
-			</unit>
-			<unit type="torque-pound-force-foot">
-				<unitPattern count="one">{0} lbf⋅ft</unitPattern>
-			</unit>
-			<unit type="volume-acre-foot">
-				<displayName>Éka ft</displayName>
-				<unitPattern count="one">{0} ek ft</unitPattern>
-				<unitPattern count="other">{0} ek ft</unitPattern>
-			</unit>
-			<unit type="volume-barrel">
-				<displayName>Drọm</displayName>
-				<unitPattern count="one">{0}dr</unitPattern>
-				<unitPattern count="other">{0}dr</unitPattern>
-			</unit>
-			<unit type="volume-bushel">
-				<displayName>Búshẹl</displayName>
-				<unitPattern count="one">{0} bú</unitPattern>
-				<unitPattern count="other">{0} bú</unitPattern>
-			</unit>
-			<unit type="volume-centiliter">
-				<displayName>sl</displayName>
-				<unitPattern count="one">{0} sl</unitPattern>
-				<unitPattern count="other">{0} sl</unitPattern>
-			</unit>
-			<unit type="volume-cubic-centimeter">
-				<displayName>sm³</displayName>
-				<unitPattern count="one">{0} sm³</unitPattern>
-				<unitPattern count="other">{0} sm³</unitPattern>
-				<perUnitPattern>{0}/sm³</perUnitPattern>
-			</unit>
-			<unit type="volume-cubic-foot">
-				<displayName>Fut³</displayName>
-				<unitPattern count="one">{0} ft³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-inch">
-				<displayName>Ínchis³</displayName>
-				<unitPattern count="one">{0} in³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-kilometer">
-				<unitPattern count="one">{0} km³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-meter">
-				<unitPattern count="one">{0} m³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-mile">
-				<displayName>ma³</displayName>
-				<unitPattern count="one">{0} ma³</unitPattern>
-				<unitPattern count="other">{0} ma³</unitPattern>
-			</unit>
-			<unit type="volume-cubic-yard">
-				<displayName>Yáds³</displayName>
-				<unitPattern count="one">{0} yd³</unitPattern>
-			</unit>
-			<unit type="volume-cup">
-				<displayName>Kọps</displayName>
-				<unitPattern count="one">{0} Kọp</unitPattern>
-				<unitPattern count="other">{0} Kọp</unitPattern>
-			</unit>
-			<unit type="volume-cup-metric">
-				<displayName>mkọp</displayName>
-				<unitPattern count="one">{0} mk</unitPattern>
-				<unitPattern count="other">{0} mk</unitPattern>
-			</unit>
-			<unit type="volume-deciliter">
-				<displayName>dl</displayName>
-				<unitPattern count="one">{0} dl</unitPattern>
-				<unitPattern count="other">{0} dl</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon">
-				<displayName>Dztspn</displayName>
-				<unitPattern count="one">{0} dztspn</unitPattern>
-				<unitPattern count="other">{0} dztspn</unitPattern>
-			</unit>
-			<unit type="volume-dessert-spoon-imperial">
-				<displayName>Dztspn Imp</displayName>
-				<unitPattern count="one">{0} dzsp Imp</unitPattern>
-				<unitPattern count="other">{0} dzsp Imp</unitPattern>
-			</unit>
-			<unit type="volume-dram">
-				<displayName>Drám Líkwid</displayName>
-				<unitPattern count="one">{0} Dram lí</unitPattern>
-				<unitPattern count="other">{0} Dram lí</unitPattern>
-			</unit>
-			<unit type="volume-drop">
-				<displayName>Drọp</displayName>
-				<unitPattern count="one">{0} Drọp</unitPattern>
-				<unitPattern count="other">{0} Drọp</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce">
-				<displayName>fl oz</displayName>
-				<unitPattern count="one">{0} fl oz</unitPattern>
-				<unitPattern count="other">{0} fl oz</unitPattern>
-			</unit>
-			<unit type="volume-fluid-ounce-imperial">
-				<displayName>Brít. Fl oz</displayName>
-				<unitPattern count="one">{0} fl oz Brit.</unitPattern>
-				<unitPattern count="other">{0} fl oz Brit.</unitPattern>
-			</unit>
-			<unit type="volume-gallon">
-				<displayName>gal</displayName>
-				<unitPattern count="one">{0} gal</unitPattern>
-				<unitPattern count="other">{0} gal</unitPattern>
-			</unit>
-			<unit type="volume-gallon-imperial">
-				<displayName>Brít. gal</displayName>
-				<unitPattern count="one">{0} Brít. gal</unitPattern>
-				<unitPattern count="other">{0} Brít. gal</unitPattern>
-				<perUnitPattern>{0} Brít. gal</perUnitPattern>
-			</unit>
-			<unit type="volume-hectoliter">
-				<unitPattern count="one">{0} hL</unitPattern>
-			</unit>
-			<unit type="volume-jigger">
-				<displayName>Jigá</displayName>
-				<unitPattern count="one">{0} Jigá</unitPattern>
-				<unitPattern count="other">{0} Jigá</unitPattern>
-			</unit>
-			<unit type="volume-liter">
-				<displayName>Lítas</displayName>
-				<unitPattern count="one">{0} L</unitPattern>
-				<unitPattern count="other">{0} L</unitPattern>
-				<perUnitPattern>{0}/L</perUnitPattern>
-			</unit>
-			<unit type="volume-megaliter">
-				<unitPattern count="one">{0} ML</unitPattern>
-			</unit>
-			<unit type="volume-milliliter">
-				<displayName>ml</displayName>
-				<unitPattern count="one">{0} ml</unitPattern>
-				<unitPattern count="other">{0} ml</unitPattern>
-			</unit>
-			<unit type="volume-pinch">
-				<displayName>Pinch</displayName>
-				<unitPattern count="one">{0} Pinch</unitPattern>
-				<unitPattern count="other">{0} Pinch</unitPattern>
-			</unit>
-			<unit type="volume-pint">
-				<displayName>Paints</displayName>
-				<unitPattern count="one">{0} pt</unitPattern>
-			</unit>
-			<unit type="volume-pint-metric">
-				<unitPattern count="one">{0} mpt</unitPattern>
-			</unit>
-			<unit type="volume-quart">
-				<displayName>kwts</displayName>
-				<unitPattern count="one">{0} kwt</unitPattern>
-				<unitPattern count="other">{0} kwt</unitPattern>
-			</unit>
-			<unit type="volume-quart-imperial">
-				<displayName>Kt Impẹ́riál</displayName>
-				<unitPattern count="one">{0} Kt Imp</unitPattern>
-				<unitPattern count="other">{0} Kt Imp</unitPattern>
-			</unit>
-			<unit type="volume-tablespoon">
-				<displayName>Tbsp</displayName>
-				<unitPattern count="one">{0} Tbsp</unitPattern>
-				<unitPattern count="other">{0} Tbsp</unitPattern>
-			</unit>
-			<unit type="volume-teaspoon">
-				<displayName>Tsp</displayName>
-				<unitPattern count="one">{0} Tsp</unitPattern>
-				<unitPattern count="other">{0} Tsp</unitPattern>
-			</unit>
-			<coordinateUnit>
-				<displayName>Pọint</displayName>
-				<coordinateUnitPattern type="east">{0} E</coordinateUnitPattern>
-				<coordinateUnitPattern type="north">{0} N</coordinateUnitPattern>
-				<coordinateUnitPattern type="south">{0} S</coordinateUnitPattern>
-				<coordinateUnitPattern type="west">{0} W</coordinateUnitPattern>
-			</coordinateUnit>
-		</unitLength>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
 	</units>
 	<listPatterns>
 		<listPattern>
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0}, an {1}</listPatternPart>
 			<listPatternPart type="2">{0} an {1}</listPatternPart>
 		</listPattern>
 		<listPattern type="or">
+			<listPatternPart type="start">{0}, {1}</listPatternPart>
+			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0} ọ {1}</listPatternPart>
 			<listPatternPart type="2">{0} ọ {1}</listPatternPart>
 		</listPattern>
@@ -7092,22 +7804,23 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<posix>
 		<messages>
 			<yesstr>yẹs:y</yesstr>
+			<nostr>no:n</nostr>
 		</messages>
 	</posix>
 	<characterLabels>
-		<characterLabelPattern type="other">{0} — Ọ́da</characterLabelPattern>
 		<characterLabelPattern type="all">{0} — ọl</characterLabelPattern>
+		<characterLabelPattern type="category-list">{0}: {1}</characterLabelPattern>
 		<characterLabelPattern type="compatibility">{0} — Fít ích ọ́da</characterLabelPattern>
 		<characterLabelPattern type="enclosed">{0} — Sọráund</characterLabelPattern>
 		<characterLabelPattern type="extended">{0} — Strẹch</characterLabelPattern>
 		<characterLabelPattern type="historic">{0} — Impọ́tant</characterLabelPattern>
 		<characterLabelPattern type="miscellaneous">{0} — Dífrẹ́n Dífrẹ́n Tins</characterLabelPattern>
+		<characterLabelPattern type="other">{0} — Ọ́da</characterLabelPattern>
 		<characterLabelPattern type="scripts">Raítín Sístẹm-dẹm —{0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0}Strok</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0}Strok</characterLabelPattern>
 		<characterLabelPattern type="subscript">sọ́bskript {0}</characterLabelPattern>
 		<characterLabelPattern type="superscript">Súpáskript {0}</characterLabelPattern>
-		<characterLabel type="other">Ọ́da</characterLabel>
 		<characterLabel type="activities">Tins Wé De Hápun</characterLabel>
 		<characterLabel type="african_scripts">Áfríká Raítín Sístẹm</characterLabel>
 		<characterLabel type="american_scripts">Amẹ́ríká Raítín Sístẹm</characterLabel>
@@ -7166,6 +7879,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="nonspacing">Nospes</characterLabel>
 		<characterLabel type="numbers">Nọ́mba-dẹm</characterLabel>
 		<characterLabel type="objects">Sọ́mtin</characterLabel>
+		<characterLabel type="other">Ọ́da</characterLabel>
 		<characterLabel type="paired">Tuú bai Tuu</characterLabel>
 		<characterLabel type="person">Pẹ́sin</characterLabel>
 		<characterLabel type="phonetic_alphabet">Fọnẹ́tík Álfábẹt</characterLabel>

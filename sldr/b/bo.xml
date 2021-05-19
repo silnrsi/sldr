@@ -280,9 +280,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[\u0F7E ཿ ཀ {ཀ\u0FB5} \u0F90 {\u0F90\u0FB5} ཁ \u0F91 ག {ག\u0FB7} \u0F92 {\u0F92\u0FB7} ང \u0F94 ཅ \u0F95 ཆ \u0F96 ཇ \u0F97 ཉ \u0F99 ཊ \u0F9A ཋ \u0F9B ཌ {ཌ\u0FB7} \u0F9C {\u0F9C\u0FB7} ཎ \u0F9E ཏ \u0F9F ཐ \u0FA0 ད {ད\u0FB7} \u0FA1 {\u0FA1\u0FB7} ན \u0FA3 པ \u0FA4 ཕ \u0FA5 བ {བ\u0FB7} \u0FA6 {\u0FA6\u0FB7} མ \u0FA8 ཙ \u0FA9 ཚ \u0FAA ཛ {ཛ\u0FB7} \u0FAB {\u0FAB\u0FB7} ཝ \u0FAD \u0FBA ཞ \u0FAE ཟ \u0FAF འ \u0FB0 ཡ \u0FB1 \u0FBB ར ཪ \u0FB2 \u0FBC ལ \u0FB3 ཤ \u0FB4 ཥ \u0FB5 ས \u0FB6 ཧ \u0FB7 ཨ \u0FB8 \u0F72 {\u0F71\u0F72} \u0F80 {\u0F71\u0F80} \u0F74 {\u0F71\u0F74} {\u0FB2\u0F80} \u0F77 {\u0FB3\u0F80} \u0F79 \u0F7A \u0F7B \u0F7C \u0F7D \u0F84]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[ༀ]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\: ་ །]</exemplarCharacters>
 		<exemplarCharacters type="index" draft="contributed">[ཀ ཁ ག ང ཅ ཆ ཇ ཉ ཏ ཐ ད ན པ ཕ བ མ ཙ ཚ ཛ ཝ ཞ ཟ འ ཡ ར ལ ཤ ས ཧ ཨ]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0༠ 1༡ 2༢ 3༣ 4༤ 5༥ 6༦ 7༧ 8༨ 9༩]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\: ་ །]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -480,6 +480,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<pattern>y ལོའི་MMMཚེས་d</pattern>
 						</dateFormat>
 					</dateFormatLength>
+					<dateFormatLength type="short">
+						<dateFormat>
+							<pattern>y-MM-dd</pattern>
+						</dateFormat>
+					</dateFormatLength>
 				</dateFormats>
 				<timeFormats>
 					<timeFormatLength type="full">
@@ -517,6 +522,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 		<fields>
+			<field type="era">
+				<displayName draft="provisional">ལོ་རིམ།</displayName>
+			</field>
+			<field type="year">
+				<displayName draft="contributed">ལོ།</displayName>
+			</field>
+			<field type="month">
+				<displayName>ཟླ་བ་</displayName>
+			</field>
+			<field type="week">
+				<displayName draft="provisional">གཟའ་འཁོར།</displayName>
+			</field>
 			<field type="day">
 				<displayName draft="contributed">ཉིན།</displayName>
 				<relative type="-1">ཁས་ས་</relative>
@@ -525,11 +542,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<relative type="1">སང་ཉིན་</relative>
 				<relative type="2">གནངས་ཉིན་</relative>
 			</field>
+			<field type="weekday">
+				<displayName draft="provisional">གཟའ་འཁོར་གཅིག</displayName>
+			</field>
 			<field type="dayperiod">
 				<displayName draft="provisional">སྔ་དྲོ། ཕྱི་དྲོ།</displayName>
-			</field>
-			<field type="era">
-				<displayName draft="provisional">ལོ་རིམ།</displayName>
 			</field>
 			<field type="hour">
 				<displayName>ཆུ་ཚོད་</displayName>
@@ -537,20 +554,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="minute">
 				<displayName draft="contributed">སྐར་མ།</displayName>
 			</field>
-			<field type="month">
-				<displayName>ཟླ་བ་</displayName>
-			</field>
 			<field type="second">
 				<displayName draft="contributed">སྐར་ཆ།</displayName>
-			</field>
-			<field type="week">
-				<displayName draft="provisional">གཟའ་འཁོར།</displayName>
-			</field>
-			<field type="weekday">
-				<displayName draft="provisional">གཟའ་འཁོར་གཅིག</displayName>
-			</field>
-			<field type="year">
-				<displayName draft="contributed">ལོ།</displayName>
 			</field>
 			<field type="zone">
 				<displayName draft="contributed">དུས་ཚོད།</displayName>
@@ -563,12 +568,55 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<defaultNumberingSystem>latn</defaultNumberingSystem>
 		<otherNumberingSystems>
 			<native>tibt</native>
 		</otherNumberingSystems>
+		<symbols numberSystem="latn">
+			<decimal draft="provisional">.</decimal>
+			<group draft="contributed">,</group>
+			<nan>NaN</nan>
+		</symbols>
 		<symbols numberSystem="tibt">
 			<nan>ཨང་མེན་</nan>
 		</symbols>
+		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<percentFormats numberSystem="latn">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern draft="contributed">#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<currencyFormats numberSystem="latn">
+			<currencyFormatLength>
+				<currencyFormat type="standard">
+					<pattern>¤ #,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+			<currencyFormatLength type="short">
+				<currencyFormat type="standard">
+					<pattern type="1000" count="other" draft="provisional">¤ 0K</pattern>
+					<pattern type="10000" count="other" draft="provisional">¤ 00K</pattern>
+					<pattern type="100000" count="other" draft="provisional">¤ 000K</pattern>
+					<pattern type="1000000" count="other" draft="provisional">¤ 0M</pattern>
+					<pattern type="10000000" count="other" draft="provisional">¤ 00M</pattern>
+					<pattern type="100000000" count="other" draft="provisional">¤ 000M</pattern>
+					<pattern type="1000000000" count="other" draft="provisional">¤ 0G</pattern>
+					<pattern type="10000000000" count="other" draft="provisional">¤ 00G</pattern>
+					<pattern type="100000000000" count="other" draft="provisional">¤ 000G</pattern>
+					<pattern type="1000000000000" count="other" draft="provisional">¤ 0T</pattern>
+					<pattern type="10000000000000" count="other" draft="provisional">¤ 00T</pattern>
+					<pattern type="100000000000000" count="other" draft="provisional">¤ 000T</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+		</currencyFormats>
 		<currencies>
 			<currency type="CNY">
 				<displayName>ཡུ་ཨན་</displayName>
@@ -586,82 +634,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</currencies>
 	</numbers>
 	<collations>
-		<collation type="standard" sil:modified="true">
+		<collation type="standard">
 			<cr><![CDATA[
-				[normalization on]
-				[reorder Tibt]
-				&ཀ<<ྈྐ<དཀ<བཀ<རྐ<ལྐ<སྐ<བརྐ<བསྐ
-				&ཁ<<ྈྑ<མཁ<འཁ
-				&ག<དགག<དགང<དགད<དགབ<དགཝ<དགའ<དགར<དགལ<དགས<དགུ<དགེ<དགོ<དགྱ<དགྲ<བགག<བགད<བགམ<<<བགཾ<བགཝ<བགའ
-				<བགར<བགེ<བགོ<བགྱ<བགྲ<བགླ<མགར<མགལ<མགུ<མགེ<མགོ<མགྱ<མགྲ<འགག<འགང<འགད<འགན<འགབ<འགམ<<<འགཾ
-				<འགའ<འགར<འགལ<འགས<འགི<འགུ<འགེ<འགོ<འགྱ<འགྲ<རྒ<ལྒ<སྒ<བརྒ<བསྒ
-				&ང<དངག<དངང<དངན<དངར<དངུ<དངོ<མངག<མངན<མངའ<མངར<མངལ<མངོ<རྔ<ལྔ<སྔ<བརྔ<བསྔ
-				&ཅ<གཅ<བཅ<ལྕ<བལྕ
-				&ཆ<མཆ<འཆ
-				&ཇ<མཇ<འཇ<རྗ<ལྗ<བརྗ
-				&ཉ<<ྋྙ<གཉ<མཉ<རྙ<སྙ<བརྙ<བསྙ
-				&ཏ<<<ཊ<གཏ<བཏ<རྟ<ལྟ<སྟ<བརྟ<བལྟ<བསྟ
-				&ཐ<<<ཋ<མཐ<འཐ
-				&ད<<<ཌ<གདག<གདང<གདན<གདབ<གདམ<<<གདཾ<གདའ<གདར<གདལ<གདས<གདི<གདུ<གདེ<གདོ<བདག<བདམ<<<བདཾ<བདའ
-				<བདར<བདལ<བདས<བདུ<བདེ<བདོ<མདག<མདང<མདན<མདའ<མདར<མདུ<མདེ<མདོ<འདག<འདང<འདད<འདན<འདབ<འདམ<<<འདཾ
-				<འདཝ<འདའ<འདར<འདལ<འདས<འདི<འདུ<འདེ<འདོ<འདྲ<རྡ<ལྡ<སྡ<བརྡ<བལྡ<བསྡ
-				&ན<<<ཎ<གནག<གནང<གནད<གནན<གནམ<<<གནཾ<གནཝ<གནའ<གནས<གནུ<གནོ<མནག<མནང<མནན<མནབ<མནམ<<<མནཾ<མནའ
-				<མནར<མནལ<མནུ<མནེ<མནོ<རྣ<སྣ<བརྣ<བསྣ
-				&པ<<ྉྤ<དཔག<དཔང<དཔད<དཔའ<དཔར<དཔལ<དཔས<དཔུ<དཔེ<དཔོག<དཔོང<དཔོད<དཔོན<དཔོར<དཔྱ<དཔྲ<ལྤ<སྤ
-				&ཕ<<ྉྥ<འཕ
-				&བ<དབག<དབང<དབད<དབན<དབབ<དབའ<དབར<དབལ<དབས<དབུ<དབེ<དབོ<དབྱ<དབྲ<འབག<འབང<འབད<འབན<འབབ<འབམ
-				<<<འབཾ<འབའ<འབར<འབལ<འབི<འབུ<འབེ<འབོ<འབྱ<འབྲ<རྦ<ལྦ<སྦ
-				&མ<<<ཾ<<<ྂ<<<ྃ<དམག<དམང<དམན<དམཝ<དམའ<དམར<དམས<དམི<དམུ<དམེ<དམོད<དམྱ<རྨ<སྨ
-				&ཙ<གཙ<བཙ<རྩ<སྩ<བརྩ<བསྩ
-				&ཚ<མཚ<འཚ
-				&ཛ<མཛ<འཛ<རྫ<བརྫ
-				# &ཝ
-				&ཞ<གཞ<བཞ
-				&ཟ<གཟ<བཟ
-				# &འ
-				&ཡ<གཡ
-				&ར<<<ཪ<བརླ
-				# &ལ
-				&ཤ<<<ཥ<གཤ<བཤ
-				&ས<གསག<གསང<གསད<གསན<གསབ<གསའ<གསར<གསལ<གསས<གསི<གསུ<གསེ<གསོ<བསག<བསང<བསད<བསབ<བསམ<<<བསཾ<བསར
-				<བསལ<བསི<བསུ<བསེ<བསོ<བསྭ<བསྲ<བསླ
-				&ཧ<ལྷ
-				# &ཨ
-				# Explicit vowels
-				&ི<<<ྀ
-				# &ུ
-				&ེ<<<ཻ
-				&ོ<<<ཽ
-				# Post-radicals
-				<ྐ<ྑ<ྒ<ྔ<ྕ<ྖ<ྗ<ྙ<ྟ<<<ྚ<ྠ<<<ྛ<ྡ<<<ྜ<ྣ<<<ྞ<ྤ<ྥ<ྦ<ྨ<ྩ<ྪ<ྫ<ྭ<<<ྺ<ྮ<ྯ<ྰ<ྱ<<<ྻ<ྲ<<<ྼ<ླ<ྴ
-				<<<ྵ<ྶ<ྷ<ྸ
-				# Combining marks and signs (secondary weight)
-				&༹<<྄<<ཱ<<༹<<ཿ<<྅<<ྈ<<ྉ<<ྊ<<ྋ
-				# Treat ཷ,ཹ as decomposed
-				&ྲཱྀ=ཷ
-				&ླཱྀ=ཹ
-				# Shorthands for ག,ས
-				&དགགས<<<དགཊ<<<དགཌ
-				&བགགས<<<བགཊ<<<བགཌ
-				&འགགས<<<འགཊ<<<འགཌ
-				&དངགས<<<དངཊ<<<དངཌ
-				&མངགས<<<མངཊ<<<མངཌ
-				&གདགས<<<གདཊ<<<གདཌ
-				&བདགས<<<བདཊ<<<བདཌ
-				&མདགས<<<མདཊ<<<མདཌ
-				&འདགས<<<འདཊ<<<འདཌ
-				&གནགས<<<གནཊ<<<གནཌ
-				&མནགས<<<མནཊ<<<མནཌ
-				&དཔགས<<<དཔཊ<<<དཔཌ
-				&དབགས<<<དབཊ<<<དབཌ
-				&འབགས<<<འབཊ<<<འབཌ
-				&དམགས<<<དམཊ<<<དམཌ
-				&གསགས<<<གསཊ<<<གསཌ
-				&བསགས<<<བསཊ<<<བསཌ
-				# OM sign
-				&྿<ༀ
-				# Marks (seconadry different, with low equal primary weight after ໆ)
-				&ໆ<་<<<༌<<།<<༎<<༏<<༐<<༑<<༔<<༴
+				[import dz-u-co-standard]
 			]]></cr>
 		</collation>
 	</collations>
