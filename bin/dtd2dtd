@@ -35,6 +35,7 @@ class ElementDecl:
         self.model = self.asModel(model)
         self.attributes = {}
         self.annotations = []
+        self.attribkeys = []
 
     def asModel(self, model):
         return Model(ModelType(model[0]), ModelQuant(model[1]), model[2],
@@ -54,7 +55,8 @@ class ElementDecl:
         res += [">"]
         for a in self.annotations:
             res += ["\n    <!--"+a+"-->"]
-        for a in self.attributes.values():       # relies on being ordered
+        for k in self.attribkeys:
+            a = self.attributes[k]
             res += "\n" + a.asStr()
         return "".join(res) + "\n"
     
@@ -69,6 +71,10 @@ class ElementDecl:
             return ""
         return "(" + sep.join(self.modelAsStr(x) for x in model.children) +")" + str(model.quant)
 
+    def addAttribute(self, attrib):
+        self.attributes[attrib.attrib] = attrib
+        if attrib.attrib not in self.attribkeys:
+            self.attribkeys.append(attrib.attrib)
 
 class AttributeDecl:
     def __init__(self, elname, attname, xmltype, default, required):
@@ -120,7 +126,7 @@ class DTDParser:
 
     def attlistDecl(self, elname, attname, xmltype, default, required, *a):
         self.currAttrib = AttributeDecl(elname, attname, xmltype, default, required)
-        self.elements[elname].attributes[attname] = self.currAttrib
+        self.elements[elname].addAttribute(self.currAttrib)
         self.currEl = None
 
     def comment(self, txt):
@@ -177,7 +183,7 @@ class DTDParser:
                 p = self.elements[elname]
                 for v in self.globalAttrs[grpname].values():
                     self.currAttrib = v.copy(elname)
-                    p.attributes[v.attrib] = self.currAttrib
+                    p.addAttribute(self.currAttrib)
         return True
 
     def readDTD(self, fname = None):
@@ -208,7 +214,7 @@ gs = dtd.globalAttrs['global']
 for en, e in dtd.elements.items():
     for a, v in gs.items():
         if a in e.attributes:
-            e.attributes[a] = v.copy(en)
+            e.addAttribute(v.copy(en))
 # with open(args.outfile, "w", encoding="utf-8") as outf:
 with open(args.outfile, "w") as outf:
     for e in dtd.allElements:
