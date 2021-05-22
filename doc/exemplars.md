@@ -86,7 +86,7 @@ modified. Pre consonant modifiers are m or n, while post consonant modifiers are
 w and y. A syllable may have both one pre consonant modifier and post consonant
 modifier. There are constraints on precisely which sequences do occur.
 
-Kwaya has a single lexical tone mark (\`) and three grammatical tone marks that
+Kwaya has a single lexical tone mark (\u0301) and three grammatical tone marks that
 precede the word (: ^ ~)
 
 Loan words are forced into Kwaya phonology and orthographic conventions and so
@@ -95,7 +95,7 @@ no characters are borrowed from other orthographies.
 Explicitly identified punctuation marks are:
 
 ```
-? . , : " '
+? . , : " ' - \u2018 \u2019 \u201C \u201D
 ```
 
 #### Analysis for Exemplars
@@ -127,13 +127,18 @@ To this is added:
 Thus we have:
 
 ```
-b {bh} {ch} d f g j k m n {n'} {ng'} {ny} p r s {sh} t w y ̀
+b {bh} {ch} d f g j k m n {n'} {ng'} {ny} p r s {sh} t w y \u0301
 ```
 
-The punctuation exemplar is relatively straightforward:
+The punctuation exemplar is relatively straightforward. The biggest question is
+what to do with grammatical tone marks. Such marks are, by definition,
+grammatical and therefore above a single word. This corresponds exactly with
+what punctuation is: super word modifiers. In English they create pauses for
+reading or intonation marks. Grammatical tone, therefore, seems to fit very well
+into the category of punctuation.
 
 ```
-? . , : " '
+^ ~ ? . , : " ' - \u2018 \u2019 \u201C \u201D
 ```
 
 While ' occurs in both exemplars, it is not unconstrained in both lists.
@@ -217,14 +222,20 @@ A collation is available:
 Given that a number of characters are added to the basic English alphabet, it is
 probable that someone with knowledge of the orthography took the effort to enter
 this sort order. There are obvious missing capitals for some of the additions.
-But from this we can improve our exemplar. The ' modified consonants are listed,
+But from this we can improve our exemplar.
+
+The ' modified consonants are listed,
 although adding ' at the end of the order implies it can occur in other places.
+The question is: what other places? It is hard to analyse the use of apostrophe
+in a text and so ' may just be left over from a default inclusion of it in a
+list. I would suggest we remove it until further evidence justifies its
+reinclusion.
 
 In addition to the collation information we are given a list of every grapheme
 cluster encountered in some text (which we don't have):
 
 ```
-' A-Z a-z Á Ã É Ë Í Ñ Ó Õ Ú Ü á ã é ë í ñ ó õ ú ü Ĩ ĩ Ũ ũ Ɨ ɨ Ṍ ṍ Ṹ ṹ Ẽ ẽ
+A-Z a-z Á Ã É Ë Í Ñ Ó Õ Ú Ü á ã é ë í ñ ó õ ú ü Ĩ ĩ Ũ ũ Ɨ ɨ Ṍ ṍ Ṹ ṹ Ẽ ẽ
 {Ch} {K'} {P'} {Qu} {T'} {b̶} {ch} {d̶} {k'} {p'} {qu} {t'} {Ã́} {Ë́} {ã́} {ë́}
 {Ĩ́} {ĩ́} {Ɨ́} {Ɨ̃} {Ɨ̃́} {ɨ́} {ɨ̃} {ɨ̃́} {Ẽ́} {ẽ́}
 ```
@@ -233,7 +244,7 @@ which fits with the collation. This can be simplified by removing upper case
 characters for which there is a lower case equivalent.
 
 ```
-' a-z á ã é ë í ñ ó õ ú ü ĩ ũ ɨ ṍ ṹ ẽ {b̶} {ch} {d̶} {k'} {p'} {qu} {t'} {ã́} {ë́}
+a-z á ã é ë í ñ ó õ ú ü ĩ ũ ɨ ṍ ṹ ẽ {b̶} {ch} {d̶} {k'} {p'} {qu} {t'} {ã́} {ë́}
 {ĩ́} {ɨ́} {ɨ̃} {ɨ̃́} {ẽ́}
 ```
 
@@ -244,7 +255,7 @@ the particular characters and so it is better to include them on their own
 rather than as ways of producing more vowels:
 
 ```
-' a-z ñ ɨ {b̶} {ch} {d̶} {k'} {p'} {qu} {t'} \u0301 \u0303
+a-z ñ ɨ {b̶} {ch} {d̶} {k'} {p'} {qu} {t'} \u0301 \u0303
 ```
 
 Notice we keep ñ since it is a primary collation element and you can't nasalise
