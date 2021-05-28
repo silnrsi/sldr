@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -186,7 +186,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="MD">Mɔlidova</territory>
 			<territory type="MG">Madagasita</territory>
 			<territory type="MH">Masha Tiŋŋɛ</territory>
-			<territory type="MK">Masedoninya</territory>
 			<territory type="ML">Mali</territory>
 			<territory type="MM">Miyamaha</territory>
 			<territory type="MN">Mɔngoliya</territory>
@@ -290,7 +289,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a á ã b ɓ c d ɗ e é ẽ ɛ {ɛ\u0301} {ɛ\u0303} f g h i í ĩ j k l m n ŋ o ó õ ɔ {ɔ\u0301} {ɔ\u0303} p q r s t u ú ũ v w x y z]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B Ɓ C D Ɗ E Ɛ F G H I J K L M N Ŋ O Ɔ P Q R S T U V W X Y Z]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
+	<delimiters>
+		<quotationStart>“</quotationStart>
+		<quotationEnd>”</quotationEnd>
+		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationEnd>’</alternateQuotationEnd>
+	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
@@ -318,9 +324,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
 						<dateFormatItem id="ms">m:ss</dateFormatItem>
 						<dateFormatItem id="y">y</dateFormatItem>
@@ -336,24 +350,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
-				<months>
-					<monthContext type="format">
-						<monthWidth type="wide">
-							<month type="1">luukao kemã</month>
-							<month type="2">ɓandaɓu</month>
-							<month type="3">vɔɔ</month>
-							<month type="4">fulu</month>
-							<month type="5">goo</month>
-							<month type="6">6</month>
-							<month type="7">7</month>
-							<month type="8">kɔnde</month>
-							<month type="9">saah</month>
-							<month type="10">galo</month>
-							<month type="11">kenpkato ɓololɔ</month>
-							<month type="12">luukao lɔma</month>
-						</monthWidth>
-					</monthContext>
-				</months>
 				<days>
 					<dayContext type="format">
 						<dayWidth type="wide">
@@ -413,11 +409,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</timeFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">E d</dateFormatItem>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
+						<dateFormatItem id="MMM">LLL</dateFormatItem>
+						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
 						<dateFormatItem id="ms">m:ss</dateFormatItem>
+						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMd">M/d/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, M/d/y</dateFormatItem>
@@ -461,9 +466,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</fields>
 	</dates>
 	<numbers>
+		<defaultNumberingSystem>latn</defaultNumberingSystem>
 		<otherNumberingSystems>
 			<native>vaii</native>
 		</otherNumberingSystems>
+		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+		</symbols>
+		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
@@ -664,17 +681,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</numbers>
 	<posix>
 		<messages>
+			<yesstr>yes:y</yesstr>
 			<nostr>kpele:k</nostr>
 		</messages>
 	</posix>
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">lowercase</casingItem>
+			<casingItem type="currencyName">titlecase</casingItem>
 			<casingItem type="day_format_except_narrow">lowercase</casingItem>
 			<casingItem type="day_standalone_except_narrow">lowercase</casingItem>
 			<casingItem type="language">titlecase</casingItem>
 			<casingItem type="month_format_except_narrow">lowercase</casingItem>
 			<casingItem type="month_standalone_except_narrow">lowercase</casingItem>
+			<casingItem type="relative">lowercase</casingItem>
+			<casingItem type="territory">titlecase</casingItem>
 		</casingData>
 	</metadata>
 	<special>
