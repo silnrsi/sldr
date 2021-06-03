@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In principle, the creation of the main, auxilliary and punctuation exmplars is
+In principle, the creation of the main, auxiliary and punctuation exemplars is
 straightforward. This document is a discussion of various examples and
 considerations in creating various exemplars for an orthography.
 

@@ -38,7 +38,7 @@ def test_collation(ldml):
     if index_el == None:
 #        assert False, filename + " has no index exemplar" ### could be target of another test
         return
-    index_list_raw = index_el.text[1:-1].split(' ')     # make a list of index characters
+    index_list_raw = index_el.text[1:-1].strip().split(' ')     # make a list of index characters
     index_list = [re.sub(curlybraces, "\\1", c) for c in index_list_raw]   # remove curly braces
     sort_list = sorted(index_list, key=rbc.getSortKey)
 
