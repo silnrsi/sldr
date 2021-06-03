@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2020 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -16,11 +16,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 		</special>
 	</identity>
 	<localeDisplayNames>
-		<localeDisplayPattern>
-			<localePattern>{0} ({1})</localePattern>
-			<localeSeparator>{0}, {1}</localeSeparator>
-			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
-		</localeDisplayPattern>
 		<languages>
 			<language type="ar">Arabic</language>
 			<language type="ar_001">Modernong Tamdanang Arabic</language>
@@ -397,35 +392,18 @@ the LDML specification (http://unicode.org/reports/tr35/)
 			<type key="collation" type="standard">Tamdanang Paagi sa Paghan-ay</type>
 			<type key="numbers" type="latn">Mga Western Digit</type>
 		</types>
-		<measurementSystemNames>
-			<measurementSystemName type="US">US</measurementSystemName>
-			<measurementSystemName type="metric">Metric</measurementSystemName>
-			<measurementSystemName type="UK">UK</measurementSystemName>
-		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">Lengguwahe: {0}</codePattern>
 			<codePattern type="script">Script: {0}</codePattern>
 			<codePattern type="territory">Rehiyon: {0}</codePattern>
 		</codePatterns>
 	</localeDisplayNames>
-	<layout>
-		<orientation>
-			<characterOrder>left-to-right</characterOrder>
-			<lineOrder>top-to-bottom</lineOrder>
-		</orientation>
-	</layout>
 	<characters>
 		<exemplarCharacters>[a b d e g h i k l m n o p r s t u w y]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[c f j ñ q v x z]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‑ , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] @ * / \&amp; # ′ ″]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 	</characters>
-	<delimiters>
-		<quotationStart>“</quotationStart>
-		<quotationEnd>”</quotationEnd>
-		<alternateQuotationStart>‘</alternateQuotationStart>
-		<alternateQuotationEnd>’</alternateQuotationEnd>
-	</delimiters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
@@ -448,6 +426,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>M/d/y GGGGG</pattern>
+							<datetimeSkeleton>GGGGGyMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -473,10 +452,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
-						<dateFormatItem id="d">d</dateFormatItem>
 						<dateFormatItem id="Ed">d E</dateFormatItem>
-						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
-						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">MMM d, y G</dateFormatItem>
@@ -497,7 +473,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 						<dateFormatItem id="yyyyQQQQ">QQQQ y G</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
-						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="d">
 							<greatestDifference id="d">d – d</greatestDifference>
 						</intervalFormatItem>
@@ -731,7 +706,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 							<day type="wed">M</day>
 							<day type="thu">H</day>
 							<day type="fri">B</day>
-							<day type="sat">S</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -807,6 +781,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>M/d/yy</pattern>
+							<datetimeSkeleton>yyMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -814,21 +789,25 @@ the LDML specification (http://unicode.org/reports/tr35/)
 					<timeFormatLength type="full">
 						<timeFormat>
 							<pattern>h:mm:ss a zzzz</pattern>
+							<datetimeSkeleton>ahmmsszzzz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
 							<pattern>h:mm:ss a z</pattern>
+							<datetimeSkeleton>ahmmssz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
 						<timeFormat>
 							<pattern>h:mm:ss a</pattern>
+							<datetimeSkeleton>ahmmss</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="short">
 						<timeFormat>
 							<pattern>h:mm a</pattern>
+							<datetimeSkeleton>ahmm</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
@@ -854,43 +833,16 @@ the LDML specification (http://unicode.org/reports/tr35/)
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<availableFormats>
-						<dateFormatItem id="Bh">h B</dateFormatItem>
-						<dateFormatItem id="Bhm">h:mm B</dateFormatItem>
-						<dateFormatItem id="Bhms">h:mm:ss B</dateFormatItem>
-						<dateFormatItem id="d">d</dateFormatItem>
-						<dateFormatItem id="E">ccc</dateFormatItem>
-						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
-						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
 						<dateFormatItem id="Ed">d E</dateFormatItem>
-						<dateFormatItem id="Ehm">E h:mm a</dateFormatItem>
-						<dateFormatItem id="EHm">E HH:mm</dateFormatItem>
-						<dateFormatItem id="Ehms">E h:mm:ss a</dateFormatItem>
-						<dateFormatItem id="EHms">E HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">MMM d, y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, MMM d, y G</dateFormatItem>
-						<dateFormatItem id="h">h a</dateFormatItem>
-						<dateFormatItem id="H">HH</dateFormatItem>
-						<dateFormatItem id="hm">h:mm a</dateFormatItem>
-						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
-						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
-						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
-						<dateFormatItem id="hmsv">h:mm:ss a v</dateFormatItem>
-						<dateFormatItem id="Hmsv">HH:mm:ss v</dateFormatItem>
-						<dateFormatItem id="hmv">h:mm a v</dateFormatItem>
-						<dateFormatItem id="Hmv">HH:mm v</dateFormatItem>
-						<dateFormatItem id="M">L</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
-						<dateFormatItem id="MMM">LLL</dateFormatItem>
-						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
-						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="one">'semana' W 'sa' MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMW" count="other">'semana' W 'sa' MMMM</dateFormatItem>
-						<dateFormatItem id="ms">mm:ss</dateFormatItem>
-						<dateFormatItem id="y">y</dateFormatItem>
 						<dateFormatItem id="yM">M/y</dateFormatItem>
 						<dateFormatItem id="yMd">M/d/y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, M/d/y</dateFormatItem>
@@ -904,7 +856,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 						<dateFormatItem id="yw" count="other">'semana' w 'sa' Y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
-						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
 						<intervalFormatItem id="d">
 							<greatestDifference id="d">d – d</greatestDifference>
 						</intervalFormatItem>
@@ -1154,9 +1105,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 			</field>
 		</fields>
 		<timeZoneNames>
-			<hourFormat>+HH:mm;-HH:mm</hourFormat>
 			<gmtFormat>GMT {0}</gmtFormat>
-			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>{0} Oras</regionFormat>
 			<regionFormat type="standard">{0} Tamdanang Oras</regionFormat>
 			<regionFormat type="daylight">{0} Oras sa Tag-init</regionFormat>
@@ -2066,27 +2015,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 		</timeZoneNames>
 	</dates>
 	<numbers>
-		<symbols numberSystem="latn">
-			<decimal>.</decimal>
-			<group>,</group>
-			<percentSign>%</percentSign>
-			<plusSign>+</plusSign>
-			<minusSign>-</minusSign>
-		</symbols>
-		<decimalFormats numberSystem="latn">
-			<decimalFormatLength>
-				<decimalFormat>
-					<pattern>#,##0.###</pattern>
-				</decimalFormat>
-			</decimalFormatLength>
-		</decimalFormats>
-		<scientificFormats numberSystem="latn">
-			<scientificFormatLength>
-				<scientificFormat>
-					<pattern>#E0</pattern>
-				</scientificFormat>
-			</scientificFormatLength>
-		</scientificFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
@@ -2639,7 +2567,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 				<displayName>Philippine Piso</displayName>
 				<displayName count="one">Philippine piso</displayName>
 				<displayName count="other">Mga Philippine piso</displayName>
-				<symbol draft="contributed">₱</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Pakistani Rupee</displayName>
@@ -3085,7 +3012,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 				<unitPattern count="one">{0} ka karat</unitPattern>
 				<unitPattern count="other">{0} ka mga karat</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>mga milligram kada deciliter</displayName>
 				<unitPattern count="one">{0} ka milligram kada deciliter</unitPattern>
 				<unitPattern count="other">{0} ka mga milligram kada deciliter</unitPattern>
@@ -3947,9 +3874,8 @@ the LDML specification (http://unicode.org/reports/tr35/)
 			<unit type="concentr-karat">
 				<displayName>mga karat</displayName>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<unitPattern count="one">{0} mg/dL</unitPattern>
-				<unitPattern count="other">{0} mg/dL</unitPattern>
 			</unit>
 			<unit type="concentr-millimole-per-liter">
 				<displayName>millimol/litro</displayName>
@@ -3986,7 +3912,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 			<unit type="consumption-mile-per-gallon-imperial">
 				<displayName>mga milya/gal Imp.</displayName>
 				<unitPattern count="one">{0} mpg Imp.</unitPattern>
-				<unitPattern count="other">{0} mpg Imp.</unitPattern>
 			</unit>
 			<unit type="digital-bit">
 				<unitPattern count="one">{0} ka bit</unitPattern>
@@ -4113,9 +4038,6 @@ the LDML specification (http://unicode.org/reports/tr35/)
 			<unit type="force-pound-force">
 				<displayName>pound-force</displayName>
 			</unit>
-			<unit type="frequency-megahertz">
-				<displayName>MHz</displayName>
-			</unit>
 			<unit type="graphics-em">
 				<unitPattern count="one">{0} ka em</unitPattern>
 				<unitPattern count="other">{0} ka em</unitPattern>
@@ -4139,7 +4061,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 				<displayName>m</displayName>
 			</unit>
 			<unit type="length-micrometer">
-				<displayName>mga µmeter</displayName>
+				<displayName>mga μmeter</displayName>
 			</unit>
 			<unit type="length-mile">
 				<displayName>mga milya</displayName>
@@ -4250,14 +4172,12 @@ the LDML specification (http://unicode.org/reports/tr35/)
 				<unitPattern count="other">{0} fl oz</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce-imperial">
-				<displayName>Imp. fl oz</displayName>
 				<unitPattern count="one">{0} fl oz Imp.</unitPattern>
 			</unit>
 			<unit type="volume-gallon">
 				<displayName>gal</displayName>
 				<unitPattern count="one">{0} gal</unitPattern>
 				<unitPattern count="other">{0} gal</unitPattern>
-				<perUnitPattern>{0}/gal US</perUnitPattern>
 			</unit>
 			<unit type="volume-jigger">
 				<unitPattern count="one">{0} ka jigger</unitPattern>
@@ -4386,20 +4306,9 @@ the LDML specification (http://unicode.org/reports/tr35/)
 				<coordinateUnitPattern type="west">{0}W</coordinateUnitPattern>
 			</coordinateUnit>
 		</unitLength>
-		<durationUnit type="hm">
-			<durationUnitPattern>h:mm</durationUnitPattern>
-		</durationUnit>
-		<durationUnit type="hms">
-			<durationUnitPattern>h:mm:ss</durationUnitPattern>
-		</durationUnit>
-		<durationUnit type="ms">
-			<durationUnitPattern>m:ss</durationUnitPattern>
-		</durationUnit>
 	</units>
 	<listPatterns>
 		<listPattern>
-			<listPatternPart type="start">{0}, {1}</listPatternPart>
-			<listPatternPart type="middle">{0}, {1}</listPatternPart>
 			<listPatternPart type="end">{0}, ug {1}</listPatternPart>
 			<listPatternPart type="2">{0} ug {1}</listPatternPart>
 		</listPattern>
@@ -4439,7 +4348,7 @@ the LDML specification (http://unicode.org/reports/tr35/)
 		</listPattern>
 	</listPatterns>
 	<collations>
-		<collation type="standard" references="http://std.dkuug.dk/jtc1/sc2/wg2/docs/N2300.htm (N2165)">
+		<collation type="standard" references="http://std.dkuug.dk/jtc1/sc2/wg2/docs/N2300.htm (N2165)" sil:modified="true">
 			<cr><![CDATA[
 				&N<ñ<<<Ñ<ng<<<Ng<<<NG
 			]]></cr>
@@ -4454,28 +4363,13 @@ the LDML specification (http://unicode.org/reports/tr35/)
 	<metadata>
 		<casingData>
 			<casingItem type="calendar_field">lowercase</casingItem>
-			<casingItem type="currencyName">titlecase</casingItem>
-			<casingItem type="day_format_except_narrow">titlecase</casingItem>
-			<casingItem type="day_narrow">titlecase</casingItem>
-			<casingItem type="day_standalone_except_narrow">titlecase</casingItem>
-			<casingItem type="era_abbr">titlecase</casingItem>
-			<casingItem type="era_name">titlecase</casingItem>
-			<casingItem type="era_narrow">titlecase</casingItem>
 			<casingItem type="key">titlecase</casingItem>
 			<casingItem type="keyValue">titlecase</casingItem>
 			<casingItem type="language">titlecase</casingItem>
 			<casingItem type="metazone_long">titlecase</casingItem>
-			<casingItem type="month_format_except_narrow">titlecase</casingItem>
 			<casingItem type="month_narrow">titlecase</casingItem>
-			<casingItem type="month_standalone_except_narrow">titlecase</casingItem>
-			<casingItem type="quarter_abbreviated">titlecase</casingItem>
 			<casingItem type="quarter_format_wide">lowercase</casingItem>
 			<casingItem type="quarter_standalone_wide">lowercase</casingItem>
-			<casingItem type="relative">lowercase</casingItem>
-			<casingItem type="script">titlecase</casingItem>
-			<casingItem type="territory">titlecase</casingItem>
-			<casingItem type="variant">titlecase</casingItem>
-			<casingItem type="zone_exemplarCity">titlecase</casingItem>
 			<casingItem type="zone_long">titlecase</casingItem>
 		</casingData>
 	</metadata>
