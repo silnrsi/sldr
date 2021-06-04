@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -33,13 +33,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="fr_CH">Wīwī Huiterangi</language>
 			<language type="it">Ītariana</language>
 			<language type="ja">Hapanihi</language>
-			<language type="mi">Māori</language>
+			<language type="mi">te reo Māori</language>
 			<language type="pt">Pōtikī</language>
 			<language type="pt_BR">Pōtikī Parahi</language>
 			<language type="pt_PT">Pōtikī Uropi</language>
 			<language type="ru">Ruhiana</language>
 			<language type="und">Reo Tē Mōhiotia</language>
 			<language type="zh">Hainamana</language>
+			<language type="zh" alt="menu">Hainamana Manarini</language>
 			<language type="zh_Hans">Hainamana Māmā</language>
 			<language type="zh_Hant">Hainamana Tukuiho</language>
 		</languages>
@@ -77,6 +78,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<measurementSystemNames>
 			<measurementSystemName type="metric">Ngahuru</measurementSystemName>
 		</measurementSystemNames>
+		<codePatterns>
+			<codePattern type="language">Reo: {0}</codePattern>
+			<codePattern type="script">Momotuhi: {0}</codePattern>
+			<codePattern type="territory">Rohe: {0}</codePattern>
+		</codePatterns>
 	</localeDisplayNames>
 	<characters>
 		<exemplarCharacters>[a ā e ē h i ī k m n {ng} o ō p r t u ū w {wh}]</exemplarCharacters>
@@ -86,19 +92,28 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<dates>
 		<calendars>
 			<calendar type="generic">
-				<days>
-					<dayContext type="format">
-						<dayWidth type="wide">
-							<day type="sun" draft="provisional">Rātapu</day>
-							<day type="mon" draft="provisional">Mane</day>
-							<day type="tue" draft="provisional">Tūrei</day>
-							<day type="wed" draft="provisional">Wenerei</day>
-							<day type="thu" draft="provisional">Tāite</day>
-							<day type="fri" draft="provisional">Paraire</day>
-							<day type="sat" draft="provisional">Hātarei</day>
-						</dayWidth>
-					</dayContext>
-				</days>
+				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>EEEE, d MMMM y G</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="long">
+						<dateFormat>
+							<pattern>d MMMM y G</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="medium">
+						<dateFormat>
+							<pattern>d MMM y G</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="short">
+						<dateFormat>
+							<pattern>dd-MM-y GGGGG</pattern>
+						</dateFormat>
+					</dateFormatLength>
+				</dateFormats>
 				<dateTimeFormats>
 					<intervalFormats>
 						<intervalFormatFallback>{0} ki te {1}</intervalFormatFallback>
@@ -338,32 +353,83 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<eras>
 					<eraNames>
 						<era type="0">BCE</era>
+						<era type="0" alt="variant">BCE</era>
 						<era type="1">CE</era>
+						<era type="1" alt="variant">CE</era>
 					</eraNames>
 				</eras>
+				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>EEEE, d MMMM y</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="long">
+						<dateFormat>
+							<pattern>d MMMM y</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="medium">
+						<dateFormat>
+							<pattern>d MMM y</pattern>
+						</dateFormat>
+					</dateFormatLength>
+					<dateFormatLength type="short">
+						<dateFormat>
+							<pattern>dd-MM-y</pattern>
+						</dateFormat>
+					</dateFormatLength>
+				</dateFormats>
 				<timeFormats>
 					<timeFormatLength type="full">
 						<timeFormat>
 							<pattern>h:mm:ss a zzzz</pattern>
+							<datetimeSkeleton>ahmmsszzzz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
 							<pattern>h:mm:ss a z</pattern>
+							<datetimeSkeleton>ahmmssz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
 						<timeFormat>
-							<pattern>h:mm:ss</pattern>
+							<pattern>h:mm:ss a</pattern>
+							<datetimeSkeleton>ahmmss</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="short">
 						<timeFormat>
-							<pattern>h:mm</pattern>
+							<pattern>h:mm a</pattern>
+							<datetimeSkeleton>ahmm</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
 				<dateTimeFormats>
+					<availableFormats>
+						<dateFormatItem id="Ed">E, d</dateFormatItem>
+						<dateFormatItem id="Gy">y G</dateFormatItem>
+						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMd">d MMM y G</dateFormatItem>
+						<dateFormatItem id="GyMMMEd">E, d MMM y G</dateFormatItem>
+						<dateFormatItem id="Md">dd-MM</dateFormatItem>
+						<dateFormatItem id="MEd">E, dd-MM</dateFormatItem>
+						<dateFormatItem id="MMMd">d MMM</dateFormatItem>
+						<dateFormatItem id="MMMEd">E, d MMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">'wiki' W 'o' MMMM</dateFormatItem>
+						<dateFormatItem id="yM">MM-y</dateFormatItem>
+						<dateFormatItem id="yMd">dd-MM-y</dateFormatItem>
+						<dateFormatItem id="yMEd">E, dd-MM-y</dateFormatItem>
+						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
+						<dateFormatItem id="yMMMd">d MMM y</dateFormatItem>
+						<dateFormatItem id="yMMMEd">E, d MMM y</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
+						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
+						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
+						<dateFormatItem id="yw" count="other">'wiki' w 'o' Y</dateFormatItem>
+					</availableFormats>
 					<intervalFormats>
 						<intervalFormatFallback>{0} ki te {1}</intervalFormatFallback>
 					</intervalFormats>
@@ -712,7 +778,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="BRL">
 				<displayName>Real Parahi</displayName>
-				<displayName count="other">Ngā real Parahi</displayName>
+				<displayName count="other">real Parahi</displayName>
 			</currency>
 			<currency type="BSD">
 				<displayName>BSD</displayName>
@@ -722,13 +788,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>BZD</displayName>
 				<displayName count="other">BZD</displayName>
 			</currency>
-			<currency type="CAD">
-				<displayName>CAD</displayName>
-				<displayName count="other">CAD</displayName>
-			</currency>
 			<currency type="CNY">
 				<displayName>Yuan Haina</displayName>
-				<displayName count="other">Yuan Haina</displayName>
+				<displayName count="other">yuan Haina</displayName>
 			</currency>
 			<currency type="CRC">
 				<displayName>CRC</displayName>
@@ -748,11 +810,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="EUR">
 				<displayName>Euro</displayName>
-				<displayName count="other">euros</displayName>
+				<displayName count="other">euro</displayName>
 			</currency>
 			<currency type="GBP">
 				<displayName>Pāuna Piritene</displayName>
-				<displayName count="other">Ngā pāuna Piritene</displayName>
+				<displayName count="other">pāuna Piritene</displayName>
 			</currency>
 			<currency type="GTQ">
 				<displayName>GTQ</displayName>
@@ -767,8 +829,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="other">HTG</displayName>
 			</currency>
 			<currency type="INR">
-				<displayName>Rupee Iniana</displayName>
-				<displayName count="other">Ngā rupee Iniana</displayName>
+				<displayName>Rupī Iniana</displayName>
+				<displayName count="other">rupī Iniana</displayName>
 			</currency>
 			<currency type="JMD">
 				<displayName>JMD</displayName>
@@ -776,16 +838,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="JPY">
 				<displayName>Yen Hapanihi</displayName>
-				<displayName count="other">Yen Hapanihi</displayName>
+				<displayName count="other">yen Hapanihi</displayName>
 				<symbol draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KYD">
 				<displayName>KYD</displayName>
 				<displayName count="other">KYD</displayName>
-			</currency>
-			<currency type="MXN">
-				<displayName>MXN</displayName>
-				<displayName count="other">MXN</displayName>
 			</currency>
 			<currency type="NIO">
 				<displayName>NIO</displayName>
@@ -793,7 +851,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="NZD">
 				<displayName>Tāra o Aotearoa</displayName>
-				<displayName count="other">Ngā tāra o Aotearoa</displayName>
+				<displayName count="other">tāra o Aotearoa</displayName>
 				<symbol>$</symbol>
 			</currency>
 			<currency type="PAB">
@@ -802,7 +860,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="RUB">
 				<displayName>Rūpera Ruhiana</displayName>
-				<displayName count="other">Ngā rūpera Ruhiana</displayName>
+				<displayName count="other">rūpera Ruhiana</displayName>
 			</currency>
 			<currency type="TTD">
 				<displayName>TTD</displayName>
@@ -810,11 +868,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="USD">
 				<displayName>Tāra US</displayName>
-				<displayName count="other">Ngā tāra US</displayName>
-			</currency>
-			<currency type="XCD">
-				<displayName>XCD</displayName>
-				<displayName count="other">XCD</displayName>
+				<displayName count="other">tāra US</displayName>
 			</currency>
 			<currency type="XXX">
 				<displayName>Moni Tē Mōhiotia</displayName>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -116,6 +116,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="eu">baskisht</language>
 			<language type="ewo">euondoisht</language>
 			<language type="fa">persisht</language>
+			<language type="fa_AF">darisht</language>
 			<language type="ff">fulaisht</language>
 			<language type="fi">finlandisht</language>
 			<language type="fil">filipinisht</language>
@@ -313,7 +314,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="ro">rumanisht</language>
 			<language type="ro_MD">moldavisht</language>
 			<language type="rof">romboisht</language>
-			<language type="root">rutisht</language>
 			<language type="ru">rusisht</language>
 			<language type="rup">vllahisht</language>
 			<language type="rw">kiniaruandisht</language>
@@ -412,10 +412,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<language type="yi">jidisht</language>
 			<language type="yo">jorubaisht</language>
 			<language type="yue">kantonezisht</language>
+			<language type="yue" alt="menu">kinezishte kantoneze</language>
 			<language type="zgh">tamaziatishte standarde marokene</language>
 			<language type="zh">kinezisht</language>
+			<language type="zh" alt="menu">kinezishte mandarine</language>
 			<language type="zh_Hans">kinezishte e thjeshtuar</language>
+			<language type="zh_Hans" alt="long">kinezishte mandarine (e thjeshtuar)</language>
 			<language type="zh_Hant">kinezishte tradicionale</language>
+			<language type="zh_Hant" alt="long">kinezishte mandarine (tradicionale)</language>
 			<language type="zu">zuluisht</language>
 			<language type="zun">zunisht</language>
 			<language type="zxx">nuk ka përmbajtje gjuhësore</language>
@@ -778,6 +782,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<territory type="ZW">Zimbabve</territory>
 			<territory type="ZZ">I panjohur</territory>
 		</territories>
+		<subdivisions>
+			<subdivision type="gbeng">Angli</subdivision>
+			<subdivision type="gbsct">Skoci</subdivision>
+			<subdivision type="gbwls">Uells</subdivision>
+		</subdivisions>
 		<keys>
 			<key type="calendar">Kalendari</key>
 			<key type="cf">Formati valutor</key>
@@ -805,7 +814,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<type key="calendar" type="iso8601">kalendar ISO-8601</type>
 			<type key="calendar" type="japanese">kalendar japonez</type>
 			<type key="calendar" type="persian">kalendar persian</type>
-			<type key="calendar" type="roc">kalendar minguo (i Republikës së Kinës)</type>
+			<type key="calendar" type="roc">kalendar minguo</type>
 			<type key="cf" type="account">format valutor llogaritës</type>
 			<type key="cf" type="standard">format valutor standard</type>
 			<type key="collation" type="big5han">Radhitje e kinezishtes tradicionale - Big5</type>
@@ -877,18 +886,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	<characters>
 		<exemplarCharacters>[a b c ç d {dh} e ë f g {gj} h i j k l {ll} m n {nj} o p q r {rr} s {sh} t {th} u v x {xh} y z {zh}]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[w]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ – — , ; \: ! ? . … ' ‘ ’ " “ ” « » ( ) \[ \] § @ * / \&amp; # ′ ″ ~]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” « » ( ) \[ \] § @ * / \&amp; # ′ ″ ~]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C Ç D {DH} E Ë F G {GJ} H I J K L {LL} M N {NJ} O P Q R {RR} S {SH} T {TH} U V X {XH} Y Z {ZH}]</exemplarCharacters>
-		<exemplarCharacters type="numbers">[  \- , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[  \- ‑ , % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 		<parseLenients scope="general" level="lenient">
 			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
 			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
 		</parseLenients>
 		<parseLenients scope="number" level="lenient">
 			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
-		</parseLenients>
-		<parseLenients scope="date" level="lenient">
-			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
 	</characters>
 	<delimiters>
@@ -904,11 +910,13 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMM y G</pattern>
+							<datetimeSkeleton>GyMMMEEEEd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d MMM y G</pattern>
+							<datetimeSkeleton>GyMMMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
@@ -919,6 +927,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>d.M.y GGGGG</pattern>
+							<datetimeSkeleton>GGGGGyMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -1418,6 +1427,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>d.M.yy</pattern>
+							<datetimeSkeleton>yyMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -1425,21 +1435,25 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<timeFormatLength type="full">
 						<timeFormat>
 							<pattern>h:mm:ss a, zzzz</pattern>
+							<datetimeSkeleton>ahmmsszzzz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="long">
 						<timeFormat>
 							<pattern>h:mm:ss a, z</pattern>
+							<datetimeSkeleton>ahmmssz</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="medium">
 						<timeFormat>
 							<pattern>h:mm:ss a</pattern>
+							<datetimeSkeleton>ahmmss</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 					<timeFormatLength type="short">
 						<timeFormat>
 							<pattern>h:mm a</pattern>
+							<datetimeSkeleton>ahmm</datetimeSkeleton>
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
@@ -3095,6 +3109,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<zone type="Asia/Qatar">
 				<exemplarCity>Katar</exemplarCity>
 			</zone>
+			<zone type="Asia/Qostanay">
+				<exemplarCity>Kostanaj</exemplarCity>
+			</zone>
 			<zone type="Asia/Qyzylorda">
 				<exemplarCity>Kizilorda</exemplarCity>
 			</zone>
@@ -4262,7 +4279,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</metazone>
 			<metazone type="Norfolk">
 				<long>
-					<standard>Ora e Ishullit Norfolk</standard>
+					<generic>Ora e Ishullit Norfolk</generic>
+					<standard>Ora standarde e Ishullit Norfolk</standard>
+					<daylight>Ora verore e Ishullit Norfolk</daylight>
 				</long>
 			</metazone>
 			<metazone type="Noronha">
@@ -4546,6 +4565,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<symbols numberSystem="latn">
 			<decimal>,</decimal>
 			<group/>
+			<approximatelySign>≈</approximatelySign>
 		</symbols>
 		<decimalFormats numberSystem="latn">
 			<decimalFormatLength type="long">
@@ -4685,6 +4705,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari australian</displayName>
 				<displayName count="one">dollar australian</displayName>
 				<displayName count="other">dollarë australian</displayName>
+				<symbol draft="contributed">A$</symbol>
+				<symbol alt="narrow" draft="contributed">AUD</symbol>
 			</currency>
 			<currency type="AWG">
 				<displayName>Florini aruban</displayName>
@@ -4745,6 +4767,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Reali brazilian</displayName>
 				<displayName count="one">real brazilian</displayName>
 				<displayName count="other">realë brazilian</displayName>
+				<symbol draft="contributed">BRL</symbol>
+				<symbol alt="narrow" draft="contributed">BRL</symbol>
 			</currency>
 			<currency type="BSD">
 				<displayName>Dollari i Bahamasit</displayName>
@@ -4780,6 +4804,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari kanadez</displayName>
 				<displayName count="one">dollar kanadez</displayName>
 				<displayName count="other">dollarë kanadez</displayName>
+				<symbol draft="contributed">CA$</symbol>
+				<symbol alt="narrow" draft="contributed">CAD</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName>Franga kongole</displayName>
@@ -4805,6 +4831,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Juani kinez</displayName>
 				<displayName count="one">juan kinez</displayName>
 				<displayName count="other">juanë kinez</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">CNY</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName>Pesoja kolumbiane</displayName>
@@ -4875,6 +4903,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Euroja</displayName>
 				<displayName count="one">euro</displayName>
 				<displayName count="other">euro</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">EUR</symbol>
 			</currency>
 			<currency type="FJD">
 				<displayName>Dollari i Fixhit</displayName>
@@ -4890,6 +4920,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Sterlina britanike</displayName>
 				<displayName count="one">sterlinë britanike</displayName>
 				<displayName count="other">sterlina britanike</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">GBP</symbol>
 			</currency>
 			<currency type="GEL">
 				<displayName>Laria gjeorgjiane</displayName>
@@ -4930,6 +4962,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari i Hong-Kongut</displayName>
 				<displayName count="one">dollar hong-kongu</displayName>
 				<displayName count="other">dollarë hong-kongu</displayName>
+				<symbol draft="contributed">HK$</symbol>
+				<symbol alt="narrow" draft="contributed">HKS</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName>Lempira hondurase</displayName>
@@ -4960,11 +4994,15 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Shekeli izrealit</displayName>
 				<displayName count="one">shekel izrealit</displayName>
 				<displayName count="other">shekelë izrealit</displayName>
+				<symbol draft="contributed">₪</symbol>
+				<symbol alt="narrow" draft="contributed">ILS</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Rupia indiane</displayName>
 				<displayName count="one">rupi indiane</displayName>
 				<displayName count="other">rupi indiane</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">INR</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName>Dinari irakian</displayName>
@@ -4995,6 +5033,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Jeni japonez</displayName>
 				<displayName count="one">jen japonez</displayName>
 				<displayName count="other">jenë japonez</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">JPY</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>Shilinga keniane</displayName>
@@ -5025,6 +5065,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Uoni koreano-jugor</displayName>
 				<displayName count="one">uon koreano-jugor</displayName>
 				<displayName count="other">uonë koreano-jugor</displayName>
+				<symbol draft="contributed">₩</symbol>
+				<symbol alt="narrow" draft="contributed">KRW</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName>Dinari kuvajtian</displayName>
@@ -5140,6 +5182,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Pesoja meksikane</displayName>
 				<displayName count="one">peso meksikane</displayName>
 				<displayName count="other">peso meksikane</displayName>
+				<symbol draft="contributed">MX$</symbol>
+				<symbol alt="narrow" draft="contributed">MXN</symbol>
 			</currency>
 			<currency type="MYR">
 				<displayName>Ringiti malajzian</displayName>
@@ -5180,6 +5224,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari i Zelandës së Re</displayName>
 				<displayName count="one">dollar i Zelandës së Re</displayName>
 				<displayName count="other">dollarë të Zelandës së Re</displayName>
+				<symbol draft="contributed">NZ$</symbol>
+				<symbol alt="narrow" draft="contributed">NZD</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName>Riali i Omanit</displayName>
@@ -5325,7 +5371,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Bata tajlandeze</displayName>
 				<displayName count="one">batë tajlandeze</displayName>
 				<displayName count="other">bata tajlandeze</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJS">
 				<displayName>Somona taxhike</displayName>
@@ -5361,6 +5406,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari tajvanez</displayName>
 				<displayName count="one">dollar tajvanez</displayName>
 				<displayName count="other">dollarë tajvanez</displayName>
+				<symbol draft="contributed">NT$</symbol>
+				<symbol alt="narrow" draft="contributed">TWD</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>Shilinga e Tanzanisë</displayName>
@@ -5381,6 +5428,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari amerikan</displayName>
 				<displayName count="one">dollar amerikan</displayName>
 				<displayName count="other">dollarë amerikan</displayName>
+				<symbol draft="contributed">US$</symbol>
+				<symbol alt="narrow" draft="contributed">USD</symbol>
 			</currency>
 			<currency type="UYU">
 				<displayName>Pesoja uruguaiane</displayName>
@@ -5407,6 +5456,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Donga vietnameze</displayName>
 				<displayName count="one">dongë vietnameze</displayName>
 				<displayName count="other">donga vietnameze</displayName>
+				<symbol draft="contributed">₫</symbol>
+				<symbol alt="narrow" draft="contributed">VND</symbol>
 			</currency>
 			<currency type="VUV">
 				<displayName>Vatuja e Vanuatusë</displayName>
@@ -5427,6 +5478,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>Dollari i Karaibeve Lindore</displayName>
 				<displayName count="one">dollar i Karaibeve Lindore</displayName>
 				<displayName count="other">dollarë të Karaibeve Lindore</displayName>
+				<symbol draft="contributed">EC$</symbol>
+				<symbol alt="narrow" draft="contributed">XCD</symbol>
 			</currency>
 			<currency type="XOF">
 				<displayName>Franga e Bregut të Fildishtë</displayName>
@@ -5473,15 +5526,109 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="1024p1">
+				<unitPrefixPattern>kibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p2">
+				<unitPrefixPattern>mebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p3">
+				<unitPrefixPattern>gibi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p4">
+				<unitPrefixPattern>tebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p5">
+				<unitPrefixPattern>pebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p6">
+				<unitPrefixPattern>eksbi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p7">
+				<unitPrefixPattern>zebi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="1024p8">
+				<unitPrefixPattern>jobe{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-1">
+				<unitPrefixPattern>deci{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-12">
+				<unitPrefixPattern>piko{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-15">
+				<unitPrefixPattern>femto{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-18">
+				<unitPrefixPattern>ato{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-2">
+				<unitPrefixPattern>centi{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-21">
+				<unitPrefixPattern>zepto{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-24">
+				<unitPrefixPattern>josto{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-3">
+				<unitPrefixPattern>mili{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-6">
+				<unitPrefixPattern>mikro{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p-9">
+				<unitPrefixPattern>nano{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p1">
+				<unitPrefixPattern>deka{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p12">
+				<unitPrefixPattern>tera{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p15">
+				<unitPrefixPattern>peta{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p18">
+				<unitPrefixPattern>ekza{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p2">
+				<unitPrefixPattern>hekto{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p21">
+				<unitPrefixPattern>zeta{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p24">
+				<unitPrefixPattern>jota{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p3">
+				<unitPrefixPattern>kilo{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p6">
+				<unitPrefixPattern>mega{0}</unitPrefixPattern>
+			</compoundUnit>
+			<compoundUnit type="10p9">
+				<unitPrefixPattern>giga{0}</unitPrefixPattern>
+			</compoundUnit>
 			<compoundUnit type="per">
 				<compoundUnitPattern>{0} në {1}</compoundUnitPattern>
+			</compoundUnit>
+			<compoundUnit type="power2">
+				<compoundUnitPattern1>{0} katror</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0} katror</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0} katror</compoundUnitPattern1>
+			</compoundUnit>
+			<compoundUnit type="power3">
+				<compoundUnitPattern1>{0} kub</compoundUnitPattern1>
+				<compoundUnitPattern1 count="one">{0} kub</compoundUnitPattern1>
+				<compoundUnitPattern1 count="other">{0} kub</compoundUnitPattern1>
 			</compoundUnit>
 			<unit type="acceleration-g-force">
 				<displayName>g-forcë</displayName>
 				<unitPattern count="one">{0} g-forcë</unitPattern>
 				<unitPattern count="other">{0} g-forcë</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>metra për sekondë në katror</displayName>
 				<unitPattern count="one">{0} metër për sekondë në katror</unitPattern>
 				<unitPattern count="other">{0} metra për sekondë në katror</unitPattern>
@@ -5571,7 +5718,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} karat</unitPattern>
 				<unitPattern count="other">{0} karatë</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>miligramë për decilitër</displayName>
 				<unitPattern count="one">{0} miligram për decilitër</unitPattern>
 				<unitPattern count="other">{0} miligramë për decilitër</unitPattern>
@@ -5586,11 +5733,6 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} mol</unitPattern>
 				<unitPattern count="other">{0} molë</unitPattern>
 			</unit>
-			<unit type="concentr-part-per-million">
-				<displayName>pjesë për milion</displayName>
-				<unitPattern count="one">{0} pjesë për milion</unitPattern>
-				<unitPattern count="other">{0} pjesë për milion</unitPattern>
-			</unit>
 			<unit type="concentr-percent">
 				<displayName>përqind</displayName>
 				<unitPattern count="one">{0} përqind</unitPattern>
@@ -5601,12 +5743,17 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} përmijë</unitPattern>
 				<unitPattern count="other">{0} përmijë</unitPattern>
 			</unit>
+			<unit type="concentr-permillion">
+				<displayName>pjesë për milion</displayName>
+				<unitPattern count="one">{0} pjesë për milion</unitPattern>
+				<unitPattern count="other">{0} pjesë për milion</unitPattern>
+			</unit>
 			<unit type="concentr-permyriad">
 				<displayName>përdhjetëmijë</displayName>
 				<unitPattern count="one">{0} përdhjetëmijë</unitPattern>
 				<unitPattern count="other">{0} përdhjetëmijë</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>litra për 100 kilometra</displayName>
 				<unitPattern count="one">{0} litër për 100 kilometra</unitPattern>
 				<unitPattern count="other">{0} litra për 100 kilometra</unitPattern>
@@ -5691,6 +5838,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} ditë</unitPattern>
 				<unitPattern count="other">{0} ditë</unitPattern>
 				<perUnitPattern>{0}/ditë</perUnitPattern>
+			</unit>
+			<unit type="duration-decade">
+				<displayName>dekada</displayName>
+				<unitPattern count="one">{0} dekadë</unitPattern>
+				<unitPattern count="other">{0} dekada</unitPattern>
 			</unit>
 			<unit type="duration-hour">
 				<displayName>orë</displayName>
@@ -5803,6 +5955,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} kilovat-orë</unitPattern>
 				<unitPattern count="other">{0} kilovat-orë</unitPattern>
 			</unit>
+			<unit type="energy-therm-us">
+				<displayName>njësi termale amerikane</displayName>
+				<unitPattern count="one">{0} njësi termale amerikane</unitPattern>
+				<unitPattern count="other">{0} njësi termale amerikane</unitPattern>
+			</unit>
 			<unit type="force-newton">
 				<displayName>njuton</displayName>
 				<unitPattern count="one">{0} njuton</unitPattern>
@@ -5833,6 +5990,46 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} megaherc</unitPattern>
 				<unitPattern count="other">{0} megaherc</unitPattern>
 			</unit>
+			<unit type="graphics-dot">
+				<displayName>pika</displayName>
+				<unitPattern count="one">{0} pikë</unitPattern>
+				<unitPattern count="other">{0} pika</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-centimeter">
+				<displayName>pika për centimetër</displayName>
+				<unitPattern count="one">{0} pikë për centimetër</unitPattern>
+				<unitPattern count="other">{0} pika për centimetër</unitPattern>
+			</unit>
+			<unit type="graphics-dot-per-inch">
+				<displayName>pika për inç</displayName>
+				<unitPattern count="one">{0} pikë për inç</unitPattern>
+				<unitPattern count="other">{0} pika për inç</unitPattern>
+			</unit>
+			<unit type="graphics-em">
+				<displayName>em tipografike</displayName>
+				<unitPattern count="one">{0} em tipografike</unitPattern>
+				<unitPattern count="other">{0} em tipografike</unitPattern>
+			</unit>
+			<unit type="graphics-megapixel">
+				<displayName>megapikselë</displayName>
+				<unitPattern count="one">{0} megapiksel</unitPattern>
+				<unitPattern count="other">{0} megapikselë</unitPattern>
+			</unit>
+			<unit type="graphics-pixel">
+				<displayName>pikselë</displayName>
+				<unitPattern count="one">{0} piksel</unitPattern>
+				<unitPattern count="other">{0} pikselë</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-centimeter">
+				<displayName>pikselë për centimetër</displayName>
+				<unitPattern count="one">{0} piksel për centimetër</unitPattern>
+				<unitPattern count="other">{0} pikselë për centimetër</unitPattern>
+			</unit>
+			<unit type="graphics-pixel-per-inch">
+				<displayName>pikselë për inç</displayName>
+				<unitPattern count="one">{0} piksel për inç</unitPattern>
+				<unitPattern count="other">{0} pikselë për inç</unitPattern>
+			</unit>
 			<unit type="length-astronomical-unit">
 				<displayName>njësi astronomike</displayName>
 				<unitPattern count="one">{0} njësi astronomike</unitPattern>
@@ -5848,6 +6045,14 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>decimetra</displayName>
 				<unitPattern count="one">{0} decimetër</unitPattern>
 				<unitPattern count="other">{0} decimetra</unitPattern>
+			</unit>
+			<unit type="length-earth-radius">
+				<displayName>rreze toke</displayName>
+				<unitPattern count="one">{0} rreze toke</unitPattern>
+				<unitPattern count="other">{0} rreze toke</unitPattern>
+			</unit>
+			<unit type="length-fathom">
+				<displayName draft="provisional">fth</displayName>
 			</unit>
 			<unit type="length-foot">
 				<displayName>këmbë</displayName>
@@ -5933,6 +6138,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} jard</unitPattern>
 				<unitPattern count="other">{0} jardë</unitPattern>
 			</unit>
+			<unit type="light-candela">
+				<displayName>kandela</displayName>
+				<unitPattern count="one">{0} kandelë</unitPattern>
+				<unitPattern count="other">{0} kandela</unitPattern>
+			</unit>
+			<unit type="light-lumen">
+				<displayName>lumen</displayName>
+				<unitPattern count="one">{0} lumen</unitPattern>
+				<unitPattern count="other">{0} lumenë</unitPattern>
+			</unit>
 			<unit type="light-lux">
 				<displayName>luks</displayName>
 				<unitPattern count="one">{0} luks</unitPattern>
@@ -5957,6 +6172,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>masa Toke</displayName>
 				<unitPattern count="one">{0} masë Toke</unitPattern>
 				<unitPattern count="other">{0} masa Toke</unitPattern>
+			</unit>
+			<unit type="mass-grain">
+				<displayName draft="provisional">gran</displayName>
+				<unitPattern count="one" draft="provisional">{0} gran</unitPattern>
+				<unitPattern count="other" draft="provisional">{0} granë</unitPattern>
 			</unit>
 			<unit type="mass-gram">
 				<displayName>gramë</displayName>
@@ -6047,12 +6267,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} atmosferë</unitPattern>
 				<unitPattern count="other">{0} atmosferë</unitPattern>
 			</unit>
+			<unit type="pressure-bar">
+				<displayName>bare</displayName>
+				<unitPattern count="other">{0} bare</unitPattern>
+			</unit>
 			<unit type="pressure-hectopascal">
 				<displayName>hektopaskal</displayName>
 				<unitPattern count="one">{0} hektopaskal</unitPattern>
 				<unitPattern count="other">{0} hektopaskal</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>inç merkuri</displayName>
 				<unitPattern count="one">{0} inç merkuri</unitPattern>
 				<unitPattern count="other">{0} inç merkuri</unitPattern>
@@ -6072,12 +6296,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} milibar</unitPattern>
 				<unitPattern count="other">{0} milibare</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>milimetra mërkuri</displayName>
 				<unitPattern count="one">{0} milimetër mërkuri</unitPattern>
 				<unitPattern count="other">{0} milimetra mërkuri</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<displayName>paund për inç në katror</displayName>
 				<unitPattern count="one">{0} paund për inç në katror</unitPattern>
 				<unitPattern count="other">{0} paund për inç në katror</unitPattern>
@@ -6132,6 +6356,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} paund-këmbë</unitPattern>
 				<unitPattern count="other">{0} paund-këmbë</unitPattern>
 			</unit>
+			<unit type="torque-pound-force-foot">
+				<displayName>paund-këmbë</displayName>
+				<unitPattern count="one">{0} paund-këmbë</unitPattern>
+				<unitPattern count="other">{0} paund-këmbë</unitPattern>
+			</unit>
 			<unit type="volume-acre-foot">
 				<displayName>këmbë-akër</displayName>
 				<unitPattern count="one">{0} këmbë-akër</unitPattern>
@@ -6141,6 +6370,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>fuçi</displayName>
 				<unitPattern count="one">{0} fuçi</unitPattern>
 				<unitPattern count="other">{0} fuçi</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName draft="provisional">bushelë</displayName>
+				<unitPattern count="one" draft="provisional">{0} bushel</unitPattern>
+				<unitPattern count="other" draft="provisional">{0} bushelë</unitPattern>
 			</unit>
 			<unit type="volume-centiliter">
 				<displayName>centilitra</displayName>
@@ -6198,6 +6432,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>decilitra</displayName>
 				<unitPattern count="one">{0} decilitër</unitPattern>
 				<unitPattern count="other">{0} decilitra</unitPattern>
+			</unit>
+			<unit type="volume-dram">
+				<displayName>drahma të lëngshme</displayName>
+				<unitPattern count="one">{0} drahmë i lëngshëm</unitPattern>
+				<unitPattern count="other">{0} drahma të lëngshme</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>onsë të lëngshëm</displayName>
@@ -6280,7 +6519,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<displayName>G</displayName>
 				<unitPattern count="one">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<unitPattern count="one">{0} m/s²</unitPattern>
 			</unit>
 			<unit type="angle-arc-minute">
@@ -6342,14 +6581,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-karat">
 				<unitPattern count="one">{0} kt</unitPattern>
 			</unit>
-			<unit type="concentr-milligram-per-deciliter">
+			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<unitPattern count="one">{0} mg/dL</unitPattern>
 			</unit>
 			<unit type="concentr-millimole-per-liter">
 				<unitPattern count="one">{0} mmol/L</unitPattern>
-			</unit>
-			<unit type="concentr-part-per-million">
-				<unitPattern count="one">{0} ppm</unitPattern>
 			</unit>
 			<unit type="concentr-percent">
 				<unitPattern count="one">{0}%</unitPattern>
@@ -6357,7 +6593,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="concentr-permille">
 				<unitPattern count="one">{0}‰</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="concentr-permillion">
+				<unitPattern count="one">{0} ppm</unitPattern>
+			</unit>
+			<unit type="consumption-liter-per-100-kilometer">
 				<unitPattern count="one">{0} L/100km</unitPattern>
 			</unit>
 			<unit type="consumption-liter-per-kilometer">
@@ -6428,6 +6667,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="other">{0} ditë</unitPattern>
 				<perUnitPattern>{0}/ditë</perUnitPattern>
 			</unit>
+			<unit type="duration-decade">
+				<displayName>dekada</displayName>
+				<unitPattern count="one">{0} dekadë</unitPattern>
+				<unitPattern count="other">{0} dekada</unitPattern>
+			</unit>
 			<unit type="duration-hour">
 				<displayName>orë</displayName>
 				<unitPattern count="one">{0} orë</unitPattern>
@@ -6494,7 +6738,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} cal</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
+				<displayName>Cal</displayName>
 				<unitPattern count="one">{0} Cal</unitPattern>
+				<unitPattern count="other">{0} Cal</unitPattern>
 			</unit>
 			<unit type="energy-joule">
 				<displayName>J</displayName>
@@ -6508,6 +6754,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="energy-kilowatt-hour">
 				<unitPattern count="one">{0} kWh</unitPattern>
+			</unit>
+			<unit type="energy-therm-us">
+				<displayName>UStu</displayName>
+				<unitPattern count="one">UStu</unitPattern>
+				<unitPattern count="other">{0} UStu</unitPattern>
 			</unit>
 			<unit type="frequency-gigahertz">
 				<unitPattern count="one">{0} GHz</unitPattern>
@@ -6530,6 +6781,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="length-decimeter">
 				<unitPattern count="one">{0} dm</unitPattern>
 			</unit>
+			<unit type="length-fathom">
+				<displayName>fth</displayName>
+			</unit>
 			<unit type="length-foot">
 				<displayName>këmbë</displayName>
 				<unitPattern count="one">{0} ft</unitPattern>
@@ -6549,7 +6803,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} m</unitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<unitPattern count="one">{0} µm</unitPattern>
+				<unitPattern count="one">{0} μm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<unitPattern count="one">{0} mi</unitPattern>
@@ -6585,6 +6839,11 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="mass-carat">
 				<unitPattern count="one">{0} CD</unitPattern>
 			</unit>
+			<unit type="mass-grain">
+				<displayName draft="provisional">gran</displayName>
+				<unitPattern count="one" draft="provisional">{0} gran</unitPattern>
+				<unitPattern count="other" draft="provisional">{0} granë</unitPattern>
+			</unit>
 			<unit type="mass-gram">
 				<displayName>g</displayName>
 				<unitPattern count="one">{0} g</unitPattern>
@@ -6596,7 +6855,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
-				<unitPattern count="one">{0} µg</unitPattern>
+				<unitPattern count="one">{0} μg</unitPattern>
 			</unit>
 			<unit type="mass-milligram">
 				<unitPattern count="one">{0} mg</unitPattern>
@@ -6638,16 +6897,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<unit type="pressure-hectopascal">
 				<unitPattern count="one">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one">{0} inHg</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<unitPattern count="one">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<unitPattern count="one">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<unitPattern count="one">{0} psi</unitPattern>
 			</unit>
 			<unit type="speed-kilometer-per-hour">
@@ -6680,6 +6939,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</unit>
 			<unit type="volume-acre-foot">
 				<unitPattern count="one">{0} ac ft</unitPattern>
+			</unit>
+			<unit type="volume-bushel">
+				<displayName draft="provisional">bushelë</displayName>
 			</unit>
 			<unit type="volume-centiliter">
 				<unitPattern count="one">{0} cL</unitPattern>
@@ -6818,7 +7080,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0}%</unitPattern>
 				<unitPattern count="other">{0}%</unitPattern>
 			</unit>
-			<unit type="consumption-liter-per-100kilometers">
+			<unit type="consumption-liter-per-100-kilometer">
 				<displayName>L/100km</displayName>
 				<unitPattern count="one">{0} L/100km</unitPattern>
 				<unitPattern count="other">{0} L/100km</unitPattern>
@@ -6951,7 +7213,7 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} hPa</unitPattern>
 				<unitPattern count="other">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>inç Hg</displayName>
 				<unitPattern count="one">{0} inHg</unitPattern>
 				<unitPattern count="other">{0} inHg</unitPattern>
@@ -6961,12 +7223,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 				<unitPattern count="one">{0} mb</unitPattern>
 				<unitPattern count="other">{0} mb</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>mm Hg</displayName>
 				<unitPattern count="one">{0} mm Hg</unitPattern>
 				<unitPattern count="other">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<displayName>psi</displayName>
 				<unitPattern count="one">{0} psi</unitPattern>
 				<unitPattern count="other">{0} psi</unitPattern>
@@ -7104,6 +7366,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<characterLabelPattern type="scripts">Shkrimet — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} vijëzim drejtshkrimor</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} vijëzime drejtshkrimore</characterLabelPattern>
+		<characterLabelPattern type="subscript">nënshënim {0}</characterLabelPattern>
+		<characterLabelPattern type="superscript">mbishënim {0}</characterLabelPattern>
 		<characterLabel type="activities">aktivitete</characterLabel>
 		<characterLabel type="african_scripts">shkrime afrikane</characterLabel>
 		<characterLabel type="american_scripts">shkrime amerikane</characterLabel>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2020 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -374,7 +374,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</measurementSystemNames>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters type="punctuation">[\- ‐ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<parseLenients scope="general" level="lenient">
+			<parseLenient sample="$" draft="contributed">[\$﹩＄$]</parseLenient>
+			<parseLenient sample="£" draft="contributed">[£₤]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="number" level="lenient">
+			<parseLenient sample="," draft="contributed">[,،٫、︐︑﹐﹑，､]</parseLenient>
+			<parseLenient sample="-" draft="contributed">[\-‒⁻₋−➖﹣－]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="number" level="stricter">
+			<parseLenient sample="," draft="contributed">[,٫︐﹐，]</parseLenient>
+		</parseLenients>
 		<parseLenients scope="date" level="lenient">
 			<parseLenient sample=":" draft="contributed">[\:∶]</parseLenient>
 		</parseLenients>
@@ -6588,6 +6599,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabelPattern type="scripts">Yazılar — {0}</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="one">{0} Vurğu</characterLabelPattern>
 		<characterLabelPattern type="strokes" count="other">{0} Vurğu</characterLabelPattern>
+		<characterLabelPattern type="subscript">indeks {0}</characterLabelPattern>
+		<characterLabelPattern type="superscript">üst indeks {0}</characterLabelPattern>
 		<characterLabel type="activities">Aktivitələr</characterLabel>
 		<characterLabel type="african_scripts">Afrika Yazıları</characterLabel>
 		<characterLabel type="american_scripts">Amerika Yazıları</characterLabel>
@@ -6657,7 +6670,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<characterLabel type="rightwards_arrows">Sağa Oxlar</characterLabel>
 		<characterLabel type="sign_standard_symbols">İşarə/Standart Simvollar</characterLabel>
 		<characterLabel type="small_form_variant">Kiçik Forma Variantları</characterLabel>
-		<characterLabel type="smiley">smayli</characterLabel>
+		<characterLabel type="smiley">təbəssüm</characterLabel>
 		<characterLabel type="smileys_people">Gülüş və Camaat</characterLabel>
 		<characterLabel type="south_asian_scripts">Cənubi Asiya Yazıları</characterLabel>
 		<characterLabel type="southeast_asian_scripts">Cənub-Şərqi Asiya Yazıları</characterLabel>
@@ -6683,7 +6696,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<axisName type="wght">çəki</axisName>
 		<styleName type="ital" subtype="1">kursiv</styleName>
 		<styleName type="opsz" subtype="12">mətn</styleName>
-		<styleName type="opsz" subtype="144">poster</styleName>
 		<styleName type="opsz" subtype="18">başlıq</styleName>
 		<styleName type="opsz" subtype="72">displey</styleName>
 		<styleName type="opsz" subtype="8">təsvir</styleName>

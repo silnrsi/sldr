@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2019 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
 Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
@@ -466,7 +466,6 @@ terms of use, see http://www.unicode.org/copyright.html
 			<language type="ro_MD">Moldawesch</language>
 			<language type="rof">Rombo</language>
 			<language type="rom">Romani</language>
-			<language type="root">Root</language>
 			<language type="rtm">Rotumanesch</language>
 			<language type="ru">Russesch</language>
 			<language type="rue">Russinesch</language>
@@ -620,8 +619,11 @@ terms of use, see http://www.unicode.org/copyright.html
 			<language type="zen">Zenaga</language>
 			<language type="zgh">Marokkanescht Standard-Tamazight</language>
 			<language type="zh">Chinesesch</language>
+			<language type="zh" alt="menu">Chineesesch, Mandarinn</language>
 			<language type="zh_Hans">Chinesesch (vereinfacht)</language>
+			<language type="zh_Hans" alt="long">Chineesesch, Mandarinn (vereinfacht)</language>
 			<language type="zh_Hant">Chinesesch (traditionell)</language>
+			<language type="zh_Hant" alt="long">Chineesesch (Mandarinn)</language>
 			<language type="zu">Zulu</language>
 			<language type="zun">Zuni-Sprooch</language>
 			<language type="zxx">Keng Sproochinhalter</language>
@@ -629,7 +631,6 @@ terms of use, see http://www.unicode.org/copyright.html
 		</languages>
 		<scripts>
 			<script type="Arab">Arabesch</script>
-			<script type="Armi">Armi</script>
 			<script type="Armn">Armenesch</script>
 			<script type="Avst">Avestesch</script>
 			<script type="Bali">Balinesesch</script>
@@ -643,7 +644,6 @@ terms of use, see http://www.unicode.org/copyright.html
 			<script type="Buhd">Buhid</script>
 			<script type="Cans">UCAS</script>
 			<script type="Cari">Karesch</script>
-			<script type="Cham">Cham</script>
 			<script type="Cher">Cherokee</script>
 			<script type="Cirt">Cirth</script>
 			<script type="Copt">Koptesch</script>
@@ -1193,7 +1193,7 @@ terms of use, see http://www.unicode.org/copyright.html
 	<characters>
 		<exemplarCharacters>[a ä b c d e é ë f g h i j k l m n o p q r s t u v w x y z]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à ă â å ã ā æ ç è ĕ ê ē ğ í ì ĭ î ï İ ī ı ñ ó ò ŏ ô ö ø ō œ ş ß ú ù ŭ û ü ū ÿ]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ – — , ; \: ! ? . … ' ‘ ‚ " “ „ « » ( ) \[ \] \{ \} § @ * / \&amp; #]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ‚ " “ „ « » ( ) \[ \] \{ \} § @ * / \&amp; #]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
 		<ellipsis type="initial">… {0}</ellipsis>
 		<ellipsis type="medial">{0} … {1}</ellipsis>
@@ -1232,21 +1232,25 @@ terms of use, see http://www.unicode.org/copyright.html
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d. MMMM U</pattern>
+							<datetimeSkeleton>UMMMMEEEEd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d. MMMM U</pattern>
+							<datetimeSkeleton>UMMMMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
 							<pattern>dd.MM U</pattern>
+							<datetimeSkeleton>UMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>dd.MM.yy</pattern>
+							<datetimeSkeleton>yyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -1288,11 +1292,13 @@ terms of use, see http://www.unicode.org/copyright.html
 					<dateFormatLength type="medium">
 						<dateFormat>
 							<pattern>dd.MM.y G</pattern>
+							<datetimeSkeleton>GyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>dd.MM.yy GGGGG</pattern>
+							<datetimeSkeleton>GGGGGyyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -1307,6 +1313,7 @@ terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="MEd">E, d.M.</dateFormatItem>
 						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d. MMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
 						<dateFormatItem id="y">y G</dateFormatItem>
 						<dateFormatItem id="yyyy">y G</dateFormatItem>
 						<dateFormatItem id="yyyyM">M.y GGGGG</dateFormatItem>
@@ -1315,6 +1322,7 @@ terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="yyyyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMd">d. MMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyMMMEd">E, d. MMM y G</dateFormatItem>
+						<dateFormatItem id="yyyyMMMM">MMMM y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQ">QQQ y G</dateFormatItem>
 						<dateFormatItem id="yyyyQQQQ">QQQQ y G</dateFormatItem>
 					</availableFormats>
@@ -1631,16 +1639,17 @@ terms of use, see http://www.unicode.org/copyright.html
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>dd.MM.yy</pattern>
+							<datetimeSkeleton>yyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
 				<dateTimeFormats>
 					<availableFormats>
 						<dateFormatItem id="Ed">E, d.</dateFormatItem>
-						<dateFormatItem id="EHm">E, HH:mm</dateFormatItem>
 						<dateFormatItem id="Ehm">E, h:mm a</dateFormatItem>
-						<dateFormatItem id="EHms">E, HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="EHm">E, HH:mm</dateFormatItem>
 						<dateFormatItem id="Ehms">E, h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="EHms">E, HH:mm:ss</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
 						<dateFormatItem id="GyMMM">MMM y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">d. MMM y G</dateFormatItem>
@@ -1650,12 +1659,14 @@ terms of use, see http://www.unicode.org/copyright.html
 						<dateFormatItem id="MEd">E, d.M.</dateFormatItem>
 						<dateFormatItem id="MMMd">d. MMM</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, d. MMM</dateFormatItem>
+						<dateFormatItem id="MMMMd">d. MMMM</dateFormatItem>
 						<dateFormatItem id="yM">M.y</dateFormatItem>
 						<dateFormatItem id="yMd">d.M.y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, d.M.y</dateFormatItem>
 						<dateFormatItem id="yMMM">MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMd">d. MMM y</dateFormatItem>
 						<dateFormatItem id="yMMMEd">E, d. MMM y</dateFormatItem>
+						<dateFormatItem id="yMMMM">MMMM y</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
 					</availableFormats>
@@ -1732,21 +1743,25 @@ terms of use, see http://www.unicode.org/copyright.html
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d. MMMM y G</pattern>
+							<datetimeSkeleton>GyMMMMEEEEd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d. MMMM y G</pattern>
+							<datetimeSkeleton>GyMMMMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
 							<pattern>dd.MM.y G</pattern>
+							<datetimeSkeleton>GyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>dd.MM.yy GGGGG</pattern>
+							<datetimeSkeleton>GGGGGyyMMdd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 				</dateFormats>
@@ -3065,7 +3080,9 @@ terms of use, see http://www.unicode.org/copyright.html
 			</metazone>
 			<metazone type="Norfolk">
 				<long>
-					<standard>Norfolkinselen-Zäit</standard>
+					<generic draft="contributed">Norfolkinselen-Zäit</generic>
+					<standard draft="contributed">Norfolkinselen-Normalzäit</standard>
+					<daylight draft="contributed">Norfolkinselen-Summerzäit</daylight>
 				</long>
 			</metazone>
 			<metazone type="Noronha">
@@ -3556,6 +3573,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Bangladesch-Taka</displayName>
 				<displayName count="other">Bangladesch-Taka</displayName>
 				<symbol>BDT</symbol>
+				<symbol alt="narrow" draft="contributed">৳</symbol>
 			</currency>
 			<currency type="BEC">
 				<displayName>Belsche Frang (konvertibel)</displayName>
@@ -3602,6 +3620,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Brunei-Dollar</displayName>
 				<displayName count="other">Brunei-Dollar</displayName>
 				<symbol>BND</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="BOB">
 				<displayName>Bolivianesche Boliviano</displayName>
@@ -4047,6 +4066,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Japanesche Yen</displayName>
 				<displayName count="other">Japanesch Yen</displayName>
 				<symbol>¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>Kenia-Schilling</displayName>
@@ -4063,6 +4083,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Kambodschanesche Riel</displayName>
 				<displayName count="other">Kambodschanesch Riel</displayName>
 				<symbol>KHR</symbol>
+				<symbol alt="narrow" draft="contributed">៛</symbol>
 			</currency>
 			<currency type="KMF">
 				<displayName>Komore-Frang</displayName>
@@ -4100,6 +4121,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Laoteschen Kip</displayName>
 				<displayName count="other">Laotesch Kip</displayName>
 				<symbol>LAK</symbol>
+				<symbol alt="narrow" draft="contributed">₭</symbol>
 			</currency>
 			<currency type="LBP">
 				<displayName>Libanesescht Pond</displayName>
@@ -4208,6 +4230,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Mongoleschen Tögrög</displayName>
 				<displayName count="other">Mongolesch Tögrög</displayName>
 				<symbol>MNT</symbol>
+				<symbol alt="narrow" draft="contributed">₮</symbol>
 			</currency>
 			<currency type="MOP">
 				<displayName>Macau-Pataca</displayName>
@@ -4363,6 +4386,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Philippinnesche Peso</displayName>
 				<displayName count="other">Philippinnesch Pesos</displayName>
 				<symbol>PHP</symbol>
+				<symbol alt="narrow" draft="contributed">₱</symbol>
 			</currency>
 			<currency type="PKR">
 				<displayName>Pakistanesch Rupie</displayName>
@@ -4470,6 +4494,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName count="one">Singapur-Dollar</displayName>
 				<displayName count="other">Singapur-Dollar</displayName>
 				<symbol>SGD</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="SHP">
 				<displayName>St. Helena-Pond</displayName>
@@ -4545,7 +4570,6 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName>Thailännesche Baht</displayName>
 				<displayName count="one">Thailännesche Baht</displayName>
 				<displayName count="other">Thailännesch Baht</displayName>
-				<symbol>฿</symbol>
 			</currency>
 			<currency type="TJR">
 				<displayName>Tadschikistan-Rubel</displayName>
@@ -4601,6 +4625,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName>Neien Taiwan-Dollar</displayName>
 				<displayName count="one">Neien Taiwan-Dollar</displayName>
 				<displayName count="other">Nei Taiwan-Dollar</displayName>
+				<symbol>NT$</symbol>
 				<symbol alt="narrow" draft="contributed">NT$</symbol>
 			</currency>
 			<currency type="TZS">
@@ -4866,7 +4891,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0}-fach Äerdacceleratioun</unitPattern>
 				<unitPattern count="other">{0}-fach Äerdacceleratioun</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<displayName>Meter pro Quadratsekonn</displayName>
 				<unitPattern count="one">{0} Meter pro Quadratsekonn</unitPattern>
 				<unitPattern count="other">{0} Meter pro Quadratsekonn</unitPattern>
@@ -5303,7 +5328,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} Hektopascal</unitPattern>
 				<unitPattern count="other">{0} Hektopascal</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<displayName>inHg</displayName>
 				<unitPattern count="one">{0} Zoll Quecksëlwersail</unitPattern>
 				<unitPattern count="other">{0} Zoll Quecksëlwersail</unitPattern>
@@ -5313,12 +5338,12 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} Millibar</unitPattern>
 				<unitPattern count="other">{0} Millibar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<displayName>mm Hg</displayName>
 				<unitPattern count="one">{0} mm Hg</unitPattern>
 				<unitPattern count="other">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<displayName>psi</displayName>
 				<unitPattern count="one">{0} psi</unitPattern>
 				<unitPattern count="other">{0} psi</unitPattern>
@@ -5469,7 +5494,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<displayName>G</displayName>
 				<unitPattern count="one">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<unitPattern count="one">{0} m/s²</unitPattern>
 			</unit>
 			<unit type="angle-arc-minute">
@@ -5628,7 +5653,9 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} cal</unitPattern>
 			</unit>
 			<unit type="energy-foodcalorie">
+				<displayName>Cal</displayName>
 				<unitPattern count="one">{0} Cal</unitPattern>
+				<unitPattern count="other">{0} Cal</unitPattern>
 			</unit>
 			<unit type="energy-joule">
 				<unitPattern count="one">{0} J</unitPattern>
@@ -5686,7 +5713,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} m</unitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<unitPattern count="one">{0} µm</unitPattern>
+				<unitPattern count="one">{0} μm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<unitPattern count="one">{0} mi</unitPattern>
@@ -5726,7 +5753,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
-				<unitPattern count="one">{0} µg</unitPattern>
+				<unitPattern count="one">{0} μg</unitPattern>
 			</unit>
 			<unit type="mass-milligram">
 				<unitPattern count="one">{0} mg</unitPattern>
@@ -5772,16 +5799,16 @@ terms of use, see http://www.unicode.org/copyright.html
 			<unit type="pressure-hectopascal">
 				<unitPattern count="one">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one">{0} inHg</unitPattern>
 			</unit>
 			<unit type="pressure-millibar">
 				<unitPattern count="one">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<unitPattern count="one">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<unitPattern count="one">{0} psi</unitPattern>
 			</unit>
 			<unit type="speed-kilometer-per-hour">
@@ -5884,7 +5911,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} G</unitPattern>
 				<unitPattern count="other">{0} G</unitPattern>
 			</unit>
-			<unit type="acceleration-meter-per-second-squared">
+			<unit type="acceleration-meter-per-square-second">
 				<unitPattern count="one">{0} m/s²</unitPattern>
 				<unitPattern count="other">{0} m/s²</unitPattern>
 			</unit>
@@ -6018,8 +6045,8 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="other">{0} m</unitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<unitPattern count="one">{0} µm</unitPattern>
-				<unitPattern count="other">{0} µm</unitPattern>
+				<unitPattern count="one">{0} μm</unitPattern>
+				<unitPattern count="other">{0} μm</unitPattern>
 			</unit>
 			<unit type="length-mile">
 				<unitPattern count="one">{0} mi</unitPattern>
@@ -6069,8 +6096,8 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="other">{0} t</unitPattern>
 			</unit>
 			<unit type="mass-microgram">
-				<unitPattern count="one">{0} µg</unitPattern>
-				<unitPattern count="other">{0} µg</unitPattern>
+				<unitPattern count="one">{0} μg</unitPattern>
+				<unitPattern count="other">{0} μg</unitPattern>
 			</unit>
 			<unit type="mass-milligram">
 				<unitPattern count="one">{0} mg</unitPattern>
@@ -6113,7 +6140,7 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} hPa</unitPattern>
 				<unitPattern count="other">{0} hPa</unitPattern>
 			</unit>
-			<unit type="pressure-inch-hg">
+			<unit type="pressure-inch-ofhg">
 				<unitPattern count="one">{0} inHg</unitPattern>
 				<unitPattern count="other">{0} inHg</unitPattern>
 			</unit>
@@ -6121,11 +6148,11 @@ terms of use, see http://www.unicode.org/copyright.html
 				<unitPattern count="one">{0} mbar</unitPattern>
 				<unitPattern count="other">{0} mbar</unitPattern>
 			</unit>
-			<unit type="pressure-millimeter-of-mercury">
+			<unit type="pressure-millimeter-ofhg">
 				<unitPattern count="one">{0} mm Hg</unitPattern>
 				<unitPattern count="other">{0} mm Hg</unitPattern>
 			</unit>
-			<unit type="pressure-pound-per-square-inch">
+			<unit type="pressure-pound-force-per-square-inch">
 				<unitPattern count="one">{0} psi</unitPattern>
 				<unitPattern count="other">{0} psi</unitPattern>
 			</unit>
