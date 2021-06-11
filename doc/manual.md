@@ -16,22 +16,23 @@ inserted into all the generated files.
 ## Manually Accepting a Contribution
 
 A user has edited an LDML file and sent it to you. The file is a flattened file. What do you do now?
-ldmlmerge does most of the work for you. The following example command shows what is typically done:
+ldmlmerge (in sldrtools/scripts) does most of the work for you. The following example command shows what is typically done:
 
-    pythons/scripts/ldmlmerge -g -C base -d sldr -o cont_Latn.xml temp/cont_Latn.xml cont_Latn.xml
+```
+    ldmlmerge -g -C base -d sldr -o cont_Latn.xml temp/cont_Latn.xml cont_Latn.xml
+```
 
 This command does a number of things:
 
 *   Reads the input file `temp/cont_Latn.xml` and extracts the `sil:identity/@revid`
-*   Extracts that version of cont\_Latn.xml (the final parameter) having looked for it in the sldr source directory,
-    as specified by the -d option
-*   Finds the latest version of cont\_Latn.xml and extracts that if it is newer than the one specified by @revid.
+*   Extracts that version of `cont_Latn.xml` (the final parameter) having looked for it in the sldr source directory, as specified by the -d option
+*   Finds the latest version of `cont_Latn.xml` and extracts that if it is newer than the one specified by @revid.
 *   Flattens all the files internally
 *   Does a 2 or 3 way merge incorporating @draft, @alt, sil:identity/@uid, etc.
 *   Replaces the comments from the base file, assuming the sender has stripped them. If you trust that the
     sender has done the right thing with comments, then omit the -C option.
 *   Strips out @uid and @revid from sil:identity and unflattens the result
-*   Saves the output to cont\_Latn.xml as specified by the -o option
+*   Saves the output to `cont_Latn.xml` as specified by the -o option
 
 Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
 in sldr and commit your change.
@@ -157,3 +158,26 @@ The scripts used for this process (cldrimport, ldmlflatten, ldmlmerge) are in th
 
 Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage). Although the benefits are reduced when using the faster python3.
 
+## Updating the DTD
+
+Importing a new version of CLDR may require a new version of the DTD definition in `ldml.dtd`.
+
+```
+# copy the ldml.dtd file
+cp /cldr/common/dtd/ldml.dtd /sldr/doc
+# use make/Makefile and scripts in bin/ to generate files 
+cd /sldr
+make
+# make sure all locales pass the following test:
+pytest test_validate.py::test_validate
+# commit updated files
+git add -A
+git commit -m "update ldml.dtd"
+git push
+# copy updated file to sldrtools and commit
+cp doc/sil.dtd /sldrtools/lib/sldr
+cd /sldrtools
+git add -A
+git commit -m "update ldml.dtd"
+git push
+```
