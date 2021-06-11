@@ -23,15 +23,15 @@ ldmlmerge does most of the work for you. The following example command shows wha
 This command does a number of things:
 
 *   Reads the input file `temp/cont_Latn.xml` and extracts the `sil:identity/@revid`
-*   Extracts that version of cont_Latn.xml (the final parameter) having looked for it in the sldr source directory,
+*   Extracts that version of cont\_Latn.xml (the final parameter) having looked for it in the sldr source directory,
     as specified by the -d option
-*   Finds the latest version of cont_Latn.xml and extracts that if it is newer than the one specified by @revid.
+*   Finds the latest version of cont\_Latn.xml and extracts that if it is newer than the one specified by @revid.
 *   Flattens all the files internally
 *   Does a 2 or 3 way merge incorporating @draft, @alt, sil:identity/@uid, etc.
 *   Replaces the comments from the base file, assuming the sender has stripped them. If you trust that the
     sender has done the right thing with comments, then omit the -C option.
 *   Strips out @uid and @revid from sil:identity and unflattens the result
-*   Saves the output to cont_Latn.xml as specified by the -o option
+*   Saves the output to cont\_Latn.xml as specified by the -o option
 
 Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
 in sldr and commit your change.
@@ -61,7 +61,6 @@ To allow for good merging, therefore, it is necessary that the cldr files are he
 
 To do this, we use two temporary directories (`cldrdata` and `cldrflat`) that are not committed. 
 If they already exist, they should be removed and rebuilt so that any files that have been removed from the CLDR or that would be removed by stub removal, do not remain and get propagated forward. 
-It also allows us to merge back from master for things like tools.
 
 ```
     mkdir cldrdata
@@ -137,6 +136,8 @@ git config merge.tool ldml
 git config mergetool.ldml.cmd 'ldmlmerge -v -G -C other -o $MERGED $LOCAL $BASE $REMOTE'
 ```
 
+This requires that `ldmlmerge` is available in your path. It is available from the sldrtools project which should be installed.
+
 To verify that your configuration is correct, you can use the config editor:
 
 ```
@@ -154,4 +155,5 @@ Depending how Python is installed on the Windows computer, you may need to:
 
 The scripts used for this process (cldrimport, ldmlflatten, ldmlmerge) are in the `sldrtools` repository.
 
-Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage).
+Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage). Although the benefits are reduced when using the faster python3.
+
