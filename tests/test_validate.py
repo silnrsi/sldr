@@ -60,7 +60,14 @@ def test_exemplars(ldml):
             test = main
         m = set([x.lower() for x in exemplars['index']])
         diff = m - test
-        assert not len(diff), filename + " Not all index entries found in main or auxiliary"
+        # The following lines (down to the assert) added to handle digraphs whose components are present
+        digraphcheck = True
+        for digraph in diff:
+            for c in digraph:
+                if c not in test:
+                    digraphcheck = False
+                    break
+        assert digraphcheck or not len(diff), filename + " Not all index entries found in main or auxiliary"
 
 def _duplicate_test(base, ldml, path=""):
     filename = os.path.basename(ldml.fname)    # get filename for reference
