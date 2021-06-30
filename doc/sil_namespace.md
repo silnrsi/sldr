@@ -207,7 +207,8 @@ sil.resources = element sil:external-resources {
     (sil.font*,
      sil.kbdrsrc*,
      sil.spellcheck*,
-     sil.transform*)
+     sil.transform*,
+     sil.sampletext*)
 }
 sil.url = element sil:url {
     attlist.sil.global,
@@ -216,7 +217,7 @@ sil.url = element sil:url {
 ```
 
 ```dtd
-<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform)*>
+<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:sampletext)*>
 <!ELEMENT sil:url (#PCDATA)>
 <?ATTREF sil:url global?>
 ```
@@ -476,6 +477,24 @@ Transform elements are sorted alphabetically by attributes in the following prio
 In addition to simple transformations, there are also more complex ones used for transforming between scripts. In such cases there are two extra considerations. The first is that not all transformations are purely algorithmic. There can be algorithmically arbitrary spelling differences. Such differences are handled using a simple mapping dictionary. A transform may reference such a dictionary. The two column attributes (incol, outcol) specify which columns in the simple CSV file, are used for input and output text. They default to 0 and 1 respectively. The nf attributes specifies in which normal form the input data is held.
 
 The second consideration is conversion from a script with no case to one with case. For this automatic case insertion is desired. Not all case insertion can be done algorithmically, for example if proper names are to be capitalised, then such words will need to be added to the dictionary to fix the casing. The various attributes in the `sil:transform-capitals` element drive the algorithmic insertion of capitals. The default value for each attribute is given as the first string in the alternate. The **opengroup** and **closegroup** attributes are used to specify preceding and final punctuation that is to be ignored when either setting the capital on a first character after a sentence break (or at the start of a 'paragraph') or following a sentence final marker. In many languages when starting a subgroup (e.g. some quoted text, or a parenthetic group) the first letter in the group is automatically upper cased. The **startcaps** attribute specifies which initial characters will cause the first letter to be capitalised. If not specified, it is assumed to take the same value as the **opengroup** attribute.
+
+### Sample Text
+A short sample text in the language and orthography is useful for all kinds of purposes. This element allows text to be stored either in the LDML file itself or via an external reference.
+
+```rnc
+sil.sampletext = element sil:sampletext {
+    attlist.sil.global,
+    (sil.text | sil.url)
+}
+sil.text = element sil:text { text }
+```
+```dtd
+<!ELEMENT sil:sampletext (sil:text | sil:url)>
+<?ATTREF sil:sampletext global?>
+<!ELEMENT sil:text (#PCDATA)>
+``` 
+
+A sample text is stored in plain text with the only formatting being a blank line between paragraphs. An external reference is to such a plain text file, stored in UTF-8 with no Byte Order Mark.
 
 ## Identification
 
