@@ -490,11 +490,12 @@ sil.text = element sil:text { text }
 ```
 ```dtd
 <!ELEMENT sil:sampletext (sil:text | sil:url)>
+<!ATTLIST sil:sampletext license CDATA #IMPLIED>
 <?ATTREF sil:sampletext global?>
 <!ELEMENT sil:text (#PCDATA)>
 ``` 
 
-A sample text is stored in plain text with the only formatting being a blank line between paragraphs. An external reference is to such a plain text file, stored in UTF-8 with no Byte Order Mark.
+A sample text is stored in plain text with the only formatting being a blank line between paragraphs. An external reference is to such a plain text file, stored in UTF-8 with no Byte Order Mark. The license attribute gives the licensing of the text. The copyright is assumed to be owned by the owner of the linked text or the owner of the LDML file for internal texts. If the license attribute is missing for internal texts, then the license is the same as for the LDML file. For external files, it is unknonwn as per the copyright.
 
 ## Identification
 
