@@ -483,13 +483,16 @@ A short sample text in the language and orthography is useful for all kinds of p
 
 ```rnc
 sil.sampletext = element sil:sampletext {
-    attlist.sil.global,
+    (attlist.sil.sampletext & attlist.sil.global),
     (sil.text | sil.url)
 }
+attlist.sil.sampletext &= attribute type { text }?
+attlist.sil.sampletext &= attriute license { text }?
 sil.text = element sil:text { text }
 ```
 ```dtd
 <!ELEMENT sil:sampletext (sil:text | sil:url)>
+<!ATTLIST sil:sampletext type CDATA #IMPLIED>
 <!ATTLIST sil:sampletext license CDATA #IMPLIED>
 <?ATTREF sil:sampletext global?>
 <!ELEMENT sil:text (#PCDATA)>
