@@ -2,11 +2,11 @@
 .phony: all
 .SUFFIXES:
 
-all : doc/sil.dtd
+all : aux/sil.dtd
 
-doc/sil.dtd : doc/sil_ns.dtd doc/ldml.dtd
-	python bin/dtd2dtd -I doc $< $@
+aux/sil.dtd : aux/sil_ns.dtd aux/ldml.dtd
+	python bin/dtd2dtd -I aux $< $@
 
-doc/sil_ns.dtd : doc/sil_namespace.md
+aux/sil_ns.dtd : doc/sil_namespace.md
 	python bin/extractrnc -t dtd $< $@
 

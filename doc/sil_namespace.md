@@ -494,6 +494,7 @@ sil.text = element sil:text { text }
 <!ELEMENT sil:sampletext (sil:text | sil:url)>
 <!ATTLIST sil:sampletext type CDATA #IMPLIED>
 <!ATTLIST sil:sampletext license CDATA #IMPLIED>
+<!--@VALUE-->
 <?ATTREF sil:sampletext global?>
 <!ELEMENT sil:text (#PCDATA)>
 ``` 
