@@ -14,24 +14,12 @@ on:
     - sldr/**
     branches: [ release ]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# This is a basic workflow to help you get started with Actions
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    env:
-      STAGE: sldr
-      TARGET: ${{secrets.UPLOAD_TARGET}}
-      RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-      
+    steps:      
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Install our private key for uploading deliverable
-    - uses: webfactory/ssh-agent@v0.4.0
-      with:
-        ssh-private-key: |
-          ${{secrets.UPLOADER_SSH_KEY}}
     - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
@@ -56,11 +44,35 @@ jobs:
     
     - name: Generate flattened sldr
       run: python3 tools/scripts/ldmlflatten -o flat -i sldr -a -A -g
-      
-    # Upload results
-    - name: Upload SLDR to /ldml/${{env.STAGE}}
-      run: rsync ${{env.RSYNC_OPTS}} extras sldr ${{env.TARGET}}/local/ldml/${{env.STAGE}}/
     
+    # Upload artefact
+    - name: Upload artefact
+      uses: actions/upload-artifact@v2
+      with:
+        name: sldr
+        path: |
+           flat/
+           unflat/
+
+# Deploy built artefacts to the secrets.UPLOAD_TARGET
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      STAGE: sldr
+      RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
+    steps:
+    # Install our private key for uploading deliverable
+    - uses: webfactory/ssh-agent@v0.5.0
+      with:
+        ssh-private-key: ${{secrets.UPLOADER_SSH_KEY}}
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    # Download the aretefact
+    - uses: actions/download-artifact@v2
+      with:
+        name: sldr
+    # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
-      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{env.TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
- 
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
+  
