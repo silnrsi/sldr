@@ -74,8 +74,6 @@ jobs:
       with:
         name: sldr
     # Upload results
-    - name: Upload SLDR to /ldml/${{env.STAGE}}
-      run: rsync ${{env.RSYNC_OPTS}} --dry-run -i extras sldr ${{secrets.UPLOAD_TARGET}}/local/ldml/${{env.STAGE}}/
     - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
-      run: rsync ${{env.RSYNC_OPTS}} --dry-run -i --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
   
