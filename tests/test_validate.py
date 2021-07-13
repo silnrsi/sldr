@@ -11,7 +11,7 @@ def validator(request):
     return DTD(file=os.path.join(os.path.dirname(__file__), '..', 'auxdata', 'sil.dtd'))
 
 def iscldr(ldml):
-    i = ldml.ldml.find(".//identity/special/sil:identity")
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
     if i is not None and i.get('source', "") == "cldr":
         return True
     return False
