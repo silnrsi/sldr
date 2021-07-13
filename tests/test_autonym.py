@@ -7,7 +7,7 @@ from lxml.etree import RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 
 def iscldr(ldml):
-    i = ldml.ldml.find(".//identity/special/sil:identity")
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
     if i is not None and i.get('source', "") == "cldr":
         return True
     return False
