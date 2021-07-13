@@ -8,7 +8,7 @@ from unicodedata import normalize
 @pytest.fixture(scope="session")
 def validator(request):
     # return RelaxNG(file=os.path.join(os.path.dirname(__file__), '..', 'doc', 'sil.rng'))
-    return DTD(file=os.path.join(os.path.dirname(__file__), '..', 'aux', 'sil.dtd'))
+    return DTD(file=os.path.join(os.path.dirname(__file__), '..', 'auxdata', 'sil.dtd'))
 
 def iscldr(ldml):
     i = ldml.ldml.find(".//identity/special/sil:identity")
