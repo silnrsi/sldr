@@ -30,23 +30,17 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     
-    # Check-out the tooling
-    - uses: actions/checkout@v2
-      with:
-        repository: silnrsi/sldrtools
-        path: tools
-    
     # Install SLDR tools
     - name: Setup sldrtools
       working-directory: tools
-      run: pip install .
+      run: pip install 'git+https://github.com/silnrsi/sldrtools'
       
-    # Flatten SLDR
     - name: Generate unflattened sldr
-      run: python3 tools/scripts/ldmlflatten -o unflat -i sldr -a -c -g
+      run: ldmlflatten -o unflat -i sldr -a -c -g
     
+    # Flatten SLDR
     - name: Generate flattened sldr
-      run: python3 tools/scripts/ldmlflatten -o flat -i sldr -a -A -g
+      run: ldmlflatten -o flat -i sldr -a -A -g
     
     # Upload artefact
     - name: Upload artefact
