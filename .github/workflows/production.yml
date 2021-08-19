@@ -14,11 +14,9 @@ on:
     - sldr/**
     branches: [ release ]
 
-# This is a basic workflow to help you get started with Actions
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:      
     steps:      
     # Setup Python environment.
     - uses: actions/setup-python@v2
@@ -61,12 +59,12 @@ jobs:
     - uses: webfactory/ssh-agent@v0.5.0
       with:
         ssh-private-key: ${{secrets.UPLOADER_SSH_KEY}}
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    
     # Download the aretefact
     - uses: actions/download-artifact@v2
       with:
         name: sldr
+        
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
       run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
