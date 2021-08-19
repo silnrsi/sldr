@@ -22,18 +22,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:      
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Setup Python environment.
     - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-    
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
     
     # Install SLDR tools
     - name: Setup sldrtools
       run: pip install 'git+https://github.com/silnrsi/sldrtools'
       
+    # Checks-out repository under $GITHUB_WORKSPACE.
+    - uses: actions/checkout@v2
+
+    # Generate 'unflattend' SLDR
     - name: Generate unflattened sldr
       run: ldmlflatten -o unflat -i sldr -a -c -g
     
@@ -72,3 +73,4 @@ jobs:
     - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
       run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
   
+
