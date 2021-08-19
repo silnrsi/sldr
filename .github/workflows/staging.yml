@@ -57,18 +57,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       STAGE: sldr-staging
-      RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
+      RSYNC_OPTS: -i --dry-run -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
     steps:
     # Install our private key for uploading deliverable
     - uses: webfactory/ssh-agent@v0.5.0
       with:
         ssh-private-key: ${{secrets.UPLOADER_SSH_KEY}}
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+
     # Download the aretefact
     - uses: actions/download-artifact@v2
       with:
         name: sldr
+
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{env.STAGE}}
       run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.UPLOAD_TARGET}}/sites/s/ldml-api/data/${{env.STAGE}}/
