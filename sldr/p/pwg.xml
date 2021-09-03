@@ -26,18 +26,23 @@
 	<characters>
 		<exemplarCharacters>[a b c d e f g h i j k l m n o p r s t u v w x y z]</exemplarCharacters>
 		<exemplarCharacters alt="proposed-dbl" draft="suspect">[A-Za-z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[! ( ) , \- . \: ? \[ \] ‘ ’ “ ”]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- , \: ! ? . ‘ ’ “ ” ( ) \[ \] *]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" alt="proposed-dbl" draft="suspect">[!%(),-/\:;?\[\]~\u00A9\u2014\u2018\u2019\u201C\u201D\u2022]</exemplarCharacters>
 		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P R S T U V W X Y Z]</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>“</quotationStart>
+		<quotationStart alt="proposed-dbl">&lt;&lt;</quotationStart>
 		<quotationEnd>”</quotationEnd>
+		<quotationEnd alt="proposed-dbl">&gt;&gt;</quotationEnd>
 		<alternateQuotationStart>‘</alternateQuotationStart>
+		<alternateQuotationStart alt="proposed-dbl">&lt;</alternateQuotationStart>
 		<alternateQuotationEnd>’</alternateQuotationEnd>
+		<alternateQuotationEnd alt="proposed-dbl">&gt;</alternateQuotationEnd>
 		<special>
 			<sil:matched-pairs>
 				<sil:matched-pair open="(" close=")" paraClose="false"/>
+				<sil:matched-pair open="&lt;" close="&gt;"/>
 				<sil:matched-pair open="[" close="]" paraClose="false"/>
 				<sil:matched-pair open="{" close="}" paraClose="false"/>
 			</sil:matched-pairs>
@@ -77,11 +82,16 @@
 				<sil:quotationContinue>“</sil:quotationContinue>
 				<sil:alternateQuotationContinue>‘</sil:alternateQuotationContinue>
 				<sil:quotation open="“" close="”" continue="“" level="3"/>
+				<sil:quotation open="&lt;&lt;" close="&gt;&gt;" level="3" alt="proposed-dbl"/>
 			</sil:quotation-marks>
 		</special>
 	</delimiters>
 	<collations>
 		<collation type="standard">
+			<cr><![CDATA[
+				&G < gh <<< Gh <<< gH <<< GH
+				&I < ii <<< iI <<< II <<< Ii
+			]]></cr>
 			<special>
 				<sil:simple>a/A
 				b/B
@@ -90,8 +100,10 @@
 				e/E
 				f/F
 				g/G
+				gh
 				h/H
 				i/I
+				ii
 				j/J
 				k/K
 				l/L
