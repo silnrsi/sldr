@@ -412,7 +412,7 @@ sil.transform = element sil:transform {
 
 attlist.sil.transform &= attribute from { text }
 attlist.sil.transform &= attribute to { text }
-attlist.sil.transform &= attribute type { "cct" | "perl" | "python" | "teckit" }
+attlist.sil.transform &= attribute type { "cct" | "perl" | "python" | "teckit" | "cldr" }
 [cldr:value="true"]
 attlist.sil.transform &= attribute direction { "both" | "forward" | "backward" }
 [cldr:value="true"]
@@ -478,7 +478,45 @@ In addition to simple transformations, there are also more complex ones used for
 
 The second consideration is conversion from a script with no case to one with case. For this automatic case insertion is desired. Not all case insertion can be done algorithmically, for example if proper names are to be capitalised, then such words will need to be added to the dictionary to fix the casing. The various attributes in the `sil:transform-capitals` element drive the algorithmic insertion of capitals. The default value for each attribute is given as the first string in the alternate. The **opengroup** and **closegroup** attributes are used to specify preceding and final punctuation that is to be ignored when either setting the capital on a first character after a sentence break (or at the start of a 'paragraph') or following a sentence final marker. In many languages when starting a subgroup (e.g. some quoted text, or a parenthetic group) the first letter in the group is automatically upper cased. The **startcaps** attribute specifies which initial characters will cause the first letter to be capitalised. If not specified, it is assumed to take the same value as the **opengroup** attribute.
 
+### Case Tailoring
+
+There are a few locales that do not convert between upper and lower case in the same way that most other locales do. The key difference in the known cases is that the orthography has a dotted upper case I and dotless lower case i. Thus upper case dotless I does not map to lower case dotted i. There are no known cases of other case tailorings, but we will define a mechanism just in case.
+
+```rnc
+sil.casetailor = element sil:case-tailoring {
+    (attlist.sil.casetailor & attlist.sil.global)
+}
+
+attlist.sil.casetailor &= attribute alias { text }?
+attlist.sil.casetailor &= attribute transform { text }?
+```
+```dtd
+<!ELEMENT sil:case-tailoring EMPTY>
+<!ATTLIST sil:case-tailoring alias CDATA #IMPLIED>
+<!ATTLIST sil:case-tailoring transform CDATA #IMPLIED>
+<?ATTREF sil:case-tailoring global?>
+```
+
+A case tailoring may either specify another locale as an alias to use when case tailoring text marked with this locale. The **alias** attribute is used to specify the replacement locale. Alternatively, it may reference an `sil:transform`, using the **transform** attribute. This value is used to index the @from attribute of an `sil:transform` element and the @to attribute is matched against the @from with one of `-Lower`, `-Upper` or `-Title` strings appended. If both attributes are present, a processor may use either. Currently, use of @alias is recommended over @transform. For example:
+
+```xml
+<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+    <sil:external-resources>
+        <sil:case-tailoring alias="tr"/>
+    </sil:external-resources>
+</special>
+
+<special xmlns:sil="urn://www.sil.org/ldml/0.1">
+    <sil:external-resources>
+        <sil:case-tailoring transform="qbx"/>
+    </sil:external-resources>
+</special>
+```
+
+The former is preferred over the latter which would look for `<sil:transform from="qbx" to="qbx-Lower">` or `<sil:transform from="qbx" to="qbx-Upper">`, etc.
+
 ### Sample Text
+
 A short sample text in the language and orthography is useful for all kinds of purposes. This element allows text to be stored either in the LDML file itself or via an external reference.
 
 ```rnc
