@@ -24,7 +24,7 @@ def test_autonym(ldml):
         t = e.get('type', None)
         if t: continue
         main_exem = e.text
-        if main_exem and len(main_exem) <= 2:       ### 2021-10-22 pcg_Taml.xml is example where text is missing
+        if not main_exem or len(main_exem) <= 2:    ### 2021-10-22 pcg_Taml.xml is example where text is missing
 #            assert False, filename + " has empty main exemplar" ### 2021-10-22 nuf.xml is ex where text is "[]"
             return
         main = usets.parse(main_exem, 'NFD')[0].asSet()
