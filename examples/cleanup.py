@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from palaso.sldr.ldml import Ldml, iterate_files
+from sldr.ldml import Ldml, iterate_files
 import sys
 
 if sys.argv[1].endswith('.xml'):
