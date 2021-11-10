@@ -285,11 +285,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="ZM">Zambia</territory>
 			<territory type="ZW">Zimbabwe</territory>
 		</territories>
+		<special>
+			<sil:names>
+				<sil:name xml:lang="en">Makonde</sil:name>
+			</sil:names>
+		</special>
 	</localeDisplayNames>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
 	<characters>
-		<exemplarCharacters>[a b c d e f g h i j k l m n o p q r s t u v w x y z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- , ; \: ! ? . … ' ‘ ’ “ ” ( ) \[ \]]</exemplarCharacters>
-		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
+		<exemplarCharacters>[a à á b d e è é g h i ì í j k l m n o ó p s t u ù ú v w y]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[! ' ( ) , \- . \: ; ? \[ \] ‘ ’ “ ” …]</exemplarCharacters>
+		<exemplarCharacters type="index">[A À Á B D E È É G H I Ì Í J K L M N O Ó P S T U Ù Ú V W Y]</exemplarCharacters>
+		<special>
+			<sil:exemplarCharacters type="footnotes">[a b d e g h i j k l m n o p s t u v w y]</sil:exemplarCharacters>
+		</special>
 	</characters>
 	<delimiters>
 		<quotationStart>“</quotationStart>
@@ -297,8 +310,52 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<alternateQuotationStart>‘</alternateQuotationStart>
 		<alternateQuotationEnd>’</alternateQuotationEnd>
 		<special>
-			<sil:quotation-marks>
-				<sil:quotation open="“" close="”" level="3"/>
+			<sil:matched-pairs>
+				<sil:matched-pair open="(" close=")" paraClose="false"/>
+				<sil:matched-pair open="&lt;" close="&gt;" paraClose="false"/>
+				<sil:matched-pair open="[" close="]" paraClose="false"/>
+			</sil:matched-pairs>
+			<sil:punctuation-patterns>
+				<sil:punctuation-pattern pattern="!_" context="final"/>
+				<sil:punctuation-pattern pattern="&quot;_" context="final"/>
+				<sil:punctuation-pattern pattern="'" context="medial"/>
+				<sil:punctuation-pattern pattern="'_" context="final"/>
+				<sil:punctuation-pattern pattern=")_" context="final"/>
+				<sil:punctuation-pattern pattern=",_" context="final"/>
+				<sil:punctuation-pattern pattern="-" context="medial"/>
+				<sil:punctuation-pattern pattern="..._" context="final"/>
+				<sil:punctuation-pattern pattern="._" context="final"/>
+				<sil:punctuation-pattern pattern=":_" context="final"/>
+				<sil:punctuation-pattern pattern=";_" context="final"/>
+				<sil:punctuation-pattern pattern="&gt;" context="medial"/>
+				<sil:punctuation-pattern pattern="&gt;_" context="final"/>
+				<sil:punctuation-pattern pattern="?" context="medial"/>
+				<sil:punctuation-pattern pattern="?_" context="final"/>
+				<sil:punctuation-pattern pattern="]_" context="final"/>
+				<sil:punctuation-pattern pattern="_&quot;" context="init"/>
+				<sil:punctuation-pattern pattern="_&quot;_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_'" context="init"/>
+				<sil:punctuation-pattern pattern="_'_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_(" context="init"/>
+				<sil:punctuation-pattern pattern="_+" context="init"/>
+				<sil:punctuation-pattern pattern="_..." context="init"/>
+				<sil:punctuation-pattern pattern="_._" context="isolate"/>
+				<sil:punctuation-pattern pattern="_&lt;" context="init"/>
+				<sil:punctuation-pattern pattern="_[" context="init"/>
+				<sil:punctuation-pattern pattern="_[_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_‘" context="init"/>
+				<sil:punctuation-pattern pattern="_“" context="init"/>
+				<sil:punctuation-pattern pattern="_…" context="init"/>
+				<sil:punctuation-pattern pattern="‌" context="medial"/>
+				<sil:punctuation-pattern pattern="‍" context="medial"/>
+				<sil:punctuation-pattern pattern="’_" context="final"/>
+				<sil:punctuation-pattern pattern="”_" context="final"/>
+				<sil:punctuation-pattern pattern="…_" context="final"/>
+			</sil:punctuation-patterns>
+			<sil:quotation-marks paraContinueType="all">
+				<sil:quotationContinue>“</sil:quotationContinue>
+				<sil:alternateQuotationContinue>‘</sil:alternateQuotationContinue>
+				<sil:quotation open="“" close="”" continue="“" level="3"/>
 			</sil:quotation-marks>
 		</special>
 	</delimiters>
@@ -747,6 +804,41 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 		</currencies>
 	</numbers>
+	<collations>
+		<collation type="standard">
+			<cr><![CDATA[
+				&A << á <<< Á << à <<< À
+				&E << é <<< É << è <<< È
+				&I << í <<< Í << ì <<< Ì
+				&O << ó <<< Ó << ò <<< Ò
+				&U << ú <<< Ú << ù <<< Ù
+			]]></cr>
+			<special>
+				<sil:simple>a/A á/Á à/À
+				b/B
+				d/D
+				e/E é/É è/È
+				f/F
+				g/G
+				h/H
+				i/I í/Í ì/Ì
+				j/J
+				k/K
+				l/L
+				m/M
+				n/N
+				o/O ó/Ó ò/Ò
+				p/P
+				r/R
+				s/S
+				t/T
+				u/U ú/Ú ù/Ù
+				v/V
+				w/W
+				y/Y</sil:simple>
+			</special>
+		</collation>
+	</collations>
 	<posix>
 		<messages>
 			<yesstr>Elo:E</yesstr>
