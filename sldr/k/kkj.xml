@@ -21,7 +21,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<territories>
 			<territory type="CM">Kamɛrun</territory>
 		</territories>
+		<special>
+			<sil:names>
+				<sil:name xml:lang="en">Kako</sil:name>
+			</sil:names>
+		</special>
 	</localeDisplayNames>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
 	<characters>
 		<exemplarCharacters>[a á à â {a\u0327} b ɓ c d ɗ {ɗy} e é è ê ɛ {ɛ\u0301} {ɛ\u0300} {ɛ\u0302} {ɛ\u0327} f g {gb} {gw} h i í ì î {i\u0327} j k {kp} {kw} l m {mb} n {nd} ǌ {ny} ŋ {ŋg} {ŋgb} {ŋgw} o ó ò ô ɔ {ɔ\u0301} {ɔ\u0300} {ɔ\u0302} {ɔ\u0327} p r s t u ú ù û {u\u0327} v w y]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[q x z]</exemplarCharacters>
@@ -34,8 +44,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<alternateQuotationStart>‹</alternateQuotationStart>
 		<alternateQuotationEnd>›</alternateQuotationEnd>
 		<special>
-			<sil:quotation-marks>
-				<sil:quotation open="“" close="”" level="3"/>
+			<sil:matched-pairs>
+				<sil:matched-pair open="(" close=")" paraClose="false"/>
+				<sil:matched-pair open="[" close="]" paraClose="false"/>
+				<sil:matched-pair open="{" close="}" paraClose="false"/>
+			</sil:matched-pairs>
+			<sil:quotation-marks paraContinueType="all">
+				<sil:quotationContinue>«</sil:quotationContinue>
+				<sil:alternateQuotationContinue>‹</sil:alternateQuotationContinue>
+				<sil:quotation open="“" close="”" continue="“" level="3"/>
 			</sil:quotation-marks>
 		</special>
 	</delimiters>
@@ -278,6 +295,61 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 		</currencies>
 	</numbers>
+	<collations>
+		<collation type="standard">
+			<cr><![CDATA[
+				&A << á <<< Á << à <<< À << â <<< Â < a̧ <<< A̧
+				&E << é  <<< É << ê <<< Ê
+				&Ɛ << ɛ́ <<< Ɛ́ << ɛ̀ <<< Ɛ̀ << ɛ̂ <<< Ɛ̂ < ɛ̧ <<< Ɛ̧
+				&I << í <<< Í << ì <<< Ì << î <<< Î < i̧ <<< I̧
+				&O << ó <<< Ó << ô <<< Ô
+				&Ɔ << ɔ̀ <<< Ɔ̀ << ɔ́ <<< Ɔ́ << ɔ̂ <<< Ɔ̂ < ɔ̧ <<< Ɔ̧
+				&U << ú <<< Ú << ù <<< Ù << û <<< Û < u̧ <<< U̧
+				&Z < ǃ
+			]]></cr>
+			<special>
+				<sil:simple>a/A á à â
+				a̧
+				b/B
+				ɓ/Ɓ
+				c/C
+				d/D
+				ɗ/Ɗ
+				e/E é ê
+				ɛ/Ɛ ɛ́ ɛ̀ ɛ̂
+				ɛ̧
+				f/F
+				g/G
+				h/H
+				i/I í ì î
+				i̧/I̧
+				ɨ/Ɨ
+				j/J
+				k/K
+				l/L
+				m/M
+				n/N
+				ŋ/Ŋ
+				o/O ó ô
+				ɔ/Ɔ ɔ̀ ɔ́ ɔ̂
+				ɔ̧
+				p/P
+				q/Q
+				r/R
+				s/S
+				t/T
+				u/U ú ù û
+				u̧
+				v/V
+				w/W
+				x/X
+				y/Y
+				z/Z
+				ǃ
+				ʼ</sil:simple>
+			</special>
+		</collation>
+	</collations>
 	<metadata>
 		<casingData>
 			<casingItem type="day_format_except_narrow">lowercase</casingItem>
@@ -306,5 +378,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<sil:url draft="generated">https://keyman.com/go/keyboard/sil_cameroon_qwerty/download/kmp</sil:url>
 			</sil:kbd>
 		</sil:external-resources>
+	</special>
+	<special>
+		<sil:note><![CDATA[
+			# Issues
+			1. Digraphs in index exemplar not reflected in collation
+		]]></sil:note>
 	</special>
 </ldml>
