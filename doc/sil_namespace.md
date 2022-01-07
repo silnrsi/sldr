@@ -208,6 +208,7 @@ sil.resources = element sil:external-resources {
      sil.kbdrsrc*,
      sil.spellcheck*,
      sil.transform*,
+     sil.case-tailoring?,
      sil.sampletext*)
 }
 sil.url = element sil:url {
@@ -217,7 +218,7 @@ sil.url = element sil:url {
 ```
 
 ```dtd
-<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:sampletext)*>
+<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:case-tailoring | sil:sampletext)*>
 <!ELEMENT sil:url (#PCDATA)>
 <?ATTREF sil:url global?>
 ```
