@@ -2,6 +2,8 @@ import unittest
 import pytest
 import re
 import icu
+### from icu import UCollAttribute # needed for additional check for primary sorting in index exemplar
+### from icu import UCollAttributeValue
 import os
 import logging, unicodedata
 from lxml.etree import RelaxNG, parse, DocumentInvalid
@@ -43,3 +45,11 @@ def test_collation(ldml):
     sort_list = sorted(index_list, key=rbc.getSortKey)
 
     assert index_list == sort_list, filename + " index exemplar inconsistent with collation"
+
+### Eventually add check that index exemplar elements are in primary sort relationship
+#    rbc.setAttribute(UCollAttribute.STRENGTH, UCollAttributeValue.PRIMARY)
+#    prev = b""
+#    for i in index_list:
+#         curr = rbc.getSortKey(i)
+#         assert prev < curr, filename + " index exemplar not sorting at primary level"
+#         prev = curr
