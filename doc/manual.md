@@ -85,7 +85,7 @@ Now we unflatten the files to their sldr form and merge them into the sldr
 ```
 
 We now have a pristine CLDR data set for the cldr branch. 
-So commit it (to the `cldr` branch of the SLDR repository.
+So commit it (to the `cldr` branch of the SLDR repository), including the CLDR version number (xxx).
 
 ```
     git add -A sldr
@@ -95,7 +95,7 @@ So commit it (to the `cldr` branch of the SLDR repository.
 
 At this point the directories used in the process (`common`, `cldrdata`, `cldrflat`) can be removed.
 
-In order to tidy up and integrate, we use a separate `cldr_merge` branch in which we do the merging of master and cldr. This keeps cldr clean and allows review and editing before merging with master.
+In order to tidy up and integrate, we use a separate `cldr_merge` branch in which we do the merging of master and cldr. This keeps the `cldr` branch clean and allows review and editing before merging with master.
 
 ```
     git checkout cldr_merge
