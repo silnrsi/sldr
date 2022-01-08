@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2020 Unicode, Inc.
+<!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+SPDX-License-Identifier: Unicode-DFS-2016
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
-		<version number="$Revision$"/>
-		<language type="en"/>
 		<territory type="NL"/>
-		<special>
-			<sil:identity source="cldr" draft="approved"/>
-		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -258,6 +253,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
+				<months>
+					<monthContext type="format">
+						<monthWidth type="abbreviated">
+							<month type="9">Sep</month>
+						</monthWidth>
+					</monthContext>
+					<monthContext type="stand-alone">
+						<monthWidth type="abbreviated">
+							<alias source="locale" path="../../monthContext[@type='format']/monthWidth[@type='abbreviated']"/>
+						</monthWidth>
+					</monthContext>
+				</months>
 				<dayPeriods>
 					<dayPeriodContext type="format">
 						<dayPeriodWidth type="abbreviated">
@@ -315,6 +322,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="EBhm">E h:mm B</dateFormatItem>
 						<dateFormatItem id="EBhms">E h:mm:ss B</dateFormatItem>
 						<dateFormatItem id="Ed">d E</dateFormatItem>
+						<dateFormatItem id="GyMd">M/d/y GGGGG</dateFormatItem>
 						<dateFormatItem id="GyMMMd">MMM d, y G</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, MMM d, y G</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
@@ -922,8 +930,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="energy-kilowatt-hour">
 				<unitPattern count="one">{0} kilowatt hour</unitPattern>
 			</unit>
-			<unit type="graphics-dot">
-				<unitPattern count="other">{0} dot</unitPattern>
+			<unit type="force-kilowatt-hour-per-100-kilometer">
+				<displayName>kilowatt-hours per 100 kilometers</displayName>
+				<unitPattern count="one">{0} kilowatt-hour per 100 kilometers</unitPattern>
+				<unitPattern count="other">{0} kilowatt-hours per 100 kilometers</unitPattern>
 			</unit>
 			<unit type="graphics-dot-per-centimeter">
 				<displayName>dots per centimeter</displayName>
@@ -967,7 +977,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} micrometers</unitPattern>
 			</unit>
 			<unit type="length-mile-scandinavian">
-				<displayName>mile-scandinavian</displayName>
+				<displayName>miles-scandinavian</displayName>
 				<unitPattern count="one">{0} mile-scandinavian</unitPattern>
 				<unitPattern count="other">{0} miles-scandinavian</unitPattern>
 			</unit>
@@ -991,9 +1001,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</unit>
 			<unit type="light-lumen">
 				<unitPattern count="other">{0} lumen</unitPattern>
-			</unit>
-			<unit type="mass-grain">
-				<unitPattern count="other">{0} grain</unitPattern>
 			</unit>
 			<unit type="mass-metric-ton">
 				<displayName>metric tons</displayName>
@@ -1056,20 +1063,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} deciliters</unitPattern>
 			</unit>
 			<unit type="volume-dessert-spoon">
-				<displayName>dessert spoon</displayName>
+				<displayName>dessert spoons</displayName>
 				<unitPattern count="one">{0} dessert spoon</unitPattern>
-				<unitPattern count="other">{0} dessert spoon</unitPattern>
+				<unitPattern count="other">{0} dessert spoons</unitPattern>
 			</unit>
 			<unit type="volume-dessert-spoon-imperial">
-				<displayName>Imp. dessert spoon</displayName>
+				<displayName>Imp. dessert spoons</displayName>
 				<unitPattern count="one">{0} Imp. dessert spoon</unitPattern>
-				<unitPattern count="other">{0} Imp. dessert spoon</unitPattern>
-			</unit>
-			<unit type="volume-dram">
-				<unitPattern count="other">{0} dram</unitPattern>
-			</unit>
-			<unit type="volume-drop">
-				<unitPattern count="other">{0} drop</unitPattern>
+				<unitPattern count="other">{0} Imp. dessert spoons</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
 				<displayName>fluid ounces</displayName>
@@ -1093,9 +1094,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} hectoliter</unitPattern>
 				<unitPattern count="other">{0} hectoliters</unitPattern>
 			</unit>
-			<unit type="volume-jigger">
-				<unitPattern count="other">{0} jigger</unitPattern>
-			</unit>
 			<unit type="volume-liter">
 				<displayName>liters</displayName>
 				<unitPattern count="one">{0} liter</unitPattern>
@@ -1112,18 +1110,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} milliliter</unitPattern>
 				<unitPattern count="other">{0} milliliters</unitPattern>
 			</unit>
-			<unit type="volume-pinch">
-				<unitPattern count="other">{0} pinch</unitPattern>
-			</unit>
 			<unit type="volume-quart">
 				<displayName>quarts</displayName>
 				<unitPattern count="one">{0} quart</unitPattern>
 				<unitPattern count="other">{0} quarts</unitPattern>
 			</unit>
 			<unit type="volume-quart-imperial">
-				<displayName>Imp. quart</displayName>
+				<displayName>Imp. quarts</displayName>
 				<unitPattern count="one">{0} Imp. quart</unitPattern>
-				<unitPattern count="other">{0} Imp. quart</unitPattern>
+				<unitPattern count="other">{0} Imp. quarts</unitPattern>
 			</unit>
 		</unitLength>
 		<unitLength type="short">
@@ -1291,6 +1286,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<unit type="area-square-meter">
 				<displayName>meters²</displayName>
 			</unit>
+			<unit type="concentr-karat">
+				<displayName>karat</displayName>
+				<unitPattern count="one">{0}kt</unitPattern>
+				<unitPattern count="other">{0}kt</unitPattern>
+			</unit>
 			<unit type="concentr-milligram-ofglucose-per-deciliter">
 				<displayName>mg/dL</displayName>
 				<unitPattern count="one">{0}mg/dL</unitPattern>
@@ -1352,6 +1352,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0}dL</unitPattern>
 				<unitPattern count="other">{0}dL</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon">
+				<displayName>dsp</displayName>
+				<unitPattern count="one">{0}dsp</unitPattern>
+				<unitPattern count="other">{0}dsp</unitPattern>
+			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<displayName>dsp Imp</displayName>
+				<unitPattern count="one">{0}dsp-Imp</unitPattern>
+				<unitPattern count="other">{0}dsp-Imp</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<displayName>Imp fl oz</displayName>
+				<unitPattern count="one">{0}fl oz Im</unitPattern>
+				<unitPattern count="other">{0}fl oz Im</unitPattern>
+			</unit>
 			<unit type="volume-gallon">
 				<displayName>gal</displayName>
 				<unitPattern count="one">{0}gal</unitPattern>
@@ -1369,6 +1384,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0}hL</unitPattern>
 				<unitPattern count="other">{0}hL</unitPattern>
 			</unit>
+			<unit type="volume-jigger">
+				<unitPattern count="other">{0}jigger</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>liter</displayName>
 				<unitPattern count="one">{0}L</unitPattern>
@@ -1384,6 +1402,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>mL</displayName>
 				<unitPattern count="one">{0}mL</unitPattern>
 				<unitPattern count="other">{0}mL</unitPattern>
+			</unit>
+			<unit type="volume-quart-imperial">
+				<displayName>qt Imp</displayName>
+				<unitPattern count="one">{0}qt-Imp.</unitPattern>
+				<unitPattern count="other">{0}qt-Imp.</unitPattern>
 			</unit>
 		</unitLength>
 	</units>
