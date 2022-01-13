@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+SPDX-License-Identifier: Unicode-DFS-2016
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
-		<version number="$Revision$"/>
 		<language type="rm"/>
 		<special>
 			<sil:identity source="cldr" defaultRegion="CH" script="Latn"/>
@@ -1529,6 +1528,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<availableFormats>
 						<dateFormatItem id="Ed">E d.</dateFormatItem>
 						<dateFormatItem id="Gy">y G</dateFormatItem>
+						<dateFormatItem id="GyMd">dd-MM-y GGGGG</dateFormatItem>
 						<dateFormatItem id="GyMMM">LLL y G</dateFormatItem>
 						<dateFormatItem id="GyMMMd">dd-MM-y GGGGG</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">E, dd-MM-y GGGGG</dateFormatItem>
@@ -1540,6 +1540,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="MMMEd">E, dd-MM</dateFormatItem>
 						<dateFormatItem id="MMMMd">d MMMM</dateFormatItem>
 						<dateFormatItem id="MMMMEd">E, d MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="one">W. 'emna' MMMM</dateFormatItem>
+						<dateFormatItem id="MMMMW" count="other">W. 'emna' MMMM</dateFormatItem>
 						<dateFormatItem id="yM">LL-y</dateFormatItem>
 						<dateFormatItem id="yMd">dd-MM-y</dateFormatItem>
 						<dateFormatItem id="yMEd">E, dd-MM-y</dateFormatItem>
@@ -1551,6 +1553,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<dateFormatItem id="yMMMMEd">E, d MMMM y</dateFormatItem>
 						<dateFormatItem id="yQQQ">QQQ y</dateFormatItem>
 						<dateFormatItem id="yQQQQ">QQQQ y</dateFormatItem>
+						<dateFormatItem id="yw" count="one">w. 'dal' Y</dateFormatItem>
+						<dateFormatItem id="yw" count="other">w. 'emna' 'dal' Y</dateFormatItem>
 					</availableFormats>
 					<intervalFormats>
 						<intervalFormatItem id="M">
@@ -1639,6 +1643,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<field type="quarter">
 				<displayName>quartal</displayName>
 			</field>
+			<field type="quarter-short">
+				<displayName>qrtl</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>qrtl</displayName>
+			</field>
 			<field type="month">
 				<displayName draft="contributed">mais</displayName>
 			</field>
@@ -1660,7 +1670,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>d</displayName>
 			</field>
 			<field type="weekday">
-				<displayName draft="contributed">di da l’emna</displayName>
+				<displayName>di da l’emna</displayName>
 			</field>
 			<field type="sun-short">
 				<relativeTime type="future">
@@ -1669,19 +1679,31 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</relativeTime>
 			</field>
 			<field type="dayperiod">
-				<displayName draft="contributed">mesadad dal di</displayName>
+				<displayName>mesadad dal di</displayName>
 			</field>
 			<field type="hour">
-				<displayName draft="contributed">ura</displayName>
+				<displayName>ura</displayName>
 			</field>
 			<field type="minute">
-				<displayName draft="contributed">minuta</displayName>
+				<displayName>minuta</displayName>
+			</field>
+			<field type="minute-short">
+				<displayName>min</displayName>
+			</field>
+			<field type="minute-narrow">
+				<displayName>min</displayName>
 			</field>
 			<field type="second">
-				<displayName draft="contributed">secunda</displayName>
+				<displayName>secunda</displayName>
+			</field>
+			<field type="second-short">
+				<displayName>s</displayName>
+			</field>
+			<field type="second-narrow">
+				<displayName>s</displayName>
 			</field>
 			<field type="zone">
-				<displayName draft="contributed">zona d’urari</displayName>
+				<displayName>zona d’urari</displayName>
 			</field>
 		</fields>
 		<timeZoneNames>
@@ -1970,13 +1992,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</long>
 			</zone>
 			<zone type="Europe/Athens">
-				<exemplarCity draft="contributed">Athen</exemplarCity>
+				<exemplarCity>Athen</exemplarCity>
 			</zone>
 			<zone type="Europe/Brussels">
-				<exemplarCity draft="contributed">Bruxelles</exemplarCity>
+				<exemplarCity>Bruxelles</exemplarCity>
 			</zone>
 			<zone type="Europe/Bucharest">
-				<exemplarCity draft="contributed">Bucarest</exemplarCity>
+				<exemplarCity>Bucarest</exemplarCity>
 			</zone>
 			<zone type="Europe/Guernsey">
 				<exemplarCity draft="contributed">Saint Peter Port</exemplarCity>
@@ -1991,7 +2013,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<exemplarCity draft="contributed">Lissabon</exemplarCity>
 			</zone>
 			<zone type="Europe/London">
-				<exemplarCity draft="contributed">Londra</exemplarCity>
+				<long>
+					<daylight>temp da stad britannic</daylight>
+				</long>
+				<exemplarCity>Londra</exemplarCity>
 			</zone>
 			<zone type="Europe/Luxembourg">
 				<exemplarCity draft="contributed">Luxemburg</exemplarCity>
@@ -2000,10 +2025,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<exemplarCity draft="contributed">Moscau</exemplarCity>
 			</zone>
 			<zone type="Europe/Rome">
-				<exemplarCity draft="contributed">Roma</exemplarCity>
+				<exemplarCity>Roma</exemplarCity>
 			</zone>
 			<zone type="Europe/Tirane">
-				<exemplarCity draft="contributed">Tirana</exemplarCity>
+				<exemplarCity>Tirana</exemplarCity>
 			</zone>
 			<zone type="Europe/Uzhgorod">
 				<exemplarCity>Uschhorod</exemplarCity>
@@ -2015,7 +2040,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<exemplarCity draft="contributed">Saporischja</exemplarCity>
 			</zone>
 			<zone type="Europe/Zurich">
-				<exemplarCity draft="contributed">Turitg</exemplarCity>
+				<exemplarCity>Turitg</exemplarCity>
 			</zone>
 			<zone type="Indian/Christmas">
 				<exemplarCity draft="contributed">Flying Fish Cove</exemplarCity>
@@ -2150,6 +2175,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<symbols numberSystem="latn">
 			<group>’</group>
 			<minusSign>−</minusSign>
+			<approximatelySign>≈</approximatelySign>
 		</symbols>
 		<percentFormats numberSystem="latn">
 			<percentFormatLength>
@@ -2401,6 +2427,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 			<currency type="BRL">
 				<displayName>real brasilian</displayName>
+				<displayName count="one">real brasilian</displayName>
 				<displayName count="other">reals brasilians</displayName>
 			</currency>
 			<currency type="BRN">
@@ -3624,13 +3651,20 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName count="other">dollars dal Simbabwe (2008)</displayName>
 			</currency>
 		</currencies>
+		<miscPatterns numberSystem="latn">
+			<pattern type="approximately">≈{0}</pattern>
+		</miscPatterns>
 		<minimalPairs>
 			<pluralMinimalPairs count="one" draft="contributed">{0} di</pluralMinimalPairs>
 			<pluralMinimalPairs count="other" draft="contributed">{0} dis</pluralMinimalPairs>
+			<ordinalMinimalPairs ordinal="other">Prender la {0}. a dretga.</ordinalMinimalPairs>
 		</minimalPairs>
 	</numbers>
 	<units>
 		<unitLength type="long">
+			<compoundUnit type="per">
+				<compoundUnitPattern>{0} per {1}</compoundUnitPattern>
+			</compoundUnit>
 			<unit type="digital-bit">
 				<displayName>bits</displayName>
 				<unitPattern count="one">{0} bit</unitPattern>
@@ -3779,6 +3813,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} liters</unitPattern>
 				<perUnitPattern>{0} per liter</perUnitPattern>
 			</unit>
+			<coordinateUnit>
+				<displayName>direcziun</displayName>
+				<coordinateUnitPattern type="north">{0} nord</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} ost</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0} sid</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0} vest</coordinateUnitPattern>
+			</coordinateUnit>
 		</unitLength>
 		<unitLength type="short">
 			<unit type="digital-bit">
@@ -3894,6 +3935,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>liters</displayName>
 				<unitPattern count="one">{0} l</unitPattern>
 			</unit>
+			<coordinateUnit>
+				<displayName>direcziun</displayName>
+				<coordinateUnitPattern type="north">{0} N</coordinateUnitPattern>
+				<coordinateUnitPattern type="east">{0} O</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0} S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0} V</coordinateUnitPattern>
+			</coordinateUnit>
 		</unitLength>
 		<unitLength type="narrow">
 			<unit type="duration-day">
@@ -3936,6 +3984,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0} onns</unitPattern>
 				<unitPattern count="other">{0} onns</unitPattern>
 			</unit>
+			<unit type="force-kilowatt-hour-per-100-kilometer">
+				<unitPattern count="one">{0}kWh/100km</unitPattern>
+				<unitPattern count="other">{0}kWh/100km</unitPattern>
+			</unit>
 			<unit type="length-centimeter">
 				<displayName>cm</displayName>
 				<unitPattern count="one">{0}cm</unitPattern>
@@ -3976,11 +4028,29 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="one">{0}°C</unitPattern>
 				<unitPattern count="other">{0}°C</unitPattern>
 			</unit>
+			<unit type="volume-dessert-spoon-imperial">
+				<unitPattern count="one">{0}dsp-Imp</unitPattern>
+				<unitPattern count="other">{0}dsp-Imp</unitPattern>
+			</unit>
+			<unit type="volume-fluid-ounce-imperial">
+				<unitPattern count="one">{0} fl oz imp</unitPattern>
+				<unitPattern count="other">{0} fl oz imp</unitPattern>
+			</unit>
+			<unit type="volume-gallon-imperial">
+				<unitPattern count="one">{0} gal imp</unitPattern>
+				<unitPattern count="other">{0} gal imp</unitPattern>
+			</unit>
 			<unit type="volume-liter">
 				<displayName>liter</displayName>
 				<unitPattern count="one">{0} l</unitPattern>
 				<unitPattern count="other">{0} l</unitPattern>
 			</unit>
+			<coordinateUnit>
+				<displayName>direcziun</displayName>
+				<coordinateUnitPattern type="east">{0}O</coordinateUnitPattern>
+				<coordinateUnitPattern type="south">{0}S</coordinateUnitPattern>
+				<coordinateUnitPattern type="west">{0}V</coordinateUnitPattern>
+			</coordinateUnit>
 		</unitLength>
 	</units>
 	<listPatterns>

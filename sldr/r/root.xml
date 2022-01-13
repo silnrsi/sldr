@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+SPDX-License-Identifier: Unicode-DFS-2016
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 
 the U.S. and other countries. CLDR data files are interpreted according to
 the LDML specification (http://unicode.org/reports/tr35/) Proper interpretation
 of these files requires synthesis of missing items, as per ​http://unicode.org/repos/cldr/trunk/specs/ldml/tr35-general.html#Annotations
-Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 for derived annotations.
+Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/ for derived annotations.
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
@@ -3046,6 +3046,9 @@ for derived annotations.
 		<symbols numberSystem="hanidec">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
+		<symbols numberSystem="hmnp">
+			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
+		</symbols>
 		<symbols numberSystem="java">
 			<alias source="locale" path="../symbols[@numberSystem='latn']"/>
 		</symbols>
@@ -4450,6 +4453,10 @@ for derived annotations.
 			<unit type="area-square-yard">
 				<displayName>yd²</displayName>
 				<unitPattern count="other">{0} yd²</unitPattern>
+			</unit>
+			<unit type="concentr-item">
+				<displayName>item</displayName>
+				<unitPattern count="other">{0} item</unitPattern>
 			</unit>
 			<unit type="concentr-karat">
 				<displayName>kt</displayName>
@@ -7143,6 +7150,7 @@ for derived annotations.
 				&oe<<ɶ<<ᴔ # U+0276 and U+1D14
 				&tɕ<<ʨ # U+02A8
 				&ue<<ᵫ # U+1D6B
+				
 				# Letters and modifiers not associated with a specific first or second
 				# level letter are ignored.
 				&[last tertiary ignorable]
@@ -7522,6 +7530,7 @@ for derived annotations.
 				<<ة		# 0629 ARABIC LETTER TEH MARBUTA
 				<<<ﺔ<<<ﺓ	# FE94, FE93: FINAL FORM, ISOLATED FORM
 				&[last primary ignorable]<<׳	# 05F3 HEBREW PUNCTUATION GERESH
+				
 				<<״	# 05F4 HEBREW PUNCTUATION GERSHAYIM
 				<<ـ	# 0640 ARABIC TATWEEL
 				# Don't need explicit entries for 064B - 0652 ARABIC FATHATAN - ARABIC SUKUN;
@@ -7810,6 +7819,7 @@ for derived annotations.
 				<variable id="$EM">($EM $X)</variable>
 				<variable id="$EX">\p{Line_Break=Exclamation}</variable>
 				<variable id="$EX">($EX $X)</variable>
+				<variable id="$ExtPictUnassigned">[\p{Extended_Pictographic}&amp;\p{gc=Cn}]</variable>
 				<variable id="$GL">\p{Line_Break=Glue}</variable>
 				<variable id="$GL">($GL $X)</variable>
 				<variable id="$H2">\p{Line_Break=H2}</variable>
@@ -7961,7 +7971,9 @@ for derived annotations.
 				<rule id="30.11">^ ($RI $RI)* $RI × $RI</rule>
 				<rule id="30.12">[^$RI] ($RI $RI)* $RI × $RI</rule>
 				<rule id="30.13">$RI ÷ $RI</rule>
-				<rule id="30.2">$EB × $EM</rule>
+				<!-- LB 30b Do not break between an emoji base (or potential emoji) and an emoji modifier. -->
+				<rule id="30.21">$EB × $EM</rule>
+				<rule id="30.22">$ExtPictUnassigned × $EM</rule>
 				<!-- RULES -->
 				<!-- LB 4  Always break after hard line breaks (but never between CR and LF). -->
 				<rule id="4">$BK ÷</rule>

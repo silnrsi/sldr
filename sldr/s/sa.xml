@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright © 1991-2021 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+SPDX-License-Identifier: Unicode-DFS-2016
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
-		<version number="$Revision$"/>
 		<language type="sa"/>
-		<special>
-			<sil:identity source="cldr" draft="approved"/>
-		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -45,8 +41,26 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<script type="Beng">बंगालि</script>
 		</scripts>
 		<territories>
+			<territory type="001">लोक</territory>
+			<territory type="002">कालद्वीप</territory>
+			<territory type="003">उत्तरामेरिका</territory>
+			<territory type="005">दक्षिणामेरिका</territory>
+			<territory type="009">सामुद्रखण्ड</territory>
+			<territory type="013">मध्यामेरिका</territory>
+			<territory type="019">अमेरिकाखण्ड</territory>
+			<territory type="021">औदीच्यामेरिका</territory>
+			<territory type="142">जम्बुद्विप</territory>
+			<territory type="150">यूरोपखण्ड</territory>
+			<territory type="EU">यूरोपसङ्घ</territory>
+			<territory type="EZ">यूरोमण्डल</territory>
 			<territory type="IN">भारतम्</territory>
+			<territory type="UN">संयुक्तराष्ट्रसङ्घ</territory>
 		</territories>
+		<measurementSystemNames>
+			<measurementSystemName type="US">सं.रा.</measurementSystemName>
+			<measurementSystemName type="metric">छन्दोमान</measurementSystemName>
+			<measurementSystemName type="UK">सं.अ.</measurementSystemName>
+		</measurementSystemNames>
 		<special>
 			<sil:names>
 				<sil:name xml:lang="en">Sanskrit</sil:name>
@@ -110,6 +124,31 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</timeFormat>
 					</timeFormatLength>
 				</timeFormats>
+				<dateTimeFormats>
+					<dateTimeFormatLength type="full">
+						<dateTimeFormat>
+							<pattern>{1} तेन {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="long">
+						<dateTimeFormat>
+							<pattern>{1} तेन {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1}, {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1}, {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<intervalFormats>
+						<intervalFormatFallback>{0}-{1}</intervalFormatFallback>
+					</intervalFormats>
+				</dateTimeFormats>
 			</calendar>
 			<calendar type="gregorian">
 				<months>
@@ -256,6 +295,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						<era type="1">CE</era>
 					</eraNames>
 					<eraAbbr>
+						<era type="0">BCE</era>
+						<era type="0" alt="variant">इ.स.पू.</era>
 						<era type="1" alt="variant">संवत्</era>
 					</eraAbbr>
 				</eras>
@@ -359,6 +400,100 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
+		<fields>
+			<field type="era">
+				<displayName>युग</displayName>
+			</field>
+			<field type="year">
+				<displayName>वर्ष:</displayName>
+			</field>
+			<field type="year-short">
+				<displayName>वर्ष:</displayName>
+			</field>
+			<field type="year-narrow">
+				<displayName>वर्ष</displayName>
+			</field>
+			<field type="quarter">
+				<displayName>त्रेमासिक</displayName>
+			</field>
+			<field type="quarter-short">
+				<displayName>त्रेमासिक</displayName>
+			</field>
+			<field type="quarter-narrow">
+				<displayName>त्रेमासिक</displayName>
+			</field>
+			<field type="month">
+				<displayName>मास:</displayName>
+			</field>
+			<field type="month-short">
+				<displayName>मास</displayName>
+			</field>
+			<field type="month-narrow">
+				<displayName>मास</displayName>
+			</field>
+			<field type="week">
+				<displayName>सप्ताह:</displayName>
+			</field>
+			<field type="week-short">
+				<displayName>सप्ताह</displayName>
+			</field>
+			<field type="week-narrow">
+				<displayName>सप्ताह</displayName>
+			</field>
+			<field type="day">
+				<displayName>वासर:</displayName>
+				<relative type="-1">गतदिनम्</relative>
+				<relative type="0">अद्य</relative>
+				<relative type="1">श्वः</relative>
+			</field>
+			<field type="day-short">
+				<relative type="-1">ह्यः</relative>
+				<relative type="0">अद्य</relative>
+				<relative type="1">श्वः</relative>
+			</field>
+			<field type="day-narrow">
+				<displayName>दिनम्</displayName>
+				<relative type="-1">ह्यः</relative>
+				<relative type="0">अद्य</relative>
+				<relative type="1">श्वः</relative>
+			</field>
+			<field type="weekday">
+				<displayName>सप्ताहस्य दिनं</displayName>
+			</field>
+			<field type="dayperiod">
+				<displayName>पूर्वाह्न/अपराह्न</displayName>
+			</field>
+			<field type="hour">
+				<displayName>होरा</displayName>
+			</field>
+			<field type="hour-short">
+				<displayName>होरा</displayName>
+			</field>
+			<field type="hour-narrow">
+				<displayName>होरा</displayName>
+			</field>
+			<field type="minute">
+				<displayName>निमेष</displayName>
+			</field>
+			<field type="minute-short">
+				<displayName>निमेष</displayName>
+			</field>
+			<field type="minute-narrow">
+				<displayName>निमेष</displayName>
+			</field>
+			<field type="second">
+				<displayName>क्षण</displayName>
+			</field>
+			<field type="second-short">
+				<displayName>पल</displayName>
+			</field>
+			<field type="second-narrow">
+				<displayName>पल</displayName>
+			</field>
+			<field type="zone">
+				<displayName>समय मण्डल</displayName>
+			</field>
+		</fields>
 	</dates>
 	<numbers>
 		<defaultNumberingSystem>deva</defaultNumberingSystem>
