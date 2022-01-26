@@ -2,8 +2,9 @@
 
 from collections import namedtuple
 from enum import Enum
-import argparse, os
+import argparse, os, json
 import xml.parsers.expat
+from xml.etree import ElementTree as et
 
 Model = namedtuple("Model", ["type", "quant", "name", "children"])
 class ModelType(Enum):
@@ -80,6 +81,10 @@ class AttributeDecl:
     def __init__(self, elname, attname, xmltype, default, required):
         self.element = elname
         self.attrib = attname
+        if isinstance(xmltype, str):
+            xmltype = xmltype.strip()
+            if xmltype.startswith("(") and xmltype.endswith(")"):
+                xmltype = xmltype[1:-1].replace(" ", "").split("|")
         self.type = xmltype
         self.default = default
         self.required = required
@@ -90,8 +95,26 @@ class AttributeDecl:
         res.annotations = self.annotations[:]
         return res
 
+    def intsort(self):
+        if not isinstance(self.type, list):
+            return
+        self.type.sort(key=int)
+
+    def setorder(self, order):
+        if "@METADATA" in self.annotations:
+            return
+        if not len(order):
+            self.type.sort()
+        else:
+            orders = {x: (i+1, x) for i, x in enumerate(order)}
+            self.type.sort(key=lambda k: orders.get(k, (100, k)))
+
     def asStr(self):
-        res = ["<!ATTLIST {0.element} {0.attrib} {0.type}".format(self)]
+        if isinstance(self.type, list):
+            xmltype = "(" + " | ".join(self.type) + ")"
+        else:
+            xmltype = self.type
+        res = ["<!ATTLIST {0.element} {0.attrib} {1}".format(self, xmltype)]
         if self.default is not None:
             if self.required:
                 res.append("#FIXED")
@@ -207,7 +230,23 @@ parser = argparse.ArgumentParser()
 parser.add_argument("infile",help="Input DTD")
 parser.add_argument("outfile",help="Output DTD")
 parser.add_argument("-I","--include",action="append",help="Include search directories")
+parser.add_argument("-A","--attribs",help="Incorporate attributeValidity.xml information")
 args = parser.parse_args()
+
+attribInfo = {'numerics': {}}
+attriborders = {}
+attribreplaces = {}
+if args.attribs is not None:
+    with open(args.attribs) as inf:
+        attribInfo = json.load(inf)
+    for e in attribInfo['orders']:
+        for el in e['elements']:
+            for at in e['attributes']:
+                attriborders.setdefault(el, {})[at] = e['order']
+    for e in attribInfo['replaces']:
+        for el in e['elements']:
+            for at in e['attributes']:
+                attribreplaces.setdefault(el, {})[at] = e['values']
 
 dtd = DTDParser(args.infile, args.include)
 gs = dtd.globalAttrs['global']
@@ -215,6 +254,22 @@ for en, e in dtd.elements.items():
     for a, v in gs.items():
         if a in e.attributes:
             e.addAttribute(v.copy(en))
+
+if len(attribreplaces):
+    for en, e in dtd.elements.items():
+        for a, v in e.attributes.items():
+            rep = attribreplaces.get(en, {}).get(a, None)
+            if rep is not None:
+                v.type = rep
+
+if len(attriborders):
+    for en, e in dtd.elements.items():
+        for a, v in e.attributes.items():
+            if a in attribInfo['numerics'].get(en, []):
+                v.intsort()
+            elif isinstance(v.type, list):
+                v.setorder(attriborders.get(en, {}).get(a, []))
+
 # with open(args.outfile, "w", encoding="utf-8") as outf:
 with open(args.outfile, "w") as outf:
     for e in dtd.allElements:
