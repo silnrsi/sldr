@@ -233,7 +233,7 @@ parser.add_argument("-I","--include",action="append",help="Include search direct
 parser.add_argument("-A","--attribs",help="Incorporate attributeValidity.xml information")
 args = parser.parse_args()
 
-attribInfo = {'numerics': {}}
+attribInfo = {'numerics': {}, 'blocks': []}
 attriborders = {}
 attribreplaces = {}
 if args.attribs is not None:
@@ -269,6 +269,11 @@ if len(attriborders):
                 v.intsort()
             elif isinstance(v.type, list):
                 v.setorder(attriborders.get(en, {}).get(a, []))
+
+for b in attribInfo['blocks']:
+    e = dtd.elements.get(b, None)
+    if e is not None:
+        e.annotations.append("@BLOCK")
 
 # with open(args.outfile, "w", encoding="utf-8") as outf:
 with open(args.outfile, "w") as outf:
