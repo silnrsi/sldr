@@ -217,7 +217,7 @@ sil.url = element sil:url {
 ```
 
 ```dtd
-<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:sampletext)*>
+<!ELEMENT sil:external-resources (sil:case-tailoring | sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:sampletext)*>
 <!ELEMENT sil:url (#PCDATA)>
 <?ATTREF sil:url global?>
 ```
@@ -509,6 +509,7 @@ A case tailoring may either specify another locale as an alias to use when case 
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:case-tailoring transform="qbx"/>
+        <sil:transform from="qbx" to="qbx-Title"/>
     </sil:external-resources>
 </special>
 ```
