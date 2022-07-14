@@ -2,20 +2,26 @@
 
 This manual provides details on various scenarios.
 
-## Preparing to Serve
+## Note on Linux vs Windows
+
+On Linux, Python scripts (such as `ldmlflatten`) are installed and available to run on the command line.
+On Windows you may need to explicitly invoke Python and include the path to the script (such as `python pathinfo\ldmlflatten`).
+This document will use the Linux form and Windows users will need to adjust accordingly.
+
+## Preparing to Serve [Is this still relevant?]
 
 Having cloned the SLDR github repository, how do we get hold of the flattened and unflattened files
 for distributing to applications and users?
 
-    python/scripts/ldmlflatten -o flat -i sldr -a -A --revid=`git rev-parse HEAD`
-    python/scripts/ldmlflatten -o unflat -i sldr -a -c --revid=`git rev-parse HEAD`
+    ldmlflatten -o flat -i sldr -a -A --revid=`git rev-parse HEAD`
+    ldmlflatten -o unflat -i sldr -a -c --revid=`git rev-parse HEAD`
 
 The `git rev-parse HEAD` returns a string which is the SHA identifier for this revision. This is then
 inserted into all the generated files.
 
 ## Manually Accepting a Contribution
 
-A user has edited an LDML file and sent it to you. The file is a flattened file. What do you do now?
+A user has edited an existing LDML file (`cont_Latn.xml`) and sent it to you. The file is a flattened file. What do you do now?
 ldmlmerge (in sldrtools/scripts) does most of the work for you. The following example command shows what is typically done:
 
 ```
@@ -37,15 +43,10 @@ This command does a number of things:
 Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
 in sldr and commit your change.
 
-
 ## Importing CLDR Data
 
 This section describes the process for importing a new version of CLDR data into the SLDR. Importing CLDR data is an activity that happens alongside regular editing of LDML files. As a result, the easiest way to manage this is to use a git branch. All changes to CLDR will be imported into a separate branch called `cldr` and then those changes are merged into the `master` branch. This means that only the changes between versions of the CLDR will be merged
-into the data rather than confusion over who edited what and when.
-
-Note that the commands used on a Windows machine differ slightly from those used on a Linux machine, so, if you are using a Windows machine, consult the relevant section below and determine what needs to be done differently.
-
-### Linux Machine
+into the data rather than confusion over who edited what and when. A `cldr_merge` branch is used for the actual merge.
 
 Starting in the sldr repository, we switch to the `cldr` branch:
 
@@ -68,8 +69,7 @@ If they already exist, they should be removed and rebuilt so that any files that
     mkdir cldrflat
 ```
 
-Copy `common` from the latest CLDR release into current directory. 
-(Alternatively, if you already have the CLDR repository on your computer, you can substitute the path to the CLDR `common` directory in place of `common` in the following command.)
+Copy the `common` folder from the latest CLDR release into current directory. 
 
 Then we import the data:
 
@@ -85,11 +85,11 @@ Now we unflatten the files to their sldr form and merge them into the sldr
 ```
 
 We now have a pristine CLDR data set for the cldr branch. 
-So commit it (to the `cldr` branch of the SLDR repository), including the CLDR version number (xxx).
+So commit it (to the `cldr` branch of the SLDR repository), including the CLDR version number (xx).
 
 ```
     git add -A sldr
-    git commit -m "CLDR import from version xxx"
+    git commit -m "CLDR import from version xx"
     git push
 ```
 
@@ -125,6 +125,18 @@ Once the data in the `cldr_merge` branch has been reviewed, it can be merged int
     git push
 ```
 
+### Make a copy of supplemental data
+
+Copy the following files from the CLDR repository cldr/common/supplemental folder to sldrtools/lib/sldr:
+
+```
+    likelySubtags.xml
+    supplementalData.xml
+    supplementalMetadata.xml
+```
+
+and push the changes.
+
 ### Set up ldmlmerge as git mergetool
 
 If, when merging the `cldr` branch into the `cldr_merge` branch, you encounter merge conflicts, you'll need to use ldmlmerge to resolve them. Setting up ldmlmerge as a git mergetool enables this to be done automatically for the hundreds of files involved.
@@ -145,12 +157,7 @@ To verify that your configuration is correct, you can use the config editor:
 git config -e
 ```
 
-
-### Windows Machine
-
-Depending how Python is installed on the Windows computer, you may need to:
-- explicitly include `python` before the script name
-- include the path to the script with the script name
+NB: As of 2022-01, setting up ldmlmerge as a mergetool on Windows has not succeeded. Use a Linux VM instead.
 
 ### Notes
 
