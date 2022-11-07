@@ -571,7 +571,7 @@ The child URL gives the url to the wordlist resource. @type may take the followi
 | csv      | Comma separated columns, with " and "" escaping |
 | tsv\*    | Tab separated columns. This is the default value |
 
-A tsv or csv file may have initial header lines. The number is listed in the @headerlines attribute. Following that may be any number of comment lines start with a # or blank lines. The data lines may have multiple columns and the fields used may be listed in the @columns attribute:
+A tsv or csv file may have initial header lines. The number is listed in the @headerlines attribute, with a default of 0. Following that may be any number of comment lines starting with a # or blank lines. The data lines may have multiple columns and the fields used may be listed in the @columns attribute:
 
 | Field Id | Description                                            |
 +----------+--------------------------------------------------------+
@@ -586,7 +586,7 @@ A tsv or csv file may have initial header lines. The number is listed in the @he
 | gperson  | grammatical person |
 | notes    | Free form notes to the end of the line |
 
-
+If there is no @columns attribute or it contains too few entries then a default @columns attribute consists of `word freq notes`.
 
 ## Identification
 
