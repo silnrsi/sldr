@@ -1,0 +1,30 @@
+name: Deploy to server
+on:
+  workflow_call:
+    inputs:
+      stage_to:
+        required: true
+        type: string
+    secrets:
+      uploader_key:
+        required: true
+      server_address:
+        required: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
+    steps:
+    # Install our private key for uploading deliverable
+    - uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{secrets.uploader_key}}
+    # Download the aretefact
+    - uses: actions/download-artifact@v3
+      with:
+        name: sldr
+    # Upload results
+    - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage }}
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server_address}}/sites/s/ldml-api/data/${{ inputs.stage }}/
+  
