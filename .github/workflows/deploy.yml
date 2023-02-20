@@ -35,15 +35,7 @@ jobs:
     - name: Trigger langtags rebuild
       uses: actions/github-script@v6
       with:
-        script: |
-          const octokit = new Octokit({
-            auth: '${{ secrets.CROSSREPO_DISPATCH }}'
-          })
-          await octokit.request('POST /repos/{owner}/{repo}/dispatches', {
-            owner: 'silnrsi',
-            repo: 'langtags',
-            event_type: 'sldr-deployed',
-            client_payload: {
-              release: '${GITHUB_REF##*/}' == 'release'
-            }
-          })
+        token: ${{ secrets.CROSSREPO_DISPATCH }}
+        repository: silnrsi/langtags
+        event_type: sldr-deployed
+        client_payload: "{'release': '${{ github.ref }}' == 'release'}"
