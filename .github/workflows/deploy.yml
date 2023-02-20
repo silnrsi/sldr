@@ -20,11 +20,27 @@ jobs:
     - uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{secrets.uploader_key}}
-    # Download the aretefact
+    # Download the artefact
     - uses: actions/download-artifact@v3
       with:
         name: sldr
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage }}
       run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server_address}}/sites/s/ldml-api/data/${{ inputs.stage }}/
-  
+
+  dispatch:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: Trigger langtags rebuild
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await github.request('POST /repos/{owner}/{repo}/dispatches', {
+            owner: 'silnrsi',
+            repo: 'langtags',
+            event_type: 'sldr-deployed',
+            client_payload: {
+              release: '${GITHUB_REF##*/}' == 'release'
+            }
+          })
