@@ -36,7 +36,10 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          await github.request('POST /repos/{owner}/{repo}/dispatches', {
+          const octokit = new Octokit({
+            auth: ${{ secrets.CROSSREPO_DISPATCH }}
+          })
+          await octokit.request('POST /repos/{owner}/{repo}/dispatches', {
             owner: 'silnrsi',
             repo: 'langtags',
             event_type: 'sldr-deployed',
