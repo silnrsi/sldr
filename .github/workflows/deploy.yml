@@ -36,15 +36,10 @@ jobs:
 #    needs: deploy
     steps:
     - name: Trigger langtags rebuild
-      uses: actions/github-script@v6
+      uses: peter-evans/repository-dispatch@v2
       with:
-        github-token: ${{ secrets.repository_dispatch_pat }}
-        script: |
-          github.repos.createDispatchEvent({
-            owner: 'silnrsi',
-            repo: 'langtags',
-            event_type: 'sldr-deployed',
-            client_payload: {
-              release: '${{ github.ref }}' == 'release'
-            }
-          });
+        token: ${{ secrets.repository_dispatch_pat }}
+        repository: silnrsi/langtags
+        event-type: sldr-deployed
+        client-payload: >- 
+          { release: '${{ github.ref }}' == 'release' }
