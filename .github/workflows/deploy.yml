@@ -40,7 +40,7 @@ jobs:
       with:
         token: ${{ secrets.repository_dispatch_pat }}
         repository: silnrsi/langtags
-        event-type: sldr-deployed
+        event-type: sldr${{ endsWith(github.ref, '/release') && '-release' || ''}}-deployed
         client-payload: >- 
           {
             "release": "${{ endsWith(github.ref, '/release') }}"
