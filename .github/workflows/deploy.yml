@@ -29,7 +29,7 @@ jobs:
         name: sldr
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage }}
-      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server_address}}/sites/s/ldml-api/data/${{ inputs.stage }}/
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server_address}}/sites/s/ldml-api/data/${{ inputs.stage_to }}/
 
   dispatch:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
       with:
         token: ${{ secrets.repository_dispatch_pat }}
         repository: silnrsi/langtags
-        event-type: sldr-deployed
+        event-type: sldr${{ endsWith(github.ref, '/release') && '-release' || ''}}-deployed
         client-payload: >- 
           {
             "release": "${{ endsWith(github.ref, '/release') }}"
