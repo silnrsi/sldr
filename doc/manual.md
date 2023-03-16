@@ -8,7 +8,7 @@ On Linux, Python scripts (such as `ldmlflatten`) are installed and available to 
 On Windows you may need to explicitly invoke Python and include the path to the script (such as `python pathinfo\ldmlflatten`).
 This document will use the Linux form and Windows users will need to adjust accordingly.
 
-## Preparing to Serve [Is this still relevant?]
+## Preparing to Serve [Is this still relevant?] [Used in GitHub actions]
 
 Having cloned the SLDR github repository, how do we get hold of the flattened and unflattened files
 for distributing to applications and users?

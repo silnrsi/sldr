@@ -13,7 +13,7 @@ def iscldr(ldml):
         return True
     return False
 
-def test_autonym(ldml):
+def test_fontinfo(ldml):
     """ Test that the LDML file has font information """
     if iscldr(ldml):    # short circuit CLDR for now
         return

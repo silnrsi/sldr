@@ -5,6 +5,19 @@ from enum import Enum
 import argparse, os
 import xml.parsers.expat
 
+ldmlHacks = {
+    ("dayPeriod", "type"): "(midnight | am | noon | pm | morning1 | morning2 | afternoon1 | afternoon2 | evening1 | evening2 | night1 | night2)",
+    ("measurementSystemName", "type"): "(metric | UK | US)",
+    ("exemplarCharacters", "type"): "(auxiliary | index | numbers | punctuation | standard | currencySymbol)",
+    ("ellipsis", "type",): "(final | initial | medial | word-final | word-initial | word-medial)",
+    ("relative", "type"): "(-2 | -1 | 0 | 1 | 2 | 3)",
+    ("regionFormat", "type"): "(daylight | standard)",
+    ("currencyFormat", "type"): "(standard | accounting)",
+    ("compountUnit", "type"): "(10p-1 | 10p-2 | 10p-3 | 10p-6 | 10p-9 | 10p-12 | 10p-15 | 10p-18 | 10p-21 | 10p-24 | 10p1 | 10p2 | 10p3 | 10p6 | 10p9 | 10p12 | 10p15 | 1024p1 | 1024p2 | 1024p3 | 1024p4 | 1024p5 | 1024p6 | 1024p7 | 1024p8 | per | times | power2 | power3)",
+    ("coordinateUnitPattern",  "type"): "(east | north | south | west)",
+    ("styleName", "subtype"): "(-12 | 0 | 1 | 8 | 12 | 18 | 24 | 50 | 62.5 | 72 | 75 | 87.5 | 100 | 112.5 | 125 | 144 | 150 | 200 | 300 | 350 | 380 | 400 | 500 | 600 | 700 | 800 | 900 | 950)"
+}
+
 Model = namedtuple("Model", ["type", "quant", "name", "children"])
 class ModelType(Enum):
     EMPTY = 1
@@ -40,6 +53,10 @@ class ElementDecl:
     def asModel(self, model):
         return Model(ModelType(model[0]), ModelQuant(model[1]), model[2],
                                             [self.asModel(c) for c in model[3]])
+
+    def applyHacks(self):
+        for a in self.attributes.values():
+            a.applyHacks()
 
     def asStr(self):
         res = ["<!ELEMENT {} ".format(self.name)]
@@ -89,6 +106,11 @@ class AttributeDecl:
         res = AttributeDecl(elname, self.attrib, self.type, self.default, self.required)
         res.annotations = self.annotations[:]
         return res
+
+    def applyHacks(self):
+        new = ldmlHacks.get((self.element, self.attrib), None)
+        if new is not None:
+            self.type = new
 
     def asStr(self):
         res = ["<!ATTLIST {0.element} {0.attrib} {0.type}".format(self)]
@@ -207,6 +229,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("infile",help="Input DTD")
 parser.add_argument("outfile",help="Output DTD")
 parser.add_argument("-I","--include",action="append",help="Include search directories")
+parser.add_argument("-H","--hacks",action="store_true", help="Apply LDML DTD hacks")
 args = parser.parse_args()
 
 dtd = DTDParser(args.infile, args.include)
@@ -216,6 +239,9 @@ for en, e in dtd.elements.items():
         if a in e.attributes:
             e.addAttribute(v.copy(en))
 # with open(args.outfile, "w", encoding="utf-8") as outf:
+if args.hacks:
+    for e in dtd.allElements:
+        dtd.elements[e].applyHacks()
 with open(args.outfile, "w") as outf:
     for e in dtd.allElements:
         outf.write(dtd.elements[e].asStr() + "\n")
