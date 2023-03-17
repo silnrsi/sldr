@@ -6,6 +6,11 @@ import logging, os, re, unicodedata
 from lxml.etree import RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 
+allowed_chars = {
+    "agd": "g",
+    "aiw_Ethi": "\u1361",
+}
+
 def iscldr(ldml):
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
     if i is not None and i.get('source', "") == "cldr":
@@ -32,6 +37,7 @@ def test_autonym(ldml):
     if not main:
 #        assert False, filename + " has no main exemplar" ### should be target of another test
         return
+#    assert "\u2019" not in main, filename + "U+2019 found in main exemplar, replace with apostrophe appropriate for orthography"
 
 #   get language id
     lid = filename[:-4] #.replace("_", "-")
@@ -54,7 +60,7 @@ def test_autonym(ldml):
         assert False, filename + " " + lid + ": Name of language in this language is empty"
         return
 #   The real test: is every character in lower case version of autonym in main exemplar?
-    mainre = "^(" + "|".join(sorted(main, key=lambda x: (-len(x), x)) + ["\\s", ",", "-"]) + ")*$"
+    mainre = "^(" + "|".join(sorted(main, key=lambda x: (-len(x), x)) + ["\\s", ",", "-"] + [x for x in allowed_chars.get(lid,"")]) + ")*$"
     assert re.match(mainre, autonym_text) is not None, \
                 filename + " " + lid + ": Name of language (" + autonym_text \
                 + ") contains characters not in main exemplar " + main_exem
