@@ -6,8 +6,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
+		<version number="$Revision$"/>
 		<language type="ks"/>
 		<script type="Deva"/>
+		<special>
+			<sil:identity source="cldr" defaultRegion="IN" script="Deva" draft="approved"/>
+		</special>
 	</identity>
 	<localeDisplayNames>
 		<languages>
@@ -61,7 +65,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="DE">जर्मन</territory>
 			<territory type="FR">फ्रांस</territory>
 			<territory type="GB">मुतहीद बादशाहत</territory>
-			<territory type="IN">भारत</territory>
+			<territory type="IN">हिंदोस्तान</territory>
 			<territory type="IT">इटली</territory>
 			<territory type="JP">जापान</territory>
 			<territory type="RU">रूस</territory>
@@ -77,7 +81,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<type key="numbers" type="latn">यूरपी हिंदसी</type>
 		</types>
 		<measurementSystemNames>
+			<measurementSystemName type="US">यू एस</measurementSystemName>
 			<measurementSystemName type="metric">मेट्रिक</measurementSystemName>
+			<measurementSystemName type="UK">यू के</measurementSystemName>
 		</measurementSystemNames>
 		<codePatterns>
 			<codePattern type="language">ज़बान: {0}</codePattern>
@@ -86,21 +92,30 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</codePatterns>
 	</localeDisplayNames>
 	<characters>
-		<exemplarCharacters draft="contributed">[\u093C \u0902 \u0901 अ आ इ ई उ ऊ ए ऑ ओ क ख ग च {च\u093C} छ {छ\u093C} ज ट ठ ड त थ द न प फ ब म य र ल व श स ह ा ि ी \u0941 \u0942 \u0943 \u0944 \u0945 \u0947 \u0948 ॉ ो ौ \u094D]</exemplarCharacters>
+		<exemplarCharacters draft="contributed">[\u093C \u0901 \u0902 अ आ इ ई उ ऊ ए ऑ ओ क ख ग च {च\u093C} छ {छ\u093C} ज ट ठ ड त थ द न प फ ब म य र ल व श स ह ा ि ी \u0941 \u0942 \u0943 \u0944 \u0945 \u0947 \u0948 ॉ ो ौ \u094D]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[\u200C\u200D]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
+		<exemplarCharacters type="numbers" draft="contributed">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<moreInformation>?</moreInformation>
+		<parseLenients scope="general" level="lenient">
+			<parseLenient sample="." draft="contributed">[.․。︒﹒．｡]</parseLenient>
+		</parseLenients>
+		<parseLenients scope="date" level="lenient">
+			<parseLenient sample="-" draft="contributed">[\--/]</parseLenient>
+			<parseLenient sample=":" draft="contributed">[\:∶︓﹕：]</parseLenient>
+		</parseLenients>
 	</characters>
 	<dates>
 		<calendars>
 			<calendar type="generic">
 				<dateTimeFormats>
 					<dateTimeFormatLength type="full">
-						<dateTimeFormat>
+						<dateTimeFormat type="atTime">
 							<pattern>{0} पेठ {1}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<dateTimeFormatLength type="long">
-						<dateTimeFormat>
+						<dateTimeFormat type="atTime">
 							<pattern>{0} पेठ {1}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
@@ -111,17 +126,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<monthContext type="format">
 						<monthWidth type="abbreviated">
 							<month type="1">जनवरी</month>
-							<month type="2">फ़रवरी</month>
-							<month type="3">मार्च</month>
-							<month type="4">अप्रैल</month>
-							<month type="5">मे</month>
-							<month type="6">जून</month>
-							<month type="7">जुलाई</month>
-							<month type="8">अगस्त</month>
-							<month type="9">सतुंबर</month>
-							<month type="10">अकतुम्बर</month>
-							<month type="11">नवूमबर</month>
-							<month type="12">दसूमबर</month>
 						</monthWidth>
 						<monthWidth type="narrow">
 							<month type="1">ज</month>
@@ -171,15 +175,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<month type="1">जनवरी</month>
 							<month type="2">फ़रवरी</month>
 							<month type="3">मार्च</month>
-							<month type="4">अप्रैल</month>
-							<month type="5">मे</month>
-							<month type="6">जून</month>
-							<month type="7">जुलाई</month>
-							<month type="8">अगस्त</month>
-							<month type="9">सतुंबर</month>
-							<month type="10">अकतुम्बर</month>
-							<month type="11">नवूमबर</month>
-							<month type="12">दसूमबर</month>
 						</monthWidth>
 					</monthContext>
 				</months>
@@ -216,12 +211,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</dayWidth>
 						<dayWidth type="wide">
 							<day type="sun">आथवार</day>
-							<day type="mon">चंदिरवार</day>
-							<day type="tue">बुवार</day>
-							<day type="wed">बोदवार</day>
-							<day type="thu">ब्रेसवार</day>
-							<day type="fri">जुम्मा</day>
-							<day type="sat">बटवार</day>
 						</dayWidth>
 					</dayContext>
 				</days>
@@ -243,9 +232,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<quarterContext type="stand-alone">
 						<quarterWidth type="abbreviated">
 							<quarter type="1">Q1</quarter>
-							<quarter type="2">Q2</quarter>
-							<quarter type="3">Q3</quarter>
-							<quarter type="4">Q4</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">1st सह माह</quarter>
@@ -255,7 +241,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 						</quarterWidth>
 					</quarterContext>
 				</quarters>
+				<dayPeriods>
+					<dayPeriodContext type="format">
+						<dayPeriodWidth type="wide">
+							<dayPeriod type="am">ये एम</dayPeriod>
+							<dayPeriod type="pm">पी एम</dayPeriod>
+						</dayPeriodWidth>
+					</dayPeriodContext>
+					<dayPeriodContext type="stand-alone">
+						<dayPeriodWidth type="wide">
+							<dayPeriod type="am">दुपहर ब्रोंठ</dayPeriod>
+							<dayPeriod type="pm">दुपहरपतॖ</dayPeriod>
+						</dayPeriodWidth>
+					</dayPeriodContext>
+				</dayPeriods>
 				<eras>
+					<eraNames>
+						<era type="0">ईसा ब्रोंठ</era>
+						<era type="1">ईस्वी</era>
+					</eraNames>
 					<eraAbbr>
 						<era type="0">BC</era>
 						<era type="1">AD</era>
@@ -265,16 +269,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 					<dateFormatLength type="full">
 						<dateFormat>
 							<pattern>EEEE, d MMMM y</pattern>
+							<datetimeSkeleton>yMMMMEEEEd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d MMMM y</pattern>
+							<datetimeSkeleton>yMMMMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="medium">
 						<dateFormat>
 							<pattern>d MMM y</pattern>
+							<datetimeSkeleton>yMMMd</datetimeSkeleton>
 						</dateFormat>
 					</dateFormatLength>
 					<dateFormatLength type="short">
@@ -313,11 +320,17 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<dateTimeFormats>
 					<dateTimeFormatLength type="full">
 						<dateTimeFormat>
+							<pattern>{1}, {0}</pattern>
+						</dateTimeFormat>
+						<dateTimeFormat type="atTime">
 							<pattern>{0} पेठ {1}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
 					<dateTimeFormatLength type="long">
 						<dateTimeFormat>
+							<pattern>{1}, {0}</pattern>
+						</dateTimeFormat>
+						<dateTimeFormat type="atTime">
 							<pattern>{0} पेठ {1}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
@@ -331,6 +344,19 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<pattern>{1}, {0}</pattern>
 						</dateTimeFormat>
 					</dateTimeFormatLength>
+					<availableFormats>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
+						<dateFormatItem id="Hm">HH:mm</dateFormatItem>
+						<dateFormatItem id="hms">h:mm:ss a</dateFormatItem>
+						<dateFormatItem id="Hms">HH:mm:ss</dateFormatItem>
+						<dateFormatItem id="hmsv">h:mm:ss a v</dateFormatItem>
+						<dateFormatItem id="Hmsv">HH:mm:ss v</dateFormatItem>
+						<dateFormatItem id="yMd">M/d/y</dateFormatItem>
+						<dateFormatItem id="yMMMd">MMM d, y</dateFormatItem>
+					</availableFormats>
+					<intervalFormats>
+						<intervalFormatFallback>{0} – {1}</intervalFormatFallback>
+					</intervalFormats>
 				</dateTimeFormats>
 			</calendar>
 		</calendars>
@@ -430,9 +456,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>जी एम टी {0}</gmtFormat>
+			<gmtZeroFormat>जी एम टी</gmtZeroFormat>
 			<regionFormat>{0} वख</regionFormat>
 			<regionFormat type="standard">{0} स्टैन्डर्ड वख</regionFormat>
 			<regionFormat type="daylight">{0} डे लाइट वख</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/UTC">
 				<long>
 					<standard>कोऑर्डनैटिड यूनवर्सल वख</standard>
@@ -505,6 +535,40 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<symbols numberSystem="latn">
+			<group>,</group>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+		</symbols>
+		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
+		</decimalFormats>
+		<scientificFormats numberSystem="latn">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
+		<percentFormats numberSystem="latn">
+			<percentFormatLength>
+				<percentFormat>
+					<pattern>#,##0%</pattern>
+				</percentFormat>
+			</percentFormatLength>
+		</percentFormats>
+		<currencyFormats numberSystem="latn">
+			<currencyFormatLength>
+				<currencyFormat type="standard">
+					<pattern>¤#,##0.00</pattern>
+				</currencyFormat>
+			</currencyFormatLength>
+		</currencyFormats>
 		<currencies>
 			<currency type="BRL">
 				<displayName>ब्राज़िली रील</displayName>
@@ -554,6 +618,16 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 		</currencies>
 	</numbers>
+	<units>
+		<unitLength type="long">
+			<unit type="mass-gram">
+				<displayName>ग्राम</displayName>
+			</unit>
+			<unit type="mass-kilogram">
+				<displayName>किलो ग्राम</displayName>
+			</unit>
+		</unitLength>
+	</units>
 	<listPatterns>
 		<listPattern>
 			<listPatternPart type="end">{0}, ति {1}</listPatternPart>
@@ -566,4 +640,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<nostr>न:n</nostr>
 		</messages>
 	</posix>
+	<personNames>
+		<nameOrderLocales order="givenFirst">und ks</nameOrderLocales>
+	</personNames>
 </ldml>
