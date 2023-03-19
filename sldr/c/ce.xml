@@ -6,12 +6,18 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
+		<version number="$Revision$"/>
 		<language type="ce"/>
 		<special>
 			<sil:identity source="cldr" defaultRegion="RU" script="Cyrl"/>
 		</special>
 	</identity>
 	<localeDisplayNames>
+		<localeDisplayPattern>
+			<localePattern>{0} ({1})</localePattern>
+			<localeSeparator>{0}, {1}</localeSeparator>
+			<localeKeyTypePattern>{0}: {1}</localeKeyTypePattern>
+		</localeDisplayPattern>
 		<languages>
 			<language type="aa">афарийн</language>
 			<language type="ab">абхазхойн</language>
@@ -38,6 +44,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="awa">авадхи</language>
 			<language type="ay">аймара</language>
 			<language type="az">азербайджанийн</language>
+			<language type="az" alt="short">азербайджанийн</language>
 			<language type="ba">башкирийн</language>
 			<language type="ban">балийн</language>
 			<language type="bas">баса</language>
@@ -101,6 +108,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<language type="en_GB">британин ингалсан</language>
 			<language type="en_GB" alt="short">ингалсан (Британи)</language>
 			<language type="en_US">американ ингалсан</language>
+			<language type="en_US" alt="short">ингалсан (АЦШ)</language>
 			<language type="eo">эсперанто</language>
 			<language type="es">испанхойн</language>
 			<language type="es_419">латинан американ испанхойн</language>
@@ -426,7 +434,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<script type="Hang">хангыль</script>
 			<script type="Hani">китайн</script>
 			<script type="Hans">атта китайн</script>
+			<script type="Hans" alt="stand-alone">атта китайн</script>
 			<script type="Hant">ламастан китайн</script>
+			<script type="Hant" alt="stand-alone">ламастан китайн</script>
 			<script type="Hebr">жугтийн</script>
 			<script type="Hira">хирагана</script>
 			<script type="Hrkt">катакана я хирагана</script>
@@ -573,6 +583,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="FR">Франци</territory>
 			<territory type="GA">Габон</territory>
 			<territory type="GB">Йоккха Британи</territory>
+			<territory type="GB" alt="short">Йоккха Британи</territory>
 			<territory type="GD">Гренада</territory>
 			<territory type="GE">Гуьржийчоь</territory>
 			<territory type="GF">Французийн Гвиана</territory>
@@ -777,13 +788,47 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<codePattern type="territory">Регион: {0}</codePattern>
 		</codePatterns>
 	</localeDisplayNames>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+			<lineOrder>top-to-bottom</lineOrder>
+		</orientation>
+	</layout>
 	<characters>
 		<exemplarCharacters>[а {аь} б в г {гӏ} д е ё ж з и {ий} й к {кк} {ккх} {кх} {кь} {кӏ} л м н о {ов} {оь} п {пп} {пӏ} р {рхӏ} с {сс} т {тт} {тӏ} у {ув} {уь} {уьй} ф х {хь} {хӏ} ц {цӏ} ч {чӏ} ш щ ъ ы ь э ю {юь} я {яь}]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … &apos; ‘ ‚ &quot; “ „ « » ( ) \[ \] \{ \} § @ * / \&amp; #]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ‚ " “ „ « » ( ) \[ \] \{ \} § @ * / \&amp; #]</exemplarCharacters>
 		<exemplarCharacters type="index">[А Б В Г Д Е Ё Ж З И К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я]</exemplarCharacters>
+		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
+			<calendar type="generic">
+				<dateTimeFormats>
+					<dateTimeFormatLength type="full">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="long">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="medium">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<dateTimeFormatLength type="short">
+						<dateTimeFormat>
+							<pattern>{1} {0}</pattern>
+						</dateTimeFormat>
+					</dateTimeFormatLength>
+					<availableFormats>
+						<dateFormatItem id="d">d</dateFormatItem>
+					</availableFormats>
+				</dateTimeFormats>
+			</calendar>
 			<calendar type="gregorian">
 				<months>
 					<monthContext type="format">
@@ -966,6 +1011,12 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<quarter type="2">2-гӀа кв.</quarter>
 							<quarter type="3">3-гӀа кв.</quarter>
 							<quarter type="4">4-гӀа кв.</quarter>
+						</quarterWidth>
+						<quarterWidth type="narrow">
+							<quarter type="1">1</quarter>
+							<quarter type="2">2</quarter>
+							<quarter type="3">3</quarter>
+							<quarter type="4">4</quarter>
 						</quarterWidth>
 						<quarterWidth type="wide">
 							<quarter type="1">1-гӀа квартал</quarter>
@@ -1525,6 +1576,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</field>
 		</fields>
 		<timeZoneNames>
+			<hourFormat>+HH:mm;-HH:mm</hourFormat>
+			<gmtFormat>GMT{0}</gmtFormat>
+			<gmtZeroFormat>GMT</gmtZeroFormat>
+			<regionFormat>{0}</regionFormat>
+			<regionFormat type="standard">{0} (+0)</regionFormat>
+			<regionFormat type="daylight">{0} (+1)</regionFormat>
+			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/Unknown">
 				<exemplarCity>Йоьвзуш йоцу гӀала</exemplarCity>
 			</zone>
@@ -3696,10 +3754,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</timeZoneNames>
 	</dates>
 	<numbers>
+		<minimumGroupingDigits draft="contributed">1</minimumGroupingDigits>
 		<symbols numberSystem="latn">
+			<decimal>.</decimal>
+			<group>,</group>
+			<percentSign>%</percentSign>
+			<plusSign>+</plusSign>
+			<minusSign>-</minusSign>
+			<exponential>E</exponential>
+			<superscriptingExponent>×</superscriptingExponent>
+			<perMille>‰</perMille>
 			<nan>Терхьаш дац</nan>
+			<timeSeparator draft="contributed">:</timeSeparator>
 		</symbols>
 		<decimalFormats numberSystem="latn">
+			<decimalFormatLength>
+				<decimalFormat>
+					<pattern>#,##0.###</pattern>
+				</decimalFormat>
+			</decimalFormatLength>
 			<decimalFormatLength type="long">
 				<decimalFormat>
 					<pattern type="1000" count="one">0 эзар</pattern>
@@ -3757,6 +3830,13 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</decimalFormat>
 			</decimalFormatLength>
 		</decimalFormats>
+		<scientificFormats numberSystem="latn">
+			<scientificFormatLength>
+				<scientificFormat>
+					<pattern>#E0</pattern>
+				</scientificFormat>
+			</scientificFormatLength>
+		</scientificFormats>
 		<percentFormats numberSystem="latn">
 			<percentFormatLength>
 				<percentFormat>
@@ -3768,9 +3848,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currencyFormatLength>
 				<currencyFormat type="accounting">
 					<pattern>#,##0.00 ¤</pattern>
+					<pattern alt="noCurrency" draft="provisional">#,##0.00</pattern>
 				</currencyFormat>
 				<currencyFormat type="standard">
 					<pattern>#,##0.00 ¤</pattern>
+					<pattern alt="noCurrency" draft="provisional">#,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 			<currencyFormatLength type="short">
@@ -3802,6 +3884,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</currencyFormat>
 			</currencyFormatLength>
 			<unitPattern count="one">{0} {1}</unitPattern>
+			<unitPattern count="other">{0} {1}</unitPattern>
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
@@ -3852,6 +3935,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Австралин доллар</displayName>
 				<displayName count="one">Австралин доллар</displayName>
 				<displayName count="other">Австралин долларш</displayName>
+				<symbol draft="contributed">A$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="AWG">
 				<displayName>Арубан флорин</displayName>
@@ -3929,6 +4014,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Бразилин реал</displayName>
 				<displayName count="one">Бразилин реал</displayName>
 				<displayName count="other">Бразилин реалш</displayName>
+				<symbol draft="contributed">R$</symbol>
+				<symbol alt="narrow" draft="contributed">R$</symbol>
 			</currency>
 			<currency type="BSD">
 				<displayName>Багаман доллар</displayName>
@@ -3974,6 +4061,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Канадан доллар</displayName>
 				<displayName count="one">Канадан доллар</displayName>
 				<displayName count="other">Канадан долларш</displayName>
+				<symbol draft="contributed">CA$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="CDF">
 				<displayName>Конголезин франк</displayName>
@@ -3998,6 +4087,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Китайн юань</displayName>
 				<displayName count="one">Китайн юань</displayName>
 				<displayName count="other">Китайн юанаш</displayName>
+				<symbol draft="contributed">CN¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="COP">
 				<displayName>Колумбин песо</displayName>
@@ -4089,6 +4180,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Евро</displayName>
 				<displayName count="one">евро</displayName>
 				<displayName count="other">Еврош</displayName>
+				<symbol draft="contributed">€</symbol>
+				<symbol alt="narrow" draft="contributed">€</symbol>
 			</currency>
 			<currency type="FJD">
 				<displayName>Фиджин доллар</displayName>
@@ -4108,6 +4201,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Англин фунт</displayName>
 				<displayName count="one">Англин фунт</displayName>
 				<displayName count="other">Англин фунташ</displayName>
+				<symbol draft="contributed">£</symbol>
+				<symbol alt="narrow" draft="contributed">£</symbol>
 			</currency>
 			<currency type="GEL">
 				<displayName>Гуьржийчоьнан лари</displayName>
@@ -4159,6 +4254,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Гонконган доллар</displayName>
 				<displayName count="one">Гонконган доллар</displayName>
 				<displayName count="other">Гонконган долларш</displayName>
+				<symbol draft="contributed">HK$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="HNL">
 				<displayName>Гондурасан лемпира</displayName>
@@ -4198,11 +4295,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Израилан керла шекель</displayName>
 				<displayName count="one">Израилан керла шекель</displayName>
 				<displayName count="other">Израилан керла шекелш</displayName>
+				<symbol draft="contributed">₪</symbol>
+				<symbol alt="narrow" draft="contributed">₪</symbol>
 			</currency>
 			<currency type="INR">
 				<displayName>Индин рупи</displayName>
 				<displayName count="one">Индин рупи</displayName>
 				<displayName count="other">Индин рупиш</displayName>
+				<symbol draft="contributed">₹</symbol>
+				<symbol alt="narrow" draft="contributed">₹</symbol>
 			</currency>
 			<currency type="IQD">
 				<displayName>Ӏиракъан динар</displayName>
@@ -4240,6 +4341,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Японин иена</displayName>
 				<displayName count="one">Японин иена</displayName>
 				<displayName count="other">Японин иенаш</displayName>
+				<symbol draft="contributed">JP¥</symbol>
+				<symbol alt="narrow" draft="contributed">¥</symbol>
 			</currency>
 			<currency type="KES">
 				<displayName>Кенин шиллинг</displayName>
@@ -4278,6 +4381,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Къилба Корейн вона</displayName>
 				<displayName count="one">Къилба Корейн вона</displayName>
 				<displayName count="other">Къилба Корейн вонаш</displayName>
+				<symbol draft="contributed">₩</symbol>
+				<symbol alt="narrow" draft="contributed">₩</symbol>
 			</currency>
 			<currency type="KWD">
 				<displayName>Кувейтан динар</displayName>
@@ -4412,6 +4517,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Мексикан песо</displayName>
 				<displayName count="one">Мексикан песо</displayName>
 				<displayName count="other">Мексикан песош</displayName>
+				<symbol draft="contributed">MX$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="MYR">
 				<displayName>Малайзин ринггит</displayName>
@@ -4465,6 +4572,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Керла Зеландин доллар</displayName>
 				<displayName count="one">Керла Зеландин доллар</displayName>
 				<displayName count="other">Керла Зеландин долларш</displayName>
+				<symbol draft="contributed">NZ$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="OMR">
 				<displayName>Оманан риал</displayName>
@@ -4541,6 +4650,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Российн сом</displayName>
 				<displayName count="one">Российн сом</displayName>
 				<displayName count="other">Российн соьмаш</displayName>
+				<symbol>₽</symbol>
 			</currency>
 			<currency type="RWF">
 				<displayName>Руандан франк</displayName>
@@ -4631,6 +4741,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Сан-Томен а, Принсипин а добра</displayName>
 				<displayName count="one">Сан-Томен а, Принсипин а добра</displayName>
 				<displayName count="other">Сан-Томен а, Принсипин а добраш</displayName>
+				<symbol alt="narrow" draft="contributed">Db</symbol>
 			</currency>
 			<currency type="SYP">
 				<displayName>Шеман фунт</displayName>
@@ -4696,6 +4807,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Тайванан керла доллар</displayName>
 				<displayName count="one">Тайванан керла доллар</displayName>
 				<displayName count="other">Тайванан керла долларш</displayName>
+				<symbol draft="contributed">NT$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="TZS">
 				<displayName>Танзанин шиллинг</displayName>
@@ -4720,6 +4833,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>АЦШн доллар</displayName>
 				<displayName count="one">АЦШн доллар</displayName>
 				<displayName count="other">АЦШн долларш</displayName>
+				<symbol draft="contributed">US$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="UYU">
 				<displayName>Уругвайн песо</displayName>
@@ -4750,6 +4865,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Вьетнаман донг</displayName>
 				<displayName count="one">Вьетнаман донг</displayName>
 				<displayName count="other">Вьетнаман донгаш</displayName>
+				<symbol draft="contributed">₫</symbol>
+				<symbol alt="narrow" draft="contributed">₫</symbol>
 			</currency>
 			<currency type="VUV">
 				<displayName>Вануатун вату</displayName>
@@ -4767,21 +4884,26 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<displayName>Юккъерчу Африкан КФА франк</displayName>
 				<displayName count="one">Юккъерчу Африкан КФА франк</displayName>
 				<displayName count="other">Юккъерчу Африкан КФА франкаш</displayName>
+				<symbol draft="contributed">FCFA</symbol>
 			</currency>
 			<currency type="XCD">
 				<displayName>Малхбален Карибийн доллар</displayName>
 				<displayName count="one">Малхбален Карибийн доллар</displayName>
 				<displayName count="other">Малхбален Карибийн долларш</displayName>
+				<symbol draft="contributed">EC$</symbol>
+				<symbol alt="narrow" draft="contributed">$</symbol>
 			</currency>
 			<currency type="XOF">
 				<displayName>Малхбузен Африкан КФА франк</displayName>
 				<displayName count="one">Малхбузен Африкан КФА франк</displayName>
 				<displayName count="other">Малхбузен Африкан КФА франк</displayName>
+				<symbol draft="contributed">F CFA</symbol>
 			</currency>
 			<currency type="XPF">
 				<displayName>Французийн Тийна океанан франк</displayName>
 				<displayName count="one">Французийн Тийна океанан франк</displayName>
 				<displayName count="other">Французийн Тийна океанан франк</displayName>
+				<symbol draft="contributed">CFPF</symbol>
 			</currency>
 			<currency type="XXX">
 				<displayName>девзаш доцу я лелаш доцу ахча</displayName>
@@ -4809,6 +4931,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<symbol alt="narrow" draft="contributed">ZK</symbol>
 			</currency>
 		</currencies>
+		<miscPatterns numberSystem="latn">
+			<pattern type="range">{0}–{1}</pattern>
+		</miscPatterns>
 	</numbers>
 	<units>
 		<unitLength type="long">
@@ -4908,7 +5033,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</unitLength>
 		<unitLength type="short">
 			<unit type="duration-century">
+				<displayName>c</displayName>
 				<unitPattern count="one">{0} c</unitPattern>
+				<unitPattern count="other">{0} c</unitPattern>
 			</unit>
 			<unit type="duration-day">
 				<displayName>денош</displayName>
@@ -5045,6 +5172,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				<unitPattern count="other">{0} км</unitPattern>
 			</unit>
 		</unitLength>
+		<durationUnit type="hm">
+			<durationUnitPattern>h:mm</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="hms">
+			<durationUnitPattern>h:mm:ss</durationUnitPattern>
+		</durationUnit>
+		<durationUnit type="ms">
+			<durationUnitPattern>m:ss</durationUnitPattern>
+		</durationUnit>
 	</units>
 	<special>
 		<sil:external-resources>
