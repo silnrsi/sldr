@@ -8,7 +8,9 @@ On Linux, Python scripts (such as `ldmlflatten`) are installed and available to 
 On Windows you may need to explicitly invoke Python and include the path to the script (such as `python pathinfo\ldmlflatten`).
 This document will use the Linux form and Windows users will need to adjust accordingly.
 
-## Preparing to Serve [Is this still relevant?] [Used in GitHub actions]
+## Preparing to Serve 
+
+Note: This no longer needs to be done manually. It is done automatically via GitHub actions when data is pushed to SLDR (master or release branches).
 
 Having cloned the SLDR github repository, how do we get hold of the flattened and unflattened files
 for distributing to applications and users?
@@ -43,6 +45,29 @@ This command does a number of things:
 Now you can review that file and perhaps diff it agains the one in sldr. After that you can replace the file
 in sldr and commit your change.
 
+
+## Updating the DTD
+
+Importing a new version of CLDR may require a new version of the DTD definition in `ldml.dtd`.
+
+```
+# copy the ldml.dtd file
+cp /cldr/common/dtd/ldml.dtd /sldr/doc
+# use make/Makefile and scripts in bin/ to generate files 
+cd /sldr
+make
+# make sure all locales pass the following test:
+pytest test_validate.py::test_validate
+# commit updated files
+git commit -a -m "update ldml.dtd"
+git push
+# copy updated file to sldrtools and commit
+cp doc/sil.dtd /sldrtools/lib/sldr
+cd /sldrtools
+git add -A
+git commit -m "update ldml.dtd"
+git push
+```
 ## Importing CLDR Data
 
 This section describes the process for importing a new version of CLDR data into the SLDR. Importing CLDR data is an activity that happens alongside regular editing of LDML files. As a result, the easiest way to manage this is to use a git branch. All changes to CLDR will be imported into a separate branch called `cldr` and then those changes are merged into the `master` branch. This means that only the changes between versions of the CLDR will be merged
@@ -54,46 +79,25 @@ Starting in the sldr repository, we switch to the `cldr` branch:
     git checkout cldr
 ```
 
-The process of creating an SLDR file is more involved than simply copying a file. 
-Files are flattened and then unflattened. 
-This has the effect of stripping any information that is inherited. 
-We do this because that is the process used to normalise data imports from other sources. 
-We send out flat files and then unflatten them on import. 
-To allow for good merging, therefore, it is necessary that the cldr files are held in the same form.
-
-To do this, we use two temporary directories (`cldrdata` and `cldrflat`) that are not committed. 
-If they already exist, they should be removed and rebuilt so that any files that have been removed from the CLDR or that would be removed by stub removal, do not remain and get propagated forward. 
-
-```
-    mkdir cldrdata
-    mkdir cldrflat
-```
-
-Copy the `common` folder from the latest CLDR release into current directory. 
+Copy the `common` folder from the latest CLDR release into current directory (or access it directly in a local copy of the CLDR repository).
+Consider whether the DTD needs to be updated (see section above).
 
 Then we import the data:
 
 ```
     cldrimport -s -t common cldrdata    
-    ldmlflatten -s -t -i cldrdata -o cldrflat -a
-```
-
-Now we unflatten the files to their sldr form and merge them into the sldr
-
-```
-    ldmlflatten -s -t -i cldrflat -o sldr -r -a
 ```
 
 We now have a pristine CLDR data set for the cldr branch. 
 So commit it (to the `cldr` branch of the SLDR repository), including the CLDR version number (xx).
 
 ```
-    git add -A sldr
+    git add sldr
     git commit -m "CLDR import from version xx"
     git push
 ```
 
-At this point the directories used in the process (`common`, `cldrdata`, `cldrflat`) can be removed.
+At this point, if a copy of the `common` directory was made for use in the process, it can be removed.
 
 In order to tidy up and integrate, we use a separate `cldr_merge` branch in which we do the merging of master and cldr. This keeps the `cldr` branch clean and allows review and editing before merging with master.
 
@@ -164,27 +168,3 @@ NB: As of 2022-01, setting up ldmlmerge as a mergetool on Windows has not succee
 The scripts used for this process (cldrimport, ldmlflatten, ldmlmerge) are in the `sldrtools` repository.
 
 Bear in mind that one can use `pypy` instead of `python` in the above and life will run faster (in exchange for more memory usage). Although the benefits are reduced when using the faster python3.
-
-## Updating the DTD
-
-Importing a new version of CLDR may require a new version of the DTD definition in `ldml.dtd`.
-
-```
-# copy the ldml.dtd file
-cp /cldr/common/dtd/ldml.dtd /sldr/doc
-# use make/Makefile and scripts in bin/ to generate files 
-cd /sldr
-make
-# make sure all locales pass the following test:
-pytest test_validate.py::test_validate
-# commit updated files
-git add -A
-git commit -m "update ldml.dtd"
-git push
-# copy updated file to sldrtools and commit
-cp doc/sil.dtd /sldrtools/lib/sldr
-cd /sldrtools
-git add -A
-git commit -m "update ldml.dtd"
-git push
-```
