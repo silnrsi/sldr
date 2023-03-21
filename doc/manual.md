@@ -64,8 +64,7 @@ git push
 # copy updated file to sldrtools and commit
 cp doc/sil.dtd /sldrtools/lib/sldr
 cd /sldrtools
-git add -A
-git commit -m "update ldml.dtd"
+git commit -a -m "update ldml.dtd"
 git push
 ```
 ## Importing CLDR Data
