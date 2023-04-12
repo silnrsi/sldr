@@ -890,9 +890,9 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<characters>
 		<exemplarCharacters>[a {ch} {chʼ} h i k {kʼ} l {ll} m n ñ p {pʼ} q {qʼ} s t {tʼ} u w y]</exemplarCharacters>
 		<exemplarCharacters type="auxiliary">[á à ă â å ä ã ā æ b c ç d e é è ĕ ê ë ē f g í ì ĭ î ï ī j o ó ò ŏ ô ö ø ō œ r ú ù ŭ û ü ū v x ÿ z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
 		<exemplarCharacters type="index">[A {Ch} H I K L {Ll} M N Ñ P Q S T U W Y]</exemplarCharacters>
 		<exemplarCharacters type="numbers">[\- ‑ , . % ‰ + 0 1 2 3 4 5 6 7 8 9]</exemplarCharacters>
+		<exemplarCharacters type="punctuation" draft="contributed">[\- ‐ ‑ – — , ; \: ! ? . … ' ‘ ’ " “ ” ( ) \[ \] § @ * / \&amp; # † ‡ ′ ″]</exemplarCharacters>
 	</characters>
 	<dates>
 		<calendars>
@@ -2148,8 +2148,8 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<gmtFormat>GMT{0}</gmtFormat>
 			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>{0}</regionFormat>
-			<regionFormat type="standard">{0} (+0)</regionFormat>
 			<regionFormat type="daylight">{0} (+1)</regionFormat>
+			<regionFormat type="standard">{0} (+0)</regionFormat>
 			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/UTC">
 				<long>
@@ -4405,10 +4405,10 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		</percentFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
-				<currencyFormat type="accounting">
+				<currencyFormat type="standard">
 					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
-				<currencyFormat type="standard">
+				<currencyFormat type="accounting">
 					<pattern>¤ #,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
@@ -5887,6 +5887,15 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<listPatternPart type="2">{0} utaq {1}</listPatternPart>
 		</listPattern>
 	</listPatterns>
+	<personNames>
+		<nameOrderLocales order="givenFirst">und qu</nameOrderLocales>
+		<personName order="givenFirst" length="long" usage="addressing" formality="formal">
+			<namePattern>{prefix} {surname}</namePattern>
+		</personName>
+		<sampleName item="full">
+			<nameField type="given">Maria</nameField>
+		</sampleName>
+	</personNames>
 	<metadata>
 		<casingData>
 			<casingItem type="day_format_except_narrow">titlecase</casingItem>
@@ -5923,13 +5932,4 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</sil:sampletext>
 		</sil:external-resources>
 	</special>
-	<personNames>
-		<nameOrderLocales order="givenFirst">und qu</nameOrderLocales>
-		<personName formality="formal" length="long" order="givenFirst" usage="addressing">
-			<namePattern>{prefix} {surname}</namePattern>
-		</personName>
-		<sampleName item="full">
-			<nameField type="given">Maria</nameField>
-		</sampleName>
-	</personNames>
 </ldml>

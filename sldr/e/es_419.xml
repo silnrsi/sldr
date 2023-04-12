@@ -724,12 +724,12 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</codePatterns>
 	</localeDisplayNames>
 	<characters>
+		<ellipsis type="final">{0}…</ellipsis>
 		<ellipsis type="initial">… {0}</ellipsis>
 		<ellipsis type="medial">{0}… {1}</ellipsis>
-		<ellipsis type="final">{0}…</ellipsis>
+		<ellipsis type="word-final">{0}…</ellipsis>
 		<ellipsis type="word-initial">… {0}</ellipsis>
 		<ellipsis type="word-medial">{0}… {1}</ellipsis>
-		<ellipsis type="word-final">{0}…</ellipsis>
 		<moreInformation>?</moreInformation>
 	</characters>
 	<delimiters>
@@ -2019,8 +2019,8 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			<gmtFormat>GMT{0}</gmtFormat>
 			<gmtZeroFormat>GMT</gmtZeroFormat>
 			<regionFormat>hora de {0}</regionFormat>
-			<regionFormat type="standard">hora estándar de {0}</regionFormat>
 			<regionFormat type="daylight">hora de verano de {0}</regionFormat>
+			<regionFormat type="standard">hora estándar de {0}</regionFormat>
 			<fallbackFormat>{1} ({0})</fallbackFormat>
 			<zone type="Etc/UTC">
 				<long>
@@ -4270,10 +4270,10 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		</percentFormats>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
-				<currencyFormat type="accounting">
+				<currencyFormat type="standard">
 					<pattern>¤#,##0.00</pattern>
 				</currencyFormat>
-				<currencyFormat type="standard">
+				<currencyFormat type="accounting">
 					<pattern>¤#,##0.00</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
@@ -4305,9 +4305,9 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 					<pattern type="100000000000000" count="other">¤000 B</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
+			<currencyPatternAppendISO>{0} ¤¤</currencyPatternAppendISO>
 			<unitPattern count="one">{0} {1}</unitPattern>
 			<unitPattern count="other">{0} {1}</unitPattern>
-			<currencyPatternAppendISO>{0} ¤¤</currencyPatternAppendISO>
 		</currencyFormats>
 		<currencies>
 			<currency type="AED">
@@ -6341,6 +6341,16 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 		<styleName type="wght" subtype="900" alt="heavy" draft="contributed">pesada</styleName>
 		<styleName type="wght" subtype="950" alt="ultraheavy">ultrapesada</styleName>
 	</typographicNames>
+	<personNames>
+		<nameOrderLocales order="surnameFirst">ko vi yue zh</nameOrderLocales>
+		<initialPattern type="initial">{0}.</initialPattern>
+		<personName order="sorting" length="long" usage="referring" formality="formal">
+			<namePattern alt="1">{surname} {surname2}, {prefix} {given} {given2}</namePattern>
+		</personName>
+		<sampleName item="full">
+			<nameField type="given">Mercedes Inés</nameField>
+		</sampleName>
+	</personNames>
 	<special>
 		<sil:external-resources>
 			<sil:font name="Charis SIL" types="default">
@@ -6355,14 +6365,4 @@ Warnings: All cp values have U+FE0F characters removed. See /annotationsDerived/
 			</sil:font>
 		</sil:external-resources>
 	</special>
-	<personNames>
-		<initialPattern type="initial">{0}.</initialPattern>
-		<nameOrderLocales order="surnameFirst">ko vi yue zh</nameOrderLocales>
-		<personName formality="formal" length="long" order="sorting" usage="referring">
-			<namePattern alt="1">{surname} {surname2}, {prefix} {given} {given2}</namePattern>
-		</personName>
-		<sampleName item="full">
-			<nameField type="given">Mercedes Inés</nameField>
-		</sampleName>
-	</personNames>
 </ldml>

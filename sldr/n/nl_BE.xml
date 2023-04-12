@@ -108,6 +108,25 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</calendar>
 		</calendars>
 	</dates>
+	<personNames>
+		<!-- Minor variations from nl-NL
+			 https://onzetaal.nl/taaladvies/hoofdletters-namen-nederland
+			 "Belgian surnames are immutable: they are written as they are recorded in the
+			 population register. If the surname is registered as Van der Meeren ,
+			 that is always the correct spelling in Belgium"
+			 https://onzetaal.nl/taaladvies/hoofdletters-namen-belgie
+			 "In practice, Belgian names are almost always capitalized: Margot De Ridder,
+			 Patsy Van der Meeren, Marie De Ruyter-Van Goethem."
+			 Therfore, no need for -prefix and -core modifiers in nl-BE
+			 inherit initialPattern, initialSequence, and order='surnameFirst' from nl.xml
+		-->
+		<personName order="givenFirst" length="long" usage="addressing" formality="formal">
+			<namePattern draft="provisional">{prefix} {given-initial-allCaps}{given2-initial-allCaps} {surname}</namePattern>
+		</personName>
+		<sampleName item="full">
+			<nameField type="given" draft="provisional">Juliette</nameField>
+		</sampleName>
+	</personNames>
 	<special>
 		<sil:external-resources>
 			<sil:font name="Charis SIL" types="default">
@@ -122,23 +141,4 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</sil:font>
 		</sil:external-resources>
 	</special>
-	<personNames>
-		<!-- Minor variations from nl-NL
-			 https://onzetaal.nl/taaladvies/hoofdletters-namen-nederland
-			 "Belgian surnames are immutable: they are written as they are recorded in the
-			 population register. If the surname is registered as Van der Meeren ,
-			 that is always the correct spelling in Belgium"
-			 https://onzetaal.nl/taaladvies/hoofdletters-namen-belgie
-			 "In practice, Belgian names are almost always capitalized: Margot De Ridder,
-			 Patsy Van der Meeren, Marie De Ruyter-Van Goethem."
-			 Therfore, no need for -prefix and -core modifiers in nl-BE
-			 inherit initialPattern, initialSequence, and order='surnameFirst' from nl.xml
-		-->
-		<personName formality="formal" length="long" order="givenFirst" usage="addressing">
-			<namePattern draft="provisional">{prefix} {given-initial-allCaps}{given2-initial-allCaps} {surname}</namePattern>
-		</personName>
-		<sampleName item="full">
-			<nameField draft="provisional" type="given">Juliette</nameField>
-		</sampleName>
-	</personNames>
 </ldml>
