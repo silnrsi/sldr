@@ -69,6 +69,40 @@ def test_exemplars(ldml):
                     break
         assert digraphcheck or not len(diff), filename + " Not all index entries found in main or auxiliary"
 
+# THE WHOLE NEXT TEST IS EMILY CODE and is therefore probably JANKY
+def test_syntax(ldml):
+    """ Test for syntax errors in exemplars """
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    exemplars = {}
+    exemplars_raw = {}
+    for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
+        t = e.get('type', None)
+        raw = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        s = usets.parse(e.text or "", 'NFD')
+        if not len(s):
+            continue
+        exemplars[t] = s[0]
+        exemplars_raw[t] = raw
+        # The following lines test if unicode hex values in all exemplars are properly formatted
+        for i in exemplars_raw[t]:
+            if r"\u" in i:
+                assert len(i)==6 or len(i)==10, filename + " unicode codepoint missing hex digits"
+            # I'd also like to write a test that would detect if you were intending to write a unicode hex value but forgot the 'u' or something, but I can't think of how to make that work. 
+    # The following lines are a test if characters are incorrectly unescaped.
+    if 'punctuation' in exemplars:
+        if "-" in exemplars_raw['punctuation']:
+            assert r"\-" in exemplars_raw['punctuation'], filename + " Unescaped hyphen in punctuation exemplar"
+        if ":" in exemplars_raw['punctuation']:
+            assert r"\:" in exemplars_raw['punctuation'], filename + " Unescaped colon in punctuation exemplar"
+        if "&" in exemplars_raw['punctuation']:
+            assert r"\&" in exemplars_raw['punctuation'], filename + " Unescaped ampersand in punctuation exemplar"
+    if 'numbers' in exemplars:
+        if "-" in exemplars_raw['numbers']:
+            assert r"\-" in exemplars_raw['numbers'], filename + " Unescaped hyphen in numbers exemplar"
+    #there are probably more but I can't think of them atm
+
 def _duplicate_test(base, ldml, path=""):
     filename = os.path.basename(ldml.fname)    # get filename for reference
     idents = set()
