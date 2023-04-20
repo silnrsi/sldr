@@ -91,10 +91,14 @@ def test_syntax(ldml):
         exemplars_rawnocurly[t] = rawnocurly
         # The following lines test if unicode hex values in all exemplars are properly formatted
         for i in exemplars_rawnocurly[t]:
-            if r"\u" in i:
-                assert len(i)==6, filename + " unicode codepoint missing hex digits"
-            if r"\U" in i:
-                assert len(i)==10, filename + " unicode codepoint missing hex digits"
+            print(exemplars_rawnocurly)
+            if "\\" in i:
+                if r"\u" in i:
+                    assert len(i)==6, filename + " unicode codepoint missing hex digits"
+                if r"\U" in i:
+                    assert len(i)==10, filename + " unicode codepoint missing hex digits"
+                assert len(i)<3 or len(i)==6 or len(i)==10, filename + " unicode codepoint missing 'u' or 'U'"
+                #this last assert does assume that spaces were added between units in an exemplar, but so far nothing fails incorrectly because of that
     # The following lines are a test if characters are incorrectly unescaped.
     if 'punctuation' in exemplars:
         for p in exemplars_raw['punctuation']:
@@ -156,7 +160,7 @@ def _test_re(string):
 
 # the test below is Emily Code and may need tidying
 def test_re(ldml):
-    """ Test that exemplars are valid regular expressions: helps detect missing 'u' in unicode codepoints, some (but not all) unescaped special characters, and other errors """
+    """ Test that exemplars are valid regular expressions: helps detect some missing 'u' in unicode codepoints, some (but not all) unescaped special characters, and other errors """
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
