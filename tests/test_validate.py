@@ -109,7 +109,10 @@ def test_syntax(ldml):
         for n in exemplars_raw['numbers']:
             if "-" in n:
                 assert r"\-" in n, filename + " Unescaped hyphen in numbers exemplar"
-    #there are probably more but I can't think of them atm
+    # there are probably more but I can't think of them atm
+    # The problem with the two tests above is that if there are ranges that use hyphens intentionally, they'll ping as errors. 
+    # However we can't just test for "is it a valid regex" bc they might make a valid regex on accident. 
+    # Also it seems rare to include a range in punctuation and numbers, so if this false error does happen, it'll be very uncommon.
 
 def _duplicate_test(base, ldml, path=""):
     filename = os.path.basename(ldml.fname)    # get filename for reference
@@ -143,6 +146,7 @@ def _test_re(string):
     except re.error:
         return False
 
+# the test below is Emily Code and may need tidying
 def test_re(ldml):
     """ Test that exemplars are valid regular expressions: helps detect missing 'u' in unicode codepoints, some (but not all) unescaped special characters, and other errors """
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
