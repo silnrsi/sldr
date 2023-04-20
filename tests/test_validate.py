@@ -77,30 +77,37 @@ def test_syntax(ldml):
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     exemplars = {}
     exemplars_raw = {}
+    exemplars_rawnocurly = {}
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
-        raw = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        rawnocurly = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        raw = e.text[1:-1].strip().replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
         s = usets.parse(e.text or "", 'NFD')
         if not len(s):
             continue
         exemplars[t] = s[0]
         exemplars_raw[t] = raw
+        exemplars_rawnocurly[t] = rawnocurly
         # The following lines test if unicode hex values in all exemplars are properly formatted
-        for i in exemplars_raw[t]:
+        for i in exemplars_rawnocurly[t]:
             if r"\u" in i:
-                assert len(i)==6 or len(i)==10, filename + " unicode codepoint missing hex digits"
+                assert len(i)==6, filename + " unicode codepoint missing hex digits"
+            if r"\U" in i:
+                assert len(i)==10, filename + " unicode codepoint missing hex digits"
             # I'd also like to write a test that would detect if you were intending to write a unicode hex value but forgot the 'u' or something, but I can't think of how to make that work. 
     # The following lines are a test if characters are incorrectly unescaped.
     if 'punctuation' in exemplars:
-        if "-" in exemplars_raw['punctuation']:
-            assert r"\-" in exemplars_raw['punctuation'], filename + " Unescaped hyphen in punctuation exemplar"
-        if ":" in exemplars_raw['punctuation']:
-            assert r"\:" in exemplars_raw['punctuation'], filename + " Unescaped colon in punctuation exemplar"
-        if "&" in exemplars_raw['punctuation']:
-            assert r"\&" in exemplars_raw['punctuation'], filename + " Unescaped ampersand in punctuation exemplar"
+        for p in exemplars_raw['punctuation']:
+            if "-" in p:
+                assert r"\-" in p, filename + " Unescaped hyphen in punctuation exemplar"
+            if ":" in p:
+                assert r"\:" in p, filename + " Unescaped colon in punctuation exemplar"
+            if "&" in p:
+                assert r"\&" in p, filename + " Unescaped ampersand in punctuation exemplar"
     if 'numbers' in exemplars:
-        if "-" in exemplars_raw['numbers']:
-            assert r"\-" in exemplars_raw['numbers'], filename + " Unescaped hyphen in numbers exemplar"
+        for n in exemplars_raw['numbers']:
+            if "-" in n:
+                assert r"\-" in n, filename + " Unescaped hyphen in numbers exemplar"
     #there are probably more but I can't think of them atm
 
 def _duplicate_test(base, ldml, path=""):
