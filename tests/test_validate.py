@@ -105,14 +105,23 @@ def test_syntax(ldml):
                 assert r"\:" in p, filename + " Unescaped colon in punctuation exemplar"
             if "&" in p:
                 assert r"\&" in p, filename + " Unescaped ampersand in punctuation exemplar"
+            if "[" in p:
+                assert r"\[" in p, filename + " Unescaped square bracket in punctuation exemplar"
+            if "]" in p:
+                assert r"\]" in p, filename + " Unescaped square bracket in punctuation exemplar"
+            if "{" in p:
+                assert r"\{" in p, filename + " Unescaped curly bracket in punctuation exemplar"
+            if "}" in p:
+                assert r"\}" in p, filename + " Unescaped curly bracket in punctuation exemplar"
+            #not sure how to test for a non-escaped backslash since that's used intentionally EVERYWHERE. 
     if 'numbers' in exemplars:
         for n in exemplars_raw['numbers']:
             if "-" in n:
                 assert r"\-" in n, filename + " Unescaped hyphen in numbers exemplar"
     # there are probably more but I can't think of them atm
-    # The problem with the two tests above is that if there are ranges that use hyphens intentionally, they'll ping as errors. 
+    # The problem with the two tests above is that if there are ranges that use special characters intentionally, they'll ping as errors. 
     # However we can't just test for "is it a valid regex" bc they might make a valid regex on accident. 
-    # Also it seems rare to include a range in punctuation and numbers, so if this false error does happen, it'll be very uncommon.
+    # Also it seems rare to use special characters intentionally in punctuation and numbers, so if this false error does happen, it'll be very uncommon.
 
 def _duplicate_test(base, ldml, path=""):
     filename = os.path.basename(ldml.fname)    # get filename for reference
