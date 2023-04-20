@@ -95,7 +95,6 @@ def test_syntax(ldml):
                 assert len(i)==6, filename + " unicode codepoint missing hex digits"
             if r"\U" in i:
                 assert len(i)==10, filename + " unicode codepoint missing hex digits"
-            # I'd also like to write a test that would detect if you were intending to write a unicode hex value but forgot the 'u' or something, but I can't think of how to make that work. 
     # The following lines are a test if characters are incorrectly unescaped.
     if 'punctuation' in exemplars:
         for p in exemplars_raw['punctuation']:
