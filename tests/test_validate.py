@@ -148,7 +148,6 @@ def test_re(ldml):
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    exemplars = {}
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
@@ -156,6 +155,5 @@ def test_re(ldml):
         if not len(s):
             continue
         if t == None:
-            t = "Main"
-        print(rawstring)
+            t = "main"
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + t + " exemplar isn't a valid regex"
