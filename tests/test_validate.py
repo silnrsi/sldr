@@ -4,6 +4,7 @@ import logging, os
 from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 from unicodedata import normalize
+import re
 
 @pytest.fixture(scope="session")
 def validator(request):
@@ -81,7 +82,7 @@ def test_syntax(ldml):
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
         rawnocurly = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
-        raw = e.text[1:-1].strip().replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        raw = e.text[1:-1].strip().split(' ') # adapted from the "get index exemplar" section of test_collation.py
         s = usets.parse(e.text or "", 'NFD')
         if not len(s):
             continue
@@ -134,3 +135,26 @@ def test_duplicates(ldml):
     """ Test that no two elements have the same identifying feature values """
     _duplicate_test(ldml.ldml.root, ldml.ldml)
 
+def _test_re(string):
+    "Return True if string is a valid regular expression; False otherwise"
+    try:
+        x = re.compile(string)
+        return True
+    except re.error:
+        return False
+
+def test_re(ldml):
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    exemplars = {}
+    for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
+        t = e.get('type', None)
+        rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
+        s = usets.parse(e.text or "", 'NFD')
+        if not len(s):
+            continue
+        if t == None:
+            t = "Main"
+        print(rawstring)
+        assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + t + " exemplar isn't a valid regex"
