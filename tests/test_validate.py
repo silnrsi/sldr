@@ -136,7 +136,7 @@ def test_duplicates(ldml):
     _duplicate_test(ldml.ldml.root, ldml.ldml)
 
 def _test_re(string):
-    "Return True if string is a valid regular expression; False otherwise"
+    """ Return True if string is a valid regular expression; False otherwise """
     try:
         x = re.compile(string)
         return True
@@ -144,6 +144,7 @@ def _test_re(string):
         return False
 
 def test_re(ldml):
+    """ Test that exemplars are valid regular expressions: helps detect missing 'u' in unicode codepoints, some (but not all) unescaped special characters, and other errors """
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
