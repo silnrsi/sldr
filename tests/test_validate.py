@@ -81,52 +81,38 @@ def test_syntax(ldml):
     exemplars_rawnocurly = {}
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
-        n = t
-        if n == None:
-            n = "main"
-        rawnocurly = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
-        raw = e.text[1:-1].strip().split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        n = t or "main"
+        exemplars_rawnocurly[t] = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        exemplars_raw[t] = e.text[1:-1].strip().split(' ') # adapted from the "get index exemplar" section of test_collation.py
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
         s = usets.parse(e.text or "", 'NFD')
         if not len(s):
             continue
         exemplars[t] = s[0]
-        exemplars_raw[t] = raw
-        exemplars_rawnocurly[t] = rawnocurly
         # The following lines test if unicode hex values in all exemplars are properly formatted
         for i in exemplars_rawnocurly[t]:
             if "\\" in i:
                 if r"\u" in i:
-                    assert len(i)==6, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits"
+                    assert len(i)==6, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
                 if r"\U" in i:
-                    assert len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits"
+                    assert len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
                 #this next assert does assume that spaces were added between units in an exemplar, since exemplars_rawnocurly can only insert a space BEFORE a backslash. So far nothing fails incorrectly because of that
-                assert len(i)<3 or len(i)==6 or len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing 'u' or 'U'"
+                assert len(i)<3 or len(i)==6 or len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing 'u' or 'U': " + i
         # The following lines are a test if characters are incorrectly unescaped.
         # The problem with these coming tests is that if there are ranges that use special characters intentionally, they'll ping as errors. 
         # However we can't solely test for "is it a valid regex" bc they might make a valid regex on accident. 
         # Also it seems rare to use special characters intentionally in punctuation and numbers, so if this false error does happen, it'll be very uncommon.
         if 'punctuation' in exemplars:
             for p in exemplars_raw['punctuation']:
-                if "-" in p:
-                    assert r"\-" in p, filename + " Unescaped hyphen in punctuation exemplar"
-                if ":" in p:
-                    assert r"\:" in p, filename + " Unescaped colon in punctuation exemplar"
-                if "&" in p:
-                    assert r"\&" in p, filename + " Unescaped ampersand in punctuation exemplar"
-                if "[" in p:
-                    assert r"\[" in p, filename + " Unescaped square bracket in punctuation exemplar"
-                if "]" in p:
-                    assert r"\]" in p, filename + " Unescaped square bracket in punctuation exemplar"
-                if "{" in p:
-                    assert r"\{" in p, filename + " Unescaped curly bracket in punctuation exemplar"
-                if "}" in p:
-                    assert r"\}" in p, filename + " Unescaped curly bracket in punctuation exemplar"
+                for a in (("-", "hyphen"), (":", "colon"), ("&", "ampersand"), ("[", "square bracket"), ("]", "square bracket"), ("{", "curly bracket"), ("}", "curly bracket")):
+                    if a[0] in p:
+                        assert "\\"+a[0] in p, filename + " Unescaped " + a[1] + " in punctuation exemplar"
                 #not sure how to test for a non-escaped backslash since that's used intentionally EVERYWHERE. 
         if 'numbers' in exemplars:
             for n in exemplars_raw['numbers']:
-                if "-" in n:
-                    assert r"\-" in n, filename + " Unescaped hyphen in numbers exemplar"
+                for b in (("-", "hyphen"), (":", "colon")):
+                    if b[0] in n:
+                        assert "\\"+b[0] in n, filename + " Unescaped " + b[1] + " in numbers exemplar"
         # there are probably more but I can't think of them atm
         # Assert below tests that exemplars are valid regular expressions: it's a catch-all for anything the tests above might miss
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
@@ -171,8 +157,6 @@ def test_re(ldml):
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
-        n = t
+        n = t or "main"
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
-        if n == None:
-            n = "main"
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
