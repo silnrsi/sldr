@@ -56,11 +56,22 @@ def test_compautonym(ldml, langid):
 
 #   get autonym from langtags
     tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
-    lname_list = getattr(tagset, "localnames", None) #attempt to output the first in the list version, should be the same as the singular. 
-    lname_str = getattr(tagset, "localname", None) #outputs the singular autonym, for some reason they aren't updated atm so it's secondary.
+    lname_list = getattr(tagset, "localnames", None) 
+    lname_str = getattr(tagset, "localname", None) 
     lname = ""
     lname_text = ""
+    lname_list_text = []
+    multautonyms = False
     if lname_list is not None:
+        if len(lname_list) > 1: 
+            multautonyms = True
+        for x in lname_list:
+            x_text = unicodedata.normalize("NFD", x.lower())
+            if x_text == autonym_text:
+                return  #this says that if there are multiple autonyms in the list and ANY match, that's good enough for now
+            else:
+                lname_list_text.append(x_text)  #this makes a list of all the autonyms for assert message
+                lname_list_text_str = ', '.join(lname_list_text)
         lname = lname_list[0]
     elif lname_str is not None:
         lname = lname_str
@@ -71,6 +82,7 @@ def test_compautonym(ldml, langid):
 
     #at this point, autonym_text should either have the sldr autonym or be None, and lname_text should have the langtags autonym or be None. 
 
+
 #   compare autonyms
     if autonym_text == lname_text:
         return
@@ -80,9 +92,8 @@ def test_compautonym(ldml, langid):
     elif lname_text == None:
         assert False, filename + " SLDR autonym (" + autonym_text + ") missing from langtags.json, no autonym listed in langtags.json"
     else:
+        assert multautonyms == False, filename + " SLDR autonym (" + autonym_text + ") does not match any langtags autonyms (" + lname_list_text_str + ")"
         assert False, filename + " SLDR autonym (" + autonym_text + ") does not match langtags autonym (" + lname_text + ")"
-
-
 
     #test section for making sure variables work right
     print(lt) 
@@ -92,3 +103,24 @@ def test_compautonym(ldml, langid):
     print(lname_text) 
 
     #assert False, "test"
+
+    #extra test for theoretical addition of variant/alternative autonyms in sldr
+    if len(lname_list) > 1: 
+        # Insert Logic Here: Are ALL of these in the alt autonyms of sldr file? how to check that idk yet need to think about it this is just an idea. 
+        # maybe do a fixdata thing or something to add them in idk? 
+        assert False, filename + " blah blah something something missing stuff idk "
+
+
+# THIS WHOLE NEXT TEST IS SUPER SKECTH AND JUST A THOUGHT EXPERIMENT 
+def test_singvplu(ldml, langid):
+    """ this test basically asks which things in sldr do WE have autonyms listed for that ethnologue does not"""
+    """follow up question ideally is then to ask if we can confirm these are right and if so can we send them to ethnologue"""
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    lt = langtag(os.path.splitext(os.path.basename(langid))[0]) #gets basic langtag data based on file name
+    tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
+    lname_list = getattr(tagset, "localnames", None) 
+    lname_str = getattr(tagset, "localname", None)
+    if lname_list is None and lname_str is not None:
+        assert False, filename + "has an autonym when data pulled from Ethnologue has none"
