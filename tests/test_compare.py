@@ -19,10 +19,27 @@ exempt_lts = [
     "trq",
     "vau",
     # Retain after April/May 2023 Langtags release: 
+    "acr",
+    "amr",
+    "apb",
+    "bbk",
+    "blt_Latn",
     "bcw",
     "cof",
     "fmp",
+    "gdg",
+    "kek",
+    "lns",
     "mgc",
+    "mim",
+    "miz",
+    "mxb",
+    "mxv",
+    "mzp",
+    "she",
+    "stp",
+    "xtn",
+    "zpu",
 ]
 #   With each new langtags release, please CLEAR AND RESTART this list and update the date listed below.
 #   Most Recent Langtags Release: 16 Nov 2022  
