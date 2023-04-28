@@ -6,19 +6,23 @@ from langtag import langtag, lookup
 #   Since new information is not reflected in langtags.json until the following release, these files will always
 #   fail until the next release cycle and are therefore excluded from the test. 
 exempt_lts = [
+    # Clear after April/May 2023 Langtags release:
+    "ame",
     "apn",
-    "bcw",
     "byr",
     "cmo_Khmr",
-    "cof",
     "cok",
     "dwr",
     "dwr_Ethi", 
-    "fmp",
     "loy",
-    "mgc",
     "taq_Latn",
+    "trq",
+    "vau",
+    # Retain after April/May 2023 Langtags release: 
     "bcw",
+    "cof",
+    "fmp",
+    "mgc",
 ]
 #   With each new langtags release, please CLEAR AND RESTART this list and update the date listed below.
 #   Most Recent Langtags Release: 16 Nov 2022  
@@ -66,7 +70,7 @@ def test_compautonym(ldml, langid):
         if len(lname_list) > 1: 
             multautonyms = True
         for x in lname_list:
-            x_text = unicodedata.normalize("NFD", x.lower())
+            x_text = unicodedata.normalize("NFD", x.lower()).strip()
             if x_text == autonym_text:
                 return  #this says that if there are multiple autonyms in the list and ANY match, that's good enough for now
             else:
@@ -78,7 +82,7 @@ def test_compautonym(ldml, langid):
     else: 
         lname_text = None
     if lname_text is not None:
-        lname_text = unicodedata.normalize("NFD", lname.lower()) 
+        lname_text = unicodedata.normalize("NFD", lname.lower()).strip() 
 
     #at this point, autonym_text should either have the sldr autonym or be None, and lname_text should have the langtags autonym or be None. 
 
