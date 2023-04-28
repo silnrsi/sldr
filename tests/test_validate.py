@@ -159,4 +159,5 @@ def test_re(ldml):
         t = e.get('type', None)
         n = t or "main"
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
+        assert rawstring != "", filename + " " + n + " exemplar is empty"
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
