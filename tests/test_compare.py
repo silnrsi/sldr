@@ -6,19 +6,6 @@ from langtag import langtag, lookup
 #   Since new information is not reflected in langtags.json until the following release, these files will always
 #   fail until the next release cycle and are therefore excluded from the test. 
 exempt_lts = [
-    # Clear after April/May 2023 Langtags release:
-    "ame",
-    "apn",
-    "byr",
-    "cmo_Khmr",
-    "cok",
-    "dwr",
-    "dwr_Ethi", 
-    "loy",
-    "taq_Latn",
-    "trq",
-    "vau",
-    # Retain after April/May 2023 Langtags release: 
     "acr",
     "amr",
     "apb",
@@ -38,11 +25,12 @@ exempt_lts = [
     "mzp",
     "she",
     "stp",
+    "vau",
     "xtn",
     "zpu",
 ]
 #   With each new langtags release, please CLEAR AND RESTART this list and update the date listed below.
-#   Most Recent Langtags Release: 16 Nov 2022  
+#   Most Recent Langtags Release: 04 May 2023 
 
 def iscldr(ldml):
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
