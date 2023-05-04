@@ -104,7 +104,7 @@ def test_syntax(ldml):
         # Also it seems rare to use special characters intentionally in punctuation and numbers, so if this false error does happen, it'll be very uncommon.
         if 'punctuation' in exemplars:
             for p in exemplars_raw['punctuation']:
-                for a in (("-", "hyphen"), (":", "colon"), ("&", "ampersand"), ("[", "square bracket"), ("]", "square bracket"), ("{", "curly bracket"), ("}", "curly bracket")):
+                for a in (("-", "hyphen"), (":", "colon"), ("&", "ampersand"), ("[", "square bracket"), ("]", "square bracket"), ("{", "curly bracket"), ("}", "curly bracket"), ("$", "dollar sign")):
                     if a[0] in p:
                         assert "\\"+a[0] in p, filename + " Unescaped " + a[1] + " in punctuation exemplar"
                 #not sure how to test for a non-escaped backslash since that's used intentionally EVERYWHERE. 
