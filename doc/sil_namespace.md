@@ -320,6 +320,8 @@ The urls reference font resources either as .ttf or .woff files and are stored i
 |                |  If this attribute is missing it is assumed to be "gr ot", but if the font does not support Graphite, then the "gr" is, in effect, ignored. The primary purpose of this attribute is to give some indication to applications as to the level of text rendering support they need to supply for this font. This is particularly for Graphite only fonts. \[Default: ot\]  |
 | **subset**     | Specifies a subset name that can be used with this font in web contexts to use a font subset and reduce download time. I.e. if this attribute exists, an application may ignore it. |
 
+Due to an unfixable bug in Flex. The @name value must be unique in the list of sil:font in the sil:external-resources.
+
 For example:
 
 ```xml
