@@ -40,7 +40,7 @@ def iscldr(ldml):
 
 def test_compautonym(ldml, langid):
     """ Test if the autonym matches the autonym listed in langtags. This test assumes the file passes test_basic """
-#   NOTICE THAT THIS TEST REFERENCES THE BUILD VERSION OF LANGTAGS AND NOT THE WORKING COPY IN GITHUB
+#   NOTICE THAT THIS TEST REFERENCES THE LANGTAGS API AND NOT THE COPY IN GITHUB
     
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         return
@@ -91,7 +91,6 @@ def test_compautonym(ldml, langid):
 
     #at this point, autonym_text should either have the sldr autonym or be None, and lname_text should have the langtags autonym or be None. 
 
-
 #   compare autonyms
     if autonym_text == lname_text:
         return
@@ -110,8 +109,7 @@ def test_compautonym(ldml, langid):
     print(autonym_text is None) 
     print(lname) 
     print(lname_text) 
-
-    #assert False, "test"
+    assert False, "test"
 
     #extra test for theoretical addition of variant/alternative autonyms in sldr
     if len(lname_list) > 1: 
@@ -133,3 +131,14 @@ def test_singvplu(ldml, langid):
     lname_str = getattr(tagset, "localname", None)
     if lname_list is None and lname_str is not None:
         assert False, filename + "has an autonym when data pulled from Ethnologue has none"
+
+
+#note: this next test should definitely live somewhere else that isn't this particular file longterm but this is where i'm sticking it for now
+def test_redundantsil(ldml):
+    """this test is supposed to tell me if there is sil:external-resources blocks in a file that only otherwise has an id block"""
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    blocklist = []
+    for b in ldml.ldml.root:
+        blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+    if blocklist == ['identity', 'special']:
+        assert False, filename + " Redundant sil:external-resources detected"
