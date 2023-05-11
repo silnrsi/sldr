@@ -5,6 +5,7 @@
 #import logging, re, unicodedata
 #from lxml.etree import RelaxNG, parse, DocumentInvalid
 #import sldr.UnicodeSets as usets
+from langtag import langtag, lookup
 import os
 
 def iscldr(ldml):
@@ -13,11 +14,21 @@ def iscldr(ldml):
         return True
     return False
 
-def test_fontinfo(ldml):
+def isempty(ldml):
+    blocklist = []
+    for b in ldml.ldml.root:
+        blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+    if blocklist == ['identity']:
+        return True
+    return False
+
+def test_fontinfo(ldml, langid):
     """ Test that the LDML file has font information """
     if iscldr(ldml):    # short circuit CLDR for now
         return
+    if isempty(ldml):   #skips font test if file is only an identity block
+        return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-
+    
     fonts = ldml.ldml.findall("special/sil:external-resources/sil:font")
     assert len(fonts) > 0 , filename + " has no font information"
