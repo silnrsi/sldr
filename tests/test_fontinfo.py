@@ -33,14 +33,13 @@ def test_fontinfo(ldml, langid):
     def _has_sldr(root_tagset):
             return getattr(root_tagset, "sldr", None)
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    if filename == "test.xml" or "template.xml":
+    if filename == "test.xml" or filename == "template.xml":
         return
     
     def test_parents(langid):
         lt = langtag(os.path.splitext(os.path.basename(langid))[0]) #gets basic langtag data based on file name
         tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
-        variant_default = False
-        #this next section is for variants and other weirdness
+        #this next section is for variants, private use areas that don't refer back to their non-private versions in langtags, and other weirdness
         if tagset == "":
             print("no tagset found, shaving last langtag value to try to find it")
             r = str(lt).rfind('-')
