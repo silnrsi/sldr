@@ -34,14 +34,14 @@ def test_fontinfo(ldml, langid):
     def test_parents(langid):
         lt = langtag(os.path.splitext(os.path.basename(langid))[0]) #gets basic langtag data based on file name
         tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
-        lt_text = str(tagset) #technically never used, but kept just in case need to compare old & new
+        lt_text = str(tagset) #technically never used, but kept just in case need to compare old & new if test is updated or made more complex later
         root_tag = lt_text
         root_tagset = tagset
         
         def _has_sldr(root_tagset):
             return getattr(root_tagset, "sldr", None)
         
-        print("pre-test")
+        print("data pre-test")
         print(root_tag)
         print(root_tagset)
         print(root_tagset.script)
@@ -51,18 +51,17 @@ def test_fontinfo(ldml, langid):
             if r > 0:
                 root_tag = root_tag[:r]
             root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
-            print("removed private:")
+            print("after removed private:")
             print(root_tag)
             print(root_tagset)
             return root_tag, root_tagset
-        ### i feel like this is unncessary except for the fact that the x will confuse things i think hmmm       
 
         def _trim_tag(root_tag, root_tagset):
             r = root_tag.rfind('-')
             if r > 0:
                 root_tag_temp = root_tag[:r]
                 root_tagset_temp = lookup(str(root_tag_temp).replace("_", "-"), default="", matchRegions=False)
-                print("tag trim iteration:")
+                print("after a tag trim iteration:")
                 print(root_tag_temp)
                 print(root_tagset_temp)
                 print(root_tagset_temp.script)
