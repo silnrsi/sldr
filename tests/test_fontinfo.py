@@ -25,21 +25,47 @@ def isempty(ldml):
 
 def test_fontinfo(ldml, langid):
     """ Test that the LDML file has font information """
+
 #    if iscldr(ldml):    # short circuit CLDR for now
 #        return
     if isempty(ldml):   #skips font test if file is only an identity block
         return
+    def _has_sldr(root_tagset):
+            return getattr(root_tagset, "sldr", None)
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    if filename == "test.xml" or "template.xml":
+        return
     
     def test_parents(langid):
         lt = langtag(os.path.splitext(os.path.basename(langid))[0]) #gets basic langtag data based on file name
         tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
+        variant_default = False
+        #this next section is for variants and other weirdness
+        if tagset == "":
+            print("no tagset found, shaving last langtag value to try to find it")
+            r = str(lt).rfind('-')
+            variant = str(lt)[r+1:]
+            lt_trim = str(lt)[:r]
+            tagset = lookup(str(lt_trim).replace("_", "-"), default="", matchRegions=True)
+            if tagset == "":
+                r = str(lt).rfind('-x-')
+                lt_trim = str(lt)[:r]
+                tagset = lookup(str(lt_trim).replace("_", "-"), default="", matchRegions=True)
+                if _has_sldr(tagset):
+                    return True
+                else: 
+                    return False
+            if variant == "001":
+                #this is redundant to the normal value without the 001 on it, so... don't test bc it should be the normal one that's tested
+                return True
+            if hasattr(tagset, "variants") and variant in tagset.variants:
+                if _has_sldr(tagset):
+                    return True
+                else: 
+                    return False
         lt_text = str(tagset) #technically never used, but kept just in case need to compare old & new if test is updated or made more complex later
         root_tag = lt_text
         root_tagset = tagset
-        
-        def _has_sldr(root_tagset):
-            return getattr(root_tagset, "sldr", None)
         
         print("data pre-test")
         print(root_tag)
@@ -47,7 +73,7 @@ def test_fontinfo(ldml, langid):
         print(root_tagset.script)
 
         def _remove_private(root_tag):
-            r = root_tag.rfind('-x')
+            r = root_tag.rfind('-x-')
             if r > 0:
                 root_tag = root_tag[:r]
             root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
@@ -82,11 +108,15 @@ def test_fontinfo(ldml, langid):
                     root_tagset = root_tagset_temp
             else:
                 print("no more trimming, final root is the last one we trimmed!")
-            return root_tag, root_tagset            
+            return root_tag, root_tagset        
 
         root_tag, root_tagset = _remove_private(root_tag)
         root_tag, root_tagset = _trim_tag(root_tag, root_tagset)
-        
+        root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
+
+        print(root_tag)
+        print(root_tagset)
+        print(tagset)
         if root_tagset == tagset:
             print("this is the root tagset, proceed to test for font!")
             return False
