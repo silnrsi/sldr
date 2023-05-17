@@ -8,6 +8,14 @@
 from langtag import langtag, lookup
 import os
 from sldr.ldml import Ldml, _alldrafts
+from test_parents import find_parents
+#change this once the stuff has a new home
+
+exempt = [
+    "test.xml",
+    "template.xml",
+    "exemplar_template.xml"
+]
 
 def iscldr(ldml):
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
@@ -30,98 +38,15 @@ def test_fontinfo(ldml, langid):
 #        return
     if isempty(ldml):   #skips font test if file is only an identity block
         return
-    def _has_sldr(root_tagset):
-            return getattr(root_tagset, "sldr", None)
-    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    if filename == "test.xml" or filename == "template.xml":
-        return
     
-    def test_parents(langid):
-        lt = langtag(os.path.splitext(os.path.basename(langid))[0]) #gets basic langtag data based on file name
-        tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
-        #this next section is for variants, private use areas that don't refer back to their non-private versions in langtags, and other weirdness
-        if tagset == "":
-            print("no tagset found, shaving last langtag value to try to find it")
-            r = str(lt).rfind('-')
-            variant = str(lt)[r+1:]
-            lt_trim = str(lt)[:r]
-            tagset = lookup(str(lt_trim).replace("_", "-"), default="", matchRegions=True)
-            if tagset == "":
-                r = str(lt).rfind('-x-')
-                lt_trim = str(lt)[:r]
-                tagset = lookup(str(lt_trim).replace("_", "-"), default="", matchRegions=True)
-                if _has_sldr(tagset):
-                    return True
-                else: 
-                    return False
-            if variant == "001":
-                #this is redundant to the normal value without the 001 on it, so... don't test bc it should be the normal one that's tested
-                return True
-            if hasattr(tagset, "variants") and variant in tagset.variants:
-                if _has_sldr(tagset):
-                    return True
-                else: 
-                    return False
-        lt_text = str(tagset) #technically never used, but kept just in case need to compare old & new if test is updated or made more complex later
-        root_tag = lt_text
-        root_tagset = tagset
-        
-        print("data pre-test")
-        print(root_tag)
-        print(root_tagset)
-        print(root_tagset.script)
-
-        def _remove_private(root_tag):
-            r = root_tag.rfind('-x-')
-            if r > 0:
-                root_tag = root_tag[:r]
-            root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
-            print("after removed private:")
-            print(root_tag)
-            print(root_tagset)
-            return root_tag, root_tagset
-
-        def _trim_tag(root_tag, root_tagset):
-            r = root_tag.rfind('-')
-            if r > 0:
-                root_tag_temp = root_tag[:r]
-                root_tagset_temp = lookup(str(root_tag_temp).replace("_", "-"), default="", matchRegions=False)
-                print("after a tag trim iteration:")
-                print(root_tag_temp)
-                print(root_tagset_temp)
-                print(root_tagset_temp.script)
-                if root_tagset_temp == root_tagset:
-                    print("tagsets still match, trim again!")
-                    _trim_tag(root_tag_temp, root_tagset)
-                elif root_tagset_temp.script == root_tagset.script:
-                    if _has_sldr(root_tagset_temp):
-                        print("new root found with sldr file :)")
-                        root_tag = root_tag_temp
-                    print("scripts still match, trim again!")
-                    _trim_tag(root_tag_temp, root_tagset)
-                elif root_tagset_temp == "":
-                    print("no tagset found that matches, idk how bc that's not how it works but this error is here anyway just in case")
-                    _trim_tag(root_tag_temp, root_tagset)
-                else:
-                    print("trimmed file has different script OR has no sldr file, final root tag is the last one we trimmed!")
-                    root_tagset = root_tagset_temp
-            else:
-                print("no more trimming, final root is the last one we trimmed!")
-            return root_tag, root_tagset        
-
-        root_tag, root_tagset = _remove_private(root_tag)
-        root_tag, root_tagset = _trim_tag(root_tag, root_tagset)
-        root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
-
-        print(root_tag)
-        print(root_tagset)
-        print(tagset)
-        if root_tagset == tagset:
-            print("this is the root tagset, proceed to test for font!")
-            return False
-        return True
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    for x in exempt:
+        if filename == x:
+            return
             
-    if test_parents(langid):
-        return    
-    fonts = ldml.ldml.findall("special/sil:external-resources/sil:font")
-    assert len(fonts) > 0 , filename + " has no font information"
+    is_root = find_parents(langid, False, True, True, False)[0]
+    if is_root == False:
+        return
+    else:
+        fonts = ldml.ldml.findall("special/sil:external-resources/sil:font")
+        assert len(fonts) > 0 , filename + " has no font information"
