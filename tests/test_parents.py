@@ -24,7 +24,27 @@ def trim_tag(root_tag):
         trimmable = False
     return root_tag_trim, trimmable
 
-def find_parents(langid, to_root = True, needs_sldr = False, match_script = True, match_region = False):
+def mintag_file(langid, prev_tagset):
+    mintags = [str(getattr(prev_tagset, "tag", None))]
+    tags = getattr(prev_tagset, "tags", None)
+    this_file = str(os.path.splitext(os.path.basename(langid).replace("_", "-"))[0])
+    redundant = False
+    for tag in tags:
+        mintags.append(str(tag))
+    print(mintags)
+    for mintag in mintags:
+        if mintag != this_file:
+            mintag_file = os.path.join("..", "sldr", (mintag[0]), (mintag.replace("-", "_") + ".xml"))
+            print(mintag_file)
+            print(os.path.isfile(mintag_file))
+            print(mintag)
+            if os.path.isfile(mintag_file):
+                redundant = True
+                break
+    print(redundant)
+    return redundant
+
+def find_parents(langid, to_root = True, needs_sldr = False, match_script = True, match_region = False):    
     """ 
         Parameters: 
             to_root:        If true, will go all the way to the root. If false, will stop if it can just find one parent file. 
@@ -67,20 +87,30 @@ def find_parents(langid, to_root = True, needs_sldr = False, match_script = True
     print(root_tag)
     print(root_tagset)
     print(root_tagset.script)
+    redundancies = []
+
 
     def parent_loop(root_tag:str, root_tagset, to_root = True, needs_sldr = False, match_script = True, match_region = False, ran_private = False):
         prev_tagset = lookup(root_tag.replace("_", "-"), default="", matchRegions=False) 
         if ran_private == False:
+            redundant = False
+            print("remove private")
             root_tag_trim, ran_private = _remove_private(root_tag)
+            print(root_tag)
+            print(root_tag_trim) 
         else:
+            redundant = mintag_file(langid, prev_tagset)
+            redundancies.append(redundant)
+            if redundant and (to_root == False):
+                return root_tag, redundancies
             root_tag_trim, trimmable = trim_tag(root_tag)
+            print("after a tag trim iteration:")
+            print(root_tag)
+            print(root_tag_trim)   
             if trimmable == False:
                 print("no more trimming, final parent is the last one we trimmed!")
-                return root_tag
+                return root_tag, redundant
         root_tagset_temp = lookup(str(root_tag_trim).replace("_", "-"), default="", matchRegions=False)
-        print("after a tag trim iteration:")
-        print(root_tag)
-        print(root_tag_trim)
         print(root_tagset_temp)
         if root_tagset_temp == root_tagset or root_tagset_temp == prev_tagset:
             print("tagsets still match, trim again!")
@@ -116,12 +146,17 @@ def find_parents(langid, to_root = True, needs_sldr = False, match_script = True
             print("no tagset found that matches, idk how bc that's not how it works but this error is here anyway just in case")
             parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
         root_tag = parent_path[-1]
-        return root_tag     
+        print(redundancies)
+        return root_tag, redundancies  
 
-    root_tag = parent_loop(root_tag, root_tagset, to_root, needs_sldr, match_script, match_region)
+    root_tag, redundancies = parent_loop(root_tag, root_tagset, to_root, needs_sldr, match_script, match_region)
     root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
     is_root = False
-    if root_tagset == tagset:
+    if redundancies == []:
+        redundant = False
+    else:
+        redundant = redundancies[-1]
+    if root_tagset == tagset and redundant == False:
         is_root = True
 
     print("final results")

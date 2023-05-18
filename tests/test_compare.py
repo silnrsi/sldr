@@ -1,6 +1,9 @@
 import os
 import logging, os, re, unicodedata
 from langtag import langtag, lookup
+from test_parents import find_parents
+#change this once the find parent stuff has a new home
+
 
 #   IMPORTANT: 'exempt_lts' is a list of langtags that have been updated with new information in the most recent release cycle.
 #   Since new information is not reflected in langtags.json until the following release, these files will always
@@ -31,6 +34,12 @@ exempt_lts = [
 ]
 #   With each new langtags release, please CLEAR AND RESTART this list and update the date listed below.
 #   Most Recent Langtags Release: 04 May 2023 
+
+exempt_always = [
+    "test.xml",
+    "template.xml",
+    "exemplar_template.xml"
+]
 
 def iscldr(ldml):
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
@@ -134,11 +143,15 @@ def test_singvplu(ldml, langid):
 
 
 #note: this next test should definitely live somewhere else that isn't this particular file longterm but this is where i'm sticking it for now
-def test_redundantsil(ldml):
+def test_redundantsil(ldml, langid):
     """this test is supposed to tell me if there is sil:external-resources blocks in a file that only otherwise has an id block"""
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    for x in exempt_always:
+        if filename == x:
+            return
     blocklist = []
+    is_root = find_parents(langid, False, True, True, False)[0]
     for b in ldml.ldml.root:
         blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
-    if blocklist == ['identity', 'special']:
+    if blocklist == ['identity', 'special'] and is_root == False:
         assert False, filename + " Redundant sil:external-resources detected"

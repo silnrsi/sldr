@@ -9,7 +9,7 @@ from langtag import langtag, lookup
 import os
 from sldr.ldml import Ldml, _alldrafts
 from test_parents import find_parents
-#change this once the stuff has a new home
+#change this once the find parent stuff has a new home
 
 exempt = [
     "test.xml",
