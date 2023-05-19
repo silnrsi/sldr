@@ -16,9 +16,11 @@ def _remove_private(root_tag):
 
 def trim_tag(root_tag):
     r = root_tag.rfind('-')
-    root_tag_trim = ""
+    root_tag_trim = root_tag
     if r > 0:
         root_tag_trim = root_tag[:r]
+    c = root_tag_trim.count('-')
+    if c > 0:
         trimmable = True
     else:
         trimmable = False
@@ -29,6 +31,8 @@ def mintag_file(langid, prev_tagset):
     tags = getattr(prev_tagset, "tags", None)
     this_file = str(os.path.splitext(os.path.basename(langid).replace("_", "-"))[0])
     redundant = False
+    if mintags[0] == this_file:
+        return redundant
     for tag in tags:
         mintags.append(str(tag))
     print(mintags)
@@ -41,7 +45,7 @@ def mintag_file(langid, prev_tagset):
             if os.path.isfile(mintag_file):
                 redundant = True
                 break
-    print(redundant)
+    print("is redunant?:" + str(redundant))
     return redundant
 
 def find_parents(langid, to_root = True, needs_sldr = False, match_script = True, match_region = False):    
@@ -82,85 +86,88 @@ def find_parents(langid, to_root = True, needs_sldr = False, match_script = True
     root_tag = lt_text
     root_tagset = tagset
     parent_path = [root_tag]
+    print(root_tag.count('-'))
     
     print("data pre-test")
     print(root_tag)
     print(root_tagset)
     print(root_tagset.script)
-    redundancies = []
 
-
-    def parent_loop(root_tag:str, root_tagset, to_root = True, needs_sldr = False, match_script = True, match_region = False, ran_private = False):
-        prev_tagset = lookup(root_tag.replace("_", "-"), default="", matchRegions=False) 
-        if ran_private == False:
-            redundant = False
-            print("remove private")
-            root_tag_trim, ran_private = _remove_private(root_tag)
-            print(root_tag)
-            print(root_tag_trim) 
+    def parent_loop(root_tag:str, root_tagset, to_root = True, needs_sldr = False, match_script = True, match_region = False):
+        trimmable = True
+        ran_private = False
+        redundant = False
+        root_tag_temp = root_tag
+        while trimmable:
+            prev_tagset = lookup(root_tag_temp.replace("_", "-"), default="", matchRegions=False)
+            if ran_private == False:
+                redundant = False
+                print("remove private")
+                root_tag_trim, ran_private = _remove_private(root_tag_temp)
+                print(root_tag)
+                print(root_tag_trim) 
+            else:
+                redundant = mintag_file(langid, prev_tagset)
+                if redundant and (to_root == False):
+                    return root_tag, redundant
+                root_tag_trim, trimmable = trim_tag(root_tag_temp)
+                print("after a tag trim iteration:")
+                print(root_tag)
+                print(root_tag_trim) 
+            root_tag_temp = root_tag_trim
+            root_tagset_temp = lookup(str(root_tag_trim).replace("_", "-"), default="", matchRegions=False)
+            print(root_tagset_temp)
+            if root_tagset_temp == root_tagset or root_tagset_temp == prev_tagset:
+                print("tagsets still match, trim again!")
+                continue
+            elif match_region and match_script == False:
+                if root_tagset_temp.region == root_tagset.region:
+                    if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
+                        print("new parent found")
+                        root_tag = root_tag_trim
+                        parent_path.append(root_tag)
+                        if to_root == False:
+                            return root_tag, redundant
+                    if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
+                        print("regions still match, trim again!")
+                        continue
+            elif match_script and match_region == False:
+                if root_tagset_temp.script == root_tagset.script:
+                    if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
+                        print("new parent found")
+                        root_tag = root_tag_trim
+                        parent_path.append(root_tag)
+                        if to_root == False:
+                            return root_tag, redundant
+                    if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
+                        print("scripts still match, trim again!")
+                        continue
+            elif match_region and match_script:
+                if (root_tagset_temp.script == root_tagset.script) and (root_tagset_temp.region == root_tagset.region):
+                    if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
+                        print("new parent found")
+                        root_tag = root_tag_trim
+                        parent_path.append(root_tag)
+                        if to_root == False:
+                            return root_tag, redundant
+                    if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
+                        print("scripts and regions still match, trim again!")
+                        continue
+            elif root_tagset_temp == "":
+                print("no tagset found that matches, idk how bc that's not how it works but this error is here anyway just in case")
+                continue
         else:
-            redundant = mintag_file(langid, prev_tagset)
-            redundancies.append(redundant)
-            if redundant and (to_root == False):
-                return root_tag, redundancies
-            root_tag_trim, trimmable = trim_tag(root_tag)
-            print("after a tag trim iteration:")
-            print(root_tag)
-            print(root_tag_trim)   
-            if trimmable == False:
-                print("no more trimming, final parent is the last one we trimmed!")
-                return root_tag, redundant
-        root_tagset_temp = lookup(str(root_tag_trim).replace("_", "-"), default="", matchRegions=False)
-        print(root_tagset_temp)
-        if root_tagset_temp == root_tagset or root_tagset_temp == prev_tagset:
-            print("tagsets still match, trim again!")
-            parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
-        elif match_region and match_script == False:
-            if root_tagset_temp.region == root_tagset.region:
-                if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
-                    print("new parent found")
-                    root_tag = root_tag_trim
-                    parent_path.append(root_tag)
-                if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
-                    print("regions still match, trim again!")
-                    parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
-        elif match_script and match_region == False:
-            if root_tagset_temp.script == root_tagset.script:
-                if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
-                    print("new parent found")
-                    root_tag = root_tag_trim
-                    parent_path.append(root_tag)
-                if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
-                    print("scripts still match, trim again!")
-                    parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
-        elif match_region and match_script:
-            if (root_tagset_temp.script == root_tagset.script) and (root_tagset_temp.region == root_tagset.region):
-                if (needs_sldr and _has_sldr(root_tagset_temp)) or needs_sldr == False:
-                    print("new parent found")
-                    root_tag = root_tag_trim
-                    parent_path.append(root_tag)
-                if to_root or (needs_sldr and (_has_sldr(root_tagset_temp) == False)):
-                    print("scripts and regions still match, trim again!")
-                    parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
-        elif root_tagset_temp == "":
-            print("no tagset found that matches, idk how bc that's not how it works but this error is here anyway just in case")
-            parent_loop(root_tag_trim, root_tagset, to_root, needs_sldr, match_script, match_region, ran_private)
-        root_tag = parent_path[-1]
-        print(redundancies)
-        return root_tag, redundancies  
+            print("no more trimming, final parent is the last one we trimmed!")
+            return root_tag, redundant
 
-    root_tag, redundancies = parent_loop(root_tag, root_tagset, to_root, needs_sldr, match_script, match_region)
+    root_tag, redundant = parent_loop(root_tag, root_tagset, to_root, needs_sldr, match_script, match_region)
     root_tagset = lookup(str(root_tag).replace("_", "-"), default="", matchRegions=False)
     is_root = False
-    if redundancies == []:
-        redundant = False
-    else:
-        redundant = redundancies[-1]
     if root_tagset == tagset and redundant == False:
         is_root = True
 
     print("final results")
-    print(is_root)
+    print("is root?:" + str(is_root))
     print(root_tag)
     print(root_tagset)
     print(parent_path)
