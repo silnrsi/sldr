@@ -68,7 +68,10 @@ def test_compautonym(ldml, langid):
     autonym_text = ""
     if names is not None: 
         autonym = names.findall('language[@type="{0}"]'.format(lid)) #after this if there is no autonym it returns none
-        autonym_text = unicodedata.normalize("NFD", autonym[0].text.lower())
+        if autonym == []:
+            autonym_text = None
+        else:
+            autonym_text = unicodedata.normalize("NFD", autonym[0].text.lower())
     else:
         autonym_text = None
 
