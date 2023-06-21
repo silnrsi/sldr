@@ -178,3 +178,5 @@ def test_findwirl(ldml, langid):
     #ideally a lot of these can be swapped out by just going "hey just replace the main link bit before the last slash with the new lff url and get rid of the type if needed"
     #except some have new names on the back too so nope
     #is there a way to swap them all out with a dictionary reference? probably but i need to figure out how
+    #also if we do do that swap via code, that code will need to be run with the wirl_swap branch open, not the pytests one that this lives on atm
+    #just a heads up for future me :)
