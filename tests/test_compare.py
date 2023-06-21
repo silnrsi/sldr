@@ -158,3 +158,23 @@ def test_redundantsil(ldml, langid):
         blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
     if blocklist == ['identity', 'special'] and is_root == False:
         assert False, filename + " Redundant sil:external-resources detected"
+
+def test_findwirl(ldml, langid):
+    """this test finds wirl links and tells me which fonts need their links replaced"""
+    filename = os.path.basename(ldml.ldml.fname)
+    wirllist = []
+    for i in ldml.ldml.root.findall("special/sil:external-resources/sil:font/sil:url", {v:k for k,v in ldml.ldml.namespaces.items()}):
+        link = i.text
+        if "wirl" in link:
+            if link.rfind('&') == -1:
+                name = link[(link.rfind('.org/')+5):]
+            else:
+                name = link[(link.rfind('.org/')+5):(link.rfind('&'))]
+            wirllist.append(name)
+    assert wirllist == [], "Replace wirl link(s) in " + str(wirllist) + " in " + filename
+    #oh no that's a lot of things needing replacing
+    #i think its time to learn how to automate this and make the script do it for me huh
+
+    #ideally a lot of these can be swapped out by just going "hey just replace the main link bit before the last slash with the new lff url and get rid of the type if needed"
+    #except some have new names on the back too so nope
+    #is there a way to swap them all out with a dictionary reference? probably but i need to figure out how
