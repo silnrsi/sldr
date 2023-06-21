@@ -8,7 +8,6 @@
 from langtag import langtag, lookup
 import os
 from sldr.ldml import Ldml, _alldrafts
-#from test_parents import find_parents
 from sldr.utils import find_parents
 #change this once the find parent stuff has a new home
 
