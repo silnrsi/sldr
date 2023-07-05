@@ -118,7 +118,9 @@ def test_syntax(ldml):
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
 
 def test_composed (ldml):
-    """Tests if the exemplars have diacritics listed separately rather than in their composed form"""
+    """Tests if the exemplars have diacritics listed separately rather than in their composed form. Only tests Latn diacritics atm"""
+#    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+#        return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     comb_diacritics = ["\u0300","\u0301","\u0302","\u0303","\u0304","\u0305","\u0306","\u0307",
                   "\u0308","\u0309","\u030A","\u030B","\u030C","\u030D","\u030E","\u030F",
@@ -145,6 +147,12 @@ def test_composed (ldml):
         t = e.get('type', None)
         n = t or "main"
         print (t)
+        print(n)
+        print(e.text)
+        if n == "punctuation" or n == "numbers":
+            continue
+        if not len(usets.parse(e.text, 'NFC')):
+            continue
         exemplars[n] = usets.parse(e.text, 'NFC')[0].asSet()
         print(exemplars[n])
         for c in exemplars[n]:
