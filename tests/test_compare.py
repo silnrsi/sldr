@@ -166,7 +166,8 @@ def test_namewrong(ldml, langid):
         return
     url = "https://raw.githubusercontent.com/silnrsi/fonts/main/families.json"
     familiesjson = requests.get(url).json()
-    goodnames = ["Charis SIL Literacy", "Charis SIL Mali"]
+    goodnames = ["Charis SIL Literacy", "Charis SIL Mali", "Khmer Barkaew", "Khmer Dakdam"]
+        #   add/remove exceptions to this list as needed
     for keys, value in familiesjson.items():
         if "status" not in value.keys() and value["distributable"] == True:
             goodnames.append(value["family"])
