@@ -1,4 +1,5 @@
-import os
+import os, json
+import requests
 import logging, os, re, unicodedata
 from langtag import langtag, lookup
 from sldr.utils import find_parents
@@ -159,24 +160,28 @@ def test_redundantsil(ldml, langid):
     if blocklist == ['identity', 'special'] and is_root == False:
         assert False, filename + " Redundant sil:external-resources detected"
 
-def test_findwirl(ldml, langid):
-    """this test finds wirl links and tells me which fonts need their links replaced"""
+def test_namewrong(ldml, langid):
     filename = os.path.basename(ldml.ldml.fname)
-    wirllist = []
-    for i in ldml.ldml.root.findall("special/sil:external-resources/sil:font/sil:url", {v:k for k,v in ldml.ldml.namespaces.items()}):
-        link = i.text
-        if "wirl" in link:
-            if link.rfind('&') == -1:
-                name = link[(link.rfind('.org/')+5):]
-            else:
-                name = link[(link.rfind('.org/')+5):(link.rfind('&'))]
-            wirllist.append(name)
-    assert wirllist == [], "Replace wirl link(s) in " + str(wirllist) + " in " + filename
-    #oh no that's a lot of things needing replacing
-    #i think its time to learn how to automate this and make the script do it for me huh
-
-    #ideally a lot of these can be swapped out by just going "hey just replace the main link bit before the last slash with the new lff url and get rid of the type if needed"
-    #except some have new names on the back too so nope
-    #is there a way to swap them all out with a dictionary reference? probably but i need to figure out how
-    #also if we do do that swap via code, that code will need to be run with the wirl_swap branch open, not the pytests one that this lives on atm
-    #just a heads up for future me :)
+    if ldml.ldml.root.findall("special/sil:external-resources/sil:font", {v:k for k,v in ldml.ldml.namespaces.items()}) is None:
+        return
+    url = "https://raw.githubusercontent.com/silnrsi/fonts/main/families.json"
+    familiesjson = requests.get(url).json()
+    goodnames = ["Charis SIL Literacy", "Charis SIL Mali"]
+    for keys, value in familiesjson.items():
+        if "status" not in value.keys() and value["distributable"] == True:
+            goodnames.append(value["family"])
+        if "status" in value.keys() and value["status"] == "current":
+            goodnames.append(value["family"])
+    #    if "status" in value.keys() and value["status"] == "archived":
+    #        goodnames.append(value["family"])
+#    print(goodnames)
+    badnames = []
+    for i in ldml.ldml.root.findall("special/sil:external-resources/sil:font", {v:k for k,v in ldml.ldml.namespaces.items()}):
+        name = i.get("name", None)
+#        print(name)
+        print("Namdhinggo SIL" in goodnames)
+        if name not in goodnames:
+            badnames.append(name)
+#    print(badnames)
+#    print(len(badnames)<1)
+    assert (len(badnames) < 1), filename + " has one or more fonts with depreciated names: " + str(badnames)
