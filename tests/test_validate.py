@@ -190,16 +190,3 @@ def _test_re(string):
         return True
     except re.error:
         return False
-
-# the test below is REDUNDANT and now is done with at the end of the syntax test. 
-def test_re(ldml):
-    """ Test that exemplars are valid regular expressions: helps detect some missing 'u' in unicode codepoints, some (but not all) unescaped special characters, and other errors """
-    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
-        return
-    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
-        t = e.get('type', None)
-        n = t or "main"
-        rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
-        assert rawstring != "", filename + " " + n + " exemplar is empty"
-        assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
