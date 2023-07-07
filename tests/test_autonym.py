@@ -61,7 +61,20 @@ def test_autonym(ldml):
         return
 #   The real test: is every character in lower case version of autonym in main exemplar?
     mainre = "^(" + "|".join(sorted(main, key=lambda x: (-len(x), x)) + ["\\s", ",", "-"] + [x for x in allowed_chars.get(lid,"")]) + ")*$"
+    fullmain = []
+    missing = ""
+    missingcode = ""
+    if allowed_chars.get(lid,"") != "":
+        fullmain = sorted(main) +["\\s", ",", "-"] + [x for x in allowed_chars.get(lid,"")]
+    else:
+        fullmain = sorted(main) + ["\\s", ",", "-"]
+    for c in autonym_text:
+        if c not in fullmain and c not in missing:
+            missing = missing + " " + c
+            missingcode = missingcode + "U+" + format(ord(c), '04x') + ", "
+#    assert re.match(mainre, autonym_text) is not None, \
+#                filename + " " + lid + ": Name of language (" + autonym_text \
+#                + ") contains characters not in main exemplar " + main_exem
     assert re.match(mainre, autonym_text) is not None, \
                 filename + " " + lid + ": Name of language (" + autonym_text \
-                + ") contains characters not in main exemplar " + main_exem
-
+                + ") contains characters [" + missing + " ] (Codepoints: " + missingcode[:-2] + ") which are not in main exemplar " + main_exem
