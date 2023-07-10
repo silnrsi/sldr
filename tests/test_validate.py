@@ -117,7 +117,7 @@ def test_syntax(ldml):
         # Assert below tests that exemplars are valid regular expressions: it's a catch-all for anything the tests above might miss
         assert _test_re("\"\"[" + rawstring + "]\"\""), filename + " " + n + " exemplar isn't a valid regex"
 
-def test_composed (ldml):
+def test_diacritics (ldml):
     """Tests if the exemplars have diacritics listed separately rather than in their composed form. Only tests Latn diacritics atm"""
 #    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
 #        return
