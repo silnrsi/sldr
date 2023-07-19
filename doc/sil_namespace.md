@@ -231,13 +231,13 @@ For example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:font name="Scheherazade" engines="gr ot" types="default">
-            <sil:url>https://wirl.api.sil.org/Scheherazade</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/scheherazadenew</sil:url>
         </sil:font>
         <sil:kbd id="TunisianSpokenArabic" type="kmp">
-            <sil:url>https://wirl.api.sil.org/TunisianSpokenArabic</sil:url>
+            <sil:url>https://keyman.com/keyboards/install/sil_tunisian</sil:url>
         </sil:kbd>
         <sil:spell-checking type="hunspell">
-            <sil:url>https://wirl.api.sil.org/aeb-DictList</sil:url>
+            <sil:url>https://github.com/silnrsi/wsresources/tree/master/langs/a/aeb/hunspell</sil:url>
         </sil:spell-checking>
     </sil:external-resources>
 </special>
@@ -328,7 +328,7 @@ For example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:font name="Padauk" types="default">
-            <sil:url>http://wirl.scripts.sil.org/padauk</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/padauk</sil:url>
         </sil:font>
     </sil:external-resources>
 </special>
@@ -399,7 +399,7 @@ Example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:spell-checking type="hunspell">
-            <sil:url>https://wirl.api.sil.org/af_ZA-DictList</sil:url>
+            <sil:url>https://github.com/silnrsi/wsresources/tree/master/langs/a/af/hunspell</sil:url>
         </sil:spell-checking>
     </sil:external-resources>
 </special>
@@ -972,7 +972,7 @@ LDML has a special element that can occur: alias. Details may be found here [*ht
 <special>
     <sil:external-resources>
         <sil:font name="Padauk" engines="gr ot" type="default">
-            <sil:url>http://wirl.scripts.sil.org/padauk</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/padauk</sil:url>
         </sil:font>
         <sil:font name="Padauk" engines="gt ot" type="bodytext">
             <alias source="locale" path="../sil:font\[@type='default'\]"/>
