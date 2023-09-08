@@ -13,27 +13,36 @@ exempt_lts = [
     "acr",
     "amr",
     "apb",
+    "bap",
     "bbk",
     "blt_Latn",
+    "bmr",
     "bcw",
     "cof",
     "fmp",
     "gdg",
+    "god",
     "kek",
+    "kne",
     "lns",
     "mgc",
     "mim",
+    "mio",
     "miz",
     "mxb",
     "mxv",
     "mzp",
+    "nga",
+    "niy",
     "she",
     "stp",
+    "tdh",
     "vau",
     "xtn",
     "zpu",
+    "zsr",
 ]
-#   With each new langtags release, please CLEAR AND RESTART this list and update the date listed below.
+#   With each new langtags (or possibly Ethnologue) release, please CLEAR AND RESTART this list and update the date listed below.
 #   Most Recent Langtags Release: 04 May 2023 
 
 exempt_always = [
