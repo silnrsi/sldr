@@ -9,7 +9,6 @@ from langtag import langtag, lookup
 import os, requests
 from sldr.ldml import Ldml, _alldrafts
 from sldr.utils import find_parents
-#change this once the find parent stuff has a new home
 
 exempt = [
     "test.xml",

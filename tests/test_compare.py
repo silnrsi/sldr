@@ -3,7 +3,6 @@ import requests
 import logging, os, re, unicodedata
 from langtag import langtag, lookup
 from sldr.utils import find_parents
-#change this once the find parent stuff has a new home
 
 
 #   IMPORTANT: 'exempt_lts' is a list of langtags that have been updated with new information in the most recent release cycle.
