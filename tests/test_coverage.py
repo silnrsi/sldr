@@ -3,6 +3,7 @@ import requests
 import logging, os, re, unicodedata
 from langtag import langtag, lookup
 from sldr.utils import find_parents
+from argparse import ArgumentParser
 
 
 def iscldr(ldml):
@@ -159,3 +160,31 @@ def test_basic(ldml):
     if b_missingcount == 0: 
         return
     assert False, filename + " is missing " + str(b_missingcount) + " Basic Requirement(s): " + str(list(basicmissing.values()))    
+
+
+# trying out argument parser and command line stuff
+#one for a spec file and one for a range maybe?
+
+
+def parse_core():
+    parser = ArgumentParser()
+    parser.add_argument('ldml', help = 'file to check')
+    args = vars(parser.parse_args)
+    ldml = ldml(args.setdefault('ldml'))
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    corereqs = {
+        "characters/exemplarCharacters": "Main Exemplar Characters", 
+        "characters/exemplarCharacters[@type='auxiliary']": "Auxiliary Exemplar Characters", 
+        "characters/exemplarCharacters[@type='punctuation']": "Punctuation Exemplar Characters",
+        "characters/exemplarCharacters[@type='numbers']": "Numbers Exemplar Characters",
+    }
+    coremissing = {}
+    for r in corereqs.keys():
+        req = ldml.ldml.root.find(r)
+        if req is None:
+            coremissing[r]=corereqs.get(r)
+    c_missingcount = len(coremissing)
+    if c_missingcount == 0: 
+        return
+    else:
+        print(filename + " is missing " + str(c_missingcount) + " Core Requirement(s): " + str(list(coremissing.values())))  
