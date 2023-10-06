@@ -14,10 +14,12 @@ root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 #when do that make sure theres a way to skip cldr
 
 parser = ArgumentParser()
-parser.add_argument('ldml', help = 'langtag to check, same format as if in one of the tests (no .xml, use \'-\' instead of \'_\', etc.)')
+parser.add_argument('ldml', help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
 #add argument for searching entire sldr instead of one spec file (might need to make initial ldml optional then)? argument for if you want a range vs one file?
-parser.add_argument('-c', '--coverage', choices = ["core", "basic", "both"], default = "both", help = "level of coverage want checking for")
+parser.add_argument('-c', '--coverage', choices = ["core", "basic", "both"], default = "both", help = "The CLDR coverage level you are searching for. Options are 'core', 'basic', or the default 'both'.")
 #add argument for filtering categories of basic data
+parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num'], help = "Used to filter for specific categories of Basic data. Multiple options can be selected, and each will be displayed individually. Options are 'ldnp' (Locale Display Names Patterns), 'ldnv' (Locale Display Names Vocab), 'delim' (Delimiters), 'month' (Gregorian Wide Months Vocab), 'week' (Gregorian Wide Days of the Week Vocab), 'ampm' (Gregorian Wide Day Period Vocab), 'dtform' (Date/Time Format), 'tzones' (Time Zone Vocab), and 'num' (Numbers). By default, no filtering occurs.")
+#this should also allow for multiple choices. should put choices in a list. 
 #add argument for if you want it to print out the specific missing things or just the amount missing
 #add argument for if you want it to print out specific xml paths for each missing thing or not (if so need to make it somewhat easy to read)
 #add argument for filtering entire sldr by region
@@ -42,20 +44,29 @@ script = i.get("script")
 territory = i.get("defaultRegion")
 # bug: if script or defaultRegion is not in SIL identity block, error happens. Is this an issue where data needs to be in ID block or an issue where test should work around this scenario?
 
-corereqs = {
+coverage = args.setdefault('coverage')
+filter_unsorted = args.setdefault('filter')
+sorted = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num']
+filter = []
+for item in sorted:
+    if item in filter_unsorted: 
+        filter.append(item)
+print(filter)
+
+core_reqs = {
     "characters/exemplarCharacters": "Main Exemplar Characters", 
     "characters/exemplarCharacters[@type='auxiliary']": "Auxiliary Exemplar Characters", 
     "characters/exemplarCharacters[@type='punctuation']": "Punctuation Exemplar Characters",
     "characters/exemplarCharacters[@type='numbers']": "Numbers Exemplar Characters",
 }
-coremissing = {}
+core_msng = {}
 
 # might break this list into separate lists per cateogry and just tell the parser to go through all of them if the user doesn't want to filter
-basicreqs = {
-    # Locale Names: Patterns
+basic_reqs = {
+    # Locale Display Names: Locale Display Pattern
     "localeDisplayNames/localeDisplayPattern/localePattern": "Locale Display Names Pattern",
     "localeDisplayNames/localeDisplayPattern/localeSeparator": "Locale Display Names Separator",
-    # Locale Names: Vocab
+    # Locale Display Names: Vocabulary
     "localeDisplayNames/languages/language[@type='" + lang + "']": "Locale Display Names Autonym",
     "localeDisplayNames/languages/language[@type='en']": "Locale Display Names English",
     "localeDisplayNames/scripts/script[@type='"+ script + "']": "Locale Display Names Default Script",
@@ -63,6 +74,7 @@ basicreqs = {
     "localeDisplayNames/measurementSystemNames/measurementSystemName[@type='metric']": "Measurement System Names Metric", 
     "localeDisplayNames/measurementSystemNames/measurementSystemName[@type='UK']": "Measurement System Names UK",
     "localeDisplayNames/measurementSystemNames/measurementSystemName[@type='US']": "Measurement System Names US",
+        # the three below fall under the "vocabulary" category because while they are also patterns they require the word in the language for "Language", "Script", and "Territory"
     "localeDisplayNames/codePatterns/codePattern[@type='language']": "Locale Display Names Language Code Pattern",
     "localeDisplayNames/codePatterns/codePattern[@type='script']": "Locale Display Names Script Code Pattern",
     "localeDisplayNames/codePatterns/codePattern[@type='territory']": "Locale Display Names Territory Pattern",
@@ -95,7 +107,7 @@ basicreqs = {
     # Dates: Period Vocab
     "dates/calendars/calendar[@type='gregorian']/dayPeriods/dayPeriodContext[@type='format']/dayPeriodWidth[@type='wide']/dayPeriod[@type='am']": "Gregorian AM Wide Name",
     "dates/calendars/calendar[@type='gregorian']/dayPeriods/dayPeriodContext[@type='format']/dayPeriodWidth[@type='wide']/dayPeriod[@type='pm']": "Gregorian PM Wide Name",
-    # Dates: Patterns
+    # Dates: Date/Time Formats
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='Hm']": "Gregorian Date/Time Format Hm",
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='hm']": "Gregorian Date/Time Format hm",
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='Hms']": "Gregorian Date/Time Format Hms",
@@ -105,7 +117,7 @@ basicreqs = {
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMd']": "Gregorian Date/Time Format yMd",
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMd']": "Gregorian Date/Time Format yMMMd",
     "dates/calendars/calendar[@type='gregorian']/dateTimeFormats/intervalFormats/intervalFormatFallback": "Gregorian Date/Time Interval Format Fallback",
-    # Time Zones
+    # Dates: Time Zones
     "dates/timeZoneNames/hourFormat": "Time Zone Hour Format",
     "dates/timeZoneNames/gmtFormat": "Time Zone gmtFormat",
     "dates/timeZoneNames/gmtZeroFormat": "Time Zone gmtZero Format",
@@ -127,75 +139,183 @@ basicreqs = {
     "numbers/percentFormats[@numberSystem='latn']/percentFormatLength/percentFormat/pattern": "Latin Numbers Percent Format Pattern",
     "numbers/currencyFormats[@numberSystem='latn']/currencyFormatLength/currencyFormat/pattern": "Latin Numbers Currency Format Pattern"
 }
-basicmissing = {}
+basic_msng = {}
 #for categories of basic data:
-ldnpatternsmissing = {}
-ldnvocabmissing = {}
-delimmissing = {}
-datesmonthsmissing = {}
-datesweekmissing = {}
-datesperiodsmissing = {}
-datespatternsmissing = {}
-timezonesmissing = {}
-numbersmissing = {}
-
-coverage = args.setdefault('coverage')
+if filter != None:
+    ldnp_msng = {}
+    ldnv_msng = {}
+    delim_msng = {}
+    month_msng = {}
+    week_msng = {}
+    ampm_msng = {}
+    dtform_msng = {}
+    tzones_msng = {}
+    num_msng = {}
 
 if coverage == "core" or "both":
-    for r in corereqs.keys():
+    for r in core_reqs.keys():
         req = ldml.root.find(r)
         if req is None:
-            coremissing[r]=corereqs.get(r)
-    c_missingcount = len(coremissing)
-    if c_missingcount != 0 and coverage == "core": 
-        print(filename + " is missing " + str(c_missingcount) + " Core Requirement(s): " + str(list(coremissing.values())))  
+            core_msng[r]=core_reqs.get(r)
+    core_msng_count = len(core_msng)
+    if core_msng_count != 0 and coverage == "core": 
+        print(filename + " is missing " + str(core_msng_count) + " Core Requirement(s): " + str(list(core_msng.values())))  
 
 if coverage == "basic" or "both":
-    for r in basicreqs.keys():
+    for r in basic_reqs.keys():
         req = ldml.root.find(r)
         if req is None:
-            basicmissing[r] = basicreqs.get(r)
+            basic_msng[r] = basic_reqs.get(r)
             # the below is sorting results in case you only want specific categories of missing data. 
-            # no way to actually access them atm in the parser and will probs need to be moved into a separate if statement or something
-            # keeping them here for now so that i don't loose track of them
-            if r.startswith("localeDisplayNames/localeDisplayPattern/"):
-                ldnpatternsmissing[r] = basicreqs.get(r)
-            elif r.startswith("localeDisplayNames"):
-                ldnvocabmissing[r] = basicreqs.get(r)
-            elif r.startswith("delimiters"):
-                delimmissing[r] = basicreqs.get(r)
-            elif r.startswith("dates/calendars/calendar[@type='gregorian']/months/"):
-                datesmonthsmissing[r] = basicreqs.get(r)
-            elif r.startswith("dates/calendars/calendar[@type='gregorian']/days/"):
-                datesweekmissing[r] = basicreqs.get(r)
-            elif r.startswith("dates/calendars/calendar[@type='gregorian']/dayPeriods/"):
-                datesperiodsmissing[r] = basicreqs.get(r)
-            elif r.startswith("dates/calendars/calendar[@type='gregorian']/dateTimeFormats/"):
-                datespatternsmissing[r] = basicreqs.get(r)
-            elif r.startswith("dates/timeZoneNames/"):
-                timezonesmissing[r] = basicreqs.get(r)
-            elif r.startswith("numbers/"):
-                numbersmissing[r] = basicreqs.get(r)
-    b_missingcount = len(basicmissing)
+            if filter != None:
+                if r.startswith("localeDisplayNames/localeDisplayPattern/"):
+                    if 'ldnp' in filter:
+                        ldnp_msng[r] = basic_reqs.get(r)
+                elif r.startswith("localeDisplayNames"):
+                    if 'ldnv' in filter:
+                        ldnv_msng[r] = basic_reqs.get(r)
+                elif r.startswith("delimiters"):
+                    if 'delim' in filter:
+                        delim_msng[r] = basic_reqs.get(r)
+                elif r.startswith("dates/calendars/calendar[@type='gregorian']/months/"):
+                    if 'month' in filter:
+                        month_msng[r] = basic_reqs.get(r)
+                elif r.startswith("dates/calendars/calendar[@type='gregorian']/days/"):
+                    if 'week' in filter:
+                        week_msng[r] = basic_reqs.get(r)
+                elif r.startswith("dates/calendars/calendar[@type='gregorian']/dayPeriods/"):
+                    if 'ampm' in filter:
+                        ampm_msng[r] = basic_reqs.get(r)
+                elif r.startswith("dates/calendars/calendar[@type='gregorian']/dateTimeFormats/"):
+                    if 'dtform' in filter:
+                        dtform_msng[r] = basic_reqs.get(r)
+                elif r.startswith("dates/timeZoneNames/"):
+                    if 'tzones' in filter:
+                        tzones_msng[r] = basic_reqs.get(r)
+                elif r.startswith("numbers/"):
+                    if 'num' in filter: 
+                        num_msng[r] = basic_reqs.get(r)
+    basic_msng_count = len(basic_msng)
     # depending on how I end up handling the categories of data element, the counters below might not be necessary
     # could be narrowed to a function saying "count the list that we are using right now" or something like that
     # also these variable names are getting a bit ridiculous but i'll fix them later when I feel more confident that I'll remember what each one does
-    b_missingldnvcount = len(ldnvocabmissing)
-    b_missingdelimcount = len(delimmissing)
-    b_missingmonthcount = len(datesmonthsmissing)
-    b_missingweekcount = len(datesweekmissing)
-    b_missingperiodcount = len(datesperiodsmissing)
-    b_missingdatepcount = len(datespatternsmissing)
-    b_missingtzcount = len(timezonesmissing)
-    b_missingnumberscount = len(numbersmissing)
+    if filter != None:
+        result = filename + " is missing " 
+        fulllist = ""
+        #theres probs a way to make this a loop or something ugh but for now i just wanna see if it works
+        #it works! but it's ugly and i know there's a way to make this a loop or function ugh 
+        # for item in filter blah blah blah only hiccup i see off the top of my head is the different variables. wouldn't be an issue if i didn't want to have the option to include as many filters as you want and to list them separate hmmm
+        if 'ldnp' in filter:
+            ldnp_msng_count = len(ldnp_msng)
+            result += str(ldnp_msng_count) + " Locale Data Pattern Requirement(s)"
+            fulllist += ("Missing Locale Data Patterns: " + str(list(ldnp_msng.values())))
+        if 'ldnv' in filter:
+            ldnv_msng_count = len(ldnv_msng)
+            if filter.index('ldnv') != 0:
+                fulllist += "\n"
+                if filter.index('ldnv') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(ldnv_msng_count) + " Locale Data Vocabulary Requirement(s)") 
+            fulllist += ("Missing Locale Data Vocab: " + str(list(ldnv_msng.values())))
+        if 'delim' in filter:
+            delim_msng_count = len(delim_msng)
+            if filter.index('delim') != 0:
+                fulllist += "\n"
+                if filter.index('delim') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(delim_msng_count) + " Delimiter Requirement(s)") 
+            fulllist += ("Missing Delimiters: " + str(list(delim_msng.values())))
+        if 'month' in filter:
+            month_msng_count = len(month_msng)
+            if filter.index('month') != 0:
+                fulllist += "\n"
+                if filter.index('month') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(month_msng_count) + " Month Vocabulary Requirement(s)") 
+            fulllist += ("Missing Months: " + str(list(month_msng.values())))
+        if 'week' in filter:
+            week_msng_count = len(week_msng)
+            if filter.index('week') != 0:
+                fulllist += "\n"
+                if filter.index('week') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(week_msng_count) + " Days of the Week Vocabulary Requirement(s)") 
+            fulllist += ("Missing Days of the Week: " + str(list(week_msng.values())))
+        if 'ampm' in filter:
+            ampm_msng_count = len(ampm_msng)
+            if filter.index('ampm') != 0:
+                fulllist += "\n"
+                if filter.index('ampm') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(ampm_msng_count) + " Day Period Vocabulary Requirement(s)") 
+            fulllist += ("Missing Day Period: " + str(list(ampm_msng.values())))
+        if 'dtform' in filter:
+            dtform_msng_count = len(dtform_msng)
+            if filter.index('dtform') != 0:
+                fulllist += "\n"
+                if filter.index('dtform') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(dtform_msng_count) + " Date/Time Format Requirement(s)") 
+            fulllist += ("Missing Date/Time Format: " + str(list(dtform_msng.values())))
+        if 'tzones' in filter:
+            tzones_msng_count = len(tzones_msng)
+            if filter.index('tzones') != 0:
+                fulllist += "\n"
+                if filter.index('tzones') != (len(filter)-1):
+                    result += (", ")
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(tzones_msng_count) + " Time Zones Vocabulary Requirement(s)") 
+            fulllist += ("Missing Time Zones: " + str(list(tzones_msng.values())))
+        if 'num' in filter:
+            num_msng_count = len(num_msng)
+            if filter.index('num') != 0:
+                fulllist += "\n"
+                if filter.index('num') != (len(filter)-1):
+                    result += ", "
+                elif len(filter) == 2:
+                    result += (" and ")
+                else:
+                    result += (", and ")
+            result += (str(num_msng_count) + " Numbers Requirement(s)")
+            fulllist += ("Missing Numbers: " + str(list(num_msng.values())))
 
-    if b_missingcount != 0 and coverage == "basic": 
-        print(filename + " is missing " + str(b_missingcount) + " Basic Requirement(s): " + str(list(basicmissing.values())))
+        print(result)
+        print(fulllist)
 
-if coverage == "both" and (c_missingcount or b_missingcount) != 0:
-    print(filename + " is missing " + str(c_missingcount) + " Core Requirement(s) and " + str(b_missingcount) + " Basic Requirement(s).")
-    if c_missingcount != 0:
-        print("Missing Core: " + str(list(coremissing.values())))
-    if b_missingcount != 0:
-        print("Missing Basic: "+ str(list(basicmissing.values())))
+    if basic_msng_count != 0 and coverage == "basic" and filter is None: 
+        print(filename + " is missing " + str(basic_msng_count) + " Basic Requirement(s): " + str(list(basic_msng.values())))
+
+if coverage == "both" and (core_msng_count or basic_msng_count) != 0:
+    print(filename + " is missing " + str(core_msng_count) + " Core Requirement(s) and " + str(basic_msng_count) + " Basic Requirement(s).")
+    if core_msng_count != 0:
+        print("Missing Core: " + str(list(core_msng.values())))
+    if basic_msng_count != 0:
+        print("Missing Basic: "+ str(list(basic_msng.values())))
         # dont forget to incorporate categories here too.
