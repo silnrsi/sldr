@@ -6,6 +6,17 @@ from sldr.utils import find_parents
 from argparse import ArgumentParser
 from sldr.ldml import Ldml, _alldrafts, getldml
 
+def resultformatter(str, filter, fulllist, result):
+    if filter.index(str) != 0:
+        fulllist += "\n"
+        if filter.index(str) != (len(filter)-1):
+            result += (", ")
+        elif len(filter) == 2:
+            result += (" and ")
+        else:
+            result += (", and ")
+    return fulllist, result
+
 
 root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
@@ -52,6 +63,9 @@ for item in sorted:
     if item in filter_unsorted: 
         filter.append(item)
 print(filter)
+
+fulllist = ""
+result = filename + " is missing " 
 
 core_reqs = {
     "characters/exemplarCharacters": "Main Exemplar Characters", 
@@ -167,6 +181,7 @@ if coverage == "basic" or "both":
         if req is None:
             basic_msng[r] = basic_reqs.get(r)
             # the below is sorting results in case you only want specific categories of missing data. 
+            #could we pull all of this out into its own function that we call if filter isnt none instead of having it all here? idk hmm
             if filter != None:
                 if r.startswith("localeDisplayNames/localeDisplayPattern/"):
                     if 'ldnp' in filter:
@@ -200,109 +215,64 @@ if coverage == "basic" or "both":
     # could be narrowed to a function saying "count the list that we are using right now" or something like that
     # also these variable names are getting a bit ridiculous but i'll fix them later when I feel more confident that I'll remember what each one does
     if filter != None:
-        result = filename + " is missing " 
-        fulllist = ""
         #theres probs a way to make this a loop or something ugh but for now i just wanna see if it works
         #it works! but it's ugly and i know there's a way to make this a loop or function ugh 
         # for item in filter blah blah blah only hiccup i see off the top of my head is the different variables. wouldn't be an issue if i didn't want to have the option to include as many filters as you want and to list them separate hmmm
+        #for abbrv in filter:
+
+
         if 'ldnp' in filter:
             ldnp_msng_count = len(ldnp_msng)
+            resultformatter('ldnp', filter, fulllist, result)
+            fulllist, result = resultformatter('ldnp', filter, fulllist, result)
             result += str(ldnp_msng_count) + " Locale Data Pattern Requirement(s)"
             fulllist += ("Missing Locale Data Patterns: " + str(list(ldnp_msng.values())))
         if 'ldnv' in filter:
             ldnv_msng_count = len(ldnv_msng)
-            if filter.index('ldnv') != 0:
-                fulllist += "\n"
-                if filter.index('ldnv') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('ldnv', filter, fulllist, result)
+            fulllist, result = resultformatter('ldnv', filter, fulllist, result)
             result += (str(ldnv_msng_count) + " Locale Data Vocabulary Requirement(s)") 
             fulllist += ("Missing Locale Data Vocab: " + str(list(ldnv_msng.values())))
         if 'delim' in filter:
             delim_msng_count = len(delim_msng)
-            if filter.index('delim') != 0:
-                fulllist += "\n"
-                if filter.index('delim') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('delim', filter, fulllist, result)
+            fulllist, result = resultformatter('delim', filter, fulllist, result)
             result += (str(delim_msng_count) + " Delimiter Requirement(s)") 
             fulllist += ("Missing Delimiters: " + str(list(delim_msng.values())))
         if 'month' in filter:
             month_msng_count = len(month_msng)
-            if filter.index('month') != 0:
-                fulllist += "\n"
-                if filter.index('month') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('month', filter, fulllist, result)
+            fulllist, result = resultformatter('month', filter, fulllist, result)
             result += (str(month_msng_count) + " Month Vocabulary Requirement(s)") 
             fulllist += ("Missing Months: " + str(list(month_msng.values())))
         if 'week' in filter:
             week_msng_count = len(week_msng)
-            if filter.index('week') != 0:
-                fulllist += "\n"
-                if filter.index('week') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('week', filter, fulllist, result)
+            fulllist, result = resultformatter('week', filter, fulllist, result)
             result += (str(week_msng_count) + " Days of the Week Vocabulary Requirement(s)") 
             fulllist += ("Missing Days of the Week: " + str(list(week_msng.values())))
         if 'ampm' in filter:
             ampm_msng_count = len(ampm_msng)
-            if filter.index('ampm') != 0:
-                fulllist += "\n"
-                if filter.index('ampm') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('ampm', filter, fulllist, result)
+            fulllist, result = resultformatter('ampm', filter, fulllist, result)
             result += (str(ampm_msng_count) + " Day Period Vocabulary Requirement(s)") 
             fulllist += ("Missing Day Period: " + str(list(ampm_msng.values())))
         if 'dtform' in filter:
             dtform_msng_count = len(dtform_msng)
-            if filter.index('dtform') != 0:
-                fulllist += "\n"
-                if filter.index('dtform') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('dtform', filter, fulllist, result)
+            fulllist, result = resultformatter('dtform', filter, fulllist, result)
             result += (str(dtform_msng_count) + " Date/Time Format Requirement(s)") 
             fulllist += ("Missing Date/Time Format: " + str(list(dtform_msng.values())))
         if 'tzones' in filter:
             tzones_msng_count = len(tzones_msng)
-            if filter.index('tzones') != 0:
-                fulllist += "\n"
-                if filter.index('tzones') != (len(filter)-1):
-                    result += (", ")
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('tzones', filter, fulllist, result)
+            fulllist, result = resultformatter('tzones', filter, fulllist, result)
             result += (str(tzones_msng_count) + " Time Zones Vocabulary Requirement(s)") 
             fulllist += ("Missing Time Zones: " + str(list(tzones_msng.values())))
         if 'num' in filter:
             num_msng_count = len(num_msng)
-            if filter.index('num') != 0:
-                fulllist += "\n"
-                if filter.index('num') != (len(filter)-1):
-                    result += ", "
-                elif len(filter) == 2:
-                    result += (" and ")
-                else:
-                    result += (", and ")
+            resultformatter('num', filter, fulllist, result)
+            fulllist, result = resultformatter('num', filter, fulllist, result)
             result += (str(num_msng_count) + " Numbers Requirement(s)")
             fulllist += ("Missing Numbers: " + str(list(num_msng.values())))
 
