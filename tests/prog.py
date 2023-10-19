@@ -22,7 +22,7 @@ root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
 
 #theoretically if i wanted to run this on the whole sldr i'd have to do a for loop using the directory and everything in it but that'll get figured out later
-#when do that make sure theres a way to skip cldr
+#when do that make sure theres a way to skip cldr? maybe not; there may be remnants of seed data that are lurking from cldr 
 
 parser = ArgumentParser()
 parser.add_argument('ldml', help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
