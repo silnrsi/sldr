@@ -20,9 +20,10 @@ def resultformatter(str, filter, fulllist, result):
 
 root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
+#tbh this is probs gonna end up in sldr tools which is unfortuante bc it means we are out of the repo and need to be able to path our way to wherever other ppl have the repo bleghhhhh
 
 #theoretically if i wanted to run this on the whole sldr i'd have to do a for loop using the directory and everything in it but that'll get figured out later
-#when do that make sure theres a way to skip cldr? maybe not; there may be remnants of seed data that are lurking from cldr 
+#when do that make sure theres a way to skip cldr? UPDATE maybe dont skip it actually; there may be remnants of seed data that are lurking from cldr 
 
 parser = ArgumentParser()
 parser.add_argument('ldml', help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
@@ -41,6 +42,9 @@ parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv
 args = vars(parser.parse_args())
 print(args)
 
+
+#how to use for Em ref: python prog.py nga --coverage core 
+
 tag = args.setdefault('ldml')
 filep = os.path.join(root_sldr, tag[0], tag.replace("-", "_")+".xml")
 #see under 'root_sldr' about needing to change if this file is moved
@@ -52,17 +56,30 @@ filename = os.path.basename(ldml.fname)    # get filename for reference
 lang = ldml.root.find('.//identity/language').get('type')
 i = ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.namespaces.items()})
 script = i.get("script")
+if script is None:
+    if ldml.root.find('.//identity/script') == None:
+        script = "error"
+    else:
+        script = ldml.root.find('.//identity/script').get('type')
 territory = i.get("defaultRegion")
+if territory is None:
+    if ldml.root.find('.//identity/territory') == None:
+        territory = "error"
+    else:
+        territory = ldml.root.find('.//identity/territory').get('type')
 # bug: if script or defaultRegion is not in SIL identity block, error happens. Is this an issue where data needs to be in ID block or an issue where test should work around this scenario?
+#currently has a bandaid-fix: checks for script in other part of ID block and, if that isn't there either, outputs a string so it can concatenate later without killing the program. 
+#still needs an exception to actually address what it means if "script" or "territory" == "error" in the approprate spots
 
 coverage = args.setdefault('coverage')
 filter_unsorted = args.setdefault('filter')
 sorted = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num']
 filter = []
-for item in sorted:
-    if item in filter_unsorted: 
-        filter.append(item)
-print(filter)
+if filter_unsorted != None:
+    for item in sorted:
+        if item in filter_unsorted: 
+            filter.append(item)
+    print(filter)
 
 fulllist = ""
 result = filename + " is missing " 
@@ -233,6 +250,7 @@ if coverage == "basic" or "both":
             fulllist, result = resultformatter('ldnv', filter, fulllist, result)
             result += (str(ldnv_msng_count) + " Locale Data Vocabulary Requirement(s)") 
             fulllist += ("Missing Locale Data Vocab: " + str(list(ldnv_msng.values())))
+            # add something that says if script or territory = "error" have a separate warning saying that the sil id block is missing script or territory data and that info relating to this vocab may actually not be missing 
         if 'delim' in filter:
             delim_msng_count = len(delim_msng)
             resultformatter('delim', filter, fulllist, result)
@@ -281,6 +299,7 @@ if coverage == "basic" or "both":
 
     if basic_msng_count != 0 and coverage == "basic" and filter is None: 
         print(filename + " is missing " + str(basic_msng_count) + " Basic Requirement(s): " + str(list(basic_msng.values())))
+        # add something that says if script or territory = "error" have a separate warning saying that the sil id block is missing script or territory data and that info relating to this vocab may actually not be missing 
 
 if coverage == "both" and (core_msng_count or basic_msng_count) != 0:
     print(filename + " is missing " + str(core_msng_count) + " Core Requirement(s) and " + str(basic_msng_count) + " Basic Requirement(s).")
@@ -288,4 +307,6 @@ if coverage == "both" and (core_msng_count or basic_msng_count) != 0:
         print("Missing Core: " + str(list(core_msng.values())))
     if basic_msng_count != 0:
         print("Missing Basic: "+ str(list(basic_msng.values())))
+        # add something that says if script or territory = "error" have a separate warning saying that the sil id block is missing script or territory data and that info relating to this vocab may actually not be missing 
+
         # dont forget to incorporate categories here too.
