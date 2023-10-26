@@ -190,3 +190,21 @@ def _test_re(string):
         return True
     except re.error:
         return False
+
+def test_idblock(ldml):
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    """ Return True if the SIL identity block has region and script listed"""
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
+    script = i.get("script") # or ldml.ldml.root.find('.//identity/script') 
+    territory = i.get("defaultRegion") # or ldml.ldml.root.find('.//identity/territory')
+    result = " is missing "
+    if script is None:
+       result= "".join([result,"script "])
+       if territory is None:
+           result="".join([result, "and "])
+    if territory is None:
+        result= "".join([result,"territory "])
+    if script is None or territory is None: 
+        assert False, filename + result + "data in SIL Identity block"

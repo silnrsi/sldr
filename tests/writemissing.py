@@ -41,7 +41,7 @@ for (root, dirs, file) in os.walk(root_sldr):
 jsonoutput = []
     
 for f in filelist:
-    if f == "root.xml":
+    if f == "root.xml" or f == "test.xml":
         continue
     print(f)
     tag = f[:-4].replace("_", "-")
