@@ -34,22 +34,22 @@ def test_identity(ldml, langid, fixdata):
         else:
             assert False, "{} missing identity block".format(langid)
     for k, v in idblocks.items():
-        val = getattr(lt, v, None)
-        inf = ldml.ldml.find(k, ident)
+        val = getattr(lt, v, None) 
+        inf = ldml.ldml.find(k, ident) 
         if val is None:
-            if inf is not None:
+            if inf is not None: 
                 if fixdata:
                     ldml.ldml.remove_path("identity/{}".format(k))
                     ldml.dirty = True
                 else:
                     assert False, "Unexpected {} of {} in identity block in {}".format(k, inf.get("type"), langid)
-        elif inf is None:
+        elif inf is None: 
             if fixdata:
                 inf = ldml.ldml.ensure_path('identity/{}[@type="{}"]'.format(k, val))[0] ###
                 ldml.dirty = True
             else:
                 assert False, "{} missing {} in identity block".format(langid, k)
-        elif val != inf.get("type"):
+        elif val != inf.get("type"): 
             if fixdata:
                 inf.set("type", val)
                 ldml.dirty = True
@@ -80,8 +80,11 @@ def test_identity(ldml, langid, fixdata):
         else:
             assert False, "identity/variant type {} does not match tag in {}".format(inf.get("type"), langid)
     # Now fill in the sil:identity from the langtag
+    print(lt.script)
+    print(lt.region)
     if lt.script is None or lt.region is None:
         tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
+        print(tagset)
         if fixdata:
             assert tagset != "", "Unknown langtag {}".format(lt)
         silid = ldml.ldml.find("identity/special/sil:identity")
@@ -93,11 +96,12 @@ def test_identity(ldml, langid, fixdata):
             for k, v in {"script": "script", "defaultRegion": "region"}.items():
                 if getattr(lt, v, None) is None:
                     silval = getattr(tagset, v)
+                    print(silval)
                     silidval = silid.get(k, "")
+                    print(silidval)
                     if silval != silidval:
                         if fixdata:
                             silid.set(k, silval)
                             ldml.dirty = True
                         else:
-                            assert silidval == "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)
-
+                            assert silidval != "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)

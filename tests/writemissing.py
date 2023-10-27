@@ -71,7 +71,7 @@ for f in filelist:
         "characters/exemplarCharacters": "Main Exemplar Characters", 
         "characters/exemplarCharacters[@type='auxiliary']": "Auxiliary Exemplar Characters", 
         "characters/exemplarCharacters[@type='punctuation']": "Punctuation Exemplar Characters",
-        "characters/exemplarCharacters[@type='numbers']": "Numbers Exemplar Characters",
+        "characters/exemplarCharacters[@type='numbers']": "Numbers Exemplar Characters", 
     }
     basic_reqs = {
         # Locale Display Names: Locale Display Pattern
