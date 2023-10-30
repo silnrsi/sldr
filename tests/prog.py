@@ -310,3 +310,7 @@ if coverage == "both" and (core_msng_count or basic_msng_count) != 0:
         # add something that says if script or territory = "error" have a separate warning saying that the sil id block is missing script or territory data and that info relating to this vocab may actually not be missing 
 
         # dont forget to incorporate categories here too.
+
+
+        #FOR CODE IMPLIMENT LATER, IF TIME IS 24 HR TIME THEN NO AM PM STUFF NEEDED. ALSO UPPERCASE H IS 24 HR AND THE AMOUNT OF LETTERS HAS TO DO
+        #WITH ZERO/NON ZERO BUFFER OR SOMETHING? TEST MIGHT NEED TO BE A BIT MORE FLEXIBLE
