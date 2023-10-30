@@ -85,23 +85,22 @@ def test_identity(ldml, langid, fixdata):
     if lt.script is None or lt.region is None:
         tagset = lookup(str(lt).replace("_", "-"), default="", matchRegions=True)
         # tagset2 = ""
-        # if tagset == "":      #for when it can't find a langtag entry
-        #     tagset2 = lookup((find_parents(langid, False, False, True, True)[3])[0])
-        #     #parent tag
-        #     print(tagset2)
-        assert tagset != "", "Unknown langtag {}".format(lt)
         silid = ldml.ldml.find("identity/special/sil:identity")
         if silid is None:
             if fixdata:
                 silid = ldml.ldml.ensure_path("identity/special/sil:identity")[0] ###
                 ldml.dirty = True
+        if tagset == "": #for when it can't find a langtag entry
+        #    tagset2 = lookup((find_parents(langid, False, False, True, True)[3])[0])
+        #       #parent tag
+            for k, v in {"script": "script", "defaultRegion": "region"}.items():
+                if getattr(lt, v, None) is None and silid.get(k, "") == "":
+                    assert False, "Unknown langtag {}".format(lt)
         if tagset != "" and silid is not None:
             for k, v in {"script": "script", "defaultRegion": "region"}.items():
                 if getattr(lt, v, None) is None:
                     silval = getattr(tagset, v)
-                    print(silval)
                     silidval = silid.get(k, "")
-                    print(silidval)
                     if silval != silidval:
                         if fixdata:
                             silid.set(k, silval)
@@ -113,9 +112,7 @@ def test_identity(ldml, langid, fixdata):
         #     for k, v in {"script": "script", "defaultRegion": "region"}.items():
         #         if getattr(lt, v, None) is None:
         #             silval = getattr(tagset2, v)
-        #             print(silval)
         #             silidval = silid.get(k, "")
-        #             print(silidval)
         #             if silval != silidval:
         #                 if fixdata:
         #                     silid.set(k, silval)
