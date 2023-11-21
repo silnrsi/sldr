@@ -318,22 +318,20 @@ def calldirect():  #tentative name, making separate method for version referenci
 
 #def callmissing():
 print("hello world")
-#missingdata = os.path.join(os.path.dirname(__file__), "missingdata.json")
-    #changes if missingdata or this file is moved, renamed, etc. :P
 parser = ArgumentParser()
-parser.add_argument('ldml', help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
+parser.add_argument('-l', '--langtag', default = None, help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
     #this needs to be swapped out for the locale range specifier, along with anything referencing it (i.e. 'tag') 
-parser.add_argument('-r','--range', default = None, help = "The range of sldr files you want to search for this idk write a better help later i'm literally on an airplane and its hard to think"    )
+parser.add_argument('-r','--range', default = None, help = "The alphabet range of sldr files you want to search for. Can be a single letter (e.g. 'a', 'b', 'c') or a range of characters as long as they are in order (e.g. 'a-d', 'x-z'). If you know how regexes work, you can also write a regex without the square brackets ([]) as long as the final letter listed is also the last alphabetically (i.e. '^eaf' but not '^afe' or '^fea')")
+    #figure out how to do alphabet ranges without specifically typing in every one
+parser.add_argument('-t','--territory', default = None, help = "the territory you want to search in, alt to range, this is a bad help pop up fix later")
 #add argument for searching entire sldr instead of one spec file (might need to make initial ldml optional then)? argument for if you want a range vs one file?
+parser.add_argument('-s','--script', default = None, help = "the script you want to search in, alt to range, fix help later")
 parser.add_argument('-c', '--coverage', choices = ["core", "basic", "both"], default = "both", help = "The CLDR coverage level you are searching for. Options are 'core', 'basic', or the default 'both'.")
 #add argument for filtering categories of basic data
-parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num'], help = "Used to filter for specific categories of Basic data. Multiple options can be selected, and each will be displayed individually. Options are 'ldnp' (Locale Display Names Patterns), 'ldnv' (Locale Display Names Vocab), 'delim' (Delimiters), 'month' (Gregorian Wide Months Vocab), 'week' (Gregorian Wide Days of the Week Vocab), 'ampm' (Gregorian Wide Day Period Vocab), 'dtform' (Date/Time Format), 'tzones' (Time Zone Vocab), and 'num' (Numbers). By default, no filtering occurs.")
+parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num','all'], help = "Used to filter for specific categories of Basic data. Multiple options can be selected, and each will be displayed individually. Options are 'ldnp' (Locale Display Names Patterns), 'ldnv' (Locale Display Names Vocab), 'delim' (Delimiters), 'month' (Gregorian Wide Months Vocab), 'week' (Gregorian Wide Days of the Week Vocab), 'ampm' (Gregorian Wide Day Period Vocab), 'dtform' (Date/Time Format), 'tzones' (Time Zone Vocab), 'num' (Numbers), and 'all' (show all filters). By default, no filtering occurs.")
 #this should also allow for multiple choices. should put choices in a list. 
 #add argument for if you want it to print out the specific missing things or just the amount missing
 #add argument for if you want it to print out specific xml paths for each missing thing or not (if so need to make it somewhat easy to read)
-#add argument for filtering entire sldr by region
-#add argument for filtering entire sldr by character range (i.e. langtags starting with a - c)
-#add argument for filtering entire sldr by script
 #add argument for only printing files missing beyond a certain percentage of data
 #add argument for only printing files missing a specific category of data
 args = vars(parser.parse_args())
@@ -342,12 +340,86 @@ print(args)
 root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
     #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
     #tbh this is probs gonna end up in sldr tools which is unfortuante bc it means we are out of the repo and need to be able to path our way to wherever other ppl have the repo bleghhhhh
-with open("missingdata.json") as missingdata:
-    for x in missingdata: 
-        #problem: x is a string atm not the dictionary i need to reference. ugh this would be easier if i had internet access but i'm on a PLANE
-        #print(x.get("filename"))
-        #print(getattr(x, "filename", None))
-        print(x)
+
+ltag = args.setdefault('langtag')
+range = args.setdefault('range')
+territory = args.setdefault('territory')
+script = args.setdefault('script')
+coverage = args.setdefault('coverage')
+filter_unsorted = args.setdefault('filter')
+sorted = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num', 'all']
+filter = []
+if filter_unsorted != None:
+    for item in sorted:
+        if item in filter_unsorted: 
+            filter.append(item)
+    print(filter)
+
+
+missingdata = json.load(open("missingdata.json"))
+alldata = {}
+for x in missingdata: 
+    msng_dict = {
+        "core_msng": None,
+        "basic_msng": None,
+        "ldnp_msng": None,
+        "ldnv_msng": None,
+        "delim_msng": None,
+        "month_msng": None,
+        "week_msng": None,
+        "ampm_msng": None,
+        "tzones_msng": None,
+        "num_msng": None,
+    }
+    print(x.get("filename")) #IT WORKSSSSSS
+    if ltag != None and x.get("langtag") != ltag:
+        continue
+    if range != None:
+        print(range)
+        if len(range) == 1:
+            if x.get("filename")[0] != range:
+                if [x.get("filename")[0], range].sort()[0] == range:
+                    print("out of range")
+                    break 
+                continue
+        elif re.search(("[" + range + "]"), x.get("filename")[0]) == None:
+            q = [(x.get("filename")[0]), (range[-1])]
+            q.sort()
+            if q[0] == range[-1]:
+                print("out of range")
+                break 
+            continue
+    if territory != None and x.get("region") != territory:
+        continue
+    if script != None and x.get("script") != script:
+        continue
+    if coverage == "core" or "both":
+        msng_dict["core_msng"] = x.get("core_msng")
+    if coverage == "basic" or "both":
+        msng_dict["basic_msng"] = x.get("basic_msng")
+    if filter != None:
+        if 'ldnp' or 'all' in filter:
+            msng_dict["ldnp_msng"] = x.get("ldnp_msng")
+        if 'ldnv' or 'all' in filter:
+            msng_dict["ldnv_msng"] = x.get("ldnv_msng")
+        if 'delim' or 'all' in filter:
+            msng_dict["delim_msng"] = x.get("delim_msng")
+        if 'month' or 'all' in filter:
+            msng_dict["month_msng"] = x.get("month_msng")
+        if 'week' or 'all' in filter:
+            msng_dict["week_msng"] = x.get("week_msng")
+        if 'ampm' or 'all' in filter:
+            msng_dict["ampm_msng"] = x.get("ampm_msng")
+        if 'tzones' or 'all' in filter:
+            msng_dict["tzones_msng"] = x.get("tzones_msng")
+        if 'num' or 'all' in filter:
+            msng_dict["num_msng"] = x.get("num_msng")
+    alldata[x.get("filename")] = msng_dict
+        
+print(alldata)
+print(alldata.keys())
+#alldata is a dictionary with the key being a filename and the value being a dictionary containing all of the missing data related to that file. 
+
 # tag = args.setdefault('ldml')
 # filep = os.path.join(root_sldr, tag[0], tag.replace("-", "_")+".xml")
 #     #see under 'root_sldr' about needing to change if this file is moved
@@ -360,7 +432,8 @@ with open("missingdata.json") as missingdata:
 
 #tldr order of "filtering out" if statements needs to be: 
     # 1. picking out files to search in missingdata.json (aka locale filters, alphabet ranges, or one specific file)
-        # for x in missing data, if [matches filters for the above]
+        # for x in missing data, if [matches filters for the above] (
+        # OR better yet, hit continue if it DOESN'T match, filter it out
     # 2. picking out specific missing data to output (core, basic, or subcategories of basic)
         # for [chosen filters], collect list of contents of each
     # 3. Numerical range of how much content is in the chosen outputs (will need to be different per output, calculate later)
@@ -368,4 +441,4 @@ with open("missingdata.json") as missingdata:
         # output the list of contents of each filter
 
 
-#how to use for Em ref: python prog.py nga --coverage basic 
+#how to use for Em ref: python prog.py --langtag nga --coverage both --filter all
