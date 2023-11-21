@@ -368,4 +368,4 @@ with open("missingdata.json") as missingdata:
         # output the list of contents of each filter
 
 
-#how to use for Em ref: python prog.py nga --coverage core 
+#how to use for Em ref: python prog.py nga --coverage basic 
