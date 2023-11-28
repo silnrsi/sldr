@@ -317,11 +317,10 @@ def calldirect():  #tentative name, making separate method for version referenci
 
 
 #def callmissing():
-print("hello world")
 parser = ArgumentParser()
 parser.add_argument('-l', '--langtag', default = None, help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
     #this needs to be swapped out for the locale range specifier, along with anything referencing it (i.e. 'tag') 
-parser.add_argument('-r','--range', default = None, help = "The alphabet range of sldr files you want to search for. Can be a single letter (e.g. 'a', 'b', 'c') or a range of characters as long as they are in order (e.g. 'a-d', 'x-z'). If you know how regexes work, you can also write a regex without the square brackets ([]) as long as the final letter listed is also the last alphabetically (i.e. '^eaf' but not '^afe' or '^fea')")
+parser.add_argument('-r','--range', default = None, help = "The alphabet range of sldr files you want to search for. Can be a single letter (e.g. 'a', 'b', 'c') or a range of characters as long as they are in order (e.g. 'a-d', 'x-z'). If you know how regexes work, you can also write a regex without the square brackets ([]) such as '^aef' (everything except a, e, or f) or 'arn' (match to a, r, and n specifically).")
     #figure out how to do alphabet ranges without specifically typing in every one
 parser.add_argument('-t','--territory', default = None, help = "the territory you want to search in, alt to range, this is a bad help pop up fix later")
 #add argument for searching entire sldr instead of one spec file (might need to make initial ldml optional then)? argument for if you want a range vs one file?
@@ -378,16 +377,21 @@ for x in missingdata:
         print(range)
         if len(range) == 1:
             if x.get("filename")[0] != range:
-                if [x.get("filename")[0], range].sort()[0] == range:
+                if [x.get("filename")[0], range].sort()[0] == range:        #cuts off search after searching all of the files starting with that letter
                     print("out of range")
                     break 
                 continue
         elif re.search(("[" + range + "]"), x.get("filename")[0]) == None:
             q = [(x.get("filename")[0]), (range[-1])]
             q.sort()
-            if q[0] == range[-1]:
-                print("out of range")
-                break 
+            if "^" in range:        # allows search to continue until 'z' since a set like [^aef] will match to everything except those three letters
+                continue
+            else:
+                if "-" not in range:    #cuts off search when reaching the possible results matching sets such as [arn] and [a-h]
+                    range.sort()        #allows for situations where a set like [arn] is out of order, such as [rna]
+                if q[0] == range[-1]:
+                    print("out of range")
+                    break 
             continue
     if territory != None and x.get("region") != territory:
         continue
