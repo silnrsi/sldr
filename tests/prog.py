@@ -440,48 +440,45 @@ for x in missingdata:
  
 #next bit is going to format the data into something that isn't a wall of text
 
-def formatmessage (alldata):
-    file = ""
-    categories = {
-        "core_msng": "Core Requirements",
-        "basic_msng": "Basic Requirements",
-        "ldnp_msng": "Locale Display Patterns",
-        "ldnv_msng": "Locale Display Vocabulary",
-        "delim_msng": "Delimiters",
-        "month_msng": "Month Vocabulary",
-        "week_msng": "Week Vocabulary",
-        "ampm_msng": "AM/PM Vocab",
-        "dtform_msng": "Date/Time Formats",
-        "tzones_msng": "Time Zone Vocab",
-        "num_msng": "Numerical Data",
-    }
+file = ""
+categories = {
+    "core_msng": "Core Requirements",
+    "basic_msng": "Basic Requirements",
+    "ldnp_msng": "Locale Display Patterns",
+    "ldnv_msng": "Locale Display Vocabulary",
+    "delim_msng": "Delimiters",
+    "month_msng": "Month Vocabulary",
+    "week_msng": "Week Vocabulary",
+    "ampm_msng": "AM/PM Vocab",
+    "dtform_msng": "Date/Time Formats",
+    "tzones_msng": "Time Zone Vocab",
+    "num_msng": "Numerical Data",
+}
 
-    for file in alldata:
+for file in alldata:
+    print("")
+    print(file + " is missing:")
+    for cat in alldata[file]:
+        lgbl_cat_name = categories[cat]     #legible category name
+        amnt_msng = len(alldata[file][cat])     #amount missing in that category
+        msng_written = ""
+        for msng in alldata[file][cat]:
+            #print(alldata[file][cat][msng])
+            msng_written += alldata[file][cat][msng] + ", "     #list of specific missing items
         print("")
-        print(file + " is missing:")
-        for cat in alldata[file]:
-            lgbl_cat_name = categories[cat] #legible category name
-            amnt_msng = len(alldata[file][cat])
-            msng_written = ""
-            for msng in alldata[file][cat]:
-                #print(alldata[file][cat][msng])
-                msng_written += alldata[file][cat][msng] + ", "
-            print("")
-            print(str(amnt_msng) + " item(s) in " + lgbl_cat_name + ":")
-            #print(lgbl_cat_name) 
-            #print(amnt_msng)
-            print(msng_written)
+        print(str(amnt_msng) + " item(s) in " + lgbl_cat_name + ":")
+        #print(lgbl_cat_name) 
+        #print(amnt_msng)
+        print(msng_written)
 
-            #print(alldata[file][cat].values())
-            #eventually i want to be able to set parameters for specific types of results. Just numbers or full list? do you want the ldml ref? Do you want it as a dictionary for easy dataing or legible and easy to just read through?
+        #print(alldata[file][cat].values())
+        #eventually i want to be able to set parameters for specific types of results. Just numbers or full list? do you want the ldml ref? Do you want it as a dictionary for easy dataing or legible and easy to just read through?
 
-            #format goals:
-                #"this file is missing x in core requirements (list) and y in basic requirements" and if filter arg is None then just list all the basics but if it isn't None then go "of the basic reqs, ..." and start listing categories 
+        #format goals:
+            #"this file is missing x in core requirements (list) and y in basic requirements" and if filter arg is None then just list all the basics but if it isn't None then go "of the basic reqs, ..." and start listing categories 
 
+#would also be nice to be able to indicate a specific bit of data (more than 1 probs so you can ask for both delims or something) and ask "which files are missing this" but then again that's probably more efficient in the pytest format
     
-
-formatmessage(alldata)
-
 
 # tag = args.setdefault('ldml')
 # filep = os.path.join(root_sldr, tag[0], tag.replace("-", "_")+".xml")
