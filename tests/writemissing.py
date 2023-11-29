@@ -216,6 +216,7 @@ for f in filelist:
         "month_msng": month_msng,
         "week_msng": week_msng,
         "ampm_msng": ampm_msng,
+        "dtform_msng": dtform_msng,
         "tzones_msng": tzones_msng,
         "num_msng": num_msng,
     }

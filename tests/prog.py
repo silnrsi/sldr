@@ -3,7 +3,7 @@ import requests
 import logging, re, unicodedata
 from langtag import langtag, lookup
 from sldr.utils import find_parents
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentError
 from sldr.ldml import Ldml, _alldrafts, getldml
 
 def resultformatter(str, filter, fulllist, result):
@@ -318,8 +318,7 @@ def calldirect():  #tentative name, making separate method for version referenci
 
 #def callmissing():
 parser = ArgumentParser()
-parser.add_argument('-l', '--langtag', default = None, help = 'The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format.')
-    #this needs to be swapped out for the locale range specifier, along with anything referencing it (i.e. 'tag') 
+parser.add_argument('-l', '--langtag', default = None, help = "The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format. Mutually exclusive with range or territory, only use to search for one specific tag")
 parser.add_argument('-r','--range', default = None, help = "The alphabet range of sldr files you want to search for. Can be a single letter (e.g. 'a', 'b', 'c') or a range of characters as long as they are in order (e.g. 'a-d', 'x-z'). If you know how regexes work, you can also write a regex without the square brackets ([]) such as '^aef' (everything except a, e, or f) or 'arn' (match to a, r, and n specifically).")
     #figure out how to do alphabet ranges without specifically typing in every one
 parser.add_argument('-t','--territory', default = None, help = "the territory you want to search in, alt to range, this is a bad help pop up fix later")
@@ -340,6 +339,9 @@ root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
     #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
     #tbh this is probs gonna end up in sldr tools which is unfortuante bc it means we are out of the repo and need to be able to path our way to wherever other ppl have the repo bleghhhhh
 
+    #when do that make sure theres a way to skip cldr? UPDATE maybe dont skip it actually; there may be remnants of seed data that are lurking from cldr 
+    #give option to skip cldr? Give option to ONLY pull cldr?
+
 ltag = args.setdefault('langtag')
 range = args.setdefault('range')
 territory = args.setdefault('territory')
@@ -354,9 +356,12 @@ if filter_unsorted != None:
             filter.append(item)
     print(filter)
 
+if langtag != None and (range != None or territory != None or script != None):
+    parser.error("Please either ONLY indicate a single langtag OR use the 'range', 'territory', and/or 'script' filters. Do not use the latter three in conjunction with an argument for a single specific langtag.")
 
 missingdata = json.load(open("missingdata.json"))
 alldata = {}
+singltagfound = 0   # for if searching for only one langtag, becomes 1 if that tag is found and then skips the rest of it so it doesn't cycle through the whole database
 for x in missingdata: 
     msng_dict = {
         "core_msng": None,
@@ -367,12 +372,19 @@ for x in missingdata:
         "month_msng": None,
         "week_msng": None,
         "ampm_msng": None,
+        "dtform_msng": None,
         "tzones_msng": None,
         "num_msng": None,
     }
     print(x.get("filename")) #IT WORKSSSSSS
-    if ltag != None and x.get("langtag") != ltag:
-        continue
+    if ltag != None:
+        if x.get("langtag") == ltag:
+            singltagfound = 1
+        else:
+            if singltagfound == 1:
+                print("out of range")
+                break
+            continue
     if range != None:
         print(range)
         if len(range) == 1:
@@ -414,15 +426,62 @@ for x in missingdata:
             msng_dict["week_msng"] = x.get("week_msng")
         if 'ampm' or 'all' in filter:
             msng_dict["ampm_msng"] = x.get("ampm_msng")
+        if 'dtform' or 'all' in filter:
+            msng_dict["dtform_msng"] = x.get("dtform_msng")
         if 'tzones' or 'all' in filter:
             msng_dict["tzones_msng"] = x.get("tzones_msng")
         if 'num' or 'all' in filter:
             msng_dict["num_msng"] = x.get("num_msng")
     alldata[x.get("filename")] = msng_dict
         
-print(alldata)
-print(alldata.keys())
-#alldata is a dictionary with the key being a filename and the value being a dictionary containing all of the missing data related to that file. 
+#print(alldata)
+#print(alldata.keys())
+#alldata is a dictionary with the key being a filename and the value being a dictionary containing all of the missing data related to that file.
+ 
+#next bit is going to format the data into something that isn't a wall of text
+
+def formatmessage (alldata):
+    file = ""
+    categories = {
+        "core_msng": "Core Requirements",
+        "basic_msng": "Basic Requirements",
+        "ldnp_msng": "Locale Display Patterns",
+        "ldnv_msng": "Locale Display Vocabulary",
+        "delim_msng": "Delimiters",
+        "month_msng": "Month Vocabulary",
+        "week_msng": "Week Vocabulary",
+        "ampm_msng": "AM/PM Vocab",
+        "dtform_msng": "Date/Time Formats",
+        "tzones_msng": "Time Zone Vocab",
+        "num_msng": "Numerical Data",
+    }
+
+    for file in alldata:
+        print("")
+        print(file + " is missing:")
+        for cat in alldata[file]:
+            lgbl_cat_name = categories[cat] #legible category name
+            amnt_msng = len(alldata[file][cat])
+            msng_written = ""
+            for msng in alldata[file][cat]:
+                #print(alldata[file][cat][msng])
+                msng_written += alldata[file][cat][msng] + ", "
+            print("")
+            print(str(amnt_msng) + " item(s) in " + lgbl_cat_name + ":")
+            #print(lgbl_cat_name) 
+            #print(amnt_msng)
+            print(msng_written)
+
+            #print(alldata[file][cat].values())
+            #eventually i want to be able to set parameters for specific types of results. Just numbers or full list? do you want the ldml ref? Do you want it as a dictionary for easy dataing or legible and easy to just read through?
+
+            #format goals:
+                #"this file is missing x in core requirements (list) and y in basic requirements" and if filter arg is None then just list all the basics but if it isn't None then go "of the basic reqs, ..." and start listing categories 
+
+    
+
+formatmessage(alldata)
+
 
 # tag = args.setdefault('ldml')
 # filep = os.path.join(root_sldr, tag[0], tag.replace("-", "_")+".xml")
