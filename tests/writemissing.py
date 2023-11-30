@@ -6,6 +6,12 @@ from sldr.utils import find_parents
 from argparse import ArgumentParser
 from sldr.ldml import Ldml, _alldrafts, getldml
 
+def iscldr(ldml):
+    i = ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.namespaces.items()})
+    if i is not None and i.get('source', "") == "cldr":
+        return True
+    return False
+
 root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 #if this gets moved out of the sldr/tests folder and put somewhere else, need to make sure that this line and possibly the 'filep' variable is changed to reflect how to get back to the sldr folder (the one holding the alphabetical directories)
 
@@ -39,7 +45,7 @@ for (root, dirs, file) in os.walk(root_sldr):
             filelist.append(f)
 
 jsonoutput = []
-cldr_missing = []
+#cldr_missing = []
 
 for f in filelist:
     if f == "root.xml" or f == "test.xml":
@@ -193,18 +199,20 @@ for f in filelist:
                 tzones_msng[r] = basic_reqs.get(r)
             elif r.startswith("numbers/"):
                 num_msng[r] = basic_reqs.get(r)
-    blocklist = []
-    silid = ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.namespaces.items()})
-    if silid is not None and silid.get('source', "") == "cldr":
-        for b in ldml.root:
-            blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
-    if blocklist == ['identity']:
-        if len(basic_msng) != 0 or len(core_msng) != 0:
-            cldr_missing.append(f)
+    #cldr stuff
+    cldr = iscldr(ldml)
+    #blocklist = []
+    # if i is not None and i.get('source', "") == "cldr":
+    #     for b in ldml.root:
+    #         blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+    # if blocklist == ['identity']:
+    #     if len(basic_msng) != 0 or len(core_msng) != 0:
+    #         cldr_missing.append(f)
     
     jsonentry = {
         "filename": filename,
         "langtag": tag,
+        "cldr": cldr,
         "language": lang,
         "script": script,
         "region": territory,
@@ -226,7 +234,7 @@ json_object = json.dumps(jsonoutput, indent=4)
 with open("missingdata.json", "w") as outfile:
     outfile.write(json_object)
 
-print(cldr_missing)
+#print(cldr_missing)
 
 #HOW TO MAKE SURE IT DOESN'T OUTPUT FOR INHERITED DATA OR EMPTY REGIONAL FILES HMMM
 
