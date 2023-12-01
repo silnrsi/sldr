@@ -201,18 +201,18 @@ for f in filelist:
                 num_msng[r] = basic_reqs.get(r)
     #cldr stuff
     cldr = iscldr(ldml)
-    #blocklist = []
-    # if i is not None and i.get('source', "") == "cldr":
-    #     for b in ldml.root:
-    #         blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
-    # if blocklist == ['identity']:
-    #     if len(basic_msng) != 0 or len(core_msng) != 0:
-    #         cldr_missing.append(f)
-    
+    blocklist = []
+    rdndnt_file = False
+    for b in ldml.root:
+        blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+    if blocklist == ['identity']:
+        rdndnt_file = True
+
     jsonentry = {
         "filename": filename,
         "langtag": tag,
         "cldr": cldr,
+        "rdndnt_file": rdndnt_file,
         "language": lang,
         "script": script,
         "region": territory,

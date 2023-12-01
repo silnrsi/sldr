@@ -16,8 +16,12 @@ parser.add_argument('-c', '--coverage', choices = ["core", "basic", "both"], def
 parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num','all'], help = "Used to filter for specific categories of Basic data. Multiple options can be selected, and each will be displayed individually. Options are 'ldnp' (Locale Display Names Patterns), 'ldnv' (Locale Display Names Vocab), 'delim' (Delimiters), 'month' (Gregorian Wide Months Vocab), 'week' (Gregorian Wide Days of the Week Vocab), 'ampm' (Gregorian Wide Day Period Vocab), 'dtform' (Date/Time Format), 'tzones' (Time Zone Vocab), 'num' (Numbers), and 'all' (show all filters). By default, none of these will be used, and only the wider cldr coverage categories will be displayed.")
 parser.add_argument('-o', '--output', choices = ['amnt', 'list', 'ref', 'full', 'dict'], default = 'list', help = "the format used for the end results. Options are 'amnt' (only the amount of each category), 'list' (amount in each category with a list of the 'names' of the missing items), 'ref' (amount in each category with an ldml reference to each of the missing items), 'full' (amount in each category with BOTH the ldml reference and a more legible name for each missing item), and 'dict' (outputs a raw dictionary of all the missing data, sans the amount. I don't suggest this one personally unless you are planning to export and analyze the data in your own right but you do you). Default is 'list'." )
 #add argument for if you want it to skip over empty parts (things missing nothing) or if you want it to say "this one is missing nothing"
+parser.add_argument('-e', '--empty', choices = ['skipfile', 'skipcat', 'skipboth', 'keep'], default = 'keep', help = "How to handle instances where nothing is missing. Options are 'skipfile' (will not display files where nothing is missing from any category, but will still display chosen categories with nothing missing as '0 item(s) missing in category'), 'skipcat' (the vice-versa of the previous, will still show all files that fall under the specified ranges but will not display any empty categories), 'skipboth' (will not display files nor categories where nothing is missing), and 'keep' (all data regardless of amount is displayed). Default is 'keep'.")
 #add argument for only printing files missing beyond a certain percentage of data
 #add argument for only printing files missing a specific category of data
+#add arument for format of lists if chose list or ref or full, whether to be vert or horizontal. maybe combine with existing output arg
+#add argument getting rid of the redundant cldr files that only have [identity] in blocklist shouldn't be too hard, might lump in with cldr options. would be referenced via x.get(rdndnt_file) in same spot where code deals with cldr stuff
+#put the write missing code in this file as a def and then have an argument that defaults to "no" that says "hey make a new missing json file???? ooooh i smort"
 args = vars(parser.parse_args())
 print(args)
 
@@ -29,6 +33,7 @@ root_sldr = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sldr")
 
 results = args.setdefault('output')
 cldr_stat = args.setdefault('CLDR')
+empty_stat = args.setdefault('empty')
 ltag = args.setdefault('langtag')
 range = args.setdefault('range')
 territory = args.setdefault('territory')
@@ -41,7 +46,6 @@ if filter_unsorted != None:
     for item in sorted:
         if item in filter_unsorted: 
             filter.append(item)
-print(filter)
 
 if ltag != None and (range != None or territory != None or script != None or cldr_stat != 'incl'):
     parser.error("Please either ONLY indicate a single langtag OR use the 'range', 'territory', 'script', and/or 'CLDR' filters . Do not use the latter four in conjunction with an argument for a single specific langtag.")
@@ -77,21 +81,28 @@ for x in missingdata:
                 break
             continue
     if range != None:
-        print(range)
         if len(range) == 1:
             if x.get("filename")[0] != range:
-                if [x.get("filename")[0], range].sort()[0] == range:        #cuts off search after searching all of the files starting with that letter
+                a = [str(x.get("filename")[0]), str(range)]
+                a.sort()
+                if a[0] == range:        #cuts off search after searching all of the files starting with that letter
                     print("out of range")
                     break 
                 continue
         elif re.search(("[" + range + "]"), x.get("filename")[0]) == None:
-            q = [(x.get("filename")[0]), (range[-1])]
-            q.sort()
             if "^" in range:        # allows search to continue until 'z' since a set like [^aef] will match to everything except those three letters
                 continue
-            else:
-                if "-" not in range:    #cuts off search when reaching the possible results matching sets such as [arn] and [a-h]
-                    range.sort()        #allows for situations where a set like [arn] is out of order, such as [rna]
+            elif "-" not in range:    #cuts off search when reaching the end of the possible results matching sets such as [arn]
+                    range2 = list(range)
+                    range2.sort()   #allows for situations where a set like [arn] is out of order, such as [rna]
+                    q = [(x.get("filename")[0]), (range2[-1])]
+                    q.sort()
+                    if q[0] == range2[-1]:
+                        print("out of range")
+                        break 
+            else:       #cuts off search when reaching the end of the possible results matching sets such as [a-h]
+                q = [(x.get("filename")[0]), (range[-1])]       #don't need to sort range since regex will ping an error if they're out of order in this format long before this point
+                q.sort()
                 if q[0] == range[-1]:
                     print("out of range")
                     break 
@@ -100,28 +111,28 @@ for x in missingdata:
         continue
     if script != None and x.get("script") != script:
         continue
-    if coverage == "core" or "both":
+    if coverage == "core" or coverage == "both":
         msng_dict["core_msng"] = x.get("core_msng")
-    if coverage == "basic" or "both":
+    if coverage == "basic" or coverage == "both":
         msng_dict["basic_msng"] = x.get("basic_msng")
     if len(filter) != 0:
-        if ('ldnp' or 'all') in filter:
+        if 'ldnp' in filter or 'all' in filter:
             msng_dict["ldnp_msng"] = x.get("ldnp_msng")
-        if ('ldnv' or 'all') in filter:
+        if 'ldnv' in filter or 'all' in filter:
             msng_dict["ldnv_msng"] = x.get("ldnv_msng")
-        if ('delim' or 'all') in filter:
+        if 'delim' in filter or 'all' in filter:
             msng_dict["delim_msng"] = x.get("delim_msng")
-        if ('month' or 'all') in filter:
+        if 'month' in filter or 'all' in filter:
             msng_dict["month_msng"] = x.get("month_msng")
-        if ('week' or 'all') in filter:
+        if 'week' in filter or 'all' in filter:
             msng_dict["week_msng"] = x.get("week_msng")
-        if ('ampm' or 'all') in filter:
+        if 'ampm' in filter or 'all' in filter:
             msng_dict["ampm_msng"] = x.get("ampm_msng")
-        if ('dtform' or 'all') in filter:
+        if 'dtform' in filter or 'all' in filter:
             msng_dict["dtform_msng"] = x.get("dtform_msng")
-        if ('tzones' or 'all') in filter:
+        if 'tzones' in filter or 'all' in filter:
             msng_dict["tzones_msng"] = x.get("tzones_msng")
-        if ('num' or 'all') in filter:
+        if 'num' in filter or 'all' in filter:
             msng_dict["num_msng"] = x.get("num_msng")
     alldata[x.get("filename")] = msng_dict
         #alldata is a dictionary with the key being a filename and the value being a dictionary containing all of the missing data related to that file.
@@ -160,11 +171,11 @@ elif args.get('langtag') == None:
         search += "Exclude CLDR Files from Search"
     elif args.get('CLDR') == 'only':
         search += "Only Search in CLDR Files"
-if args.get('coverage') == ('core' or 'both'):
+if args.get('coverage') == 'core' or args.get('coverage') == 'both':
     fil_out += "Missing Core Requirements"
     if args.get('coverage') == 'both':
         fil_out += " and "
-if args.get('coverage') == ('basic' or 'both'):
+if args.get('coverage') == 'basic' or args.get('coverage') == 'both':
     if len(filter) == 0:
         fil_out += "Missing Basic Requirements"
     elif 'all' in filter:
@@ -181,26 +192,42 @@ if results == 'dict':
     print(alldata)
 else:
     for file in alldata:
+        filter_sum = 0
+        all_sum = 0
+        for cat in alldata[file]:
+            if alldata[file][cat] != None:
+                amnt_msng = len(alldata[file][cat])     #amount missing in that category
+                if cat == "basic_msng" or cat == "core_msng":
+                    all_sum += amnt_msng
+                #if all_sum isn't 0 hit break or smthng idk all we really need to know is if its not 0, still need filter sum specific tho. could keep this one tho and have it be a display for total amoutn of all missing stuff
+                elif len(filter) != 0:
+                    filter_sum += amnt_msng
+        if (empty_stat == 'skipfile' or empty_stat == 'skipboth') and all_sum == 0:
+            continue
+        print("")
+        print("----------------------------------------------")
         print("")
         print(str(search))
         print(str(fil_out))
+        #FILL IN THIS BIT
+        print("This is where the bit about what format emptyness thing you picked out will go to make ABSOLUTE SURE you aren't confused")
+        #FILL IN THIS BIT
         print(file + " is missing:")
         for cat in alldata[file]:
-            if cat == "core_msng" and coverage != ('core' or "both"):
+            if cat == "core_msng" and coverage !='core' and coverage != "both":
                 continue
-            elif cat == "basic_msng" and coverage != ('basic' or "both"):
+            elif cat == "basic_msng" and coverage != 'basic' and coverage != "both":
                 continue
-            #elif len(filter) != 0 and 'all' not in filter:
-                
             if alldata[file][cat] != None:        
                 lgbl_cat_name = categories[cat]     #legible category name
                 amnt_msng = len(alldata[file][cat])     #amount missing in that category
                 msng_written = ""
                 filt_indt = ""
-                #print(cat)
+                if amnt_msng == 0 and (empty_stat == 'skipcat' or empty_stat == 'skipboth'):
+                    continue
                 if cat != "basic_msng" and cat != "core_msng":
                     filt_indt = "\t"
-                if all not in filter or cat != "basic_msng": 
+                if len(filter) ==0 or cat != "basic_msng": 
                     print(filt_indt + "\t" + str(amnt_msng) + " item(s) in " + lgbl_cat_name) 
                     for msng in alldata[file][cat]:
                         if results == 'list':    
@@ -213,10 +240,8 @@ else:
                             print(filt_indt + "\t\t" + alldata[file][cat][msng] + ": " + msng)
                             #msng_written += alldata[file][cat][msng] + ": " + msng + ", "
                     #print(filt_indt + "\t\t" + msng_written)       # for alt way of outputting list, as commas not vert list. to use, un-comment-out the usage of the msng_written variable and comment out the print statements that preceed them. Might turn into an optional format in the argparser later
-                if cat == "basic_msng" and all in filter:
-                    print("\t" + str(amnt_msng) + " item(s) in " + lgbl_cat_name + ", distributed between:")   
-
-                    ###CODE PROBLEM: BASIC STILL SAYS THE NUMBER FOR ALL THE MISSING BASICS NOT THE ONES THAT FIT THE CATEGORIES FILTERED ALKFJDSLFKJDLF PROBLEM FOR FUTURE ME GHAH
+                else:
+                    print("\t" + str(amnt_msng) + " item(s) in " + lgbl_cat_name + ", " + str(filter_sum) + " of which fall under the chosen filters:")   
               
 
 #would also be nice to be able to indicate a specific bit of data (more than 1 probs so you can ask for both delims or something) and ask "which files are missing this" but then again that's probably more efficient in the pytest format
@@ -235,6 +260,7 @@ else:
 
 
 #how to use for Em ref: python prog.py --langtag nga --coverage both --filter all
+#python prog.py --coverage both -C only -o amnt -e skipboth -r an
 
 
 
