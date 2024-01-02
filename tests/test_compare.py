@@ -168,3 +168,10 @@ def test_redundantsil(ldml, langid):
     if blocklist == ['identity', 'special'] and is_root == False:
         assert False, filename + " Redundant sil:external-resources detected"
 
+def test_udhr(ldml, langid):
+    """test to fix udhr move links :("""
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    if len(ldml.ldml.findall('special/sil:external-resources/sil:sampletext[@type="{0}"]'.format("udhr"))) == 0:
+        return True
+    udhr= ldml.ldml.findall('special/sil:external-resources/sil:sampletext[@type="{0}"]/sil:url'.format("udhr"))[0].text
+    assert False, udhr
