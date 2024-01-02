@@ -14,6 +14,7 @@ parser.add_argument('-s','--script', default = None, help = "the script you want
 parser.add_argument('-C', '--CLDR', choices = ['incl', 'excl', 'only'], default = 'incl', help = "Determines inclusion of CLDR files. Options are 'incl' (include CLDR files in search), 'excl' (exclude CLDR files from search), and 'only' (only search CLDR files). Default is 'incl'. Only use 'excl' or 'only' alongside the group search arguments of 'range', 'territory', or 'script,' not single langtag searches, to avoid empty results.")
 parser.add_argument('-c', '--coverage', choices = ["core", "basic", "both"], default = "both", help = "The CLDR coverage level you are searching for. Options are 'core', 'basic', or the default 'both'.")
 parser.add_argument('-f', '--filter', action= 'append', choices = ['ldnp', 'ldnv', 'delim', 'month', 'week', 'ampm', 'dtform', 'tzones', 'num','all'], help = "Used to filter for specific categories of Basic data. Multiple options can be selected, and each will be displayed individually. Options are 'ldnp' (Locale Display Names Patterns), 'ldnv' (Locale Display Names Vocab), 'delim' (Delimiters), 'month' (Gregorian Wide Months Vocab), 'week' (Gregorian Wide Days of the Week Vocab), 'ampm' (Gregorian Wide Day Period Vocab), 'dtform' (Date/Time Format), 'tzones' (Time Zone Vocab), 'num' (Numbers), and 'all' (show all filters). By default, none of these will be used, and only the wider cldr coverage categories will be displayed.")
+#add argument for if you want it to output files that are ONLY missing the above filters vs anything missing them?
 parser.add_argument('-o', '--output', choices = ['amnt', 'list', 'ref', 'full', 'dict'], default = 'list', help = "the format used for the end results. Options are 'amnt' (only the amount of each category), 'list' (amount in each category with a list of the 'names' of the missing items), 'ref' (amount in each category with an ldml reference to each of the missing items), 'full' (amount in each category with BOTH the ldml reference and a more legible name for each missing item), and 'dict' (outputs a raw dictionary of all the missing data, sans the amount. I don't suggest this one personally unless you are planning to export and analyze the data in your own right but you do you). Default is 'list'." )
 #add argument for if you want it to skip over empty parts (things missing nothing) or if you want it to say "this one is missing nothing"
 parser.add_argument('-e', '--empty', choices = ['skipfile', 'skipcat', 'skipboth', 'keep'], default = 'keep', help = "How to handle instances where nothing is missing. Options are 'skipfile' (will not display files where nothing is missing from any category, but will still display chosen categories with nothing missing as '0 item(s) missing in category'), 'skipcat' (the vice-versa of the previous, will still show all files that fall under the specified ranges but will not display any empty categories), 'skipboth' (will not display files nor categories where nothing is missing), and 'keep' (all data regardless of amount is displayed). Default is 'keep'.")
@@ -262,6 +263,14 @@ else:
 #how to use for Em ref: python prog.py --langtag nga --coverage both --filter all
 #python prog.py --coverage both -C only -o amnt -e skipboth -r an
 
+
+
+###################################################
+#Summary of what this thing does that I wrote for a lightning round but got too long:
+#A script that would help to identify files in the SLDR which could be close to CLDR Basic coverage requirements. Simultaneously something useful and a way to improve my python skills.
+#Currently allows you to filter specific elements of Basic coverage you'd want to search for (i.e. you could search for which files are missing delimiters). Working on adding a functionality where it returns files that are ONLY missing those filters, not just returning any file that is missing them. 
+#Also has various filters for which parts of the SLDR you'd search within, such as a specific alphabetical range, specific region or script (i.e. only return locales in cameroon or only return locales using latin script), and various output formats (easy to read versus dictionary output for further reference). 
+#Biggest issue is the lack of taking inheritance into account. 
 
 
 
