@@ -8,6 +8,7 @@ from sldr.ldml import Ldml, _alldrafts, getldml
 
 parser = ArgumentParser()
 parser.add_argument('-l', '--langtag', default = None, help = "The langtag of the file you are examining. It should be the file name with \'-\' replacing \'_\' and without \'.xml\' at the end. If you are familiar with the pytests used on the SLDR, it is the same format. Mutually exclusive with range or territory, only use to search for one specific tag")
+#add argument for listing multiple langtags which then get treated like the ranges do?
 parser.add_argument('-r','--range', default = None, help = "The alphabet range of sldr files you want to search for. Can be a single letter (e.g. 'a', 'b', 'c') or a range of characters as long as they are in order (e.g. 'a-d', 'x-z'). If you know how regexes work, you can also write a regex without the square brackets ([]) such as '^aef' (everything except a, e, or f) or 'arn' (match to a, r, and n specifically).")
 parser.add_argument('-t','--territory', default = None, help = "the territory you want to search in, alt to range, this is a bad help pop up fix later")
 parser.add_argument('-s','--script', default = None, help = "the script you want to search in, alt to range, fix help later")
