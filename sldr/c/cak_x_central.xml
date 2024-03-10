@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
 	<identity>
-		<version number="20210903.0349" draft="unconfirmed"/>
+		<version number="20210903.0348" draft="unconfirmed"/>
 		<language type="cak" draft="unconfirmed"/>
-		<variant type="x-solola" draft="unconfirmed"/>
+		<variant type="x-central" draft="unconfirmed"/>
 		<special>
 			<sil:identity defaultRegion="GT" script="Latn" draft="generated"/>
 		</special>
@@ -14,9 +14,9 @@
 		</orientation>
 	</layout>
 	<characters>
-		<exemplarCharacters>[a á b c d e é f g h i í j k l m n ñ o ó p q r s t u ú v w x y z]</exemplarCharacters>
-		<exemplarCharacters type="index">[A Á B C D E É F G H I Í J K L M N Ñ O Ó P Q R S T U Ú V W X Y Z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- , ; \: ! ¡ ? ¿ . ' “ ” ( )]</exemplarCharacters>
+		<exemplarCharacters>[a á b c d e é f g h i í j k l m n ñ o ó p q r s t u ú v x y z]</exemplarCharacters>
+		<exemplarCharacters type="index">[A Á B C D E É F G H I Í J K L M N Ñ O Ó P Q R S T U Ú V X Y Z]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[\- , ; \: ! ¡ ? ¿ . ( ) \[ \] ']</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>“</quotationStart>
@@ -31,24 +31,26 @@
 			</sil:matched-pairs>
 			<sil:punctuation-patterns>
 				<sil:punctuation-pattern pattern="!_" context="final"/>
-				<sil:punctuation-pattern pattern="&apos;" context="medial"/>
-				<sil:punctuation-pattern pattern="&apos;_" context="final"/>
 				<sil:punctuation-pattern pattern=")_" context="final"/>
 				<sil:punctuation-pattern pattern=",_" context="final"/>
 				<sil:punctuation-pattern pattern="-" context="medial"/>
 				<sil:punctuation-pattern pattern="." context="medial"/>
+				<sil:punctuation-pattern pattern="..._" context="final"/>
 				<sil:punctuation-pattern pattern="._" context="final"/>
 				<sil:punctuation-pattern pattern="/" context="medial"/>
 				<sil:punctuation-pattern pattern=":" context="medial"/>
 				<sil:punctuation-pattern pattern=":_" context="final"/>
 				<sil:punctuation-pattern pattern=";_" context="final"/>
 				<sil:punctuation-pattern pattern="?_" context="final"/>
+				<sil:punctuation-pattern pattern="[" context="medial"/>
+				<sil:punctuation-pattern pattern="]" context="medial"/>
+				<sil:punctuation-pattern pattern="]_" context="final"/>
 				<sil:punctuation-pattern pattern="_(" context="init"/>
-				<sil:punctuation-pattern pattern="_*" context="init"/>
-				<sil:punctuation-pattern pattern="_/_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_[" context="init"/>
 				<sil:punctuation-pattern pattern="_¡" context="init"/>
 				<sil:punctuation-pattern pattern="_©_" context="isolate"/>
 				<sil:punctuation-pattern pattern="_¿" context="init"/>
+				<sil:punctuation-pattern pattern="_–_" context="isolate"/>
 				<sil:punctuation-pattern pattern="_—_" context="isolate"/>
 				<sil:punctuation-pattern pattern="_“" context="init"/>
 				<sil:punctuation-pattern pattern="‌" context="medial"/>
@@ -67,19 +69,17 @@
 		<collation type="standard">
 			<cr><![CDATA[
 				&A << á <<< Á
-				&C < ch <<< Ch <<< CH
 				&E << é <<< É
 				&I << í <<< Í
-				&L < ll <<< Ll <<< LL
 				&N < ñ <<< Ñ
 				&O << ó <<< Ó
-				&U << ú <<< Ú << ü <<< Ü
+				&U << ú <<< Ú < ü <<< Ü
+				&Z < ''
 			]]></cr>
 			<special>
 				<sil:simple>a/A á/Á
 				b/B
 				c/C
-				ch Ch
 				d/D
 				e/E é/É
 				f/F
@@ -89,7 +89,6 @@
 				j/J
 				k/K
 				l/L
-				ll LL
 				m/M
 				n/N
 				ñ/Ñ
@@ -99,21 +98,21 @@
 				r/R
 				s/S
 				t/T
-				u/U ú/Ú ü/Ü
+				u/U ú/Ú
+				ü/Ü
 				v/V
 				w/W
 				x/X
 				y/Y
 				z/Z
-				ꞌ</sil:simple>
+				'</sil:simple>
 			</special>
 		</collation>
 	</collations>
 	<special>
 		<sil:external-resources>
-			<sil:font name="Charis SIL" types="default" features="ss04=1 cv43=2 cv68=1 cv77=1 cv90=1">
-				<sil:url>https://lff.api.languagetechnology.org/family/charissil</sil:url>
-			</sil:font>
+			<sil:font name="Charis SIL"/>
+			<sil:font name="Charis SIL" types="default"/>
 		</sil:external-resources>
 	</special>
 </ldml>
