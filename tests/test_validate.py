@@ -5,6 +5,7 @@ from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 from unicodedata import normalize
 import re
+from sldr.utils import find_parents
 
 @pytest.fixture(scope="session")
 def validator(request):
@@ -192,7 +193,7 @@ def _test_re(string):
         return False
 
 def test_idblock(ldml):
-    """ Return True if the SIL identity block has region and script listed"""
+    """ Tests that the SIL identity block has both region and script listed"""
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     if filename == "root.xml" or filename == "test.xml":
         return
@@ -208,3 +209,21 @@ def test_idblock(ldml):
         result= "".join([result,"territory "])
     if script is None or territory is None: 
         assert False, filename + result + "data in SIL Identity block"
+
+def test_direction(ldml, langid):
+    """ Tests that a locale featuring an RTL language also has "right-to-left" listed under layout/orientation/characterOrder or else inherits it from a parent using the same script"""
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    if filename == "root.xml" or filename == "test.xml":
+        return
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
+    script = i.get("script") or ldml.ldml.root.find('.//identity/script')
+    rtlscripts = ["Arab", "Hebr", "Syrc", "Thaa", "Mand", "Samr", "Nkoo", "Gara", "Adlm", "Rohg", "Yezi", "Todr"]   # only listing non-historic scripts atm
+    if script in rtlscripts:
+        direction = ldml.ldml.root.find('.//layout/orientation/characterOrder')
+        if direction == None:
+            noparent = find_parents(langid, False, True, True, False)[0]    # if has a parent of the same script, will inherit order from parent. If parent has an error, that's the parent's fault and will be pinged when test runs on parent.
+            assert noparent == False, filename + "uses an rtl script but does not indicate rtl in layout/orientation/characterOrder"
+        else: 
+            assert direction.text != "left-to-right", filename + " uses an rtl script but says ltr in layout/orientation/characterOrder"                
