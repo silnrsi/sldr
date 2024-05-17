@@ -9,6 +9,7 @@ import sldr.UnicodeSets as usets
 allowed_chars = {
     "agd": "g",
     "aiw_Ethi": "\u1361",
+    "fab": "\u0027",
 }
 
 def iscldr(ldml):
