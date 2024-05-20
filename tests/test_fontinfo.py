@@ -40,13 +40,10 @@ def test_fontinfo(ldml, langid):
         return
     
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    for x in exempt:
-        if filename == x:
-            return
-            
-    is_root = find_parents(langid, False, True, True, False)[0]
-    if is_root == False:
-        return
-    else:
-        fonts = ldml.ldml.findall("special/sil:external-resources/sil:font")
-        assert len(fonts) > 0 , filename + " has no font information"
+    fonts = ldml.ldml.findall("special/sil:external-resources/sil:font")
+    assert len(ldml.ldml.root) == 1 or len(fonts) > 0 , filename + " has no font information"
+    allfontnames = {}
+    for f in fonts:
+        n = f.get('name')
+        assert n not in allfontnames, filename + " has repeated sil:font@name = {}".format(n)
+        allfontnames[n] = 1

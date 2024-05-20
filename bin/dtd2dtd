@@ -58,6 +58,9 @@ class ElementDecl:
         for a in self.attributes.values():
             a.applyHacks()
 
+    def addAnnotation(self, value):
+        self.annotations.append(value)
+
     def asStr(self):
         res = ["<!ELEMENT {} ".format(self.name)]
         if self.model.type == ModelType.EMPTY:
@@ -225,6 +228,8 @@ class DTDParser:
         parsetext = "<?xml version='1.0'?>\n<!DOCTYPE ldml [\n" + ldmltext + "]>\n"
         self.parser.Parse(parsetext)
 
+blockingElements = "identity collation".split()  # supplementalData cldrTest transform
+
 parser = argparse.ArgumentParser()
 parser.add_argument("infile",help="Input DTD")
 parser.add_argument("outfile",help="Output DTD")
@@ -242,6 +247,8 @@ for en, e in dtd.elements.items():
 if args.hacks:
     for e in dtd.allElements:
         dtd.elements[e].applyHacks()
+    for e in blockingElements:
+        dtd.elements[e].addAnnotation("@BLOCK")
 with open(args.outfile, "w") as outf:
     for e in dtd.allElements:
         outf.write(dtd.elements[e].asStr() + "\n")

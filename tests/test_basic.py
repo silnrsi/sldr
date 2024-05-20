@@ -99,4 +99,4 @@ def test_identity(ldml, langid, fixdata):
                             silid.set(k, silval)
                             ldml.dirty = True
                         else:
-                            assert silidval == "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)
+                            assert silidval != "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)
