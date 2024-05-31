@@ -52,7 +52,7 @@ Importing a new version of CLDR may require a new version of the DTD definition 
 
 ```
 # copy the ldml.dtd file
-cp /cldr/common/dtd/ldml.dtd /sldr/doc
+cp /cldr/common/dtd/ldml.dtd /sldr/auxdata
 # use make/Makefile and scripts in bin/ to generate files 
 cd /sldr
 make
@@ -62,11 +62,14 @@ pytest test_validate.py::test_validate
 git commit -a -m "update ldml.dtd"
 git push
 # copy updated file to sldrtools and commit
-cp doc/sil.dtd /sldrtools/lib/sldr
+cp auxdata/sil.dtd /sldrtools/lib/sldr
 cd /sldrtools
 git commit -a -m "update ldml.dtd"
 git push
 ```
+
+Notes for Windows: "make" can be downloaded from https://sourceforge.net/projects/gnuwin32/ which will install as "\Program Files (x86)\GnuWin32\bin\make.exe"
+
 ## Importing CLDR Data
 
 This section describes the process for importing a new version of CLDR data into the SLDR. Importing CLDR data is an activity that happens alongside regular editing of LDML files. As a result, the easiest way to manage this is to use a git branch. All changes to CLDR will be imported into a separate branch called `cldr` and then those changes are merged into the `master` branch. This means that only the changes between versions of the CLDR will be merged
