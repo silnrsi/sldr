@@ -42,7 +42,7 @@ def test_autonym(ldml):
 
 #   get language id
     lid = filename[:-4] #.replace("_", "-")
-    #langid = ldml.ldml.root.find("identity/language").get("type")
+    langid = ldml.ldml.root.find("identity/language").get("type")
     ### should be target of another test:
     ### could check that filename.split('_')[0] == langid
     #assert filename.split('_')[0] == langid, filename + " " + langid + " don't correspond" 
@@ -76,6 +76,10 @@ def test_autonym(ldml):
 #    assert re.match(mainre, autonym_text) is not None, \
 #                filename + " " + lid + ": Name of language (" + autonym_text \
 #                + ") contains characters not in main exemplar " + main_exem
+    if len(names)>1:
+        assert re.match(mainre, autonym_text) is not None, \
+                filename + " " + lid + ": Name of language (" + autonym_text \
+                + ") MIGHT BE MISLABELED or contains characters [" + missing + " ] (Codepoints: " + missingcode[:-2] + ") which are not in main exemplar " + main_exem
     assert re.match(mainre, autonym_text) is not None, \
                 filename + " " + lid + ": Name of language (" + autonym_text \
                 + ") contains characters [" + missing + " ] (Codepoints: " + missingcode[:-2] + ") which are not in main exemplar " + main_exem
