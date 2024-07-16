@@ -52,8 +52,11 @@ def test_autonym(ldml):
     if names is None:
 #        assert False, filename + " has no localeDisplayNames"
         return
-    autonym = names.findall('language[@type="{0}"]'.format(lid))
+    autonym = names.findall('language[@type="{0}"]'.format(langid))
     if autonym is None or len(autonym) < 1: 
+        longautonym = names.findall('language[@type="{0}"]'.format(lid))
+        if longautonym is not None or len (longautonym)>1:
+            assert False, filename + " " + lid + ": type needs to be changed to just the language, not the full langtag"
         assert False, filename + " " + lid + ": Name of language in this language is missing"
         return 
     autonym_text = unicodedata.normalize("NFD", autonym[0].text.lower())
@@ -76,10 +79,6 @@ def test_autonym(ldml):
 #    assert re.match(mainre, autonym_text) is not None, \
 #                filename + " " + lid + ": Name of language (" + autonym_text \
 #                + ") contains characters not in main exemplar " + main_exem
-    if len(names)>1:
-        assert re.match(mainre, autonym_text) is not None, \
-                filename + " " + lid + ": Name of language (" + autonym_text \
-                + ") MIGHT BE MISLABELED or contains characters [" + missing + " ] (Codepoints: " + missingcode[:-2] + ") which are not in main exemplar " + main_exem
     assert re.match(mainre, autonym_text) is not None, \
                 filename + " " + lid + ": Name of language (" + autonym_text \
                 + ") contains characters [" + missing + " ] (Codepoints: " + missingcode[:-2] + ") which are not in main exemplar " + main_exem
