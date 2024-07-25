@@ -56,7 +56,7 @@ symbols.
 
 ## Various Examples
 
-### Kwaya
+### Kwaya (May 2021)
 
 Kwaya [kya] is spoken and written in Tanzania. There is an
 [orthography statement](https://www.sil.org/system/files/reapdata/11/80/96/118096820427572282340173471687806270977/Kwaya_Orthography_Statement_Final.pdf)
@@ -143,7 +143,7 @@ into the category of punctuation.
 
 While ' occurs in both exemplars, it is not unconstrained in both lists.
 
-### Emberá-Tadó
+### Emberá-Tadó (May 2021)
 
 Emberá-Tadó [tdc] is spoken in Columbia. The only data available is picture
 dictionary of very few words where an animal is listed in the sequence: "_animal_
@@ -265,4 +265,35 @@ Given we know nothing about the use of ' in punctuation, it is probably wise to
 not include it. But further analysis may allow us to remove the ' as an
 unconstrained character from the main exemplar and add it to the punctuation
 list.
+
+### Dinka (Nov 2021)
+
+For Dinka ("din"), Wikipedia lists the alphabet as: 
+a ä b c d dh e ë ɛ ɛ̈ g ɣ i ï j k l m n nh ny ŋ t th u w o ö ɔ ɔ̈ p r y
+
+Currently in the SLDR, we have a proposed main exemplar of:
+[a b c d e g h i j k l m n o p r t u w y ŋ ɔ ɛ ɣ \u0308]
+which seems to have all the characters used to write the language, including the dieresis, but doesn't reflect how the characters are used in the language ("h" only after "d", "n" or "t"; dieresis over certain vowels; etc.).
+
+A second proposed main exemplar (based on the Wikipedia information) would be:
+[a ä b c d {dh} e ë ɛ {ɛ̈} g ɣ i ï j k l m n {nh} {ny} ŋ t {th} u w o ö ɔ {ɔ̈} p r y]
+
+Which one is preferred? and what are the principles in making the choice?
+
+Reference: http://www.unicode.org/reports/tr35/tr35-general.html
+section 3.1.1 Exemplar syntax
+
+"Where combining marks are used generatively, and apply to a large number of base characters (such as in Indic scripts), the individual combining marks should be included. Where they are used with only a few base characters, the specific combinations should be included." 
+
+This would seem to support including the six vowel+dieresis combinations (rather than the \u0308 combining dieresis). 
+
+"If the letter 'z' were only ever used in the combination 'tz', then we might have [a-y {tz}] in the main set." 
+
+This would seem to support including the three {dh}, {nh} and {th} combinations, but not 'h' separately.
+
+The proposed index exemplar is:
+[A B C D {DH} E Ɛ G Ɣ I J K L M N {NH} {NY} Ŋ T {TH} U W O Ɔ P R Y] 
+The proposed auxiliary exemplar is:
+[á â é ê ɛ́ ɛ̂ í î ó ô ɔ́ ɔ̂ ú]
+For collation, vowels with dieresis will sort at secondary level.  
 

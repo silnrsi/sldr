@@ -24,11 +24,12 @@
 		</orientation>
 	</layout>
 	<characters>
-		<exemplarCharacters>[a á â {a̱} {â̱} b c d e é ê f g h i í î j k l m n ñ o ó ô {o̱} {ô̱} p q r s t u ú v w x y z ⁿ ꞌ]</exemplarCharacters>
+		<exemplarCharacters>[a â b c d e ê f g h i î j ꞌ l m n ñ o ô p q r s t u v w x y z ⁿ ̱ ]</exemplarCharacters>
 		<exemplarCharacters alt="proposed-dbl" draft="suspect">[A-Za-z]</exemplarCharacters>
+		<exemplarCharacters type="auxiliary">[k \' \u0301]</exemplarCharacters>
+		<exemplarCharacters type="index">[A {Aⁿ} {A̱} {A̱ⁿ} B C {CH} {CW} E {Eⁿ} {EI} {EIⁿ} I J ꞌ L M N {ND} {NDY} Ñ O {OM} {O̱} {O̱ⁿ} P Q R S T {TS} {TY} U W X Y]</exemplarCharacters>
 		<exemplarCharacters type="punctuation">[! ( ) , . \: ; ? ¡ ¿ — ’ “ ”]</exemplarCharacters>
 		<exemplarCharacters type="punctuation" alt="proposed-dbl" draft="suspect">[!(),.\:;?\u00A1\u00BF\u2014\u2019\u201C\u201D]</exemplarCharacters>
-		<exemplarCharacters type="index">[A Á Â {A̱} {Â̱} B C D E É Ê F G H I Í Î J K L M N Ñ O Ó Ô {O̱} {Ô̱} P Q R S T U Ú V W X Y Z ⁿ Ꞌ]</exemplarCharacters>
 	</characters>
 	<delimiters>
 		<quotationStart>“</quotationStart>
@@ -65,13 +66,26 @@
 			</sil:quotation-marks>
 		</special>
 	</delimiters>
+	<collations>
+		<collation type="standard" sil:modified="true">
+			<cr><![CDATA[
+				&A<aⁿ<<<Aⁿ<a̱<<<A̱<a̱ⁿ<<<A̱ⁿ
+				&C<ch<<<cH<<<Ch<<<CH<cw<<<cW<<<Cw<<<CW
+				&E<eⁿ<<<Eⁿ<ei<<<eI<<<Ei<<<EI<eiⁿ<<<eIⁿ<<<Eiⁿ<<<EIⁿ
+				&J<ꞌ
+				&N<nd<<<nD<<<Nd<<<ND<ndy<<<ndY<<<nDy<<<nDY<<<Ndy<<<NdY<<<NDy<<<NDY<ñ<<<Ñ
+				&O<om<<<oM<<<Om<<<OM<o̱<<<O̱<o̱ⁿ<<<O̱ⁿ
+				&T<ts<<<tS<<<Ts<<<TS<ty<<<tY<<<Ty<<<TY
+			]]></cr>
+		</collation>
+	</collations>
 	<special>
 		<sil:external-resources>
-			<sil:font name="Cambria" types="default" alt="proposed-dbl" draft="suspect"/>
-			<sil:font name="Charis SIL" types="default" size="0.7">
-				<sil:url>https://wirl.api.sil.org/CharisSILReg&amp;type=ttf</sil:url>
+			<sil:font name="Charis SIL" types="default">
+				<sil:url>https://lff.api.languagetechnology.org/family/charissil</sil:url>
 			</sil:font>
-			<sil:font name="Noto Sans" types="ui">
+			<sil:font name="Noto Sans">
+				<!--types="ui"-->
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf</sil:url>
 			</sil:font>
 			<sil:font name="Noto Serif">
@@ -82,7 +96,7 @@
 	<special>
 		<sil:note><![CDATA[
 			# Issues
-			1. sil:simple collation has a bunch of extra items and doesn't include some items from main exemplar.
+			1. Needs collation to match index exemplar. Are accented characters needed in exemplar?
 		]]></sil:note>
 	</special>
 </ldml>

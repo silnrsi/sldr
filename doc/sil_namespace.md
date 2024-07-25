@@ -208,8 +208,8 @@ sil.resources = element sil:external-resources {
      sil.kbdrsrc*,
      sil.spellcheck*,
      sil.transform*,
-     sil.case-tailoring?,
-     sil.sampletext*)
+     sil.sampletext*,
+     sil.wordlist*)
 }
 sil.url = element sil:url {
     attlist.sil.global,
@@ -218,7 +218,7 @@ sil.url = element sil:url {
 ```
 
 ```dtd
-<!ELEMENT sil:external-resources (sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:case-tailoring | sil:sampletext)*>
+<!ELEMENT sil:external-resources (sil:case-tailoring | sil:font | sil:kbd | sil:spell-checking | sil:transform | sil:sampletext | sil:wordlist)*>
 <!ELEMENT sil:url (#PCDATA)>
 <?ATTREF sil:url global?>
 ```
@@ -231,13 +231,13 @@ For example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:font name="Scheherazade" engines="gr ot" types="default">
-            <sil:url>https://wirl.api.sil.org/Scheherazade</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/scheherazadenew</sil:url>
         </sil:font>
         <sil:kbd id="TunisianSpokenArabic" type="kmp">
-            <sil:url>https://wirl.api.sil.org/TunisianSpokenArabic</sil:url>
+            <sil:url>https://keyman.com/keyboards/install/sil_tunisian</sil:url>
         </sil:kbd>
         <sil:spell-checking type="hunspell">
-            <sil:url>https://wirl.api.sil.org/aeb-DictList</sil:url>
+            <sil:url>https://github.com/silnrsi/wsresources/tree/master/langs/a/aeb/hunspell</sil:url>
         </sil:spell-checking>
     </sil:external-resources>
 </special>
@@ -320,13 +320,15 @@ The urls reference font resources either as .ttf or .woff files and are stored i
 |                |  If this attribute is missing it is assumed to be "gr ot", but if the font does not support Graphite, then the "gr" is, in effect, ignored. The primary purpose of this attribute is to give some indication to applications as to the level of text rendering support they need to supply for this font. This is particularly for Graphite only fonts. \[Default: ot\]  |
 | **subset**     | Specifies a subset name that can be used with this font in web contexts to use a font subset and reduce download time. I.e. if this attribute exists, an application may ignore it. |
 
+Due to an unfixable bug in Flex. The @name value must be unique in the list of sil:font in the sil:external-resources.
+
 For example:
 
 ```xml
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:font name="Padauk" types="default">
-            <sil:url>http://wirl.scripts.sil.org/padauk</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/padauk</sil:url>
         </sil:font>
     </sil:external-resources>
 </special>
@@ -397,7 +399,7 @@ Example:
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:spell-checking type="hunspell">
-            <sil:url>https://wirl.api.sil.org/af_ZA-DictList</sil:url>
+            <sil:url>https://github.com/silnrsi/wsresources/tree/master/langs/a/af/hunspell</sil:url>
         </sil:spell-checking>
     </sil:external-resources>
 </special>
@@ -510,6 +512,7 @@ A case tailoring may either specify another locale as an alias to use when case 
 <special xmlns:sil="urn://www.sil.org/ldml/0.1">
     <sil:external-resources>
         <sil:case-tailoring transform="qbx"/>
+        <sil:transform from="qbx" to="qbx-Title"/>
     </sil:external-resources>
 </special>
 ```
@@ -539,6 +542,53 @@ sil.text = element sil:text { text }
 ``` 
 
 A sample text is stored in plain text with the only formatting being a blank line between paragraphs. An external reference is to such a plain text file, stored in UTF-8 with no Byte Order Mark. The license attribute gives the licensing of the text. The copyright is assumed to be owned by the owner of the linked text or the owner of the LDML file for internal texts. If the license attribute is missing for internal texts, then the license is the same as for the LDML file. For external files, it is unknonwn as per the copyright.
+
+### Wordlists
+
+Wordlists are lists of words. The simplest form is a text file with one word per line. But usually wordlists are tab separated with other information in later columns. The specification here allows the columns to be specified.
+
+```rnc
+sil.wordlist = element sil:wordlist {
+    (attlist.sil.wordlist & attlist.sil.global),
+    sil.url
+}
+attlist.sil.wordlist &= attribute type { text }?
+attlist.sil.wordlist &= columns { xsd:NMTOKENS }?
+attlist.sil.wordlist &= headerlines { text }?
+```
+```dtd
+<!ELEMENT sil:wordlist (sil:url)>
+<!ATTLIST sil:wordlist type CDATA #IMPLIED>
+<!ATTLIST sil:wordlist columns NMTOKENS #IMPLIED>
+<!--@VALUE-->
+<!ATTLIST sil:wordlist headerlines CDATA #IMPLIED>
+<!--@VALUE-->
+<?ATTREF sil:wordlist global?>
+```
+
+The child URL gives the url to the wordlist resource. @type may take the following values:
+
+|          |                                              |
+|----------|----------------------------------------------|
+| csv      | Comma separated columns, with " and "" escaping |
+| tsv\*    | Tab separated columns. This is the default value |
+
+A tsv or csv file may have initial header lines. The number is listed in the @headerlines attribute, with a default of 0. Following that may be any number of comment lines starting with a # or blank lines. The data lines may have multiple columns and the fields used may be listed in the @columns attribute:
+
+| Field Id | Description                                            |
++----------+--------------------------------------------------------+
+| word     | The word, lemma, form |
+| freq     | The frequency count of this word in some corpus |
+| hyphen   | The hyphenated word. |
+| ipa      | Pronuncation using IPA with . for syllable breaks |
+| pos      | Part of speech
+| features | key=value, where key is a field id |
+| morph    | morphology class |
+| gnumber  | grammatical number |
+| gperson  | grammatical person |
+| notes    | Free form notes to the end of the line |
+
+If there is no @columns attribute or it contains too few entries then a default @columns attribute consists of `word freq notes`.
 
 ## Identification
 
@@ -922,7 +972,7 @@ LDML has a special element that can occur: alias. Details may be found here [*ht
 <special>
     <sil:external-resources>
         <sil:font name="Padauk" engines="gr ot" type="default">
-            <sil:url>http://wirl.scripts.sil.org/padauk</sil:url>
+            <sil:url>https://lff.api.languagetechnology.org/family/padauk</sil:url>
         </sil:font>
         <sil:font name="Padauk" engines="gt ot" type="bodytext">
             <alias source="locale" path="../sil:font\[@type='default'\]"/>

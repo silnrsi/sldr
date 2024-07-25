@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2021 Unicode, Inc.
+<!-- Copyright © 1991-2023 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-Unicode and the Unicode Logo are registered trademarks of Unicode, Inc. in the U.S. and other countries.
+SPDX-License-Identifier: Unicode-DFS-2016
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 -->
 <ldml xmlns:sil="urn://www.sil.org/ldml/0.1">
@@ -151,7 +151,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="IE">Ayalandi</territory>
 			<territory type="IL">Islaeli</territory>
 			<territory type="IN">India</territory>
-			<territory type="IO">Lieneo lyaki Nngalesa Nbahali ya Hindi</territory>
+			<territory type="IO" draft="provisional">Lieneo lyaki Nngalesa Nbahali ya Hindi</territory>
 			<territory type="IQ">Ilaki</territory>
 			<territory type="IR">Uadyemi</territory>
 			<territory type="IS">Aislandi</territory>
@@ -285,11 +285,24 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<territory type="ZM">Zambia</territory>
 			<territory type="ZW">Zimbabwe</territory>
 		</territories>
+		<special>
+			<sil:names>
+				<sil:name xml:lang="en">Makonde</sil:name>
+			</sil:names>
+		</special>
 	</localeDisplayNames>
+	<layout>
+		<orientation>
+			<characterOrder>left-to-right</characterOrder>
+		</orientation>
+	</layout>
 	<characters>
-		<exemplarCharacters>[a b c d e f g h i j k l m n o p q r s t u v w x y z]</exemplarCharacters>
-		<exemplarCharacters type="punctuation">[\- , ; \: ! ? . … ' ‘ ’ “ ” ( ) \[ \]]</exemplarCharacters>
-		<exemplarCharacters type="index">[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]</exemplarCharacters>
+		<exemplarCharacters>[a à á b d e è é g h i ì í j k l m n o ó p s t u ù ú v w y]</exemplarCharacters>
+		<exemplarCharacters type="index">[A À Á B D E È É G H I Ì Í J K L M N O Ó P S T U Ù Ú V W Y]</exemplarCharacters>
+		<exemplarCharacters type="punctuation">[! ' ( ) , \- . \: ; ? \[ \] ‘ ’ “ ” …]</exemplarCharacters>
+		<special>
+			<sil:exemplarCharacters type="footnotes">[a b d e g h i j k l m n o p s t u v w y]</sil:exemplarCharacters>
+		</special>
 	</characters>
 	<delimiters>
 		<quotationStart>“</quotationStart>
@@ -297,9 +310,52 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 		<alternateQuotationStart>‘</alternateQuotationStart>
 		<alternateQuotationEnd>’</alternateQuotationEnd>
 		<special>
-			<sil:matched-pairs/>
-			<sil:quotation-marks>
-				<sil:quotation open="“" close="”" level="3"/>
+			<sil:matched-pairs>
+				<sil:matched-pair open="(" close=")" paraClose="false"/>
+				<sil:matched-pair open="&lt;" close="&gt;" paraClose="false"/>
+				<sil:matched-pair open="[" close="]" paraClose="false"/>
+			</sil:matched-pairs>
+			<sil:punctuation-patterns>
+				<sil:punctuation-pattern pattern="!_" context="final"/>
+				<sil:punctuation-pattern pattern="&quot;_" context="final"/>
+				<sil:punctuation-pattern pattern="&apos;" context="medial"/>
+				<sil:punctuation-pattern pattern="&apos;_" context="final"/>
+				<sil:punctuation-pattern pattern=")_" context="final"/>
+				<sil:punctuation-pattern pattern=",_" context="final"/>
+				<sil:punctuation-pattern pattern="-" context="medial"/>
+				<sil:punctuation-pattern pattern="..._" context="final"/>
+				<sil:punctuation-pattern pattern="._" context="final"/>
+				<sil:punctuation-pattern pattern=":_" context="final"/>
+				<sil:punctuation-pattern pattern=";_" context="final"/>
+				<sil:punctuation-pattern pattern="&gt;" context="medial"/>
+				<sil:punctuation-pattern pattern="&gt;_" context="final"/>
+				<sil:punctuation-pattern pattern="?" context="medial"/>
+				<sil:punctuation-pattern pattern="?_" context="final"/>
+				<sil:punctuation-pattern pattern="]_" context="final"/>
+				<sil:punctuation-pattern pattern="_&quot;" context="init"/>
+				<sil:punctuation-pattern pattern="_&quot;_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_&apos;" context="init"/>
+				<sil:punctuation-pattern pattern="_&apos;_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_(" context="init"/>
+				<sil:punctuation-pattern pattern="_+" context="init"/>
+				<sil:punctuation-pattern pattern="_..." context="init"/>
+				<sil:punctuation-pattern pattern="_._" context="isolate"/>
+				<sil:punctuation-pattern pattern="_&lt;" context="init"/>
+				<sil:punctuation-pattern pattern="_[" context="init"/>
+				<sil:punctuation-pattern pattern="_[_" context="isolate"/>
+				<sil:punctuation-pattern pattern="_‘" context="init"/>
+				<sil:punctuation-pattern pattern="_“" context="init"/>
+				<sil:punctuation-pattern pattern="_…" context="init"/>
+				<sil:punctuation-pattern pattern="‌" context="medial"/>
+				<sil:punctuation-pattern pattern="‍" context="medial"/>
+				<sil:punctuation-pattern pattern="’_" context="final"/>
+				<sil:punctuation-pattern pattern="”_" context="final"/>
+				<sil:punctuation-pattern pattern="…_" context="final"/>
+			</sil:punctuation-patterns>
+			<sil:quotation-marks paraContinueType="all">
+				<sil:quotationContinue>“</sil:quotationContinue>
+				<sil:alternateQuotationContinue>‘</sil:alternateQuotationContinue>
+				<sil:quotation open="“" close="”" continue="“" level="3"/>
 			</sil:quotation-marks>
 		</special>
 	</delimiters>
@@ -330,6 +386,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
@@ -449,10 +506,6 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 							<dayPeriod type="am">Muhi</dayPeriod>
 							<dayPeriod type="pm">Chilo</dayPeriod>
 						</dayPeriodWidth>
-						<dayPeriodWidth type="wide">
-							<dayPeriod type="am">Muhi</dayPeriod>
-							<dayPeriod type="pm">Chilo</dayPeriod>
-						</dayPeriodWidth>
 					</dayPeriodContext>
 				</dayPeriods>
 				<eras>
@@ -489,6 +542,7 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 				</dateFormats>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="hm">h:mm a</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
@@ -546,11 +600,14 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	<numbers>
 		<currencyFormats numberSystem="latn">
 			<currencyFormatLength>
-				<currencyFormat type="accounting">
-					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
-				</currencyFormat>
 				<currencyFormat type="standard">
 					<pattern>¤#,##0.00</pattern>
+					<pattern alt="alphaNextToNumber" draft="provisional">¤ #,##0.00</pattern>
+				</currencyFormat>
+				<currencyFormat type="accounting">
+					<pattern>¤#,##0.00;(¤#,##0.00)</pattern>
+					<pattern alt="alphaNextToNumber" draft="provisional">¤ #,##0.00;(¤ #,##0.00)</pattern>
+					<pattern alt="noCurrency" draft="provisional">#,##0.00;(#,##0.00)</pattern>
 				</currencyFormat>
 			</currencyFormatLength>
 			<currencyFormatLength type="short">
@@ -700,8 +757,11 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			<currency type="SHP">
 				<displayName>Pauni ya Santahelena</displayName>
 			</currency>
-			<currency type="SLL">
+			<currency type="SLE">
 				<displayName>Leoni</displayName>
+			</currency>
+			<currency type="SLL">
+				<displayName>Leoni (1964—2022)</displayName>
 			</currency>
 			<currency type="SOS">
 				<displayName>Shilingi ya Somalia</displayName>
@@ -748,6 +808,41 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 			</currency>
 		</currencies>
 	</numbers>
+	<collations>
+		<collation type="standard">
+			<cr><![CDATA[
+				&A << á <<< Á << à <<< À
+				&E << é <<< É << è <<< È
+				&I << í <<< Í << ì <<< Ì
+				&O << ó <<< Ó << ò <<< Ò
+				&U << ú <<< Ú << ù <<< Ù
+			]]></cr>
+			<special>
+				<sil:simple>a/A á/Á à/À
+				b/B
+				d/D
+				e/E é/É è/È
+				f/F
+				g/G
+				h/H
+				i/I í/Í ì/Ì
+				j/J
+				k/K
+				l/L
+				m/M
+				n/N
+				o/O ó/Ó ò/Ò
+				p/P
+				r/R
+				s/S
+				t/T
+				u/U ú/Ú ù/Ù
+				v/V
+				w/W
+				y/Y</sil:simple>
+			</special>
+		</collation>
+	</collations>
 	<posix>
 		<messages>
 			<yesstr>Elo:E</yesstr>
@@ -764,18 +859,21 @@ CLDR data files are interpreted according to the LDML specification (http://unic
 	</metadata>
 	<special>
 		<sil:external-resources>
-			<sil:font name="Noto Sans" types="ui">
+			<sil:font name="Charis SIL" types="default">
+				<sil:url>https://lff.api.languagetechnology.org/family/charissil</sil:url>
+			</sil:font>
+			<sil:font name="Noto Sans">
+				<!--types="ui"-->
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf</sil:url>
 			</sil:font>
 			<sil:font name="Noto Serif">
 				<sil:url>https://github.com/googlefonts/noto-fonts/raw/main/hinted/ttf/NotoSerif/NotoSerif-Regular.ttf</sil:url>
 			</sil:font>
-			<sil:font name="Times New Roman" types="default" size="1.1" draft="generated"/>
 			<sil:kbd id="sil_uganda_tanzania" type="kmp">
 				<sil:url draft="generated">https://keyman.com/go/keyboard/sil_uganda_tanzania/download/kmp</sil:url>
 			</sil:kbd>
 			<sil:sampletext type="udhr">
-				<sil:url>https://unicode.org/udhr/d/udhr_kde.txt</sil:url>
+				<sil:url>http://efele.net/udhr/d/udhr_kde.txt</sil:url>
 			</sil:sampletext>
 		</sil:external-resources>
 	</special>
