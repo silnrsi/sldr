@@ -42,7 +42,7 @@ def test_autonym(ldml):
 
 #   get language id
     lid = filename[:-4] #.replace("_", "-")
-    #langid = ldml.ldml.root.find("identity/language").get("type")
+    langid = ldml.ldml.root.find("identity/language").get("type")
     ### should be target of another test:
     ### could check that filename.split('_')[0] == langid
     #assert filename.split('_')[0] == langid, filename + " " + langid + " don't correspond" 
@@ -52,8 +52,11 @@ def test_autonym(ldml):
     if names is None:
 #        assert False, filename + " has no localeDisplayNames"
         return
-    autonym = names.findall('language[@type="{0}"]'.format(lid))
+    autonym = names.findall('language[@type="{0}"]'.format(langid))
     if autonym is None or len(autonym) < 1: 
+        longautonym = names.findall('language[@type="{0}"]'.format(lid))
+        if longautonym is not None or len (longautonym)>1:
+            assert False, filename + " " + lid + ": type needs to be changed to just the language, not the full langtag"
         assert False, filename + " " + lid + ": Name of language in this language is missing"
         return 
     autonym_text = unicodedata.normalize("NFD", autonym[0].text.lower())
