@@ -2,14 +2,14 @@ name: Build
 on:
   workflow_call:
     outputs:
-      artifact_id:
+      artifact-id:
         description: "The artifact uploaded by this build"
-        value: ${{ jobs.build.outputs.artifact_id }}
+        value: ${{ jobs.build.outputs.artifact-id }}
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact_id: ${{ steps.upload.outputs.id }}
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
     steps:      
     - uses: actions/setup-python@v4
       with:
@@ -30,3 +30,4 @@ jobs:
         path: |
            flat/
            unflat/
+        compression-level: 9
