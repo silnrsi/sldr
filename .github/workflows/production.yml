@@ -2,10 +2,14 @@ name: Flatten SLDR and publish release branch to production
 on:
   push:
     paths:
+    - .github/workflows/**
     - sldr/**
     branches: [ release ]
   pull_request:
+    types:
+    - closed
     paths:
+    - .github/workflows/**
     - sldr/**
     branches: [ release ]
 
@@ -16,6 +20,7 @@ jobs:
 # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
     uses: ./.github/workflows/deploy.yml
     with:
       stage_to: sldr

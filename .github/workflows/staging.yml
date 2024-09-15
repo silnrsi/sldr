@@ -18,6 +18,7 @@ jobs:
 # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
     uses: ./.github/workflows/deploy.yml
     with:
       stage_to: sldr-staging
