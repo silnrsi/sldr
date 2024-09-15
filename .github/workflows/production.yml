@@ -19,6 +19,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       stage_to: sldr
+      artifact_id: ${{ needs.build.outputs.artifact_id }}
     secrets:
       uploader_key: ${{ secrets.UPLOADER_SSH_KEY }}
       server_address: ${{ secrets.UPLOAD_TARGET }}

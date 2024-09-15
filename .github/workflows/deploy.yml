@@ -5,6 +5,9 @@ on:
       stage_to:
         required: true
         type: string
+      artifact_id:
+        required: true
+        type: string
     secrets:
       uploader_key:
         required: true
@@ -40,8 +43,9 @@ jobs:
       with:
         token: ${{ secrets.repository_dispatch_pat }}
         repository: silnrsi/langtags
-        event-type: sldr${{ endsWith(github.ref, '/release') && '-release' || ''}}-deployed
+        event-type: sldr-deployed
         client-payload: >- 
           {
-            "release": "${{ endsWith(github.ref, '/release') }}"
+            "release": "${{ github.ref_name == 'release' }}"
+            "artifact_id": ${{ inputs.artifact_id }}
           }
