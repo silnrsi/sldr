@@ -4,12 +4,12 @@ on:
     outputs:
       artifact_id:
         description: "The artifact uploaded by this build"
-        value: ${{ jobs.build.outputs.artifact.id }}
+        value: ${{ jobs.build.outputs.artifact_id }}
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact: ${{ steps.upload.outputs }}
+      artifact_id: ${{ steps.upload.outputs.id }}
     steps:      
     - uses: actions/setup-python@v4
       with:
