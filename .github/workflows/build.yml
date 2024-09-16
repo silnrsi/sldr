@@ -3,7 +3,7 @@ on:
   workflow_call:
     outputs:
       artifact-id:
-        description: "The artifact uploaded by this build"
+        description: "The artifact id uploaded by this build"
         value: ${{ jobs.build.outputs.artifact-id }}
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
 
     - name: Use cached sldr
       id: cache-sldr
-      uses: action/cache@v4
+      uses: actions/cache@v4
       with:
         path: |
           flat
