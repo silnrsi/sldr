@@ -1,25 +1,45 @@
 name: Build
 on:
   workflow_call:
+    outputs:
+      artifact-id:
+        description: "The artifact id uploaded by this build"
+        value: ${{ jobs.build.outputs.artifact-id }}
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
     steps:      
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.10'
     - run: pip install 'git+https://github.com/silnrsi/sldrtools'
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+
+    - name: Use cached sldr
+      id: cache-sldr
+      uses: actions/cache@v4
+      with:
+        path: |
+          flat
+          unflat
+        key: sldr-flattened-${{ hashFiles('sldr/**') }}
 
     - name: Generate unflattened sldr
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       run: ldmlflatten -o unflat -i sldr -a -c -g    
 
     - name: Generate flattened sldr
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       run: ldmlflatten -o flat -i sldr -a -A -g
 
     - uses: actions/upload-artifact@v4
+      id: upload
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       with:
         name: sldr
         path: |
            flat/
            unflat/
+        compression-level: 9

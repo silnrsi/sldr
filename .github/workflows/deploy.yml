@@ -2,46 +2,51 @@ name: Deploy to server
 on:
   workflow_call:
     inputs:
-      stage_to:
+      stage-to:
+        required: true
+        type: string
+      artifact-id:
         required: true
         type: string
     secrets:
-      uploader_key:
+      uploader-key:
         required: true
-      server_address:
+      server-address:
         required: true
-      repository_dispatch_pat:
+      repository-dispatch-pat:
         required: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: inputs.artifact-id
     env:
       RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
     steps:
     # Install our private key for uploading deliverable
-    - uses: webfactory/ssh-agent@v0.7.0
+    - uses: webfactory/ssh-agent@v0.9.0
       with:
-        ssh-private-key: ${{secrets.uploader_key}}
+        ssh-private-key: ${{secrets.uploader-key}}
     # Download the artefact
     - uses: actions/download-artifact@v4
       with:
         name: sldr
     # Upload results
-    - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage }}
-      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server_address}}/sites/s/ldml-api/data/${{ inputs.stage_to }}/
+    - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage-to }}
+      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server-address}}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
 
   dispatch:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
     - name: Trigger langtags rebuild
-      uses: peter-evans/repository-dispatch@v2
+      uses: peter-evans/repository-dispatch@v3
       with:
-        token: ${{ secrets.repository_dispatch_pat }}
+        token: ${{ secrets.repository-dispatch-pat }}
         repository: silnrsi/langtags
-        event-type: sldr${{ endsWith(github.ref, '/release') && '-release' || ''}}-deployed
+        event-type: sldr-deployed
         client-payload: >- 
           {
-            "release": "${{ endsWith(github.ref, '/release') }}"
+            "release": "${{ github.ref_name == 'release' }}",
+            "artifact-id": ${{ inputs.artifact-id }}
           }
