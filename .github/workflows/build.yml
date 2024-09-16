@@ -36,6 +36,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       id: upload
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       with:
         name: sldr
         path: |
