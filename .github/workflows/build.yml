@@ -17,10 +17,21 @@ jobs:
     - run: pip install 'git+https://github.com/silnrsi/sldrtools'
     - uses: actions/checkout@v4
 
+    - name: Use cached sldr
+      id: cache-sldr
+      uses: action/cache@v4
+      with:
+        path: |
+          flat
+          unflat
+        key: sldr-flattened-${{ hashFiles('sldr/**') }}
+
     - name: Generate unflattened sldr
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       run: ldmlflatten -o unflat -i sldr -a -c -g    
 
     - name: Generate flattened sldr
+      if: steps.cache-sldr.outputs.cache-hit != 'true'
       run: ldmlflatten -o flat -i sldr -a -A -g
 
     - uses: actions/upload-artifact@v4
