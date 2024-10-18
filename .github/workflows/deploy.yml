@@ -17,11 +17,14 @@ jobs:
       with:
         ssh-private-key: ${{secrets.UPLOADER_SSH_KEY}}
     # Download the artefact
-    - uses: actions/download-artifact@v4
+    - id: artifact
+      uses: actions/download-artifact@v4
+      continue-on-error: true
       with:
         name: sldr
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage-to }}
+      if: steps.artifact.outcome == 'success'
       run: rsync ${{ env.RSYNC_OPTS }} --chmod=Dug=rwx flat unflat ${{ secrets.UPLOAD_TARGET }}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
 
   dispatch:
