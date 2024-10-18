@@ -22,9 +22,6 @@ jobs:
     needs: build
     if: needs.build.outputs.cache-hit != 'true' && (github.event_name == 'push' || github.event.pull_request.merged == true)
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       stage-to: sldr
-    secrets:
-      uploader-key: ${{ secrets.UPLOADER_SSH_KEY }}
-      server-address: ${{ secrets.UPLOAD_TARGET }}
-      repository-dispatch-pat: ${{ secrets.REPO_DISPATCH_TOKEN }}
