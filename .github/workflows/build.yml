@@ -2,14 +2,14 @@ name: Build
 on:
   workflow_call:
     outputs:
-      artifact-id:
-        description: "The artifact id uploaded by this build"
+      cache-hit:
+        description: "boolean indicating build skiped as no change"
         value: ${{ jobs.build.outputs.artifact-id }}
 jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact-id: ${{ steps.upload.outputs.artifact-id }}
+      cache-hit: ${{ steps.cache-sldr.outputs.cache-hit }}
     steps:      
     - uses: actions/setup-python@v5
       with:
@@ -35,7 +35,6 @@ jobs:
       run: ldmlflatten -o flat -i sldr -a -A -g
 
     - uses: actions/upload-artifact@v4
-      id: upload
       if: steps.cache-sldr.outputs.cache-hit != 'true'
       with:
         name: sldr

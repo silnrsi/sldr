@@ -20,11 +20,10 @@ jobs:
 # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
-    if: github.event_name == 'push' || github.event.pull_request.merged == true
+    if: needs.build.outputs.cache-hit != 'true' && (github.event_name == 'push' || github.event.pull_request.merged == true)
     uses: ./.github/workflows/deploy.yml
     with:
       stage-to: sldr
-      artifact-id: ${{ needs.build.outputs.artifact-id }}
     secrets:
       uploader-key: ${{ secrets.UPLOADER_SSH_KEY }}
       server-address: ${{ secrets.UPLOAD_TARGET }}

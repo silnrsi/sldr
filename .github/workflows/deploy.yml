@@ -5,9 +5,6 @@ on:
       stage-to:
         required: true
         type: string
-      artifact-id:
-        required: true
-        type: string
     secrets:
       uploader-key:
         required: true
@@ -19,7 +16,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: inputs.artifact-id
     env:
       RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
     steps:
@@ -47,6 +43,6 @@ jobs:
         event-type: sldr-deployed
         client-payload: >- 
           {
-            "release": "${{ github.ref_name == 'release' }}",
-            "artifact-id": ${{ inputs.artifact-id }}
+            "release": ${{ github.ref_name == 'release' }},
+            "run_id": ${{ github.run_id }}
           }
