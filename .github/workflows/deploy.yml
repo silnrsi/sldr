@@ -42,6 +42,6 @@ jobs:
         event-type: sldr-deployed
         client-payload: >- 
           {
-            "release": ${{ github.ref_name == 'release' }},
+            "environment": [ ${{ github.ref_name == 'release' && 'production' || 'staging' }} ],
             "run_id": ${{ github.run_id }}
           }
