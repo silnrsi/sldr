@@ -5,22 +5,15 @@ on:
     - .github/workflows/**
     - sldr/**
     branches: [ master, feat/*, fix/* ]
-  pull_request:
-    types:
-    - closed
-    paths:
-    - .github/workflows/**
-    - sldr/**
-    branches: [ master ]
 
 jobs:
   build:
     uses: ./.github/workflows/build.yml
 
-# Deploy built artefacts to the secrets.UPLOAD_TARGET
+# Deploy built artefacts
   deploy:
     needs: build
-    if: github.event_name == 'push' || github.event.pull_request.merged == true
+    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:

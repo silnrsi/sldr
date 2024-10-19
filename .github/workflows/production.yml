@@ -5,13 +5,6 @@ on:
     - .github/workflows/**
     - sldr/**
     branches: [ release ]
-  pull_request:
-    types:
-    - closed
-    paths:
-    - .github/workflows/**
-    - sldr/**
-    branches: [ release ]
 
 jobs:
   build:
@@ -20,7 +13,7 @@ jobs:
 # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
-    if: github.event_name == 'push' || github.event.pull_request.merged == true
+    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
