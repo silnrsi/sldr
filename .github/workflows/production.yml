@@ -10,10 +10,9 @@ jobs:
   build:
     uses: ./.github/workflows/build.yml
 
-# Deploy built artefacts to the secrets.UPLOAD_TARGET
+  # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
-    if: github.event_name == 'push'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:

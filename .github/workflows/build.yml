@@ -1,15 +1,9 @@
 name: Build
 on:
   workflow_call:
-    outputs:
-      cache-hit:
-        description: "boolean indicating build skiped as no change"
-        value: ${{ jobs.build.outputs.artifact-id }}
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      cache-hit: ${{ steps.cache-sldr.outputs.cache-hit }}
     steps:      
     - uses: actions/setup-python@v5
       with:
