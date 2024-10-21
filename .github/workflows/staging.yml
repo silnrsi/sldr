@@ -13,7 +13,8 @@ jobs:
   # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
-    if: github.event_name == 'push'
+    # Don't deploy changes from feat and fix branches
+    if: github.ref_name == 'master'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:

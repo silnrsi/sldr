@@ -12,7 +12,7 @@ jobs:
     env:
       RSYNC_OPTS: -aP --no-p --no-g --no-t --compress --del -e "ssh -o StrictHostKeyChecking=no"
     outputs:
-      skip-deploy: ${{ steps.artifact.outcome == 'success' }}
+      skip-deploy: ${{ steps.artifact.outcome != 'success' }}
     steps:
     # Install our private key for uploading deliverable
     - uses: webfactory/ssh-agent@v0.9.0
