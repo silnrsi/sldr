@@ -5,6 +5,7 @@ from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 from unicodedata import normalize
 import re
+from icu import Script
 from sldr.utils import find_parents
 
 @pytest.fixture(scope="session")
@@ -33,6 +34,60 @@ def test_validate(ldml, validator, fixdata):
                 ldml.dirty = True
                 return
         assert False, str(e)
+
+def test_script(ldml):
+    cldr = False
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        cldr = True
+    exceptions = ["ja.xml", "ko.xml", ]
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    if filename == "root.xml" or filename == "test.xml" or filename in exceptions:
+        return
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
+    script = None
+    if i.get("script") == None:
+        idscript = ldml.ldml.root.find('.//identity/script')
+        if idscript is not None:
+            script = idscript.get("type")
+    else:
+        script = i.get("script")
+    if script == None:
+        return
+    exemplars = {}
+    for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'):
+        t = e.get('type', 'main')
+        s = usets.parse(e.text or "", 'NFD')
+        if not len(s):
+            continue
+        s2 = s[0].asSet()
+        exemplars[t] = s2
+    #note, this only catches issues in EXEMPLARS, need to also catch it in other values such as what would be in a cldr region file. hmm. ahhhhh
+    for k, v in exemplars.items():
+        if k in ["index", "numbers"]:
+            continue
+        for v in exemplars[k]:
+            charScript = None
+            if len(v)>1:
+                for a in v:
+                    charScript = Script.getShortName(Script.getScript(a))
+                    if charScript != script and Script.getShortName(Script.getScript(a)) not in ['Zyyy', 'Zinh', "Zzzz"]:
+                        assert False, "UH OH 1: " + a + " from the " + k + " exemplar is in " + charScript + ", not " + script + ", " + str(cldr)
+            else:
+                charScript = Script.getShortName(Script.getScript(v))
+                if charScript != script and Script.getShortName(Script.getScript(v)) not in ['Zyyy', 'Zinh', "Zzzz"]:
+                    assert False, "UH OH 2: " + v + " from the " + k + " exemplar is in " + charScript + ", not " + script + ", " + str(cldr)
+    if not len(exemplars) and ldml.ldml.root.find('.//localeDisplayNames/languages') is not None:
+        print(ldml.ldml.root.find('.//localeDisplayNames/languages'))
+        for e in ldml.ldml.root.find('.//localeDisplayNames/languages'):
+            #if one is wrong then they all will not match
+            #this is more to catch inconsistencies between cldr langtags and ours
+            charScript = None
+            for v in e.text:
+                charScript = Script.getShortName(Script.getScript(v))
+                if charScript != script and Script.getShortName(Script.getScript(v)) not in ['Zyyy', 'Zinh', "Zzzz"]:
+                    assert False, "UH OH 3: " + "items in the languages block use " + v + " which is " + charScript + ", not " + script + ", " + str(cldr)
+            break
+    return
 
 def test_exemplars(ldml):
     """ Test for overlaps between exemplars. Test that index chars are all in main exemplar """
@@ -172,7 +227,15 @@ def test_direction(ldml, langid):
     if filename == "root.xml" or filename == "test.xml":
         return
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
-    script = i.get("script") or ldml.ldml.root.find('.//identity/script')
+    script = None
+    if i.get("script") == None:
+        idscript = ldml.ldml.root.find('.//identity/script')
+        if idscript is not None:
+            script = idscript.get("type")
+    else:
+        script = i.get("script")
+    if script == None:
+        return
     rtlscripts = ["Arab", "Hebr", "Syrc", "Thaa", "Mand", "Samr", "Nkoo", "Gara", "Adlm", "Rohg", "Yezi", "Todr"]   # only listing non-historic scripts atm
     if script in rtlscripts:
         direction = ldml.ldml.root.find('.//layout/orientation/characterOrder')
