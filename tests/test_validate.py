@@ -83,7 +83,8 @@ def test_syntax(ldml):
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
         n = t or "main"
-        exemplars_rawnocurly[t] = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        exemplars_rawnocurly[t] = e.text[1:-1].strip().replace("-\\", " \\").replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+            #THIS IS USED FOR FORMATTING AND SYNTAX TESTING ONLY, NOT FOR ACTUALLY GETTING INFO FROM THE EXEMPLAR.
         exemplars_raw[t] = e.text[1:-1].strip().split(' ') # adapted from the "get index exemplar" section of test_collation.py
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
         s = usets.parse(e.text or "", 'NFD')
@@ -94,11 +95,14 @@ def test_syntax(ldml):
         for i in exemplars_rawnocurly[t]:
             if "\\" in i:
                 if r"\u" in i:
-                    assert len(i)>=6, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
+                    if len(i)>6:
+                        assert len(i)==6, filename + " " + n + " exemplar has a 4-digit unicode codepoint(s) that should be in the 8-digit \\Uxxxxxxxx format: " + i
+                    elif len(i)<6:
+                        assert len(i)==6, filename + " " + n + " exemplar has a 4-digit unicode codepoint(s) missing hex digits: " + i
                 if r"\U" in i:
-                    assert len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
+                    assert len(i)==10, filename + " " + n + " exemplar has an 8-digit unicode codepoint(s) missing hex digits: " + i
                 #this next assert does assume that spaces were added between units in an exemplar, since exemplars_rawnocurly can only insert a space BEFORE a backslash. So far nothing fails incorrectly because of that
-                #assert len(i)<3 or len(i)==6 or len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing 'u' or 'U': " + i
+                assert len(i)<3 or len(i)==6 or len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing 'u' or 'U': " + i
         # The following lines are a test if characters are incorrectly unescaped.
         # The problem with these coming tests is that if there are ranges that use special characters intentionally, they'll ping as errors. 
         # However we can't solely test for "is it a valid regex" bc they might make a valid regex on accident. 
