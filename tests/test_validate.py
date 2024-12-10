@@ -36,12 +36,31 @@ def test_validate(ldml, validator, fixdata):
         assert False, str(e)
 
 def test_script(ldml):
+    
+    def _matchCheck(char, script):
+        charScript = Script.getShortName(Script.getScript(char))
+        hanCheck = Script.getName(Script.getScript(char))
+        if (charScript == "Hang" and script == "Kore") or (charScript in ["Kana", "Hira"] and script == "Jpan") or (hanCheck == "Han" and script in ["Hans", "Hani", "Hant", "Kore", "Jpan"]):
+            #this is an ATTEMPT to take unihan and the overlap between CJK(V) into account. 
+            return True, charScript
+        if charScript != script and Script.getShortName(Script.getScript(char)) not in ['Zyyy', 'Zinh', "Zzzz"]:
+            return False, charScript
+        else:
+            return True, charScript
+    
+    def _isEmpty(ldml):
+        blocklist = []
+        for b in ldml.ldml.root:
+            blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+        if blocklist == ['identity']:
+            return True
+        return False
+
     cldr = False
     if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
         cldr = True
-    exceptions = ["ja.xml", "ko.xml", ]
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
-    if filename == "root.xml" or filename == "test.xml" or filename in exceptions:
+    if filename in ["root.xml", "test.xml"] or _isEmpty(ldml):
         return
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
     script = None
@@ -61,32 +80,42 @@ def test_script(ldml):
             continue
         s2 = s[0].asSet()
         exemplars[t] = s2
-    #note, this only catches issues in EXEMPLARS, need to also catch it in other values such as what would be in a cldr region file. hmm. ahhhhh
     for k, v in exemplars.items():
         if k in ["index", "numbers"]:
+            #numbers is weird and if it's in the index it's also in aux or main (or else another test will catch that)
             continue
         for v in exemplars[k]:
-            charScript = None
             if len(v)>1:
                 for a in v:
-                    charScript = Script.getShortName(Script.getScript(a))
-                    if charScript != script and Script.getShortName(Script.getScript(a)) not in ['Zyyy', 'Zinh', "Zzzz"]:
-                        assert False, "UH OH 1: " + a + " from the " + k + " exemplar is in " + charScript + ", not " + script + ", " + str(cldr)
+                    (result, charScript) = _matchCheck(a, script)
+                    assert result, filename + ": Character " + a + " from the " + k + " exemplar is in " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
             else:
-                charScript = Script.getShortName(Script.getScript(v))
-                if charScript != script and Script.getShortName(Script.getScript(v)) not in ['Zyyy', 'Zinh', "Zzzz"]:
-                    assert False, "UH OH 2: " + v + " from the " + k + " exemplar is in " + charScript + ", not " + script + ", " + str(cldr)
-    if not len(exemplars) and ldml.ldml.root.find('.//localeDisplayNames/languages') is not None:
-        print(ldml.ldml.root.find('.//localeDisplayNames/languages'))
-        for e in ldml.ldml.root.find('.//localeDisplayNames/languages'):
-            #if one is wrong then they all will not match
-            #this is more to catch inconsistencies between cldr langtags and ours
-            charScript = None
-            for v in e.text:
-                charScript = Script.getShortName(Script.getScript(v))
-                if charScript != script and Script.getShortName(Script.getScript(v)) not in ['Zyyy', 'Zinh', "Zzzz"]:
-                    assert False, "UH OH 3: " + "items in the languages block use " + v + " which is " + charScript + ", not " + script + ", " + str(cldr)
-            break
+                (result, charScript) = _matchCheck(v, script)
+                assert result, filename + ": Character " + v + " from the " + k + " exemplar is in " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
+    if not len(exemplars):
+        testText = ""
+        testTextSpot = None
+        #for files that don't have exemplars. Mostly to catch a mismatch between langtag default script tag and a default script tag assigned by CLDR
+        if ldml.ldml.root.find('.//localeDisplayNames/languages') is not None:
+            for e in ldml.ldml.root.find('.//localeDisplayNames/languages'):
+                #Since this is to catch big, fundamental errors in file labeling, not small character mix-ups, one item in the list should be enough to identify an issue
+                #this is probably an inefficent way to say "just grab one and go" but it works so ¯\_(ツ)_/¯
+                testText = e.text
+                testTextSpot = "languages"
+                break
+        #below is an attempt to do the same for other blocks if there isn't a language block. this quickly became an exercise in futility. code kept just in case
+        # elif ldml.ldml.root.find('.//numbers/currencies') is not None:
+        #     for e in ldml.ldml.root.find('.//numbers/currencies'):
+        #         for e2 in e:
+        #             if e2.tag == "symbol":
+        #                 testText = e2.text 
+        #                 testTextSpot = "currencies"
+        #                 break
+        # else: 
+        #     assert False, "hey there's none of the blocks you checked in here, you need another thing to check"
+        for v in testText:
+            (result, charScript) = _matchCheck(v, script)
+            assert result, filename + ": " + "Item in the " + testTextSpot + " block uses " + v + " which is " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
     return
 
 def test_exemplars(ldml):
