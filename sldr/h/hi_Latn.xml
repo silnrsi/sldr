@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright © 1991-2023 Unicode, Inc.
+<!-- Copyright © 1991-2024 Unicode, Inc.
 For terms of use, see http://www.unicode.org/copyright.html
-SPDX-License-Identifier: Unicode-DFS-2016
+SPDX-License-Identifier: Unicode-3.0
 CLDR data files are interpreted according to the LDML specification (http://unicode.org/reports/tr35/)
 
 the U.S. and other countries. CLDR data files are interpreted according to
@@ -51,6 +51,7 @@ annotations.
 			<territory type="BL">St. Barthelemy</territory>
 			<territory type="CI">Cote d’Ivoire</territory>
 			<territory type="CW">Curacao</territory>
+			<territory type="IN">Bharat</territory>
 			<territory type="KN">St. Kitts &amp; Nevis</territory>
 			<territory type="LC">St. Lucia</territory>
 			<territory type="MF">St. Martin</territory>
@@ -91,7 +92,6 @@ annotations.
 			<type key="colCaseLevel" type="yes">Case sensitive sorting karein</type>
 			<type key="collation" type="compat">Compatibility ke liye, picchla sort order</type>
 			<type key="collation" type="dictionary">Dictionary kaa sort order</type>
-			<type key="collation" type="reformed">Reform kiya gaya Sort Order</type>
 			<type key="collation" type="searchjl">Hangul initial consonant se search karein</type>
 			<type key="colNormalization" type="no">Bina normalization ke sort karein</type>
 			<type key="colNormalization" type="yes">Sort Unicode Normalized</type>
@@ -252,6 +252,11 @@ annotations.
 			</calendar>
 			<calendar type="generic">
 				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>EEEE, MMMM d, y G</pattern>
+						</dateFormat>
+					</dateFormatLength>
 					<dateFormatLength type="short">
 						<dateFormat>
 							<pattern>d/M/y GGGGG</pattern>
@@ -479,6 +484,11 @@ annotations.
 					</dayPeriodContext>
 				</dayPeriods>
 				<dateFormats>
+					<dateFormatLength type="full">
+						<dateFormat>
+							<pattern>EEEE, MMMM d, y</pattern>
+						</dateFormat>
+					</dateFormatLength>
 					<dateFormatLength type="long">
 						<dateFormat>
 							<pattern>d MMMM, y</pattern>
@@ -524,6 +534,7 @@ annotations.
 						<dateFormatItem id="GyMMM">G y MMM</dateFormatItem>
 						<dateFormatItem id="GyMMMd">G y, d MMM</dateFormatItem>
 						<dateFormatItem id="GyMMMEd">G y, dd MMM, E</dateFormatItem>
+						<dateFormatItem id="GyMMMEEEEd">G y, dd MMMM, E</dateFormatItem>
 						<dateFormatItem id="Md">M/d</dateFormatItem>
 						<dateFormatItem id="MEd">E, M/d</dateFormatItem>
 						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
@@ -564,14 +575,14 @@ annotations.
 						<intervalFormatItem id="GyMMMd">
 							<greatestDifference id="d">G y MMM d–d</greatestDifference>
 							<greatestDifference id="G">G y MMM d – G y MMM d</greatestDifference>
-							<greatestDifference id="M">G y MMM d  – MMM d</greatestDifference>
-							<greatestDifference id="y">G y MMM d –  y d MMM</greatestDifference>
+							<greatestDifference id="M">G y MMM d – MMM d</greatestDifference>
+							<greatestDifference id="y">G y MMM d – y d MMM</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="GyMMMEd">
 							<greatestDifference id="d">G y MMM d, E – MMM d, E</greatestDifference>
-							<greatestDifference id="G">G y MMM d, E –  G y MMM d, E</greatestDifference>
-							<greatestDifference id="M">G y MMM d, E –  MMM d, E</greatestDifference>
-							<greatestDifference id="y">G y MMM d, E –  y MMM d, E</greatestDifference>
+							<greatestDifference id="G">G y MMM d, E – G y MMM d, E</greatestDifference>
+							<greatestDifference id="M">G y MMM d, E – MMM d, E</greatestDifference>
+							<greatestDifference id="y">G y MMM d, E – y MMM d, E</greatestDifference>
 						</intervalFormatItem>
 						<intervalFormatItem id="H">
 							<greatestDifference id="H">HH – HH</greatestDifference>
@@ -671,8 +682,10 @@ annotations.
 				</eras>
 				<dateTimeFormats>
 					<availableFormats>
+						<dateFormatItem id="GyMd">M/d/y GGGGG</dateFormatItem>
 						<dateFormatItem id="MMMd">MMM d</dateFormatItem>
 						<dateFormatItem id="MMMEd">E, MMM d</dateFormatItem>
+						<dateFormatItem id="MMMMd">MMMM d</dateFormatItem>
 					</availableFormats>
 				</dateTimeFormats>
 			</calendar>
@@ -1339,9 +1352,6 @@ annotations.
 			<zone type="Africa/Sao_Tome">
 				<exemplarCity>Sao Tome</exemplarCity>
 			</zone>
-			<zone type="Europe/Uzhgorod">
-				<exemplarCity>Uzhgorod</exemplarCity>
-			</zone>
 			<zone type="America/St_Vincent">
 				<exemplarCity>St. Vincent</exemplarCity>
 			</zone>
@@ -1709,7 +1719,6 @@ annotations.
 				<perUnitPattern>{0} per meter</perUnitPattern>
 			</unit>
 			<unit type="length-micrometer">
-				<displayName>micrometres</displayName>
 				<unitPattern count="one">{0} micrometer</unitPattern>
 				<unitPattern count="other">{0} micrometers</unitPattern>
 			</unit>
@@ -1743,8 +1752,10 @@ annotations.
 				<displayName>stones</displayName>
 				<unitPattern count="other">{0} stones</unitPattern>
 			</unit>
+			<unit type="mass-ton">
+				<unitPattern count="one">{0} tonne</unitPattern>
+			</unit>
 			<unit type="mass-tonne">
-				<displayName>metric tons</displayName>
 				<unitPattern count="one">{0} metric ton</unitPattern>
 				<unitPattern count="other">{0} metric tons</unitPattern>
 			</unit>
@@ -1943,19 +1954,12 @@ annotations.
 				<unitPattern count="one">{0} px</unitPattern>
 				<unitPattern count="other">{0} px</unitPattern>
 			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
-			</unit>
 			<unit type="length-micrometer">
 				<displayName>μmeters</displayName>
 			</unit>
 			<unit type="mass-carat">
 				<unitPattern count="one">{0} CD</unitPattern>
 				<unitPattern count="other">{0} CD</unitPattern>
-			</unit>
-			<unit type="mass-grain">
-				<unitPattern count="one">{0} gr</unitPattern>
-				<unitPattern count="other">{0} gr</unitPattern>
 			</unit>
 			<unit type="mass-stone">
 				<displayName>stones</displayName>
@@ -1992,7 +1996,6 @@ annotations.
 				<unitPattern count="other">{0} dram fl</unitPattern>
 			</unit>
 			<unit type="volume-drop">
-				<unitPattern count="one">{0} drop</unitPattern>
 				<unitPattern count="other">{0} drop</unitPattern>
 			</unit>
 			<unit type="volume-fluid-ounce">
@@ -2039,7 +2042,6 @@ annotations.
 				<unitPattern count="other">{0} mL</unitPattern>
 			</unit>
 			<unit type="volume-pinch">
-				<unitPattern count="one">{0} pinch</unitPattern>
 				<unitPattern count="other">{0} pinch</unitPattern>
 			</unit>
 			<unit type="volume-quart">
@@ -2057,6 +2059,9 @@ annotations.
 			<compoundUnit type="10p-6">
 				<unitPrefixPattern>μ {0}</unitPrefixPattern>
 			</compoundUnit>
+			<unit type="acceleration-g-force">
+				<unitPattern count="other">{0}Gs</unitPattern>
+			</unit>
 			<unit type="area-square-meter">
 				<displayName>meters²</displayName>
 			</unit>
@@ -2119,8 +2124,9 @@ annotations.
 			<unit type="digital-terabit">
 				<displayName>Tbit</displayName>
 			</unit>
-			<unit type="length-meter">
-				<displayName>m</displayName>
+			<unit type="mass-carat">
+				<unitPattern count="one">{0}CD</unitPattern>
+				<unitPattern count="other">{0}CD</unitPattern>
 			</unit>
 			<unit type="mass-pound">
 				<unitPattern count="one">{0}#</unitPattern>
@@ -2134,10 +2140,6 @@ annotations.
 			</unit>
 			<unit type="speed-mile-per-hour">
 				<displayName>mi/hr</displayName>
-			</unit>
-			<unit type="temperature-celsius">
-				<unitPattern count="one">{0}°C</unitPattern>
-				<unitPattern count="other">{0}°C</unitPattern>
 			</unit>
 			<unit type="temperature-fahrenheit">
 				<unitPattern count="one">{0}°</unitPattern>
@@ -2208,6 +2210,11 @@ annotations.
 				<displayName>mL</displayName>
 				<unitPattern count="one">{0}mL</unitPattern>
 				<unitPattern count="other">{0}mL</unitPattern>
+			</unit>
+			<unit type="volume-quart">
+				<displayName>qt</displayName>
+				<unitPattern count="one">{0}qt</unitPattern>
+				<unitPattern count="other">{0}qt</unitPattern>
 			</unit>
 			<unit type="volume-quart-imperial">
 				<displayName>Imp qt</displayName>
