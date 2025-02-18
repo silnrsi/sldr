@@ -1,15 +1,10 @@
-name: Flatten SLDR and publish to staging
+name: Flatten SLDR and publish master to staging
 on:
   push:
     paths:
     - .github/workflows/**
     - sldr/**
-    branches: [ master ]
-  pull_request:
-    paths:
-    - .github/workflows/**
-    - sldr/**
-    branches: [ master ]
+    branches: [ master, feat/*, fix/* ]
 
 jobs:
   build:
@@ -18,10 +13,12 @@ jobs:
 # Deploy built artefacts to the secrets.UPLOAD_TARGET
   deploy:
     needs: build
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
     uses: ./.github/workflows/deploy.yml
     with:
-      stage_to: sldr-staging
+      stage-to: sldr-staging
+      artifact-id: ${{ needs.build.outputs.artifact-id }}
     secrets:
-      uploader_key: ${{ secrets.UPLOADER_SSH_KEY }}
-      server_address: ${{ secrets.UPLOAD_TARGET }}
-      repository_dispatch_pat: ${{ secrets.REPO_DISPATCH_TOKEN }}
+      uploader-key: ${{ secrets.UPLOADER_SSH_KEY }}
+      server-address: ${{ secrets.UPLOAD_TARGET }}
+      repository-dispatch-pat: ${{ secrets.REPO_DISPATCH_TOKEN }}
