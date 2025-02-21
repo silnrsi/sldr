@@ -40,10 +40,12 @@ jobs:
 
       - name: Staging
         if: ${{ github.ref_name != 'release'}}
-        run: >-
-          gh release upload
-          --clobber
-          staging
+        run: |
+          pwd
+          ls -l
+          gh release upload \
+          --clobber \
+          staging \
           sldr
 
   deploy:
