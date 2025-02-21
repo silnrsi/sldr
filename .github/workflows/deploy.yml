@@ -30,19 +30,19 @@ jobs:
         if: ${{ github.ref_name == 'release'}}
         run: >-
           gh release create 
-            --generate-notes 
-            --target release
-            --latest
-            --title "Production SLDR data $(date --utc +%G%V%w%H%M)"
-            sldr
+          --generate-notes 
+          --target release
+          --latest
+          --title "Production SLDR data $(date --utc +%G%V%w%H%M)"
+          sldr
 
       - name: Staging
         if: ${{ github.ref_name != 'release'}}
         run: >-
           gh release upload
-            --clobber
-            staging
-            sldr
+          --clobber
+          staging
+          sldr
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,10 +61,10 @@ jobs:
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage-to }}
       run: >-
-        rsync ${{env.RSYNC_OPTS}} 
-          --chmod=Dug=rwx
-          flat unflat 
-          ${{secrets.server-address}}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
+        rsync ${{env.RSYNC_OPTS}}
+        --chmod=Dug=rwx
+        flat unflat
+        ${{secrets.server-address}}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
 
   dispatch:
     runs-on: ubuntu-latest
