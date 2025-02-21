@@ -23,6 +23,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions/checkout@v4
+      
       - id: artifact
         uses: actions/download-artifact@v4
         with:
@@ -42,8 +44,6 @@ jobs:
       - name: Staging
         if: ${{ github.ref_name != 'release'}}
         run: |
-          pwd
-          ls -la
           gh release upload \
           --clobber \
           staging \
