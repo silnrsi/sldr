@@ -21,6 +21,7 @@ jobs:
           --target release
           --latest
           --title "Production SLDR data $(date --utc +%G%V%w%H%M)"
+          sldr
 
   prerelease-build:
     runs-on: ubuntu-latest
@@ -32,7 +33,4 @@ jobs:
           name: sldr
       
       - run: >-
-          gh release edit staging 
-          --prerelease
-          --target master
-          --title "Staging SLDR data $(date --utc +%G%V%w%H%M)"
+          gh release upload staging sldr --clobber
