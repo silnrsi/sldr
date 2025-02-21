@@ -24,13 +24,15 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - id: artifact
         uses: actions/download-artifact@v4
         with:
-          path: sldr
           name: sldr
       
+      - name: Package
+        run:  zip -r9 sldr.zip flat unflat
+
       - name: Production
         if: ${{ github.ref_name == 'release'}}
         run: >-
@@ -39,7 +41,7 @@ jobs:
           --target release
           --latest
           --title "Production SLDR data $(date --utc +%G%V%w%H%M)"
-          sldr
+          sldr.zip
 
       - name: Staging
         if: ${{ github.ref_name != 'release'}}
@@ -47,7 +49,7 @@ jobs:
           gh release upload \
           --clobber \
           staging \
-          sldr
+          sldr.zip
 
   deploy:
     runs-on: ubuntu-latest
