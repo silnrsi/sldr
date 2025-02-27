@@ -31,30 +31,30 @@ jobs:
           name: sldr
       
       - name: Package
-        run:  zip -r9 sldr.zip flat unflat
+        run: zip -r9 sldr.zip flat unflat
       
       - name: Time based build id
         id: build-id
         run: date --utc +stamp=%g%V%w.%H%M >> $GITHUB_OUTPUT
 
       - name: Production
-        if: ${{ github.ref_name == 'release'}}
-        run: >-
-          gh release create 
-          --generate-notes 
-          --target release
-          --latest
-          --title "Production SLDR data ${{ steps.build-id.outputs.stamp }}"
-          sldr.zip
+        if: ${{ github.ref_name == 'release' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Production SLDR data ${{ steps.build-id.outputs.stamp }}
+          tag_name: ${{ steps.build-id.outputs.stamp }}
+          generate_release_notes: true
+          make_latest: true
+          files: sldr.zip
 
       - name: Staging
-        if: ${{ github.ref_name != 'release'}}
+        if: ${{ github.ref_name != 'release' }}
         uses: softprops/action-gh-release@v2
         with:
           name: Staging SLDR data ${{ steps.build-id.outputs.stamp }}
+          prerelease: true
           tag_name: staging
           files: sldr.zip
-          prerelease: true
 
   deploy:
     runs-on: ubuntu-latest
