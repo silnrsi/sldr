@@ -48,8 +48,8 @@ jobs:
         
       - name: Staging
         if: ${{ github.ref_name == 'master' }}
-        run: |
-          gh release delete staging -y --cleanup-tag || true
+        run: >-
+          gh release delete staging -y --cleanup-tag || true;
           gh release create staging
           --title "Staging SLDR data ${{ steps.build-id.outputs.stamp }}"
           --target master
