@@ -48,12 +48,13 @@ jobs:
           files: sldr.zip
 
       - name: Staging
-        if: ${{ github.ref_name != 'release' }}
+        if: ${{ github.ref_name == 'master' }}
         uses: softprops/action-gh-release@v2
         with:
           name: Staging SLDR data ${{ steps.build-id.outputs.stamp }}
           prerelease: true
           tag_name: staging
+          target_commitish: master
           files: sldr.zip
 
   deploy:
