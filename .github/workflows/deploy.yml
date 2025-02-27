@@ -32,6 +32,10 @@ jobs:
       
       - name: Package
         run:  zip -r9 sldr.zip flat unflat
+      
+      - name: Time based build id
+        id: build-id
+        run: date --utc +stamp=%g%V%w.%H%M >> $GITHUB_OUTPUT
 
       - name: Production
         if: ${{ github.ref_name == 'release'}}
@@ -40,14 +44,14 @@ jobs:
           --generate-notes 
           --target release
           --latest
-          --title "Production SLDR data $(date --utc +%G%V%w%H%M)"
+          --title "Production SLDR data ${{ steps.build-id.outputs.stamp }}"
           sldr.zip
 
       - name: Staging
         if: ${{ github.ref_name != 'release'}}
         uses: softprops/action-gh-release@v2
         with:
-          name: Staging SLDR data
+          name: Staging SLDR data ${{ steps.build-id.outputs.stamp }}
           tag_name: staging
           files: sldr.zip
           prerelease: true
