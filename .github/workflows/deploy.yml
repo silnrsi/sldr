@@ -39,23 +39,23 @@ jobs:
 
       - name: Production
         if: ${{ github.ref_name == 'release' }}
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Production SLDR data ${{ steps.build-id.outputs.stamp }}
-          tag_name: ${{ steps.build-id.outputs.stamp }}
-          generate_release_notes: true
-          make_latest: true
-          files: sldr.zip
-
+        run: >-
+          gh release create ${{ steps.build-id.outputs.stamp }}
+          --title "Production SLDR data ${{ steps.build-id.outputs.stamp }}"
+          --generate-notes
+          --latest
+          sldr.zip
+        
       - name: Staging
         if: ${{ github.ref_name == 'master' }}
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Staging SLDR data ${{ steps.build-id.outputs.stamp }}
-          prerelease: true
-          tag_name: staging
-          target_commitish: master
-          files: sldr.zip
+        run: |
+          gh release delete staging -y --cleanup-tag || true
+          gh releasr create staging
+          --title "Staging SLDR data ${{ steps.build-id.outputs.stamp }}"
+          --target master
+          --prerelease
+          --notes 'The latest in-development version of the SLDR. This may not be valid or complete, use only for testing.'
+          sldr.zip
 
   deploy:
     runs-on: ubuntu-latest
