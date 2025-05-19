@@ -2,7 +2,7 @@
 
 from collections import namedtuple
 from enum import Enum
-import argparse, os
+import argparse, os, json
 import xml.parsers.expat
 
 ldmlHacks = {
@@ -100,6 +100,10 @@ class AttributeDecl:
     def __init__(self, elname, attname, xmltype, default, required):
         self.element = elname
         self.attrib = attname
+        if isinstance(xmltype, str):
+            xmltype = xmltype.strip()
+            if xmltype.startswith("(") and xmltype.endswith(")"):
+                xmltype = xmltype[1:-1].replace(" ", "").split("|")
         self.type = xmltype
         self.default = default
         self.required = required
@@ -116,7 +120,11 @@ class AttributeDecl:
             self.type = new
 
     def asStr(self):
-        res = ["<!ATTLIST {0.element} {0.attrib} {0.type}".format(self)]
+        if isinstance(self.type, list):
+            xmltype = "(" + " | ".join(self.type) + ")"
+        else:
+            xmltype = self.type
+        res = ["<!ATTLIST {0.element} {0.attrib} {1}".format(self, xmltype)]
         if self.default is not None:
             if self.required:
                 res.append("#FIXED")
@@ -237,12 +245,48 @@ parser.add_argument("-I","--include",action="append",help="Include search direct
 parser.add_argument("-H","--hacks",action="store_true", help="Apply LDML DTD hacks")
 args = parser.parse_args()
 
+attribInfo = {'numerics': {}, 'blocks': []}
+attriborders = {}
+attribreplaces = {}
+if args.attribs is not None:
+    with open(args.attribs) as inf:
+        attribInfo = json.load(inf)
+    for e in attribInfo['orders']:
+        for el in e['elements']:
+            for at in e['attributes']:
+                attriborders.setdefault(el, {})[at] = e['order']
+    for e in attribInfo['replaces']:
+        for el in e['elements']:
+            for at in e['attributes']:
+                attribreplaces.setdefault(el, {})[at] = e['values']
+
 dtd = DTDParser(args.infile, args.include)
 gs = dtd.globalAttrs['global']
 for en, e in dtd.elements.items():
     for a, v in gs.items():
         if a in e.attributes:
             e.addAttribute(v.copy(en))
+
+if len(attribreplaces):
+    for en, e in dtd.elements.items():
+        for a, v in e.attributes.items():
+            rep = attribreplaces.get(en, {}).get(a, None)
+            if rep is not None:
+                v.type = rep
+
+if len(attriborders):
+    for en, e in dtd.elements.items():
+        for a, v in e.attributes.items():
+            if a in attribInfo['numerics'].get(en, []):
+                v.intsort()
+            elif isinstance(v.type, list):
+                v.setorder(attriborders.get(en, {}).get(a, []))
+
+for b in attribInfo['blocks']:
+    e = dtd.elements.get(b, None)
+    if e is not None:
+        e.annotations.append("@BLOCK")
+
 # with open(args.outfile, "w", encoding="utf-8") as outf:
 if args.hacks:
     for e in dtd.allElements:

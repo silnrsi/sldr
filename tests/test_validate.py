@@ -5,6 +5,7 @@ from lxml.etree import DTD, RelaxNG, parse, DocumentInvalid
 import sldr.UnicodeSets as usets
 from unicodedata import normalize
 import re
+from icu import Script
 from sldr.utils import find_parents
 
 @pytest.fixture(scope="session")
@@ -33,6 +34,89 @@ def test_validate(ldml, validator, fixdata):
                 ldml.dirty = True
                 return
         assert False, str(e)
+
+def test_script(ldml):
+    
+    def _matchCheck(char, script):
+        charScript = Script.getShortName(Script.getScript(char))
+        hanCheck = Script.getName(Script.getScript(char))
+        if (charScript == "Hang" and script == "Kore") or (charScript in ["Kana", "Hira"] and script == "Jpan") or (hanCheck == "Han" and script in ["Hans", "Hani", "Hant", "Kore", "Jpan"]):
+            #this is an ATTEMPT to take unihan and the overlap between CJK(V) into account. 
+            return True, charScript
+        if charScript != script and Script.getShortName(Script.getScript(char)) not in ['Zyyy', 'Zinh', "Zzzz"]:
+            return False, charScript
+        else:
+            return True, charScript
+    
+    def _isEmpty(ldml):
+        blocklist = []
+        for b in ldml.ldml.root:
+            blocklist.append(b.tag)     #gives me list of all the major element blocks, starting with 'identity' 
+        if blocklist == ['identity']:
+            return True
+        return False
+
+    cldr = False
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        cldr = True
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    if filename in ["root.xml", "test.xml"] or _isEmpty(ldml):
+        return
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
+    script = None
+    if i.get("script") == None:
+        idscript = ldml.ldml.root.find('.//identity/script')
+        if idscript is not None:
+            script = idscript.get("type")
+    else:
+        script = i.get("script")
+    if script == None:
+        return
+    exemplars = {}
+    for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'):
+        t = e.get('type', 'main')
+        s = usets.parse(e.text or "", 'NFD')
+        if not len(s):
+            continue
+        s2 = s[0].asSet()
+        exemplars[t] = s2
+    for k, v in exemplars.items():
+        if k in ["index", "numbers"]:
+            #numbers is weird and if it's in the index it's also in aux or main (or else another test will catch that)
+            continue
+        for v in exemplars[k]:
+            if len(v)>1:
+                for a in v:
+                    (result, charScript) = _matchCheck(a, script)
+                    assert result, filename + ": Character " + a + " from the " + k + " exemplar is in " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
+            else:
+                (result, charScript) = _matchCheck(v, script)
+                assert result, filename + ": Character " + v + " from the " + k + " exemplar is in " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
+    if not len(exemplars):
+        testText = ""
+        testTextSpot = None
+        #for files that don't have exemplars. Mostly to catch a mismatch between langtag default script tag and a default script tag assigned by CLDR
+        if ldml.ldml.root.find('.//localeDisplayNames/languages') is not None:
+            for e in ldml.ldml.root.find('.//localeDisplayNames/languages'):
+                #Since this is to catch big, fundamental errors in file labeling, not small character mix-ups, one item in the list should be enough to identify an issue
+                #this is probably an inefficent way to say "just grab one and go" but it works so ¯\_(ツ)_/¯
+                testText = e.text
+                testTextSpot = "languages"
+                break
+        #below is an attempt to do the same for other blocks if there isn't a language block. this quickly became an exercise in futility. code kept just in case
+        # elif ldml.ldml.root.find('.//numbers/currencies') is not None:
+        #     for e in ldml.ldml.root.find('.//numbers/currencies'):
+        #         for e2 in e:
+        #             if e2.tag == "symbol":
+        #                 testText = e2.text 
+        #                 testTextSpot = "currencies"
+        #                 break
+        # else: 
+        #     assert False, "hey there's none of the blocks you checked in here, you need another thing to check"
+        for v in testText:
+            (result, charScript) = _matchCheck(v, script)
+            assert result, filename + ": " + "Item in the " + testTextSpot + " block uses " + v + " which is " + charScript + ", not " + script + ". Is CLDR = " + str(cldr)
+    return
 
 def test_exemplars(ldml):
     """ Test for overlaps between exemplars. Test that index chars are all in main exemplar """
@@ -83,7 +167,8 @@ def test_syntax(ldml):
     for e in ldml.ldml.root.findall('.//characters/exemplarCharacters'): 
         t = e.get('type', None)
         n = t or "main"
-        exemplars_rawnocurly[t] = e.text[1:-1].strip().replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+        exemplars_rawnocurly[t] = e.text[1:-1].strip().replace("-\\", " \\").replace("\\", " \\").replace("{", " ").replace("}", " ").replace("  ", " ").split(' ') # adapted from the "get index exemplar" section of test_collation.py
+            #THIS IS USED FOR FORMATTING AND SYNTAX TESTING ONLY, NOT FOR ACTUALLY GETTING INFO FROM THE EXEMPLAR.
         exemplars_raw[t] = e.text[1:-1].strip().split(' ') # adapted from the "get index exemplar" section of test_collation.py
         rawstring = e.text[1:-1].strip().replace(" ", "") # adapted from the "get index exemplar" section of test_collation.py
         s = usets.parse(e.text or "", 'NFD')
@@ -94,9 +179,12 @@ def test_syntax(ldml):
         for i in exemplars_rawnocurly[t]:
             if "\\" in i:
                 if r"\u" in i:
-                    assert len(i)==6, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
+                    if len(i)>6:
+                        assert len(i)==6, filename + " " + n + " exemplar has a 4-digit unicode codepoint(s) that should be in the 8-digit \\Uxxxxxxxx format: " + i
+                    elif len(i)<6:
+                        assert len(i)==6, filename + " " + n + " exemplar has a 4-digit unicode codepoint(s) missing hex digits: " + i
                 if r"\U" in i:
-                    assert len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing hex digits: " + i
+                    assert len(i)==10, filename + " " + n + " exemplar has an 8-digit unicode codepoint(s) missing hex digits: " + i
                 #this next assert does assume that spaces were added between units in an exemplar, since exemplars_rawnocurly can only insert a space BEFORE a backslash. So far nothing fails incorrectly because of that
                 assert len(i)<3 or len(i)==6 or len(i)==10, filename + " " + n + " exemplar has unicode codepoint(s) missing 'u' or 'U': " + i
         # The following lines are a test if characters are incorrectly unescaped.
@@ -168,7 +256,15 @@ def test_direction(ldml, langid):
     if filename == "root.xml" or filename == "test.xml":
         return
     i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
-    script = i.get("script") or ldml.ldml.root.find('.//identity/script')
+    script = None
+    if i.get("script") == None:
+        idscript = ldml.ldml.root.find('.//identity/script')
+        if idscript is not None:
+            script = idscript.get("type")
+    else:
+        script = i.get("script")
+    if script == None:
+        return
     rtlscripts = ["Arab", "Hebr", "Syrc", "Thaa", "Mand", "Samr", "Nkoo", "Gara", "Adlm", "Rohg", "Yezi", "Todr"]   # only listing non-historic scripts atm
     if script in rtlscripts:
         direction = ldml.ldml.root.find('.//layout/orientation/characterOrder')
