@@ -17,6 +17,46 @@ on:
         required: true
 
 jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: inputs.artifact-id
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sldr
+      
+      - name: Package
+        run: zip -r9 sldr.zip flat unflat
+      
+      - name: Time based build id
+        id: build-id
+        run: date --utc +stamp=%g%V%w.%H%M >> $GITHUB_OUTPUT
+
+      - name: Production
+        if: ${{ github.ref_name == 'release' }}
+        run: >-
+          gh release create ${{ steps.build-id.outputs.stamp }}
+          --title "Production SLDR data ${{ steps.build-id.outputs.stamp }}"
+          --generate-notes
+          --latest
+          sldr.zip
+        
+      - name: Staging
+        if: ${{ github.ref_name == 'master' }}
+        run: >-
+          gh release delete staging -y --cleanup-tag || true;
+          gh release create staging
+          --title "Staging SLDR data ${{ steps.build-id.outputs.stamp }}"
+          --target master
+          --prerelease
+          --notes 'The latest in-development version of the SLDR. This may not be valid or complete, use only for testing.'
+          sldr.zip
+
   deploy:
     runs-on: ubuntu-latest
     if: inputs.artifact-id
@@ -33,7 +73,11 @@ jobs:
         name: sldr
     # Upload results
     - name: Upload flattened SLDR to /ldml-api/data/${{ inputs.stage-to }}
-      run: rsync ${{env.RSYNC_OPTS}} --chmod=Dug=rwx flat unflat ${{secrets.server-address}}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
+      run: >-
+        rsync ${{env.RSYNC_OPTS}}
+        --chmod=Dug=rwx
+        flat unflat
+        ${{secrets.server-address}}/sites/s/ldml-api/data/${{ inputs.stage-to }}/
 
   dispatch:
     runs-on: ubuntu-latest
