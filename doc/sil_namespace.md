@@ -274,7 +274,7 @@ attlist.sil.fontelement &= attribute subset { text }?
 ```dtd
 <!ELEMENT sil:font (sil:url*)>
 <!ATTLIST sil:font name CDATA #REQUIRED>
-<!ATTLIST sil:font types NMTOKENS #IMPLIED>
+<!ATTLIST sil:font types CDATA #IMPLIED>
 <!--@VALUE-->
 <!ATTLIST sil:font size CDATA #IMPLIED>
 <!--@VALUE-->
@@ -304,7 +304,9 @@ Font resources are associated with their application role. There may be more tha
 
 Fallback between fonts is a little complicated. If a description includes a font for a particular type, e.g. heading, then all heading fonts from the parent are ignored. Thus a local font disables all inheritance of fonts of the same type. In addition, for the particular case of the default type, if a description includes a font for type default, all fonts from the parent for all types, are ignores. Thus a local default font disables inheritance of all fonts.
 
-The urls reference font resources either as .ttf or .woff files and are stored in preferential order.
+There is also a need to give a prioritised preference for each type. Since normalising an LDML file reorders the sil:font elements, systems cannot rely on the element order to set the priority. To overcome this we allow the prirority to be set with the type by appending "=_priority_" to the type. Thus a types attribute might be `ui=10 default=0` indicating that the font is a preferable font for ui use and a less preferable font for general or default use. If a type has no priority set, it is given a default value of 1.
+
+The urls reference font resources either as .ttf or .woff files and are stored in preferential order unless overridden by a type's priority.
 
 |                |                                        |
 |----------------|----------------------------------------|
