@@ -113,12 +113,14 @@ def test_filename(ldml,langid,fixdata):
         return
     filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
     lt = langtag(os.path.splitext(os.path.basename(langid))[0])
+    print(lt)
     if lt.lang is None:     # e.g. Root (ends up in script)
         return
     if lt.ns is not None:
         # i don't want to deal with handling variant tags :P
         return
     ltag = langtag(str(lookup(lt).tag))
+    print(ltag)
     stringtag = str(ltag).replace("-","_")+".xml"
     
     assert filename == stringtag, filename + " is not the minimal tag, " + stringtag + " is"
