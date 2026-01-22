@@ -10,6 +10,8 @@ allowed_chars = {
     "agd": "g",
     "aiw_Ethi": "\u1361",
     "fab": "\u0027",
+    "ian": "d",
+    "ygr": "r"
 }
 
 def iscldr(ldml):

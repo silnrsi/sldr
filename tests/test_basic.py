@@ -21,6 +21,13 @@ idblocks = {
     'script': 'script',
     'territory': 'region'
 }
+
+def iscldr(ldml):
+    i = ldml.ldml.root.find(".//identity/special/sil:identity", {v:k for k,v in ldml.ldml.namespaces.items()})
+    if i is not None and i.get('source', "") == "cldr":
+        return True
+    return False
+
 def test_identity(ldml, langid, fixdata):
     """ Test and fix the identity block wrt language, script, territory, variant """
     lt = langtag(os.path.splitext(os.path.basename(langid))[0])
@@ -100,3 +107,19 @@ def test_identity(ldml, langid, fixdata):
                             ldml.dirty = True
                         else:
                             assert silidval != "", "sil:identity {} {} is not {} in {}".format(k, silidval, silval, langid)
+
+def test_filename(ldml,langid,fixdata):
+    if iscldr(ldml):    # short circuit CLDR for now until they/we resolve the faults in their data
+        return
+    filename = os.path.basename(ldml.ldml.fname)    # get filename for reference
+    lt = langtag(os.path.splitext(os.path.basename(langid))[0])
+    if lt.lang is None:     # e.g. Root (ends up in script)
+        return
+    if lt.ns is not None:
+        # i don't want to deal with handling variant tags :P
+        return
+    ltag = langtag(str(lookup(lt).tag))
+    stringtag = str(ltag).replace("-","_")+".xml"
+    
+    assert filename == stringtag, filename + " is not the minimal tag, " + stringtag + " is"
+    #unfortunately, this script doesn't check if anything has been added in STAGING. it's only referencing release langtags :P

@@ -36,7 +36,7 @@ def test_validate(ldml, validator, fixdata):
         assert False, str(e)
 
 def test_script(ldml):
-    
+    """Tests that the script used in the exemplars matches the script of the locale"""
     def _matchCheck(char, script):
         charScript = Script.getShortName(Script.getScript(char))
         hanCheck = Script.getName(Script.getScript(char))
