@@ -3,7 +3,7 @@ SIL Locale Data repository (SLDR)
 
 SIL has created its own repository of selected locale data. It serves two purposes; to gather information for publication on ScriptSource, and to gather information for submission to the Common Locale Data Repository (http://cldr.unicode.org/), a project to provide locale data for use in multilingual computer applications. The CLDR website is hosted by the Unicode Consortium. 
 
-SIL International receives the data from users of the ScriptSource website and from other linguistic contacts.  We are particularly interested in submissions of Character List data, which enables ScriptSource to cross-reference writing systems with the characters they use.  For people who wish to add a language to the CLDR, we can store the CLDR minimal data set for that language in our repository.  This consists of the following fields:
+SIL International receives the data from user submissions and from other linguistic contacts.  We are particularly interested in submissions of Character List data, which enables ScriptSource to cross-reference writing systems with the characters they use.  For people who wish to add a language to the CLDR, we can store the CLDR minimal data set for that language in our repository.  This consists of the following fields:
 
 Language Name
 
@@ -29,7 +29,10 @@ Other Countries where spoken - other countries where the language is spoken
 
 If the minimal data set is received for a language then it will be submitted as a "seed locale" to the CLDR. It is then possible for this "seed locale" to be developed into a full locale containing a broader set of data, at which point it will be published in the next release of the CLDR. In the case that only a subset of the minimal data listed above is received, it will be published on ScriptSource, but will not be submitted to the CLDR until their minimal requirements have been met.
 
-If you are knowledgeable about a particular writing system and would like to submit information about it, we would welcome your submissions. Please take a look at Contributing to ScriptSource and the CLDR (http://scriptsource.org/entry/lr63742duf) for more details.
+If you are knowledgeable about a particular writing system and would like to submit information about it, we would welcome your submissions. Please fill out our [Add New Locale to SLDR](https://forms.gle/E8MVm4wiosjKJ2Zr9) form with any information you have, and we will follow up with you as needed to make sure it's properly added to the SLDR. 
+
+<!-- Please take a look at Contributing to ScriptSource and the CLDR (http://scriptsource.org/entry/lr63742duf) for more details.  -->
+<!-- This is commented out because I'm planning to add this back in with the WSTR link to the equivalent page once it's up, and don't want to come up with a unique sentence -ER :)-->
 
 ## LDML Editor
 
